@@ -1,100 +1,48 @@
 @import url("https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300;400;500;600;700;800;900&display=swap");
 
+* {
+   margin: 0;
+   padding: 0;
+}
+*,
+*::before,
+*::after {
+   box-sizing: inherit;
+}
+html {
+   box-sizing: border-box;
+   font-size: 62.5%;
+}
+:root {
+   /* global variables */
+   /* define colors or any css value that will/can be repeated, few examples below*/
+   --color-primary: #ffb129;
+
+   --color-white: #fff;
+   --color-black: #000;
+
+   --line: 1px solid var(--color-black);
+}
 body,
 html {
-  margin: 0;
-  padding: 0;
-  font-family: "Darker Grotesque", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+   margin: 0;
+   padding: 0;
+   font-family: "Darker Grotesque", sans-serif;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
 }
 
 a {
-  text-decoration: none;
-  color: black;
-}
-
-nav {
-  display: flex;
-  justify-content: space-between;
-  padding-left: 120px;
-  padding-right: 120px;
-}
-
-.links-container {
-  display: flex;
-  align-items: center;
-}
-
-.navbar-link {
-  margin-right: 10px;
-  font-size: 20px;
-  transition: all 0.25s ease-in-out;
-}
-
-.navbar-link:hover {
-  color: #ffb129;
-}
-
-.get-started-btn {
-  background-color: #ffb43c;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 30px;
-  color: white;
-  font-weight: 600;
-  font-size: 18px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  transition: all 0.25s ease-in-out;
-}
-
-.get-started-btn:hover {
-  background-color: rgb(243, 168, 39);
-}
-
-.logo-text {
-  font-size: 32px;
-  font-weight: 600;
+   text-decoration: none;
+   color: var(--color-black);
 }
 
 ul {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  padding-right: 50px;
-}
-
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  padding-bottom: 25px;
-  padding-top: 25px;
-  color: black;
-  text-align: center;
+   list-style: none;
+   display: flex;
+   gap: 2rem;
+   align-items: center;
+   padding-right: 5rem;
 }
 
 /* MAIN CONTENNT */
-
-.hero-text {
-  font-size: 48px;
-  font-weight: 600;
-  padding-top: 35px;
-  padding-bottom: 35px;
-  margin: 0 auto;
-  width: 450px;
-  text-align: center;
-}
-
-.hero-image {
-  display: flex;
-  justify-content: center;
-  margin-top: 35px;
-}
-
-.sum-content {
-  margin-bottom: 105px;
-}

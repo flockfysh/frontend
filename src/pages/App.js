@@ -1,12 +1,12 @@
 import "../styles/index.css";
-import Hero from "../components/hero";
+import Hero from "../components/hero/hero";
 
 function App() {
-  return (
-    <>
-      <Hero />
-    </>
-  );
+   return (
+      <>
+         <Hero />
+      </>
+   );
 }
 
 export default App;

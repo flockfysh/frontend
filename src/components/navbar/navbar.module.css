@@ -1,0 +1,44 @@
+.nav {
+   display: flex;
+   justify-content: space-between;
+   padding-left: 12rem;
+   padding-right: 12rem;
+}
+
+.linksContainer {
+   display: flex;
+   align-items: center;
+}
+
+.navbarLink {
+   margin-right: 1rem;
+   font-size: 2rem;
+   transition: all 0.25s ease-in-out;
+}
+
+.navbarLink:hover {
+   color: var(--color-primary);
+}
+
+.logoText {
+   font-size: 3.2rem;
+   font-weight: 600;
+}
+
+.getStartedBtn {
+   background-color: var(--color-primary);
+   border: none;
+   border-radius: 0.5rem;
+   padding: 1rem 3rem;
+   color: var(--color-white);
+   font-weight: 600;
+   font-size: 1.8rem;
+   cursor: pointer;
+   display: flex;
+   align-items: center;
+   transition: all 0.25s ease-in-out;
+}
+
+.getStartedBtn:hover {
+   background-color: var(--color-primary);
+}
