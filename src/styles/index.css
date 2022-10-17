@@ -16,12 +16,13 @@ html {
 :root {
    /* global variables */
    /* define colors or any css value that will/can be repeated, few examples below*/
-   --color-primary: #ffb129;
+   --color-blue-primary: #91a7ff;
+   --color-blue-secondary: #364fc7;
+   --color-blue-gradients: #748ffc;
 
    --color-white: #fff;
-   --color-black: #000;
-
-   --line: 1px solid var(--color-black);
+   --color-black-primary: #040409;
+   --color-black-secondary: #191924;
 }
 body,
 html {
@@ -31,18 +32,31 @@ html {
    -webkit-font-smoothing: antialiased;
    -moz-osx-font-smoothing: grayscale;
 }
-
+body {
+   background-color: var(--color-black-primary);
+   color: var(--color-white);
+   font-family: "Poppins", sans-serif;
+   margin: 0 17rem;
+}
 a {
    text-decoration: none;
-   color: var(--color-black);
 }
 
 ul {
    list-style: none;
-   display: flex;
-   gap: 2rem;
-   align-items: center;
-   padding-right: 5rem;
 }
-
-/* MAIN CONTENNT */
+::-webkit-scrollbar {
+   width: 10px;
+   height: 1px;
+}
+::-webkit-scrollbar-thumb {
+   border-radius: 2rem;
+   background-color: var(--color-black-secondary);
+}
+/* Media Queries */
+@media only screen and (min-width: 1800px) {
+   body {
+      max-width: 150rem;
+      margin: 0 auto;
+   }
+}
