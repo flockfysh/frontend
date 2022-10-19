@@ -1,0 +1,20 @@
+.subHeading {
+   font-weight: bold;
+   font-size: 3.5rem;
+   width: 80%;
+   line-height: 1.4;
+   text-align: left;
+}
+
+.span {
+   font-weight: 800;
+   font-size: 3.6rem;
+   background: linear-gradient(
+      to bottom right,
+      var(--color-blue-primary) 30%,
+      var(--color-blue-secondary)
+   );
+   -webkit-background-clip: text;
+   background-clip: text;
+   color: rgba(0, 0, 0, 0);
+}

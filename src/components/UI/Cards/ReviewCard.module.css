@@ -1,0 +1,53 @@
+.image {
+   width: 3.7rem;
+   height: 3.7rem;
+   border-radius: 300rem;
+   margin-right: 3rem;
+}
+.cardDiv {
+   padding: 3rem 4rem;
+   position: relative;
+   text-align: left;
+   margin-left: 0;
+}
+.cardDiv:not(:last-of-type) {
+   margin-bottom: 4rem;
+}
+.cardDiv::before {
+   content: "";
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   border-radius: 3.5rem;
+   z-index: -1;
+   background: linear-gradient(
+      to bottom right,
+      var(--color-blue-gradients-card) 15%,
+      var(--color-blue-primary) 110%
+   );
+   opacity: 0.5;
+}
+.name {
+   font-weight: 500;
+   font-size: 1.4rem;
+}
+.designation {
+   font-weight: 400;
+   font-size: 1rem;
+   color: var(--color-gray);
+}
+.content {
+   color: var(--color-gray);
+   font-weight: 400;
+   font-size: 1.1rem;
+   line-height: 1.5;
+}
+.headContent {
+   display: flex;
+   margin-bottom: 2rem;
+   align-items: center;
+}
+.textContent {
+}

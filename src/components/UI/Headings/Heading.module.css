@@ -11,6 +11,7 @@
       var(--color-blue-primary) 30%,
       var(--color-blue-secondary)
    );
+   -webkit-background-clip: text;
    background-clip: text;
    color: rgba(0, 0, 0, 0);
 }
