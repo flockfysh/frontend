@@ -6,7 +6,7 @@ import Heading from "../../UI/Headings/Heading";
 
 export default function hero() {
    return (
-      <div className={classes.heroSectionDiv}>
+      <section className={classes.heroSectionDiv}>
          <div className={classes.contentSection}>
             <Heading
                beforeSpan=""
@@ -19,6 +19,6 @@ export default function hero() {
             </div>
          </div>
          <img src={heroImage} alt="HeroImage" className={classes.image} />
-      </div>
+      </section>
    );
 }

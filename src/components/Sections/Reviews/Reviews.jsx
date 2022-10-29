@@ -5,7 +5,7 @@ import classes from "./Reviews.module.css";
 
 const Reviews = () => {
    return (
-      <div className={classes.reviewSection}>
+      <section className={classes.reviewSection}>
          <SubHeading beforeSpan="Wall of " span="Love" afterSpan="" />
          <div className={classes.cardsCollection}>
             <div className={classes.cardsGroup}>
@@ -40,7 +40,7 @@ const Reviews = () => {
             </div>
          </div>
          <h4 className={classes.moreText}>And many more...</h4>
-      </div>
+      </section>
    );
 };
 
