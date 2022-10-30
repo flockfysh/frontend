@@ -20,14 +20,14 @@
    left: 0;
    width: 100%;
    height: 100%;
-   border-radius: 3.5rem;
+   border-radius: 3.2rem;
    z-index: -1;
    background: linear-gradient(
       to bottom right,
-      var(--color-blue-gradients-card) 15%,
-      var(--color-blue-primary) 110%
+      var(--color-blue-secondary) 0%,
+      var(--color-blue-primary) 70%
    );
-   opacity: 0.5;
+   opacity: 0.2;
 }
 .name {
    font-weight: 500;

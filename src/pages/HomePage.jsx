@@ -1,13 +1,15 @@
 import { Fragment } from "react";
 
-import Hero from "../components/Sections/hero/hero";
-import Reviews from "../components/Sections/Reviews/Reviews";
-import UserSignup from "../components/Sections/userSignup/UserSignup";
+import Hero from "../components/sections/homePage/hero/Hero";
+import Reviews from "../components/sections/homePage/reviews/Reviews";
+import UserSignup from "../components/sections/homePage/userSignup/UserSignup";
+import CoreBelief from "../components/sections/homePage/coreBelief/CoreBelief";
 
 const HomePage = () => {
    return (
       <Fragment>
          <Hero />
+         <CoreBelief />
          <Reviews />
          <UserSignup />
       </Fragment>
