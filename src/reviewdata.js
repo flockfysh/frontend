@@ -1,4 +1,4 @@
-import Image from "./images/HeroImage.jpg";
+import Image from "./images/heroImage.jpg";
 
 const firstLine = [
    {

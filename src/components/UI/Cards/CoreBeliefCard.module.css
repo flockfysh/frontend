@@ -1,0 +1,43 @@
+.card {
+   min-width: 30rem;
+   background-color: var(--color-black-secondary);
+   width: 27%;
+   padding: 4rem 3rem;
+   border-radius: 2rem;
+   position: relative;
+}
+
+.card::after {
+   position: absolute;
+   content: "";
+   right: -3%;
+   bottom: -3%;
+   width: 106%;
+   height: 106%;
+   z-index: -1;
+   background: linear-gradient(
+      to bottom right,
+      var(--color-blue-secondary),
+      var(--color-blue-primary)
+   );
+   filter: blur(3.5rem);
+   min-width: 30rem;
+}
+
+.heading {
+   font-weight: 800;
+   font-size: 1.7rem;
+   background: linear-gradient(
+      to bottom right,
+      var(--color-blue-primary) 30%,
+      var(--color-blue-secondary)
+   );
+   -webkit-background-clip: text;
+   background-clip: text;
+   color: rgba(0, 0, 0, 0);
+   margin-bottom: 1.5rem;
+}
+.subHeading {
+   font-weight: 300;
+   font-size: 1rem;
+}
