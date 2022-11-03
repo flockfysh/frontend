@@ -23,9 +23,9 @@ export default function Features() {
        <section className={classes.featureSectionDiv}>
          <Subheading beforeSpan="Quality datasets, " span="zero " afterSpan="effort" />
          <div className={classes.cardRow}>
-            <FeatureCard heading="Control" content={LEFT_CARD_CONTENT}/>
-            <FeatureCard heading="Painless" content={MIDDLE_CARD_CONTENT}/>
-            <FeatureCard heading="Flexibility" content={RIGHT_CARD_CONTENT}/>
+            <FeatureCard image="rocket" heading="Control" content={LEFT_CARD_CONTENT}/>
+            <FeatureCard image="sparkles" heading="Painless" content={MIDDLE_CARD_CONTENT}/>
+            <FeatureCard image="banknotes" heading="Flexibility" content={RIGHT_CARD_CONTENT}/>
          </div>
        </section>
     );
