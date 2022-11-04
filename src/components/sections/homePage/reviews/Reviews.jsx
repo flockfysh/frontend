@@ -1,6 +1,6 @@
-import { firstLine, secondLine, thirdLine } from "../../../../Reviewdata";
-import ReviewCard from "../../../ui/cards/ReviewCard";
-import SubHeading from "../../../ui/headings/Subheading";
+import { firstLine, secondLine, thirdLine } from "../../../../reviewdata.js";
+import ReviewCard from "../../../UI/Cards/ReviewCard";
+import SubHeading from "../../../UI/Headings/Subheading";
 import classes from "./Reviews.module.css";
 
 const Reviews = () => {

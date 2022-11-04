@@ -1,8 +1,8 @@
-import Button from "../../../ui/linksAndButtons/Button";
-import LinkUnderline from "../../../ui/linksAndButtons/Link";
+import Button from "../../../UI/linksAndButtons/Button";
+import LinkUnderline from "../../../UI/linksAndButtons/Link";
 import classes from "./Hero.module.css";
-import heroImage from "../../../../images/heroImage.jpg";
-import Heading from "../../../ui/headings/Heading";
+import heroImage from "../../../../images/HeroImage.jpg";
+import Heading from "../../../UI/Headings/Heading";
 
 export default function hero() {
    return (

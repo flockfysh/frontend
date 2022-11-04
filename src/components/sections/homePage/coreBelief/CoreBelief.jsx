@@ -1,5 +1,5 @@
-import CoreBeliefCard from "../../../ui/cards/CoreBeliefCard";
-import SubHeading from "../../../ui/headings/Subheading";
+import CoreBeliefCard from "../../../UI/Cards/CoreBeliefCard";
+import SubHeading from "../../../UI/Headings/Subheading.jsx";
 import classes from "./CoreBelief.module.css";
 
 const CoreBelief = () => {
