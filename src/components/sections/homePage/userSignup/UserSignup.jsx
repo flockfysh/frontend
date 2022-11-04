@@ -1,4 +1,4 @@
-import Button from "../../../UI/linksAndButtons/Button";
+import Button from "../../../ui/linksAndButtons/Button";
 import classes from "./UserSignup.module.css";
 
 const userSignup = () => {

@@ -1,6 +1,4 @@
 import classes from "./LoginForm.module.css";
-import LogoGithub from "../../../images/LogoGithub.svg";
-import LogoGoogle from "../../../images/LogoGoogle.svg";
 
 const LoginForm = () => {
    return (
