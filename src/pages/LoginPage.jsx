@@ -1,10 +1,10 @@
 import { Fragment } from "react";
 import LoginForm from "../components/sections/loginPage/LoginForm";
 
-const LoginPage = () => {
+const LoginPage = props => {
    return (
       <Fragment>
-         <LoginForm />
+         <LoginForm type={props.type} />
       </Fragment>
    );
 };

@@ -14,7 +14,7 @@ export default function hero() {
                afterSpan="dataset generation, minus the hassle."
             />
             <div className={classes.buttonsHolder}>
-               <Button text="Start Flockfyshing" to="/" />
+               <Button text="Start Flockfyshing" link="/signup" />
                <LinkUnderline to="/" text="Read the docs" />
             </div>
          </div>

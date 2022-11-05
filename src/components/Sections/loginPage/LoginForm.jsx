@@ -1,24 +1,114 @@
+import { Link } from "react-router-dom";
 import classes from "./LoginForm.module.css";
+import { useState, useRef } from "react";
 
-const LoginForm = () => {
+const LoginForm = props => {
+   const [email, setEmail] = useState("");
+   const [emailIsValid, setEmailIsValid] = useState(true);
+   const [password, setPassword] = useState("");
+   const [passwordIsValid, setPasswordIsValid] = useState(true);
+   const passwordRef = useRef("");
+   const emailRef = useRef("");
+   const passwordValidHandler = event => {
+      if (password.length < 8) {
+         event.target.className = classes.inputInvalid;
+         setPasswordIsValid(false);
+         passwordRef.current.className = classes.inputInvalidTextActive;
+      } else {
+         event.target.className = classes.input;
+         setPasswordIsValid(true);
+         passwordRef.current.className = classes.inputInvalidText;
+      }
+   };
+   const emailValidHandler = event => {
+      // logic below
+      // email shouldn't include spaces
+      // email is of atleast 5 letters and include @ and .
+      // there are letters before @
+      // there are letters after .
+      // and if there are letters between @ and .
+      // I didn't added before . because we have used before @ and we know there is also a letter between @ and .
+      // I also didn't added after @ cause we know there is a letter between @ and . and there is a letter after .
+      // but we added after . because . can be the last element which is not possible
+
+      if (
+         !email.includes(" ") &&
+         email.length >= 5 &&
+         email.includes("@") &&
+         email.includes(".") &&
+         email.split("@")[0].length > 0 &&
+         email.split(".")[1].length > 0 &&
+         email.split("@")[1].split("")[0] !== "."
+      ) {
+         event.target.className = classes.input;
+         setEmailIsValid(true);
+         emailRef.current.className = classes.inputInvalidText;
+      } else {
+         event.target.className = classes.inputInvalid;
+         setEmailIsValid(false);
+         emailRef.current.className = classes.inputInvalidTextActive;
+      }
+   };
+   const submitHandler = () => {
+      if (emailIsValid && passwordIsValid) {
+         console.log({ email, password });
+         setEmail("");
+         setPassword("");
+      }
+   };
    return (
       <form className={classes.form}>
          <div className={classes.emailDiv}>
-            <label for="email" className={classes.inputHeading}>
+            <label htmlFor="email" className={classes.inputHeading}>
                Email
             </label>
-            <input className={classes.input} type="email" name="email" />
-            <label for="password" className={classes.inputHeading}>
+            <input
+               className={classes.input}
+               type="email"
+               name="email"
+               value={email}
+               onChange={event => {
+                  setEmail(event.target.value);
+               }}
+               onBlur={emailValidHandler}
+            />
+            <span ref={emailRef} className={classes.inputInvalidText}>
+               Not valid email
+            </span>
+            <label htmlFor="password" className={classes.inputHeading}>
                Password
             </label>
-            <input name="password" className={classes.input} type="text" />
-            <button type="button" className={classes.submitButton}>
-               Login now
+            <input
+               name="password"
+               className={classes.input}
+               type="text"
+               value={password}
+               onChange={event => {
+                  setPassword(event.target.value);
+               }}
+               onBlur={passwordValidHandler}
+            />
+            <span ref={passwordRef} className={classes.inputInvalidText}>
+               Passoword too short
+            </span>
+            {passwordIsValid ? (
+               props.type === "Signup" ? (
+                  <Link className={classes.link} to="login">
+                     Already have an account
+                  </Link>
+               ) : (
+                  <Link className={classes.link} to="signup">
+                     Don't have an account
+                  </Link>
+               )
+            ) : null}
+            <button type="button" className={classes.submitButton} onClick={submitHandler}>
+               {props.type} now
             </button>
          </div>
          <div className={classes.buttonDiv}>
             <button className={classes.githubButton} type="button">
-               Login with Github{" "}
+               {props.type} with Github{" "}
                <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className={classes.githubIcon}
@@ -28,7 +118,7 @@ const LoginForm = () => {
                </svg>
             </button>
             <button className={classes.googleButton} type="button">
-               Login with Google{" "}
+               {props.type} with Google{" "}
                <svg
                   className={classes.googleIcon}
                   xmlns="http://www.w3.org/2000/svg"

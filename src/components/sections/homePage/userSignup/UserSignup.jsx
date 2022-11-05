@@ -9,7 +9,7 @@ const userSignup = () => {
             What are you waiting for? Show our data-driven world who's king, maybe with a couple of
             stats ;&#41;
          </p>
-         <Button text="Commence Flockfyshing!" link="/" />
+         <Button text="Commence Flockfyshing!" link="/signup" />
       </section>
    );
 };
