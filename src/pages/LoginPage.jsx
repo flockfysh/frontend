@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import LoginForm from "../components/sections/loginPage/LoginForm";
+import LoginForm from "../components/Sections/loginPage/LoginForm";
 
 const LoginPage = props => {
    return (

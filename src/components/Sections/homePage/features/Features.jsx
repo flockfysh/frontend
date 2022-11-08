@@ -1,6 +1,6 @@
 import classes from "./Features.module.css";
-import Subheading from "../../../ui/headings/Subheading";
-import FeatureCard from "../../../ui/cards/FeatureCard";
+import Subheading from "../../../UI/Headings/Subheading";
+import FeatureCard from "../../../UI/Cards/FeatureCard";
 
 export default function Features() {
    const LEFT_CARD_CONTENT = (
