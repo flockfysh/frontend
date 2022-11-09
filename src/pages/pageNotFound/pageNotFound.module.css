@@ -1,0 +1,22 @@
+.pnfContainer {
+    transform: translateY(40%);
+    text-align: center;
+    margin-bottom: 100px;
+}
+
+.pnfContainer p {
+    font-size: large;
+}
+
+.pnfNumbersContainer {
+    font-size: 100px;
+}
+
+.pnfColoredLetter {
+    color: var(--color-blue-primary);
+}
+
+.pnfButtonContainer {
+    transform: translateX(45%);
+    margin-top: 40px;
+}

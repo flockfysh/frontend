@@ -8,7 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import Docs from "./pages/Docs";
 import Blog from "./pages/Blog";
 import About from "./pages/About";
-import PageNotFound from "./pages/PageNotFound";
+import PageNotFound from "./pages/pageNotFound/PageNotFound";
 
 import "./index.css";
 

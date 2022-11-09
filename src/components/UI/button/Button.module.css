@@ -1,5 +1,5 @@
 .button {
-   background-image: linear-gradient(
+   background: linear-gradient(
       to bottom right,
       var(--color-blue-secondary),
       var(--color-blue-primary)
@@ -11,6 +11,7 @@
    align-items: center;
    width: fit-content;
    color: var(--color-white);
+   transition: 0.2s;
 }
 
 .svg {
@@ -18,4 +19,13 @@
    stroke: var(--color-white);
    stroke-width: 1.8;
    margin-left: 2rem;
+   transition: 0.2s;
+}
+
+.button:hover {
+   color: var(--color-black-primary);
+}
+
+.button:hover .svg {
+   stroke: var(--color-black-primary);
 }
