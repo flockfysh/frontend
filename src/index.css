@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300;400;500;600;700;800;900&display=swap");
+
+:root {
+   /* global variables */
+   /* define colors or any css value that will/can be repeated, few examples below*/
+   --color-blue-primary: #91a7ff;
+   --color-blue-secondary: #364fc7;
+   --color-blue-gradients: #748ffc7e;
+   --color-blue-gradients-card: #364ec75b;
+
+   --color-red-primary: #fa5252;
+   --color-red-secondary: #ffc9c9;
+
+   --color-white: #fff;
+   --color-gray: #c9c9c9;
+   --color-black-primary: #040409;
+   --color-black-secondary: #191924;
+}
+
+* {
+   margin: 0;
+   padding: 0;
+}
+
+*, *::before, *::after {
+   box-sizing: inherit;
+}
+
+html {
+   box-sizing: border-box;
+   font-size: 62.5%;
+}
+
+body, html {
+   margin: 0;
+   padding: 0;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+   background-color: var(--color-black-primary);
+   color: var(--color-white);
+   font-family: "Poppins", sans-serif;
+   margin: 0 17rem;
+}
+
+a {
+   text-decoration: none;
+   color: var(--color-white);
+   font-weight: 400;
+}
+
+ul {
+   list-style: none;
+}
+
+::-webkit-scrollbar {
+   width: 10px;
+   height: 1px;
+}
+
+::-webkit-scrollbar-thumb {
+   border-radius: 2rem;
+   background-color: var(--color-black-secondary);
+}
+
+/* Media Queries */
+@media only screen and (min-width: 1800px) {
+   body {
+      max-width: 150rem;
+      margin: 0 auto;
+   }
+}

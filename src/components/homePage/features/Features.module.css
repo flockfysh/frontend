@@ -1,0 +1,11 @@
+.featureSectionDiv {
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+}
+
+.cardRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem;
+}

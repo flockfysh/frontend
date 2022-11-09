@@ -1,0 +1,34 @@
+.image {
+   width: 35%;
+   border-radius: 4rem;
+}
+
+.heroSectionDiv::before {
+   content: "";
+   width: 55vw;
+   height: 55vw;
+   position: absolute;
+   right: -27rem;
+   z-index: -1;
+   background-image: radial-gradient(
+      circle, 
+      var(--color-blue-gradients) 10%, 
+      rgba(0, 0, 0, 0) 70%
+   );
+   border-radius: 300rem;
+}
+
+.heroSectionDiv {
+   margin: 18rem 0;
+   align-items: center;
+   display: flex;
+   position: relative;
+}
+
+.buttonsHolder {
+   width: 40rem;
+   margin-top: 5rem;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}

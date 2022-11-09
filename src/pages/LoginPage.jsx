@@ -1,12 +1,9 @@
-import { Fragment } from "react";
-import LoginForm from "../components/Sections/loginPage/LoginForm";
+import LoginForm from "../components/loginPage/loginForm/LoginForm";
 
-const LoginPage = props => {
+export default function LoginPage(props) {
    return (
-      <Fragment>
-         <LoginForm type={props.type} />
-      </Fragment>
+      <>
+         <LoginForm type={ props.type } />
+      </>
    );
 };
-
-export default LoginPage;

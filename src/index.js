@@ -1,13 +1,35 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Navbar from "./components/navbar/navbar";
-import Footer from "./components/footer/footer";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import App from "./App";
+import HomePage from "./pages/HomePage";
+import RootLayout from "./pages/RootLayout";
+import LoginPage from "./pages/LoginPage";
+import Docs from "./pages/Docs";
+import Blog from "./pages/Blog";
+import About from "./pages/About";
+import PageNotFound from "./pages/PageNotFound";
+
+import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
    <React.StrictMode>
-      <App />
+      <BrowserRouter>
+         <Routes>
+            <Route path="/" element={ <RootLayout /> }>
+               <Route index element={ <HomePage /> } />
+
+               <Route path="/docs" element={ <Docs /> } />
+               <Route path="/blog" element={ <Blog /> } />
+               <Route path="/about" element={ <About /> } />
+               <Route path="/login" element={ <LoginPage type="Login" /> } />
+               <Route path="/signup" element={ <LoginPage type="Signup" /> } />
+
+               <Route path="*" element={ <PageNotFound /> }></Route>
+            </Route>
+         </Routes>
+      </BrowserRouter>
    </React.StrictMode>
 );
