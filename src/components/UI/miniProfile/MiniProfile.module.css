@@ -1,0 +1,30 @@
+.mainDiv {
+    background-color: var(--color-black-secondary);
+    border-radius: 20px;
+    display: flex;
+    gap: 2.5rem;
+    padding: 2rem 3rem 2rem 3rem;
+}
+
+.image {
+   width: 3.7rem;
+   height: 3.7rem;
+   border-radius: 300rem;
+   border: solid white 2px;
+}
+
+.textInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.name {
+    font-weight: 500;
+    font-size: 1.4rem;
+ }
+ 
+ .email {
+    font-weight: 400;
+    font-size: 1rem;
+    color: var(--color-gray);
+ }
