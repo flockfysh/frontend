@@ -9,6 +9,7 @@ import Docs from "./pages/Docs";
 import Blog from "./pages/Blog";
 import About from "./pages/About";
 import PageNotFound from "./pages/pageNotFound/PageNotFound";
+import ViewDatasets from "./pages/ViewDatasets";
 
 import "./index.css";
 
@@ -26,6 +27,8 @@ root.render(
                <Route path="/about" element={ <About /> } />
                <Route path="/login" element={ <LoginPage type="Login" /> } />
                <Route path="/signup" element={ <LoginPage type="Signup" /> } />
+
+               <Route path="/viewdatasets" element={ <ViewDatasets /> } />
 
                <Route path="*" element={ <PageNotFound /> }></Route>
             </Route>
