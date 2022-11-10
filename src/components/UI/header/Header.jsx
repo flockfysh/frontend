@@ -1,4 +1,4 @@
-import classes from "./Heading.module.css";
+import classes from "./Header.module.css";
 
 export default function Heading(props) {
    return (
