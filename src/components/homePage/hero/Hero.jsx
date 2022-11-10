@@ -16,7 +16,7 @@ export default function Hero() {
             />
 
             <div className={ classes.buttonsHolder }>
-               <Button text="Start Flockfyshing" link="/signup" />
+               <Button hasArrow={true} text="Start Flockfyshing" link="/signup" />
 
                <LinkUnderline to="/" text="Read the docs" />
             </div>
