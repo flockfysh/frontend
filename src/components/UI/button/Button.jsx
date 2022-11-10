@@ -15,6 +15,9 @@ export default function Button(props) {
       case "rightToLeft":
          gradientClass = classes.gradientRightLeft;
          break;
+      case "leftToRight":
+         gradientClass = classes.gradientLeftRight;
+         break;
       default:
          gradientClass = classes.gradientBottomRight;
    }

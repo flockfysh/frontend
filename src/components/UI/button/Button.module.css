@@ -25,6 +25,14 @@
    );
 }
 
+.gradientLeftRight {
+   background: linear-gradient(
+      to right,
+      var(--color-blue-secondary),
+      var(--color-blue-primary)
+   );
+}
+
 .svg {
    width: 2rem;
    stroke: var(--color-white);
