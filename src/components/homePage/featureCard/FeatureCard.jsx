@@ -14,11 +14,16 @@ export default function FeatureCard(props) {
    return (
       <div className={ classes.cardDiv }>
          <div className={ classes.headContent }>
-            <div className={ classes.heading }>{ props.heading }</div>
+            <div className={ classes.heading }>
+               { props.heading }
+            </div>
+
             <img className={ classes.image } src={ ICONS[props.image] } alt="icon" />
          </div>
 
-         <p className={ classes.content }>{ props.content }</p>
+         <p className={ classes.content }>
+            { props.content }
+         </p>
       </div>
    );
 };

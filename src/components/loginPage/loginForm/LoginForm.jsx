@@ -69,55 +69,55 @@ export default function LoginForm(props) {
    }
 
    return (
-      <form className={classes.form}>
-         <div className={classes.emailDiv}>
-            <label htmlFor="email" className={classes.inputHeading}>
+      <form className={ classes.form }>
+         <div className={ classes.emailDiv }>
+            <label htmlFor="email" className={ classes.inputHeading }>
                Email
             </label>
 
             <input
-               className={classes.input}
+               className={ classes.input }
                type="email"
                name="email"
-               value={email}
-               onChange={event => setEmail(event.target.value)}
-               onBlur={emailValidHandler}
+               value={ email }
+               onChange={ event => setEmail(event.target.value) }
+               onBlur={ emailValidHandler }
             />
 
-            <span ref={emailRef} className={classes.inputInvalidText}>
+            <span ref={ emailRef } className={ classes.inputInvalidText }>
                Not valid email
             </span>
 
-            <label htmlFor="password" className={classes.inputHeading}>
+            <label htmlFor="password" className={ classes.inputHeading }>
                Password
             </label>
 
             <input
                name="password"
-               className={classes.input}
+               className={ classes.input }
                type="text"
-               value={password}
-               onChange={event => setPassword(event.target.value)}
-               onBlur={passwordValidHandler}
+               value={ password }
+               onChange={ event => setPassword(event.target.value) }
+               onBlur={ passwordValidHandler }
             />
 
-            <span ref={passwordRef} className={classes.inputInvalidText}>
+            <span ref={ passwordRef } className={ classes.inputInvalidText }>
                Passoword too short
             </span>
 
             {passwordIsValid ? (
                props.type === "Signup" ? (
-                  <Link className={classes.link} to="/login">
+                  <Link className={ classes.link } to="/login">
                      Already have an account
                   </Link>
                ) : (
-                  <Link className={classes.link} to="/signup">
+                  <Link className={ classes.link } to="/signup">
                      Don't have an account
                   </Link>
                )
             ) : null}
 
-            <button type="button" className={classes.submitButton} onClick={submitHandler}>
+            <button type="button" className={ classes.submitButton } onClick={ submitHandler }>
                {props.type} now
             </button>
          </div>

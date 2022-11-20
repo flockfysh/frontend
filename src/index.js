@@ -10,6 +10,7 @@ import Blog from "./pages/Blog";
 import About from "./pages/About";
 import PageNotFound from "./pages/pageNotFound/PageNotFound";
 import ViewDatasets from "./pages/ViewDatasets";
+import EachDataSet from "./pages/EachDataSet/EachDataSet";
 
 import "./index.css";
 
@@ -28,9 +29,15 @@ root.render(
                <Route path="/login" element={ <LoginPage type="Login" /> } />
                <Route path="/signup" element={ <LoginPage type="Signup" /> } />
 
-               <Route path="/viewdatasets" element={ <ViewDatasets /> } />
+               <Route path="/datasets" element={ <ViewDatasets /> } />
 
                <Route path="*" element={ <PageNotFound /> }></Route>
+            </Route>
+            
+            <Route path="/dataset">
+               <Route path="overview" element={ <EachDataSet page="overview" /> } />
+               <Route path="uploaded-images" element={ <EachDataSet page="uploaded-images" /> } />
+               <Route path="dataset-images" element={ <EachDataSet page="dataset-images" /> } />
             </Route>
          </Routes>
       </BrowserRouter>

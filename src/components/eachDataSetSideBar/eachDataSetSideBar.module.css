@@ -1,0 +1,65 @@
+.eachDatasetSideContainer {
+    z-index: 99;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    background: #191924;
+    
+    width: 20vw;
+    height: 100vh;
+    padding: 50px;
+}
+
+.eachDatasetSideContainer h1 {
+    font-size: 20px;
+
+    margin-bottom: 100px;
+}
+
+.eachDataSideContainer li {
+    margin-bottom: 20px !important;
+}
+
+.link {
+    display: block;
+
+    font-size: 16px;
+
+    transition: 0.2s;
+    
+    margin-bottom: 40px;
+}
+
+.link:hover {
+    color: var(--color-blue-primary);
+}
+
+.linkColored {
+    color: var(--color-blue-primary);
+}
+
+.deleteButton {
+    position: absolute;
+    cursor: pointer;
+
+    transition: 0.2s;
+    
+    border-radius: 5px;
+
+    border: 2px solid var(--color-red-primary);
+    color: var(--color-red-primary);
+
+    background: none;
+    padding: 2vh 2vw;
+
+    bottom: 0;
+    margin-bottom: 20px;
+}
+
+.deleteButton:hover {
+    background: var(--color-red-primary);
+
+    color: var(--color-black-secondary);
+}

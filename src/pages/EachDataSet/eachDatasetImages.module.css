@@ -1,0 +1,35 @@
+.imageContainer {
+    margin-right: 40px;
+    text-align: center;
+
+    margin-bottom: 20px;
+
+    cursor: pointer;
+}
+
+.imageContainer:hover .trashIcon {
+    display: block;
+}
+
+.imageContainer:hover img {
+    opacity: .2;
+}
+
+.imageContainer img {
+    transition: 0.2s;
+
+    width: 186px;
+    height: 124px;
+    border-radius: 10px;
+}
+
+.imageContainer p {
+    font-size: 15px;
+}
+
+.trashIcon {
+    transform: translateX(300%);
+    position: absolute;
+    margin: 10px;
+    display: none;
+}

@@ -12,7 +12,7 @@ export default function UserSignup() {
             stats ;&#41;
          </p>
          
-         <Button hasArrow={true} text="Commence FlockFyshing!" link="/signup" />
+         <Button hasArrow={ true } text="Commence FlockFyshing!" link="/signup" />
       </section>
    );
 };

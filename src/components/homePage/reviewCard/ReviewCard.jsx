@@ -7,12 +7,19 @@ export default function ReviewCard(props) {
             <img className={ classes.image } src={ props.image } alt="" />
 
             <div className={ classes.textContent }>
-               <h5 className={ classes.name }>{ props.name }</h5>
-               <h6 className={ classes.designation }>{ props.designation }</h6>
+               <h5 className={ classes.name }>
+                  { props.name }
+               </h5>
+
+               <h6 className={ classes.designation }>
+                  { props.designation }
+               </h6>
             </div>
          </div>
          
-         <p className={ classes.content }>{ props.content }</p>
+         <p className={ classes.content }>
+            { props.content }
+         </p>
       </div>
    );
 };

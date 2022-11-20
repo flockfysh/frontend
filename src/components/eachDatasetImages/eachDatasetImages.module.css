@@ -1,0 +1,61 @@
+.uploadedImages {
+    position: absolute;
+
+    width: 100vw;
+    background: 
+        radial-gradient(
+            circle at top left, 
+            var(--color-blue-gradients), 
+            rgba(0, 0, 0, 0) 40%
+        ) top left,
+        radial-gradient(
+            circle at bottom right, 
+            var(--color-blue-gradients), 
+            rgba(0, 0, 0, 0) 30%
+        ) bottom right
+    ;
+}
+
+.uploadedImagesContentContainer {
+    margin-left: 15vw;
+    margin-top: 10vh;
+}
+
+.uploadedImages h1 {
+    font-size: 25px;
+
+    margin-bottom: 50px;
+}
+
+.uploadedImagesContainer {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.uploadedImages button {
+    cursor: pointer;
+
+    transition: 0.2s;
+    
+    border-radius: 5px;
+
+    border: 2px solid var(--color-white);
+    color: var(--color-white);
+
+    background: none;
+    padding: 2vh 2vw;
+
+    left: 50%;
+
+    transform: translateX(-110%);
+
+    margin: 20px auto;
+    display: block;
+}
+
+.uploadedImages button:hover {
+    background: var(--color-white);
+
+    color: var(--color-black-secondary);
+}
