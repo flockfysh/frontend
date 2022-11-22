@@ -3,6 +3,8 @@
    font-size: 1.4rem;
    margin-bottom: 1rem;
    position: relative;
+
+   transition: 0.2s;
 }
 .link::after {
    content: "";
@@ -12,4 +14,13 @@
    position: absolute;
    bottom: -0.5rem;
    left: 0;
+   transition: 0.2s;
+}
+
+.link:hover {
+   color: var(--color-blue-secondary);
+}
+
+.link:hover::after {
+   background-color: var(--color-blue-secondary);
 }

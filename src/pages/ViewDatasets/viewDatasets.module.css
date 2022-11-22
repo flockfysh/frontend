@@ -1,0 +1,13 @@
+.viewDatasetsContainer {
+
+}
+
+.viewDatasetsHeader {
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+.datasetsContainer {
+    display: flex;
+    flex-wrap: wrap;
+}

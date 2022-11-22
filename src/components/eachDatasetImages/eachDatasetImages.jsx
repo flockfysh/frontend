@@ -18,9 +18,9 @@ export default function EachDatasetImages(props) {
                         testImages.map(
                             (image, index) => (
                                 <div className={ imageClasses.imageContainer } key={ index }>
-                                    <p className={ imageClasses.trashIcon }>Trash</p>
-
                                     <img src={ image.url } alt={ image.name } />
+                                    
+                                    <p className={ imageClasses.trashIcon }>Trash</p>
                             
                                     <p>{ image.name }</p>
                                 </div>

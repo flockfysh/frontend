@@ -9,7 +9,7 @@ import Docs from "./pages/Docs";
 import Blog from "./pages/Blog";
 import About from "./pages/About";
 import PageNotFound from "./pages/pageNotFound/PageNotFound";
-import ViewDatasets from "./pages/ViewDatasets";
+import ViewDatasets from "./pages/ViewDatasets/ViewDatasets";
 import EachDataSet from "./pages/EachDataSet/EachDataSet";
 
 import "./index.css";

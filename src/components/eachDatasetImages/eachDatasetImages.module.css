@@ -28,9 +28,8 @@
 }
 
 .uploadedImagesContainer {
-    display: flex;
-    flex-wrap: wrap;
-
+    display: grid;
+    grid-template-columns: repeat(4, min-content);
 }
 
 .uploadedImages button {
@@ -46,9 +45,7 @@
     background: none;
     padding: 2vh 2vw;
 
-    left: 50%;
-
-    transform: translateX(-110%);
+    transform: translateX(-150%) ;
 
     margin: 20px auto;
     display: block;
