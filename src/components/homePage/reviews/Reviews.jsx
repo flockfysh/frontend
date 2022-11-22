@@ -1,4 +1,4 @@
-import { reviews } from "../../../reviewdata.js";
+import { reviews } from "../../../reviewData.js";
 
 import ReviewCard from "../reviewCard/ReviewCard";
 import SubHeading from "../../UI/subHeading/Subheading";

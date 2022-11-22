@@ -9,20 +9,24 @@ export default function EachDatasetImages(props) {
    }
 
    return (
-      <div className={classes.uploadedImages}>
-         <div className={classes.uploadedImagesContentContainer}>
+      <div className={ classes.uploadedImages }>
+         <div className={ classes.uploadedImagesContentContainer }>
             <h1>Dataset</h1>
 
-            <div className={classes.uploadedImagesContainer}>
-               {testImages.map((image, index) => (
-                  <div className={imageClasses.imageContainer} key={index}>
-                     <p className={imageClasses.trashIcon}>Trash</p>
+            <div className={ classes.uploadedImagesContainer }>
+               {
+                  testImages.map(
+                     (image, index) => (
+                        <div className={ imageClasses.imageContainer } key={ index }>
+                           <img src={ image.url } alt={ image.name } />
+                           
+                           <p className={ imageClasses.trashIcon }>Trash</p>
 
-                     <img src={image.url} alt={image.name} />
-
-                     <p>{image.name}</p>
-                  </div>
-               ))}
+                           <p>{ image.name }</p>
+                        </div>
+                     )
+                  )
+               }
             </div>
 
             <button>Load more images</button>
