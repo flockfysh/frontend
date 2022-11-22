@@ -1,8 +1,9 @@
+import MiniProfile from "../../UI/miniProfile/MiniProfile";
+import SearchBar from "../../UI/searchBar/SearchBar";
+import Button from "../../UI/button/Button";
+import Image from "../../../images/HeroImage.jpg";
+
 import classes from "./ViewDatasetsHeader.module.css";
-import MiniProfile from "../../../UI/miniProfile/MiniProfile";
-import SearchBar from "../../../UI/searchBar/SearchBar";
-import Button from "../../../UI/button/Button";
-import Image from "../../../../images/HeroImage.jpg";
 
 export default function ViewDatasetsHeader() {
    return (

@@ -1,18 +1,5 @@
 .imageContainer {
-    margin-right: 40px;
-    text-align: center;
-
-    margin-bottom: 20px;
-
-    cursor: pointer;
-}
-
-.imageContainer:hover .trashIcon {
-    display: block;
-}
-
-.imageContainer:hover img {
-    opacity: .2;
+    margin: 15px 2.5vw;
 }
 
 .imageContainer img {
@@ -21,15 +8,24 @@
     width: 186px;
     height: 124px;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .imageContainer p {
     font-size: 15px;
+    text-align: center;
 }
 
 .trashIcon {
-    transform: translateX(300%);
+    transform: translate(300%, -500%);
     position: absolute;
-    margin: 10px;
     display: none;
+}
+
+.imageContainer img:hover + .trashIcon {
+    display: block;
+}
+
+.imageContainer img:hover {
+    opacity: .2;
 }

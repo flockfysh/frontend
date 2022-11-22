@@ -1,0 +1,48 @@
+.datasetContainer {
+    margin: 70px 40px;
+}
+
+.cardContainer {
+    box-shadow: 0px 0px 49px 0px var(--color-blue-primary);
+
+    background-color: var(--color-black-secondary);
+    
+    width: 308px;
+
+    padding: 30px 40px;
+
+    border-radius: 30px;
+
+    height: auto;
+    margin: 0 auto;
+}
+
+.cardContainer h1 {
+    margin-bottom: 20px;
+    font-size: 15px;
+}
+
+.trashIcon {
+    cursor: pointer;
+    transform: translateX(750%);
+    position: absolute;
+    margin-top: 5px;
+    color: var(--color-red-primary);
+}
+
+.overview {
+    margin-bottom: 40px;
+    color: #C9C9C9;
+}
+
+.cardBottom {
+    width: 100%;
+    display: flex;
+}
+
+.cardBottom h4 {
+    align-self: center;
+    margin-left: auto;
+    font-size: 12px;
+    font-weight: 100;
+}

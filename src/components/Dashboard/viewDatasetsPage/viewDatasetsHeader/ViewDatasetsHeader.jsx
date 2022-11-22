@@ -6,14 +6,16 @@ import Image from "../../../../images/HeroImage.jpg";
 
 export default function ViewDatasetsHeader() {
    return (
-      <header className={classes.header}>
-         <MiniProfile name="Ray" email="ray@gmail.com" image={Image} />
-         <div className={classes.searchWrapper}>
+      <header className={ classes.header }>
+         <MiniProfile name="Ray" email="ray@gmail.com" image={ Image } />
+
+         <div className={ classes.searchWrapper }>
             <SearchBar placeHolder="Find your datasets" />
          </div>
-         <div className={classes.btnWrapper}>
+
+         <div className={ classes.btnWrapper }>
             <Button
-               hasArrow={true}
+               hasArrow={ true }
                gradientDirection="leftToRight"
                text="Create new dataset"
                link="/"
