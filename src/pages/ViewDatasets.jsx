@@ -1,9 +1,9 @@
-import ViewDatasetsHeader from "../components/viewDatasetsPage/viewDatasetsHeader/ViewDatasetsHeader";
+import ViewDatasetsHeader from "../components/Dashboard/viewDatasetsPage/viewDatasetsHeader/ViewDatasetsHeader";
 
-export default function ViewDatasets () {
-    return (
-        <>
-            <ViewDatasetsHeader />
-        </>
-    );
+export default function ViewDatasets() {
+   return (
+      <>
+         <ViewDatasetsHeader />
+      </>
+   );
 }
