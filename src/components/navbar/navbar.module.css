@@ -1,35 +1,39 @@
 .nav {
-   display: flex;
-   justify-content: space-between;
-   margin-top: 3rem;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
 }
 
 .listContainer {
-   display: flex;
-   align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .listItem {
-   margin-right: 5rem;
+  margin-right: 5rem;
 }
 
 .listItem:last-of-type {
-   margin-right: 0;
+  margin-right: 0;
 }
 
 .navbarLink {
-   font-size: 1.3rem;
-   transition: all 0.25s ease-in-out;
-   color: var(--color-white);
+  font-size: 1.3rem;
+  transition: all 0.25s ease-in-out;
+  color: var(--color-white);
 }
 
 .navbarLinkActive {
-   font-size: 1.3rem;
-   transition: all 0.25s ease-in-out;
-   color: var(--color-blue-primary);
+  font-size: 1.3rem;
+  transition: all 0.25s ease-in-out;
+  color: var(--color-blue-primary);
+}
+
+.navbarLink:hover {
+  color: #b0b0b0;
 }
 
 .logoText {
-   font-size: 1.8rem;
-   font-weight: 600;
+  font-size: 1.8rem;
+  font-weight: 600;
 }

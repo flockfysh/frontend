@@ -1,0 +1,73 @@
+.heading {
+   font-size: 2.5rem;
+   font-weight: 600;
+   margin-bottom: 5rem;
+}
+.containerDiv {
+   margin: 6rem 0 7rem 0;
+}
+.nameDiv {
+   display: flex;
+}
+.infoDiv {
+   margin: auto 0;
+}
+.image {
+   width: 15rem;
+   height: 15rem;
+   object-fit: cover;
+   border-radius: 3rem;
+   margin-right: 15rem;
+}
+.name {
+   font-size: 2.5rem;
+   font-weight: 500;
+   margin-bottom: 1.5rem;
+}
+.email {
+   color: var(--color-gray);
+   font-size: 1.4rem;
+   font-weight: 500;
+}
+.card {
+   background-color: var(--color-black-secondary);
+   display: inline-block;
+   padding: 4rem 6rem;
+   border-radius: 2rem;
+   position: relative;
+}
+.card::before {
+   position: absolute;
+   content: "";
+   right: -0.75rem;
+   bottom: -0.75rem;
+   width: 93%;
+   height: 90%;
+   z-index: -1;
+   background: linear-gradient(
+      to bottom right,
+      var(--color-blue-secondary),
+      var(--color-blue-primary)
+   );
+   filter: blur(1.1rem);
+}
+.cardSection {
+   display: flex;
+   justify-content: space-between;
+   margin-top: 10rem;
+}
+.cardHeading {
+   font-size: 1.6rem;
+   font-weight: 500;
+   margin-bottom: 3rem;
+}
+.cardText {
+   font-size: 1.2rem;
+   color: var(--color-gray);
+}
+.cardText:not(:last-of-type) {
+   margin-bottom: 1.2rem;
+}
+.price {
+   margin-left: 10rem;
+}

@@ -1,0 +1,15 @@
+.header {
+    display: flex;
+    margin-top: 3rem;
+    align-items: center;
+    gap: 3rem;
+}
+
+.btnWrapper {
+    height: 80%;
+}
+
+.searchWrapper {
+    height: 80%;
+    flex: 1;
+}
