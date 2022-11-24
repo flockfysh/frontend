@@ -21,39 +21,49 @@ import EachDataSet from "./pages/EachDataSet/EachDataSet";
 import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 const router = createBrowserRouter(
    createRoutesFromElements(
       <Route>
-         <Route path="/" element={<RootLayout />}>
-            <Route index element={<HomePage />} />
+         <Route path="/" element={ <RootLayout /> }>
+            <Route index element={ <HomePage /> } />
 
-            <Route path="/docs" element={<Docs />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/login" element={<LoginPage type="Login" />} />
-            <Route path="/signup" element={<LoginPage type="Signup" />} />
+            <Route path="/docs" element={ <Docs /> } />
+            <Route path="/blog" element={ <Blog /> } />
+            <Route path="/about" element={ <About /> } />
+            <Route path="/login" element={ <LoginPage type="Login" /> } />
+            <Route path="/signup" element={ <LoginPage type="Signup" /> } />
 
-            <Route path="*" element={<PageNotFound />}></Route>
+            <Route path="*" element={ <PageNotFound /> } />
          </Route>
 
          <Route path="/dashboard">
-            <Route index element={<ViewDatasets />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path=":datasetName/overview" element={<EachDataSet page="overview" />} />
+            <Route index element={ <ViewDatasets /> } />
+
+            <Route path="profile" element={ <Profile /> } />
+            <Route path=":datasetId/overview" element={ <EachDataSet page="overview" /> } />
+            
             <Route
-               path=":datasetName/uploaded-images"
-               element={<EachDataSet page="uploaded-images" />}
+               path=":datasetId/uploaded-images"
+               element={ <EachDataSet page="uploaded-images" /> }
             />
+
             <Route
-               path=":datasetName/dataset-images"
-               element={<EachDataSet page="dataset-images" />}
+               path=":datasetId/dataset-images"
+               element={ <EachDataSet page="dataset-images" /> }
+            />
+
+            <Route
+               path=":datasetId/settings"
+               element={ <EachDataSet page="settings" /> }
             />
          </Route>
       </Route>
    )
 );
+
 root.render(
    <React.StrictMode>
-      <RouterProvider router={router} />
+      <RouterProvider router={ router } />
    </React.StrictMode>
 );

@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import EachDataSetSideBar from "../../components/Dashboard/eachDataset/eachDataSetSideBar/eachDataSetSideBar";
 import EachDatasetOverview from "../../components/Dashboard/eachDataset/eachDatasetOverview/eachDatasetOverview";
 import EachDatasetUploadedImages from "../../components/Dashboard/eachDataset/eachDatasetUploadedImages/eachDatasetUploadedImages";
 import EachDatasetImages from "../../components/Dashboard/eachDataset/eachDatasetImages/eachDatasetImages";
+import Settings from "../../components/Dashboard/eachDataset/settings/settings";
 
 import classes from "./eachDataSet.module.css";
 
 export default function EachDataSet(props) {
-   const [searchParams, _] = useSearchParams();
+   const { datasetId } = useParams();
 
    const [dataset, updateDataset] = useState(null);
 
-   const datasetId = searchParams.get("id");
    let subPage = props.page;
 
    useEffect(() => {
@@ -48,14 +48,16 @@ export default function EachDataSet(props) {
    if (!dataset) return <>Loading...</>;
 
    return (
-      <div className={classes.eachDataSetContainer}>
-         <EachDataSetSideBar name={dataset.name} page={subPage} id={datasetId} />
+      <div className={ classes.eachDataSetContainer }>
+         <EachDataSetSideBar name={ dataset.name } page={ subPage } id={ datasetId } />
 
-         {subPage === "overview" && <EachDatasetOverview dataset={dataset} />}
+         {subPage === "overview" && <EachDatasetOverview dataset={ dataset } />}
 
-         {subPage === "uploaded-images" && <EachDatasetUploadedImages dataset={dataset} />}
+         {subPage === "uploaded-images" && <EachDatasetUploadedImages dataset={ dataset } />}
 
-         {subPage === "dataset-images" && <EachDatasetImages dataset={dataset} />}
+         {subPage === "dataset-images" && <EachDatasetImages dataset={ dataset } />}
+
+         {subPage === "settings" && <Settings dataset={ dataset } />}
       </div>
    );
 }

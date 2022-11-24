@@ -39,27 +39,3 @@
 .linkColored {
     color: var(--color-blue-primary);
 }
-
-.deleteButton {
-    position: absolute;
-    cursor: pointer;
-
-    transition: 0.2s;
-    
-    border-radius: 5px;
-
-    border: 2px solid var(--color-red-primary);
-    color: var(--color-red-primary);
-
-    background: none;
-    padding: 2vh 2vw;
-
-    bottom: 0;
-    margin-bottom: 20px;
-}
-
-.deleteButton:hover {
-    background: var(--color-red-primary);
-
-    color: var(--color-black-secondary);
-}
