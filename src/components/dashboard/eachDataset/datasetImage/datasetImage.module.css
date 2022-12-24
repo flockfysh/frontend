@@ -17,7 +17,8 @@
 }
 
 .trashIcon {
-    transform: translate(300%, -500%);
+    color: var(--color-red-primary);
+    transform: translate(1600%, -1100%);
     position: absolute;
     display: none;
 }

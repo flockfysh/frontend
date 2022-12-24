@@ -42,9 +42,9 @@
 }
 
 .button:hover {
-   color: var(--color-black-primary);
+   color: rgb(0, 12, 121);
 }
 
 .button:hover .svg {
-   stroke: var(--color-black-primary);
+   stroke: rgb(0, 12, 121);
 }

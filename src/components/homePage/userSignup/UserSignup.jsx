@@ -1,6 +1,6 @@
-import Button from "../../UI/button/Button";
+import Button from '../../UI/button/button';
 
-import classes from "./UserSignup.module.css";
+import classes from './userSignup.module.css';
 
 export default function UserSignup() {
    return (

@@ -1,7 +1,7 @@
-import CoreBeliefCard from "../coreBeliefCard/CoreBeliefCard";
-import SubHeading from "../../UI/subHeading/Subheading";
+import CoreBeliefCard from '../coreBeliefCard/coreBeliefCard';
+import SubHeading from '../../UI/subHeading/subHeading';
 
-import classes from "./CoreBelief.module.css";
+import classes from './coreBelief.module.css';
 
 export default function CoreBelief() {
    return (
@@ -11,12 +11,12 @@ export default function CoreBelief() {
          <div className={ classes.cardsGroup }>
             <CoreBeliefCard
                heading="Accessibility"
-               subHeading="From large scale companies to the hobbyists who’s ragtag experiments pave the way for innovation, we’re here for you. Our tools are here to help you take your ideas and products to the next level."
+               subHeading="From large scale companies to the hobbyists who's ragtag experiments pave the way for innovation, we're here for you. Our tools are here to help you take your ideas and products to the next level."
             />
 
             <CoreBeliefCard
                heading="Customizability"
-               subHeading="Our ML tools are build to serve a large variety of purposes and motivations. Whether you’re a data scientist looking to finetune the low-level kinks, or just looking to get some cool data out, we strive to provide a seamless experience."
+               subHeading="Our Machine Learning tools are built to serve a large variety of purposes and motivations. Whether you're a data scientist looking to finetune the low-level kinks, or just looking to get some cool data out, we strive to provide a seamless experience."
             />
 
             <CoreBeliefCard

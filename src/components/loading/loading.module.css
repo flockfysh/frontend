@@ -1,0 +1,15 @@
+.loading {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -200%);
+
+    align-items: center;
+    font-size: larger;
+}
+
+.loading svg {
+    margin-left: 20px;
+    fill: var(--color-blue-primary);
+}

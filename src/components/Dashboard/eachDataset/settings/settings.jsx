@@ -1,7 +1,7 @@
-import classes from "./settings.module.css";
+import classes from './settings.module.css';
 
 export default function Settings(props) {
-    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
     return (
         <div className={ classes.settingsContainer }>
@@ -41,7 +41,7 @@ export default function Settings(props) {
                     </div>
                 </div>
 
-                <button className={classes.deleteButton}>Delete dataset</button>
+                <button className={ classes.deleteButton }>Delete dataset</button>
             </div>
         </div>
     );

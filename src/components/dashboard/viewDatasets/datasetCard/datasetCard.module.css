@@ -1,5 +1,5 @@
 .datasetContainer {
-    margin: 70px 40px;
+    margin-bottom: 30px;
 }
 
 .cardContainer {
@@ -24,10 +24,14 @@
 
 .trashIcon {
     cursor: pointer;
-    transform: translateX(750%);
-    position: absolute;
-    margin-top: 5px;
+    font-size: 15px;
+    float: right !important;
     color: var(--color-red-primary);
+    transition: 0.2s;
+}
+
+.trashIcon:hover {
+    color: var(--color-red-secondary);
 }
 
 .overview {

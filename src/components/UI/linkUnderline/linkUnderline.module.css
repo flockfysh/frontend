@@ -18,9 +18,9 @@
 }
 
 .link:hover {
-   color: var(--color-blue-secondary);
+   color: var(--color-white);
 }
 
 .link:hover::after {
-   background-color: var(--color-blue-secondary);
+   background-color: var(--color-white);
 }

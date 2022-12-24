@@ -1,4 +1,4 @@
-import classes from "./ReviewCard.module.css";
+import classes from './reviewCard.module.css';
 
 export default function ReviewCard(props) {
    return (

@@ -165,13 +165,11 @@
     background: none;
     padding: 2vh 2vw;
 
-    margin-bottom: 50px;
+    display: block;
 
     bottom: 0;
-
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    margin: 100px auto;
+    transform: translateX(-130%);
 }
 
 .deleteButton:hover {

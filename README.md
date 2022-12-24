@@ -1,6 +1,6 @@
 # flockfysh website
 
-## Running on local
+## Setup on local
 - clone repo
 - npm i
 - npm start

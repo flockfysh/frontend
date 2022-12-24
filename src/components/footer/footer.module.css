@@ -7,6 +7,14 @@
    bottom: 0 !important;
 }
 
+.footer a {
+   transition: 0.2s;
+}
+
+.footer a:hover {
+   color: #b0b0b0;
+}
+
 .footer::before {
    content: "";
    width: 60vw;

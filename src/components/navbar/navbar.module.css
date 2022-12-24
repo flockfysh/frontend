@@ -18,14 +18,12 @@
 }
 
 .navbarLink {
-  font-size: 1.3rem;
+  font-size: 1.6rem;
   transition: all 0.25s ease-in-out;
   color: var(--color-white);
 }
 
 .navbarLinkActive {
-  font-size: 1.3rem;
-  transition: all 0.25s ease-in-out;
   color: var(--color-blue-primary);
 }
 
@@ -34,6 +32,11 @@
 }
 
 .logoText {
-  font-size: 1.8rem;
+  font-size: 2.5rem;
   font-weight: 600;
+  transition: 0.2s;
+}
+
+.logoText:hover {
+  color: var(--color-blue-primary);
 }

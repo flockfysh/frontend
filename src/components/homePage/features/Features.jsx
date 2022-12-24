@@ -1,7 +1,7 @@
-import Subheading from "../../UI/subHeading/Subheading";
-import FeatureCard from "../featureCard/FeatureCard";
+import Subheading from '../../UI/subHeading/subHeading';
+import FeatureCard from '../featureCard/featureCard';
 
-import classes from "./Features.module.css";
+import classes from './features.module.css';
 
 export default function Features() {
    const LEFT_CARD_CONTENT = (
@@ -15,7 +15,7 @@ export default function Features() {
       <>
          Provide our tool with a sample of 50 images of the type of data you are looking for, and
          then watch the magic ensue!
-         <strong> No constant searching for images, </strong> and{" "}
+         <strong> No constant searching for images, </strong> and {" "}
          <strong>no supervision necessary.</strong>
       </>
    );

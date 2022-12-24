@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-import classes from "./footer.module.css";
+import classes from './footer.module.css';
 
 export default function Footer() {
    return (
@@ -40,7 +40,7 @@ export default function Footer() {
 
                   <Link to="/product">Twitter</Link>
                   <Link to="/product">Discord</Link>
-                  <Link to="/product">Github</Link>
+                  <a href="https://github.com/teamnebulaco">Github</a>
                   <Link to="/product">Email</Link>
                </div>
 

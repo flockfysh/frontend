@@ -1,17 +1,22 @@
-import { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { useState, useRef, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { UserContext } from '../../userContext';
 
-import classes from "./LoginForm.module.css";
+import classes from './login.module.css';
 
 export default function LoginForm(props) {
-   const [email, setEmail] = useState("");
+   const navigate = useNavigate();
+
+   const [email, setEmail] = useState('');
    const [emailIsValid, setEmailIsValid] = useState(true);
 
-   const [password, setPassword] = useState("");
+   const [password, setPassword] = useState('');
    const [passwordIsValid, setPasswordIsValid] = useState(true);
 
-   const passwordRef = useRef("");
-   const emailRef = useRef("");
+   const passwordRef = useRef('');
+   const emailRef = useRef('');
+
+   const { setLoggedIn } = useContext(UserContext);
 
    function passwordValidHandler(event) {
       if (password.length < 8) {
@@ -39,13 +44,13 @@ export default function LoginForm(props) {
       // but we added after . because . can be the last element which is not possible
 
       if (
-         !email.includes(" ") &&
+         !email.includes(' ') &&
          email.length >= 5 &&
-         email.includes("@") &&
-         email.includes(".") &&
-         email.split("@")[0].length > 0 &&
-         email.split(".")[1].length > 0 &&
-         email.split("@")[1].split("")[0] !== "."
+         email.includes('@') &&
+         email.includes('.') &&
+         email.split('@')[0].length > 0 &&
+         email.split('.')[1].length > 0 &&
+         email.split('@')[1].split('')[0] !== '.'
       ) {
          event.target.className = classes.input;
 
@@ -63,8 +68,19 @@ export default function LoginForm(props) {
       if (emailIsValid && passwordIsValid) {
          console.log({ email, password });
 
-         setEmail("");
-         setPassword("");
+         if(props.type === 'Login') {
+
+         }
+         else {
+
+         }
+
+         setLoggedIn(true);
+
+         navigate('/dashboard');
+
+         setEmail('');
+         setPassword('');
       }
    }
 
@@ -95,39 +111,41 @@ export default function LoginForm(props) {
             <input
                name="password"
                className={ classes.input }
-               type="text"
+               type="password"
                value={ password }
                onChange={ event => setPassword(event.target.value) }
                onBlur={ passwordValidHandler }
             />
 
             <span ref={ passwordRef } className={ classes.inputInvalidText }>
-               Passoword too short
+               Password too short
             </span>
 
-            {passwordIsValid ? (
-               props.type === "Signup" ? (
-                  <Link className={ classes.link } to="/login">
-                     Already have an account
-                  </Link>
-               ) : (
-                  <Link className={ classes.link } to="/signup">
-                     Don't have an account
-                  </Link>
-               )
-            ) : null}
+            {
+               passwordIsValid ? (
+                  props.type === "Signup" ? (
+                     <Link className={ classes.link } to="/login">
+                        I already have an account
+                     </Link>
+                  ) : (
+                     <Link className={ classes.link } to="/signup">
+                        I don't have an account
+                     </Link>
+                  )
+               ) : null
+            }
 
             <button type="button" className={ classes.submitButton } onClick={ submitHandler }>
-               {props.type} now
+               { props.type }
             </button>
          </div>
 
-         <div className={classes.buttonDiv}>
-            <button className={`${classes.githubButton} ${classes.socialButton}`} type="button">
-               {props.type} with Github{" "}
+         <div className={ classes.buttonDiv }>
+            <button className={ `${ classes.githubButton } ${ classes.socialButton }` } type="button">
+               { props.type } with Github {" "}
                <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className={classes.githubIcon}
+                  className={ classes.githubIcon }
                   viewBox="0 0 512 512">
                   <title>Logo Github</title>
 
@@ -135,10 +153,10 @@ export default function LoginForm(props) {
                </svg>
             </button>
 
-            <button className={`${classes.googleButton} ${classes.socialButton}`} type="button">
-               {props.type} with Google{" "}
+            <button className={ `${ classes.googleButton } ${ classes.socialButton }` } type="button">
+               { props.type } with Google {" "}
                <svg
-                  className={classes.googleIcon}
+                  className={ classes.googleIcon }
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 512 512">
                   <title>Logo Google</title>

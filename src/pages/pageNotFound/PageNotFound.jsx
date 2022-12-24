@@ -1,6 +1,6 @@
-import Button from "../../components/UI/button/Button";
+import Button from '../../components/UI/button/button';
 
-import classes from "./pageNotFound.module.css";
+import classes from './pageNotFound.module.css';
 
 export default function PageNotFound() {
     return (

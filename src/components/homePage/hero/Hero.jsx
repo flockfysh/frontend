@@ -1,9 +1,9 @@
-import Button from "../../UI/button/Button";
-import LinkUnderline from "../../UI/link/Link";
-import Heading from "../../UI/heading/Heading";
-import heroImage from "../../../images/HeroImage.jpg";
+import Button from '../../UI/button/button';
+import LinkUnderline from '../../UI/linkUnderline/linkUnderline';
+import Heading from '../../UI/heading/heading';
+import heroImage from '../../../images/heroImage.jpg';
 
-import classes from "./Hero.module.css";
+import classes from './hero.module.css';
 
 export default function Hero() {
    return (
@@ -18,7 +18,7 @@ export default function Hero() {
             <div className={ classes.buttonsHolder }>
                <Button hasArrow={ true } text="Start Flockfyshing" link="/signup" />
 
-               <LinkUnderline to="/" text="Read the docs" />
+               <LinkUnderline to="/docs" text="Read the docs" />
             </div>
          </div>
          

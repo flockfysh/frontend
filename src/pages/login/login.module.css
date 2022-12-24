@@ -35,7 +35,6 @@
    transition: 0.2s;
 }
 
-
 .googleButton {
    border: 3px solid var(--color-white);
    background-color: var(--color-white);
@@ -85,12 +84,12 @@
 .form::before {
    content: "";
    position: absolute;
-   left: -15rem;
-   top: -15rem;
-   width: 50rem;
-   height: 50rem;
+   left: 50%;
+   top: 50%;
+   transform: translate(-50%, -50%);
+   width: 65rem;
+   height: 65rem;
    position: absolute;
-   right: -27rem;
    z-index: -1;
    background-image: radial-gradient(
       circle, 
@@ -143,11 +142,22 @@
    display: block;
    margin-top: 2.5rem;
    border: none;
+   cursor: pointer;
+   transition: 0.2s;
+}
+
+.submitButton:hover {
+   color: rgb(0, 12, 121);   
 }
 
 .link {
    color: var(--color-blue-primary);
    font-size: 1.1rem;
+   transition: 0.2s;
+}
+
+.link:hover {
+   color: rgb(0, 12, 121);
 }
 
 .inputInvalid {

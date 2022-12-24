@@ -3,15 +3,40 @@
    font-weight: 600;
    margin-bottom: 5rem;
 }
+
 .containerDiv {
-   margin: 6rem 0 7rem 0;
+    margin: 6rem 0 7rem 0;
 }
+
 .nameDiv {
    display: flex;
 }
+
+.nameDiv::after {
+    z-index: -1;
+    height: 100%;
+
+    left: 0;
+    width: 100%;
+    
+    position: absolute;
+    background: radial-gradient(
+        circle at top left, 
+        var(--color-blue-gradients), 
+        rgba(0, 0, 0, 0) 35%
+    ) top left;
+    
+    content: "";
+    top: 0;
+    left: 0;
+    z-index: -1;
+    min-width: 30rem;
+ }
+
 .infoDiv {
    margin: auto 0;
 }
+
 .image {
    width: 15rem;
    height: 15rem;
@@ -19,16 +44,19 @@
    border-radius: 3rem;
    margin-right: 15rem;
 }
+
 .name {
    font-size: 2.5rem;
    font-weight: 500;
    margin-bottom: 1.5rem;
 }
+
 .email {
    color: var(--color-gray);
    font-size: 1.4rem;
    font-weight: 500;
 }
+
 .card {
    background-color: var(--color-black-secondary);
    display: inline-block;
@@ -36,6 +64,7 @@
    border-radius: 2rem;
    position: relative;
 }
+
 .card::before {
    position: absolute;
    content: "";
@@ -51,23 +80,28 @@
    );
    filter: blur(1.1rem);
 }
+
 .cardSection {
    display: flex;
    justify-content: space-between;
    margin-top: 10rem;
 }
+
 .cardHeading {
    font-size: 1.6rem;
    font-weight: 500;
    margin-bottom: 3rem;
 }
+
 .cardText {
    font-size: 1.2rem;
    color: var(--color-gray);
 }
+
 .cardText:not(:last-of-type) {
    margin-bottom: 1.2rem;
 }
+
 .price {
    margin-left: 10rem;
 }

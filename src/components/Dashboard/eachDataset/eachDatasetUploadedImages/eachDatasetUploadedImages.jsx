@@ -1,5 +1,6 @@
-import classes from "./eachDatasetUploadedImages.module.css";
-import imageClasses from "../../../../pages/EachDataSet/eachDatasetImages.module.css";
+import DatasetImage from '../datasetImage/datasetImage';
+
+import classes from './eachDatasetUploadedImages.module.css';
 
 export default function EachDatasetUploadedImages(props) {
    let testImages = [];
@@ -17,13 +18,7 @@ export default function EachDatasetUploadedImages(props) {
                {
                   testImages.map(
                      (image, index) => (
-                        <div className={ imageClasses.imageContainer } key={ index }>
-                           <img src={ image.url } alt={ image.name } />
-
-                           <p className={ imageClasses.trashIcon }>Trash</p>
-
-                           <p>{ image.name }</p>
-                        </div>
+                        <DatasetImage key={ index } image={ image } />
                      )
                   )
                }

@@ -1,20 +1,21 @@
-import { Link } from "react-router-dom";
-import classes from "./Button.module.css";
+import { Link } from 'react-router-dom';
+
+import classes from './button.module.css';
 
 export default function Button(props) {
-   const gradientDirection = props.gradientDirection ? props.gradientDirection : "topToBottom";
+   const gradientDirection = props.gradientDirection ? props.gradientDirection : 'topToBottom';
    const hasArrow = props.hasArrow ? props.hasArrow : false;
 
-   let gradientClass = "";
+   let gradientClass;
 
    switch(gradientDirection) {
-      case "topToBottom":
+      case 'topToBottom':
          gradientClass = classes.gradientBottomRight;
          break;
-      case "rightToLeft":
+      case 'rightToLeft':
          gradientClass = classes.gradientRightLeft;
          break;
-      case "leftToRight":
+      case 'leftToRight':
          gradientClass = classes.gradientLeftRight;
          break;
       default:

@@ -1,4 +1,4 @@
-import classes from "./CoreBeliefCard.module.css";
+import classes from './coreBeliefCard.module.css';
 
 export default function CoreBeliefCard(props) {
    return (

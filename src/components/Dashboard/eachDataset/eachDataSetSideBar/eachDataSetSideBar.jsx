@@ -1,6 +1,6 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams } from 'react-router-dom';
 
-import classes from "./eachDataSetSideBar.module.css";
+import classes from './eachDataSetSideBar.module.css';
 
 export default function EachDataSetSideBar(props) {
    const { datasetId } = useParams();
@@ -16,7 +16,8 @@ export default function EachDataSetSideBar(props) {
                   props.page === "overview"
                      ? classes.linkColored + " " + classes.link
                      : classes.link
-            }>
+               }
+            >
                Overview
             </Link>
 
@@ -26,7 +27,8 @@ export default function EachDataSetSideBar(props) {
                   props.page === "uploaded-images"
                      ? classes.linkColored + " " + classes.link
                      : classes.link
-            }>
+               }
+            >
                Uploaded Images
             </Link>
 
@@ -36,7 +38,8 @@ export default function EachDataSetSideBar(props) {
                   props.page === "dataset-images"
                      ? classes.linkColored + " " + classes.link
                      : classes.link
-            }>
+               }
+            >
                Dataset
             </Link>
 
@@ -46,7 +49,8 @@ export default function EachDataSetSideBar(props) {
                   props.page === "settings"
                      ? classes.linkColored + " " + classes.link
                      : classes.link
-            }>
+               }
+            >
                Settings
             </Link>
          </ul>

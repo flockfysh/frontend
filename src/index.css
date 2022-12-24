@@ -1,8 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300;400;500;600;700;800;900&display=swap");
 
 :root {
-   /* global variables */
-   /* define colors or any css value that will/can be repeated, few examples below*/
    --color-blue-primary: #91a7ff;
    --color-blue-secondary: #364fc7;
    --color-blue-gradients: #748ffc7e;
@@ -43,6 +41,7 @@ body {
    color: var(--color-white);
    font-family: "Poppins", sans-serif;
    margin: 0 17rem;
+   overflow-x: hidden;
 }
 
 a {

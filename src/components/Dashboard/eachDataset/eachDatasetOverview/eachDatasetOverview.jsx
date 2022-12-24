@@ -1,4 +1,6 @@
-import classes from "./eachDatasetOverview.module.css";
+import Button from '../../../UI/button/button';
+
+import classes from './eachDatasetOverview.module.css';
 
 export default function EachDatasetOverview(props) {
     return (
@@ -22,6 +24,10 @@ export default function EachDatasetOverview(props) {
                     <div>
                         Date created: { props.dataset.dateCreated }
                     </div>
+                </div>
+
+                <div className={ classes.profileBtnContainer }>
+                    <Button link="/dashboard" text="Return to Profile" hasArrow={ true } />   
                 </div>
             </div>
         </div>
