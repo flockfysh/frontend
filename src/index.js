@@ -20,6 +20,7 @@ import About from './pages/about/about';
 import Profile from './pages/profile/profile';
 import ViewDatasets from './pages/viewDatasets/viewDatasets';
 import EachDataSet from './pages/eachDataset/eachDataset';
+import CreateDataset from './pages/createDataset/createDataset';
 
 // #endregion
 
@@ -65,6 +66,7 @@ function MainApp() {
                      <Route index element={ <ViewDatasets /> } />
 
                      <Route path="profile" element={ <Profile /> } />
+                     
                   </Route>
 
                   <Route path="/dashboard" element={ <PrivateRoutes /> }>
