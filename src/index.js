@@ -56,8 +56,7 @@ function MainApp() {
                      <Route path="*" element={ <PageNotFound /> } />
                   </Route>
 
-{/* element={ <PrivateRoutes /> } */}
-                  <Route path="/dashboard"> 
+                  <Route path="/dashboard" element={ <PrivateRoutes /> }> 
                      <Route element={ <RootLayout /> }>
                         <Route index element={ <ViewDatasets /> } />
                      
