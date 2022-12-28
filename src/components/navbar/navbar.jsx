@@ -54,13 +54,13 @@ export default function Navbar() {
                loggedIn ? (
                   <li className={ classes.listItem }>
                      <NavLink
-                        to="/dashboard/profile"
+                        to="/dashboard"
                         className={
                            navData => navData.isActive ? `${ classes.navbarLinkActive } ${ classes.navbarLink }` : classes.navbarLink
                         }
                         end
                      >
-                        Profile
+                        Dashboard
                      </NavLink>
                   </li>
                ) : (

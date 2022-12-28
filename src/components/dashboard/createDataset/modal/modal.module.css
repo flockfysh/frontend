@@ -1,0 +1,51 @@
+.modalContainer {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--color-black-secondary);
+    width: 50%;
+    height: 70% ;
+    border-radius: 20px;
+    box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.473);
+    position: fixed;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.closeModal {
+    padding: 10px 50px;
+    border-radius: 5px;
+    background: none;
+    background: linear-gradient(
+      to bottom right,
+      var(--color-blue-secondary),
+      var(--color-blue-primary)
+    );
+    cursor: pointer;
+    color: var(--color-white);
+    transition: 0.2s;
+    margin-top: 20px;
+}
+
+.closeModal:hover {
+   color: rgb(0, 12, 121);
+}
+
+.modalContent {
+    text-align: center;
+    display: block;
+}
+
+.modalContainer p {
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 20px;
+    display: block;
+}
+
+.imageContainer img {
+    width: 20%;
+    height: 20%;
+}

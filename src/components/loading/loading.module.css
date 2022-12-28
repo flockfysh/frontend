@@ -1,12 +1,10 @@
 .loading {
     display: flex;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -200%);
-
+    align-self: center;
     align-items: center;
-    font-size: larger;
+    font-size: 20px;
+    height: 50vh;
+    justify-content: center;
 }
 
 .loading svg {

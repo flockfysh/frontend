@@ -56,20 +56,15 @@ function MainApp() {
                      <Route path="*" element={ <PageNotFound /> } />
                   </Route>
 
-                  <Route path="/dashboard" element={ (
-                     <>
-                        <RootLayout />
-
-                        <PrivateRoutes />
-                     </>
-                  ) }>
-                     <Route index element={ <ViewDatasets /> } />
-
-                     <Route path="profile" element={ <Profile /> } />
+{/* element={ <PrivateRoutes /> } */}
+                  <Route path="/dashboard"> 
+                     <Route element={ <RootLayout /> }>
+                        <Route index element={ <ViewDatasets /> } />
                      
-                  </Route>
+                        <Route path="profile" element={ <Profile /> } />
+                        <Route path="create-dataset" element={ <CreateDataset /> } />
+                     </Route>
 
-                  <Route path="/dashboard" element={ <PrivateRoutes /> }>
                      <Route path=":datasetId/overview" element={ <EachDataSet page="overview" /> } />
 
                      <Route

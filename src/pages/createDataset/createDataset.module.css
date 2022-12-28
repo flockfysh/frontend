@@ -1,3 +1,183 @@
 .createDatasetContainer {
-    
+    margin-top: 100px;
 }
+
+.createDatasetContainer::after {
+    z-index: -1;
+    height: 100%;
+
+    width: 100%;
+
+    position: absolute;
+    background: radial-gradient(
+        circle at top left, 
+        var(--color-blue-gradients), 
+        rgba(0, 0, 0, 0) 30%
+    ) top left;
+
+    content: "";
+    top: 0;
+    left: 0;
+    z-index: -1;
+    min-width: 30rem;
+}
+
+.datasetTypeRow {
+    display: flex;
+    margin-bottom: 50px;
+    margin-top: 50px;
+    align-items: center;
+    justify-content: center;
+    gap: 200px;
+}
+
+.datasetTypeRow button {
+    border-radius: 5px;
+    padding: 10px 50px;
+    background-color: rgb(17, 17, 17);
+    border: 3px solid rgb(39, 39, 39);
+    color: rgb(39, 39, 39);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.datasetTypeRow button:hover {
+    color: var(--color-white);
+}
+
+.selected {
+    color: var(--color-white) !important;
+    box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
+    border: solid 3px transparent !important;
+
+    background-image: 
+        linear-gradient(
+            rgba(255, 255, 255, 0), 
+            rgba(255, 255, 255, 0)
+        ), 
+        linear-gradient(
+            90deg, 
+            var(--color-blue-secondary), 
+            var(--color-blue-primary)
+        ) !important;
+
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    box-shadow: 2px 1000px 1px rgb(17, 17, 17) inset;
+}
+
+.datasetSecondRow {
+    display: flex;
+    margin-bottom: 50px;
+    margin-top: 50px;
+    align-items: center;
+    justify-content: center;
+    gap: 200px;
+}
+
+.datasetSecondRow input {
+    outline: none;
+    background-color: var(--color-black-secondary);
+    border: none;
+    border-radius: 0.8rem;
+    padding: 1rem 2rem;
+    font-family: inherit;
+    width: 24rem;
+    margin-top: 10px;
+    display: block;
+    color: var(--color-white);
+}
+
+.datasetSecondRow select {
+    margin-top: 10px;
+    display: block !important;
+
+    padding: 10px 70px 10px 10px;
+    border: none;
+    cursor: pointer;
+
+    transition: 0.1s;
+
+    outline: none;
+    color: var(--color-white);
+    border-radius: 5px;
+    background-color: var(--color-black-secondary);
+}
+
+.datasetThirdRow {
+    display: flex;
+    margin-bottom: 20px;
+    margin-top: 70px;
+    align-items: center;
+    justify-content: center;
+}
+
+.datasetThirdRow p {
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.datasetThirdRow label {
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    font-size: larger;
+    background: var(--color-black-secondary);
+    border-radius: 5px;
+    padding: 15px 50px;
+    transition: 0.2s;
+}
+
+.datasetThirdRow label:hover {
+    background: var(--color-blue-primary);
+    color: var(--color-black-secondary);
+}
+
+.datasetThirdRow input {
+    display: none;
+}
+
+.numImages {
+    font-weight: lighter !important;
+    margin-left: 40px;
+}
+
+.datasetFourthRow {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    margin-top: 70px;
+    align-items: center;
+    justify-content: center;
+}
+
+.createDatasetButtonContainer {
+    display: flex;
+    margin-bottom: 20px;
+    margin-top: 70px;
+    align-items: center;
+    justify-content: center;
+}
+
+.createDatasetButtonContainer button {
+    padding: 1.5rem 2rem;
+    font-size: 1.5rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    color: var(--color-white);
+    transition: 0.2s;
+    background: linear-gradient(
+        to bottom right,
+        var(--color-blue-secondary),
+        var(--color-blue-primary)
+    );
+    cursor: pointer;
+}
+
+.createDatasetButtonContainer button:hover {
+    color: rgb(0, 12, 121);
+ }

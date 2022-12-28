@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import DatasetCard from '../../components/dashboard/viewDatasets/datasetCard/datasetCard';
 import Loading from '../../components/loading/loading';
@@ -60,7 +61,7 @@ export default function ViewDatasets() {
                    <Button
                       hasArrow={true}
                       gradientDirection="leftToRight"
-                      text="Create new dataset"
+                      text="Create a new dataset"
                       link="/dashboard/create-dataset"
                    />
                 </div>
@@ -71,14 +72,21 @@ export default function ViewDatasets() {
             <div className={ classes.datasetsContainer }>
                 { 
                     (
-                        filter.length > 0 ? 
-                            datasets.filter(
+                        (function generateFilterElements() {
+                            let elements = filter.length === 0 ? datasets : datasets.filter(
                                 d => d.name.toLowerCase().includes(filter.replaceAll(' ', '').toLowerCase())
-                            ) 
-                        : datasets
-                    ).map(
-                        (dataset, index) => <DatasetCard key={ index } dataset={ dataset } />
-                    ) 
+                            );
+                            
+                            if(elements.length === 0) return (
+                                <h1 className={ classes.noDatasetsFound }>
+                                    Sorry, no datasets found. Go <Link to="/dashboard/create-dataset">here</Link> to create one. 
+                                </h1>
+                            );
+                            else return elements.map(
+                                (dataset, index) => <DatasetCard key={ index } dataset={ dataset } />
+                            ); 
+                        })()
+                    )
                 }
             </div>
         </div>

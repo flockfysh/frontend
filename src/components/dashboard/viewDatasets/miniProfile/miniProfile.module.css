@@ -4,6 +4,12 @@
     display: flex;
     gap: 2.5rem;
     padding: 2rem 3rem 2rem 3rem;
+    transition: 0.2s;
+}
+
+.mainDiv:hover {
+    background-color: rgb(31, 31, 31);
+    color: var(--color-blue-secondary);
 }
 
 .image {

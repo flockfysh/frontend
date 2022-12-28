@@ -48,3 +48,16 @@
 .container img {
     height: 2rem;
 }
+
+.noDatasetsFound {
+    font-weight: lighter;
+}
+
+.noDatasetsFound a {
+    transition: 0.2s;
+    color: var(--color-blue-primary);
+}
+
+.noDatasetsFound a:hover {
+    color: var(--color-blue-secondary);
+}
