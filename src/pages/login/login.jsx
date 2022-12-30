@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/userContext';
 
 import classes from './login.module.css';
-
+import { serverURL } from '../../constants/index';
+import axios from "axios";
 export default function LoginForm(props) {
    const navigate = useNavigate();
 
@@ -17,11 +18,32 @@ export default function LoginForm(props) {
    const emailRef = useRef('');
 
    const { setLoggedIn } = useContext(UserContext);
-
+   function oAuthLogin(path){
+      let timer = null;
+      const login = serverURL+path
+      const popup = window.open(login, "_blank", "width=500,height=600");
+      if(popup){
+         timer = setInterval(()=>{
+            if(popup.closed){
+               console.log("Auth Window Closed");
+               fetchUser();
+               if(timer) clearInterval(timer);
+            }
+         }, 500)
+      }
+   }
+   async function fetchUser(){
+      const userURL = serverURL+"/";
+      axios.get(userURL, { withCredentials: true}).then((resp)=>{
+         if(resp && resp.data){
+            console.log("User Data"+JSON.stringify(resp.data));
+            navigate('/')
+         }
+      }, (err)=> console.log("Not authenticated"+JSON.stringify(err)));
+   }
    function passwordValidHandler(event) {
       if (password.length < 8) {
          event.target.className = classes.inputInvalid;
-
          setPasswordIsValid(false);
          passwordRef.current.className = classes.inputInvalidTextActive;
       } else {
@@ -31,7 +53,11 @@ export default function LoginForm(props) {
          passwordRef.current.className = classes.inputInvalidText;
       }
    }
-
+   // Forward user to github login screen (pass in client ID)
+   // User logs in github side
+   // When user decides to login, they get forwarded back
+   // link ends with code(for now)
+   // Use code to get access token
    function emailValidHandler(event) {
       // logic below
       // email shouldn't include spaces
@@ -141,7 +167,7 @@ export default function LoginForm(props) {
          </div>
 
          <div className={ classes.buttonDiv }>
-            <button className={ `${ classes.githubButton } ${ classes.socialButton }` } type="button">
+            <button className={ `${ classes.githubButton } ${ classes.socialButton }` } onClick={()=>oAuthLogin("/auth/github")} type="button">
                { props.type } with Github {" "}
                <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -153,7 +179,7 @@ export default function LoginForm(props) {
                </svg>
             </button>
 
-            <button className={ `${ classes.googleButton } ${ classes.socialButton }` } type="button">
+            <button className={ `${ classes.googleButton } ${ classes.socialButton }` } onClick={()=>oAuthLogin("/auth/google")} type="button">
                { props.type } with Google {" "}
                <svg
                   className={ classes.googleIcon }
