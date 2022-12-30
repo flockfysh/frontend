@@ -29,6 +29,10 @@
             "error",
             "windows"
         ],
+        "jsx-quotes": [
+            "error", 
+            "prefer-double"
+        ],
         "quotes": [
             "error",
             "single"
