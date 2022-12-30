@@ -15,7 +15,10 @@
     "ignorePatterns": ["node_modules/"],
     "parserOptions": {
         "ecmaVersion": "latest",
-        "sourceType": "module"
+        "sourceType": "module",
+        "ecamFeatures": {
+            "jsx": true
+        }
     },
     "plugins": [
         "react",
@@ -42,6 +45,31 @@
             "error",
             "always"
         ],
-        "react/react-in-jsx-scope": "off"
+        "no-extra-semi": "warn",
+        "camelcase": [
+            "warn",
+            {
+                "properties": "never"
+            }
+        ],
+        "keySpacing": ["warn"],
+        "keyword-spacing": ["warn"],
+        "space-before-blocks": "warn",
+        "space-infix-ops": "warn",
+        "arrow-body-style": [
+            "warn",
+            "as-needed"
+        ],
+        "no-console": "warn",
+        "no-var": "warn",
+        "prefer-arrow-callback": "warn",
+        "react/react-in-jsx-scope": "off",
+        "react/destructuring-assignment": ["warn", "always"],
+		"react/function-component-definition": [
+			"warn",
+			{ "namedComponents": ["function-declaration"] }
+		],
+		"react/hook-use-state": "warn",
+        "@typescript-eslint/no-unused-vars": "off"
     }
 }
