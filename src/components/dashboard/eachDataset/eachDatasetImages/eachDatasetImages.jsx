@@ -23,7 +23,9 @@ export default function EachDatasetImages(props) {
                   )
                }
             </div>
-
+         </div>
+         
+         <div className={ classes.loadBtnContainer }>
             <button>Load more images</button>
          </div>
       </div>

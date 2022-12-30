@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import {
    Route,
@@ -8,8 +8,6 @@ import {
 
 // #region Page Imports
 
-import RootLayout from './pages/rootLayout';
-
 import PageNotFound from './pages/pageNotFound/pageNotFound';
 
 import HomePage from './pages/home/home';
@@ -18,30 +16,61 @@ import Docs from './pages/docs/docs';
 import Blog from './pages/blog/blog';
 import About from './pages/about/about';
 import Profile from './pages/profile/profile';
+
 import ViewDatasets from './pages/viewDatasets/viewDatasets';
 import EachDataSet from './pages/eachDataset/eachDataset';
 import CreateDataset from './pages/createDataset/createDataset';
 
 // #endregion
 
+import RootLayout from './components/rootLayout';
 import PrivateRoutes from './components/privateRoutes';
 
-import { UserContext } from './userContext';
+import Loading from './components/loading/loading';
+
+import { UserContext } from './contexts/userContext';
+import { ScreenContext } from './contexts/useScreen';
+
+import { MIN_WIDTH } from './settings';
 
 import './index.css';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-
 function MainApp() {
-   const [loggedIn, updateLoggedIn] = useState(false); // get value from backend
+   const [isLoading, updateLoading] = useState(false);
+   const [loggedIn, updateLoggedIn] = useState(false);
+
+   const [windowTooSmall, updateWindowTooSmall] = useState(window.screen.width <= MIN_WIDTH);
+
+   useEffect(() => {
+      updateLoading(true);
+
+      (async function() {
+         // fetch state from backend
+         
+         updateLoading(false);
+      })();
+   }, []);
+
+   function updateMedia() {
+      updateWindowTooSmall(window.screen.width <= MIN_WIDTH);
+   }
+
+   useEffect(() => {
+      window.addEventListener('resize', updateMedia);
+
+      return () => window.removeEventListener('resize', updateMedia);
+   });
 
    function setLoggedIn() {
       updateLoggedIn(true);
    }
 
+   if(isLoading) return <Loading />;
+
    return (
-      <UserContext.Provider value={ { loggedIn, setLoggedIn } }>
-         <Routes>
+      <ScreenContext.Provider value={ { windowTooSmall } }>
+         <UserContext.Provider value={ { loggedIn, setLoggedIn } }>
+            <Routes>
                <Route>
                   <Route path="/" element={ <RootLayout /> }>
                      <Route index element={ <HomePage /> } />
@@ -55,7 +84,7 @@ function MainApp() {
 
                      <Route path="*" element={ <PageNotFound /> } />
                   </Route>
-
+                  
                   <Route path="/dashboard" element={ <PrivateRoutes /> }> 
                      <Route element={ <RootLayout /> }>
                         <Route index element={ <ViewDatasets /> } />
@@ -82,10 +111,13 @@ function MainApp() {
                      />
                   </Route>
                </Route>
-         </Routes>
-      </UserContext.Provider>
+            </Routes>
+         </UserContext.Provider>
+      </ScreenContext.Provider>
    );
 }
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
    <React.StrictMode>

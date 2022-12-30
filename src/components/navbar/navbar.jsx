@@ -1,12 +1,20 @@
-import { useContext } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import { UserContext } from '../../userContext';
+import { RxHamburgerMenu } from 'react-icons/rx';
+
+import NavItem from '../navItem/navItem';
+
+import { UserContext } from '../../contexts/userContext';
+import { ScreenContext } from '../../contexts/useScreen';
 
 import classes from './navbar.module.css';
 
 export default function Navbar() {
    const { loggedIn } = useContext(UserContext);
+   const { windowTooSmall } = useContext(ScreenContext);
+
+   const [navOpen, updateNav] = useState(false);
 
    const navLinks = [
       {
@@ -27,58 +35,43 @@ export default function Navbar() {
       }
    ];
 
+   function changeNavDisplay() {
+      updateNav(!navOpen);
+   }
+
    return (
       <nav className={ classes.nav }>
          <Link className={ classes.logoText } to="/">FlockFysh</Link>
 
-         <ul className={ classes.listContainer }>
-            {
-               navLinks.map(
-                  (link, i) => (
-                     <li className={ classes.listItem } key={ i }>
-                        <NavLink
-                           to={ link.to }
-                           className={
-                              navData => navData.isActive ? `${ classes.navbarLinkActive } ${ classes.navbarLink }` : classes.navbarLink
-                           }
-                           end
-                        >
-                           { link.name }
-                        </NavLink>
-                     </li>
-                  )
-               )
-            }
+         {
+            windowTooSmall ? (
+               <div>
+                  {
+                     windowTooSmall && navOpen ? (
+                        <div className={ classes.mobileNavLinksContainer }>
+                        
+                        </div>
+                     ) : <></>
+                  }
 
-            {
-               loggedIn ? (
-                  <li className={ classes.listItem }>
-                     <NavLink
-                        to="/dashboard"
-                        className={
-                           navData => navData.isActive ? `${ classes.navbarLinkActive } ${ classes.navbarLink }` : classes.navbarLink
-                        }
-                        end
-                     >
-                        Dashboard
-                     </NavLink>
-                  </li>
-               ) : (
-                  <li className={ classes.listItem }>
-                     <NavLink
-                        to="/login"
-                        className={
-                           navData => navData.isActive ? `${ classes.navbarLinkActive } ${ classes.navbarLink }` : classes.navbarLink
-                        }
-                        end
-                     >
-                        Login
-                     </NavLink>
-                  </li>
-               )
-               
-            }
-         </ul>
+                  <RxHamburgerMenu onClick={ changeNavDisplay } className={ classes.navOpenButton } />
+               </div>
+            ) : (
+               <ul className={ classes.listContainer }>
+                  {
+                     navLinks.map(
+                        (link, i) => (
+                           <NavItem to={ link.to } name={ link.name } key={ i } />
+                        )
+                     )
+                  }
+
+                  {
+                     loggedIn ? <NavItem to="/dashboard" name="Dashboard" /> : <NavItem to="/login" name="Login" />
+                  }
+               </ul>
+            )
+         }
       </nav>
    );
 }

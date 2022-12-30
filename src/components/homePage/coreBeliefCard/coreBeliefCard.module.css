@@ -42,3 +42,9 @@
    font-weight: 300;
    font-size: 1rem;
 }
+
+@media screen and (max-width: 970px) {
+   .card {
+      margin-bottom: 10px;
+   }
+}

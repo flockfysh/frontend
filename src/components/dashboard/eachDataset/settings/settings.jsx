@@ -41,7 +41,9 @@ export default function Settings(props) {
                     </div>
                 </div>
 
-                <button className={ classes.deleteButton }>Delete dataset</button>
+                <div className={ classes.deleteButtonContainer }>
+                    <button className={ classes.deleteButton }>Delete dataset</button>
+                </div>
             </div>
         </div>
     );

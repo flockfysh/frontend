@@ -1,8 +1,14 @@
+import { useContext } from 'react';
+
 import Button from '../../UI/button/button';
+
+import { UserContext } from '../../../contexts/userContext';
 
 import classes from './userSignup.module.css';
 
 export default function UserSignup() {
+   const { loggedIn } = useContext(UserContext);
+
    return (
       <section className={ classes.holder }>
          <h3 className={ classes.heading }>Ready? Set? Create!</h3>
@@ -12,7 +18,7 @@ export default function UserSignup() {
             stats ;&#41;
          </p>
          
-         <Button hasArrow={ true } text="Commence FlockFyshing!" link="/signup" />
+         <Button hasArrow={ true } text="Commence FlockFyshing!" link={ loggedIn ? "/dashboard" : "/signup" } />
       </section>
    );
 };

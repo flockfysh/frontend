@@ -32,6 +32,14 @@
     grid-template-columns: repeat(4, min-content);
 }
 
+.loadBtnContainer {
+    margin-top: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} 
+
 .uploadedImages button {
     cursor: pointer;
 
@@ -44,11 +52,6 @@
 
     background: none;
     padding: 2vh 2vw;
-
-    transform: translateX(-130%) ;
-
-    margin: 20px auto;
-    display: block;
 }
 
 .uploadedImages button:hover {

@@ -9,28 +9,6 @@
   align-items: center;
 }
 
-.listItem {
-  margin-right: 5rem;
-}
-
-.listItem:last-of-type {
-  margin-right: 0;
-}
-
-.navbarLink {
-  font-size: 1.6rem;
-  transition: all 0.25s ease-in-out;
-  color: var(--color-white);
-}
-
-.navbarLinkActive {
-  color: var(--color-blue-primary);
-}
-
-.navbarLink:hover {
-  color: #b0b0b0;
-}
-
 .logoText {
   font-size: 2.5rem;
   font-weight: 600;
@@ -40,3 +18,22 @@
 .logoText:hover {
   color: var(--color-blue-primary);
 }
+
+/* #region Nav Mobile Styles */
+
+.navOpenButton {
+  font-size: 30px;
+  align-self: center;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.navOpenButton:hover {
+  color: var(--color-blue-primary);
+}
+
+.mobileNavLinksContainer {
+  position: absolute;
+}
+
+/* #endregion */

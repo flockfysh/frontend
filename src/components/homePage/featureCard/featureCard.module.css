@@ -54,7 +54,7 @@
   line-height: 1.5;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 970px) {
   .content {
     display: none !important;
   }

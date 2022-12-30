@@ -152,6 +152,13 @@
     color: var(--color-black-secondary);
 }
 
+.deleteButtonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+}
+
 .deleteButton {
     cursor: pointer;
 
@@ -164,12 +171,7 @@
 
     background: none;
     padding: 2vh 2vw;
-
-    display: block;
-
-    bottom: 0;
-    margin: 100px auto;
-    transform: translateX(-130%);
+    justify-self: center;
 }
 
 .deleteButton:hover {

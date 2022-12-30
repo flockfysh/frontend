@@ -1,6 +1,7 @@
 import Button from '../../UI/button/button';
 import LinkUnderline from '../../UI/linkUnderline/linkUnderline';
 import Heading from '../../UI/heading/heading';
+
 import heroImage from '../../../images/heroImage.jpg';
 
 import classes from './hero.module.css';

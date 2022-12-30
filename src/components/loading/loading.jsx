@@ -34,6 +34,5 @@ export default function Loading() {
                 </path>
             </svg>
         </div>
-        
     );
 }
