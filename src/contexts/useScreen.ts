@@ -1,7 +1,5 @@
 import React from 'react';
 
-export const ScreenContext = React.createContext(
-  {
-    windowTooSmall: false
-  }
-);
+export const ScreenContext = React.createContext({
+	windowTooSmall: false
+});

@@ -9,17 +9,17 @@ import CoreBelief from '../../components/homePage/coreBelief/coreBelief';
 import { ScreenContext } from '../../contexts/useScreen';
 
 export default function HomePage() {
-   const { windowTooSmall } = useContext(ScreenContext);
+	const { windowTooSmall } = useContext(ScreenContext);
 
-   return (
-      <>
-         <Hero />
-         <Features />
-         <CoreBelief />
-         
-         { windowTooSmall ? <></> : <Reviews /> }
-         
-         <UserSignup />
-      </>
-   );
-};
+	return (
+		<>
+			<Hero />
+			<Features />
+			<CoreBelief />
+
+			{windowTooSmall ? <></> : <Reviews />}
+
+			<UserSignup />
+		</>
+	);
+}

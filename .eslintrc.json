@@ -12,6 +12,7 @@
     "overrides": [
     ],
     "parser": "@typescript-eslint/parser",
+    "ignorePatterns": ["node_modules/"],
     "parserOptions": {
         "ecmaVersion": "latest",
         "sourceType": "module"
@@ -40,6 +41,7 @@
         "semi": [
             "error",
             "always"
-        ]
+        ],
+        "react/react-in-jsx-scope": "off"
     }
 }

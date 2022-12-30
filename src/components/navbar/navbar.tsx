@@ -11,67 +11,67 @@ import { ScreenContext } from '../../contexts/useScreen';
 import classes from './navbar.module.css';
 
 export default function Navbar() {
-   const { loggedIn } = useContext(UserContext);
-   const { windowTooSmall } = useContext(ScreenContext);
+	const { loggedIn } = useContext(UserContext);
+	const { windowTooSmall } = useContext(ScreenContext);
 
-   const [navOpen, updateNav] = useState(false);
+	const [navOpen, updateNav] = useState(false);
 
-   const navLinks = [
-      {
-         to: '/',
-         name: 'Home'
-      },
-      {
-         to: '/blog',
-         name: 'Blog'
-      },
-      {
-         to: '/docs',
-         name: 'Documentation'
-      },
-      {
-         to: '/about',
-         name: 'About'
-      }
-   ];
+	const navLinks = [
+		{
+			to: '/',
+			name: 'Home'
+		},
+		{
+			to: '/blog',
+			name: 'Blog'
+		},
+		{
+			to: '/docs',
+			name: 'Documentation'
+		},
+		{
+			to: '/about',
+			name: 'About'
+		}
+	];
 
-   function changeNavDisplay() {
-      updateNav(!navOpen);
-   }
+	function changeNavDisplay() {
+		updateNav(!navOpen);
+	}
 
-   return (
-      <nav className={ classes.nav }>
-         <Link className={ classes.logoText } to="/">FlockFysh</Link>
+	return (
+		<nav className={ classes.nav }>
+			<Link className={ classes.logoText } to="/">FlockFysh</Link>
 
-         {
-            windowTooSmall ? (
-               <div>
-                  {
-                     windowTooSmall && navOpen ? (
-                        <div className={ classes.mobileNavLinksContainer }>
+			{
+				windowTooSmall ? (
+				<div>
+						{
+							windowTooSmall && navOpen ? (
+								<div className={ classes.mobileNavLinksContainer }>
                         
-                        </div>
-                     ) : <></>
-                  }
+								</div>
+							) : <></>
+					)}
 
-                  <RxHamburgerMenu onClick={ changeNavDisplay } className={ classes.navOpenButton } />
-               </div>
-            ) : (
-               <ul className={ classes.listContainer }>
-                  {
-                     navLinks.map(
-                        (link, i) => (
-                           <NavItem to={ link.to } name={ link.name } key={ i } />
-                        )
-                     )
-                  }
+						<RxHamburgerMenu onClick={ changeNavDisplay } className={ classes.navOpenButton } />
+				</div>
+			) : (
+					<ul className={ classes.listContainer }>
+						{
+							navLinks.map(
+								(link, i) => (
+									<NavItem to={ link.to } name={ link.name } key={ i } />
+								)
+							)
+						}
 
-                  {
-                     loggedIn ? <NavItem to="/dashboard" name="Dashboard" /> : <NavItem to="/login" name="Login" />
-                  }
-               </ul>
-            )
-         }
-      </nav>
-   );
+						{
+							loggedIn ? <NavItem to="/dashboard" name="Dashboard" /> : <NavItem to="/login" name="Login" />
+					)}
+				</ul>
+				)
+			}
+		</nav>
+	);
 }
