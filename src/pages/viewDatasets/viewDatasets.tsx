@@ -61,7 +61,7 @@ export default function ViewDatasets() {
 		})();
 	}, []);
 
-	if (isLoading) return <Loading />;
+	if(isLoading) return <Loading />;
 
 	return (
 		<div className={ classes.viewDatasetsContainer }>

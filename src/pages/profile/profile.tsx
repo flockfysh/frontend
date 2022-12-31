@@ -49,7 +49,7 @@ export default function Profile() {
     })();
   }, []);
 
-  if (loading) return <Loading />;
+  if(loading) return <Loading />;
 
   return (
     <div className={ classes.containerDiv }>

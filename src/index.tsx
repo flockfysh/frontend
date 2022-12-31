@@ -63,7 +63,7 @@ function MainApp() {
     updateLoggedIn(true);
   }
 
-  if (isLoading) return <Loading />;
+  if(isLoading) return <Loading />;
 
   return (
     <ScreenContext.Provider value={{ windowTooSmall }}>

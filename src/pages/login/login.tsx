@@ -24,17 +24,17 @@ export default function LoginForm(props: { type: string }) {
     const login = serverURL + path;
     const popup = window.open(login, '_blank', 'width=500,height=600');
 
-    if (popup) {
+    if(popup) {
       const timer = setInterval(() => {
-        if (popup.closed) {
-          if (timer) clearInterval(timer);
+        if(popup.closed) {
+          if(timer) clearInterval(timer);
         }
       }, 500);
     }
   }
 
   function passwordValidHandler(event: React.FocusEvent<HTMLInputElement>) {
-    if (password.length < 8) {
+    if(password.length < 8) {
       event.target.className = classes.inputInvalid;
 
       setPasswordIsValid(false);

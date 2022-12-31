@@ -5,7 +5,7 @@ import classes from './images.module.css';
 export default function Images(props: { dataset: Dataset }) {
   const testImages = [];
 
-  for (let i = 0; i < 20; i++) {
+  for(let i = 0; i < 20; i++) {
     testImages.push(props.dataset.uploadedImages[0]);
   }
 

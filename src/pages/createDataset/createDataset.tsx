@@ -33,8 +33,8 @@ export default function CreateDataset() {
   function uploadImages(e: React.ChangeEvent<HTMLInputElement>) {
     const updatedImages = [];
 
-    for (const f of e.target.files!) {
-      if (
+    for(const f of e.target.files!) {
+      if(
         !f.type.includes('png') &&
         !f.type.includes('jpg') &&
         !f.type.includes('webp') &&
@@ -54,7 +54,7 @@ export default function CreateDataset() {
   }
 
   function createDataset() {
-    if (datasetName.current.value.length === 0) {
+    if(datasetName.current.value.length === 0) {
       updateModalProps({
         display: true,
         message: 'Dataset name can\'t be empty.',
@@ -63,7 +63,7 @@ export default function CreateDataset() {
 
       return;
     } 
-    else if (pricingPlan.current.value.length === 0) {
+    else if(pricingPlan.current.value.length === 0) {
       updateModalProps({
         display: true,
         message: 'You need to select a pricing plan.',
@@ -72,7 +72,7 @@ export default function CreateDataset() {
 
       return;
     } 
-    else if (images.length !== 50) {
+    else if(images.length !== 50) {
       updateModalProps({
         display: true,
         message: 'Need to upload exactly 50 images.',
@@ -93,8 +93,8 @@ export default function CreateDataset() {
   function deleteImage(index: number) {
     const updatedImages = [];
 
-    for (let i = 0; i < images.length; i++) {
-      if (i === index) continue;
+    for(let i = 0; i < images.length; i++) {
+      if(i === index) continue;
 
       updatedImages.push(images[i]);
     }
@@ -109,7 +109,7 @@ export default function CreateDataset() {
     });
   }
 
-  if (isLoading) return <Loading />;
+  if(isLoading) return <Loading />;
 
   return (
     <div className={ classes.createDatasetContainer}>

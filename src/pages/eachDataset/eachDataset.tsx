@@ -56,7 +56,7 @@ export default function EachDataSet(props: { page: string }) {
     })();
   }, []);
 
-  if (loading) return <Loading />;
+  if(loading) return <Loading />;
 
   return (
     <div className={ classes.eachDataSetContainer }>
