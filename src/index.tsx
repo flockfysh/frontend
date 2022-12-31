@@ -81,8 +81,6 @@ function MainApp() {
               <Route path="/login" element={ <LoginPage type="Login" /> } />
               <Route path="/signup" element={ <LoginPage type="Signup" /> } />
 
-              <Route path="/annotate" element={ <Annotate /> }/>
-
               <Route path="*" element={ <PageNotFound /> } />
             </Route>
 
@@ -92,6 +90,8 @@ function MainApp() {
 
                 <Route path="profile" element={ <Profile /> } />
                 <Route path="create-dataset" element={ <CreateDataset /> } />
+
+                <Route path=":datasetId/annotate" element={ <Annotate /> }/>
               </Route>
 
               <Route
