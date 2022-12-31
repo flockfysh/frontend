@@ -4,15 +4,15 @@ import Navbar from './navbar/navbar';
 import Footer from './footer/footer';
 
 export default function RootLayout() {
-	return (
-		<>
-			<Navbar />
+  return (
+    <>
+      <Navbar />
 
-			<main>
-				<Outlet />
-			</main>
+      <main>
+        <Outlet />
+      </main>
 
-			<Footer />
-		</>
-	);
+      <Footer />
+    </>
+  );
 }

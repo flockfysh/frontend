@@ -32,107 +32,98 @@ import { MIN_WIDTH } from './settings';
 import './index.css';
 
 function MainApp() {
-	const [isLoading, updateLoading] = useState(false);
-	const [loggedIn, updateLoggedIn] = useState(false);
+  const [isLoading, updateLoading] = useState(false);
+  const [loggedIn, updateLoggedIn] = useState(false);
 
-	const [windowTooSmall, updateWindowTooSmall] = useState(
-		window.screen.width <= MIN_WIDTH
-	);
+  const [windowTooSmall, updateWindowTooSmall] = useState(
+    window.screen.width <= MIN_WIDTH
+  );
 
-	useEffect(() => {
-		updateLoading(true);
+  useEffect(() => {
+    updateLoading(true);
 
-		(async function () {
-			// fetch state from backend
+    (async function () {
+      // fetch state from backend
 
-			updateLoading(false);
-		})();
-	}, []);
+      updateLoading(false);
+    })();
+  }, []);
 
-	function updateMedia() {
-		updateWindowTooSmall(window.screen.width <= MIN_WIDTH);
-	}
+  function updateMedia() {
+    updateWindowTooSmall(window.screen.width <= MIN_WIDTH);
+  }
 
-	useEffect(() => {
-		window.addEventListener('resize', updateMedia);
+  useEffect(() => {
+    window.addEventListener('resize', updateMedia);
 
-		return () => window.removeEventListener('resize', updateMedia);
-	});
+    return () => window.removeEventListener('resize', updateMedia);
+  });
 
-	function setLoggedIn() {
-		updateLoggedIn(true);
-	}
+  function setLoggedIn() {
+    updateLoggedIn(true);
+  }
 
-	if (isLoading) return <Loading />;
+  if (isLoading) return <Loading />;
 
-	return (
-		<ScreenContext.Provider value={{ windowTooSmall }}>
-			<UserContext.Provider value={{ loggedIn, setLoggedIn }}>
-				<Routes>
-					<Route>
-						<Route path="/" element={<RootLayout />}>
-							<Route index element={<HomePage />} />
+  return (
+    <ScreenContext.Provider value={{ windowTooSmall }}>
+      <UserContext.Provider value={{ loggedIn, setLoggedIn }}>
+        <Routes>
+          <Route>
+            <Route path="/" element={ <RootLayout /> }>
+              <Route index element={ <HomePage /> } />
 
-							<Route path="/blog" element={<Blog />} />
-							<Route path="/docs" element={<Docs />} />
-							<Route path="/about" element={<About />} />
+              <Route path="/blog" element={ <Blog /> } />
+              <Route path="/docs" element={ <Docs /> } />
+              <Route path="/about" element={ <About /> } />
 
-							<Route
-								path="/login"
-								element={<LoginPage type="Login" />}
-							/>
-							<Route
-								path="/signup"
-								element={<LoginPage type="Signup" />}
-							/>
+              <Route path="/login" element={ <LoginPage type="Login" /> } />
+              <Route path="/signup" element={ <LoginPage type="Signup" /> } />
 
-							<Route path="*" element={<PageNotFound />} />
-						</Route>
+              <Route path="*" element={ <PageNotFound /> } />
+            </Route>
 
-						<Route path="/dashboard" element={<PrivateRoutes />}>
-							<Route element={<RootLayout />}>
-								<Route index element={<ViewDatasets />} />
+            <Route path="/dashboard" element={ <PrivateRoutes /> }>
+              <Route element={ <RootLayout /> }>
+                <Route index element={ <ViewDatasets /> } />
 
-								<Route path="profile" element={<Profile />} />
-								<Route
-									path="create-dataset"
-									element={<CreateDataset />}
-								/>
-							</Route>
+                <Route path="profile" element={ <Profile /> } />
+                <Route path="create-dataset" element={ <CreateDataset /> } />
+              </Route>
 
-							<Route
-								path=":datasetId/overview"
-								element={<EachDataSet page="overview" />}
-							/>
+              <Route
+                path=":datasetId/overview"
+                element={ <EachDataSet page="overview" /> }
+              />
 
-							<Route
-								path=":datasetId/uploaded-images"
-								element={<EachDataSet page="uploaded-images" />}
-							/>
+              <Route
+                path=":datasetId/uploaded-images"
+                element={ <EachDataSet page="uploaded-images" /> }
+              />
 
-							<Route
-								path=":datasetId/dataset-images"
-								element={<EachDataSet page="dataset-images" />}
-							/>
+              <Route
+                path=":datasetId/dataset-images"
+                element={ <EachDataSet page="dataset-images" /> }
+              />
 
-							<Route
-								path=":datasetId/settings"
-								element={<EachDataSet page="settings" />}
-							/>
-						</Route>
-					</Route>
-				</Routes>
-			</UserContext.Provider>
-		</ScreenContext.Provider>
-	);
+              <Route
+                path=":datasetId/settings"
+                element={ <EachDataSet page="settings" /> }
+              />
+            </Route>
+          </Route>
+        </Routes>
+      </UserContext.Provider>
+    </ScreenContext.Provider>
+  );
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 
 root.render(
-	<React.StrictMode>
-		<BrowserRouter>
-			<MainApp />
-		</BrowserRouter>
-	</React.StrictMode>
+  <React.StrictMode>
+    <BrowserRouter>
+      <MainApp />
+    </BrowserRouter>
+  </React.StrictMode>
 );

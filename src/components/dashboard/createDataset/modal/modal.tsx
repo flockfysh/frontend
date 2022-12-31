@@ -23,10 +23,11 @@ export default function Modal(props: ModalProps) {
 					props.displayImage ? (
 						<div className={ classes.imageContainer }>
 							<p>{ props.image.name }</p>
+
 							<img src={ URL.createObjectURL(props.image) } alt={ props.image.name } />
-					</div>
+						</div>
 					) : <p>{ props.message }</p>
-				)}
+				}
 
 				<button onClick={ props.closeModal } className={ classes.closeModal }>Ok</button>
 			</div>

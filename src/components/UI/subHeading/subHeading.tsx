@@ -1,19 +1,19 @@
 import classes from './subHeading.module.css';
 
 type SubHeadingProps = {
-	beforeSpan: string;
-	span: string;
-	afterSpan: string;
+  beforeSpan: string;
+  span: string;
+  afterSpan: string;
 };
 
 export default function SubHeading(props: SubHeadingProps) {
-	return (
-		<h1 className={classes.subHeading}>
-			{props.beforeSpan}
+  return (
+    <h1 className={ classes.subHeading }>
+      { props.beforeSpan }
 
-			<span className={classes.span}>{props.span}</span>
+      <span className={ classes.span }>{ props.span }</span>
 
-			{props.afterSpan}
-		</h1>
-	);
+      { props.afterSpan }
+    </h1>
+  );
 }

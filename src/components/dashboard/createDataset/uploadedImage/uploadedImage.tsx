@@ -43,7 +43,7 @@ export default function UploadedImage(props: UploadedImageProps) {
 		<div className={ classes.uploadedImageContainer }>
 			{
 				modalProps.display ? <Modal {...modalProps} closeModal={ closeModal } /> : <></>
-			)}
+			}
 
 			<h3>{ props.image.name }</h3>
 

@@ -52,7 +52,7 @@ export default function Navbar() {
                         
 								</div>
 							) : <></>
-					)}
+						}
 
 						<RxHamburgerMenu onClick={ changeNavDisplay } className={ classes.navOpenButton } />
 				</div>
@@ -68,7 +68,7 @@ export default function Navbar() {
 
 						{
 							loggedIn ? <NavItem to="/dashboard" name="Dashboard" /> : <NavItem to="/login" name="Login" />
-					)}
+						}
 				</ul>
 				)
 			}

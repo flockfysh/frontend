@@ -64,25 +64,25 @@ export default function ViewDatasets() {
 	if (isLoading) return <Loading />;
 
 	return (
-		<div className={classes.viewDatasetsContainer}>
-			<header className={classes.header}>
-				<MiniProfile name="Ray" email="ray@gmail.com" image={Image} />
+		<div className={ classes.viewDatasetsContainer }>
+			<header className={ classes.header }>
+				<MiniProfile name="Ray" email="ray@gmail.com" image={ Image } />
 
-				<div className={classes.searchWrapper}>
-					<div className={classes.container}>
+				<div className={ classes.searchWrapper }>
+					<div className={ classes.container }>
 						<input
 							type="text"
 							placeholder="Find your dataset..."
-							onChange={e => updateFilter(e.target.value)}
+							onChange={ e => updateFilter(e.target.value) }
 						/>
 
-						<img src={Icon} alt="" />
+						<img src={ Icon } alt="" />
 					</div>
 				</div>
 
-				<div className={classes.btnWrapper}>
+				<div className={ classes.btnWrapper }>
 					<Button
-						hasArrow={true}
+						hasArrow={ true }
 						gradientDirection="leftToRight"
 						text="Create a new dataset"
 						to="/dashboard/create-dataset"
@@ -90,36 +90,40 @@ export default function ViewDatasets() {
 				</div>
 			</header>
 
-			<h1 className={classes.viewDatasetsHeader}>Your Datasets</h1>
+			<h1 className={ classes.viewDatasetsHeader }>Your Datasets</h1>
 
-			<div className={classes.datasetsContainer}>
-				{(function generateFilterElements() {
-					const elements =
-						filter.length === 0
-							? datasets
-							: datasets.filter(d =>
-								d.name
-									.toLowerCase()
-									.includes(
-										filter
-											.replaceAll(' ', '')
+			<div className={ classes.datasetsContainer }>
+				{
+					(function generateFilterElements() {
+						const elements =
+							filter.length === 0
+								? datasets
+								: datasets.filter(d =>
+										d.name
 											.toLowerCase()
-									)
-							  );
-
-					if (elements.length === 0)
-						return (
-							<h1 className={classes.noDatasetsFound}>
-								Sorry, no datasets found. Go{' '}
-								<Link to="/dashboard/create-dataset">here</Link>{' '}
-								to create one.
-							</h1>
-						);
-					else
-						return elements.map((dataset, index) => (
-							<DatasetCard key={index} dataset={dataset} />
-						));
-				})()}
+											.includes(
+												filter
+													.replaceAll(' ', '')
+													.toLowerCase()
+											)
+								  );
+											
+						if (elements.length === 0)
+							return (
+								<h1 className={ classes.noDatasetsFound }>
+									Sorry, no datasets found. Go {' '}
+									<Link to="/dashboard/create-dataset">here</Link> {' '}
+									to create one.
+								</h1>
+							);
+						else
+							return elements.map(
+								(dataset, index) => (
+									<DatasetCard key={ index } dataset={ dataset } />
+								)
+							);
+					})()
+				}
 			</div>
 		</div>
 	);
