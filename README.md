@@ -8,4 +8,4 @@
 ## Contributing
     - All files and folders should be in camelCase
     - Double quotes in JSX and single-quotes everywhere else
-    - Spaces between curly braces e.g `{ console.log() }` instead of `{console.log()}`
+    - Spaces between curly braces e.g ```{ console.log() }``` instead of ```{console.log()}```
