@@ -3,18 +3,36 @@
         "browser": true,
         "es2021": true
     },
-    "extends": [
-        "plugin:react/recommended",
-        "standard-with-typescript"
-    ],
+    "root": true,
     "overrides": [
     ],
+    "parser": "@typescript-eslint/parser",
+    "ignorePatterns": ["node_modules/"],
     "parserOptions": {
-        "ecmaVersion": "latest"
+        "ecmaVersion": "latest",
+        "sourceType": "module",
+        "ecamFeatures": {
+            "jsx": true
+        }
     },
     "plugins": [
-        "react"
+        "react",
+        "@typescript-eslint"
     ],
     "rules": {
+        "jsx-quotes": [
+            "error", 
+            "prefer-double"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-extra-semi": "warn",
+        "react/react-in-jsx-scope": "off"
     }
 }
