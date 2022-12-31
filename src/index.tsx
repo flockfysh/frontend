@@ -12,6 +12,7 @@ import Docs from './pages/docs/docs';
 import Blog from './pages/blog/blog';
 import About from './pages/about/about';
 import Profile from './pages/profile/profile';
+import Annotate from './pages/annotate/annotate';
 
 import ViewDatasets from './pages/viewDatasets/viewDatasets';
 import EachDataSet from './pages/eachDataset/eachDataset';
@@ -89,6 +90,8 @@ function MainApp() {
 
                 <Route path="profile" element={ <Profile /> } />
                 <Route path="create-dataset" element={ <CreateDataset /> } />
+
+                <Route path=":datasetId/annotate" element={ <Annotate /> }/>
               </Route>
 
               <Route

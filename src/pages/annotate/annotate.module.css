@@ -1,0 +1,120 @@
+.annotateContainer {
+    margin-top: 50px;    
+}
+
+.annotateContainer::after {
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+
+    position: absolute;
+    background: radial-gradient(
+        circle at top left, 
+        var(--color-blue-gradients), 
+        rgba(0, 0, 0, 0) 30%
+    ) top left;
+
+    content: "";
+    top: 0;
+    left: 0;
+    z-index: -1;
+    min-width: 30rem;
+}
+
+.annotateContainer h1 {
+    margin-bottom: 50px;
+    font-size: 28px;
+}
+
+.contentContainer {
+    display: flex;
+    align-items: center;
+}
+
+.leftContainer {
+    
+}
+
+.labelsContainer {
+    height: 100px;
+    width: 635px;
+    display: flex;
+    border-radius: 25px;
+    background-color: var(--color-black-secondary);
+}
+
+.addLabelButton {
+    align-self: center;
+    margin-left: 50px;
+    font-size: 30px;
+    height: 40px;
+    width: 40px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    transition: 0.2s;
+    background-color: var(--color-blue-primary);
+}
+
+.addLabelButton:hover {
+    color: var(--color-blue-secondary);
+}
+
+.image {
+    border-radius: 50px;
+    width: 635px;
+    height: 423px;
+    margin-bottom: 50px;
+}
+
+.rightContainer {
+    margin-top: -100px;
+    margin-left: 25vw;
+}
+
+.switchImageContainer {
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.switchImageButton {
+    border-radius: 10px;
+    background-color: var(--color-blue-primary);
+    height: 50px;
+    border: none;
+    width: 50px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.switchImageButton:hover .svg {
+    stroke: var(--color-blue-secondary);
+}
+
+.submitButtonContainer * {
+    margin: auto;
+    margin-bottom: 50px;
+}
+
+.svg {
+   width: 18px;
+   stroke: var(--color-white);
+   stroke-width: 1.8;
+   transition: 0.2s;
+   align-self: center;
+}
+
+.leftSvg {
+    transform: rotate(180deg);
+}
+
+.box {
+    margin: auto;
+    height: 423px;
+    width: 6.5vw;
+    border-radius: 25px;
+    background-color: var(--color-black-secondary);
+}
