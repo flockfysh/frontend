@@ -60,12 +60,12 @@
 .addLabelButton:hover {
     color: var(--color-blue-secondary);
 }
-
-.image {
-    border-radius: 50px;
+.wrapperDiv {
     width: 635px;
     height: 423px;
     margin-bottom: 50px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 
 .rightContainer {

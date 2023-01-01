@@ -24,10 +24,6 @@
             "error", 
             "prefer-double"
         ],
-        "quotes": [
-            "error",
-            "single"
-        ],
         "semi": [
             "error",
             "always"

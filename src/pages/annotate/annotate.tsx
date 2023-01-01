@@ -1,16 +1,24 @@
+import { useRef } from 'react';
 import classes from './annotate.module.css';
 import Label from '../../components/dashboard/annotate/label/label';
 import Button from '../../components/UI/button/button';
-
+import Wrapper from '../../components/dashboard/annotate/wrapper/wrapper';
+import { url } from 'inspector';
 export default function Annotate() {
+	const rect = {
+		x: 150,
+    	y: 150,
+    	width: 100,
+    	height: 100
+	};
     return (
         <div className={ classes.annotateContainer }>
 			<h1>Picture- 1/50</h1>
-			
 			<div className={ classes.contentContainer }>
 				<div className={ classes.leftContainer }>
-					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmzsi4JX8QgMg_J0-xUHxeJ9Ot_2zVfoh2Gw&usqp=CAU" alt="image" className={ classes.image } />
-
+					<div className={classes.wrapperDiv} style={{backgroundImage: "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmzsi4JX8QgMg_J0-xUHxeJ9Ot_2zVfoh2Gw&usqp=CAU')"}}>
+						<Wrapper rect={rect} imgWidth={635} imgHeight={423}/>
+					</div>
 					<div className={ classes.labelsContainer }>
 						<Label text="Dog" />
 						<Label text="Playing" />
