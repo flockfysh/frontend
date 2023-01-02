@@ -1,6 +1,8 @@
 # flockfysh website
 
 ## Setup on local
+    - Setup env vars
+        - `DEBUG=true`
     - clone repo
     - npm i
     - npm start
