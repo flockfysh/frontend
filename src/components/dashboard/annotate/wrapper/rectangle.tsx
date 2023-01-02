@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { useRef, useEffect } from 'react';
 import { Rect, Transformer } from 'react-konva';
 
 interface RectangleProps{
@@ -9,22 +9,24 @@ interface RectangleProps{
   maxWidth: number,
   maxHeight: number
 }
-const Rectangle: FC<RectangleProps> = ({ shapeProps, isSelected, onSelect, onChange, maxWidth, maxHeight }) => {
-  const shapeRef = React.useRef<any>();
-  const trRef = React.useRef<any>();
-  React.useEffect(() => {
-    if (isSelected) {
-      trRef?.current?.nodes([shapeRef.current]);
-      trRef?.current?.getLayer().batchDraw();
+
+export default function Rectangle(props: RectangleProps) {
+  const shapeRef = useRef({} as typeof Rect);
+  const trRef = useRef({});
+
+  useEffect(() => {
+    if (props.isSelected) {
+      trRef.current.nodes([shapeRef.current]);
+      trRef.current.getLayer().batchDraw();
     }
-  }, [isSelected]);
+  }, [props.isSelected]);
 
   return (
-    <React.Fragment>
+    <>
       <Rect
-        onClick={onSelect}
-        onTap={onSelect}
-        ref={shapeRef}
+        onClick={ props.onSelect }
+        onTap={ props.onSelect }
+        ref={ shapeRef }
         {...shapeProps}
         draggable
         onDragMove={(e)=>{
@@ -74,8 +76,6 @@ const Rectangle: FC<RectangleProps> = ({ shapeProps, isSelected, onSelect, onCha
           }}
         />
       )}
-    </React.Fragment>
+    </>
   );
 };
-
-export default Rectangle;

@@ -21,7 +21,7 @@
     ],
     "rules": {
         "jsx-quotes": [
-            "error", 
+            "error",
             "prefer-double"
         ],
         "semi": [
