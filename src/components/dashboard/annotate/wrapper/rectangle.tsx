@@ -52,12 +52,12 @@ export default function Rectangle(props: RectangleProps) {
           }
         }
         onTransform={
-          e => {
+          _ => {
 
           }
         }
         onTransformEnd={
-          e => {
+          _ => {
             const curr = shapeRef.current;
             const scaleX = curr.scaleX();
             const scaleY = curr.scaleY();
@@ -92,9 +92,7 @@ export default function Rectangle(props: RectangleProps) {
                   newBox.y + newBox.height > props.maxHeight + tolerance || 
                   newBox.x < -tolerance || 
                   newBox.y < -tolerance
-                ) {
-                  return oldBox;
-                }
+                ) return oldBox;
 
                 return newBox;
               }

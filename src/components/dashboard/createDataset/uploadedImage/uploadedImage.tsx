@@ -7,25 +7,27 @@ import classes from './uploadedImage.module.css';
 import { ModalProps } from '../modal/modal';
 
 type ModalSettings = ModalProps & { display: boolean; displayImage: true };
+
 type UploadedImageProps = {
 	image: File;
-	deleteImage: (n: number) => void;
 	index: number;
+	deleteImage: (n: number) => void;
 };
 
 export default function UploadedImage(props: UploadedImageProps) {
 	const [modalProps, updateModalProps] = useState(
         {
-		display: false,
-		displayImage: true
-	} as ModalSettings);
+			display: false,
+			displayImage: true
+		} as ModalSettings
+	);
 
 	function displayImage() {
 		updateModalProps(
 			{
-			...modalProps,
-			display: true,
-			image: props.image
+				...modalProps,
+				display: true,
+				image: props.image
 			}
 		);
 	}
@@ -33,8 +35,8 @@ export default function UploadedImage(props: UploadedImageProps) {
 	function closeModal() {
 		updateModalProps(
 			{
-			...modalProps,
-			display: false
+				...modalProps,
+				display: false
 			}
 		);
 	}
@@ -49,7 +51,14 @@ export default function UploadedImage(props: UploadedImageProps) {
 
 			<button className={ classes.viewImage } onClick={ displayImage }>View Image</button>
 
-			<button onClick={ () => props.deleteImage(props.index) } className={ classes.deleteUpload }>X</button>
+			<button 
+				onClick={ 
+					() => props.deleteImage(props.index) 
+				} 
+				className={ classes.deleteUpload }
+			>
+				X
+			</button>
 		</div>
 	);
 }
