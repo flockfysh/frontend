@@ -8,12 +8,12 @@ type SubHeadingProps = {
 
 export default function SubHeading(props: SubHeadingProps) {
   return (
-    <h1 className={ classes.subHeading }>
+    <h2 className={ classes.subHeading }>
       { props.beforeSpan }
 
       <span className={ classes.span }>{ props.span }</span>
 
       { props.afterSpan }
-    </h1>
+    </h2>
   );
 }

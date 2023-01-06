@@ -1,17 +1,29 @@
 .coreBeliefSection {
-   margin-bottom: 25rem;
-   margin-top: 20rem;
+    margin: 10rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5rem;
 }
 
 .cardsGroup {
-   display: flex;
-   justify-content: space-between;
-   margin-top: 6rem;
+    display: grid;
+    width: var(--landing-page-mobile-size);
+    justify-content: space-between;
+    gap: 3rem;
+    flex-direction: column;
 }
 
-@media screen and (max-width: 970px) {
-   .cardsGroup {
-      flex-direction: column;
-      align-items: center;
-   }
+@media only all and (min-width: 768px) {
+    .cardsGroup {
+        grid-template-columns: repeat(3, 1fr);
+        width: 100%;
+    }
 }
+
+/*@media screen and (max-width: 970px) {*/
+/*    .cardsGroup {*/
+/*        flex-direction: column;*/
+/*        align-items: center;*/
+/*    }*/
+/*}*/

@@ -32,8 +32,8 @@ export default function Features() {
   return (
     <section className={ classes.featureSectionDiv }>
       <Subheading
-        beforeSpan="Quality datasets, "
-        span="zero "
+        beforeSpan="Quality&nbsp;datasets, "
+        span="zero&nbsp;"
         afterSpan="effort"
       />
 

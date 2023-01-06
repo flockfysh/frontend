@@ -1,36 +1,60 @@
 .cardsCollection {
-   display: flex;
-   justify-content: space-between;
-   margin-bottom: 5rem;
-   margin-top: 4rem;
+   display: grid;
+   width: var(--landing-page-mobile-size);
+   grid-template-columns: 1fr;
+   gap: 3rem;
+   position: relative;
 }
 
 .cardsGroup {
-   width: 30%;
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+   row-gap: 3rem;
+}
+
+.desktopOnlyGroup {
+   display: none;
 }
 
 .moreText {
    font-size: 2rem;
    display: inline-block;
+   text-align: center;
 }
 
 .reviewSection {
    text-align: center;
-   margin-bottom: 20rem;
-   margin-top: 5rem;
+   margin: 20rem auto;
    position: relative;
+   display: flex;
+   gap: 5rem;
+   align-items: center;
+   flex-direction: column;
 }
 
-.reviewSection::before {
+.cardsCollection::before {
    content: "";
    position: absolute;
    left: 0;
-   bottom: 8rem;
+   bottom: 0;
    width: 100%;
-   height: 40%;
+   height: 10rem;
    z-index: 2;
    background: linear-gradient(
       rgba(255, 0, 0, 0)
       , var(--color-black-primary) 100%
    );
+   opacity: 0.9;
+}
+
+@media only all and (min-width: 768px) {
+   .cardsCollection {
+      grid-template-columns: repeat(3, 1fr);
+      width: 100%;
+   }
+
+   .desktopOnlyGroup {
+      display: flex;
+   }
 }

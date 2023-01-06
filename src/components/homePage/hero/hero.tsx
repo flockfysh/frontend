@@ -13,17 +13,17 @@ export default function Hero() {
         <Heading
           beforeSpan=""
           span="Automatic "
-          afterSpan="dataset generation, minus the hassle."
+          afterSpan="dataset&nbsp;generation, minus&nbsp;the&nbsp;hassle."
         />
-
         <div className={ classes.buttonsHolder }>
           <Button hasArrow={ true } text="Start Flockfyshing" to="/signup" />
-
           <LinkUnderline to="/docs" text="Read the docs" />
         </div>
       </div>
 
-      <img src={ heroImage } alt="Hero" className={ classes.image } />
+      <div className={classes.imageContainer}>
+          <img src={ heroImage } alt="Hero" className={ classes.image } />
+      </div>
     </section>
   );
 }

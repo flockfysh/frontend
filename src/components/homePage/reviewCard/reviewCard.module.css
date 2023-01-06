@@ -12,10 +12,6 @@
    margin-left: 0;
 }
 
-.cardDiv:not(:last-of-type) {
-   margin-bottom: 4rem;
-}
-
 .cardDiv::before {
    content: "";
    position: absolute;
@@ -47,7 +43,6 @@
 .content {
    color: var(--color-gray);
    font-weight: 400;
-   font-size: 1.1rem;
    line-height: 1.5;
 }
 
