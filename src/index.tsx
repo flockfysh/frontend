@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom/client';
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import {Route, BrowserRouter, Routes} from 'react-router-dom';
 
 // #region Page Imports
 
@@ -23,110 +23,90 @@ import CreateDataset from './pages/createDataset/createDataset';
 import RootLayout from './components/rootLayout';
 import PrivateRoutes from './components/privateRoutes';
 
-import Loading from './components/loading/loading';
+import {UserWrapper} from './contexts/userContext';
+import {ScreenContext} from './contexts/useScreen';
 
-import { UserContext } from './contexts/userContext';
-import { ScreenContext } from './contexts/useScreen';
-
-import { MIN_WIDTH } from './settings';
+import {MIN_WIDTH} from './settings';
 
 import './index.css';
 
 function MainApp() {
-  const [isLoading, updateLoading] = useState(false);
-  const [loggedIn, updateLoggedIn] = useState(false);
+    const [windowTooSmall, updateWindowTooSmall] = useState(
+        window.screen.width <= MIN_WIDTH
+    );
 
-  const [windowTooSmall, updateWindowTooSmall] = useState(
-    window.screen.width <= MIN_WIDTH
-  );
+    function updateMedia() {
+        updateWindowTooSmall(window.screen.width <= MIN_WIDTH);
+    }
 
-  useEffect(() => {
-    updateLoading(true);
+    useEffect(() => {
+        window.addEventListener('resize', updateMedia);
 
-    (async function () {
-      // fetch state from backend
+        return () => window.removeEventListener('resize', updateMedia);
+    });
 
-      updateLoading(false);
-    })();
-  }, []);
 
-  function updateMedia() {
-    updateWindowTooSmall(window.screen.width <= MIN_WIDTH);
-  }
+    return (
+        <ScreenContext.Provider value={{windowTooSmall}}>
+            <UserWrapper>
+                <Routes>
+                    <Route>
+                        <Route path="/" element={<RootLayout/>}>
+                            <Route index element={<HomePage/>}/>
 
-  useEffect(() => {
-    window.addEventListener('resize', updateMedia);
+                            <Route path="/blog" element={<Blog/>}/>
+                            <Route path="/docs" element={<Docs/>}/>
+                            <Route path="/about" element={<About/>}/>
 
-    return () => window.removeEventListener('resize', updateMedia);
-  });
+                            <Route path="/login" element={<LoginPage type="Login"/>}/>
+                            <Route path="/signup" element={<LoginPage type="Signup"/>}/>
 
-  function setLoggedIn() {
-    updateLoggedIn(true);
-  }
+                            <Route path="*" element={<PageNotFound/>}/>
+                        </Route>
 
-  if(isLoading) return <Loading />;
+                        <Route path="/dashboard" element={<PrivateRoutes/>}>
+                            <Route element={<RootLayout/>}>
+                                <Route index element={<ViewDatasets/>}/>
 
-  return (
-    <ScreenContext.Provider value={{ windowTooSmall }}>
-      <UserContext.Provider value={{ loggedIn, setLoggedIn }}>
-        <Routes>
-          <Route>
-            <Route path="/" element={ <RootLayout /> }>
-              <Route index element={ <HomePage /> } />
+                                <Route path="profile" element={<Profile/>}/>
+                                <Route path="create-dataset" element={<CreateDataset/>}/>
 
-              <Route path="/blog" element={ <Blog /> } />
-              <Route path="/docs" element={ <Docs /> } />
-              <Route path="/about" element={ <About /> } />
+                                <Route path=":datasetId/annotate" element={<Annotate/>}/>
+                            </Route>
 
-              <Route path="/login" element={ <LoginPage type="Login" /> } />
-              <Route path="/signup" element={ <LoginPage type="Signup" /> } />
+                            <Route
+                                path=":datasetId/overview"
+                                element={<EachDataSet page="overview"/>}
+                            />
 
-              <Route path="*" element={ <PageNotFound /> } />
-            </Route>
+                            <Route
+                                path=":datasetId/uploaded-images"
+                                element={<EachDataSet page="uploaded-images"/>}
+                            />
 
-            <Route path="/dashboard" element={ <PrivateRoutes /> }>
-              <Route element={ <RootLayout /> }>
-                <Route index element={ <ViewDatasets /> } />
+                            <Route
+                                path=":datasetId/dataset-images"
+                                element={<EachDataSet page="dataset-images"/>}
+                            />
 
-                <Route path="profile" element={ <Profile /> } />
-                <Route path="create-dataset" element={ <CreateDataset /> } />
-
-                <Route path=":datasetId/annotate" element={ <Annotate /> }/>
-              </Route>
-
-              <Route
-                path=":datasetId/overview"
-                element={ <EachDataSet page="overview" /> }
-              />
-
-              <Route
-                path=":datasetId/uploaded-images"
-                element={ <EachDataSet page="uploaded-images" /> }
-              />
-
-              <Route
-                path=":datasetId/dataset-images"
-                element={ <EachDataSet page="dataset-images" /> }
-              />
-
-              <Route
-                path=":datasetId/settings"
-                element={ <EachDataSet page="settings" /> }
-              />
-            </Route>
-          </Route>
-        </Routes>
-      </UserContext.Provider>
-    </ScreenContext.Provider>
-  );
+                            <Route
+                                path=":datasetId/settings"
+                                element={<EachDataSet page="settings"/>}
+                            />
+                        </Route>
+                    </Route>
+                </Routes>
+            </UserWrapper>
+        </ScreenContext.Provider>
+    );
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <MainApp />
-    </BrowserRouter>
-  </React.StrictMode>
+    <React.StrictMode>
+        <BrowserRouter>
+            <MainApp/>
+        </BrowserRouter>
+    </React.StrictMode>
 );

@@ -6,5 +6,11 @@ import { UserContext } from '../contexts/userContext';
 export default function PrivateRoutes() {
   const { loggedIn } = useContext(UserContext);
 
-  return loggedIn ? <Outlet /> : <Navigate to="/login" />;
+  if (loggedIn === true) {
+    return <Outlet />;
+  } else if (loggedIn === false) {
+    return <Navigate to="/login" />;
+  } else {
+    return null;
+  }
 }

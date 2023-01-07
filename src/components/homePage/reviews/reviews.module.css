@@ -46,6 +46,7 @@
       , var(--color-black-primary) 100%
    );
    opacity: 0.9;
+   pointer-events: none;
 }
 
 @media only all and (min-width: 768px) {
