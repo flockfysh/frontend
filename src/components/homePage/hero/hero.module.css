@@ -1,15 +1,21 @@
-.image {
-   width: 35%;
-   border-radius: 4rem;
+.imageContainer {
+   width: var(--landing-page-mobile-size);
+   position: relative;
 }
 
-.heroSectionDiv::before {
+.image {
+   border-radius: 3.5rem;
+}
+
+.imageContainer::before {
    content: "";
-   width: 55vw;
-   height: 55vw;
+   width: 200%;
+   aspect-ratio: 1/1;
    position: absolute;
-   right: -27rem;
    z-index: -1;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
    background-image: radial-gradient(
       circle, 
       var(--color-blue-gradients) 10%, 
@@ -19,30 +25,51 @@
 }
 
 .heroSectionDiv {
-   margin: 18rem 0;
+   margin: 10rem 0 15rem;
    align-items: center;
    display: flex;
    position: relative;
+   text-align: center;
+   flex-direction: column;
+   row-gap: 2rem;
+   column-gap: 4rem;
+}
+
+.contentSection {
+   display: flex;
+   align-items: center;
+   flex-direction: column;
 }
 
 .buttonsHolder {
-   width: 40rem;
-   margin-top: 5rem;
+   margin-top: 2rem;
+   gap: 2rem;
    display: flex;
    align-items: center;
    justify-content: space-between;
+   flex-direction: column;
 }
 
-@media screen and (max-width: 970px) {
-   .image {
-      display: none;
+@media only all and (min-width: 960px) {
+   .heroSectionDiv {
+      flex-direction: row;
+      text-align: left;
    }
 
-   .heroSectionDiv::before {
-      left: 0;
+
+
+   .buttonsHolder {
+      flex-direction: row;
+      align-items: baseline;
    }
 
-   h1 {
-      font-size: 30px !important;
+   .contentSection {
+      align-items: flex-start;
+      flex: 1;
+   }
+
+   .imageContainer {
+      width: min(min(max(30rem, 50%), 100%), 60rem);
+      flex: none;
    }
 }

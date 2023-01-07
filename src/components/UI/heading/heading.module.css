@@ -1,8 +1,8 @@
 .header {
    font-weight: bold;
-   font-size: 4.5rem;
-   width: 80%;
+   /*width: 80%;*/
    line-height: 1.4;
+   /*margin: auto;*/
 }
 
 .span {

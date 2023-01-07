@@ -21,7 +21,7 @@ export default function FeatureCard(props: FeatureCardProps) {
   return (
     <div className={ classes.cardDiv }>
       <div className={ classes.headContent }>
-        <div className={ classes.heading }>{ props.heading }</div>
+        <h3 className={ classes.heading }>{ props.heading }</h3>
 
         <img className={ classes.image } src={ ICONS[props.image] } alt="icon" />
       </div>

@@ -8,9 +8,9 @@ type CoreBeliefCardProps = {
 export default function CoreBeliefCard(props: CoreBeliefCardProps) {
   return (
     <div className={ classes.card }>
-      <h5 className={ classes.heading }>{ props.heading }</h5>
+      <h3 className={ classes.heading }>{ props.heading }</h3>
 
-      <h6 className={ classes.subHeading }>{ props.subHeading }</h6>
+      <p className={ classes.subHeading }>{ props.subHeading }</p>
     </div>
   );
 }

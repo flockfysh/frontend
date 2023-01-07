@@ -1,8 +1,9 @@
 .cardDiv {
-  padding: 3rem 4rem;
+  padding: 3rem 3rem;
   position: relative;
   text-align: left;
   margin-left: 0;
+  width: 100%;
   color: var(--color-white);
 }
 
@@ -45,17 +46,9 @@
 
 .heading {
   font-weight: 500;
-  font-size: 2rem;
 }
 
 .content {
   font-weight: 400;
-  font-size: 1.3rem;
   line-height: 1.5;
-}
-
-@media screen and (max-width: 970px) {
-  .content {
-    display: none !important;
-  }
 }
