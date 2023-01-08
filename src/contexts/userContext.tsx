@@ -3,26 +3,27 @@ import Loading from "../components/loading/loading";
 import {serverURL} from "../settings";
 
 export const UserContext = React.createContext<{
-    curUser?: User | null,
-    loggedIn?: boolean,
+    curUser: User | null,
+    loggedIn: boolean,
     refresh: () => void
 }>({
-    curUser: undefined,
-    loggedIn: undefined,
+    curUser: null,
+    loggedIn: false,
     refresh: () => {
     },
 });
 
 export function UserWrapper(props: PropsWithChildren) {
-    const [curUser, setCurUser] = React.useState<User | null | undefined>();
+    const [curUser, setCurUser] = React.useState<User | null>(null);
+    const [loaded, setLoaded] = React.useState<boolean>(false);
 
     React.useEffect(() => {
-        if (curUser === undefined) {
+        if (!loaded) {
             fetch(serverURL, {
                 credentials: "include"
             }).then(async res => {
                 const data = await res.json();
-                console.log(data);
+                setLoaded(true);
                 if (data.loggedIn) {
                     setCurUser({
                         name: data.curUser.firstName,
@@ -34,25 +35,20 @@ export function UserWrapper(props: PropsWithChildren) {
                 }
             });
         }
-    }, [curUser]);
+    }, [loaded]);
 
-    if (curUser === undefined) return <Loading/>;
+    if (!loaded) {
+        return <Loading/>;
+    }
 
     function refresh() {
-        setCurUser(undefined);
+        setLoaded(false);
     }
 
-    let loggedIn: boolean|undefined = undefined;
-
-    if (curUser) {
-        loggedIn = true;
-    } else if (curUser === null) {
-        loggedIn = false;
-    }
+    let loggedIn: boolean;
+    loggedIn = !!curUser;
 
     const curState = {curUser, refresh, loggedIn};
-
-    console.log(curState);
 
     return <UserContext.Provider value={curState}>
         {props.children}
