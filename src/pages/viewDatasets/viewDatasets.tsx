@@ -66,8 +66,7 @@ export default function ViewDatasets() {
 	return (
 		<div className={ classes.viewDatasetsContainer }>
 			<header className={ classes.header }>
-				<MiniProfile name="Ray" email="ray@gmail.com" image={ Image } />
-
+				<MiniProfile/>
 				<div className={ classes.searchWrapper }>
 					<div className={ classes.container }>
 						<input

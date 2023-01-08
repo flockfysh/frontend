@@ -18,11 +18,17 @@ export function UserWrapper(props: PropsWithChildren) {
 
     React.useEffect(() => {
         if (curUser === undefined) {
-            fetch(serverURL).then(async res => {
+            fetch(serverURL, {
+                credentials: "include"
+            }).then(async res => {
                 const data = await res.json();
                 console.log(data);
                 if (data.loggedIn) {
-                    setCurUser(data.curUser as User);
+                    setCurUser({
+                        name: data.curUser.firstName,
+                        email: data.curUser.email,
+                        profileImage: data.curUser.profilePhoto,
+                    });
                 } else {
                     setCurUser(null);
                 }

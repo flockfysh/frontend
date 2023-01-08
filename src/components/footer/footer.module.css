@@ -3,8 +3,8 @@
     display: flex;
     justify-content: space-between;
     position: relative;
-    overflow: hidden;
-    /*bottom: 0 !important;*/
+    /*overflow-x: visible;*/
+    /*overflow-y: hidden;*/
     flex-direction: column-reverse;
     row-gap: 6rem;
     column-gap: 2rem;
@@ -21,19 +21,19 @@
 
 .footer::before {
     content: "";
-    height: 200%;
-    aspect-ratio: 1/1;
+    height: min(120vw, 150%);
+    aspect-ratio: 2/1;
     bottom: 0;
     left: 50%;
-    transform: translate(-50%, 50%);
+    transform: translate(-50%, 0);
     position: absolute;
     z-index: -1;
     background-image: radial-gradient(
-            circle,
+            circle at 50% 100%,
             var(--color-blue-gradients) 10%,
             rgba(0, 0, 0, 0) 70%
     );
-    border-radius: 300rem;
+
 }
 
 .footerLinksHolder {

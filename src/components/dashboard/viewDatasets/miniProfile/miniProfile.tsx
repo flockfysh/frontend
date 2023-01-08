@@ -1,23 +1,25 @@
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import React from "react";
 import classes from './miniProfile.module.css';
+import {UserContext} from "../../../../contexts/userContext";
 
-type MiniProfileProps = {
-  image: string;
-  name: string;
-  email: string;
-};
+export default function MiniProfile() {
+    const {curUser} = React.useContext(UserContext);
 
-export default function MiniProfile(props: MiniProfileProps) {
-  return (
-    <Link to="/dashboard/profile">
-      <div className={ classes.mainDiv }>
-        <img className={ classes.image } src={ props.image } alt="" />
+    if (curUser) {
+        return (
+            <Link to="/dashboard/profile">
+                <div className={classes.mainDiv}>
+                    <img className={classes.image} src={curUser.profileImage} alt=""/>
 
-        <div className={ classes.textInfo }>
-          <div className={ classes.name }>{ props.name }</div>
-          <div className={ classes.email }>{ props.email }</div>
-        </div>
-      </div>
-    </Link>
-  );
+                    <div className={classes.textInfo}>
+                        <div className={classes.name}>{curUser.name}</div>
+                        <div className={classes.email}>{curUser.email}</div>
+                    </div>
+                </div>
+            </Link>
+        );
+    }
+
+    return null;
 }
