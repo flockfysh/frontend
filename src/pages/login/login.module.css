@@ -59,26 +59,17 @@
 
 .form {
    background-color: var(--color-black-secondary);
-   padding: 4rem 8rem;
-   width: 80rem;
+   padding: 4rem calc(4rem + 2vw);
+   width: var(--landing-page-mobile-size);
    margin: 15rem auto;
    border-radius: 2rem;
    display: flex;
+   flex-direction: column;
    justify-content: space-between;
    position: relative;
+   row-gap: 2.5rem;
    align-items: center;
-}
-
-.form::after {
-   content: "";
-   position: absolute;
-   z-index: 2;
-   left: 50%;
-   top: 10%;
-   width: 1px;
-   height: 80%;
-   border-radius: 2rem;
-   background-color: var(--color-white);
+   height: fit-content;
 }
 
 .form::before {
@@ -87,9 +78,8 @@
    left: 50%;
    top: 50%;
    transform: translate(-50%, -50%);
-   width: 65rem;
-   height: 65rem;
-   position: absolute;
+   width: 140%;
+   aspect-ratio: 1/1;
    z-index: -1;
    background-image: radial-gradient(
       circle, 
@@ -156,10 +146,6 @@
    transition: 0.2s;
 }
 
-.link:hover {
-   color: rgb(0, 12, 121);
-}
-
 .inputInvalid {
    border: 3px solid var(--color-red-primary);
    background-color: var(--color-red-secondary);
@@ -196,4 +182,23 @@
 
 .inputInvalidTextActive:nth-of-type(2) {
    margin-bottom: 1rem;
+}
+
+.formSeparator {
+   width: 100%;
+   height: 0.125rem;
+   background: var(--color-white);
+}
+
+@media only all and (min-width: 960px) {
+   .form {
+      flex-direction: row;
+      width: 100%;
+      max-width: 80rem;
+   }
+
+   .formSeparator {
+      height: 20rem;
+      width: 0.0625rem;
+   }
 }

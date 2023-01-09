@@ -6,7 +6,7 @@
    flex-direction: column;
    justify-items: center;
    align-items: center;
-   margin-bottom: 3rem;
+   margin-block: 15rem;
 }
 
 .heading {

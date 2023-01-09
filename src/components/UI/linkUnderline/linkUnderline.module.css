@@ -3,19 +3,21 @@
    font-size: 1.4rem;
    margin-bottom: 1rem;
    position: relative;
+   text-decoration: underline 0.25rem;
+   transition: 0.2s;
+   text-underline-offset: 0.5rem;
+}
 
-   transition: 0.2s;
-}
-.link::after {
-   content: "";
-   width: 100%;
-   height: 3px;
-   background-color: var(--color-blue-primary);
-   position: absolute;
-   bottom: -0.5rem;
-   left: 0;
-   transition: 0.2s;
-}
+/*.link::after {*/
+/*   content: "";*/
+/*   width: 100%;*/
+/*   height: 3px;*/
+/*   background-color: var(--color-blue-primary);*/
+/*   position: absolute;*/
+/*   bottom: -0.5rem;*/
+/*   left: 0;*/
+/*   transition: 0.2s;*/
+/*}*/
 
 .link:hover {
    color: var(--color-white);

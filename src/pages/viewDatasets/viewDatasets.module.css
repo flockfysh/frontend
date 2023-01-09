@@ -12,9 +12,11 @@
 
 .header {
     display: flex;
+    width: 100%;
+    flex-direction: column;
     margin-top: 3rem;
-    align-items: center;
-    gap: 3rem;
+    align-items: stretch;
+    gap: 2rem;
 }
 
 .btnWrapper {
@@ -30,7 +32,7 @@
     display: flex;
     background-color: var(--color-black-secondary);
     border-radius: 20px;
-    
+
     padding: 2rem;
     gap: 2rem;
 }
