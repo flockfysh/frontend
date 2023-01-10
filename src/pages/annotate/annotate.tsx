@@ -11,27 +11,22 @@ export default function Annotate() {
 	const [images, updateImages] = useState([] as Image[]);
 	
 	const [imageIndex, updateImageIndex] = useState(0);
-	const [isLoading, updateLoading] = useState(false);
+	const [isLoading, updateLoading] = useState(true);
 
 	useEffect(() => {
-		updateLoading(true);
+		updateImages(
+			[
+				{
+					url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmzsi4JX8QgMg_J0-xUHxeJ9Ot_2zVfoh2Gw&usqp=CAU',
+					name: 'dog'
+				}
+			]
+		);
+	}, []);
 
-		(async function() {
-			// fetch images here
-
-			updateImages(
-				[
-					{
-						url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmzsi4JX8QgMg_J0-xUHxeJ9Ot_2zVfoh2Gw&usqp=CAU',
-						name: 'dog'
-					}
-				]
-			);
-
-			updateLoading(false);
-		})();
-	});
-
+	useEffect(()=>{
+		updateLoading(false);
+	}, [images]);
 	const rect = {
 		x: 150,
     	y: 150,
@@ -51,7 +46,7 @@ export default function Annotate() {
 						className={ classes.wrapperDiv } 
 						style={
 							{
-								backgroundImage: `url(${ images[imageIndex].url })`
+								backgroundImage: "url("+images[imageIndex].url+")"
 							}
 						}
 					>
