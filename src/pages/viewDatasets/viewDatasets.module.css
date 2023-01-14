@@ -1,13 +1,15 @@
 .viewDatasetsHeader {
-    margin-top: 80px;
-    margin-bottom: 80px;
+    margin-block: 5rem;
+    font-size: 3rem;
 }
 
 .datasetsContainer {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(375px, 1fr));
     justify-content: space-evenly;
     justify-items: center;
+    margin-block: 6rem;
+    grid-gap: 4rem 3rem;
 }
 
 .header {
@@ -16,39 +18,26 @@
     flex-direction: column;
     margin-top: 3rem;
     align-items: stretch;
-    gap: 2rem;
+    --gap: 2rem;
+    gap: var(--gap);
 }
 
-.btnWrapper {
-    height: 80%;
+.createDatasetButton {
+    width: 100%;
+    flex: none;
+    border-radius: 1.5rem;
+    padding-inline: 3rem;
+    justify-content: space-between;
 }
 
-.searchWrapper {
-    height: 80%;
-    flex: 1;
-}
-
-.container {
+.searchDatasets {
     display: flex;
-    background-color: var(--color-black-secondary);
-    border-radius: 20px;
-
-    padding: 2rem;
-    gap: 2rem;
+    flex-direction: column;
+    gap: var(--gap);
 }
 
-.container input {
+.searchInputContainer {
     flex: 1;
-    background-color: var(--color-black-secondary);
-    color: white;
-    border: none;
-    font-size: 1.6rem;
-    padding-left: 1.5rem;
-    outline: none;
-}
-
-.container img {
-    height: 2rem;
 }
 
 .noDatasetsFound {
@@ -62,4 +51,29 @@
 
 .noDatasetsFound a:hover {
     color: var(--color-blue-secondary);
+}
+
+@media only all and (min-width: 640px) {
+    .searchDatasets {
+        flex-direction: row;
+    }
+
+    .createDatasetButton {
+        width: fit-content;
+    }
+}
+
+@media only all and (min-width: 1200px) {
+    .header {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .searchDatasets {
+        flex: 1;
+    }
+
+    .createDatasetButton {
+        width: fit-content;
+    }
 }

@@ -21,7 +21,7 @@
 
 .footer::before {
     content: "";
-    height: min(120vw, 150%);
+    height: min(120vw, 120%);
     aspect-ratio: 2/1;
     bottom: 0;
     left: 50%;

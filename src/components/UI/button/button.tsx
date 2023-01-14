@@ -7,6 +7,7 @@ type ButtonProps = {
 	hasArrow?: boolean;
 	to: string;
 	text: string;
+	className?: string;
 };
 
 export default function Button(props: ButtonProps) {
@@ -30,7 +31,7 @@ export default function Button(props: ButtonProps) {
 	}
 
 	return (
-		<Link className={`${ classes.button } ${ gradientClass }`} to={ props.to }>
+		<Link className={`${ classes.button } ${ gradientClass } ${props.className || ""}`} to={ props.to }>
 			{ props.text }
 
 			{

@@ -1,6 +1,6 @@
 .mainDiv {
     background-color: var(--color-black-secondary);
-    border-radius: 20px;
+    border-radius: 1.5rem;
     display: flex;
     gap: 2rem;
     padding: 2rem 3rem;

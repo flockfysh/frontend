@@ -190,7 +190,7 @@
    background: var(--color-white);
 }
 
-@media only all and (min-width: 960px) {
+@media only all and (min-width: 1024px) {
    .form {
       flex-direction: row;
       width: 100%;

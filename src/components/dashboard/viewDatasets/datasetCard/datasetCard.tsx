@@ -10,17 +10,16 @@ export default function DatasetCard(props: { dataset: Dataset }) {
       <div className={ classes.cardContainer }>
         <FaTrash className={ classes.trashIcon }></FaTrash>
 
-        <h1>{ props.dataset.name } dataset</h1>
+        <h2>{ props.dataset.name } dataset</h2>
 
         <p className={ classes.overview }>{ props.dataset.overview }</p>
 
         <div className={ classes.cardBottom }>
-          <LinkUnderline
+          <LinkUnderline className={classes.viewDatasetLink}
             to={ `/dashboard/${ props.dataset.id }/overview/` }
             text="View dataset"
           />
-
-          <h4>{ props.dataset.numImages } Images</h4>
+          <span>{ props.dataset.numImages } Images</span>
         </div>
       </div>
     </div>

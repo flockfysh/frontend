@@ -32,7 +32,7 @@ export default function Navbar() {
         }
     ];
 
-    const mediaQuery = window.matchMedia("(min-width: 960px)");
+    const mediaQuery = window.matchMedia("(min-width: 1024px)");
     useEffect(() => {
         function resize() {
             if (mediaQuery.matches) {
