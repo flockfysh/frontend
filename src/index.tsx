@@ -24,30 +24,15 @@ import RootLayout from './components/rootLayout';
 import PrivateRoutes from './components/privateRoutes';
 
 import {UserWrapper} from './contexts/userContext';
-import {ScreenContext} from './contexts/useScreen';
+import {ScreenWrapper} from './contexts/screenContext';
 
 import {MIN_WIDTH} from './settings';
 
 import './index.css';
 
 function MainApp() {
-    const [windowTooSmall, updateWindowTooSmall] = useState(
-        window.screen.width <= MIN_WIDTH
-    );
-
-    function updateMedia() {
-        updateWindowTooSmall(window.screen.width <= MIN_WIDTH);
-    }
-
-    useEffect(() => {
-        window.addEventListener('resize', updateMedia);
-
-        return () => window.removeEventListener('resize', updateMedia);
-    });
-
-
     return (
-        <ScreenContext.Provider value={{windowTooSmall}}>
+        <ScreenWrapper>
             <UserWrapper>
                 <Routes>
                     <Route>
@@ -97,7 +82,7 @@ function MainApp() {
                     </Route>
                 </Routes>
             </UserWrapper>
-        </ScreenContext.Provider>
+        </ScreenWrapper>
     );
 }
 

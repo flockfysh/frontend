@@ -2,60 +2,48 @@
     position: absolute;
 
     width: 100vw;
-    background: 
-        radial-gradient(
-            circle at top left, 
-            var(--color-blue-gradients), 
+    background: radial-gradient(
+            circle at top left,
+            var(--color-blue-gradients),
             rgba(0, 0, 0, 0) 40%
-        ) top left,
-        radial-gradient(
-            circle at bottom right, 
-            var(--color-blue-gradients), 
+    ) top left,
+    radial-gradient(
+            circle at bottom right,
+            var(--color-blue-gradients),
             rgba(0, 0, 0, 0) 30%
-        ) bottom right
-    ;
-}
-
-.uploadedImagesContentContainer {
-    margin-left: 15vw;
-    margin-top: 10vh;
+    ) bottom right;
 }
 
 .uploadedImages h1 {
     font-size: 25px;
-
     margin-bottom: 50px;
 }
 
 .uploadedImagesContainer {
     display: grid;
-    grid-template-columns: repeat(4, min-content);
+    grid-gap: min(calc(1rem + 1.5vw), 3rem);
+    justify-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
 .loadBtnContainer {
-    margin-top: 20px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-} 
+}
 
-.uploadedImages button {
+.loadBtn {
     cursor: pointer;
-
     transition: 0.2s;
-    
-    border-radius: 5px;
-
+    border-radius: 1.5rem;
     border: 2px solid var(--color-white);
     color: var(--color-white);
-
+    font-size: 1.5rem;
     background: none;
-    padding: 2vh 2vw;
+    padding: 1.5rem 3rem;
 }
 
 .uploadedImages button:hover {
     background: var(--color-white);
-
     color: var(--color-black-secondary);
 }

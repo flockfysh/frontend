@@ -1,7 +1,8 @@
-import classes from './settings.module.css';
+import Select from 'react-select';
+import classes from '../common.module.css';
+import settingsClasses from './settings.module.css';
 
-export default function Settings(props: { dataset: Dataset }) {
-  const months = [
+const months = [
     'January',
     'February',
     'March',
@@ -14,56 +15,68 @@ export default function Settings(props: { dataset: Dataset }) {
     'October',
     'November',
     'December'
-  ];
+];
 
-  return (
-    <div className={ classes.settingsContainer }>
-      <div className={ classes.settingsContentContainer }>
-        <h1>Settings</h1>
+const PLAN_OPTION = [
+    {value: 'hobbyist', label: "Hobbyist"},
+    {value: 'professional', label: "Professional"},
+];
 
-        <div className={ classes.overviewPaymentContainer }>
-          <h1>Payment</h1>
+export default function Settings(props: { dataset: Dataset }) {
 
-          <div className={ classes.overviewPaymentContent }>
-            <div className={ classes.monthlyContainer }>
-              <h2>
-                { months[new Date().getMonth()] }'s total cost: $
-                { props.dataset.monthlyCost.storage +
-                  props.dataset.monthlyCost.creation }
-              </h2>
 
-              <p>Datset storage: ${ props.dataset.monthlyCost.storage }</p>
-              <p>Creation: ${ props.dataset.monthlyCost.creation }</p>
+    return (
+        <div className={classes.container}>
+            <div className={classes.contentContainer}>
+                <h1>Settings</h1>
+                <h2>Payment</h2>
+                <div className={settingsClasses.itemContainer}>
+                    <div className={settingsClasses.item}>
+                        <div className={`${settingsClasses.itemInner} ${settingsClasses.withBackground}`}>
+                            <h4>
+                                {months[new Date().getMonth()]}'s total cost: $
+                                {props.dataset.monthlyCost.storage +
+                                    props.dataset.monthlyCost.creation}
+                            </h4>
+
+                            <p>Dataset storage: ${props.dataset.monthlyCost.storage}</p>
+                            <p>Creation: ${props.dataset.monthlyCost.creation}</p>
+                        </div>
+                    </div>
+                    <div className={settingsClasses.item}>
+                        <h3>Current plan</h3>
+                        <div className={`${settingsClasses.itemInner} ${settingsClasses.withBackground}`}>
+                            <h4>
+                                {props.dataset.plan}: ${props.dataset.monthlyCost.creation}
+                            </h4>
+                            <p>lorem lorem</p>
+                            <p>lorem lorem</p>
+                        </div>
+                    </div>
+                    <div className={settingsClasses.item}>
+                        <h3>Change current plan</h3>
+                        <div className={`${settingsClasses.itemWithoutBackground}`}>
+                            <Select options={PLAN_OPTION} required={true} className={settingsClasses.selectElement}
+                                    classNames={{
+                                        control() {
+                                            return settingsClasses.selectElementControl;
+                                        },
+                                        valueContainer() {
+                                            return settingsClasses.selectValueContainer;
+                                        },
+                                        singleValue() {
+                                            return settingsClasses.selectValue;
+                                        }
+                                    }}/>
+                            <button>Change</button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div className={ classes.currentPlan }>
-              <h3>Current plan</h3>
-
-              <div>
-                <h2>
-                  { props.dataset.plan }: ${ props.dataset.monthlyCost.creation }
-                </h2>
-                <p>lorem lorem</p>
-                <p>lorem lorem</p>
-              </div>
+            <div className={classes.deleteButtonContainer}>
+                <button className={classes.deleteButton}>Delete dataset</button>
             </div>
-
-            <div className={ classes.changePlan }>
-              <h1>Change current plan</h1>
-
-              <select defaultValue={ props.dataset.plan }>
-                <option value="Hobbyist">Hobbyist</option>
-              </select>
-
-              <button>Change</button>
-            </div>
-          </div>
         </div>
-
-        <div className={ classes.deleteButtonContainer }>
-          <button className={ classes.deleteButton }>Delete dataset</button>
-        </div>
-      </div>
-    </div>
-  );
+    );
 }

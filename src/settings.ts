@@ -1,4 +1,4 @@
-export const MIN_WIDTH = 970;
+export const MIN_WIDTH = 1024;
 
 export const baseURL =
   process.env.DEBUG === 'true' ? 'http://localhost:3000' : 'http://localhost:3000';
