@@ -1,25 +1,18 @@
-.datasetContainer {
-    margin-bottom: 30px;
-}
-
 .cardContainer {
-    box-shadow: 0px 0px 49px 0px var(--color-blue-primary);
-
+    /*box-shadow: 0px 0px 49px 0px var(--color-blue-primary);*/
     background-color: var(--color-black-secondary);
-    
-    width: 308px;
-
-    padding: 30px 40px;
-
-    border-radius: 30px;
-
+    padding: 3rem;
+    border-radius: 1.5rem;
     height: auto;
     margin: 0 auto;
+    position: relative;
 }
 
-.cardContainer h1 {
+
+
+.cardContainer h2 {
     margin-bottom: 20px;
-    font-size: 15px;
+    font-size: 1.5rem;
 }
 
 .trashIcon {
@@ -42,11 +35,17 @@
 .cardBottom {
     width: 100%;
     display: flex;
+    align-items: baseline;
 }
 
-.cardBottom h4 {
+.cardBottom span {
     align-self: center;
     margin-left: auto;
-    font-size: 12px;
+    font-size: 1.5rem;
     font-weight: 100;
+}
+
+.viewDatasetLink {
+    flex: 1;
+    margin-bottom: 0;
 }

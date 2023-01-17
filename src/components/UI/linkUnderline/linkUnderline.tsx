@@ -5,11 +5,12 @@ import classes from './linkUnderline.module.css';
 type LinkUnderlineProps = {
   to: string;
   text: string;
+  className?: string;
 };
 
 export default function LinkUnderline(props: LinkUnderlineProps) {
   return (
-    <Link to={ props.to } className={ classes.link }>
+    <Link to={ props.to } className={ `${classes.link} ${props.className || ""}` }>
       { props.text }
     </Link>
   );

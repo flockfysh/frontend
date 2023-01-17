@@ -50,7 +50,7 @@
    flex-direction: column;
 }
 
-@media only all and (min-width: 960px) {
+@media only all and (min-width: 1024px) {
    .heroSectionDiv {
       flex-direction: row;
       text-align: left;

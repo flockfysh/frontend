@@ -13,6 +13,7 @@
     --color-gray: #c9c9c9;
     --color-black-primary: #040409;
     --color-black-secondary: #191924;
+    --color-black-secondary-translucent: rgba(25, 25, 36, 0.22);
 
     --landing-page-mobile-size: min(max(50rem, 50%), 100%);
 }
@@ -122,7 +123,7 @@ p {
     }
 }
 
-@media only all and (min-width: 960px) {
+@media only all and (min-width: 1024px) {
     h1, h2, h3, h4 {
         text-align: left;
         width: 100%;

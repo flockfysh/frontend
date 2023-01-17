@@ -64,7 +64,7 @@
     transform: translate(-50%, -50%);
 }
 
-@media only all and (min-width: 960px) {
+@media only all and (min-width: 1024px) {
     .navOpenButton {
         display: none;
     }

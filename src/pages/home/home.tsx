@@ -6,7 +6,7 @@ import Reviews from '../../components/homePage/reviews/reviews';
 import UserSignup from '../../components/homePage/userSignup/userSignup';
 import CoreBelief from '../../components/homePage/coreBelief/coreBelief';
 
-import {ScreenContext} from '../../contexts/useScreen';
+import {ScreenContext} from '../../contexts/screenContext';
 
 export default function HomePage() {
     const {windowTooSmall} = useContext(ScreenContext);

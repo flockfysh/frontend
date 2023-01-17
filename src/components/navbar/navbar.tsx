@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from 'react';
+import {useContext, useEffect, useState, PropsWithChildren} from 'react';
 import {Link} from 'react-router-dom';
 
 import {RxHamburgerMenu} from 'react-icons/rx';
@@ -9,9 +9,11 @@ import {UserContext} from '../../contexts/userContext';
 
 import classes from './navbar.module.css';
 import MobileNavItem from "../navItem/mobileNavItem";
+import {ScreenContext} from "../../contexts/screenContext";
 
 export default function Navbar() {
     const {loggedIn} = useContext(UserContext);
+    const {windowTooSmall} = useContext(ScreenContext);
     const [navOpen, updateNav] = useState(false);
     const navLinks = [
         {
@@ -32,19 +34,9 @@ export default function Navbar() {
         }
     ];
 
-    const mediaQuery = window.matchMedia("(min-width: 960px)");
-    useEffect(() => {
-        function resize() {
-            if (mediaQuery.matches) {
-                updateNav(false);
-            }
-        }
-
-        window.addEventListener("resize", resize);
-        return () => {
-            window.removeEventListener("resize", resize);
-        };
-    }, []);
+    if (!windowTooSmall && navOpen) {
+        updateNav(false);
+    }
 
     function changeNavDisplay() {
         updateNav(!navOpen);
@@ -77,7 +69,6 @@ export default function Navbar() {
                         )
                     )
                 }
-
                 {
                     loggedIn ? <NavItem to="/dashboard" name="Dashboard"/> : <NavItem to="/login" name="Login"/>
                 }

@@ -1,0 +1,78 @@
+.container {
+    height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0 3rem;
+    overflow: auto;
+}
+
+.contentContainer {
+    margin-left: 0;
+    display: flex;
+    flex-direction: column;
+    row-gap: 3rem;
+    margin-block: 3rem;
+}
+
+.contentContainer h1 {
+    font-size: 3rem;
+}
+
+.contentContainer h2 {
+    font-size: 2.5rem;
+}
+
+.contentContainer h3 {
+    font-size: 2rem;
+}
+
+.contentContainer h4 {
+    font-size: 1.75rem;
+}
+
+
+.contentContainer p {
+    color: #C9C9C9;
+    font-size: 1.5rem;
+    line-height: 1.5em;
+}
+
+.infoCards {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: stretch;
+    gap: 1.5rem 1.5rem;
+}
+
+.infoCards * {
+    font-weight: 100;
+    border-radius: 1rem;
+    padding: 1.3rem 3.5rem;
+    font-size: 1.3rem;
+    color: var(--color-black-primary);
+    background: var(--color-blue-primary);
+}
+
+.btnContainer {
+    position: absolute;
+    left: 55%;
+    transform: translateX(-50%);
+    bottom: 0;
+    margin-bottom: 20px;
+}
+
+@media only all and (min-width: 1024px) {
+    .contentContainer {
+        margin-block: 7rem;
+        row-gap: 6.5rem;
+    }
+
+    .container {
+        padding: 0 6rem;
+    }
+
+    .contentContainer h1 {
+    }
+}

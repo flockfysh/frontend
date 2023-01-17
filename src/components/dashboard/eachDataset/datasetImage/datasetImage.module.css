@@ -1,32 +1,41 @@
 .imageContainer {
-    margin: 15px 2.5vw;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
 }
 
 .imageContainer img {
     transition: 0.2s;
-
-    width: 186px;
-    height: 124px;
+    width: 100%;
+    aspect-ratio: 3/2;
+    object-fit: cover;
+    object-position: center;
     border-radius: 10px;
     cursor: pointer;
 }
 
 .imageContainer p {
-    font-size: 15px;
+    font-size: 1.5rem;
     text-align: center;
 }
 
 .trashIcon {
     color: var(--color-red-primary);
-    transform: translate(1600%, -1100%);
+    right: 1.5rem;
+    top: 1.5rem;
     position: absolute;
     display: none;
+    font-size: 2rem;
+    z-index: 1;
+    cursor: pointer;
 }
 
-.imageContainer img:hover + .trashIcon {
+.imageContainer:hover .trashIcon {
     display: block;
 }
 
-.imageContainer img:hover {
+.imageContainer:hover img {
     opacity: .2;
 }
