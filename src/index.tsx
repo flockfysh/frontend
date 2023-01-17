@@ -29,60 +29,69 @@ import {ScreenWrapper} from './contexts/screenContext';
 import {MIN_WIDTH} from './settings';
 
 import './index.css';
+import EmotionCacheProvider from "./contexts/reactSelectContext";
+
+function Contexts(props: React.PropsWithChildren) {
+    return <EmotionCacheProvider>
+        <ScreenWrapper>
+            <UserWrapper>
+                {props.children}
+            </UserWrapper>
+        </ScreenWrapper>
+    </EmotionCacheProvider>;
+}
 
 function MainApp() {
     return (
-        <ScreenWrapper>
-            <UserWrapper>
-                <Routes>
-                    <Route>
-                        <Route path="/" element={<RootLayout/>}>
-                            <Route index element={<HomePage/>}/>
+        <Contexts>
+            <Routes>
+                <Route>
+                    <Route path="/" element={<RootLayout/>}>
+                        <Route index element={<HomePage/>}/>
 
-                            <Route path="/blog" element={<Blog/>}/>
-                            <Route path="/docs" element={<Docs/>}/>
-                            <Route path="/about" element={<About/>}/>
+                        <Route path="/blog" element={<Blog/>}/>
+                        <Route path="/docs" element={<Docs/>}/>
+                        <Route path="/about" element={<About/>}/>
 
-                            <Route path="/login" element={<LoginPage type="Login"/>}/>
-                            <Route path="/signup" element={<LoginPage type="Signup"/>}/>
+                        <Route path="/login" element={<LoginPage type="Login"/>}/>
+                        <Route path="/signup" element={<LoginPage type="Signup"/>}/>
 
-                            <Route path="*" element={<PageNotFound/>}/>
-                        </Route>
-
-                        <Route path="/dashboard" element={<PrivateRoutes/>}>
-                            <Route element={<RootLayout/>}>
-                                <Route index element={<ViewDatasets/>}/>
-
-                                <Route path="profile" element={<Profile/>}/>
-                                <Route path="create-dataset" element={<CreateDataset/>}/>
-
-                                <Route path=":datasetId/annotate" element={<Annotate/>}/>
-                            </Route>
-
-                            <Route
-                                path=":datasetId/overview"
-                                element={<EachDataSet page="overview"/>}
-                            />
-
-                            <Route
-                                path=":datasetId/uploaded-images"
-                                element={<EachDataSet page="uploaded-images"/>}
-                            />
-
-                            <Route
-                                path=":datasetId/dataset-images"
-                                element={<EachDataSet page="dataset-images"/>}
-                            />
-
-                            <Route
-                                path=":datasetId/settings"
-                                element={<EachDataSet page="settings"/>}
-                            />
-                        </Route>
+                        <Route path="*" element={<PageNotFound/>}/>
                     </Route>
-                </Routes>
-            </UserWrapper>
-        </ScreenWrapper>
+
+                    <Route path="/dashboard" element={<PrivateRoutes/>}>
+                        <Route element={<RootLayout/>}>
+                            <Route index element={<ViewDatasets/>}/>
+
+                            <Route path="profile" element={<Profile/>}/>
+                            <Route path="create-dataset" element={<CreateDataset/>}/>
+
+                            <Route path=":datasetId/annotate" element={<Annotate/>}/>
+                        </Route>
+
+                        <Route
+                            path=":datasetId/overview"
+                            element={<EachDataSet page="overview"/>}
+                        />
+
+                        <Route
+                            path=":datasetId/uploaded-images"
+                            element={<EachDataSet page="uploaded-images"/>}
+                        />
+
+                        <Route
+                            path=":datasetId/dataset-images"
+                            element={<EachDataSet page="dataset-images"/>}
+                        />
+
+                        <Route
+                            path=":datasetId/settings"
+                            element={<EachDataSet page="settings"/>}
+                        />
+                    </Route>
+                </Route>
+            </Routes>
+        </Contexts>
     );
 }
 

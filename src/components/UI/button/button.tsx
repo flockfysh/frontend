@@ -1,54 +1,38 @@
-import { Link } from 'react-router-dom';
+import React from "react";
 
 import classes from './button.module.css';
 
-type ButtonProps = {
-	gradientDirection?: string;
-	hasArrow?: boolean;
-	to: string;
-	text: string;
-	className?: string;
-};
+interface ButtonProps extends React.ComponentPropsWithRef<"button"> {
+    gradient?: boolean;
+    gradientDirection?: string;
+    hasArrow?: boolean;
+}
 
 export default function Button(props: ButtonProps) {
-	const gradientDirection = props.gradientDirection ? props.gradientDirection : 'topToBottom';
-	const hasArrow = props.hasArrow ? props.hasArrow : false;
+    const gradientDirection = props.gradientDirection ? props.gradientDirection : 'topToBottom';
+    const hasArrow = props.hasArrow ? props.hasArrow : false;
 
-	let gradientClass;
+    let gradientClass = "";
 
-	switch(gradientDirection) {
-		case 'topToBottom':
-			gradientClass = classes.gradientBottomRight;
-			break;
-		case 'rightToLeft':
-			gradientClass = classes.gradientRightLeft;
-			break;
-		case 'leftToRight':
-			gradientClass = classes.gradientLeftRight;
-			break;
-		default:
-			gradientClass = classes.gradientBottomRight;
-	}
+    if (props.gradient) {
+        switch (gradientDirection) {
+            case 'topToBottom':
+                gradientClass = classes.gradientBottomRight;
+                break;
+            case 'rightToLeft':
+                gradientClass = classes.gradientRightLeft;
+                break;
+            case 'leftToRight':
+                gradientClass = classes.gradientLeftRight;
+                break;
+            default:
+                gradientClass = classes.gradientBottomRight;
+        }
+    }
 
-	return (
-		<Link className={`${ classes.button } ${ gradientClass } ${props.className || ""}`} to={ props.to }>
-			{ props.text }
-
-			{
-				hasArrow ?
-				<svg
-					className={ classes.svg }
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 24 24"
-				>
-					<path
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-					/>
-				</svg> : <></>
-			}
-		</Link>
-	);
+    return (
+        <button className={`${classes.button} ${gradientClass} ${props.className || ""}`}>
+            {props.children}
+        </button>
+    );
 }

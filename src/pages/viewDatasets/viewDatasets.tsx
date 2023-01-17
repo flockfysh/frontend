@@ -6,7 +6,7 @@ import Loading from '../../components/loading/loading';
 
 import MiniProfile from '../../components/dashboard/viewDatasets/miniProfile/miniProfile';
 
-import Button from '../../components/UI/button/button';
+import GradientLink from '../../components/UI/gradientLink/gradientLink';
 
 import Image from '../../images/heroImage.jpg';
 import Icon from '../../images/icons/search.svg';
@@ -76,7 +76,7 @@ export default function ViewDatasets() {
                         onLookup={data => updateFilter(data)}
                         containerClassName={classes.searchInputContainer}
                     ></SearchInput>
-                    <Button
+                    <GradientLink
                         hasArrow={true}
                         gradientDirection="leftToRight"
                         text="Create a new dataset"

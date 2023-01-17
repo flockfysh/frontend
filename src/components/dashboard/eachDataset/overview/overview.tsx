@@ -1,4 +1,4 @@
-import Button from '../../../UI/button/button';
+import GradientLink from '../../../UI/gradientLink/gradientLink';
 
 import classes from '../common.module.css';
 
@@ -19,7 +19,7 @@ export default function Overview(props: { dataset: Dataset }) {
         </div>
 
         <div className={ classes.btnContainer }>
-          <Button to="/dashboard" text="Return to Profile" hasArrow={ true } />
+          <GradientLink to="/dashboard" text="Return to Profile" hasArrow={ true } />
         </div>
       </div>
     </div>
