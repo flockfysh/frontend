@@ -1,4 +1,4 @@
-import Button from '../../UI/button/button';
+import GradientLink from '../../UI/gradientLink/gradientLink';
 import LinkUnderline from '../../UI/linkUnderline/linkUnderline';
 import Heading from '../../UI/heading/heading';
 
@@ -16,7 +16,7 @@ export default function Hero() {
           afterSpan="dataset&nbsp;generation, minus&nbsp;the&nbsp;hassle."
         />
         <div className={ classes.buttonsHolder }>
-          <Button hasArrow={ true } text="Start Flockfyshing" to="/signup" />
+          <GradientLink hasArrow={ true } text="Start Flockfyshing" to="/signup" />
           <LinkUnderline to="/docs" text="Read the docs" />
         </div>
       </div>

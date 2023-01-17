@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import Button from '../../UI/button/button';
+import GradientLink from '../../UI/gradientLink/gradientLink';
 
 import { UserContext } from '../../../contexts/userContext';
 
@@ -18,7 +18,7 @@ export default function UserSignup() {
         with a couple of stats ;&#41;
       </p>
 
-      <Button
+      <GradientLink
         hasArrow={ true }
         text="Commence FlockFyshing!"
         to={ loggedIn ? '/dashboard' : '/signup' }

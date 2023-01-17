@@ -76,3 +76,10 @@
     .contentContainer h1 {
     }
 }
+
+.section {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+    max-width: 100rem;
+}

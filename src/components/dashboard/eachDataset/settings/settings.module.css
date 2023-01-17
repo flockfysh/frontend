@@ -18,6 +18,7 @@
     row-gap: 1rem;
 }
 
+
 .withBackground {
     background: var(--color-black-secondary);
 }
@@ -34,93 +35,36 @@
     margin-inline: -2rem;
 }
 
-.changePlan select {
-    display: block !important;
-
-    margin-bottom: 40px;
-
-    padding: 10px 70px 10px 10px;
-
-    border: 2px solid var(--color-blue-primary);
-    background: var(--color-black-primary);
-    color: var(--color-white);
-
-    border-radius: 10px;
-
-    cursor: pointer;
-
-    transition: 0.1s;
-
-    outline: none;
-}
-
-.changePlan select:hover {
-    border-color: var(--color-blue-secondary);
-}
-
-.changePlan button {
-    background: linear-gradient(
-            to left,
-            var(--color-blue-secondary),
-            var(--color-blue-primary)
-    );
-
-    border: none;
-
-    padding: 1.5rem 5rem;
-    font-size: 1.5rem;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    width: fit-content;
-    color: var(--color-white);
-    transition: 0.2s;
-
-    cursor: pointer;
-}
-
-
-
-.changePlan button:hover {
-    color: var(--color-black-secondary);
-}
-
 .deleteButtonContainer {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 100px;
 }
 
 .deleteButton {
-    cursor: pointer;
-
-    transition: 0.2s;
-
-    border-radius: 5px;
-
     border: 2px solid var(--color-red-primary);
     color: var(--color-red-primary);
-
-    background: none;
-    padding: 2vh 2vw;
     justify-self: center;
 }
 
 .deleteButton:hover {
     background: var(--color-red-primary);
-
-    color: var(--color-black-secondary);
+    color: var(--color-white);
 }
 
-.selectElement {
-    font-size: 1.5rem;
-}
+@media only all and (min-width: 1024px) {
+    .itemContainer {
+        flex-direction: row;
+        align-items: stretch;
+        gap: 3rem;
+    }
 
-.selectValueContainer {
-    padding-inline: 2rem;
-}
-
-.selectValue {
-    /*margin-left: 0;*/
+    .item {
+        flex: 1;
+    }
+    
+    .itemInner {
+        flex: 1;
+        padding: 3rem 4rem;
+    }
 }

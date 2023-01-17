@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import Button from '../../components/UI/button/button';
+import GradientLink from '../../components/UI/gradientLink/gradientLink';
 import Label from '../../components/dashboard/annotate/label/label';
 import Wrapper from '../../components/dashboard/annotate/wrapper/wrapper';
 import Loading from '../../components/loading/loading';
@@ -64,7 +64,7 @@ export default function Annotate() {
 
 				<div className={ classes.rightContainer }>
 					<div className={ classes.submitButtonContainer }>
-						<Button to="/" text="Submit" gradientDirection="rightToLeft" />
+						<GradientLink to="/" text="Submit" gradientDirection="rightToLeft" />
 					</div>
 
 					<div className={ classes.box } />

@@ -1,4 +1,4 @@
-import Button from '../../components/UI/button/button';
+import GradientLink from '../../components/UI/gradientLink/gradientLink';
 
 import classes from './pageNotFound.module.css';
 
@@ -16,7 +16,7 @@ export default function PageNotFound() {
       </p>
 
       <div className={ classes.pnfButtonContainer }>
-        <Button to="/" text="Home" />
+        <GradientLink to="/" text="Home" />
       </div>
     </div>
   );
