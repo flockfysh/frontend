@@ -7,7 +7,9 @@ import Loading from '../../components/loading/loading';
 import Modal from '../../components/dashboard/createDataset/modal/modal';
 import {ModalProps} from '../../components/dashboard/createDataset/modal/modal';
 
+import CustomSelect from "../../components/UI/input/selectInput";
 import classes from './createDataset.module.css';
+import FileInput from "../../components/UI/input/fileInput";
 
 type ModalSettings = ModalProps & { display: boolean };
 
@@ -83,8 +85,6 @@ export default function CreateDataset() {
         updateLoading(true);
 
         (async function () {
-            // calls to backend
-            // navigate('PATH/TO/NEW/Dataset');
         })();
     }
 
@@ -143,29 +143,25 @@ export default function CreateDataset() {
             </div>
 
             <div className={classes.datasetSecondRow}>
-                <div>
-                    <label htmlFor="name">Name of Dataset</label>
-                    <input ref={datasetName} id="name" type="text"/>
+                <div className={classes.labelledInputContainer}>
+                    <label htmlFor="name" className={classes.labelledInputContainer__label}>Name of Dataset</label>
+                    <input ref={datasetName} id="name" type="text" className={classes.labelledInputContainer__input}/>
                 </div>
 
-                <div>
-                    <label htmlFor="pricingPlan">Pricing plan</label>
+                <div className={classes.labelledInputContainer}>
+                    <label htmlFor="pricingPlan" className={classes.labelledInputContainer__label}>Pricing plan</label>
+                    <CustomSelect id="pricingPlan" className={classes.labelledInputContainer__input}/>
+                </div>
 
-                    <select ref={pricingPlan} id="pricingPlan">
-                        <option value="free">Free forever</option>
-                    </select>
+                <div className={classes.labelledInputContainer}>
+                    <label htmlFor="addImagesInput" className={classes.labelledInputContainer__label}>Upload
+                        images</label>
+                    <FileInput></FileInput>
                 </div>
             </div>
 
             <div className={classes.datasetThirdRow}>
-                <div>
-                    <p>Upload Images</p>
 
-                    <label>
-                        <input type="file" onChange={uploadImages} multiple={true}/>
-                        Select Images
-                    </label>
-                </div>
 
                 <p className={classes.numImages}>{images.length}/50 images uploaded</p>
             </div>

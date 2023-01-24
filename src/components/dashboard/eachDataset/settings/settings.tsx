@@ -57,7 +57,11 @@ export default function Settings(props: { dataset: Dataset }) {
                         <div className={settingsClasses.item}>
                             <h3>Change current plan</h3>
                             <div className={`${settingsClasses.itemWithoutBackground}`}>
-                                <CustomSelect options={PLAN_OPTION} required={true}/>
+                                <CustomSelect options={PLAN_OPTION} required={true} className={settingsClasses.selectElement} classNames={{
+                                    valueContainer() {
+                                        return settingsClasses.selectElementValueContainer;
+                                    }
+                                }}/>
                                 <Button className={settingsClasses.button} gradient={true}>Change</Button>
                             </div>
                         </div>
