@@ -63,6 +63,9 @@ main {
     flex: 1;
 }
 
+button, input {
+    font: inherit;
+}
 
 a {
     text-decoration: none;

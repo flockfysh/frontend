@@ -26,7 +26,7 @@ export function UserWrapper(props: PropsWithChildren) {
                 setLoaded(true);
                 if (data.loggedIn) {
                     setCurUser({
-                        name: data.curUser.firstName,
+                        name: `${data.curUser.firstName} ${data.curUser.lastName}`,
                         email: data.curUser.email,
                         profileImage: data.curUser.profilePhoto,
                     });

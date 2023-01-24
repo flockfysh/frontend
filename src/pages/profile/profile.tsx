@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 import Loading from '../../components/loading/loading';
 
 import classes from './profile.module.css';
+import UserPicture from "../../components/UI/currentUser/userPicture";
+import UserName from "../../components/UI/currentUser/userName";
+import UserEmail from "../../components/UI/currentUser/userEmail";
 
 export default function Profile() {
   const [user, updateUser] = useState({} as User);
@@ -57,15 +60,11 @@ export default function Profile() {
         <h3 className={ classes.heading }>Your Account</h3>
 
         <div className={ classes.nameDiv }>
-          <img
-            src={ user.profileImage }
-            alt="user profile"
-            className={ classes.image }
-          />
+          <UserPicture className={`${classes.image}`}/>
 
           <div className={ classes.infoDiv }>
-            <h4 className={ classes.name }>Hello, { user.name }</h4>
-            <h6 className={ classes.email }>{ user.email }</h6>
+            <h4 className={ classes.name }>{ <UserName/> }</h4>
+            <h6 className={ classes.email }>{<UserEmail/>}</h6>
           </div>
         </div>
       </div>
@@ -73,7 +72,7 @@ export default function Profile() {
       <div className={ classes.cardSection }>
         <div className={ classes.card }>
           <h5 className={ classes.cardHeading} >
-            Total Monthly Cost: ${ accounting.monthlyCosts.total }
+            Total Monthly Cost <span>${ accounting.monthlyCosts.total }</span>
           </h5>
 
           {
