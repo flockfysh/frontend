@@ -103,7 +103,13 @@ export default function LoginForm(props: { type: string }) {
         }
       })
         .then((response: any) => {
-          console.log(response);
+          console.log(response.data);
+          refresh();
+
+          navigate('/dashboard');
+
+          setEmail('');
+          setPassword('');
         })
         .catch((error: any) => {
           console.log(error);
