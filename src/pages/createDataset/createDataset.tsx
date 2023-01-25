@@ -9,7 +9,7 @@ import {ModalProps} from '../../components/dashboard/createDataset/modal/modal';
 
 import CustomSelect from "../../components/UI/input/selectInput";
 import classes from './createDataset.module.css';
-import FileInput from "../../components/UI/input/fileInput";
+import MultiFileInput from "../../components/UI/input/multiFileInput";
 
 type ModalSettings = ModalProps & { display: boolean };
 
@@ -156,14 +156,8 @@ export default function CreateDataset() {
                 <div className={classes.labelledInputContainer}>
                     <label htmlFor="addImagesInput" className={classes.labelledInputContainer__label}>Upload
                         images</label>
-                    <FileInput></FileInput>
+                    <MultiFileInput buttonLabel={"Add images"} accept={"image/*"}></MultiFileInput>
                 </div>
-            </div>
-
-            <div className={classes.datasetThirdRow}>
-
-
-                <p className={classes.numImages}>{images.length}/50 images uploaded</p>
             </div>
 
             <div className={classes.datasetFourthRow}>

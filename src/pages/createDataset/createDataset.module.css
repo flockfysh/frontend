@@ -104,7 +104,6 @@
     background-color: var(--color-black-secondary);
     border: none;
     padding: 1rem 2rem;
-    display: block;
     color: var(--color-white);
 }
 

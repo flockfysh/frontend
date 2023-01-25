@@ -9,8 +9,9 @@ interface ButtonProps extends React.ComponentPropsWithRef<"button"> {
 }
 
 export default function Button(props: ButtonProps) {
-    const gradientDirection = props.gradientDirection ? props.gradientDirection : 'topToBottom';
-    const hasArrow = props.hasArrow ? props.hasArrow : false;
+    let {gradient, gradientDirection, hasArrow, ...buttonProps} = props;
+    gradientDirection ??= 'topToBottom';
+    hasArrow ??= false;
 
     let gradientClass = "";
 
@@ -31,7 +32,7 @@ export default function Button(props: ButtonProps) {
     }
 
     return (
-        <button className={`${classes.button} ${gradientClass} ${props.className || ""}`}>
+        <button {...buttonProps} className={`${classes.button} ${gradientClass} ${props.className || ""}`}>
             {props.children}
         </button>
     );
