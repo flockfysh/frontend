@@ -1,0 +1,66 @@
+.fileItemCard {
+    display: flex;
+    padding: 2rem 3rem;
+    border-radius: 0.5rem;
+    background: var(--color-black-secondary);
+    gap: 2rem;
+    align-items: center;
+}
+
+.fileItemName {
+    font-size: 16px;
+    font-weight: lighter;
+    text-align: left;
+    flex: 1;
+}
+
+.viewImage {
+    font-size: 1.4rem;
+    color: var(--color-gray);
+    background: none;
+    cursor: pointer;
+    border: none;
+    transition: 0.2s;
+}
+
+.viewImage:hover {
+    color: var(--color-blue-primary);
+}
+
+.deleteUpload {
+    color: var(--color-white);
+    font-size: 15px;
+    cursor: pointer;
+    border: none;
+    transition: 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 4rem;
+    padding: 1rem;
+    margin-right: -1rem;
+    aspect-ratio: 1/1;
+}
+
+.deleteUpload:hover .deleteUploadSVG {
+    background: var(--color-red-secondary);
+}
+
+.deleteUploadSVG {
+    background: var(--color-red-primary);
+    transition: background 0.15s ease;
+}
+
+.smallPreview {
+    border-radius: 0.5rem;
+    height: 4rem;
+    width: unset;
+    aspect-ratio: 1/1;
+    flex: none;
+    object-position: center;
+    object-fit: cover;
+}
+
+.placeholderFile {
+    background: white;
+}

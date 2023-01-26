@@ -1,15 +1,14 @@
 import React, {useState, useRef} from 'react';
 import {useNavigate} from 'react-router-dom';
 
-import UploadedImage from '../../components/dashboard/createDataset/uploadedImage/uploadedImage';
 import Loading from '../../components/loading/loading';
 
-import Modal from '../../components/dashboard/createDataset/modal/modal';
-import {ModalProps} from '../../components/dashboard/createDataset/modal/modal';
+import Modal, {ErrorModal} from '../../components/UI/modal/modal';
+import {ModalProps} from '../../components/UI/modal/modal';
 
 import CustomSelect from "../../components/UI/input/selectInput";
 import classes from './createDataset.module.css';
-import MultiFileInput from "../../components/UI/input/multiFileInput";
+import MultiFileInput from "../../components/UI/input/multiFileInput/multiFileInput";
 
 type ModalSettings = ModalProps & { display: boolean };
 
@@ -21,9 +20,7 @@ export default function CreateDataset() {
     const [datasetType, updateDatasetType] = useState('images');
     const [images, updateImages] = useState([] as File[]);
 
-    const [modalProps, updateModalProps] = useState({
-        display: false
-    } as ModalSettings);
+    const [errorMessage, setErrorMessage] = React.useState("");
 
     const datasetName = useRef({} as HTMLInputElement);
     const pricingPlan = useRef({} as HTMLSelectElement);
@@ -32,53 +29,15 @@ export default function CreateDataset() {
         updateDatasetType(type);
     }
 
-    function uploadImages(e: React.ChangeEvent<HTMLInputElement>) {
-        const updatedImages = [];
-
-        for (const f of e.target.files!) {
-            if (
-                !f.type.includes('png') &&
-                !f.type.includes('jpg') &&
-                !f.type.includes('webp') &&
-                !f.type.includes('jpeg')
-            ) {
-                alert(
-                    `Can only upload images of type png, jpg, or webp. File named ${f.name} skipped.`
-                );
-
-                continue;
-            }
-
-            updatedImages.push(f);
-        }
-
-        updateImages([...updatedImages, ...images]);
-    }
-
     function createDataset() {
         if (datasetName.current.value.length === 0) {
-            updateModalProps({
-                display: true,
-                message: 'Dataset name can\'t be empty.',
-                displayImage: false
-            } as ModalSettings);
-
+            setErrorMessage('Dataset name can\'t be empty.');
             return;
         } else if (pricingPlan.current.value.length === 0) {
-            updateModalProps({
-                display: true,
-                message: 'You need to select a pricing plan.',
-                displayImage: false
-            } as ModalSettings);
-
+            setErrorMessage('You need to select a pricing plan.');
             return;
         } else if (images.length !== 50) {
-            updateModalProps({
-                display: true,
-                message: 'Need to upload exactly 50 images.',
-                displayImage: false
-            } as ModalSettings);
-
+            setErrorMessage('Need to upload exactly 50 images.');
             return;
         }
 
@@ -88,23 +47,8 @@ export default function CreateDataset() {
         })();
     }
 
-    function deleteImage(index: number) {
-        const updatedImages = [];
-
-        for (let i = 0; i < images.length; i++) {
-            if (i === index) continue;
-
-            updatedImages.push(images[i]);
-        }
-
-        updateImages([...updatedImages]);
-    }
-
     function closeModal() {
-        updateModalProps({
-            ...modalProps,
-            display: false
-        });
+        setErrorMessage("");
     }
 
     if (isLoading) return <Loading/>;
@@ -112,7 +56,7 @@ export default function CreateDataset() {
     return (
         <div className={classes.createDatasetContainer}>
             {
-                modalProps.display ? <Modal {...modalProps} closeModal={closeModal}/> : <></>
+                errorMessage ? <ErrorModal message={errorMessage} closeModal={closeModal}/> : <></>
             }
 
             <h1>Create a new Dataset</h1>
@@ -145,34 +89,29 @@ export default function CreateDataset() {
             <div className={classes.datasetSecondRow}>
                 <div className={classes.labelledInputContainer}>
                     <label htmlFor="name" className={classes.labelledInputContainer__label}>Name of Dataset</label>
-                    <input ref={datasetName} id="name" type="text" className={classes.labelledInputContainer__input}/>
+                    <input ref={datasetName} id="name" name="name" type="text"
+                           className={classes.labelledInputContainer__input}/>
                 </div>
 
                 <div className={classes.labelledInputContainer}>
                     <label htmlFor="pricingPlan" className={classes.labelledInputContainer__label}>Pricing plan</label>
-                    <CustomSelect id="pricingPlan" className={classes.labelledInputContainer__input}/>
+                    <CustomSelect id="pricingPlan" name="tier" className={classes.labelledInputContainer__input}
+                                  required={true}
+                                  options={[
+                                      {label: "Free forever", value: "free"},
+                                      {label: "Hobbyist", value: "premium1"},
+                                      {label: "Professional", value: "premium2"}
+                                  ]}
+                                  defaultValue={{label: "Free forever", value: "free"}}/>
                 </div>
 
                 <div className={classes.labelledInputContainer}>
                     <label htmlFor="addImagesInput" className={classes.labelledInputContainer__label}>Upload
                         images</label>
-                    <MultiFileInput buttonLabel={"Add images"} accept={"image/*"}></MultiFileInput>
+                    <MultiFileInput buttonLabel={"Add images"}
+                                    name="files"
+                                    accept={"image/jpeg,image/jpg,image/webp,image/png"}></MultiFileInput>
                 </div>
-            </div>
-
-            <div className={classes.datasetFourthRow}>
-                {
-                    images.map(
-                        (image, index) => (
-                            <UploadedImage
-                                key={index}
-                                image={image}
-                                index={index}
-                                deleteImage={deleteImage}
-                            />
-                        )
-                    )
-                }
             </div>
 
             <div className={classes.createDatasetButtonContainer}>

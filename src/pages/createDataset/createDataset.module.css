@@ -74,7 +74,7 @@
     width: 100%;
     flex-direction: column;
     justify-content: space-between;
-    gap: 2rem;
+    gap: 3rem;
 }
 
 .labelledInputContainer {
@@ -168,8 +168,6 @@
 
 .createDatasetButtonContainer {
     display: flex;
-    margin-bottom: 20px;
-    margin-top: 70px;
     align-items: center;
     justify-content: center;
 }
