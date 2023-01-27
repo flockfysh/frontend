@@ -4,7 +4,6 @@
     flex-direction: column;
     row-gap: 5rem;
 }
-
 .createDatasetContainer::after {
     z-index: -1;
     height: 100%;
@@ -21,7 +20,6 @@
     left: 0;
     min-width: 30rem;
 }
-
 .datasetTypeRow {
     display: flex;
     justify-content: space-between;
@@ -30,7 +28,6 @@
     gap: 1rem;
     flex-direction: column;
 }
-
 .datasetTypeRow button {
     border-radius: 5px;
     padding: 10px 50px;

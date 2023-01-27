@@ -1,6 +1,8 @@
+import axios from 'axios';
 import React, {PropsWithChildren, useEffect, useState} from 'react';
 import Loading from "../components/loading/loading";
 import {serverURL} from "../settings";
+import api from "../helpers/api";
 
 export const UserContext = React.createContext<{
     curUser: User | null,
@@ -19,10 +21,8 @@ export function UserWrapper(props: PropsWithChildren) {
 
     React.useEffect(() => {
         if (!loaded) {
-            fetch(serverURL, {
-                credentials: "include"
-            }).then(async res => {
-                const data = await res.json();
+            api.get("/").then(async res => {
+                const data = await res.data.data;
                 setLoaded(true);
                 if (data.loggedIn) {
                     setCurUser({

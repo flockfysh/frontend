@@ -9,8 +9,12 @@ import {ModalProps} from '../../components/UI/modal/modal';
 import CustomSelect from "../../components/UI/input/selectInput";
 import classes from './createDataset.module.css';
 import MultiFileInput from "../../components/UI/input/multiFileInput/multiFileInput";
-import {massZip} from "../../helpers/zip";
 import Button from "../../components/UI/button/button";
+import axios from 'axios';
+import {serverURL} from "../../settings";
+import AsyncArray from "../../helpers/async";
+import api from "../../helpers/api";
+import Textarea from "../../components/UI/input/textarea";
 
 type ModalSettings = ModalProps & { display: boolean };
 
@@ -20,8 +24,6 @@ export default function CreateDataset() {
     const [isLoading, updateLoading] = useState(false);
 
     const [datasetType, updateDatasetType] = useState('images');
-    const [images, updateImages] = useState([] as File[]);
-
     const [errorMessage, setErrorMessage] = React.useState("");
 
     const formRef = React.useRef<HTMLFormElement | null>(null);
@@ -30,16 +32,47 @@ export default function CreateDataset() {
         updateDatasetType(type);
     }
 
-    function createDataset(e: React.FormEvent<HTMLFormElement>) {
+    async function createDataset(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         if (!formRef.current) {
             throw new Error("Missing form element!");
         }
-        const form = formRef.current;
-        const fd = new FormData(form);
-        const files = fd.getAll("files") as File[];
-        massZip(files);
+        const fd = new FormData(formRef.current);
 
+        // Create a dataset.
+        const createDatasetRequestBody: Record<string, string> = {};
+        for (let [key, val] of fd.entries()) {
+            if (typeof val === 'string') {
+                createDatasetRequestBody[key] = val;
+            }
+        }
+        createDatasetRequestBody.type = datasetType;
+        const response = await api.post("/api/dataset", createDatasetRequestBody);
+        const datasetId = response.data.data._id;
+
+        // Start adding image to the dataset.
+        const files = new AsyncArray(fd.getAll("files") as File[]);
+        const badFiles: string[] = [];
+        await files.chunkMap(async (file) => {
+            try {
+                const fd = new FormData();
+                fd.append("image", file);
+                await api.post(`/api/image/${datasetId}`, fd);
+            } catch (e) {
+                badFiles.push(file.name);
+            }
+        }, undefined);
+        if (badFiles.length) {
+            let badFileString: string;
+            if (badFiles.length <= 5) {
+                badFileString = badFiles.join(", ");
+            } else {
+                badFileString = `badFiles.slice(0, 5).join(", ") and ${badFiles.length - 5} more`;
+            }
+            setErrorMessage(`These files failed to upload: ${badFileString}. Please check the dataset for missing files.`);
+        } else {
+            navigate("/dashboard");
+        }
     }
 
     function closeModal() {
@@ -89,6 +122,13 @@ export default function CreateDataset() {
                 </div>
 
                 <div className={classes.labelledInputContainer}>
+                    <label htmlFor="name" className={classes.labelledInputContainer__label}>Dataset Description</label>
+                    <Textarea id="name" name="description"
+                           className={classes.labelledInputContainer__input}/>
+                </div>
+
+
+                <div className={classes.labelledInputContainer}>
                     <label htmlFor="pricingPlan" className={classes.labelledInputContainer__label}>Pricing plan</label>
                     <CustomSelect id="pricingPlan" name="tier" className={classes.labelledInputContainer__input}
                                   required={true}
@@ -103,8 +143,10 @@ export default function CreateDataset() {
                 <div className={classes.labelledInputContainer}>
                     <label htmlFor="addImagesInput" className={classes.labelledInputContainer__label}>Upload
                         images</label>
-                    <MultiFileInput buttonLabel={"Add images"}
-                                    name="files"></MultiFileInput>
+                    <MultiFileInput
+                        accept={".webp, .png, .jpg, .jpeg"}
+                        buttonLabel={"Add images"}
+                        name="files"></MultiFileInput>
                 </div>
                 <div className={classes.submitButtonContainer}>
                     <button type={"submit"}>Create Dataset</button>

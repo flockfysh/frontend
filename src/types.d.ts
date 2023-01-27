@@ -2,11 +2,15 @@ declare module '*.css';
 declare module '*.svg';
 declare module '*.jpg';
 
-declare interface Dataset {
+
+declare interface DatasetPartial {
     name: string;
     id: string;
-    numImages: number;
-    overview: string;
+    itemCount: number;
+    description: string;
+}
+
+declare interface Dataset extends DatasetPartial {
     dateCreated: string;
     plan: string;
     monthlyCost: MonthlyCost;
