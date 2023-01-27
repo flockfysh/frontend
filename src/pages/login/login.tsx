@@ -26,18 +26,19 @@ export default function LoginForm(props: { type: string }) {
 
   function oAuthLogin(path: string) {
     // Don't open too many auth windows.
-    curPopup.current?.close();
+    if(curPopup.current) curPopup.current.close();
 
     const login = serverURL + path;
     const popup = window.open(login, '_blank', 'width=500,height=600');
 
     if (popup) {
       curPopup.current = popup;
-      window.addEventListener('message', function (e) {
-        console.log(e.data);
-        if (e.data?.success) {
+
+      window.addEventListener('message', e => {
+        if (e.data.success) {
           popup.close();
           refresh();
+
           location.replace('/dashboard');
         }
       });
@@ -50,7 +51,8 @@ export default function LoginForm(props: { type: string }) {
 
       setPasswordIsValid(false);
       passwordRef.current.className = classes.inputInvalidTextActive;
-    } else {
+    } 
+    else {
       event.target.className = classes.input;
 
       setPasswordIsValid(true);
@@ -60,13 +62,10 @@ export default function LoginForm(props: { type: string }) {
   function emailValidHandler(event: React.FocusEvent<HTMLInputElement>) {
     // logic below
     // email shouldn't include spaces
-    // email is of atleast 5 letters and include @ and .
+    // email is at least 5 letters and include @ and .
     // there are letters before @
     // there are letters after .
     // and if there are letters between @ and .
-    // I didn't added before . because we have used before @ and we know there is also a letter between @ and .
-    // I also didn't added after @ cause we know there is a letter between @ and . and there is a letter after .
-    // but we added after . because . can be the last element which is not possible
     if (
       !email.includes(' ') &&
       email.length >= 5 &&
@@ -80,16 +79,17 @@ export default function LoginForm(props: { type: string }) {
 
       setEmailIsValid(true);
       emailRef.current.className = classes.inputInvalidText;
-    } else {
+    } 
+    else {
       event.target.className = classes.inputInvalid;
 
       setEmailIsValid(false);
       emailRef.current.className = classes.inputInvalidTextActive;
     }
   }
+
   function submitHandler() {
     if (emailIsValid && passwordIsValid) {
-      console.log(email, password);
       axios({
         method: 'post',
         url: 'http://localhost:8000/' + props.type.toLowerCase(),
@@ -102,7 +102,7 @@ export default function LoginForm(props: { type: string }) {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       })
-        .then((response: any) => {
+        .then(response => {
           console.log(response.data);
           refresh();
 
@@ -111,56 +111,56 @@ export default function LoginForm(props: { type: string }) {
           setEmail('');
           setPassword('');
         })
-        .catch((error: any) => {
+        .catch(error => {
           console.log(error);
         });
     }
   }
 
   return (
-    <form className={classes.form}>
-      <div className={classes.emailDiv}>
-        <label htmlFor="email" className={classes.inputHeading}>
+    <form className={ classes.form }>
+      <div className={ classes.emailDiv }>
+        <label htmlFor="email" className={ classes.inputHeading }>
           Email
         </label>
 
         <input
-          className={classes.input}
+          className={ classes.input }
           type="email"
           name="email"
-          value={email}
-          onChange={event => setEmail(event.target.value)}
-          onBlur={emailValidHandler}
+          value={ email }
+          onChange={ event => setEmail(event.target.value) }
+          onBlur={ emailValidHandler }
         />
 
-        <span ref={emailRef} className={classes.inputInvalidText}>
+        <span ref={ emailRef } className={ classes.inputInvalidText }>
           Not valid email
         </span>
 
-        <label htmlFor="password" className={classes.inputHeading}>
+        <label htmlFor="password" className={ classes.inputHeading }>
           Password
         </label>
 
         <input
           name="password"
-          className={classes.input}
+          className={ classes.input }
           type="password"
-          value={password}
-          onChange={event => setPassword(event.target.value)}
-          onBlur={passwordValidHandler}
+          value={ password }
+          onChange={ event => setPassword(event.target.value) }
+          onBlur={ passwordValidHandler }
         />
 
-        <span ref={passwordRef} className={classes.inputInvalidText}>
+        <span ref={ passwordRef } className={ classes.inputInvalidText }>
           Password too short
         </span>
 
         {passwordIsValid ? (
           props.type === 'Signup' ? (
-            <Link className={classes.link} to="/login">
+            <Link className={ classes.link } to="/login">
               I already have an account
             </Link>
           ) : (
-            <Link className={classes.link} to="/signup">
+            <Link className={ classes.link } to="/signup">
               I don't have an account
             </Link>
           )
@@ -168,23 +168,25 @@ export default function LoginForm(props: { type: string }) {
 
         <button
           type="button"
-          className={classes.submitButton}
-          onClick={submitHandler}
+          className={ classes.submitButton }
+          onClick={ submitHandler }
         >
-          {props.type}
+          { props.type }
         </button>
       </div>
-      <div className={classes.formSeparator}></div>
-      <div className={classes.buttonDiv}>
+
+      <div className={ classes.formSeparator }></div>
+      
+      <div className={ classes.buttonDiv }>
         <button
-          className={`${classes.githubButton} ${classes.socialButton}`}
-          onClick={() => oAuthLogin('/auth/github')}
+          className={ `${ classes.githubButton } ${ classes.socialButton }` }
+          onClick={ () => oAuthLogin('/auth/github') }
           type="button"
         >
-          {props.type} with Github{' '}
+          { props.type } with Github{' '}
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className={classes.githubIcon}
+            className={ classes.githubIcon }
             viewBox="0 0 512 512"
           >
             <title>Logo Github</title>
@@ -194,13 +196,13 @@ export default function LoginForm(props: { type: string }) {
         </button>
 
         <button
-          className={`${classes.googleButton} ${classes.socialButton}`}
-          onClick={() => oAuthLogin('/auth/google')}
+          className={ `${ classes.googleButton } ${ classes.socialButton }` }
+          onClick={ () => oAuthLogin('/auth/google') }
           type="button"
         >
-          {props.type} with Google{' '}
+          { props.type } with Google{' '}
           <svg
-            className={classes.googleIcon}
+            className={ classes.googleIcon }
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512"
           >
