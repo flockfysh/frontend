@@ -32,7 +32,7 @@ export default function Button(props: ButtonProps) {
     }
 
     return (
-        <button {...buttonProps} className={`${classes.button} ${gradientClass} ${props.className || ""}`}>
+        <button type={"button"} {...buttonProps} className={`${classes.button} ${gradientClass} ${props.className || ""}`}>
             {props.children}
         </button>
     );

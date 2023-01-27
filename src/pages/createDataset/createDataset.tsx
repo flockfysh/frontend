@@ -9,6 +9,8 @@ import {ModalProps} from '../../components/UI/modal/modal';
 import CustomSelect from "../../components/UI/input/selectInput";
 import classes from './createDataset.module.css';
 import MultiFileInput from "../../components/UI/input/multiFileInput/multiFileInput";
+import {massZip} from "../../helpers/zip";
+import Button from "../../components/UI/button/button";
 
 type ModalSettings = ModalProps & { display: boolean };
 
@@ -22,29 +24,22 @@ export default function CreateDataset() {
 
     const [errorMessage, setErrorMessage] = React.useState("");
 
-    const datasetName = useRef({} as HTMLInputElement);
-    const pricingPlan = useRef({} as HTMLSelectElement);
+    const formRef = React.useRef<HTMLFormElement | null>(null);
 
     function updateType(type: string) {
         updateDatasetType(type);
     }
 
-    function createDataset() {
-        if (datasetName.current.value.length === 0) {
-            setErrorMessage('Dataset name can\'t be empty.');
-            return;
-        } else if (pricingPlan.current.value.length === 0) {
-            setErrorMessage('You need to select a pricing plan.');
-            return;
-        } else if (images.length !== 50) {
-            setErrorMessage('Need to upload exactly 50 images.');
-            return;
+    function createDataset(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        if (!formRef.current) {
+            throw new Error("Missing form element!");
         }
+        const form = formRef.current;
+        const fd = new FormData(form);
+        const files = fd.getAll("files") as File[];
+        massZip(files);
 
-        updateLoading(true);
-
-        (async function () {
-        })();
     }
 
     function closeModal() {
@@ -62,34 +57,34 @@ export default function CreateDataset() {
             <h1>Create a new Dataset</h1>
 
             <div className={classes.datasetTypeRow}>
-                <button
+                <Button
                     className={datasetType === 'images' ? classes.selected : ''}
                     onClick={() => updateType('images')}
                 >
                     Images
-                </button>
+                </Button>
 
-                <button
+                <Button
                     disabled={true}
                     className={datasetType === 'text' ? classes.selected : ''}
                     onClick={() => updateType('text')}
                 >
                     Text
-                </button>
+                </Button>
 
-                <button
+                <Button
                     disabled={true}
                     className={datasetType === 'other' ? classes.selected : ''}
                     onClick={() => updateType('other')}
                 >
                     Other
-                </button>
+                </Button>
             </div>
 
-            <div className={classes.datasetSecondRow}>
+            <form className={classes.datasetSecondRow} ref={formRef} onSubmit={createDataset}>
                 <div className={classes.labelledInputContainer}>
                     <label htmlFor="name" className={classes.labelledInputContainer__label}>Name of Dataset</label>
-                    <input ref={datasetName} id="name" name="name" type="text"
+                    <input id="name" name="name" type="text"
                            className={classes.labelledInputContainer__input}/>
                 </div>
 
@@ -109,14 +104,12 @@ export default function CreateDataset() {
                     <label htmlFor="addImagesInput" className={classes.labelledInputContainer__label}>Upload
                         images</label>
                     <MultiFileInput buttonLabel={"Add images"}
-                                    name="files"
-                                    accept={"image/jpeg,image/jpg,image/webp,image/png"}></MultiFileInput>
+                                    name="files"></MultiFileInput>
                 </div>
-            </div>
-
-            <div className={classes.createDatasetButtonContainer}>
-                <button onClick={createDataset}>Create Dataset</button>
-            </div>
+                <div className={classes.submitButtonContainer}>
+                    <button type={"submit"}>Create Dataset</button>
+                </div>
+            </form>
         </div>
     );
 }

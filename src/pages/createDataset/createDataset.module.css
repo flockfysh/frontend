@@ -166,13 +166,13 @@
     justify-content: center;
 }
 
-.createDatasetButtonContainer {
+.submitButtonContainer {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.createDatasetButtonContainer button {
+.submitButtonContainer button {
     padding: 1.5rem 2rem;
     font-size: 1.5rem;
     border-radius: 4px;
@@ -189,7 +189,7 @@
     cursor: pointer;
 }
 
-.createDatasetButtonContainer button:hover {
+.submitButtonContainer button:hover {
     color: rgb(0, 12, 121);
 }
 

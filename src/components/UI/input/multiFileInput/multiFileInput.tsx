@@ -24,6 +24,7 @@ const MultiFileInput = React.forwardRef<HTMLInputElement, FileInputProps>(functi
         };
     });
     const internalFileInputRef = React.useRef<HTMLInputElement | null>(null);
+    const dragOverTimeoutRef = React.useRef<NodeJS.Timeout|number|null>(null);
 
     let _maxFileCount = maxFileCount ?? Infinity;
 
@@ -38,25 +39,33 @@ const MultiFileInput = React.forwardRef<HTMLInputElement, FileInputProps>(functi
         internalFileInputRef.current.files = newFileList.files;
     }
 
-    function dragEnterHandler(this: any, e: React.DragEvent<HTMLInputElement>) {
-        setFileDropOverlayVisible(true);
-        // Directly manipulate the dragEnter event to enable event chaining
-        // @ts-ignore
-        e.currentTarget = internalFileInputRef.current;
-        return props.onDragEnter?.(e);
+    function dragOverHandler() {
+        if (dragOverTimeoutRef.current) {
+            clearTimeout(dragOverTimeoutRef.current);
+        }
+        if (!fileDropOverlayVisible) {
+            setFileDropOverlayVisible(true);
+        }
+        dragOverTimeoutRef.current = setTimeout(() => {
+            setFileDropOverlayVisible(false);
+        }, 500);
     }
 
-    function dragLeaveHandler(e: React.DragEvent<HTMLInputElement>) {
-        setFileDropOverlayVisible(false);
-        return props.onDragLeave?.(e);
+    function dragEndHandler() {
+        if (dragOverTimeoutRef.current) {
+            clearTimeout(dragOverTimeoutRef.current);
+        }
+        setFileDropOverlayVisible(true);
     }
 
     function dropHandler(event: React.DragEvent<HTMLInputElement>) {
         setFileDropOverlayVisible(false);
+        // Empty the files target!
+        event.currentTarget.files = new DataTransfer().files;
         return props.onDrop?.(event);
     }
 
-    async function changeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    function inputHandler(event: React.ChangeEvent<HTMLInputElement>) {
         setFileDropOverlayVisible(false);
         const filesInInput = event.currentTarget.files;
         if (filesInInput) {
@@ -87,22 +96,24 @@ const MultiFileInput = React.forwardRef<HTMLInputElement, FileInputProps>(functi
         internalState.files.delete(id);
         if (internalFileInputRef.current) {
             internalFileInputRef.current.files = new DataTransfer().files;
-            internalFileInputRef.current?.dispatchEvent(new Event("change", {
+            internalFileInputRef.current?.dispatchEvent(new Event("input", {
                 bubbles: true,
             }));
         }
     }
 
-    return <div className={`${classes.masterContainer} ${props.className || ""}`}>
-        <div className={`${classes.fileInputContainer}`} onDragEnter={dragEnterHandler}>
+    return <div className={`${classes.masterContainer} ${props.className || ""}`}
+                onDragOver={dragOverHandler}
+                onDragEnd={dragEndHandler}>
+        <div className={`${classes.fileInputContainer}`}>
             <div
                 className={`${classes.fileDropOverlay} ${fileDropOverlayVisible ? classes.fileDropOverlayVisible : ""}`}>
                 Drop here to upload
             </div>
             <input type={"file"} multiple {...inputProps}
                    className={`${classes.fileInput} ${fileDropOverlayVisible ? classes.fileInputVisible : ""}`}
-                   onDragLeave={dragLeaveHandler} onDrop={dropHandler}
-                   onChange={changeHandler} ref={(e) => {
+                   onDrop={dropHandler}
+                   onInput={inputHandler} ref={(e) => {
                 if (typeof ref === "function") {
                     ref(e);
                 } else if (ref) {
@@ -135,7 +146,8 @@ const MultiFileInput = React.forwardRef<HTMLInputElement, FileInputProps>(functi
                     ))
                 }
             </ul> : null
-        }</div>;
+        }
+    </div>;
 });
 
 export default MultiFileInput;

@@ -45,7 +45,7 @@ export default function FileItemCard(props: FileItemProps) {
             <img src={imageUrl} alt={props.file.name} className={classes.smallPreview}/> :
             <FillableSVG src={fileSVG} className={`${classes.smallPreview} ${classes.placeholderFile}`}></FillableSVG>}
         <h3 className={classes.fileItemName}>{props.file.name}</h3>
-        <button className={classes.viewImage} onClick={displayImage}>Preview</button>
+        <Button className={classes.viewImage} onClick={displayImage}>Preview</Button>
         <Button
             onClick={
                 () => props.removeFile(props.id)
