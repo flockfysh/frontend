@@ -24,7 +24,7 @@ const MultiFileInput = React.forwardRef<HTMLInputElement, FileInputProps>(functi
         };
     });
     const internalFileInputRef = React.useRef<HTMLInputElement | null>(null);
-    const dragOverTimeoutRef = React.useRef<NodeJS.Timeout|number|null>(null);
+    const dragOverTimeoutRef = React.useRef<NodeJS.Timeout | number | null>(null);
 
     let _maxFileCount = maxFileCount ?? Infinity;
 
@@ -102,52 +102,57 @@ const MultiFileInput = React.forwardRef<HTMLInputElement, FileInputProps>(functi
         }
     }
 
-    return <div className={`${classes.masterContainer} ${props.className || ""}`}
-                onDragOver={dragOverHandler}
-                onDragEnd={dragEndHandler}>
-        <div className={`${classes.fileInputContainer}`}>
-            <div
-                className={`${classes.fileDropOverlay} ${fileDropOverlayVisible ? classes.fileDropOverlayVisible : ""}`}>
-                Drop here to upload
-            </div>
-            <input type={"file"} multiple {...inputProps}
-                   className={`${classes.fileInput} ${fileDropOverlayVisible ? classes.fileInputVisible : ""}`}
-                   onDrop={dropHandler}
-                   onInput={inputHandler} ref={(e) => {
-                if (typeof ref === "function") {
-                    ref(e);
-                } else if (ref) {
-                    ref.current = e;
-                }
-                internalFileInputRef.current = e;
-            }}/>
-            <div className={classes.inputRow}>
-                <Button className={classes.inputButton} gradient={true} onClick={() => {
-                    internalFileInputRef.current?.click();
-                }}>{buttonLabel ?? "Add file"}</Button>
-                {_maxFileCount !== Infinity
-                    ?
-                    <span className={classes.fileCount}>{internalState.files.size}/{maxFileCount} files uploaded</span>
-                    : <span className={classes.fileCount}>{internalState.files.size} files uploaded</span>}
-            </div>
+    return (
+        <div className={`${classes.masterContainer} ${props.className || ""}`}
+             onDragOver={dragOverHandler}
+             onDragEnd={dragEndHandler}>
+            <div className={`${classes.fileInputContainer}`}>
+                <div
+                    className={`${classes.fileDropOverlay} ${fileDropOverlayVisible ? classes.fileDropOverlayVisible : ""}`}>
+                    Drop here to upload
+                </div>
+                <input type={"file"} multiple {...inputProps}
+                       className={`${classes.fileInput} ${fileDropOverlayVisible ? classes.fileInputVisible : ""}`}
+                       onDrop={dropHandler}
+                       onInput={inputHandler} ref={(e) => {
+                    if (typeof ref === "function") {
+                        ref(e);
+                    } else if (ref) {
+                        ref.current = e;
+                    }
+                    internalFileInputRef.current = e;
+                }}/>
+                <div className={classes.inputRow}>
+                    <Button className={classes.inputButton} gradient={true} onClick={() => {
+                        internalFileInputRef.current?.click();
+                    }}>
+                        {buttonLabel ?? "Add file"}
+                    </Button>
+                    {_maxFileCount !== Infinity
+                        ?
+                        <span
+                            className={classes.fileCount}>{internalState.files.size}/{maxFileCount} files uploaded</span>
+                        : <span className={classes.fileCount}>{internalState.files.size} files uploaded</span>}
+                </div>
 
+            </div>
+            {internalState.files.size ?
+                <ul className={classes.fileList}>
+                    {
+                        [...internalState.files.entries()].map(([id, file], index) => (
+                            <FileInputCard
+                                key={id}
+                                file={file}
+                                id={id}
+                                index={index}
+                                removeFile={removeFile}
+                            />
+                        ))
+                    }
+                </ul> : null
+            }
         </div>
-        {internalState.files.size ?
-            <ul className={classes.fileList}>
-                {
-                    [...internalState.files.entries()].map(([id, file], index) => (
-                        <FileInputCard
-                            key={id}
-                            file={file}
-                            id={id}
-                            index={index}
-                            removeFile={removeFile}
-                        />
-                    ))
-                }
-            </ul> : null
-        }
-    </div>;
+    );
 });
 
 export default MultiFileInput;

@@ -6,5 +6,5 @@ export default function UserEmail(props: React.ComponentPropsWithRef<"span">) {
     if (curUser) {
         return <span className={`${props.className || ""}`}>{curUser.email}</span>;
     }
-    return null;
+    return <></>;
 }

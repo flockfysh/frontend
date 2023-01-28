@@ -8,7 +8,7 @@ interface PictureProps extends React.ComponentPropsWithRef<"img"> {
 export default function UserPicture(props: React.ComponentPropsWithRef<"img">) {
     const {curUser} = React.useContext(UserContext);
     if (curUser) {
-        return <img className={`${props.className || ""}`} src={curUser.profileImage}></img>;
+        return <img className={`${props.className || ""}`} src={curUser.profileImage} alt={curUser.name}></img>;
     }
-    return null;
+    return <></>;
 }
