@@ -5,6 +5,6 @@
         - `DEBUG=true`
     - clone repo
     - `yarn`
-    - `npm start`
+    - `yarn start`
 
 ## [Contributing](contributing.md)
