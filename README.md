@@ -4,10 +4,7 @@
     - Setup env vars
         - `DEBUG=true`
     - clone repo
-    - npm i
-    - npm start
+    - `yarn`
+    - `npm start`
 
-## Contributing
-- All files and folders should be in camelCase
-- Double quotes in JSX and single-quotes everywhere else
-- Spaces between curly braces e.g `{ classes.button }` instead of `{classes.button}`
+## [Contributing](contributing.md)
