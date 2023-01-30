@@ -11,7 +11,7 @@ declare interface DatasetPartial {
 }
 
 declare interface Dataset extends DatasetPartial {
-    dateCreated: string;
+    dateCreated: Date;
     plan: string;
     monthlyCost: MonthlyCost;
     size: number;
@@ -22,6 +22,7 @@ declare interface Dataset extends DatasetPartial {
 declare interface Image {
     url: string;
     name: string;
+    displayName?: string;
 }
 
 declare interface User {

@@ -72,8 +72,8 @@ function MainApp() {
                         </Route>
 
                         <Route
-                            path=":datasetId/description"
-                            element={<EachDataSet page="description"/>}
+                            path=":datasetId/overview"
+                            element={<EachDataSet page="overview"/>}
                         />
 
                         <Route

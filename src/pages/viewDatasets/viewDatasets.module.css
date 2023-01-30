@@ -1,5 +1,5 @@
 .viewDatasetsHeader {
-    margin-block: 5rem;
+    margin-block: 5rem 2rem;
     font-size: 3rem;
 }
 
@@ -8,8 +8,9 @@
     grid-template-columns: repeat(auto-fit, minmax(375px, 1fr));
     justify-content: space-evenly;
     justify-items: center;
-    margin-block: 6rem;
-    grid-gap: 4rem 3rem;
+    align-items: flex-start;
+    margin-block: 2rem 6rem;
+    grid-gap: 3rem 3rem;
 }
 
 .header {
