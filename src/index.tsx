@@ -11,6 +11,7 @@ import LoginPage from './pages/login/login';
 import Docs from './pages/docs/docs';
 import Blog from './pages/blog/blog';
 import About from './pages/about/about';
+import Test from "./pages/test/test";
 import Profile from './pages/profile/profile';
 import Annotate from './pages/annotate/annotate';
 
@@ -52,6 +53,7 @@ function MainApp() {
                         <Route path="/blog" element={<Blog/>}/>
                         <Route path="/docs" element={<Docs/>}/>
                         <Route path="/about" element={<About/>}/>
+                        <Route path="/test" element={<Test/>}/>
 
                         <Route path="/login" element={<LoginPage type="Login"/>}/>
                         <Route path="/signup" element={<LoginPage type="Signup"/>}/>
@@ -70,8 +72,8 @@ function MainApp() {
                         </Route>
 
                         <Route
-                            path=":datasetId/overview"
-                            element={<EachDataSet page="overview"/>}
+                            path=":datasetId/description"
+                            element={<EachDataSet page="description"/>}
                         />
 
                         <Route

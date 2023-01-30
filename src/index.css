@@ -63,6 +63,10 @@ main {
     flex: 1;
 }
 
+button, input {
+    font: inherit;
+    border: none;
+}
 
 a {
     text-decoration: none;

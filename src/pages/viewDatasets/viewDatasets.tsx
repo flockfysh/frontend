@@ -8,14 +8,12 @@ import MiniProfile from '../../components/dashboard/viewDatasets/miniProfile/min
 
 import GradientLink from '../../components/UI/gradientLink/gradientLink';
 
-import Image from '../../images/heroImage.jpg';
-import Icon from '../../images/icons/search.svg';
-
 import classes from './viewDatasets.module.css';
 import SearchInput from "../../components/UI/input/searchInput";
+import api from "../../helpers/api";
 
 export default function ViewDatasets() {
-    const [datasets, updateDatasets] = useState([] as Dataset[]);
+    const [datasets, updateDatasets] = useState<DatasetPartial[]>([]);
     const [isLoading, updateLoadingState] = useState(true);
     const [filter, updateFilter] = useState('');
 
@@ -23,41 +21,9 @@ export default function ViewDatasets() {
         updateLoadingState(true);
 
         (async function () {
-            // fetch user datasets here
-            const testDatasets = [];
-
-            for (let i = 0; i < 6; i++) {
-                testDatasets.push({
-                    name: 'Dogs',
-                    id: '50',
-                    numImages: 50,
-                    overview:
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-                    dateCreated: '31st Novemeber, 2022',
-                    plan: 'Hobbyist',
-                    monthlyCost: {
-                        storage: 100,
-                        creation: 23,
-                        total: 123
-                    },
-                    size: 3.2,
-                    uploadedImages: [
-                        {
-                            url: 'https://i.guim.co.uk/img/media/fe1e34da640c5c56ed16f76ce6f994fa9343d09d/0_174_3408_2046/master/3408.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=67773a9d419786091c958b2ad08eae5e',
-                            name: 'dog_dog'
-                        }
-                    ],
-                    datasetImages: [
-                        {
-                            url: 'https://i.guim.co.uk/img/media/fe1e34da640c5c56ed16f76ce6f994fa9343d09d/0_174_3408_2046/master/3408.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=67773a9d419786091c958b2ad08eae5e',
-                            name: 'dog_dog_dog'
-                        }
-                    ]
-                });
-            }
-
-            updateDatasets(testDatasets);
-
+            const datasets = (await api.get("/api/dataset")).data.data as DatasetPartial[];
+            console.log(datasets);
+            updateDatasets(datasets);
             updateLoadingState(false);
         })();
     }, []);

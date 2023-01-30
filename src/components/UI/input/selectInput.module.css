@@ -1,11 +1,11 @@
 .selectElement {
     font-size: 1.5rem;
-    border-radius: 1.5rem;
+    border-radius: 0.5rem;
 }
 
 .selectElementControl {
     background: var(--color-black-secondary);
-    border: 1px solid var(--color-blue-primary);
+    border: 1px solid transparent;
     border-radius: inherit;
     box-shadow: none;
 }
@@ -17,8 +17,9 @@
 
 .selectValueContainer {
     padding-inline: 2rem;
-    padding-block: 1.3rem;
+    padding-block: 1rem;
     line-height: 2rem;
+
 }
 
 .selectValue {
@@ -26,10 +27,15 @@
     margin-left: 0;
 }
 
+.selectPlaceholder {
+    margin-left: 0;
+}
+
 .selectInput {
     padding: 0;
     margin: 0;
     color: inherit;
+    overflow: auto;
 }
 
 .selectMenuList {
@@ -45,6 +51,7 @@
     background: var(--color-black-secondary);
     border-radius: inherit;
     overflow: hidden;
+    box-shadow: 0 0 4rem 1rem rgba(0, 0, 0);
 }
 
 .focusedSelectOption {

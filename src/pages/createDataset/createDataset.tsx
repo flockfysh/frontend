@@ -1,195 +1,157 @@
-import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, {useState, useRef} from 'react';
+import {useNavigate} from 'react-router-dom';
 
-import UploadedImage from '../../components/dashboard/createDataset/uploadedImage/uploadedImage';
 import Loading from '../../components/loading/loading';
 
-import Modal from '../../components/dashboard/createDataset/modal/modal';
-import { ModalProps } from '../../components/dashboard/createDataset/modal/modal';
+import Modal, {ErrorModal} from '../../components/UI/modal/modal';
+import {ModalProps} from '../../components/UI/modal/modal';
 
+import CustomSelect from "../../components/UI/input/selectInput";
 import classes from './createDataset.module.css';
+import MultiFileInput from "../../components/UI/input/multiFileInput/multiFileInput";
+import Button from "../../components/UI/button/button";
+import axios from 'axios';
+import {serverURL} from "../../settings";
+import AsyncArray from "../../helpers/async";
+import api from "../../helpers/api";
+import Textarea from "../../components/UI/input/textarea";
 
 type ModalSettings = ModalProps & { display: boolean };
 
 export default function CreateDataset() {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const [isLoading, updateLoading] = useState(false);
+    const [isLoading, updateLoading] = useState(false);
 
-  const [datasetType, updateDatasetType] = useState('images');
-  const [images, updateImages] = useState([] as File[]);
+    const [datasetType, updateDatasetType] = useState('images');
+    const [errorMessage, setErrorMessage] = React.useState("");
 
-  const [modalProps, updateModalProps] = useState({
-    display: false
-  } as ModalSettings);
+    const formRef = React.useRef<HTMLFormElement | null>(null);
 
-  const datasetName = useRef({} as HTMLInputElement);
-  const pricingPlan = useRef({} as HTMLSelectElement);
-
-  function updateType(type: string) {
-    updateDatasetType(type);
-  }
-
-  function uploadImages(e: React.ChangeEvent<HTMLInputElement>) {
-    const updatedImages = [];
-
-    for(const f of e.target.files!) {
-      if(
-        !f.type.includes('png') &&
-        !f.type.includes('jpg') &&
-        !f.type.includes('webp') &&
-        !f.type.includes('jpeg')
-      ) {
-        alert(
-          `Can only upload images of type png, jpg, or webp. File named ${f.name} skipped.`
-        );
-
-        continue;
-      }
-
-      updatedImages.push(f);
+    function updateType(type: string) {
+        updateDatasetType(type);
     }
 
-    updateImages([...updatedImages, ...images]);
-  }
-
-  function createDataset() {
-    if(datasetName.current.value.length === 0) {
-      updateModalProps({
-        display: true,
-        message: 'Dataset name can\'t be empty.',
-        displayImage: false
-      } as ModalSettings);
-
-      return;
-    } 
-    else if(pricingPlan.current.value.length === 0) {
-      updateModalProps({
-        display: true,
-        message: 'You need to select a pricing plan.',
-        displayImage: false
-      } as ModalSettings);
-
-      return;
-    } 
-    else if(images.length !== 50) {
-      updateModalProps({
-        display: true,
-        message: 'Need to upload exactly 50 images.',
-        displayImage: false
-      } as ModalSettings);
-
-      return;
-    }
-
-    updateLoading(true);
-
-    (async function () {
-      // calls to backend
-      // navigate('PATH/TO/NEW/Dataset');
-    })();
-  }
-
-  function deleteImage(index: number) {
-    const updatedImages = [];
-
-    for(let i = 0; i < images.length; i++) {
-      if(i === index) continue;
-
-      updatedImages.push(images[i]);
-    }
-
-    updateImages([...updatedImages]);
-  }
-
-  function closeModal() {
-    updateModalProps({
-      ...modalProps,
-      display: false
-    });
-  }
-
-  if(isLoading) return <Loading />;
-
-  return (
-    <div className={ classes.createDatasetContainer}>
-      {
-        modalProps.display ? <Modal { ...modalProps } closeModal={ closeModal } /> : <></>
-      }
-
-      <h1>Create a new Dataset</h1>
-
-      <div className={ classes.datasetTypeRow }>
-        <button
-          className={ datasetType === 'images' ? classes.selected : '' }
-          onClick={ () => updateType('images') }
-        >
-          Images
-        </button>
-
-        <button
-          disabled={ true }
-          className={ datasetType === 'text' ? classes.selected : '' }
-          onClick={ () => updateType('text') }
-        >
-          Text
-        </button>
-
-        <button
-          disabled={ true }
-          className={ datasetType === 'other' ? classes.selected : '' }
-          onClick={ () => updateType('other') }
-        >
-          Other
-        </button>
-      </div>
-
-      <div className={ classes.datasetSecondRow }>
-        <div>
-          <label htmlFor="name">Name of Dataset</label>
-          <input ref={ datasetName } id="name" type="text" />
-        </div>
-
-        <div>
-          <label htmlFor="pricingPlan">Pricing plan</label>
-
-          <select ref={ pricingPlan } id="pricingPlan">
-            <option value="free">Free forever</option>
-          </select>
-        </div>
-      </div>
-
-      <div className={ classes.datasetThirdRow }>
-        <div>
-          <p>Upload Images</p>
-
-          <label>
-            <input type="file" onChange={ uploadImages } multiple={true} />
-            Select Images
-          </label>
-        </div>
-
-        <p className={ classes.numImages }>{ images.length }/50 images uploaded</p>
-      </div>
-
-      <div className={ classes.datasetFourthRow }>
-        {
-          images.map(
-            (image, index) => (
-              <UploadedImage
-                key={ index }
-                image={ image }
-                index={ index }
-                deleteImage={ deleteImage }
-              />
-            )
-          )
+    async function createDataset(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        if (!formRef.current) {
+            throw new Error("Missing form element!");
         }
-      </div>
+        const fd = new FormData(formRef.current);
 
-      <div className={ classes.createDatasetButtonContainer }>
-        <button onClick={ createDataset }>Create Dataset</button>
-      </div>
-    </div>
-  );
+        // Create a dataset.
+        const createDatasetRequestBody: Record<string, string> = {};
+        for (let [key, val] of fd.entries()) {
+            if (typeof val === 'string') {
+                createDatasetRequestBody[key] = val;
+            }
+        }
+        createDatasetRequestBody.type = datasetType;
+        const response = await api.post("/api/dataset", createDatasetRequestBody);
+        const datasetId = response.data.data._id;
+
+        // Start adding image to the dataset.
+        const files = new AsyncArray(fd.getAll("files") as File[]);
+        const badFiles: string[] = [];
+        await files.chunkMap(async (file) => {
+            try {
+                const fd = new FormData();
+                fd.append("image", file);
+                await api.post(`/api/image/${datasetId}`, fd);
+            } catch (e) {
+                badFiles.push(file.name);
+            }
+        }, undefined);
+        if (badFiles.length) {
+            let badFileString: string;
+            if (badFiles.length <= 5) {
+                badFileString = badFiles.join(", ");
+            } else {
+                badFileString = `badFiles.slice(0, 5).join(", ") and ${badFiles.length - 5} more`;
+            }
+            setErrorMessage(`These files failed to upload: ${badFileString}. Please check the dataset for missing files.`);
+        } else {
+            navigate("/dashboard");
+        }
+    }
+
+    function closeModal() {
+        setErrorMessage("");
+    }
+
+    if (isLoading) return <Loading/>;
+
+    return (
+        <div className={classes.createDatasetContainer}>
+            {
+                errorMessage ? <ErrorModal message={errorMessage} closeModal={closeModal}/> : <></>
+            }
+
+            <h1>Create a new Dataset</h1>
+
+            <div className={classes.datasetTypeRow}>
+                <Button
+                    className={datasetType === 'images' ? classes.selected : ''}
+                    onClick={() => updateType('images')}
+                >
+                    Images
+                </Button>
+
+                <Button
+                    disabled={true}
+                    className={datasetType === 'text' ? classes.selected : ''}
+                    onClick={() => updateType('text')}
+                >
+                    Text
+                </Button>
+
+                <Button
+                    disabled={true}
+                    className={datasetType === 'other' ? classes.selected : ''}
+                    onClick={() => updateType('other')}
+                >
+                    Other
+                </Button>
+            </div>
+
+            <form className={classes.datasetSecondRow} ref={formRef} onSubmit={createDataset}>
+                <div className={classes.labelledInputContainer}>
+                    <label htmlFor="name" className={classes.labelledInputContainer__label}>Name of Dataset</label>
+                    <input id="name" name="name" type="text"
+                           className={classes.labelledInputContainer__input}/>
+                </div>
+
+                <div className={classes.labelledInputContainer}>
+                    <label htmlFor="name" className={classes.labelledInputContainer__label}>Dataset Description</label>
+                    <Textarea id="name" name="description"
+                           className={classes.labelledInputContainer__input}/>
+                </div>
+
+
+                <div className={classes.labelledInputContainer}>
+                    <label htmlFor="pricingPlan" className={classes.labelledInputContainer__label}>Pricing plan</label>
+                    <CustomSelect id="pricingPlan" name="tier" className={classes.labelledInputContainer__input}
+                                  required={true}
+                                  options={[
+                                      {label: "Free forever", value: "free"},
+                                      {label: "Hobbyist", value: "premium1"},
+                                      {label: "Professional", value: "premium2"}
+                                  ]}
+                                  defaultValue={{label: "Free forever", value: "free"}}/>
+                </div>
+
+                <div className={classes.labelledInputContainer}>
+                    <label htmlFor="addImagesInput" className={classes.labelledInputContainer__label}>Upload
+                        images</label>
+                    <MultiFileInput
+                        accept={".webp, .png, .jpg, .jpeg"}
+                        buttonLabel={"Add images"}
+                        name="files"></MultiFileInput>
+                </div>
+                <div className={classes.submitButtonContainer}>
+                    <button type={"submit"}>Create Dataset</button>
+                </div>
+            </form>
+        </div>
+    );
 }

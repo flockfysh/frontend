@@ -28,11 +28,10 @@
 }
 
 .itemWithoutBackground {
-    padding: 0 2rem;
     display: flex;
     flex-direction: column;
     row-gap: 1rem;
-    margin-inline: -2rem;
+    width: 100%;
 }
 
 .deleteButtonContainer {
@@ -50,6 +49,14 @@
 .deleteButton:hover {
     background: var(--color-red-primary);
     color: var(--color-white);
+}
+
+.selectElement {
+    border-radius: 1.5rem;
+}
+
+.selectElementValueContainer {
+    padding-block: 1.3rem;
 }
 
 @media only all and (min-width: 1024px) {

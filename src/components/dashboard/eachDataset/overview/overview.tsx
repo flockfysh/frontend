@@ -8,7 +8,7 @@ export default function Overview(props: { dataset: Dataset }) {
       <div className={ classes.contentContainer }>
         <h1>{ props.dataset.name } dataset</h1>
 
-        <p>{ props.dataset.overview }</p>
+        <p>{ props.dataset.description }</p>
 
         <div className={ classes.infoCards }>
           <div>Images: { props.dataset.datasetImages.length }</div>

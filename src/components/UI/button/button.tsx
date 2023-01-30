@@ -5,12 +5,11 @@ import classes from './button.module.css';
 interface ButtonProps extends React.ComponentPropsWithRef<"button"> {
     gradient?: boolean;
     gradientDirection?: string;
-    hasArrow?: boolean;
 }
 
 export default function Button(props: ButtonProps) {
-    const gradientDirection = props.gradientDirection ? props.gradientDirection : 'topToBottom';
-    const hasArrow = props.hasArrow ? props.hasArrow : false;
+    let {gradient, gradientDirection, ...buttonProps} = props;
+    gradientDirection ??= 'topToBottom';
 
     let gradientClass = "";
 
@@ -31,7 +30,8 @@ export default function Button(props: ButtonProps) {
     }
 
     return (
-        <button className={`${classes.button} ${gradientClass} ${props.className || ""}`}>
+        <button type={"button"} { ...buttonProps }
+                className={`${classes.button} ${gradientClass} ${props.className || ""}`}>
             {props.children}
         </button>
     );
