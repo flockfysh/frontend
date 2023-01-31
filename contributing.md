@@ -7,7 +7,7 @@
 - Components should go under components folder.
 
 # Quotes
-- Use single quotes for all quotes
+- Use single quotes for all quotes (**JSX classNames, paths, etc, should be in double quotes**)
 - If a single quote is neccessary in a string. <br>
     Context: 
         ```console.log('Can't do this');```
@@ -28,21 +28,29 @@
 - When installing a new package, check if there is a types package for it as well.
 
 # Functions
-- Prefer arrow functions for anonymous callbacks
+- Prefer named functions for anonymous callbacks
     <br>
     Prefer: 
     <br>
-        `setTimeout(() => console.log('...'), 1000);`
+```
+setTimeout(
+    function logUserEntry() { 
+        console.log('...')
+    }
+, 1000);
+```
     <br>
     Over:
     <br>
-        ```
-        setTimeout(function() {
-            console.log('...');
-        }, 1000);
-        ```
+```
+setTimeout(() => {
+    console.log('...');
+}, 1000);
+```
 
-    ### This does not apply to named functions in callbacks or when certain `this` behaviour is needed
+    This will help readers of the code faster and better understand what the function is doing.
+
+    ### This does not apply when you need lexical `this` behaviour. In this case, use arrow functions.
 - Prefer function declarations over expressions
 
 # Clean, Readable, and Maintainable!
@@ -76,7 +84,7 @@ for(...) {
 - New Line at the end of a file
 - Comments when neccessary.
 
-# Documentation
+# Documenting Code
 - <a href="https://tsdoc.org/">TSDoc</a>
 
 # Braces
@@ -120,5 +128,12 @@ Over: ```{condition ? <><> : <><>}```
         </div>;
         ```
 
+# Spaces in JSX components
+- Prefer `<Component />` <br>
+- Over `<Component/>`
+
 # Whitespace & Block Indentation
 - Break up unrelated statements with whitespace.
+
+# Pull Requests
+- Please include screen-shots or videos of the changes you made (from the website).

@@ -15,7 +15,7 @@ export default function Overview(props: { dataset: Dataset }) {
 
           <div>Size of Dataset: { props.dataset.size }Gb</div>
 
-          <div>Date created: { props.dataset.dateCreated }</div>
+          <div>Date created: { props.dataset.dateCreated.toString() }</div>
         </div>
 
         <div className={ classes.btnContainer }>

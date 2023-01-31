@@ -1,45 +1,47 @@
+import { PropsWithChildren, useEffect, useState, createContext } from 'react';
 import axios from 'axios';
-import React, {PropsWithChildren, useEffect, useState} from 'react';
-import Loading from "../components/loading/loading";
-import {serverURL} from "../settings";
-import api from "../helpers/api";
 
-export const UserContext = React.createContext<{
+import Loading from '../components/loading/loading';
+import { serverURL } from '../settings';
+import api from '../helpers/api';
+
+export const UserContext = createContext<{
     curUser: User | null,
     loggedIn: boolean,
     refresh: () => void
 }>({
     curUser: null,
     loggedIn: false,
-    refresh: () => {
-    },
+    refresh: () => {}
 });
 
 export function UserWrapper(props: PropsWithChildren) {
-    const [curUser, setCurUser] = React.useState<User | null>(null);
-    const [loaded, setLoaded] = React.useState<boolean>(false);
+    const [curUser, setCurUser] = useState<User | null>(null);
+    const [loaded, setLoaded] = useState(false);
 
-    React.useEffect(() => {
-        if (!loaded) {
-            api.get("/").then(async res => {
+    useEffect(() => {
+        if(!loaded) {
+            api.get('/').then(async res => {
                 const data = await res.data.data;
                 setLoaded(true);
-                if (data.loggedIn) {
+
+                if(data.loggedIn) {
                     setCurUser({
-                        name: `${data.curUser.firstName} ${data.curUser.lastName}`,
+                        name: `${ data.curUser.firstName } ${ data.curUser.lastName }`,
                         email: data.curUser.email,
                         profileImage: data.curUser.profilePhoto,
+                        monthlyCost: {} as MonthlyCost,
+                        payments: [] as Cost[]
                     });
-                } else {
+                } 
+                else {
                     setCurUser(null);
                 }
             });
         }
     }, [loaded]);
 
-    if (!loaded) {
-        return <Loading/>;
-    }
+    if(!loaded) return <Loading/>;
 
     function refresh() {
         setLoaded(false);
@@ -48,9 +50,11 @@ export function UserWrapper(props: PropsWithChildren) {
     let loggedIn: boolean;
     loggedIn = !!curUser;
 
-    const curState = {curUser, refresh, loggedIn};
+    const curState = { curUser, refresh, loggedIn };
 
-    return <UserContext.Provider value={curState}>
-        {props.children}
-    </UserContext.Provider>;
+    return (
+        <UserContext.Provider value={ curState }>
+            { props.children }
+        </UserContext.Provider>
+    );
 }

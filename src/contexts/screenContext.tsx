@@ -1,9 +1,13 @@
-import React from 'react';
-import {MIN_WIDTH} from "../settings";
+import { useEffect, createContext, useState } from 'react';
+import { MIN_WIDTH } from '../settings';
 
-export function useMediaQuery(callback: (matches: boolean) => void, mediaQuery: string) {
-    React.useEffect(() => {
+export function useMediaQuery(
+    callback: (matches: boolean) => void, 
+    mediaQuery: string
+) {
+    useEffect(() => {
         const curQuery = matchMedia(mediaQuery);
+
         let lastState = curQuery.matches;
         callback(curQuery.matches);
 
@@ -14,27 +18,28 @@ export function useMediaQuery(callback: (matches: boolean) => void, mediaQuery: 
             }
         }
 
-        window.addEventListener("resize", update);
-        return () => {
-            window.removeEventListener("resize", update);
-        };
+        window.addEventListener('resize', update);
+
+        return () => window.removeEventListener('resize', update);
     }, [mediaQuery]);
 }
 
-export const ScreenContext = React.createContext(
+export const ScreenContext = createContext(
     {
         windowTooSmall: false
     }
 );
 
 export function ScreenWrapper(props: React.PropsWithChildren) {
-    const [windowTooSmall, updateWindowTooSmall] = React.useState(false);
+    const [windowTooSmall, updateWindowTooSmall] = useState(false);
 
     useMediaQuery((result) => {
         updateWindowTooSmall(!result);
     }, `(min-width: ${MIN_WIDTH}px)`);
 
-    return <ScreenContext.Provider value={{windowTooSmall}}>
-        {props.children}
-    </ScreenContext.Provider>;
+    return (
+        <ScreenContext.Provider value={{ windowTooSmall }}>
+            { props.children }
+        </ScreenContext.Provider>
+    );
 }

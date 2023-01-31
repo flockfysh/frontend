@@ -8,7 +8,7 @@ import Loading from '../../components/loading/loading';
 import classes from './annotate.module.css';
 
 export default function Annotate() {
-	const [images, updateImages] = useState([] as Image[]);
+	const [images, updateImages] = useState([] as DatasetImage[]);
 	
 	const [imageIndex, updateImageIndex] = useState(0);
 	const [isLoading, updateLoading] = useState(true);
