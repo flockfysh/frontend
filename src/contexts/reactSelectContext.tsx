@@ -10,6 +10,8 @@ export function EmotionCacheProvider(props: PropsWithChildren) {
         });
     }, []);
 
+    // return <>{ props.children }</>
+
     return (
         <CacheProvider value={ cache }>
             { props.children }

@@ -40,7 +40,7 @@ declare interface Cost {
 declare interface MonthlyCost {
     storage: number;
     creation: number;
-    total: number; // TODO: Isn't total just storage + creation? Unless there are other fees like taxes.
+    total: number;
 
     costs: Cost[];
 }

@@ -25,7 +25,7 @@ import PrivateRoutes from './components/privateRoutes';
 
 import { UserWrapper } from './contexts/userContext';
 import { ScreenWrapper } from './contexts/screenContext';
-// import { EmotionCacheProvider } from './contexts/reactSelectContext';
+import { EmotionCacheProvider } from './contexts/reactSelectContext';
 
 import './index.css';
 
@@ -37,13 +37,13 @@ import './index.css';
  */
 function AppWrapper(props: React.PropsWithChildren) {
     return (
-        // <EmotionCacheProvider>
+        <EmotionCacheProvider>
             <ScreenWrapper>
                 <UserWrapper>
                     { props.children }
                 </UserWrapper>
             </ScreenWrapper>
-        // </EmotionCacheProvider>
+        </EmotionCacheProvider>
     );
 }
 
