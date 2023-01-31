@@ -13,7 +13,7 @@ export default function MobileNavItem(props: NavItemProps) {
       <NavLink
         to={ props.to }
         className={
-            navData => `${navData.isActive ? classes.navbarLinkActive : ""} ${classes.navbarLink} ${classes.mobileNavbarLink}`
+            navData => `${ navData.isActive ? classes.navbarLinkActive : '' } ${ classes.navbarLink } ${ classes.mobileNavbarLink }`
         }
         end
       >

@@ -1,5 +1,6 @@
 import { useState, useRef, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+
 import axios from 'axios';
 
 import { serverURL } from '../../settings';
@@ -12,17 +13,17 @@ export default function LoginForm(props: { type: string }) {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
-  const [emailIsValid, setEmailIsValid] = useState(true);
+  const [emailIsValid, setEmailIsValid] = useState(false);
 
   const [password, setPassword] = useState('');
-  const [passwordIsValid, setPasswordIsValid] = useState(true);
+  const [passwordIsValid, setPasswordIsValid] = useState(false);
 
   const curPopup = useRef<Window | null>(null);
 
   const passwordRef = useRef({} as HTMLInputElement);
   const emailRef = useRef({} as HTMLInputElement);
 
-  const { refresh } = useContext(UserContext);
+  const { setLoginState, setUser } = useContext(UserContext);
 
   // TODO: Can we not make a popup?
 
@@ -44,7 +45,8 @@ export default function LoginForm(props: { type: string }) {
       window.addEventListener('message', function TODO(e) {
         if(e.data.success) {
           popup.close();
-          refresh();
+          setLoginState(true);
+          // setUser();
 
           location.replace('/dashboard');
         }
@@ -99,22 +101,50 @@ export default function LoginForm(props: { type: string }) {
 
   async function submitHandler() {
     if(emailIsValid && passwordIsValid) {
-      const response = (await axios({
-        method: 'post',
-        url: 'http://localhost:8000/' + props.type.toLowerCase(),
-        data: {
-          email: email,
-          password: password
-        },
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+      // const response = (await axios(
+      //   {
+      //     method: 'post',
+      //     url: 'http://localhost:8000/' + props.type.toLowerCase(),
+      //     data: {
+      //       email: email,
+      //       password: password
+      //     },
+      //     withCredentials: true,
+      //     headers: {
+      //       'Content-Type': 'application/x-www-form-urlencoded'
+      //     }
+      //   }
+      // )).data;
+
+      setLoginState(true);
+      setUser(
+        {
+          name: 'Raymond Tian',
+          email: 'raymond@gmail.com',
+          profileImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj2ueFQbN4a-eE_Gv-L4zOnsJBfsJZqiUek_ZiQvJ1gQ&s',
+          monthlyCost: {
+            storage: 100,
+            creation: 100,
+            total: 230,
+            costs: [
+              {
+                description: 'Dataset creation',
+                amount: 40,
+                paid: false,
+                timestamp: new Date()
+              }
+            ]
+          },
+          payments: [
+            {
+              description: 'Dataset payment',
+              amount: 40,
+              paid: true,
+              timestamp: new Date()
+            }
+          ]
         }
-      })).data;
-
-      console.log(response);
-
-      refresh();
+      );
 
       navigate('/dashboard');
 
@@ -164,22 +194,19 @@ export default function LoginForm(props: { type: string }) {
         </span>
 
         {
-          passwordIsValid ? (
-            props.type === 'Signup' ? (
-              <Link className={ classes.link } to="/login">
-                I already have an account
-              </Link>
-            ) : (
-              <Link className={ classes.link } to="/signup">
-                I don't have an account
-              </Link>
-            )
-          ) : null
+          props.type === 'Signup' ? (
+            <Link className={ classes.link } to="/login">
+              I already have an account
+            </Link>
+          ) : (
+            <Link className={ classes.link } to="/signup">
+              I don't have an account
+            </Link>
+          )
         }
 
         <button
           type="button"
-          disabled={ !(emailIsValid && passwordIsValid) }
           className={ classes.submitButton }
           onClick={ submitHandler }
         >

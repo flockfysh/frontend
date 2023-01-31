@@ -7,7 +7,7 @@ import { UserContext } from '../../../contexts/userContext';
 import classes from './userSignup.module.css';
 
 export default function UserSignup() {
-  const { loggedIn } = useContext(UserContext);
+  const { isLoggedIn } = useContext(UserContext);
 
   return (
     <section className={ classes.holder }>
@@ -21,7 +21,7 @@ export default function UserSignup() {
       <GradientLink
         hasArrow={ true }
         text="Commence FlockFyshing!"
-        to={ loggedIn ? '/dashboard' : '/signup' }
+        to={ isLoggedIn ? '/dashboard' : '/signup' }
       />
     </section>
   );

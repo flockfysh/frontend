@@ -5,27 +5,29 @@ import Loading from '../components/loading/loading';
 import { serverURL } from '../settings';
 import api from '../helpers/api';
 
-export const UserContext = createContext<{
-    curUser: User | null,
-    loggedIn: boolean,
-    refresh: () => void
-}>({
-    curUser: null,
-    loggedIn: false,
-    refresh: () => {}
-});
+export const UserContext = createContext(
+    {
+        curUser: null as (User | null),
+        isLoggedIn: false,
+        setLoginState: (_: boolean) => {},
+        setUser: (_: User) => {}
+    }
+);
 
 export function UserWrapper(props: PropsWithChildren) {
     const [curUser, setCurUser] = useState<User | null>(null);
-    const [loaded, setLoaded] = useState(false);
+    
+    const [isLoggedIn, updateLoggedInState] = useState(false);
+
+    const [isLoading, updateLoading] = useState(false);
 
     useEffect(() => {
-        if(!loaded) {
-            api.get('/').then(async res => {
-                const data = await res.data.data;
-                setLoaded(true);
+        updateLoading(true);
 
-                if(data.loggedIn) {
+        (async function getUserState() {
+            try {
+                const data = (await api.get(`${ serverURL }/authenticate`)).data;
+                if(data.success) {
                     setCurUser({
                         name: `${ data.curUser.firstName } ${ data.curUser.lastName }`,
                         email: data.curUser.email,
@@ -34,23 +36,25 @@ export function UserWrapper(props: PropsWithChildren) {
                         payments: [] as Cost[]
                     });
                 } 
-                else {
-                    setCurUser(null);
-                }
-            });
-        }
-    }, [loaded]);
+                else setCurUser(null);
+            }
+            catch {}
 
-    if(!loaded) return <Loading/>;
+            updateLoading(false);
+        })();
+    }, []);
 
-    function refresh() {
-        setLoaded(false);
+    if(isLoading) return <Loading/>;
+
+    function setLoginState(state: boolean) {
+        updateLoggedInState(state);
     }
 
-    let loggedIn: boolean;
-    loggedIn = !!curUser;
+    function setUser(user: User) {
+        setCurUser(user);
+    }
 
-    const curState = { curUser, refresh, loggedIn };
+    const curState = { curUser, isLoggedIn, setLoginState, setUser };
 
     return (
         <UserContext.Provider value={ curState }>
