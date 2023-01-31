@@ -1,13 +1,11 @@
 # flockfysh website
 
 ## Setup on local
-    - Setup env vars
-        - `DEBUG=true`
-    - clone repo
-    - npm i
-    - npm start
+- Setup env vars
+    - `DEBUG=true`
+- clone repo
+- `yarn`
+- `yarn start`
 
-## Contributing
-- All files and folders should be in camelCase
-- Double quotes in JSX and single-quotes everywhere else
-- Spaces between curly braces e.g `{ classes.button }` instead of `{classes.button}`
+## [Contributing](contributing.md)
+    - Please make a pull request and ping Ray F or Avichal for review.
