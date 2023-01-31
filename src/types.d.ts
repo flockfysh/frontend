@@ -14,7 +14,7 @@ declare interface PartialDataset {
     id: string;
     description: string;
 
-    itemCount: number; // TODO: What the fuck is item count?
+    itemCount: number; // TODO: What is item count?
 }
 
 declare interface Dataset extends PartialDataset {
