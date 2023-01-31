@@ -18,19 +18,11 @@
 }
 
 .gradientRightLeft {
-   background: linear-gradient(
-      to left,
-      var(--color-blue-secondary),
-      var(--color-blue-primary)
-   );
+   background: var(--gradient-rl);
 }
 
 .gradientLeftRight {
-   background: linear-gradient(
-      to right,
-      var(--color-blue-secondary),
-      var(--color-blue-primary)
-   );
+   background: var(--gradient-lr);
 }
 
 .svg {

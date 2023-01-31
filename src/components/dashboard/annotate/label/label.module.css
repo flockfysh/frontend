@@ -2,10 +2,9 @@
     cursor: pointer;
     background-color: var(--color-blue-gradients);
     border: 2px solid var(--color-blue-primary);
-    border-radius: 20px;
-    height: 42px;
+    border-radius: 2rem;
+    padding-block: 1rem;
     display: flex;
-    margin-left: 40px;
     transition: 0.2s;
     align-self: center;
 }

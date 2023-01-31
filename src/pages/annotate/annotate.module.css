@@ -1,5 +1,17 @@
 .annotateContainer {
-    margin-top: 50px;    
+    margin-block: 5rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto 1fr auto;
+    align-items: center;
+    justify-items: stretch;
+    grid-gap: 2rem 4rem;
+    overflow: hidden;
+    width: 100%;
+}
+
+.initiateTrainingButton {
+    border-radius: 1rem;
 }
 
 .annotateContainer::after {
@@ -9,21 +21,27 @@
 
     position: absolute;
     background: radial-gradient(
-        circle at top left, 
-        var(--color-blue-gradients), 
-        rgba(0, 0, 0, 0) 30%
+            circle at top left,
+            var(--color-blue-gradients),
+            rgba(0, 0, 0, 0) 30%
     ) top left;
 
     content: "";
     top: 0;
     left: 0;
-    z-index: -1;
     min-width: 30rem;
 }
 
-.annotateContainer h1 {
-    margin-bottom: 50px;
-    font-size: 28px;
+.headingContainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.heading {
+    font-size: 2.8rem;
+    text-align: left;
+
 }
 
 .contentContainer {
@@ -31,63 +49,88 @@
     align-items: center;
 }
 
-.leftContainer {
-    
+.labelContainer {
+    padding: 2rem 4rem;
+    width: 100%;
+    display: flex;
+    border-radius: 2rem;
+    gap: 4rem;
+    background-color: var(--color-black-secondary);
+    overflow: hidden;
 }
 
-.labelsContainer {
-    height: 100px;
-    width: 635px;
+.labelList {
     display: flex;
-    border-radius: 25px;
-    background-color: var(--color-black-secondary);
+    gap: 2rem;
+    flex: 1;
+    overflow: auto;
 }
 
 .addLabelButton {
     align-self: center;
-    margin-left: 50px;
-    font-size: 30px;
-    height: 40px;
-    width: 40px;
+    flex: none;
+    aspect-ratio: 1/1;
+    height: 4rem;
+    padding: 0.75rem;
     border-radius: 10px;
     border: none;
     cursor: pointer;
     color: white;
     transition: 0.2s;
-    background-color: var(--color-blue-primary);
+    background-color: var(--color-blue-tertiary);
+}
+
+.addLabelButton * {
+    width: 100%;
+    height: 100%;
 }
 
 .addLabelButton:hover {
     color: var(--color-blue-secondary);
 }
+
+.leftContainer {
+    width: 100%;
+    height: 100%;
+    background: var(--color-black-secondary);
+    border-radius: 2rem;
+    overflow: hidden;
+}
+
 .wrapperDiv {
-    width: 635px;
-    height: 423px;
+    width: 100%;
+    height: 100%;
     margin-bottom: 50px;
     background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-position: center;
+    background-size: contain;
+    /*background-size: 100% 100%;*/
 }
 
 .rightContainer {
-    margin-top: -100px;
-    margin-left: 25vw;
 }
 
 .switchImageContainer {
     display: flex;
-    gap: 50px;
+    gap: 1rem;
     justify-content: center;
-    margin-top: 50px;
 }
 
 .switchImageButton {
-    border-radius: 10px;
-    background-color: var(--color-blue-primary);
-    height: 50px;
+    border-radius: 1rem;
+    background: var(--color-blue-tertiary);
+    height: 4rem;
     border: none;
-    width: 50px;
+    aspect-ratio: 1/1;
     cursor: pointer;
     transition: 0.2s;
+    padding: 0.75rem;
+}
+
+.switchImageIcon {
+    width: 100%;
+    height: 100%;
+    color: white;
 }
 
 .switchImageButton:hover .svg {
@@ -96,25 +139,12 @@
 
 .submitButtonContainer * {
     margin: auto;
-    margin-bottom: 50px;
-}
-
-.svg {
-   width: 18px;
-   stroke: var(--color-white);
-   stroke-width: 1.8;
-   transition: 0.2s;
-   align-self: center;
-}
-
-.leftSvg {
-    transform: rotate(180deg);
 }
 
 .box {
     margin: auto;
     height: 423px;
-    width: 6.5vw;
+    width: 6rem;
     border-radius: 25px;
     background-color: var(--color-black-secondary);
 }

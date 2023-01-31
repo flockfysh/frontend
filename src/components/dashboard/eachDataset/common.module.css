@@ -57,10 +57,23 @@
 
 .btnContainer {
     position: absolute;
-    left: 55%;
+    left: 50%;
     transform: translateX(-50%);
     bottom: 0;
-    margin-bottom: 20px;
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 1rem
+}
+
+.titleBar {
+    display: flex;
+    justify-content: space-between;
+    /*align-items: center;*/
+}
+
+.utilityButton {
+    flex: none;
+    padding-block: 1rem;
 }
 
 @media only all and (min-width: 1024px) {
@@ -71,9 +84,6 @@
 
     .container {
         padding: 0 6rem;
-    }
-
-    .contentContainer h1 {
     }
 }
 
