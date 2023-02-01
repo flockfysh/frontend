@@ -13,18 +13,31 @@ declare interface PartialDataset {
     name: string;
     id: string;
     description: string;
-    itemCount: number; // TODO: What is item count?
+    itemCount: number; // How many items are there in the database. To be honest, it should have been reserved for datasetImages instead of uploadedImages.
 }
 
 declare interface Dataset extends PartialDataset {
     dateCreated: Date;
     plan: string;
     size: number;
-
     monthlyCost: MonthlyCost;
-
     uploadedImages: DatasetImage[];
     datasetImages: DatasetImage[];
+}
+
+declare interface AnnotationBox {
+    class: number,
+    boundingBox: [number, number, number, number]
+}
+
+declare interface UploadedImage {
+    id: string;
+    url: string;
+    uploaded: string;
+    annotationData: AnnotationBox[];
+    dataset: string;
+    size: string;
+    displayName: string;
 }
 
 // #endregion
