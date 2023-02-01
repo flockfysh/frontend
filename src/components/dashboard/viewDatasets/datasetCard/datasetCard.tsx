@@ -7,7 +7,6 @@ import classes from './datasetCard.module.css';
 
 export default function DatasetCard(props: { dataset: PartialDataset }) {
     return (
-<<<<<<< HEAD
         <li className={classes.cardContainer}>
             <div className={classes.cardHeader}>
 
@@ -18,12 +17,6 @@ export default function DatasetCard(props: { dataset: PartialDataset }) {
                     <FaTrash className={classes.trashIcon}></FaTrash>
                 </Button>
             </div>
-=======
-        <div className={ classes.cardContainer }>
-            <FaTrash className={ classes.trashIcon } />
-
-            <h2>{ props.dataset.name } dataset</h2>
->>>>>>> master
 
             <p className={ classes.overview }>{ props.dataset.description }</p>
 

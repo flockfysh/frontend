@@ -55,8 +55,6 @@ export default function Annotate() {
                     }
                 >
                 </div>
-
-
             </div>
 
             <div className={classes.rightContainer}>
