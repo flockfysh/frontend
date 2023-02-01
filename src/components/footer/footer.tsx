@@ -1,11 +1,11 @@
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import classes from './footer.module.css';
 
 export default function Footer() {
     return (
-        <footer className={classes.footer}>
-            <div className={classes.footerOtherContent}>
+        <footer className={ classes.footer }>
+            <div className={ classes.footerOtherContent }>
                 <h5>FlockFysh</h5>
 
                 <small>
@@ -14,8 +14,8 @@ export default function Footer() {
                 </small>
             </div>
 
-            <div className={classes.footerLinksHolder}>
-                <div className={classes.footerLinks}>
+            <div className={ classes.footerLinksHolder }>
+                <div className={ classes.footerLinks }>
                     <h6>Product</h6>
 
                     <Link to="/product">Sneak Peeks</Link>
@@ -24,7 +24,7 @@ export default function Footer() {
                     <Link to="/product">Feedback</Link>
                 </div>
 
-                <div className={classes.footerLinks}>
+                <div className={ classes.footerLinks }>
                     <h6>Company</h6>
 
                     <Link to="/product">Home</Link>
@@ -32,7 +32,7 @@ export default function Footer() {
                     <Link to="/product">Blog</Link>
                 </div>
 
-                <div className={classes.footerLinks}>
+                <div className={ classes.footerLinks }>
                     <h6>Contact</h6>
 
                     <Link to="/product">Twitter</Link>
@@ -41,7 +41,7 @@ export default function Footer() {
                     <Link to="/product">Email</Link>
                 </div>
 
-                <div className={classes.footerLinks}>
+                <div className={ classes.footerLinks }>
                     <h6>Legal</h6>
 
                     <Link to="/product">Privacy Policy</Link>

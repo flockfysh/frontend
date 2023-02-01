@@ -1,5 +1,5 @@
-import {useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import DatasetCard from '../../components/dashboard/viewDatasets/datasetCard/datasetCard';
 import Loading from '../../components/loading/loading';
@@ -7,13 +7,13 @@ import Loading from '../../components/loading/loading';
 import MiniProfile from '../../components/dashboard/viewDatasets/miniProfile/miniProfile';
 
 import GradientLink from '../../components/UI/gradientLink/gradientLink';
+import SearchInput from '../../components/UI/input/searchInput';
 
 import classes from './viewDatasets.module.css';
-import SearchInput from "../../components/UI/input/searchInput";
-import api from "../../helpers/api";
+import api from '../../helpers/api';
 
 export default function ViewDatasets() {
-    const [datasets, updateDatasets] = useState<DatasetPartial[]>([]);
+    const [datasets, updateDatasets] = useState<PartialDataset[]>([]);
     const [isLoading, updateLoadingState] = useState(true);
     const [filter, updateFilter] = useState('');
 
@@ -21,7 +21,8 @@ export default function ViewDatasets() {
         updateLoadingState(true);
 
         (async function () {
-            const datasets = (await api.get("/api/dataset")).data.data as DatasetPartial[];
+            const datasets = (await api.get("/api/dataset")).data.data as PartialDataset[];
+            console.log(datasets);
             updateDatasets(datasets);
             updateLoadingState(false);
         })();

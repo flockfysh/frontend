@@ -19,9 +19,9 @@ export default function Reviews() {
                   cards.map(
                     (review, reviewIndex) => (
                       <ReviewCard
-                        image={ review.image }
+                        image={ review.profileImage }
                         content={ review.content }
-                        designation={ review.designation }
+                        designation={ review.role }
                         name={ review.name }
                         key={ reviewIndex }
                       />

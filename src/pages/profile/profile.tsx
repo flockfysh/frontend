@@ -9,44 +9,41 @@ import UserEmail from "../../components/UI/currentUser/userEmail";
 
 export default function Profile() {
   const [user, updateUser] = useState({} as User);
-  const [accounting, updateAccounts] = useState({} as Account);
   const [loading, updateLoading] = useState(true);
 
   useEffect(() => {
     updateLoading(true);
 
-    (async function () {
-      // fetch user
+    (async function fetchUser() {
 
-      const testUser = {
+      const testUser: User = {
         name: 'Raymond Tian',
         email: 'raymond@gmail.com',
-        profileImage:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj2ueFQbN4a-eE_Gv-L4zOnsJBfsJZqiUek_ZiQvJ1gQ&s'
-      };
-
-      const accounting = {
-        monthlyCosts: {
+        profileImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj2ueFQbN4a-eE_Gv-L4zOnsJBfsJZqiUek_ZiQvJ1gQ&s',
+        monthlyCost: {
           storage: 100,
           creation: 100,
           total: 230,
           costs: [
             {
-              name: 'Dataset creation',
-              amount: 40
+              description: 'Dataset creation',
+              amount: 40,
+              paid: false,
+              timestamp: new Date()
             }
           ]
         },
         payments: [
           {
-            name: 'Dataset payment',
-            amount: 40
+            description: 'Dataset payment',
+            amount: 40,
+            paid: true,
+            timestamp: new Date()
           }
         ]
       };
 
       updateUser(testUser);
-      updateAccounts(accounting);
 
       updateLoading(false);
     })();
@@ -72,14 +69,14 @@ export default function Profile() {
       <div className={ classes.cardSection }>
         <div className={ classes.card }>
           <h5 className={ classes.cardHeading} >
-            Total Monthly Cost <span>${ accounting.monthlyCosts.total }</span>
+            Total Monthly Cost <span>${ user.monthlyCost.total }</span>
           </h5>
 
           {
-            accounting.monthlyCosts.costs!.map(
+            user.monthlyCost.costs!.map(
               (cost, index) => (
                 <p className={ classes.cardText } key={ index }>
-                  { cost.name } <span className={ classes.price }>${ cost.amount }</span>
+                  { cost.description } <span className={ classes.price }>${ cost.amount }</span>
                 </p>
               )
             )
@@ -90,10 +87,10 @@ export default function Profile() {
           <h5 className={ classes.cardHeading }>Payment History</h5>
 
           {
-            accounting.payments.map(
+            user.payments.map(
               (payment, index) => (
                 <p className={ classes.cardText } key={ index }>
-                  { payment.name } {' '}
+                  { payment.description } {' '}
                   <span className={ classes.price }>${ payment.amount }</span>
                 </p>
               )

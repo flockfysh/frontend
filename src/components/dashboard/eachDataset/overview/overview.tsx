@@ -12,7 +12,6 @@ export default function Overview(props: { dataset: Dataset }) {
                     <GradientLink className={classes.utilityButton} to={`/dashboard/${props.dataset.id}/annotate`} text="Annotate" hasArrow={true}/>
                 </div>
                 <p>{props.dataset.description}</p>
-
                 <ul className={classes.infoCards}>
                     <li>Uploaded items: {props.dataset.uploadedImages.length}</li>
                     <li>Dataset items: {props.dataset.datasetImages.length}</li>

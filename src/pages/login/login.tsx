@@ -1,29 +1,37 @@
 import { useState, useRef, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { UserContext } from '../../contexts/userContext';
 
 import axios from 'axios';
 
-import classes from './login.module.css';
-
 import { serverURL } from '../../settings';
+
+import { UserContext } from '../../contexts/userContext';
+
+import classes from './login.module.css';
 
 export default function LoginForm(props: { type: string }) {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
-  const [emailIsValid, setEmailIsValid] = useState(true);
+  const [emailIsValid, setEmailIsValid] = useState(false);
 
   const [password, setPassword] = useState('');
-  const [passwordIsValid, setPasswordIsValid] = useState(true);
+  const [passwordIsValid, setPasswordIsValid] = useState(false);
 
   const curPopup = useRef<Window | null>(null);
 
   const passwordRef = useRef({} as HTMLInputElement);
   const emailRef = useRef({} as HTMLInputElement);
 
-  const { refresh } = useContext(UserContext);
+  const { setLoginState, setUser } = useContext(UserContext);
 
+  // TODO: Can we not make a popup?
+
+  /**
+   * Open oAuth login Popup
+   * 
+   * @param path Backend API route for login auth
+   */
   function oAuthLogin(path: string) {
     // Don't open too many auth windows.
     if(curPopup.current) curPopup.current.close();
@@ -31,13 +39,14 @@ export default function LoginForm(props: { type: string }) {
     const login = serverURL + path;
     const popup = window.open(login, '_blank', 'width=500,height=600');
 
-    if (popup) {
+    if(popup) {
       curPopup.current = popup;
 
-      window.addEventListener('message', e => {
-        if (e.data.success) {
+      window.addEventListener('message', function TODO(e) {
+        if(e.data.success) {
           popup.close();
-          refresh();
+          setLoginState(true);
+          // setUser();
 
           location.replace('/dashboard');
         }
@@ -46,7 +55,7 @@ export default function LoginForm(props: { type: string }) {
   }
 
   function passwordValidHandler(event: React.FocusEvent<HTMLInputElement>) {
-    if (password.length < 8) {
+    if(password.length < 8) {
       event.target.className = classes.inputInvalid;
 
       setPasswordIsValid(false);
@@ -59,6 +68,7 @@ export default function LoginForm(props: { type: string }) {
       passwordRef.current.className = classes.inputInvalidText;
     }
   }
+
   function emailValidHandler(event: React.FocusEvent<HTMLInputElement>) {
     // logic below
     // email shouldn't include spaces
@@ -66,7 +76,8 @@ export default function LoginForm(props: { type: string }) {
     // there are letters before @
     // there are letters after .
     // and if there are letters between @ and .
-    if (
+
+    if(
       !email.includes(' ') &&
       email.length >= 5 &&
       email.includes('@') &&
@@ -88,32 +99,60 @@ export default function LoginForm(props: { type: string }) {
     }
   }
 
-  function submitHandler() {
-    if (emailIsValid && passwordIsValid) {
-      axios({
-        method: 'post',
-        url: 'http://localhost:8000/' + props.type.toLowerCase(),
-        data: {
-          email: email,
-          password: password
-        },
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+  async function submitHandler() {
+    if(emailIsValid && passwordIsValid) {
+      // const response = (await axios(
+      //   {
+      //     method: 'post',
+      //     url: 'http://localhost:8000/' + props.type.toLowerCase(),
+      //     data: {
+      //       email: email,
+      //       password: password
+      //     },
+      //     withCredentials: true,
+      //     headers: {
+      //       'Content-Type': 'application/x-www-form-urlencoded'
+      //     }
+      //   }
+      // )).data;
+
+      setLoginState(true);
+      setUser(
+        {
+          name: 'Raymond Tian',
+          email: 'raymond@gmail.com',
+          profileImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj2ueFQbN4a-eE_Gv-L4zOnsJBfsJZqiUek_ZiQvJ1gQ&s',
+          monthlyCost: {
+            storage: 100,
+            creation: 100,
+            total: 230,
+            costs: [
+              {
+                description: 'Dataset creation',
+                amount: 40,
+                paid: false,
+                timestamp: new Date()
+              }
+            ]
+          },
+          payments: [
+            {
+              description: 'Dataset payment',
+              amount: 40,
+              paid: true,
+              timestamp: new Date()
+            }
+          ]
         }
-      })
-        .then(response => {
-          console.log(response.data);
-          refresh();
+      );
 
-          navigate('/dashboard');
+      navigate('/dashboard');
 
-          setEmail('');
-          setPassword('');
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      setEmail('');
+      setPassword('');
+    }
+    else {
+      // TODO: Maybe just make the button disabled so user cannot submit?
     }
   }
 
@@ -154,7 +193,7 @@ export default function LoginForm(props: { type: string }) {
           Password too short
         </span>
 
-        {passwordIsValid ? (
+        {
           props.type === 'Signup' ? (
             <Link className={ classes.link } to="/login">
               I already have an account
@@ -164,7 +203,7 @@ export default function LoginForm(props: { type: string }) {
               I don't have an account
             </Link>
           )
-        ) : null}
+        }
 
         <button
           type="button"

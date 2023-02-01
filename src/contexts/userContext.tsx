@@ -1,56 +1,64 @@
+import { PropsWithChildren, useEffect, useState, createContext } from 'react';
 import axios from 'axios';
-import React, {PropsWithChildren, useEffect, useState} from 'react';
-import Loading from "../components/loading/loading";
-import {serverURL} from "../settings";
-import api from "../helpers/api";
 
-export const UserContext = React.createContext<{
-    curUser: User | null,
-    loggedIn: boolean,
-    refresh: () => void
-}>({
-    curUser: null,
-    loggedIn: false,
-    refresh: () => {
-    },
-});
+import Loading from '../components/loading/loading';
+import { serverURL } from '../settings';
+import api from '../helpers/api';
+
+export const UserContext = createContext(
+    {
+        curUser: null as (User | null),
+        isLoggedIn: false,
+        setLoginState: (_: boolean) => {},
+        setUser: (_: User) => {}
+    }
+);
 
 export function UserWrapper(props: PropsWithChildren) {
-    const [curUser, setCurUser] = React.useState<User | null>(null);
-    const [loaded, setLoaded] = React.useState<boolean>(false);
+    const [curUser, setCurUser] = useState<User | null>(null);
+    
+    const [isLoggedIn, updateLoggedInState] = useState(false);
 
-    React.useEffect(() => {
-        if (!loaded) {
-            api.get("/").then(async res => {
-                const data = await res.data.data;
-                setLoaded(true);
-                if (data.loggedIn) {
+    const [isLoading, updateLoading] = useState(false);
+
+    useEffect(() => {
+        updateLoading(true);
+
+        (async function getUserState() {
+            try {
+                const data = (await api.get(`${ serverURL }/authenticate`)).data;
+                if(data.success) {
                     setCurUser({
-                        name: `${data.curUser.firstName} ${data.curUser.lastName}`,
+                        name: `${ data.curUser.firstName } ${ data.curUser.lastName }`,
                         email: data.curUser.email,
                         profileImage: data.curUser.profilePhoto,
+                        monthlyCost: {} as MonthlyCost,
+                        payments: [] as Cost[]
                     });
-                } else {
-                    setCurUser(null);
-                }
-            });
-        }
-    }, [loaded]);
+                } 
+                else setCurUser(null);
+            }
+            catch {}
 
-    if (!loaded) {
-        return <Loading/>;
+            updateLoading(false);
+        })();
+    }, []);
+
+    if(isLoading) return <Loading/>;
+
+    function setLoginState(state: boolean) {
+        updateLoggedInState(state);
     }
 
-    function refresh() {
-        setLoaded(false);
+    function setUser(user: User) {
+        setCurUser(user);
     }
 
-    let loggedIn: boolean;
-    loggedIn = !!curUser;
+    const curState = { curUser, isLoggedIn, setLoginState, setUser };
 
-    const curState = {curUser, refresh, loggedIn};
-
-    return <UserContext.Provider value={curState}>
-        {props.children}
-    </UserContext.Provider>;
+    return (
+        <UserContext.Provider value={ curState }>
+            { props.children }
+        </UserContext.Provider>
+    );
 }

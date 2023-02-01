@@ -125,7 +125,8 @@ p {
     background-color: var(--color-black-secondary);
 }
 
-/* Media Queries */
+/* #region Media Queries */
+
 @media only screen and (min-width: 1800px) {
     body {
         max-width: 150rem;
@@ -153,3 +154,5 @@ p {
         font-size: min(calc(1rem + 1.75vw), 4rem);
     }
 }
+
+/* #endregion */

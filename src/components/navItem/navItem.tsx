@@ -14,7 +14,7 @@ export default function NavItem(props: NavItemProps) {
         to={ props.to }
         className={
           navData => navData.isActive
-            ? `${classes.navbarLinkActive} ${classes.navbarLink}`
+            ? `${ classes.navbarLinkActive } ${ classes.navbarLink }`
             : classes.navbarLink
         }
         end

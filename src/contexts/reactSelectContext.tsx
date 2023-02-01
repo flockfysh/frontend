@@ -1,16 +1,20 @@
-import React, {PropsWithChildren} from "react";
-import createCache from "@emotion/cache";
-import {CacheProvider} from "@emotion/react";
+import { PropsWithChildren, useMemo } from 'react';
+import createCache from '@emotion/cache';
+import { CacheProvider } from '@emotion/react';
 
-export default function EmotionCacheProvider(props: PropsWithChildren) {
-    const cache = React.useMemo(() => {
+export function EmotionCacheProvider(props: PropsWithChildren) {
+    const cache = useMemo(() => {
         return createCache({
-            key: "css-module",
-            insertionPoint: document.querySelector("title")!,
+            key: 'css-module',
+            insertionPoint: document.querySelector('title')!,
         });
     }, []);
 
-    return <CacheProvider value={cache}>
-        {props.children}
-    </CacheProvider>;
+    // return <>{ props.children }</>
+
+    return (
+        <CacheProvider value={ cache }>
+            { props.children }
+        </CacheProvider>
+    );
 }

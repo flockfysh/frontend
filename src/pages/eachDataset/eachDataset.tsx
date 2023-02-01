@@ -51,7 +51,6 @@ export default function EachDataSet(props: { page: string }) {
             updateLoading(false);
         })();
     }, []);
-
     if (loading) return <Loading/>;
 
     return (
