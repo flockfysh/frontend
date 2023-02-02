@@ -11,19 +11,16 @@ import classes from './login.module.css';
 
 export default function LoginForm(props: { type: string }) {
   const navigate = useNavigate();
-
-  const [email, setEmail] = useState('');
-  const [emailIsValid, setEmailIsValid] = useState(false);
-
-  const [password, setPassword] = useState('');
-  const [passwordIsValid, setPasswordIsValid] = useState(false);
-
   const curPopup = useRef<Window | null>(null);
 
-  const passwordRef = useRef({} as HTMLInputElement);
-  const emailRef = useRef({} as HTMLInputElement);
-
   const { setLoginState, setUser } = useContext(UserContext);
+
+  // defaulting to true to account for browser auto-filling
+  const [emailIsValid, setEmailIsValid] = useState(true);
+  const [passwordIsValid, setPasswordIsValid] = useState(true);
+
+  const emailRef = useRef({} as HTMLInputElement);
+  const passwordRef = useRef({} as HTMLInputElement);
 
   // TODO: Can we not make a popup?
 
@@ -45,6 +42,7 @@ export default function LoginForm(props: { type: string }) {
       window.addEventListener('message', function TODO(e) {
         if(e.data.success) {
           popup.close();
+
           setLoginState(true);
           // setUser();
 
@@ -54,29 +52,30 @@ export default function LoginForm(props: { type: string }) {
     }
   }
 
-  function passwordValidHandler(event: React.FocusEvent<HTMLInputElement>) {
+  function passwordValidHandler(password=null as (String | null)) {
+    if(!password) password = passwordRef.current.value;
+
     if(password.length < 8) {
-      event.target.className = classes.inputInvalid;
-
       setPasswordIsValid(false);
-      passwordRef.current.className = classes.inputInvalidTextActive;
-    } 
+      
+      return false;
+    }
     else {
-      event.target.className = classes.input;
-
       setPasswordIsValid(true);
-      passwordRef.current.className = classes.inputInvalidText;
+      
+      return true;
     }
   }
 
-  function emailValidHandler(event: React.FocusEvent<HTMLInputElement>) {
+  function emailValidHandler(email=null as (String | null)) {
+    if(!email) email = emailRef.current.value;
+
     // logic below
     // email shouldn't include spaces
     // email is at least 5 letters and include @ and .
     // there are letters before @
     // there are letters after .
     // and if there are letters between @ and .
-
     if(
       !email.includes(' ') &&
       email.length >= 5 &&
@@ -86,20 +85,23 @@ export default function LoginForm(props: { type: string }) {
       email.split('.')[1].length > 0 &&
       email.split('@')[1].split('')[0] !== '.'
     ) {
-      event.target.className = classes.input;
-
       setEmailIsValid(true);
-      emailRef.current.className = classes.inputInvalidText;
-    } 
-    else {
-      event.target.className = classes.inputInvalid;
 
+      return true;
+    }
+    else {
       setEmailIsValid(false);
-      emailRef.current.className = classes.inputInvalidTextActive;
+
+      return false;
     }
   }
 
   async function submitHandler() {
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+
+    if(!emailValidHandler(email) || !passwordValidHandler(password)) return;
+
     if(emailIsValid && passwordIsValid) {
       // const response = (await axios(
       //   {
@@ -147,9 +149,6 @@ export default function LoginForm(props: { type: string }) {
       );
 
       navigate('/dashboard');
-
-      setEmail('');
-      setPassword('');
     }
     else {
       // TODO: Maybe just make the button disabled so user cannot submit?
@@ -164,15 +163,14 @@ export default function LoginForm(props: { type: string }) {
         </label>
 
         <input
-          className={ classes.input }
+          ref={ emailRef }
+          className={ `${ !emailIsValid ? classes.inputInvalid : classes.input }` }
+          onChange={ () => emailValidHandler }
           type="email"
           name="email"
-          value={ email }
-          onChange={ event => setEmail(event.target.value) }
-          onBlur={ emailValidHandler }
         />
 
-        <span ref={ emailRef } className={ classes.inputInvalidText }>
+        <span className={ `${ !emailIsValid ? classes.inputInvalidTextActive : classes.inputInvalidText }` }>
           Not valid email
         </span>
 
@@ -181,15 +179,14 @@ export default function LoginForm(props: { type: string }) {
         </label>
 
         <input
+          ref={ passwordRef }
+          className={ `${ !passwordIsValid ? classes.inputInvalid : classes.input }` }
+          onChange={ () => passwordValidHandler }
           name="password"
-          className={ classes.input }
           type="password"
-          value={ password }
-          onChange={ event => setPassword(event.target.value) }
-          onBlur={ passwordValidHandler }
         />
 
-        <span ref={ passwordRef } className={ classes.inputInvalidText }>
+        <span className={ `${ !passwordIsValid ? classes.inputInvalidTextActive : classes.inputInvalidText }` }>
           Password too short
         </span>
 

@@ -14,7 +14,7 @@ declare interface PartialDataset {
     id: string;
     description: string;
 
-    itemCount: number; // TODO: What is item count?
+    itemCount: number; // !: What is item count?
 }
 
 declare interface Dataset extends PartialDataset {
@@ -58,4 +58,6 @@ declare interface BaseUser {
 declare interface User extends BaseUser {
     monthlyCost: MonthlyCost;
     payments: Cost[];
+
+    datasetIds?: number[]; // ! make not optional 
 }

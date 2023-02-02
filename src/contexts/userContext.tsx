@@ -27,6 +27,7 @@ export function UserWrapper(props: PropsWithChildren) {
         (async function getUserState() {
             try {
                 const data = (await api.get(`${ serverURL }/authenticate`)).data;
+                
                 if(data.success) {
                     setCurUser({
                         name: `${ data.curUser.firstName } ${ data.curUser.lastName }`,
