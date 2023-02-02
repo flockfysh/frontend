@@ -1,105 +1,126 @@
 import Konva from 'konva';
-import { useRef, useEffect } from 'react';
-import { Rect, Transformer } from 'react-konva';
+import {useRef, useEffect} from 'react';
+import {Rect, Transformer} from 'react-konva';
 
-interface RectangleProps{
-  shapeProps: any,
-  isSelected: boolean,
-  onSelect: any,
-  onChange: any,
-  maxWidth: number,
-  maxHeight: number
+export interface RectangleCoordinates {
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+}
+
+export interface RectangleProps {
+    shapeProps: Konva.NodeConfig & RectangleCoordinates,
+    isSelected: boolean,
+    onSelect: () => void,
+    onChange: (shape: RectangleCoordinates) => void,
+    containerWidth: number,
+    containerHeight: number
 }
 
 export default function Rectangle(props: RectangleProps) {
-  const shapeRef = useRef({} as Konva.Layer);
-  const trRef = useRef({} as Konva.Transformer);
+    const shapeRef = useRef({} as Konva.Rect);
+    const trRef = useRef({} as Konva.Transformer);
 
-  useEffect(() => {
-    if (props.isSelected) {
-      trRef.current.nodes([shapeRef.current]);
-      trRef.current.getLayer()!.batchDraw();
-    }
-  }, [props.isSelected]);
-
-  return (
-    <>
-      <Rect
-        onClick={ props.onSelect }
-        onTap={ props.onSelect }
-        ref={ shapeRef }
-        { ...props.shapeProps }
-        draggable
-        onDragMove={
-          e => {
-            let tempX = Math.max(0, e.target.x());
-            tempX = Math.min(props.maxWidth - e.target.width(), tempX);
-
-            let tempY = Math.max(0, e.target.y());
-            tempY = Math.min(props.maxHeight - e.target.height(), tempY);
-
-            e.target.x(tempX);
-            e.target.y(tempY);
-          }
+    useEffect(() => {
+        if (props.isSelected) {
+            trRef.current.nodes([shapeRef.current]);
+            trRef.current.getLayer()!.batchDraw();
         }
-        onDragEnd={
-          e => {
-            props.onChange({
-              ...props.shapeProps,
-              x: Math.max(0, e.target.x()),
-              y: e.target.y(),
-            });
-          }
-        }
-        onTransform={
-          _ => {
+    }, [props.isSelected]);
 
-          }
-        }
-        onTransformEnd={
-          _ => {
-            const curr = shapeRef.current;
-            const scaleX = curr.scaleX();
-            const scaleY = curr.scaleY();
-            curr.scaleX(1);
-            curr.scaleY(1);
+    const konvaRectWidth = props.shapeProps.width * props.containerWidth;
+    const konvaRectHeight = props.shapeProps.height * props.containerHeight;
+    const konvaRectX = (props.shapeProps.x - props.shapeProps.width / 2) * props.containerWidth;
+    const konvaRectY = (props.shapeProps.y - props.shapeProps.height / 2) * props.containerHeight;
 
-            props.onChange(
-              {
-                ...props.shapeProps,
-                x: curr.x(),
-                y: curr.y(),
-                width: Math.max(10, curr.width() * scaleX),
-                height: Math.max(10, curr.height() * scaleY),
-              }
-            );
-          }
-        }
-      />
+    return (
+        <>
+            <Rect
+                onClick={props.onSelect}
+                onTap={props.onSelect}
+                ref={shapeRef}
+                {...props.shapeProps}
+                x={konvaRectX}
+                y={konvaRectY}
+                width={konvaRectWidth}
+                height={konvaRectHeight}
+                strokeScaleEnabled={false}
+                draggable
+                onDragMove={
+                    e => {
+                        let tempX = Math.max(0, e.currentTarget.x());
+                        tempX = Math.min(props.containerWidth - e.currentTarget.width(), tempX);
 
-      {
-        props.isSelected && (
-          <Transformer
-            ref={ trRef }
-            boundBoxFunc={
-              (oldBox, newBox) => {
-                const tolerance = 5;
+                        let tempY = Math.max(0, e.currentTarget.y());
+                        tempY = Math.min(props.containerHeight - e.currentTarget.height(), tempY);
 
-                if (
-                  newBox.width < 3 || 
-                  newBox.height < 3 || 
-                  newBox.x + newBox.width > props.maxWidth + tolerance || 
-                  newBox.y + newBox.height > props.maxHeight + tolerance || 
-                  newBox.x < -tolerance || 
-                  newBox.y < -tolerance
-                ) return oldBox;
+                        e.target.x(tempX);
+                        e.target.y(tempY);
+                    }
+                }
+                onDragEnd={
+                    e => {
+                        // This end function works.
+                        props.onChange({
+                            width: konvaRectWidth / props.containerWidth,
+                            height: konvaRectHeight / props.containerHeight,
+                            x: (e.target.x() + konvaRectWidth / 2) / props.containerWidth,
+                            y: (e.target.y() + konvaRectHeight / 2) / props.containerHeight,
+                        });
+                    }
+                }
+                onTransform={
+                    () => {
+                    }
+                }
+                onTransformEnd={
+                    _ => {
+                        const curr = shapeRef.current;
+                        const scaleX = curr.scaleX();
+                        const scaleY = curr.scaleY();
+                        curr.scaleX(1);
+                        curr.scaleY(1);
+                        const newWidth = Math.max(10, curr.width() * scaleX);
+                        const newHeight = Math.max(10, curr.height() * scaleY);
+                        props.onChange(
+                            {
+                                x: (curr.x() + newWidth / 2) / props.containerWidth,
+                                y: (curr.y() + newHeight / 2) / props.containerHeight,
+                                width: newWidth / props.containerWidth,
+                                height: newHeight / props.containerHeight,
+                            }
+                        );
+                    }
+                }
+            />
 
-                return newBox;
-              }
+            {
+                props.isSelected && (
+                    <Transformer
+                        ignoreStroke={true}
+                        ref={trRef}
+                        rotateEnabled={false}
+                        boundBoxFunc={
+                            (oldBox, newBox) => {
+                                // console.log("Testing");
+                                const tolerance = 0;
+
+                                if (
+                                    newBox.width < 3 ||
+                                    newBox.height < 3 ||
+                                    newBox.x + newBox.width > props.containerWidth + tolerance ||
+                                    newBox.y + newBox.height > props.containerHeight + tolerance ||
+                                    newBox.x < -tolerance ||
+                                    newBox.y < -tolerance
+                                ) return oldBox;
+
+                                return newBox;
+                            }
+                        }
+                    />
+                )
             }
-          />
-        )
-      }
-    </>
-  );
+        </>
+    );
 };
