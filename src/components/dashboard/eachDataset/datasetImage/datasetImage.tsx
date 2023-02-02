@@ -5,11 +5,11 @@ import imageClasses from './datasetImage.module.css';
 export default function DatasetImage(props: { image: DatasetImage }) {
   return (
     <div className={ imageClasses.imageContainer }>
-      <img src={ props.image.url } alt={ props.image.name } />
+      <img src={ props.image.url } alt={ props.image.displayName } />
 
       <FaTrash className={ imageClasses.trashIcon } />
 
-      <p>{ props.image.name }</p>
+      <p>{ props.image.displayName }</p>
     </div>
   );
 }

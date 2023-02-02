@@ -48,7 +48,7 @@ export default function CreateDataset() {
         }
         createDatasetRequestBody.type = datasetType;
         const response = await api.post("/api/dataset", createDatasetRequestBody);
-        const datasetId = response.data.data._id;
+        const datasetId = response.data.data.id;
 
         // Start adding image to the dataset.
         const files = new AsyncArray(fd.getAll("files") as File[]);

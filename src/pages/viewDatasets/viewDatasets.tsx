@@ -54,7 +54,7 @@ export default function ViewDatasets() {
 
             <h1 className={classes.viewDatasetsHeader}>Your Datasets</h1>
 
-            <div className={classes.datasetsContainer}>
+            <ul className={classes.datasetsContainer}>
                 {
                     (function generateFilterElements() {
                         const elements =
@@ -72,11 +72,11 @@ export default function ViewDatasets() {
 
                         if (elements.length === 0)
                             return (
-                                <h1 className={classes.noDatasetsFound}>
+                                <h2 className={classes.noDatasetsFound}>
                                     Sorry, no datasets found. Go {' '}
                                     <Link to="/dashboard/create-dataset">here</Link> {' '}
                                     to create one.
-                                </h1>
+                                </h2>
                             );
                         else
                             return elements.map(
@@ -86,7 +86,7 @@ export default function ViewDatasets() {
                             );
                     })()
                 }
-            </div>
+            </ul>
         </div>
     );
 }

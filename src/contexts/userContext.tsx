@@ -1,65 +1,65 @@
-import { PropsWithChildren, useEffect, useState, createContext } from 'react';
-import axios from 'axios';
-
+import {PropsWithChildren, useEffect, useState, createContext} from 'react';
 import Loading from '../components/loading/loading';
-import { serverURL } from '../settings';
 import api from '../helpers/api';
 
-export const UserContext = createContext(
-    {
-        curUser: null as (User | null),
-        isLoggedIn: false,
-        setLoginState: (_: boolean) => {},
-        setUser: (_: User) => {}
-    }
-);
+interface IUserContext {
+    curUser: User | null;
+    isLoggedIn: boolean;
+    refreshUserState: () => void;
+}
+
+export const UserContext = createContext<IUserContext>({
+    curUser: null as (User | null),
+    isLoggedIn: false,
+    refreshUserState: () => {
+    },
+});
 
 export function UserWrapper(props: PropsWithChildren) {
     const [curUser, setCurUser] = useState<User | null>(null);
-    
-    const [isLoggedIn, updateLoggedInState] = useState(false);
+    const [isLoading, updateLoading] = useState<boolean>(true);
 
-    const [isLoading, updateLoading] = useState(false);
+    // Removed. Why do we happen to need to check the logged in state? Can't we simply base it on the user -
+    // can we set it to isLoggedIn = !!user?
+    // const [isLoggedIn, updateLoggedInState] = useState(false);
 
     useEffect(() => {
-        updateLoading(true);
-
         (async function getUserState() {
             try {
                 const data = (await api.get(`${ serverURL }/authenticate`)).data;
                 
-                if(data.success) {
+                if (data.success) {
+                    const userData = data.data;
+
                     setCurUser({
-                        name: `${ data.curUser.firstName } ${ data.curUser.lastName }`,
-                        email: data.curUser.email,
-                        profileImage: data.curUser.profilePhoto,
+                        name: `${userData.curUser.firstName} ${userData.curUser.lastName}`,
+                        email: userData.curUser.email,
+                        profileImage: userData.curUser.profilePhoto,
                         monthlyCost: {} as MonthlyCost,
                         payments: [] as Cost[]
                     });
-                } 
-                else setCurUser(null);
-            }
-            catch {}
+                } else {
+                    setCurUser(null);
+                }
+            } catch (e) {
 
+            }
             updateLoading(false);
         })();
-    }, []);
+    }, [isLoading]);
 
-    if(isLoading) return <Loading/>;
+    if (isLoading) return <Loading/>;
 
-    function setLoginState(state: boolean) {
-        updateLoggedInState(state);
+    const isLoggedIn = Boolean(curUser);
+
+    function refreshUserState() {
+        updateLoading(true);
     }
 
-    function setUser(user: User) {
-        setCurUser(user);
-    }
-
-    const curState = { curUser, isLoggedIn, setLoginState, setUser };
-
+    const curState = {curUser, isLoggedIn, refreshUserState};
     return (
-        <UserContext.Provider value={ curState }>
-            { props.children }
+        <UserContext.Provider value={curState}>
+            {props.children}
         </UserContext.Provider>
     );
 }

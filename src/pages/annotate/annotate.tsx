@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 
 import GradientLink from '../../components/UI/gradientLink/gradientLink';
 import Label from '../../components/dashboard/annotate/label/label';
@@ -6,102 +6,99 @@ import Wrapper from '../../components/dashboard/annotate/wrapper/wrapper';
 import Loading from '../../components/loading/loading';
 
 import classes from './annotate.module.css';
+import {RxArrowLeft, RxArrowRight, RxPlus} from 'react-icons/rx';
+import {useNavigate, useParams} from 'react-router-dom';
+import api from "../../helpers/api";
 
 export default function Annotate() {
-	const [images, updateImages] = useState([] as DatasetImage[]);
-	
-	const [imageIndex, updateImageIndex] = useState(0);
-	const [isLoading, updateLoading] = useState(true);
+    const params = useParams();
+    const navigate = useNavigate();
+    const [labels, setLabels] = useState<string[]>([]);
+    const [imageIds, setImageIds] = useState<string[]>([]);
+    const [curImage, setCurImage] = useState<UploadedImage | null>(null);
+    const [imageIndex, setImageIndex] = useState(0);
 
-	useEffect(() => {
-		updateImages(
-			[
-				{
-					url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmzsi4JX8QgMg_J0-xUHxeJ9Ot_2zVfoh2Gw&usqp=CAU',
-					name: 'dog'
-				}
-			]
-		);
-	}, []);
+    useEffect(() => {
+        if (params.datasetId) {
+            void async function getCurrentDataset() {
+                try {
+                    const uploadedImages = (await api.get(`/api/dataset/${params.datasetId}/uploadedImageIds`)).data.data;
+                    const datasetLabels = (await api.get(`/api/dataset/${params.datasetId}/labels`)).data.data;
+                    setImageIndex(0);
+                    setImageIds(uploadedImages);
+                    setLabels(datasetLabels);
+                } catch (e) {
+                    console.error(e);
+                    navigate("/404");
+                }
+            }();
+        } else {
+            navigate("/404");
+        }
+    }, [params.datasetId]);
 
-	useEffect(()=>{
-		updateLoading(false);
-	}, [images]);
-	const rect = {
-		x: 150,
-    	y: 150,
-    	width: 100,
-    	height: 100
-	};
+    useEffect(() => {
+        if (imageIds.length) {
+            void async function getCurrentImageInfo() {
+                try {
+                    const fetchedImage = (await api.get<{ success: boolean, data: UploadedImage }>(`/api/image/${imageIds[imageIndex]}`)).data;
+                    setCurImage(fetchedImage.data);
+                } catch (e) {
+                    console.error(e);
+                }
+            }();
+        }
+    }, [imageIds, imageIndex]);
 
-	if(isLoading) return <Loading />;
+
+    if (!curImage) {
+        return <Loading/>;
+    }
+
 
     return (
-        <div className={ classes.annotateContainer }>
-			<h1>Picture - { imageIndex + 1 }/50</h1>
+        <div className={classes.annotateContainer}>
+            <div className={classes.headingContainer}>
+                <h1 className={classes.heading}>Picture - {imageIndex + 1}/50</h1>
+            </div>
+            <div className={classes.submitButtonContainer}>
+                <GradientLink to="/" text="Initiate training" gradientDirection="rightToLeft"
+                              className={classes.initiateTrainingButton}/>
+            </div>
+            <div className={classes.leftContainer}>
+                <div
+                    className={classes.wrapperDiv}
+                    style={
+                        {
+                            // backgroundImage: "url(" + images[imageIndex].url + ")"
+                        }
+                    }
+                >
+                </div>
+            </div>
 
-			<div className={ classes.contentContainer }>
-				<div className={ classes.leftContainer }>
-					<div 
-						className={ classes.wrapperDiv } 
-						style={
-							{
-								backgroundImage: "url("+images[imageIndex].url+")"
-							}
-						}
-					>
-						<Wrapper rect={ rect } imgWidth={ 635 } imgHeight={ 423 }/>
-					</div>
+            <div className={classes.rightContainer}>
+                <div className={classes.box}/>
+            </div>
+            <div className={classes.labelContainer}>
+                <div className={classes.labelList}>
+                    {
+                        labels.map(function generateLabelButton(labelName) {
+                            return <Label text={labelName}></Label>;
+                        })
+                    }
+                </div>
+                <button className={classes.addLabelButton}><RxPlus/></button>
+            </div>
+            <div className={classes.switchImageContainer}>
+                <button className={classes.switchImageButton}>
+                    <RxArrowLeft className={classes.switchImageIcon}/>
+                </button>
 
-					<div className={ classes.labelsContainer }>
-						<Label text="Dog" />
-						<Label text="Playing" />
-						<Label text="Golden Spaniel" />
-
-						<button className={ classes.addLabelButton }>+</button>
-					</div>
-				</div>
-
-				<div className={ classes.rightContainer }>
-					<div className={ classes.submitButtonContainer }>
-						<GradientLink to="/" text="Submit" gradientDirection="rightToLeft" />
-					</div>
-
-					<div className={ classes.box } />
-
-					<div className={ classes.switchImageContainer }>
-						<button className={ classes.switchImageButton }> 
-							<svg
-								className={ classes.svg + ' ' + classes.leftSvg }
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 24 24"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-								/>
-							</svg>
-						</button>
-		
-						<button className={ classes.switchImageButton }> 
-							<svg
-								className={ classes.svg }
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 24 24"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-								/>
-							</svg>
-						</button>
-					</div>
-				</div>
-			</div>	
+                <button className={classes.switchImageButton}>
+                    <RxArrowRight className={classes.switchImageIcon}/>
+                </button>
+            </div>
         </div>
     );
 }

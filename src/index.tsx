@@ -76,8 +76,8 @@ function MainApp() {
                         </Route>
 
                         <Route
-                            path=":datasetId/description"
-                            element={ <EachDataSet page="description" /> }
+                            path=":datasetId/overview"
+                            element={<EachDataSet page="overview"/>}
                         />
 
                         <Route
@@ -104,9 +104,9 @@ function MainApp() {
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 
 root.render(
-    <React.StrictMode>
+    // <React.StrictMode>
         <BrowserRouter>
             <MainApp />
         </BrowserRouter>
-    </React.StrictMode>
+    // </React.StrictMode>
 );
