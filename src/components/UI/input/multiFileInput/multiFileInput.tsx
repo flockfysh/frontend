@@ -55,7 +55,7 @@ const MultiFileInput = React.forwardRef<HTMLInputElement, FileInputProps>(functi
         if (dragOverTimeoutRef.current) {
             clearTimeout(dragOverTimeoutRef.current);
         }
-        setFileDropOverlayVisible(true);
+        setFileDropOverlayVisible(false);
     }
 
     function dropHandler(event: React.DragEvent<HTMLInputElement>) {

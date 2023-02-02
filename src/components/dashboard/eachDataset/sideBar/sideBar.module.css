@@ -12,7 +12,7 @@
     background: var(--color-black-secondary-translucent);
     padding: 1.5rem 2rem;
     display: flex;
-    column-gap: 2rem;
+    column-gap: 1rem;
     align-items: center;
     position: relative;
     /*border-radius: 0 0 1.5rem 1.5rem;*/
@@ -26,11 +26,16 @@
     overflow: hidden;
 }
 
-.primaryBar h1 {
+.datasetName {
     font-size: 2rem;
+    padding-inline: 1rem;
 }
 
-.toggleMobileMenuButton {
+.titleBar {
+    display: flex;
+}
+
+.menuBarButton {
     flex: none;
     font-size: 2rem;
     width: 2em;
@@ -47,18 +52,31 @@
     transition: background 0.125s ease;
 }
 
-.toggleMobileMenuButton:hover {
+.menuBarButton:hover {
     background: #fff2;
 }
 
 .desktopEachDatasetLinks {
     display: none;
     margin-top: 5rem;
+    width: 100%;
 }
 
 .eachDataSideContainer li {
     margin-bottom: 20px !important;
 }
+
+.titleBar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.desktopBackButton {
+    display: none;
+    margin-left: -1rem;
+}
+
 
 .link {
     display: block;
@@ -66,7 +84,11 @@
     font-size: 1.5rem;
     transition: 0.2s;
     padding-block: 1.5rem;
-    padding-inline: 3rem 9rem;
+}
+
+.desktopLink {
+    padding-inline: 4rem;
+    margin-inline: -4rem;
 }
 
 .link:hover, .link:focus {
@@ -96,7 +118,7 @@
 .mobileSidebar {
     background: var(--color-black-secondary);
     height: 100%;
-    padding: 3rem 0 0 0;
+    padding: 3rem 9rem 0 3rem;
     width: fit-content;
     display: flex;
     flex-direction: column;
@@ -119,15 +141,15 @@
 
     .primaryBar {
         flex-direction: column;
-        padding: 8rem 0 0 0;
+        padding: 7rem 4rem 0 4rem;
     }
 
-    .primaryBar h1 {
-        padding-inline: 4rem 8rem;
-    }
-
-    .toggleMobileMenuButton {
+    .menuBarButton {
         display: none;
+    }
+
+    .desktopBackButton {
+        display: flex;
     }
 
     .desktopEachDatasetLinks {
@@ -137,6 +159,5 @@
 
     .link {
         padding-block: 2rem;
-        padding-inline: 4rem 8rem;
     }
 }

@@ -47,20 +47,33 @@
 }
 
 .infoCards * {
-    font-weight: 100;
+    font-weight: 500;
     border-radius: 1rem;
     padding: 1.3rem 3.5rem;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     color: var(--color-black-primary);
     background: var(--color-blue-primary);
 }
 
 .btnContainer {
     position: absolute;
-    left: 55%;
+    left: 50%;
     transform: translateX(-50%);
     bottom: 0;
-    margin-bottom: 20px;
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 1rem
+}
+
+.titleBar {
+    display: flex;
+    justify-content: space-between;
+    /*align-items: center;*/
+}
+
+.utilityButton {
+    flex: none;
+    padding-block: 1rem;
 }
 
 @media only all and (min-width: 1024px) {

@@ -3,6 +3,7 @@
 :root {
     --color-blue-primary: #91a7ff;
     --color-blue-secondary: #364fc7;
+    --color-blue-tertiary: #748FFC;
     --color-blue-gradients: #748ffc7e;
     --color-blue-gradients-card: #364ec75b;
 
@@ -16,6 +17,17 @@
     --color-black-secondary-translucent: rgba(25, 25, 36, 0.22);
 
     --landing-page-mobile-size: min(max(50rem, 50%), 100%);
+
+    --gradient-lr: linear-gradient(
+            to right,
+            var(--color-blue-secondary),
+            var(--color-blue-primary)
+    );
+    --gradient-rl: linear-gradient(
+            to left,
+            var(--color-blue-secondary),
+            var(--color-blue-primary)
+    );
 }
 
 * {

@@ -4,12 +4,6 @@ import classes from '../common.module.css';
 import imageGridClasses from "../images.module.css";
 
 export default function UploadedImages(props: { dataset: Dataset }) {
-    const testImages = [];
-
-    for (let i = 0; i < 20; i++) {
-        testImages.push(props.dataset.uploadedImages[0]);
-    }
-
     return (
         <div className={classes.container}>
             <div className={classes.contentContainer}>
@@ -17,7 +11,7 @@ export default function UploadedImages(props: { dataset: Dataset }) {
 
                 <div className={imageGridClasses.uploadedImagesContainer}>
                     {
-                        testImages.map(
+                        props.dataset.uploadedImages.map(
                             (image, index) => (
                                 <DatasetImage key={index} image={image}/>
                             )
