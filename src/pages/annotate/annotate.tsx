@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import {useState, useEffect} from 'react';
 
 import GradientLink from '../../components/UI/gradientLink/gradientLink';
@@ -10,7 +10,6 @@ import {RxArrowLeft, RxArrowRight, RxPlus} from 'react-icons/rx';
 import {useNavigate, useParams} from 'react-router-dom';
 import api from "../../helpers/api";
 import classes from './annotate.module.css';
-import useReloadBlocker from "../../components/UI/reloadBlocker/reloadBlocker";
 import ReloadBlocker from '../../components/UI/reloadBlocker/reloadBlocker';
 
 export interface IAnnotationPageContext {
@@ -42,7 +41,6 @@ export default function Annotate() {
     const params = useParams();
     const navigate = useNavigate();
 
-    const saveTimeout = useRef<ReturnType<typeof setTimeout>>();
     const [labels, setLabels] = useState<string[]>([]);
     const [imageIds, setImageIds] = useState<string[]>([]);
     const [curImage, setCurImage] = useState<UploadedImage | null>(null);
@@ -97,51 +95,48 @@ export default function Annotate() {
     function nextImage() {
         if (imageIndex + 1 < imageIds.length) {
             setImageIndex(imageIndex + 1);
+            saveAnnotation();
         }
     }
 
     function prevImage() {
         if (imageIndex - 1 >= 0) {
             setImageIndex(imageIndex - 1);
+            saveAnnotation();
         }
     }
 
     async function saveAnnotation() {
-        const remoteAnnotationData: RemoteAnnotationObject[] = [];
-        let i = 0;
-        for (let box of curAnnotationData) {
-            if (box) {
-                const {x, y, width, height} = box;
-                remoteAnnotationData.push({
-                    class: i,
-                    boundingBox: [x, y, width, height]
-                });
+        if (curImage) {
+            const remoteAnnotationData: RemoteAnnotationObject[] = [];
+            let i = 0;
+            for (let box of curAnnotationData) {
+                if (box) {
+                    const {x, y, width, height} = box;
+                    remoteAnnotationData.push({
+                        class: i,
+                        boundingBox: [x, y, width, height]
+                    });
+                }
+                i++;
             }
-            i++;
+            await api.post(`/api/image/${curImage.id}/set-annotation`, remoteAnnotationData);
         }
-        console.log(remoteAnnotationData);
         setReloadBlocked(false);
-    }
-
-    function pendingSave() {
-        if (saveTimeout.current) {
-            clearTimeout(saveTimeout.current);
-        }
-        saveTimeout.current = setTimeout(saveAnnotation, 50);
     }
 
     function removeAnnotationBox(boxId: number) {
         curAnnotationData[boxId] = undefined;
         setCurAnnotationData({curAnnotationData});
         setReloadBlocked(true);
-        pendingSave();
+        saveAnnotation();
     }
 
     function updateAnnotationBox(boxId: number, data: AnnotationBox) {
         curAnnotationData[boxId] = data;
         setCurAnnotationData({curAnnotationData});
         setReloadBlocked(true);
-        pendingSave();
+        saveAnnotation();
     }
 
     let reloadBlocker;
