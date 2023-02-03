@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {useState, useEffect} from 'react';
 
 import GradientLink from '../../components/UI/gradientLink/gradientLink';
@@ -10,13 +10,9 @@ import {RxArrowLeft, RxArrowRight, RxPlus} from 'react-icons/rx';
 import {useNavigate, useParams} from 'react-router-dom';
 import api from "../../helpers/api";
 import classes from './annotate.module.css';
+import useReloadBlocker from "../../components/UI/reloadBlocker/reloadBlocker";
+import ReloadBlocker from '../../components/UI/reloadBlocker/reloadBlocker';
 
-export interface AnnotationBox {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-}
 export interface IAnnotationPageContext {
     curImage: UploadedImage | null,
     labels: string[],
@@ -27,6 +23,7 @@ export interface IAnnotationPageContext {
     removeAnnotationBox: (id: number) => void;
     updateAnnotationBox: (id: number, data: AnnotationBox) => void;
 }
+
 export const AnnotationPageContext = React.createContext<IAnnotationPageContext>({
     curImage: null,
     labels: [],
@@ -45,6 +42,7 @@ export default function Annotate() {
     const params = useParams();
     const navigate = useNavigate();
 
+    const saveTimeout = useRef<ReturnType<typeof setTimeout>>();
     const [labels, setLabels] = useState<string[]>([]);
     const [imageIds, setImageIds] = useState<string[]>([]);
     const [curImage, setCurImage] = useState<UploadedImage | null>(null);
@@ -54,6 +52,7 @@ export default function Annotate() {
     }>({
         curAnnotationData: [],
     });
+    const [reloadBlocked, setReloadBlocked] = useState(false);
 
     useEffect(() => {
         if (params.datasetId) {
@@ -79,6 +78,15 @@ export default function Annotate() {
                 try {
                     const fetchedImage = (await api.get<{ success: boolean, data: UploadedImage }>(`/api/image/${imageIds[imageIndex]}`)).data.data;
                     setCurImage(fetchedImage);
+                    const remoteAnnotationData = fetchedImage.annotationData;
+                    const localAnnotationData: AnnotationBox[] = [];
+                    for (let remoteObject of remoteAnnotationData) {
+                        const [x, y, width, height] = remoteObject.boundingBox;
+                        localAnnotationData[remoteObject.class] = {
+                            x, y, width, height
+                        };
+                    }
+                    setCurAnnotationData({curAnnotationData: localAnnotationData});
                 } catch (e) {
                     console.error(e);
                 }
@@ -98,14 +106,48 @@ export default function Annotate() {
         }
     }
 
+    async function saveAnnotation() {
+        const remoteAnnotationData: RemoteAnnotationObject[] = [];
+        let i = 0;
+        for (let box of curAnnotationData) {
+            if (box) {
+                const {x, y, width, height} = box;
+                remoteAnnotationData.push({
+                    class: i,
+                    boundingBox: [x, y, width, height]
+                });
+            }
+            i++;
+        }
+        console.log(remoteAnnotationData);
+        setReloadBlocked(false);
+    }
+
+    function pendingSave() {
+        if (saveTimeout.current) {
+            clearTimeout(saveTimeout.current);
+        }
+        saveTimeout.current = setTimeout(saveAnnotation, 50);
+    }
+
     function removeAnnotationBox(boxId: number) {
         curAnnotationData[boxId] = undefined;
         setCurAnnotationData({curAnnotationData});
+        setReloadBlocked(true);
+        pendingSave();
     }
 
     function updateAnnotationBox(boxId: number, data: AnnotationBox) {
         curAnnotationData[boxId] = data;
         setCurAnnotationData({curAnnotationData});
+        setReloadBlocked(true);
+        pendingSave();
+    }
+
+    let reloadBlocker;
+    if (reloadBlocked) {
+        reloadBlocker = <ReloadBlocker
+            message={"Are you sure you want to quit? Your annotations haven't been saved."}></ReloadBlocker>;
     }
 
     return <AnnotationPageContext.Provider value={{
@@ -118,6 +160,7 @@ export default function Annotate() {
         removeAnnotationBox,
         updateAnnotationBox,
     }}>
+        {reloadBlocker}
         <AnnotateInner></AnnotateInner>
     </AnnotationPageContext.Provider>;
 }

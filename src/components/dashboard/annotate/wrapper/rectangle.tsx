@@ -1,19 +1,12 @@
 import Konva from 'konva';
 import {useRef, useEffect} from 'react';
-import {Rect, Transformer} from 'react-konva';
-
-export interface RectangleCoordinates {
-    x: number,
-    y: number,
-    width: number,
-    height: number,
-}
+import {Layer, Rect, Transformer} from 'react-konva';
 
 export interface RectangleProps {
-    shapeProps: Konva.NodeConfig & RectangleCoordinates,
+    shapeProps: Konva.NodeConfig & AnnotationBox,
     isSelected: boolean,
     onSelect: () => void,
-    onChange: (shape: RectangleCoordinates) => void,
+    onChange: (shape: AnnotationBox) => void,
     containerWidth: number,
     containerHeight: number
 }
@@ -35,7 +28,7 @@ export default function Rectangle(props: RectangleProps) {
     const konvaRectY = (props.shapeProps.y - props.shapeProps.height / 2) * props.containerHeight;
 
     return (
-        <>
+        <Layer>
             <Rect
                 onClick={props.onSelect}
                 onTap={props.onSelect}
@@ -46,7 +39,8 @@ export default function Rectangle(props: RectangleProps) {
                 width={konvaRectWidth}
                 height={konvaRectHeight}
                 strokeScaleEnabled={false}
-                draggable
+                draggable={props.isSelected}
+                strokeWidth={0.01 * Math.min(props.containerWidth, props.containerHeight)}
                 onDragMove={
                     e => {
                         let tempX = Math.max(0, e.currentTarget.x());
@@ -121,6 +115,6 @@ export default function Rectangle(props: RectangleProps) {
                     />
                 )
             }
-        </>
+        </Layer>
     );
-};
+}

@@ -26,6 +26,13 @@ declare interface Dataset extends PartialDataset {
 }
 
 declare interface AnnotationBox {
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+}
+
+declare interface RemoteAnnotationObject {
     class: number,
     boundingBox: [number, number, number, number]
 }
@@ -34,7 +41,7 @@ declare interface UploadedImage {
     id: string;
     url: string;
     uploaded: string;
-    annotationData: AnnotationBox[];
+    annotationData: RemoteAnnotationObject[];
     dataset: string;
     size: string;
     displayName: string;
