@@ -110,8 +110,6 @@ export default function LoginForm(props: { type: string }) {
             //     }
             //   }
             // )).data;
-
-            setLoginState(true);
             refreshUserState();
             navigate('/dashboard');
         }
