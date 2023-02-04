@@ -1,9 +1,10 @@
-import {useState, useRef, useContext} from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import { useState, useRef, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-import {serverURL} from '../../settings';
+import { UserContext } from '../../contexts/userContext';
 
-import {UserContext} from '../../contexts/userContext';
+import { serverURL } from '../../settings';
 
 import classes from './login.module.css';
 
@@ -11,7 +12,7 @@ export default function LoginForm(props: { type: string }) {
   const navigate = useNavigate();
   const curPopup = useRef<Window | null>(null);
 
-  const { setLoginState, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
   // defaulting to true to account for browser auto-filling
   const [emailIsValid, setEmailIsValid] = useState(true);
@@ -20,35 +21,30 @@ export default function LoginForm(props: { type: string }) {
   const emailRef = useRef({} as HTMLInputElement);
   const passwordRef = useRef({} as HTMLInputElement);
 
-    const {refreshUserState} = useContext(UserContext);
+  /**
+   * Open oAuth login Popup
+   *
+   * @param path Backend API route for login auth
+   */
+  function oAuthLogin(path: string) {
+      // Don't open too many auth windows.
+      if (curPopup.current) curPopup.current.close();
 
-    // TODO: Can we not make a popup?
+      const login = serverURL + path;
+      const popup = window.open(login, '_blank');
 
-    /**
-     * Open oAuth login Popup
-     *
-     * @param path Backend API route for login auth
-     */
-    function oAuthLogin(path: string) {
-        // Don't open too many auth windows.
-        if (curPopup.current) curPopup.current.close();
+      if(popup) {
+          curPopup.current = popup;
 
-        const login = serverURL + path;
-        console.log(serverURL, login);
-        const popup = window.open(login, '_blank');
+          window.addEventListener('message', function goToDashboard(e) {
+              if (e.data.success) {
+                  popup.close();
 
-        if (popup) {
-            curPopup.current = popup;
-
-            window.addEventListener('message', function goToDashboard(e) {
-                if (e.data.success) {
-                    popup.close();
-                    refreshUserState();
-                    navigate('/dashboard');
-                }
-            });
-        }
-    }
+                  navigate('/dashboard');
+              }
+          });
+      }
+  }
 
   function passwordValidHandler(password=null as (String | null)) {
     if(!password) password = passwordRef.current.value;
@@ -101,78 +97,51 @@ export default function LoginForm(props: { type: string }) {
     if(!emailValidHandler(email) || !passwordValidHandler(password)) return;
 
     if(emailIsValid && passwordIsValid) {
-      // const response = (await axios(
-      //   {
-      //     method: 'post',
-      //     url: 'http://localhost:8000/' + props.type.toLowerCase(),
-      //     data: {
-      //       email: email,
-      //       password: password
-      //     },
-      //     withCredentials: true,
-      //     headers: {
-      //       'Content-Type': 'application/x-www-form-urlencoded'
-      //     }
-      //   }
-      // )).data;
-
-      setLoginState(true);
-      setUser(
+      const response = (await axios(
         {
-          name: 'Raymond Tian',
-          email: 'raymond@gmail.com',
-          profileImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj2ueFQbN4a-eE_Gv-L4zOnsJBfsJZqiUek_ZiQvJ1gQ&s',
-          monthlyCost: {
-            storage: 100,
-            creation: 100,
-            total: 230,
-            costs: [
-              {
-                description: 'Dataset creation',
-                amount: 40,
-                paid: false,
-                timestamp: new Date()
-              }
-            ]
+          method: 'post',
+          url: 'http://localhost:8000/' + props.type.toLowerCase(),
+          data: {
+            email: email,
+            password: password
           },
-          payments: [
-            {
-              description: 'Dataset payment',
-              amount: 40,
-              paid: true,
-              timestamp: new Date()
-            }
-          ]
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
         }
-      );
+      )).data;
+
+      // setUser(
+      //   {
+      //     name: 'Raymond Tian',
+      //     email: 'raymond@gmail.com',
+      //     profileImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj2ueFQbN4a-eE_Gv-L4zOnsJBfsJZqiUek_ZiQvJ1gQ&s',
+      //     monthlyCost: {
+      //       storage: 100,
+      //       creation: 100,
+      //       total: 230,
+      //       costs: [
+      //         {
+      //           description: 'Dataset creation',
+      //           amount: 40,
+      //           paid: false,
+      //           timestamp: new Date()
+      //         }
+      //       ]
+      //     },
+      //     payments: [
+      //       {
+      //         description: 'Dataset payment',
+      //         amount: 40,
+      //         paid: true,
+      //         timestamp: new Date()
+      //       }
+      //     ]
+      //   }
+      // );
 
       navigate('/dashboard');
-    }
-
-    async function submitHandler() {
-        if (emailIsValid && passwordIsValid) {
-            // const response = (await axios(
-            //   {
-            //     method: 'post',
-            //     url: 'http://localhost:8000/' + props.type.toLowerCase(),
-            //     data: {
-            //       email: email,
-            //       password: password
-            //     },
-            //     withCredentials: true,
-            //     headers: {
-            //       'Content-Type': 'application/x-www-form-urlencoded'
-            //     }
-            //   }
-            // )).data;
-            refreshUserState();
-            navigate('/dashboard');
-
-            setEmail('');
-            setPassword('');
-        } else {
-            // TODO: Maybe just make the button disabled so user cannot submit?
-        }
     }
   }
 
@@ -213,11 +182,11 @@ export default function LoginForm(props: { type: string }) {
 
                 {
                     props.type === 'Signup' ? (
-                        <Link className={classes.link} to="/login">
+                        <Link className={ classes.link } to="/login">
                             I already have an account
                         </Link>
                     ) : (
-                        <Link className={classes.link} to="/signup">
+                        <Link className={ classes.link } to="/signup">
                             I don't have an account
                         </Link>
                     )
@@ -225,25 +194,26 @@ export default function LoginForm(props: { type: string }) {
 
                 <button
                     type="button"
-                    className={classes.submitButton}
-                    onClick={submitHandler}
+                    className={ classes.submitButton }
+                    onClick={ submitHandler }
                 >
-                    {props.type}
+                    { props.type }
                 </button>
             </div>
 
-            <div className={classes.formSeparator}></div>
+            <div className={ classes.formSeparator }></div>
 
-            <div className={classes.buttonDiv}>
+            <div className={ classes.buttonDiv }>
                 <button
-                    className={`${classes.githubButton} ${classes.socialButton}`}
+                    className={`${ classes.githubButton } ${ classes.socialButton }`}
                     onClick={() => oAuthLogin('/auth/github')}
                     type="button"
                 >
-                    {props.type} with Github{' '}
+                    { props.type } with Github{' '}
+                    
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className={classes.githubIcon}
+                        className={ classes.githubIcon }
                         viewBox="0 0 512 512"
                     >
                         <title>Logo Github</title>
@@ -254,13 +224,14 @@ export default function LoginForm(props: { type: string }) {
                 </button>
 
                 <button
-                    className={`${classes.googleButton} ${classes.socialButton}`}
+                    className={`${ classes.googleButton } ${ classes.socialButton }`}
                     onClick={() => oAuthLogin('/auth/google')}
                     type="button"
                 >
-                    {props.type} with Google{' '}
+                    { props.type } with Google{' '}
+                    
                     <svg
-                        className={classes.googleIcon}
+                        className={ classes.googleIcon }
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 512"
                     >

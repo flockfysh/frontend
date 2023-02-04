@@ -8,4 +8,3 @@
 - `yarn start`
 
 ## [Contributing](contributing.md)
-- Please make a pull request and ping Ray F or Avichal for review.

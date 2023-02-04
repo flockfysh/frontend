@@ -3,25 +3,27 @@ declare module '*.svg';
 declare module '*.jpg';
 
 // #region Datasets
+
 declare interface DatasetImage {
     url: string;
     name: string;
-    displayName?: string;
 }
 
 declare interface PartialDataset {
-    name: string;
     id: string;
+    name: string;
     description: string;
-    itemCount: number; // How many items are there in the database. To be honest, it should have been reserved for datasetImages instead of uploadedImages.
+    numImages: number;
 }
 
 declare interface Dataset extends PartialDataset {
     dateCreated: Date;
-    plan: string;
+    plan: string; // ? Consider using an ENUM instead
     size: number;
+
     monthlyCost: MonthlyCost;
-    uploadedImages: DatasetImage[];
+    
+    uploadedImages: DatasetImage[]; // Images uploaded by the user
     datasetImages: DatasetImage[];
 }
 
