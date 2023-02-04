@@ -8,17 +8,15 @@ import {UserContext} from '../../contexts/userContext';
 import classes from './login.module.css';
 
 export default function LoginForm(props: { type: string }) {
-  const navigate = useNavigate();
-  const curPopup = useRef<Window | null>(null);
+    const navigate = useNavigate();
+    const curPopup = useRef<Window | null>(null);
 
-  const { setLoginState, setUser } = useContext(UserContext);
+    // defaulting to true to account for browser auto-filling
+    const [emailIsValid, setEmailIsValid] = useState(true);
+    const [passwordIsValid, setPasswordIsValid] = useState(true);
 
-  // defaulting to true to account for browser auto-filling
-  const [emailIsValid, setEmailIsValid] = useState(true);
-  const [passwordIsValid, setPasswordIsValid] = useState(true);
-
-  const emailRef = useRef({} as HTMLInputElement);
-  const passwordRef = useRef({} as HTMLInputElement);
+    const emailRef = useRef({} as HTMLInputElement);
+    const passwordRef = useRef({} as HTMLInputElement);
 
     const {refreshUserState} = useContext(UserContext);
 
@@ -34,7 +32,6 @@ export default function LoginForm(props: { type: string }) {
         if (curPopup.current) curPopup.current.close();
 
         const login = serverURL + path;
-        console.log(serverURL, login);
         const popup = window.open(login, '_blank');
 
         if (popup) {
@@ -50,106 +47,54 @@ export default function LoginForm(props: { type: string }) {
         }
     }
 
-  function passwordValidHandler(password=null as (String | null)) {
-    if(!password) password = passwordRef.current.value;
+    function passwordValidHandler(password = null as (String | null)) {
+        if (!password) password = passwordRef.current.value;
 
-    if(password.length < 8) {
-      setPasswordIsValid(false);
-      
-      return false;
-    }
-    else {
-      setPasswordIsValid(true);
-      
-      return true;
-    }
-  }
+        if (password.length < 8) {
+            setPasswordIsValid(false);
 
-  function emailValidHandler(email=null as (String | null)) {
-    if(!email) email = emailRef.current.value;
+            return false;
+        } else {
+            setPasswordIsValid(true);
 
-    // logic below
-    // email shouldn't include spaces
-    // email is at least 5 letters and include @ and .
-    // there are letters before @
-    // there are letters after .
-    // and if there are letters between @ and .
-    if(
-      !email.includes(' ') &&
-      email.length >= 5 &&
-      email.includes('@') &&
-      email.includes('.') &&
-      email.split('@')[0].length > 0 &&
-      email.split('.')[1].length > 0 &&
-      email.split('@')[1].split('')[0] !== '.'
-    ) {
-      setEmailIsValid(true);
-
-      return true;
-    }
-    else {
-      setEmailIsValid(false);
-
-      return false;
-    }
-  }
-
-  async function submitHandler() {
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
-
-    if(!emailValidHandler(email) || !passwordValidHandler(password)) return;
-
-    if(emailIsValid && passwordIsValid) {
-      // const response = (await axios(
-      //   {
-      //     method: 'post',
-      //     url: 'http://localhost:8000/' + props.type.toLowerCase(),
-      //     data: {
-      //       email: email,
-      //       password: password
-      //     },
-      //     withCredentials: true,
-      //     headers: {
-      //       'Content-Type': 'application/x-www-form-urlencoded'
-      //     }
-      //   }
-      // )).data;
-
-      setLoginState(true);
-      setUser(
-        {
-          name: 'Raymond Tian',
-          email: 'raymond@gmail.com',
-          profileImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj2ueFQbN4a-eE_Gv-L4zOnsJBfsJZqiUek_ZiQvJ1gQ&s',
-          monthlyCost: {
-            storage: 100,
-            creation: 100,
-            total: 230,
-            costs: [
-              {
-                description: 'Dataset creation',
-                amount: 40,
-                paid: false,
-                timestamp: new Date()
-              }
-            ]
-          },
-          payments: [
-            {
-              description: 'Dataset payment',
-              amount: 40,
-              paid: true,
-              timestamp: new Date()
-            }
-          ]
+            return true;
         }
-      );
+    }
 
-      navigate('/dashboard');
+    function emailValidHandler(email = null as (String | null)) {
+        if (!email) email = emailRef.current.value;
+
+        // logic below
+        // email shouldn't include spaces
+        // email is at least 5 letters and include @ and .
+        // there are letters before @
+        // there are letters after .
+        // and if there are letters between @ and .
+        if (
+            !email.includes(' ') &&
+            email.length >= 5 &&
+            email.includes('@') &&
+            email.includes('.') &&
+            email.split('@')[0].length > 0 &&
+            email.split('.')[1].length > 0 &&
+            email.split('@')[1].split('')[0] !== '.'
+        ) {
+            setEmailIsValid(true);
+
+            return true;
+        } else {
+            setEmailIsValid(false);
+
+            return false;
+        }
     }
 
     async function submitHandler() {
+        const email = emailRef.current.value;
+        const password = passwordRef.current.value;
+
+        if (!emailValidHandler(email) || !passwordValidHandler(password)) return;
+
         if (emailIsValid && passwordIsValid) {
             // const response = (await axios(
             //   {
@@ -167,47 +112,41 @@ export default function LoginForm(props: { type: string }) {
             // )).data;
             refreshUserState();
             navigate('/dashboard');
-
-            setEmail('');
-            setPassword('');
-        } else {
-            // TODO: Maybe just make the button disabled so user cannot submit?
         }
     }
-  }
 
-  return (
-    <form className={ classes.form }>
-      <div className={ classes.emailDiv }>
-        <label htmlFor="email" className={ classes.inputHeading }>
-          Email
-        </label>
+    return (
+        <form className={classes.form}>
+            <div className={classes.emailDiv}>
+                <label htmlFor="email" className={classes.inputHeading}>
+                    Email
+                </label>
 
-        <input
-          ref={ emailRef }
-          className={ `${ !emailIsValid ? classes.inputInvalid : classes.input }` }
-          onChange={ () => emailValidHandler }
-          type="email"
-          name="email"
-        />
+                <input
+                    ref={emailRef}
+                    className={`${!emailIsValid ? classes.inputInvalid : classes.input}`}
+                    onChange={() => emailValidHandler}
+                    type="email"
+                    name="email"
+                />
 
-        <span className={ `${ !emailIsValid ? classes.inputInvalidTextActive : classes.inputInvalidText }` }>
+                <span className={`${!emailIsValid ? classes.inputInvalidTextActive : classes.inputInvalidText}`}>
           Not valid email
         </span>
-        
-        <label htmlFor="password" className={classes.inputHeading}>
-            Password
-        </label>
-        
-        <input
-          ref={ passwordRef }
-          className={ `${ !passwordIsValid ? classes.inputInvalid : classes.input }` }
-          onChange={ () => passwordValidHandler }
-          name="password"
-          type="password"
-        />
 
-        <span className={ `${ !passwordIsValid ? classes.inputInvalidTextActive : classes.inputInvalidText }` }>
+                <label htmlFor="password" className={classes.inputHeading}>
+                    Password
+                </label>
+
+                <input
+                    ref={passwordRef}
+                    className={`${!passwordIsValid ? classes.inputInvalid : classes.input}`}
+                    onChange={() => passwordValidHandler}
+                    name="password"
+                    type="password"
+                />
+
+                <span className={`${!passwordIsValid ? classes.inputInvalidTextActive : classes.inputInvalidText}`}>
           Password too short
         </span>
 

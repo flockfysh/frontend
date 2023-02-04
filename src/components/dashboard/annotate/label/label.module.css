@@ -1,12 +1,14 @@
 .label {
     cursor: pointer;
     background-color: var(--color-blue-gradients);
-    border: 2px solid var(--color-blue-primary);
+    border: 2px solid transparent;
     border-radius: 2rem;
-    padding-block: 1rem;
+    padding: 1rem 2rem;
     display: flex;
     transition: 0.2s;
     align-self: center;
+    color: inherit;
+    gap: 1rem;
 }
 
 .label:hover {
@@ -21,15 +23,16 @@
 
 .labelText {
     align-self: center;
-    margin-right: 20px;
 }
 
 .colorDot {
     align-self: center;
-    margin-left: 20px;
-    margin-right: 20px;
     border-radius: 50%;
-    height: 11px;
-    width: 12.11px;
+    height: 1.3rem;
+    aspect-ratio: 1/1;
     background-color: var(--color-blue-primary);
+}
+
+.active {
+    border-color: var(--color-blue-primary);
 }

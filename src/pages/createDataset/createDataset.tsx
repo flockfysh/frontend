@@ -6,7 +6,7 @@ import Loading from '../../components/loading/loading';
 import Modal, {ErrorModal} from '../../components/UI/modal/modal';
 import {ModalProps} from '../../components/UI/modal/modal';
 
-import CustomSelect from "../../components/UI/input/selectInput";
+import CustomSelect, {CustomCreatableSelect} from "../../components/UI/input/selectInput";
 import classes from './createDataset.module.css';
 import MultiFileInput from "../../components/UI/input/multiFileInput/multiFileInput";
 import Button from "../../components/UI/button/button";
@@ -40,13 +40,14 @@ export default function CreateDataset() {
         const fd = new FormData(formRef.current);
 
         // Create a dataset.
-        const createDatasetRequestBody: Record<string, string> = {};
-        for (let [key, val] of fd.entries()) {
-            if (typeof val === 'string') {
-                createDatasetRequestBody[key] = val;
-            }
-        }
+        const createDatasetRequestBody: Record<string, any|any[]> = {};
+
+        createDatasetRequestBody.description = fd.get("description");
+        createDatasetRequestBody.name = fd.get("name");
+        createDatasetRequestBody.classes = fd.getAll("classes");
+        createDatasetRequestBody.tier = fd.get("tier");
         createDatasetRequestBody.type = datasetType;
+
         const response = await api.post("/api/dataset", createDatasetRequestBody);
         const datasetId = response.data.data.id;
 
@@ -124,12 +125,12 @@ export default function CreateDataset() {
                 <div className={classes.labelledInputContainer}>
                     <label htmlFor="name" className={classes.labelledInputContainer__label}>Dataset Description</label>
                     <Textarea id="name" name="description"
-                           className={classes.labelledInputContainer__input}/>
+                              className={classes.labelledInputContainer__input}/>
                 </div>
 
 
                 <div className={classes.labelledInputContainer}>
-                    <label htmlFor="pricingPlan" className={classes.labelledInputContainer__label}>Pricing plan</label>
+                    <label htmlFor="pricingPlan" className={classes.labelledInputContainer__label}>Pricing Plan</label>
                     <CustomSelect id="pricingPlan" name="tier" className={classes.labelledInputContainer__input}
                                   required={true}
                                   options={[
@@ -138,6 +139,15 @@ export default function CreateDataset() {
                                       {label: "Professional", value: "premium2"}
                                   ]}
                                   defaultValue={{label: "Free forever", value: "free"}}/>
+                </div>
+
+                <div className={classes.labelledInputContainer}>
+                    <label htmlFor="classes" className={classes.labelledInputContainer__label}>Dataset Labels</label>
+                    <CustomCreatableSelect id="classes" name="classes" className={classes.labelledInputContainer__input}
+                                           required={true}
+                                           isMulti={true}
+                                           options={[]}
+                                           defaultValue={{label: "Free forever", value: "free"}}/>
                 </div>
 
                 <div className={classes.labelledInputContainer}>
