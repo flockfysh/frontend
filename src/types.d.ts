@@ -21,6 +21,7 @@ declare interface Dataset extends PartialDataset {
     plan: string;
     size: number;
     monthlyCost: MonthlyCost;
+    classes: string[];
     uploadedImages: DatasetImage[];
     datasetImages: DatasetImage[];
 }

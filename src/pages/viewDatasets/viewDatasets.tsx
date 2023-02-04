@@ -45,7 +45,7 @@ export default function ViewDatasets() {
                     <GradientLink
                         hasArrow={true}
                         gradientDirection="leftToRight"
-                        text="Create a new dataset"
+                        children="Create a new dataset"
                         to="/dashboard/create-dataset"
                         className={classes.createDatasetButton}
                     />

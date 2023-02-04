@@ -10,6 +10,7 @@ import Loading from '../../components/loading/loading';
 
 import classes from './eachDataset.module.css';
 import api from '../../helpers/api';
+import Train from '../../components/dashboard/eachDataset/train/train';
 
 export default function EachDataSet(props: { page: string }) {
     const {datasetId} = useParams();
@@ -39,6 +40,7 @@ export default function EachDataSet(props: { page: string }) {
                 id: result.id,
                 dateCreated: new Date(result.createdOn),
                 plan: "Free forever",
+                classes: result.classes,
                 datasetImages: [],
                 uploadedImages: result.uploadedImages,
                 monthlyCost: monthlyCost,
@@ -63,6 +65,8 @@ export default function EachDataSet(props: { page: string }) {
                 {subPage === 'dataset-images' && <Images dataset={dataset}/>}
 
                 {subPage === 'settings' && <Settings dataset={dataset}/>}
+
+                {subPage === 'train' && <Train dataset={dataset}/>}
             </SideBar>
 
 

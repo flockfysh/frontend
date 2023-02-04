@@ -19,9 +19,13 @@ const LINK_DESCRIPTIONS = [
         children: "Dataset images",
     },
     {
+        name: "train",
+        children: "Training",
+    },
+    {
         name: "settings",
         children: "Settings",
-    }
+    },
 ];
 
 

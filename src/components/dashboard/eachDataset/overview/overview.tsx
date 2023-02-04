@@ -9,7 +9,7 @@ export default function Overview(props: { dataset: Dataset }) {
             <section className={classes.contentContainer}>
                 <div className={classes.titleBar}>
                     <h1>{props.dataset.name} dataset</h1>
-                    <GradientLink className={classes.utilityButton} to={`/dashboard/${props.dataset.id}/annotate`} text="Annotate" hasArrow={true}/>
+                    <GradientLink className={classes.utilityButton} to={`/dashboard/${props.dataset.id}/annotate`} children="Annotate" hasArrow={true}/>
                 </div>
                 <p>{props.dataset.description}</p>
                 <ul className={classes.infoCards}>

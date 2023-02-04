@@ -12,11 +12,11 @@ export default function PageNotFound() {
       </div>
 
       <p>
-        We fyshed long and hard but couldn't find the page you were looking for
+        We fyshed long and hard but couldn't find the page you were looking for!
       </p>
 
       <div className={ classes.pnfButtonContainer }>
-        <GradientLink to="/" text="Home" />
+        <GradientLink to="/" children="Home" />
       </div>
     </div>
   );

@@ -1,7 +1,9 @@
 .pnfContainer {
-    transform: translateY(40%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    margin-bottom: 100px;
+    margin-block: 5rem;
 }
 
 .pnfContainer p {
@@ -17,6 +19,7 @@
 }
 
 .pnfButtonContainer {
-    transform: translateX(46.5%);
+    display: flex;
+    justify-content: center;
     margin-top: 40px;
 }

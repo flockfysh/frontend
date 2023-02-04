@@ -6,8 +6,7 @@ import {AnnotationPageContext} from "../../../../pages/annotate/annotate";
 import {LABEL_COLORS} from "../../../../settings";
 
 export default function AnnotationWrapper() {
-    const {curImage, curAnnotationData, updateAnnotationBox} = React.useContext(AnnotationPageContext);
-    const [currentBox, selectCurrentBox] = React.useState(0);
+    const {curImage, curAnnotationData, updateAnnotationBox, selectedBox} = React.useContext(AnnotationPageContext);
     const [wrapperDimension, setWrapperDimension] = React.useState<{ width: number, height: number }>({
         width: 0,
         height: 0,
@@ -35,32 +34,24 @@ export default function AnnotationWrapper() {
         }
     }, []);
 
-    function checkDeselect(e: any) {
-        const clickedOnEmpty = e.target === e.target.getStage();
-        if (clickedOnEmpty) selectCurrentBox(-1);
-    }
-
-    function generateRectangleLayer(annotationBox: AnnotationBox, index: number) {
+    let rectangle;
+    if (curAnnotationData[selectedBox]) {
         const shapeProps = {
-            x: annotationBox.x,
-            y: annotationBox.y,
-            width: annotationBox.width,
-            height: annotationBox.height,
-            stroke: LABEL_COLORS[index],
+            ...curAnnotationData[selectedBox]!,
+            stroke: LABEL_COLORS[selectedBox],
         };
-        return <Rectangle key={index}
-            shapeProps={shapeProps}
-            isSelected={currentBox === index}
-            onSelect={
-                () => selectCurrentBox(index)
-            }
-            onChange={
-                (newAttrs: AnnotationBox) => {
-                    updateAnnotationBox(index, newAttrs);
-                }
-            }
-            containerWidth={wrapperDimension.width}
-            containerHeight={wrapperDimension.height}
+        rectangle = <Rectangle shapeProps={shapeProps}
+                               isSelected={true}
+                               onSelect={
+                                   () => {}
+                               }
+                               onChange={
+                                   (newAttrs: AnnotationBox) => {
+                                       updateAnnotationBox(selectedBox, newAttrs);
+                                   }
+                               }
+                               containerWidth={wrapperDimension.width}
+                               containerHeight={wrapperDimension.height}
         />;
     }
 
@@ -71,24 +62,11 @@ export default function AnnotationWrapper() {
             <Stage
                 width={wrapperDimension.width}
                 height={wrapperDimension.height}
-                className={classes.annotationCanvasStage}
-                onMouseDown={checkDeselect}
-                onTouchStart={checkDeselect}>
+                className={classes.annotationCanvasStage}>
                 {
-                    curAnnotationData.map((annotationBox, index) => {
-                        if (index !== currentBox && annotationBox) {
-                            return generateRectangleLayer(annotationBox, index);
-                        }
-                    })
-                }
-                {
-                    curAnnotationData.map((annotationBox, index) => {
-                        if (index === currentBox && annotationBox) {
-                            return generateRectangleLayer(annotationBox, index);
-                        }
-                    })
+                    curAnnotationData[selectedBox] && rectangle
                 }
             </Stage>
         </div>
     );
-};
+}
