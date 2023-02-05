@@ -9,12 +9,14 @@ import {LABEL_COLORS} from "../../../../settings";
 function TrainingLabels(props: React.ComponentPropsWithRef<"label"> & { labelColor?: string }) {
     const {labelColor, ...smallProps} = props;
 
-    return <label {...smallProps} className={`${trainingClasses.label} ${props.className || ""}`}>
-        <div className={trainingClasses.labelDot} style={{
-            backgroundColor: labelColor ?? LABEL_COLORS[0],
-        }}></div>
-        {props.children}
-    </label>;
+    return (
+        <label {...smallProps} className={`${trainingClasses.label} ${props.className || ""}`}>
+            <div className={trainingClasses.labelDot} style={{
+                backgroundColor: labelColor ?? LABEL_COLORS[0],
+            }}></div>
+            {props.children}
+        </label>
+    );
 }
 
 export default function Train(props: { dataset: Dataset }) {
@@ -57,13 +59,15 @@ export default function Train(props: { dataset: Dataset }) {
 
                     <label className={classes.labelledInputContainer}>
                         <span className={classes.labelledInputContainer__label}>Output Quantity</span>
-                        <input type="range" id={"desired_data"} name={"desired_data"} min={20} max={50} defaultValue={30}
+                        <input type="range" id={"desired_data"} name={"desired_data"} min={20} max={50}
+                               defaultValue={30}
                                className={classes.outputQuantityRange}/>
                     </label>
 
                     <label className={classes.labelledInputContainer}>
                         <span className={classes.labelledInputContainer__label}>Number of images to </span>
-                        <input type="range" id={"num_images_to_ask_for_hf"} name={"num_images_to_ask_for_hf"} min={20} max={50} defaultValue={30}
+                        <input type="range" id={"num_images_to_ask_for_hf"} name={"num_images_to_ask_for_hf"} min={20}
+                               max={50} defaultValue={30}
                                className={classes.outputQuantityRange}/>
                     </label>
 
