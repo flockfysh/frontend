@@ -91,4 +91,4 @@ export default function AnnotationWrapper() {
             </Stage>
         </div>
     );
-};
+}
