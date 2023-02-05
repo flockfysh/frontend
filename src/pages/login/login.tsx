@@ -97,7 +97,7 @@ export default function LoginForm(props: { type: string }) {
     if(!emailValidHandler(email) || !passwordValidHandler(password)) return;
 
     if(emailIsValid && passwordIsValid) {
-      const response = (await axios(
+      const userData = (await axios(
         {
           method: 'post',
           url: 'http://localhost:8000/' + props.type.toLowerCase(),
@@ -112,34 +112,7 @@ export default function LoginForm(props: { type: string }) {
         }
       )).data;
 
-      // setUser(
-      //   {
-      //     name: 'Raymond Tian',
-      //     email: 'raymond@gmail.com',
-      //     profileImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj2ueFQbN4a-eE_Gv-L4zOnsJBfsJZqiUek_ZiQvJ1gQ&s',
-      //     monthlyCost: {
-      //       storage: 100,
-      //       creation: 100,
-      //       total: 230,
-      //       costs: [
-      //         {
-      //           description: 'Dataset creation',
-      //           amount: 40,
-      //           paid: false,
-      //           timestamp: new Date()
-      //         }
-      //       ]
-      //     },
-      //     payments: [
-      //       {
-      //         description: 'Dataset payment',
-      //         amount: 40,
-      //         paid: true,
-      //         timestamp: new Date()
-      //       }
-      //     ]
-      //   }
-      // );
+      setUser(userData);
 
       navigate('/dashboard');
     }

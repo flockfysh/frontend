@@ -3,23 +3,23 @@ import { PropsWithChildren, useEffect, useState, createContext } from 'react';
 import Loading from '../components/loading/loading';
 import api from '../helpers/api';
 
-export const UserContext = createContext({
-    curUser: null as (User | null),
-    setUser: (_: (User | null)) => {}
-});
+export const UserContext = createContext(
+    {
+        curUser: null as (User | null),
+        setUser: (_: User) => {}
+    }
+);
 
 export function UserWrapper(props: PropsWithChildren) {
     const [curUser, setCurUser] = useState<User | null>(null);
-    const [isLoading, updateLoading] = useState(true);
-
-    // Removed. Why do we happen to need to check the logged in state? Can't we simply base it on the user -
-    // can we set it to isLoggedIn = !!user?
-    // const [isLoggedIn, updateLoggedInState] = useState(false);
+    const [isLoading, updateLoading] = useState(false);
 
     useEffect(() => {
+        updateLoading(true);
+        
         (async function getUserState() {
             try {
-                const data = (await api.get('/authenticate')).data;
+                const data = (await api.get('/')).data;
                 
                 if (data.success) {
                     const userData = data.data;
@@ -38,11 +38,11 @@ export function UserWrapper(props: PropsWithChildren) {
 
             updateLoading(false);
         })();
-    }, [isLoading]);
+    }, []);
 
-    if (isLoading) return <Loading/>;
+    if(isLoading) return <Loading/>;
 
-    function setUser(user: User | null) {
+    function setUser(user: User) {
         setCurUser(user);
     }
 

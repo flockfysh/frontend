@@ -11,6 +11,7 @@ import SearchInput from '../../components/UI/input/searchInput';
 
 import classes from './viewDatasets.module.css';
 import api from '../../helpers/api';
+import { serverURL } from '../../settings';
 
 export default function ViewDatasets() {
     const [datasets, updateDatasets] = useState<PartialDataset[]>([]);
@@ -21,7 +22,8 @@ export default function ViewDatasets() {
         updateLoadingState(true);
 
         (async function () {
-            const datasets = (await api.get("/api/dataset")).data.data as PartialDataset[];
+            const datasets = (await api.get('/api/dataset')).data;
+
             console.log(datasets);
             updateDatasets(datasets);
             updateLoadingState(false);
