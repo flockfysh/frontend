@@ -1,5 +1,5 @@
 import {useState, useRef, useContext} from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link, Navigate, useNavigate} from 'react-router-dom';
 
 import {serverURL} from '../../settings';
 
@@ -8,8 +8,12 @@ import {UserContext} from '../../contexts/userContext';
 import classes from './login.module.css';
 
 export default function LoginForm(props: { type: string }) {
-    const navigate = useNavigate();
     const curPopup = useRef<Window | null>(null);
+    const {isLoggedIn} = useContext(UserContext);
+
+    if (isLoggedIn) {
+        return <Navigate to="/dashboard" replace={true} />;
+    }
 
     // defaulting to true to account for browser auto-filling
     const [emailIsValid, setEmailIsValid] = useState(true);
