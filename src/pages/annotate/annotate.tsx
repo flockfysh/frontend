@@ -1,102 +1,116 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { RxArrowLeft, RxArrowRight, RxPlus } from 'react-icons/rx';
 
 import GradientLink from '../../components/UI/gradientLink/gradientLink';
 import Label from '../../components/dashboard/annotate/label/label';
-import Wrapper from '../../components/dashboard/annotate/wrapper/wrapper';
 import Loading from '../../components/loading/loading';
 
+import api from '../../helpers/api';
+
 import classes from './annotate.module.css';
-import {RxArrowLeft, RxArrowRight, RxPlus} from 'react-icons/rx';
-import {useNavigate, useParams} from 'react-router-dom';
-import api from "../../helpers/api";
 
 export default function Annotate() {
     const params = useParams();
     const navigate = useNavigate();
+
     const [labels, setLabels] = useState<string[]>([]);
     const [imageIds, setImageIds] = useState<string[]>([]);
     const [curImage, setCurImage] = useState<UploadedImage | null>(null);
     const [imageIndex, setImageIndex] = useState(0);
 
     useEffect(() => {
-        if (params.datasetId) {
-            void async function getCurrentDataset() {
+        if(params.datasetId) {
+            (async function getCurrentDataset() {
                 try {
-                    const uploadedImages = (await api.get(`/api/dataset/${params.datasetId}/uploadedImageIds`)).data.data;
-                    const datasetLabels = (await api.get(`/api/dataset/${params.datasetId}/labels`)).data.data;
+                    const uploadedImages = (await api.get(`/api/dataset/${ params.datasetId }/uploadedImageIds`)).data.data;
+                    const datasetLabels = (await api.get(`/api/dataset/${ params.datasetId }/labels`)).data.data;
+
                     setImageIndex(0);
                     setImageIds(uploadedImages);
                     setLabels(datasetLabels);
-                } catch (e) {
+                } 
+                catch(e) {
                     console.error(e);
-                    navigate("/404");
+
+                    navigate('/404');
                 }
-            }();
-        } else {
-            navigate("/404");
+            })();
+        } 
+        else {
+            navigate('/404');
         }
     }, [params.datasetId]);
 
     useEffect(() => {
-        if (imageIds.length) {
-            void async function getCurrentImageInfo() {
+        if(imageIds.length) {
+            (async function getCurrentImageInfo() {
                 try {
-                    const fetchedImage = (await api.get<{ success: boolean, data: UploadedImage }>(`/api/image/${imageIds[imageIndex]}`)).data;
+                    const fetchedImage = (await api.get<{ success: boolean, data: UploadedImage }>(`/api/image/${ imageIds[imageIndex] }`)).data;
+
                     setCurImage(fetchedImage.data);
-                } catch (e) {
+                }
+                catch(e) {
                     console.error(e);
                 }
-            }();
+            })();
         }
     }, [imageIds, imageIndex]);
 
 
-    if (!curImage) {
-        return <Loading/>;
-    }
-
+    if (!curImage) return <Loading/>;
 
     return (
-        <div className={classes.annotateContainer}>
-            <div className={classes.headingContainer}>
-                <h1 className={classes.heading}>Picture - {imageIndex + 1}/50</h1>
+        <div className={ classes.annotateContainer }>
+            <div className={ classes.headingContainer }>
+                <h1 className={ classes.heading }>Picture - { imageIndex + 1 }/50</h1>
             </div>
-            <div className={classes.submitButtonContainer}>
-                <GradientLink to="/" text="Initiate training" gradientDirection="rightToLeft"
-                              className={classes.initiateTrainingButton}/>
+
+            <div className={ classes.submitButtonContainer }>
+                <GradientLink 
+                    to="/" 
+                    text="Initiate training" 
+                    gradientDirection="rightToLeft"
+                    className={ classes.initiateTrainingButton }
+                />
             </div>
-            <div className={classes.leftContainer}>
+
+            <div className={ classes.leftContainer }>
                 <div
-                    className={classes.wrapperDiv}
+                    className={ classes.wrapperDiv }
                     style={
                         {
                             // backgroundImage: "url(" + images[imageIndex].url + ")"
                         }
                     }
-                >
-                </div>
+                />
             </div>
 
-            <div className={classes.rightContainer}>
-                <div className={classes.box}/>
+            <div className={ classes.rightContainer }>
+                <div className={ classes.box } />
             </div>
-            <div className={classes.labelContainer}>
-                <div className={classes.labelList}>
+
+            <div className={ classes.labelContainer }>
+                <div className={ classes.labelList }>
                     {
                         labels.map(function generateLabelButton(labelName) {
-                            return <Label text={labelName}></Label>;
+                            return <Label text={ labelName } />;
                         })
                     }
                 </div>
-                <button className={classes.addLabelButton}><RxPlus/></button>
+
+                <button className={ classes.addLabelButton }>
+                    <RxPlus />
+                </button>
             </div>
-            <div className={classes.switchImageContainer}>
-                <button className={classes.switchImageButton}>
-                    <RxArrowLeft className={classes.switchImageIcon}/>
+
+            <div className={ classes.switchImageContainer }>
+                <button className={ classes.switchImageButton }>
+                    <RxArrowLeft className={ classes.switchImageIcon } />
                 </button>
 
-                <button className={classes.switchImageButton}>
-                    <RxArrowRight className={classes.switchImageIcon}/>
+                <button className={ classes.switchImageButton }>
+                    <RxArrowRight className={ classes.switchImageIcon } />
                 </button>
             </div>
         </div>

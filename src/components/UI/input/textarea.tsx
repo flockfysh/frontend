@@ -1,52 +1,61 @@
-import type {ComponentPropsWithoutRef, ForwardedRef} from "react";
-import React from "react";
-import classes from "./textarea.module.css";
+import { useState, useEffect, forwardRef, useRef } from 'react';
+import type { ComponentPropsWithoutRef, ForwardedRef } from 'react';
 
-interface TextareaProps extends ComponentPropsWithoutRef<"textarea"> {
+import classes from './textarea.module.css';
+
+interface TextareaProps extends ComponentPropsWithoutRef<'textarea'> {
     label?: string,
     innerClassName?: string,
 }
 
-const Textarea = React.forwardRef(function Textarea(props: TextareaProps, ref: ForwardedRef<HTMLTextAreaElement>) {
-    const textareaRef = React.useRef<HTMLTextAreaElement | null>(null);
-    const invisibleDivRef = React.useRef<HTMLDivElement>(null);
+const Textarea = forwardRef(function Textarea(props: TextareaProps, ref: ForwardedRef<HTMLTextAreaElement>) {
+    const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+    const invisibleDivRef = useRef<HTMLDivElement>(null);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const textarea = textareaRef.current;
         const invisibleDiv = invisibleDivRef.current;
+
         function update() {
-            if (textarea && invisibleDiv) {
-                textarea.style.height = "0";
+            if(textarea && invisibleDiv) {
+                textarea.style.height = '0';
+
                 const height = textarea.scrollHeight;
-                textarea.style.height = height + "px";
-                invisibleDiv.style.height = height + "px";
+                
+                textarea.style.height = height + 'px';
+                invisibleDiv.style.height = height + 'px';
             }
         }
+
         update();
-        textarea?.addEventListener("input", update);
-        return () => {
-            textarea?.removeEventListener("input", update);
-        };
+        textarea?.addEventListener('input', update);
+        
+        return () => textarea?.removeEventListener('input', update);
     }, []);
 
-    return <label className={`${classes.textareaContainer} ${props.className || ""}`}>
-        {props.label ? <span className={"font-semibold"}>{props.label}</span> : null}
-        <div className={"flex relative z-0"}>
-            <textarea
-                {...props}
-                ref={elem => {
-                    if (typeof ref === "function") {
-                        ref(elem);
-                    } else if (ref) {
-                        ref.current = elem;
+    return (
+        <label className={ `${ classes.textareaContainer } ${ props.className || '' }` }>
+            { props.label ? <span>{ props.label }</span> : null }
+
+            <div>
+                <textarea
+                    { ...props }
+                    ref={
+                        elem => {
+                            if(typeof ref === 'function') ref(elem);
+                            else if(ref) ref.current = elem;
+                            
+                            textareaRef.current = elem;
+                        }
                     }
-                    textareaRef.current = elem;
-                }}
-                className={`${classes.textarea} ${props.innerClassName || ""}`}>
-            </textarea>
-            <div ref={invisibleDivRef}></div>
-        </div>
-    </label>;
+
+                    className={ `${ classes.textarea } ${ props.innerClassName || '' }` } 
+                />
+
+                <div ref={ invisibleDivRef } />
+            </div>
+        </label>
+    );
 });
 
 export default Textarea;

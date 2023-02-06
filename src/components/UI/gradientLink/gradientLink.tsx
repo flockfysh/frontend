@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import classes from './gradientLink.module.css';
 
@@ -31,13 +31,13 @@ export default function GradientLink(props: GradientLinkProps) {
     }
 
     return (
-        <Link className={`${classes.button} ${gradientClass} ${props.className || ""}`} to={props.to}>
-            {props.text}
+        <Link className={ `${ classes.button } ${ gradientClass } ${ props.className || '' }` } to={ props.to }>
+            { props.text }
 
             {
                 hasArrow ?
                     <svg
-                        className={classes.svg}
+                        className={ classes.svg }
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"

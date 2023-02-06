@@ -44,25 +44,25 @@ export default function Navbar() {
                         <div className={ classes.mobileNavLinksContainer }>
                             {
                                 navLinks.map(
-                                    (link, i) => <MobileNavItem to={ link.to } name={ link.name } key={ i }/>
+                                    (link, i) => <MobileNavItem to={ link.to } name={ link.name } key={ i } />
                                 )
                             }
                         </div>
                     ) : <></>
                 }
 
-                <RxHamburgerMenu onClick={ () => updateNav(!navOpen) }/>
+                <RxHamburgerMenu onClick={ () => updateNav(!navOpen) } />
             </button>
 
             <ul className={ classes.listContainer }>
                 {
                     navLinks.map(
-                        (link, i) => <NavItem to={ link.to } name={ link.name } key={ i }/>
+                        (link, i) => <NavItem to={ link.to } name={ link.name } key={ i } />
                     )
                 }
 
                 {
-                    curUser ? <NavItem to="/dashboard" name="Dashboard"/> : <NavItem to="/login" name="Login"/>
+                    curUser ? <NavItem to="/dashboard" name="Dashboard" /> : <NavItem to="/login" name="Login" />
                 }
             </ul>
         </nav>

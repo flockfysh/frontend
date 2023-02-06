@@ -62,6 +62,7 @@ declare interface BaseUser {
     name: string;
     email: string;
     profileImage: string;
+    
     role?: string;
     phoneNumber?: number;
     dateOfBirth?: Date;
@@ -70,6 +71,4 @@ declare interface BaseUser {
 declare interface User extends BaseUser {
     monthlyCost: MonthlyCost;
     payments: Cost[];
-
-    datasetIds?: number[]; // ! make not optional 
 }
