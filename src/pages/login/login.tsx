@@ -1,20 +1,18 @@
-import {useState, useRef, useContext} from 'react';
-import {Link, Navigate, useNavigate} from 'react-router-dom';
+import { useState, useRef, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-import {serverURL} from '../../settings';
+import { UserContext } from '../../contexts/userContext';
 
-import {UserContext} from '../../contexts/userContext';
+import { serverURL } from '../../settings';
 
 import classes from './login.module.css';
 
 export default function LoginForm(props: { type: string }) {
     const navigate = useNavigate();
     const curPopup = useRef<Window | null>(null);
-    const {isLoggedIn} = useContext(UserContext);
 
-    if (isLoggedIn) {
-        return <Navigate to="/dashboard" replace={true} />;
-    }
+    const { setUser } = useContext(UserContext);
 
     // defaulting to true to account for browser auto-filling
     const [emailIsValid, setEmailIsValid] = useState(true);
@@ -22,10 +20,6 @@ export default function LoginForm(props: { type: string }) {
 
     const emailRef = useRef({} as HTMLInputElement);
     const passwordRef = useRef({} as HTMLInputElement);
-
-    const {refreshUserState} = useContext(UserContext);
-
-    // TODO: Can we not make a popup?
 
     /**
      * Open oAuth login Popup
@@ -39,13 +33,13 @@ export default function LoginForm(props: { type: string }) {
         const login = serverURL + path;
         const popup = window.open(login, '_blank');
 
-        if (popup) {
+        if(popup) {
             curPopup.current = popup;
 
             window.addEventListener('message', function goToDashboard(e) {
                 if (e.data.success) {
                     popup.close();
-                    refreshUserState();
+
                     navigate('/dashboard');
                 }
             });
@@ -67,7 +61,7 @@ export default function LoginForm(props: { type: string }) {
     }
 
     function emailValidHandler(email = null as (String | null)) {
-        if (!email) email = emailRef.current.value;
+        if(!email) email = emailRef.current.value;
 
         // logic below
         // email shouldn't include spaces
@@ -87,7 +81,8 @@ export default function LoginForm(props: { type: string }) {
             setEmailIsValid(true);
 
             return true;
-        } else {
+        } 
+        else {
             setEmailIsValid(false);
 
             return false;
@@ -98,70 +93,71 @@ export default function LoginForm(props: { type: string }) {
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
 
-        if (!emailValidHandler(email) || !passwordValidHandler(password)) return;
+        if(!emailValidHandler(email) || !passwordValidHandler(password)) return;
 
         if (emailIsValid && passwordIsValid) {
-            // const response = (await axios(
-            //   {
-            //     method: 'post',
-            //     url: 'http://localhost:8000/' + props.type.toLowerCase(),
-            //     data: {
-            //       email: email,
-            //       password: password
-            //     },
-            //     withCredentials: true,
-            //     headers: {
-            //       'Content-Type': 'application/x-www-form-urlencoded'
-            //     }
-            //   }
-            // )).data;
-            refreshUserState();
+            const response = (await axios(
+              {
+                method: 'post',
+                url: 'http://localhost:8000/' + props.type.toLowerCase(),
+                data: {
+                  email: email,
+                  password: password
+                },
+                withCredentials: true,
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded'
+                }
+              }
+            )).data;
+
+            setUser(response);
             navigate('/dashboard');
         }
     }
 
     return (
-        <form className={classes.form}>
-            <div className={classes.emailDiv}>
-                <label htmlFor="email" className={classes.inputHeading}>
+        <form className={ classes.form }>
+            <div className={ classes.emailDiv }>
+                <label htmlFor="email" className={ classes.inputHeading }>
                     Email
                 </label>
 
                 <input
-                    ref={emailRef}
-                    className={`${!emailIsValid ? classes.inputInvalid : classes.input}`}
-                    onChange={() => emailValidHandler}
+                    ref= {emailRef }
+                    className={ `${ !emailIsValid ? classes.inputInvalid : classes.input }` }
+                    onChange={ () => emailValidHandler }
                     type="email"
                     name="email"
                 />
 
-                <span className={`${!emailIsValid ? classes.inputInvalidTextActive : classes.inputInvalidText}`}>
-          Not valid email
-        </span>
+                <span className={ `${ !emailIsValid ? classes.inputInvalidTextActive : classes.inputInvalidText }` }>
+                    Not valid email
+                </span>
 
-                <label htmlFor="password" className={classes.inputHeading}>
+                <label htmlFor="password" className={ classes.inputHeading }>
                     Password
                 </label>
 
                 <input
-                    ref={passwordRef}
-                    className={`${!passwordIsValid ? classes.inputInvalid : classes.input}`}
-                    onChange={() => passwordValidHandler}
+                    ref={ passwordRef }
+                    className={ `${ !passwordIsValid ? classes.inputInvalid : classes.input }` }
+                    onChange={ () => passwordValidHandler }
                     name="password"
                     type="password"
                 />
 
-                <span className={`${!passwordIsValid ? classes.inputInvalidTextActive : classes.inputInvalidText}`}>
-          Password too short
-        </span>
+                <span className={ `${ !passwordIsValid ? classes.inputInvalidTextActive : classes.inputInvalidText }` }>
+                    Password too short
+                </span>
 
                 {
                     props.type === 'Signup' ? (
-                        <Link className={classes.link} to="/login">
+                        <Link className={ classes.link } to="/login">
                             I already have an account
                         </Link>
                     ) : (
-                        <Link className={classes.link} to="/signup">
+                        <Link className={ classes.link } to="/signup">
                             I don't have an account
                         </Link>
                     )
@@ -169,25 +165,26 @@ export default function LoginForm(props: { type: string }) {
 
                 <button
                     type="button"
-                    className={classes.submitButton}
-                    onClick={submitHandler}
+                    className={ classes.submitButton }
+                    onClick={ submitHandler }
                 >
-                    {props.type}
+                    { props.type }
                 </button>
             </div>
 
-            <div className={classes.formSeparator}></div>
+            <div className={ classes.formSeparator } />
 
-            <div className={classes.buttonDiv}>
+            <div className={ classes.buttonDiv }>
                 <button
-                    className={`${classes.githubButton} ${classes.socialButton}`}
+                    className={`${ classes.githubButton } ${ classes.socialButton }`}
                     onClick={() => oAuthLogin('/auth/github')}
                     type="button"
                 >
-                    {props.type} with Github{' '}
+                    { props.type } with Github{' '}
+                    
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className={classes.githubIcon}
+                        className={ classes.githubIcon }
                         viewBox="0 0 512 512"
                     >
                         <title>Logo Github</title>
@@ -198,13 +195,14 @@ export default function LoginForm(props: { type: string }) {
                 </button>
 
                 <button
-                    className={`${classes.googleButton} ${classes.socialButton}`}
+                    className={`${ classes.googleButton } ${ classes.socialButton }`}
                     onClick={() => oAuthLogin('/auth/google')}
                     type="button"
                 >
-                    {props.type} with Google{' '}
+                    { props.type } with Google{' '}
+                    
                     <svg
-                        className={classes.googleIcon}
+                        className={ classes.googleIcon }
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 512"
                     >

@@ -1,20 +1,21 @@
 import { FaTrash } from 'react-icons/fa';
 
 import LinkUnderline from '../../../UI/linkUnderline/linkUnderline';
-
 import Button from '../../../UI/button/button';
+
 import classes from './datasetCard.module.css';
 
 export default function DatasetCard(props: { dataset: PartialDataset }) {
     return (
-        <li className={classes.cardContainer}>
-            <div className={classes.cardHeader}>
+        <li className={ classes.cardContainer }>
+            <div className={ classes.cardHeader }>
 
-                <h2 className={classes.datasetName}>
-                    {props.dataset.name}
+                <h2 className={ classes.datasetName }>
+                    { props.dataset.name }
                 </h2>
-                <Button className={classes.deleteButton}>
-                    <FaTrash className={classes.trashIcon}></FaTrash>
+
+                <Button className={ classes.deleteButton }>
+                    <FaTrash className={ classes.trashIcon }></FaTrash>
                 </Button>
             </div>
 
@@ -27,7 +28,7 @@ export default function DatasetCard(props: { dataset: PartialDataset }) {
                     text="View dataset"
                 />
 
-                <span>{ props.dataset.itemCount } Images</span>
+                <span>{ props.dataset.numImages } Images</span>
             </div>
         </li>
     );

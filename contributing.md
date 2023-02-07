@@ -24,11 +24,11 @@
 
 # Packages
 - Consult Frontend team before adding new packages.
-    - This will help keep reduce unneccessary overhead for the repo.
+    - This will help reduce unneccessary overhead for the repo.
 - When installing a new package, check if there is a types package for it as well.
 
 # Functions
-- Prefer named functions for anonymous callbacks
+- Use named functions for callbacks
     <br>
     Prefer: 
     <br>
@@ -80,8 +80,8 @@ for(...) {
 ```
 - Variable declarations
     - Prefer `let` and `const` over `var`.
-    - Use `const` when a variable is not re-assigned.
-- New Line at the end of a file
+    - Use `const` when a variable is not **re-assigned**.
+- Add a new line at the end of every file
 - Comments when neccessary.
 
 # Documenting Code
@@ -89,7 +89,7 @@ for(...) {
 
 # Braces
 - Spaces before opening curly brace ({) for functions and in CSS. <br>
-    Prefer: `function name() {}` over `function(){}`
+    Ex: `function name() {}` over `function(){}`
 - Conditional Rendering in JSX 
     <br>
     <br>
@@ -109,7 +109,7 @@ Over: ```{condition ? <><> : <><>}```
     Over: `className={name}` & ```console.log(`${name}`)```
 
 # Return statements in JSX
-- For JSX return statements that take up more than one line (including return statement), please wrap the JSX in parentheses. <br>
+- For JSX return statements that take up more than one line (including the return statement), please wrap the JSX in parentheses. <br>
     Prefer: 
     <br>
         ```
@@ -137,3 +137,5 @@ Over: ```{condition ? <><> : <><>}```
 
 # Pull Requests
 - Please include screen-shots or videos of the changes you made (from the website).
+- One feature per pull request.
+- At least one review needs to be made on the the PR before it can be merged.

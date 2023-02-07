@@ -1,5 +1,6 @@
-import React from 'react';
-import Modal, {FilePreview} from '../../modal/modal';
+import { useState, useEffect } from 'react';
+import { FilePreview } from '../../modal/modal';
+
 import Button from '../../button/button';
 import FillableSVG from '../../image/fillableSVG/fillableSVG';
 import classes from './fileItemCard.module.css';
@@ -15,16 +16,18 @@ type FileItemProps = {
 };
 
 export default function FileItemCard(props: FileItemProps) {
-    const [imageUrl, setImageUrl] = React.useState('');
-    const [previewShown, setPreviewShown] = React.useState(false);
-    React.useEffect(() => {
-        if (mimeChecker(props.file.type, 'image/*')) {
+    const [imageUrl, setImageUrl] = useState('');
+    const [previewShown, setPreviewShown] = useState(false);
+
+    useEffect(() => {
+        if(mimeChecker(props.file.type, 'image/*')) {
             const imageUrl = URL.createObjectURL(props.file);
+
             setImageUrl(imageUrl);
-            return () => {
-                URL.revokeObjectURL(imageUrl);
-            };
-        } else {
+            
+            return () => URL.revokeObjectURL(imageUrl);
+        } 
+        else {
             setImageUrl('');
         }
     }, [props.file]);
@@ -38,22 +41,29 @@ export default function FileItemCard(props: FileItemProps) {
     }
 
     return (
-<div className={classes.fileItemCard}>
-        {
-            previewShown ? <FilePreview file={props.file} closeModal={closeModal}/> : null
-        }
-        {imageUrl ?
-            <img src={imageUrl} alt={props.file.name} className={classes.smallPreview}/> :
-            <FillableSVG src={fileSVG} className={`${classes.smallPreview} ${classes.placeholderFile}`}></FillableSVG>}
-        <h3 className={classes.fileItemName}>{props.file.name}</h3>
-        <Button className={classes.viewImage} onClick={displayImage}>Preview</Button>
-        <Button
-            onClick={
-                () => props.removeFile(props.id)
+        <div className={ classes.fileItemCard }>
+            {
+                previewShown ? <FilePreview file={ props.file } closeModal={ closeModal } /> : null
             }
-            className={classes.deleteUpload}>
-            <FillableSVG src={closeSVG} className={classes.deleteUploadSVG}/>
-        </Button>
-    </div>
-);
+
+            {
+                imageUrl ? <img src={ imageUrl } alt={ props.file.name } className={ classes.smallPreview } /> 
+                :
+                <FillableSVG src={ fileSVG } className={ `${ classes.smallPreview } ${ classes.placeholderFile }` } />
+            }
+
+            <h3 className={ classes.fileItemName }>{ props.file.name }</h3>
+
+            <Button className={ classes.viewImage } onClick={ displayImage }>Preview</Button>
+            
+            <Button
+                onClick={
+                    () => props.removeFile(props.id)
+                }
+                className={ classes.deleteUpload }
+            >
+                <FillableSVG src={ closeSVG } className={ classes.deleteUploadSVG }/>
+            </Button>
+        </div>
+    );
 }
