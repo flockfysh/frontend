@@ -19,9 +19,11 @@ export default function Label(props: LabelProps) {
                 }}/>
                 <p className={classes.labelText}>{props.children}</p>
             </button>
-            {onRemove ? (<button className={classes.removeButton} onClick={onRemove}>
+            {onRemove ? (
+<button className={classes.removeButton} onClick={onRemove}>
                 <RxCross1></RxCross1>
-            </button>) : <></>}
+            </button>
+) : <></>}
         </div>
     );
 }

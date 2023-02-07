@@ -65,14 +65,16 @@ export default function SideBar(props: PropsWithChildren<{ name: string; page: s
                 </div>
                 <div className={classes.desktopEachDatasetLinks}>
                     {links.map(function createLink(link) {
-                        return (<Link
+                        return (
+<Link
                             to={link.to}
                             className={
                                 `${props.page === link.name ? classes.linkColored : ''} ${classes.link} ${classes.desktopLink}`
                             }
                             key={link.to}>
                             {link.children}
-                        </Link>);
+                        </Link>
+);
                     })}
                 </div>
 
@@ -82,14 +84,16 @@ export default function SideBar(props: PropsWithChildren<{ name: string; page: s
                     if (e.target === e.currentTarget) setMobileShown(false);
                 }}>
                     <div className={`${classes.mobileSidebar} ${mobileShownClassName}`}>
-                        {links.map(link => (<Link
+                        {links.map(link => (
+<Link
                             to={link.to}
                             className={
                                 `${props.page === link.name ? classes.linkColored : ''} ${classes.link}`
                             }
                             key={link.to}>
                             {link.children}
-                        </Link>))}
+                        </Link>
+))}
                     </div>
                 </div>
                 {props.children}

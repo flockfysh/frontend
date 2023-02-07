@@ -12,7 +12,9 @@ export default function Test() {
         }
     });
 
-    return (<div>
+    return (
+<div>
 
-    </div>);
+    </div>
+);
 }
