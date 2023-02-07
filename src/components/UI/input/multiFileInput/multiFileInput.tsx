@@ -1,11 +1,11 @@
-import React from "react";
-import {v4} from "uuid";
-import Button from "../../button/button";
-import FileInputCard from "./fileItemCard";
-import classes from "./multiFileInput.module.css";
-import mimeChecker from "../../../../helpers/mimeChecker";
+import React from 'react';
+import {v4} from 'uuid';
+import Button from '../../button/button';
+import FileInputCard from './fileItemCard';
+import classes from './multiFileInput.module.css';
+import mimeChecker from '../../../../helpers/mimeChecker';
 
-interface FileInputProps extends React.ComponentPropsWithRef<"input"> {
+interface FileInputProps extends React.ComponentPropsWithRef<'input'> {
     classNames?: {};
     maxFileCount?: number;
     buttonLabel?: string;
@@ -34,7 +34,7 @@ const MultiFileInput = React.forwardRef<HTMLInputElement, FileInputProps>(functi
             newFileList.items.add(file);
         }
         if (!internalFileInputRef.current) {
-            throw new Error("Attempting to refresh internal files before the input element appears.");
+            throw new Error('Attempting to refresh internal files before the input element appears.');
         }
         internalFileInputRef.current.files = newFileList.files;
     }
@@ -96,26 +96,26 @@ const MultiFileInput = React.forwardRef<HTMLInputElement, FileInputProps>(functi
         internalState.files.delete(id);
         if (internalFileInputRef.current) {
             internalFileInputRef.current.files = new DataTransfer().files;
-            internalFileInputRef.current?.dispatchEvent(new Event("input", {
+            internalFileInputRef.current?.dispatchEvent(new Event('input', {
                 bubbles: true,
             }));
         }
     }
 
     return (
-        <div className={`${classes.masterContainer} ${props.className || ""}`}
+        <div className={`${classes.masterContainer} ${props.className || ''}`}
              onDragOver={dragOverHandler}
              onDragEnd={dragEndHandler}>
             <div className={`${classes.fileInputContainer}`}>
                 <div
-                    className={`${classes.fileDropOverlay} ${fileDropOverlayVisible ? classes.fileDropOverlayVisible : ""}`}>
+                    className={`${classes.fileDropOverlay} ${fileDropOverlayVisible ? classes.fileDropOverlayVisible : ''}`}>
                     Drop here to upload
                 </div>
-                <input type={"file"} multiple {...inputProps}
-                       className={`${classes.fileInput} ${fileDropOverlayVisible ? classes.fileInputVisible : ""}`}
+                <input type={'file'} multiple {...inputProps}
+                       className={`${classes.fileInput} ${fileDropOverlayVisible ? classes.fileInputVisible : ''}`}
                        onDrop={dropHandler}
                        onInput={inputHandler} ref={(e) => {
-                    if (typeof ref === "function") {
+                    if (typeof ref === 'function') {
                         ref(e);
                     } else if (ref) {
                         ref.current = e;
@@ -126,7 +126,7 @@ const MultiFileInput = React.forwardRef<HTMLInputElement, FileInputProps>(functi
                     <Button className={classes.inputButton} gradient={true} onClick={() => {
                         internalFileInputRef.current?.click();
                     }}>
-                        {buttonLabel ?? "Add file"}
+                        {buttonLabel ?? 'Add file'}
                     </Button>
                     {_maxFileCount !== Infinity
                         ?

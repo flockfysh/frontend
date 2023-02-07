@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
 import classes from './button.module.css';
 
-interface ButtonProps extends React.ComponentPropsWithRef<"button"> {
+interface ButtonProps extends React.ComponentPropsWithRef<'button'> {
     gradient?: boolean;
     gradientDirection?: string;
 }
@@ -11,7 +11,7 @@ export default function Button(props: ButtonProps) {
     let {gradient, gradientDirection, ...buttonProps} = props;
     gradientDirection ??= 'topToBottom';
 
-    let gradientClass = "";
+    let gradientClass = '';
 
     if (props.gradient) {
         switch (gradientDirection) {
@@ -30,8 +30,8 @@ export default function Button(props: ButtonProps) {
     }
 
     return (
-        <button type={"button"} { ...buttonProps }
-                className={`${classes.button} ${gradientClass} ${props.className || ""}`}>
+        <button type={'button'} { ...buttonProps }
+                className={`${classes.button} ${gradientClass} ${props.className || ''}`}>
             {props.children}
         </button>
     );

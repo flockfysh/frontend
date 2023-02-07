@@ -1,5 +1,5 @@
 import classes from './modal.module.css';
-import React from "react";
+import React from 'react';
 
 export interface ModalProps {
     closeModal: () => void;
@@ -29,13 +29,13 @@ export default function Modal(props: ModalProps) {
 }
 
 export function ErrorModal(props: TextModalProps) {
-    return <Modal closeModal={props.closeModal} title={"Error!"}>
+    return <Modal closeModal={props.closeModal} title={'Error!'}>
         <p>{props.message}</p>
     </Modal>;
 }
 
 export function FilePreview(props: FilePreviewProps) {
-    const [url, setUrl] = React.useState("");
+    const [url, setUrl] = React.useState('');
 
     React.useEffect(() => {
         const newUrl = URL.createObjectURL(props.file);

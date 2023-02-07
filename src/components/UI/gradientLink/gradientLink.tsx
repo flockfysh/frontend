@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 
 import classes from './gradientLink.module.css';
-import React from "react";
+import React from 'react';
 import { RxArrowRight } from 'react-icons/rx';
 
 type GradientLinkProps = {
@@ -33,7 +33,7 @@ export default function GradientLink(props: GradientLinkProps) {
     }
 
     return (
-        <Link className={`${classes.button} ${gradientClass} ${props.className || ""}`} to={props.to}>
+        <Link className={`${classes.button} ${gradientClass} ${props.className || ''}`} to={props.to}>
             {props.children}
 
             {

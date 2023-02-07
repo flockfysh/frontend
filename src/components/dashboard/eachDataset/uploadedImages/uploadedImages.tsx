@@ -1,7 +1,7 @@
 import DatasetImage from '../datasetImage/datasetImage';
 
 import classes from '../common.module.css';
-import imageGridClasses from "../images.module.css";
+import imageGridClasses from '../images.module.css';
 
 export default function UploadedImages(props: { dataset: Dataset }) {
     return (

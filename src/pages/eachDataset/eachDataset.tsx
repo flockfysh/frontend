@@ -39,7 +39,7 @@ export default function EachDataSet(props: { page: string }) {
                 name: result.name,
                 id: result.id,
                 dateCreated: new Date(result.createdOn),
-                plan: "Free forever",
+                plan: 'Free forever',
                 classes: result.classes,
                 datasetImages: [],
                 uploadedImages: result.uploadedImages,

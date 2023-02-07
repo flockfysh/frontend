@@ -1,5 +1,5 @@
-import Button from "../../../UI/button/button";
-import CustomSelect from "../../../UI/input/selectInput";
+import Button from '../../../UI/button/button';
+import CustomSelect from '../../../UI/input/selectInput';
 import classes from '../common.module.css';
 import settingsClasses from './settings.module.css';
 
@@ -19,8 +19,8 @@ const months = [
 ];
 
 const PLAN_OPTION = [
-    {value: 'hobbyist', label: "Hobbyist"},
-    {value: 'professional', label: "Professional"},
+    {value: 'hobbyist', label: 'Hobbyist'},
+    {value: 'professional', label: 'Professional'},
 ];
 
 export default function Settings(props: { dataset: Dataset }) {

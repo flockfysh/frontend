@@ -1,7 +1,7 @@
 import GradientLink from '../../../UI/gradientLink/gradientLink';
 
 import classes from '../common.module.css';
-import {formatFileSize} from "../../../../helpers/formatting";
+import {formatFileSize} from '../../../../helpers/formatting';
 
 export default function Overview(props: { dataset: Dataset }) {
     return (

@@ -31,8 +31,8 @@
       "always"
     ],
     "quotes": [
-      "single",
       "error",
+      "single",
       {
         "allowTemplateLiterals": true
       }

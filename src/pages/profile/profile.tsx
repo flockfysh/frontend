@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import Loading from '../../components/loading/loading';
 
 import classes from './profile.module.css';
-import UserPicture from "../../components/UI/currentUser/userPicture";
-import UserName from "../../components/UI/currentUser/userName";
-import UserEmail from "../../components/UI/currentUser/userEmail";
+import UserPicture from '../../components/UI/currentUser/userPicture';
+import UserName from '../../components/UI/currentUser/userName';
+import UserEmail from '../../components/UI/currentUser/userEmail';
 
 export default function Profile() {
   const [user, updateUser] = useState({} as User);

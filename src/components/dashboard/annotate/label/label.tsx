@@ -1,8 +1,8 @@
 import classes from './label.module.css';
-import React from "react";
-import {RxCross1} from "react-icons/rx";
+import React from 'react';
+import {RxCross1} from 'react-icons/rx';
 
-interface LabelProps extends React.ComponentPropsWithRef<"button"> {
+interface LabelProps extends React.ComponentPropsWithRef<'button'> {
     dotColor?: string;
     used?: boolean;
     selected?: boolean;
@@ -13,7 +13,7 @@ export default function Label(props: LabelProps) {
     const {dotColor, used, onRemove, ...buttonProps} = props;
     return (
         <div className={`${classes.labelContainer}`}>
-            <button {...buttonProps} className={`${classes.label} ${props.used ? classes.used : ""} ${props.selected ? classes.selected : ""}`}>
+            <button {...buttonProps} className={`${classes.label} ${props.used ? classes.used : ''} ${props.selected ? classes.selected : ''}`}>
                 <div className={classes.colorDot} style={{
                     backgroundColor: props.dotColor
                 }}/>

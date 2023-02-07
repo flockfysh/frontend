@@ -1,9 +1,9 @@
 import React from 'react';
 import Rectangle from './rectangle';
 import {Stage, Layer} from 'react-konva';
-import classes from "./annotationWrapper.module.css";
-import {AnnotationPageContext} from "../../../../pages/annotate/annotate";
-import {LABEL_COLORS} from "../../../../settings";
+import classes from './annotationWrapper.module.css';
+import {AnnotationPageContext} from '../../../../pages/annotate/annotate';
+import {LABEL_COLORS} from '../../../../settings';
 
 export default function AnnotationWrapper() {
     const {curImage, curAnnotationData, updateAnnotationBox, selectedBox} = React.useContext(AnnotationPageContext);
@@ -25,11 +25,11 @@ export default function AnnotationWrapper() {
             }
 
             updateWrapperSize();
-            imageElem.addEventListener("load", updateWrapperSize);
-            window.addEventListener("resize", updateWrapperSize);
+            imageElem.addEventListener('load', updateWrapperSize);
+            window.addEventListener('resize', updateWrapperSize);
             return () => {
-                imageElem.removeEventListener("load", updateWrapperSize);
-                window.removeEventListener("resize", updateWrapperSize);
+                imageElem.removeEventListener('load', updateWrapperSize);
+                window.removeEventListener('resize', updateWrapperSize);
             };
         }
     }, []);
@@ -57,7 +57,7 @@ export default function AnnotationWrapper() {
 
     return (
         <div className={classes.annotationWrapper}>
-            <img src={curImage!.url} alt={""} className={classes.annotationImage}
+            <img src={curImage!.url} alt={''} className={classes.annotationImage}
                  ref={annotationImageRef}></img>
             <Stage
                 width={wrapperDimension.width}

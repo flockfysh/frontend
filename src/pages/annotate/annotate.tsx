@@ -5,10 +5,10 @@ import GradientLink from '../../components/UI/gradientLink/gradientLink';
 import Label from '../../components/dashboard/annotate/label/label';
 import AnnotationWrapper from '../../components/dashboard/annotate/wrapper/annotationWrapper';
 import Loading from '../../components/loading/loading';
-import {LABEL_COLORS} from "../../settings";
+import {LABEL_COLORS} from '../../settings';
 import {RxArrowLeft, RxArrowRight, RxPlus} from 'react-icons/rx';
 import {useNavigate, useParams} from 'react-router-dom';
-import api from "../../helpers/api";
+import api from '../../helpers/api';
 import classes from './annotate.module.css';
 import ReloadBlocker from '../../components/UI/reloadBlocker/reloadBlocker';
 
@@ -69,11 +69,11 @@ export default function Annotate() {
                     setLabels(datasetLabels);
                 } catch (e) {
                     console.error(e);
-                    navigate("/404");
+                    navigate('/404');
                 }
             }();
         } else {
-            navigate("/404");
+            navigate('/404');
         }
     }, [params.datasetId]);
     useEffect(() => {
@@ -149,7 +149,7 @@ export default function Annotate() {
     let reloadBlocker;
     if (reloadBlocked) {
         reloadBlocker = <ReloadBlocker
-            message={"Are you sure you want to quit? Your annotations haven't been saved."}></ReloadBlocker>;
+            message={'Are you sure you want to quit? Your annotations haven\'t been saved.'}></ReloadBlocker>;
     }
 
     return <AnnotationPageContext.Provider value={{

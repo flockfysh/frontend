@@ -1,30 +1,30 @@
 import {Link, useParams} from 'react-router-dom';
-import React, {PropsWithChildren} from "react";
+import React, {PropsWithChildren} from 'react';
 import classes from './sideBar.module.css';
 import {RxHamburgerMenu, RxArrowLeft} from 'react-icons/rx';
-import {ScreenContext} from "../../../../contexts/screenContext";
-import GradientLink from "../../../UI/gradientLink/gradientLink";
+import {ScreenContext} from '../../../../contexts/screenContext';
+import GradientLink from '../../../UI/gradientLink/gradientLink';
 
 const LINK_DESCRIPTIONS = [
     {
-        name: "overview",
-        children: "Overview",
+        name: 'overview',
+        children: 'Overview',
     },
     {
-        name: "uploaded-images",
-        children: "Uploaded images",
+        name: 'uploaded-images',
+        children: 'Uploaded images',
     },
     {
-        name: "dataset-images",
-        children: "Dataset images",
+        name: 'dataset-images',
+        children: 'Dataset images',
     },
     {
-        name: "train",
-        children: "Training",
+        name: 'train',
+        children: 'Training',
     },
     {
-        name: "settings",
-        children: "Settings",
+        name: 'settings',
+        children: 'Settings',
     },
 ];
 
@@ -34,7 +34,7 @@ export default function SideBar(props: PropsWithChildren<{ name: string; page: s
     const [mobileShown, setMobileShown] = React.useState(false);
     const {windowTooSmall} = React.useContext(ScreenContext);
 
-    const mobileShownClassName = mobileShown ? "" : classes.hidden;
+    const mobileShownClassName = mobileShown ? '' : classes.hidden;
     if (!windowTooSmall && mobileShown) {
         setMobileShown(false);
     }
@@ -49,16 +49,16 @@ export default function SideBar(props: PropsWithChildren<{ name: string; page: s
     return (
         <header className={classes.navOverlay}>
             <nav className={classes.primaryBar}>
-                <Link className={classes.menuBarButton} to={"/dashboard"} title={"Back to dashboard"}>
+                <Link className={classes.menuBarButton} to={'/dashboard'} title={'Back to dashboard'}>
                     <RxArrowLeft/>
                 </Link>
                 <button className={classes.menuBarButton} onClick={function toggleMobileMenu() {
                     setMobileShown(!mobileShown);
-                }} title={"Menu"}>
+                }} title={'Menu'}>
                     <RxHamburgerMenu/>
                 </button>
                 <div className={classes.titleBar}>
-                    <Link className={`${classes.menuBarButton} ${classes.desktopBackButton}`} to={"/dashboard"} title={"Back to dashboard"}>
+                    <Link className={`${classes.menuBarButton} ${classes.desktopBackButton}`} to={'/dashboard'} title={'Back to dashboard'}>
                         <RxArrowLeft/>
                     </Link>
                     <h1 className={classes.datasetName}>{props.name} Dataset</h1>
@@ -68,7 +68,7 @@ export default function SideBar(props: PropsWithChildren<{ name: string; page: s
                         return <Link
                             to={link.to}
                             className={
-                                `${props.page === link.name ? classes.linkColored : ""} ${classes.link} ${classes.desktopLink}`
+                                `${props.page === link.name ? classes.linkColored : ''} ${classes.link} ${classes.desktopLink}`
                             }
                             key={link.to}>
                             {link.children}
@@ -85,7 +85,7 @@ export default function SideBar(props: PropsWithChildren<{ name: string; page: s
                         {links.map(link => <Link
                             to={link.to}
                             className={
-                                `${props.page === link.name ? classes.linkColored : ""} ${classes.link}`
+                                `${props.page === link.name ? classes.linkColored : ''} ${classes.link}`
                             }
                             key={link.to}>
                             {link.children}

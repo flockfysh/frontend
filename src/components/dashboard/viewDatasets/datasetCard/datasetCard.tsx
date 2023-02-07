@@ -2,7 +2,7 @@ import { FaTrash } from 'react-icons/fa';
 
 import LinkUnderline from '../../../UI/linkUnderline/linkUnderline';
 
-import Button from "../../../UI/button/button";
+import Button from '../../../UI/button/button';
 import classes from './datasetCard.module.css';
 
 export default function DatasetCard(props: { dataset: PartialDataset }) {
