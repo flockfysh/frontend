@@ -40,7 +40,7 @@ export default function AnnotationWrapper() {
             ...curAnnotationData[selectedBox]!,
             stroke: LABEL_COLORS[selectedBox],
         };
-        rectangle = <Rectangle shapeProps={shapeProps}
+        rectangle = (<Rectangle shapeProps={shapeProps}
                                isSelected={true}
                                onSelect={
                                    () => {}
@@ -52,7 +52,7 @@ export default function AnnotationWrapper() {
                                }
                                containerWidth={wrapperDimension.width}
                                containerHeight={wrapperDimension.height}
-        />;
+        />);
     }
 
     return (

@@ -50,7 +50,7 @@ function commonClasses<Option, IsMulti extends boolean = false, Group extends Gr
 const CustomSelect = React.forwardRef<any, Props>(function _CustomSelect<Option, IsMulti extends boolean = false, Group extends GroupBase<Option> = GroupBase<Option>>(
     props: Props<Option, IsMulti, Group>,
     ref: React.ForwardedRef<SelectInstance<Option, IsMulti, Group>>) {
-    return <Select
+    return (<Select
         {...props}
         classNames={commonClasses(props)}
         className={`${classes.selectElement} ${props.className || ''}`} ref={e => {
@@ -59,13 +59,13 @@ const CustomSelect = React.forwardRef<any, Props>(function _CustomSelect<Option,
         } else if (ref) {
             ref.current = e;
         }
-    }}/>;
+    }}/>);
 });
 
 export const CustomCreatableSelect = React.forwardRef<any, Props>(function _CreatableCustomSelect<Option, IsMulti extends boolean = false, Group extends GroupBase<Option> = GroupBase<Option>>(
     props: Props<Option, IsMulti, Group>,
     ref: React.ForwardedRef<SelectInstance<Option, IsMulti, Group>>) {
-    return <CreatableSelect
+    return (<CreatableSelect
         {...props}
         classNames={commonClasses(props)}
         className={`${classes.selectElement} ${props.className || ''}`} ref={e => {
@@ -74,7 +74,7 @@ export const CustomCreatableSelect = React.forwardRef<any, Props>(function _Crea
         } else if (ref) {
             ref.current = e;
         }
-    }}/>;
+    }}/>);
 });
 
 export default CustomSelect;

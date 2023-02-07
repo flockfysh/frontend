@@ -148,11 +148,11 @@ export default function Annotate() {
 
     let reloadBlocker;
     if (reloadBlocked) {
-        reloadBlocker = <ReloadBlocker
-            message={'Are you sure you want to quit? Your annotations haven\'t been saved.'}></ReloadBlocker>;
+        reloadBlocker = (<ReloadBlocker
+            message={'Are you sure you want to quit? Your annotations haven\'t been saved.'}></ReloadBlocker>);
     }
 
-    return <AnnotationPageContext.Provider value={{
+    return (<AnnotationPageContext.Provider value={{
         curImage,
         labels,
         nextImage,
@@ -166,7 +166,7 @@ export default function Annotate() {
     }}>
         {reloadBlocker}
         <AnnotateInner></AnnotateInner>
-    </AnnotationPageContext.Provider>;
+    </AnnotationPageContext.Provider>);
 }
 
 function AnnotateInner() {
@@ -210,7 +210,7 @@ function AnnotateInner() {
                         labels.map(function generateLabelButton(labelName, index) {
                             let used = !!curAnnotationData[index];
 
-                            return <Label
+                            return (<Label
                                 key={index}
                                 dotColor={LABEL_COLORS[index]}
                                 used={used}
@@ -234,7 +234,7 @@ function AnnotateInner() {
                                     removeAnnotationBox(index);
                                     setSelectedBox(-1);
                                 } : undefined}
-                            >{labelName}</Label>;
+                            >{labelName}</Label>);
                         })
                     }
                 </div>

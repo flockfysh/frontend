@@ -37,7 +37,7 @@ export default function FileItemCard(props: FileItemProps) {
         setPreviewShown(false);
     }
 
-    return <div className={classes.fileItemCard}>
+    return (<div className={classes.fileItemCard}>
         {
             previewShown ? <FilePreview file={props.file} closeModal={closeModal}/> : null
         }
@@ -53,5 +53,5 @@ export default function FileItemCard(props: FileItemProps) {
             className={classes.deleteUpload}>
             <FillableSVG src={closeSVG} className={classes.deleteUploadSVG}/>
         </Button>
-    </div>;
+    </div>);
 }

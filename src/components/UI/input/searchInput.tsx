@@ -10,7 +10,7 @@ interface SearchInputProps extends React.ComponentPropsWithoutRef<'input'> {
 const SearchInput = React.forwardRef(function SearchInput(props: SearchInputProps, ref: React.ForwardedRef<HTMLInputElement>) {
     const inputRef = React.useRef<HTMLInputElement|null>(null);
     const {containerClassName, onLookup, ...inputProps} = props;
-    return <div className={`${classes.container} ${containerClassName || ''}`}>
+    return (<div className={`${classes.container} ${containerClassName || ''}`}>
         <input {...inputProps}
                ref={element => {
                    inputRef.current = element;
@@ -29,7 +29,7 @@ const SearchInput = React.forwardRef(function SearchInput(props: SearchInputProp
         }}>
             <img src={Icon} alt=""/>
         </button>
-    </div>;
+    </div>);
 });
 
 export default SearchInput;

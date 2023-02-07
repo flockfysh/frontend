@@ -29,7 +29,7 @@ const Textarea = React.forwardRef(function Textarea(props: TextareaProps, ref: F
         };
     }, []);
 
-    return <label className={`${classes.textareaContainer} ${props.className || ''}`}>
+    return (<label className={`${classes.textareaContainer} ${props.className || ''}`}>
         {props.label ? <span className={'font-semibold'}>{props.label}</span> : null}
         <div className={'flex relative z-0'}>
             <textarea
@@ -46,7 +46,7 @@ const Textarea = React.forwardRef(function Textarea(props: TextareaProps, ref: F
             </textarea>
             <div ref={invisibleDivRef}></div>
         </div>
-    </label>;
+    </label>);
 });
 
 export default Textarea;
