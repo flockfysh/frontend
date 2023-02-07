@@ -20,7 +20,7 @@ export default function UserSignup() {
 
       <GradientLink
         hasArrow={ true }
-        text="Commence FlockFyshing!"
+        children="Commence FlockFyshing!"
         to={ isLoggedIn ? '/dashboard' : '/signup' }
       />
     </section>

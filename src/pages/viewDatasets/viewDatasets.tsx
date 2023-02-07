@@ -21,7 +21,7 @@ export default function ViewDatasets() {
         updateLoadingState(true);
 
         (async function () {
-            const datasets = (await api.get("/api/dataset")).data.data as PartialDataset[];
+            const datasets = (await api.get('/api/dataset')).data.data as PartialDataset[];
             console.log(datasets);
             updateDatasets(datasets);
             updateLoadingState(false);
@@ -36,8 +36,8 @@ export default function ViewDatasets() {
                 <MiniProfile/>
                 <div className={classes.searchDatasets}>
                     <SearchInput
-                        type={"text"}
-                        placeholder={"Find your dataset..."}
+                        type={'text'}
+                        placeholder={'Find your dataset...'}
                         onChange={e => updateFilter(e.target.value)}
                         onLookup={data => updateFilter(data)}
                         containerClassName={classes.searchInputContainer}
@@ -45,7 +45,7 @@ export default function ViewDatasets() {
                     <GradientLink
                         hasArrow={true}
                         gradientDirection="leftToRight"
-                        text="Create a new dataset"
+                        children="Create a new dataset"
                         to="/dashboard/create-dataset"
                         className={classes.createDatasetButton}
                     />

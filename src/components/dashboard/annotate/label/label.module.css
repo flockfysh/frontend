@@ -1,8 +1,8 @@
 .label {
     cursor: pointer;
-    background-color: var(--color-blue-gradients);
-    border: 2px solid transparent;
-    border-radius: 2rem;
+    background-color: var(--color-black-tertiary);
+    border: 3px solid transparent;
+    border-radius: 1rem;
     padding: 1rem 2rem;
     display: flex;
     transition: 0.2s;
@@ -12,13 +12,8 @@
 }
 
 .label:hover {
-    border-color: var(--color-red-primary);
-    background-color: var(--color-red-secondary);
+    background-color: var(--color-blue-primary);
     color: var(--color-black-primary);
-}
-
-.label:hover .colorDot {
-    background-color: var(--color-red-primary);
 }
 
 .labelText {
@@ -33,6 +28,32 @@
     background-color: var(--color-blue-primary);
 }
 
-.active {
+.used {
+    background-color: var(--color-blue-gradients);
+}
+
+.selected {
     border-color: var(--color-blue-primary);
+}
+
+.labelContainer {
+    position: relative;
+}
+
+.removeButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    border-radius: 1rem;
+    background: var(--color-red-primary);
+    aspect-ratio: 1/1;
+    height: 2.5rem;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.removeButton * {
+    width: 100%;
+    height: 100%;
 }

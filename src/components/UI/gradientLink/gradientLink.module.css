@@ -1,12 +1,14 @@
 .button {
    padding: 1.5rem 2rem;
    font-size: 1.5rem;
-   border-radius: 4px;
+   border-radius: 0.5rem;
    display: flex;
    align-items: center;
    width: fit-content;
+   font-weight: 600;
    color: var(--color-white);
    transition: 0.2s;
+   gap: 1rem;
 }
 
 .gradientBottomRight {
@@ -26,10 +28,11 @@
 }
 
 .svg {
-   width: 2rem;
+   width: 1.8rem;
+   height: 1.8rem;
+   aspect-ratio: 1/1;
    stroke: var(--color-white);
-   stroke-width: 1.8;
-   margin-left: 2rem;
+   stroke-width: 1.2;
    transition: 0.2s;
 }
 

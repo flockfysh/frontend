@@ -14,6 +14,7 @@
     --color-gray: #c9c9c9;
     --color-black-primary: #040409;
     --color-black-secondary: #191924;
+    --color-black-tertiary: #0c0c11;
     --color-black-secondary-translucent: rgba(25, 25, 36, 0.22);
 
     --landing-page-mobile-size: min(max(50rem, 50%), 100%);

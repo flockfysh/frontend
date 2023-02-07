@@ -94,6 +94,11 @@ function MainApp() {
                             path=":datasetId/settings"
                             element={ <EachDataSet page="settings" /> }
                         />
+
+                        <Route
+                            path=":datasetId/train"
+                            element={ <EachDataSet page="train" /> }
+                        />
                     </Route>
                 </Route>
             </Routes>

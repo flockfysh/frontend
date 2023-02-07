@@ -8,5 +8,5 @@ export default function PrivateRoutes() {
 
     if (isLoggedIn === true) return <Outlet />;
 
-    return <Navigate to="/login" />;
+    return <Navigate to="/login" replace={true}/>;
 }

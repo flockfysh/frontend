@@ -14,7 +14,7 @@ export default function Reviews() {
         {
           reviews.map(
             (cards, cardsIndex) => (
-              <div className={ `${classes.cardsGroup} ${cardsIndex !== 0 ? classes.desktopOnlyGroup : ""}` } key={ cardsIndex }>
+              <div className={ `${classes.cardsGroup} ${cardsIndex !== 0 ? classes.desktopOnlyGroup : ''}` } key={ cardsIndex }>
                 {
                   cards.map(
                     (review, reviewIndex) => (

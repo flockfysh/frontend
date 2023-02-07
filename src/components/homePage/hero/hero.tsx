@@ -16,7 +16,7 @@ export default function Hero() {
           afterSpan="dataset&nbsp;generation, minus&nbsp;the&nbsp;hassle."
         />
         <div className={ classes.buttonsHolder }>
-          <GradientLink hasArrow={ true } text="Start Flockfyshing" to="/signup" />
+          <GradientLink hasArrow={ true } children="Start Flockfyshing" to="/signup" />
           <LinkUnderline to="/docs" text="Read the docs" />
         </div>
       </div>

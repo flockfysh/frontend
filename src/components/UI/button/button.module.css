@@ -9,6 +9,9 @@
     padding: 1.3rem 3rem;
     color: inherit;
     border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 

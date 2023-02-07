@@ -50,7 +50,7 @@
 }
 
 .labelContainer {
-    padding: 2rem 4rem;
+    padding: 0 4rem;
     width: 100%;
     display: flex;
     border-radius: 2rem;
@@ -61,6 +61,7 @@
 
 .labelList {
     display: flex;
+    padding: 2rem 0;
     gap: 2rem;
     flex: 1;
     overflow: auto;

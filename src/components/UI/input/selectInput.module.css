@@ -18,7 +18,7 @@
 .selectValueContainer {
     padding-inline: 2rem;
     padding-block: 1rem;
-    line-height: 2rem;
+    /*line-height: 2rem;*/
     display: flex;
     gap: 0.5rem;
 }
@@ -34,7 +34,7 @@
 }
 
 .selectInput {
-    padding: 0;
+    padding: 0.25rem 0;
     margin: 0;
     color: inherit;
     overflow: auto;
@@ -53,7 +53,7 @@
     background: var(--color-black-secondary);
     border-radius: inherit;
     overflow: hidden;
-    box-shadow: 0 0 4rem 1rem rgba(0, 0, 0);
+    box-shadow: 0 0 2rem 1rem var(--color-black-secondary-translucent);
 }
 
 .selectMultiValue {
@@ -65,8 +65,10 @@
 
 .selectMultiValueLabel {
     color: var(--color-white);
+    display: flex;
+    align-items: center;
     padding-inline: 1rem 0.5rem;
-    /*padding: 0.5rem 0.5rem 0.5rem 1rem;*/
+    padding-block: 0.5rem;
 }
 
 .focusedSelectOption {

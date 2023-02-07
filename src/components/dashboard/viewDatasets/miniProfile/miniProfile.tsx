@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
-import React from "react";
+import React from 'react';
 import classes from './miniProfile.module.css';
-import {UserContext} from "../../../../contexts/userContext";
+import {UserContext} from '../../../../contexts/userContext';
 
 export default function MiniProfile() {
     const {curUser} = React.useContext(UserContext);

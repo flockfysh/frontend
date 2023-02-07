@@ -5,10 +5,10 @@ import GradientLink from '../../components/UI/gradientLink/gradientLink';
 import Label from '../../components/dashboard/annotate/label/label';
 import AnnotationWrapper from '../../components/dashboard/annotate/wrapper/annotationWrapper';
 import Loading from '../../components/loading/loading';
-import {LABEL_COLORS} from "../../settings";
+import {LABEL_COLORS} from '../../settings';
 import {RxArrowLeft, RxArrowRight, RxPlus} from 'react-icons/rx';
 import {useNavigate, useParams} from 'react-router-dom';
-import api from "../../helpers/api";
+import api from '../../helpers/api';
 import classes from './annotate.module.css';
 import ReloadBlocker from '../../components/UI/reloadBlocker/reloadBlocker';
 
@@ -21,6 +21,8 @@ export interface IAnnotationPageContext {
     curAnnotationData: (AnnotationBox | undefined)[],
     removeAnnotationBox: (id: number) => void;
     updateAnnotationBox: (id: number, data: AnnotationBox) => void;
+    selectedBox: number,
+    setSelectedBox: (boxId: number) => void;
 }
 
 export const AnnotationPageContext = React.createContext<IAnnotationPageContext>({
@@ -36,7 +38,10 @@ export const AnnotationPageContext = React.createContext<IAnnotationPageContext>
     },
     prevImage: () => {
     },
+    selectedBox: -1,
+    setSelectedBox: () => {},
 });
+
 export default function Annotate() {
     const params = useParams();
     const navigate = useNavigate();
@@ -51,6 +56,7 @@ export default function Annotate() {
         curAnnotationData: [],
     });
     const [reloadBlocked, setReloadBlocked] = useState(false);
+    const [selectedBox, setSelectedBox] = useState(-1);
 
     useEffect(() => {
         if (params.datasetId) {
@@ -63,11 +69,11 @@ export default function Annotate() {
                     setLabels(datasetLabels);
                 } catch (e) {
                     console.error(e);
-                    navigate("/404");
+                    navigate('/404');
                 }
             }();
         } else {
-            navigate("/404");
+            navigate('/404');
         }
     }, [params.datasetId]);
     useEffect(() => {
@@ -85,6 +91,7 @@ export default function Annotate() {
                         };
                     }
                     setCurAnnotationData({curAnnotationData: localAnnotationData});
+                    setSelectedBox(Math.max(...remoteAnnotationData.map(remoteObj => remoteObj.class)));
                 } catch (e) {
                     console.error(e);
                 }
@@ -141,11 +148,14 @@ export default function Annotate() {
 
     let reloadBlocker;
     if (reloadBlocked) {
-        reloadBlocker = <ReloadBlocker
-            message={"Are you sure you want to quit? Your annotations haven't been saved."}></ReloadBlocker>;
+        reloadBlocker = (
+<ReloadBlocker
+            message={'Are you sure you want to quit? Your annotations haven\'t been saved.'}></ReloadBlocker>
+);
     }
 
-    return <AnnotationPageContext.Provider value={{
+    return (
+<AnnotationPageContext.Provider value={{
         curImage,
         labels,
         nextImage,
@@ -154,10 +164,13 @@ export default function Annotate() {
         curAnnotationData,
         removeAnnotationBox,
         updateAnnotationBox,
+        selectedBox,
+        setSelectedBox,
     }}>
         {reloadBlocker}
         <AnnotateInner></AnnotateInner>
-    </AnnotationPageContext.Provider>;
+    </AnnotationPageContext.Provider>
+);
 }
 
 function AnnotateInner() {
@@ -170,7 +183,10 @@ function AnnotateInner() {
         curAnnotationData,
         removeAnnotationBox,
         updateAnnotationBox,
+        selectedBox,
+        setSelectedBox,
     } = React.useContext(AnnotationPageContext);
+    const params = useParams();
 
     if (!curImage) {
         return <Loading/>;
@@ -182,7 +198,7 @@ function AnnotateInner() {
                 <h1 className={classes.heading}>Picture - {imageIndex + 1}/50</h1>
             </div>
             <div className={classes.submitButtonContainer}>
-                <GradientLink to="/" text="Initiate training" gradientDirection="rightToLeft"
+                <GradientLink to={`/dashboard/${params.datasetId}/train`} children="Initiate training" gradientDirection="rightToLeft"
                               className={classes.initiateTrainingButton}/>
             </div>
             <div className={classes.leftContainer}>
@@ -196,15 +212,16 @@ function AnnotateInner() {
                 <div className={classes.labelList}>
                     {
                         labels.map(function generateLabelButton(labelName, index) {
-                            let active = !!curAnnotationData[index];
-                            return <Label
+                            let used = !!curAnnotationData[index];
+
+                            return (
+<Label
                                 key={index}
                                 dotColor={LABEL_COLORS[index]}
-                                active={active}
+                                used={used}
+                                selected={index === selectedBox}
                                 onClick={() => {
-                                    if (active) {
-                                        removeAnnotationBox(index);
-                                    } else {
+                                    if (!used) {
                                         updateAnnotationBox(index, {
                                             x: 0.5,
                                             y: 0.5,
@@ -212,12 +229,21 @@ function AnnotateInner() {
                                             width: 0.5,
                                         });
                                     }
+                                    if (selectedBox === index) {
+                                        setSelectedBox(-1);
+                                    } else {
+                                        setSelectedBox(index);
+                                    }
                                 }}
-                            >{labelName}</Label>;
+                                onRemove={used ? function removeLabel(){
+                                    removeAnnotationBox(index);
+                                    setSelectedBox(-1);
+                                } : undefined}
+                            >{labelName}</Label>
+);
                         })
                     }
                 </div>
-                <button className={classes.addLabelButton}><RxPlus/></button>
             </div>
             <div className={classes.switchImageContainer}>
                 <button className={classes.switchImageButton} onClick={prevImage}>

@@ -1,9 +1,9 @@
-import React, {ComponentPropsWithRef} from "react";
-import classes from "./fillableSVG.module.css";
+import React, {ComponentPropsWithRef} from 'react';
+import classes from './fillableSVG.module.css';
 
-export default function FillableSVG(props: ComponentPropsWithRef<"img">) {
+export default function FillableSVG(props: ComponentPropsWithRef<'img'>) {
     return (
-        <div className={`${classes.outerDiv} ${props.className || ""}`}
+        <div className={`${classes.outerDiv} ${props.className || ''}`}
              style={{
                  mask: `url(${props.src}) no-repeat center / contain`,
                  WebkitMask: `url(${props.src}) no-repeat center / contain`,
