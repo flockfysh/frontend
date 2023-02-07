@@ -130,14 +130,14 @@ const MultiFileInput = React.forwardRef<HTMLInputElement, FileInputProps>(functi
                     </Button>
                     {_maxFileCount !== Infinity
                         ?
-                        <span
-                            className={classes.fileCount}>{internalState.files.size}/{maxFileCount} files uploaded</span>
+                        (<span
+                            className={classes.fileCount}>{internalState.files.size}/{maxFileCount} files uploaded</span>)
                         : <span className={classes.fileCount}>{internalState.files.size} files uploaded</span>}
                 </div>
 
             </div>
             {internalState.files.size ?
-                <ul className={classes.fileList}>
+                (<ul className={classes.fileList}>
                     {
                         [...internalState.files.entries()].map(([id, file], index) => (
                             <FileInputCard
@@ -149,7 +149,7 @@ const MultiFileInput = React.forwardRef<HTMLInputElement, FileInputProps>(functi
                             />
                         ))
                     }
-                </ul> : null
+                </ul>) : null
             }
         </div>
     );
