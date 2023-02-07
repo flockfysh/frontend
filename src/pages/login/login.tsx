@@ -8,6 +8,7 @@ import {UserContext} from '../../contexts/userContext';
 import classes from './login.module.css';
 
 export default function LoginForm(props: { type: string }) {
+    const navigate = useNavigate();
     const curPopup = useRef<Window | null>(null);
     const {isLoggedIn} = useContext(UserContext);
 
