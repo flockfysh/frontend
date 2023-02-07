@@ -97,7 +97,6 @@ export default function Rectangle(props: RectangleProps) {
                         rotateEnabled={false}
                         boundBoxFunc={
                             (oldBox, newBox) => {
-                                // console.log("Testing");
                                 const tolerance = 0;
 
                                 if (
