@@ -9,6 +9,7 @@ import test from './img.png';
 
 export default function AnnotationWrapper() {
     const {
+        curImage,
         isEditing,
         addAnnotationObject,
         curAnnotationData,
@@ -77,7 +78,7 @@ export default function AnnotationWrapper() {
 
     return (
         <div className={classes.annotationWrapper}>
-            <img src={test} alt={''} className={classes.annotationImage}
+            <img src={curImage?.url} alt={''} className={classes.annotationImage}
                  ref={annotationImageRef}></img>
             <Stage
                 width={wrapperDimension.width}
