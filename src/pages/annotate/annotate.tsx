@@ -4,13 +4,14 @@ import {useState, useEffect} from 'react';
 import GradientLink from '../../components/UI/gradientLink/gradientLink';
 import Label from '../../components/dashboard/annotate/label/label';
 import AnnotationWrapper from '../../components/dashboard/annotate/wrapper/annotationWrapper';
+import Button from '../../components/UI/button/button';
 import Loading from '../../components/loading/loading';
 import {LABEL_COLORS} from '../../settings';
 import {RxArrowLeft, RxArrowRight, RxPlus} from 'react-icons/rx';
 import {useNavigate, useParams} from 'react-router-dom';
 import api from '../../helpers/api';
 import classes from './annotate.module.css';
-import {AnnotationObject} from '../../components/dashboard/annotate/wrapper/annotationObject';
+import AnnotationObject from '../../components/dashboard/annotate/wrapper/annotationObject';
 import {v4} from 'uuid';
 
 export interface IAnnotationPageContext {
@@ -24,7 +25,10 @@ export interface IAnnotationPageContext {
     curLabel: number;
     setCurLabel: (label: number) => void;
     curBox: string;
+    isEditing: boolean;
+    setIsEditing: (data: boolean) => void;
     setCurBox: (data: string) => void;
+    addAnnotationObject: (params?: AnnotationBox) => Promise<void>;
 }
 
 export const AnnotationPageContext = React.createContext<IAnnotationPageContext>({
@@ -44,6 +48,11 @@ export const AnnotationPageContext = React.createContext<IAnnotationPageContext>
     curBox: '',
     setCurBox: () => {
     },
+    addAnnotationObject: async () => {
+    },
+    isEditing: false,
+    setIsEditing: () => {
+    }
 });
 
 export default function Annotate() {
@@ -61,6 +70,7 @@ export default function Annotate() {
     });
     const [curLabel, setCurLabel] = useState(-1);
     const [curBox, setCurBox] = useState<string>('');
+    const [isEditing, setIsEditing] = useState(false);
 
     useEffect(() => {
         if (params.datasetId) {
@@ -108,6 +118,9 @@ export default function Annotate() {
     React.useEffect(() => {
         setCurBox('');
     }, [curLabel]);
+    React.useEffect(() => {
+        setCurBox('');
+    }, [isEditing]);
 
     function nextImage() {
         if (imageIndex + 1 < imageIds.length) {
@@ -125,19 +138,28 @@ export default function Annotate() {
         setCurAnnotationData({curAnnotationData});
     }
 
+    async function addAnnotationObject(params?: AnnotationBox) {
+        if (curLabel === -1) {
+            throw new Error('No label selected.');
+        }
+        if (!curImage) {
+            throw new Error('No image selected.');
+        }
+        let newId: string;
+        do {
+            newId = v4();
+        } while (curAnnotationData.has(newId));
+        const annotationObj = new AnnotationObject(curLabel, undefined, params);
+        curAnnotationData.set(newId, annotationObj);
+        refresh();
+        await annotationObj.saveTo(curImage.id);
+    }
+
     return (
         <AnnotationPageContext.Provider value={{
-            curImage,
-            labels,
-            nextImage,
-            prevImage,
-            imageIndex,
-            curAnnotationData,
-            refresh,
-            curLabel,
-            setCurLabel,
-            curBox,
-            setCurBox,
+            curImage, labels, nextImage, prevImage, imageIndex,
+            curAnnotationData, refresh, curLabel, setCurLabel, curBox,
+            setCurBox, addAnnotationObject, isEditing, setIsEditing
         }}>
             <AnnotateInner></AnnotateInner>
         </AnnotationPageContext.Provider>
@@ -153,6 +175,9 @@ function AnnotateInner() {
         imageIndex,
         curLabel,
         setCurLabel,
+        isEditing,
+        setIsEditing,
+        setCurBox
     } = React.useContext(AnnotationPageContext);
     const params = useParams();
 
@@ -198,6 +223,10 @@ function AnnotateInner() {
                         })
                     }
                 </div>
+                <div className={classes.utilityButtons}>
+                    <Button className={classes.addLabelButton} onClick={() => setIsEditing(!isEditing)}>{isEditing ? 'Editing' : 'Adding'}</Button>
+                </div>
+
             </div>
             <div className={classes.switchImageContainer}>
                 <button className={classes.switchImageButton} onClick={prevImage}>

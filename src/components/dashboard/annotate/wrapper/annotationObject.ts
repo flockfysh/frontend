@@ -4,7 +4,7 @@ function delay(secs: number): Promise<void> {
     return new Promise<void>(resolve => setTimeout(resolve, secs * 1000));
 }
 
-export class AnnotationObject {
+export default class AnnotationObject {
     // This server ID is the corresponding ID of the annotation box in the database.
     // However, since this is not available in the request, when editing.
     #serverId?: string;
@@ -33,7 +33,7 @@ export class AnnotationObject {
             throw new Error('This internal function cannot be called without having a server ID.');
         }
         const {width, height, x, y} = this.#boundingBox;
-        await api.put(`/api/annotations/${this.#serverId}`, {
+        await api.put(`/api/annotation/${this.#serverId}`, {
             class: this.#class,
             boundingBox: [x, y, width, height],
         });
@@ -46,7 +46,7 @@ export class AnnotationObject {
         if (!this.#serverId) {
             throw new Error('This internal function cannot be called without having a server ID.');
         }
-        await api.delete(`/api/annotations/${this.#serverId}`);
+        await api.delete(`/api/annotation/${this.#serverId}`);
     }
 
     constructor(boxClass: number, serverId?: string, boundingBox?: AnnotationBox) {
@@ -63,10 +63,11 @@ export class AnnotationObject {
             throw new Error('This annotation box has already been created server-side.');
         }
         const {width, height, x, y} = this.#boundingBox;
-        const newRemoteAnnotationBox = (await api.post(`/api/annotations/${imageId}`, {
+        const response = await api.post(`/api/annotation/${imageId}`, {
             class: this.#class,
             boundingBox: [x, y, width, height],
-        })).data.data;
+        });
+        const newRemoteAnnotationBox = response.data.data;
         if (!newRemoteAnnotationBox.id) {
             throw new Error('Annotation response from server is malformed.');
         }

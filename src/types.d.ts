@@ -1,6 +1,7 @@
 declare module '*.css';
 declare module '*.svg';
 declare module '*.jpg';
+declare module '*.png';
 
 // #region Datasets
 declare interface DatasetImage {
