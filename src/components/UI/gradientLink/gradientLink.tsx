@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom';
 
 import classes from './gradientLink.module.css';
 import React from 'react';
-import { RxArrowRight } from 'react-icons/rx';
+import {RxArrowRight} from 'react-icons/rx';
 
 type GradientLinkProps = {
     gradientDirection?: string;
