@@ -10,7 +10,8 @@ import {RxArrowLeft, RxArrowRight, RxPlus} from 'react-icons/rx';
 import {useNavigate, useParams} from 'react-router-dom';
 import api from '../../helpers/api';
 import classes from './annotate.module.css';
-import ReloadBlocker from '../../components/UI/reloadBlocker/reloadBlocker';
+import {AnnotationObject} from '../../components/dashboard/annotate/wrapper/annotationObject';
+import {v4} from 'uuid';
 
 export interface IAnnotationPageContext {
     curImage: UploadedImage | null,
@@ -18,28 +19,31 @@ export interface IAnnotationPageContext {
     imageIndex: number,
     nextImage: () => void;
     prevImage: () => void;
-    curAnnotationData: (AnnotationBox | undefined)[],
-    removeAnnotationBox: (id: number) => void;
-    updateAnnotationBox: (id: number, data: AnnotationBox) => void;
-    selectedBox: number,
-    setSelectedBox: (boxId: number) => void;
+    curAnnotationData: Map<string, AnnotationObject>;
+    refresh: () => void;
+    curLabel: number;
+    setCurLabel: (label: number) => void;
+    curBox: string;
+    setCurBox: (data: string) => void;
 }
 
 export const AnnotationPageContext = React.createContext<IAnnotationPageContext>({
     curImage: null,
     labels: [],
     imageIndex: 0,
-    curAnnotationData: [],
-    removeAnnotationBox: () => {
-    },
-    updateAnnotationBox: () => {
-    },
+    curAnnotationData: new Map(),
     nextImage: () => {
     },
     prevImage: () => {
     },
-    selectedBox: -1,
-    setSelectedBox: () => {},
+    refresh: () => {
+    },
+    curLabel: -1,
+    setCurLabel: () => {
+    },
+    curBox: '',
+    setCurBox: () => {
+    },
 });
 
 export default function Annotate() {
@@ -51,12 +55,12 @@ export default function Annotate() {
     const [curImage, setCurImage] = useState<UploadedImage | null>(null);
     const [imageIndex, setImageIndex] = useState(0);
     const [{curAnnotationData}, setCurAnnotationData] = useState<{
-        curAnnotationData: (AnnotationBox | undefined)[],
+        curAnnotationData: Map<string, AnnotationObject>,
     }>({
-        curAnnotationData: [],
+        curAnnotationData: new Map(),
     });
-    const [reloadBlocked, setReloadBlocked] = useState(false);
-    const [selectedBox, setSelectedBox] = useState(-1);
+    const [curLabel, setCurLabel] = useState(-1);
+    const [curBox, setCurBox] = useState<string>('');
 
     useEffect(() => {
         if (params.datasetId) {
@@ -80,97 +84,64 @@ export default function Annotate() {
         if (imageIds.length) {
             void async function getCurrentImageInfo() {
                 try {
+                    // Step 1: Get the image.
                     const fetchedImage = (await api.get<{ success: boolean, data: UploadedImage }>(`/api/image/${imageIds[imageIndex]}`)).data.data;
                     setCurImage(fetchedImage);
-                    const remoteAnnotationData = fetchedImage.annotationData;
-                    const localAnnotationData: AnnotationBox[] = [];
+
+                    // Step 2: Get the image's annotation data.
+                    const remoteAnnotationData = (await api.get<{ success: boolean, data: RemoteAnnotationObject[] }>(`/api/image/${imageIds[imageIndex]}/annotations`)).data.data;
+                    console.log(remoteAnnotationData);
+                    const localAnnotationData = new Map<string, AnnotationObject>();
                     for (let remoteObject of remoteAnnotationData) {
                         const [x, y, width, height] = remoteObject.boundingBox;
-                        localAnnotationData[remoteObject.class] = {
-                            x, y, width, height
-                        };
+                        localAnnotationData.set(v4(), new AnnotationObject(remoteObject.class, remoteObject.id, {
+                            x, y, width, height,
+                        }));
                     }
                     setCurAnnotationData({curAnnotationData: localAnnotationData});
-                    setSelectedBox(Math.max(...remoteAnnotationData.map(remoteObj => remoteObj.class)));
                 } catch (e) {
                     console.error(e);
                 }
             }();
         }
     }, [imageIds, imageIndex]);
+    React.useEffect(() => {
+        setCurBox('');
+    }, [curLabel]);
 
     function nextImage() {
         if (imageIndex + 1 < imageIds.length) {
             setImageIndex(imageIndex + 1);
-            saveAnnotation();
         }
     }
 
     function prevImage() {
         if (imageIndex - 1 >= 0) {
             setImageIndex(imageIndex - 1);
-            saveAnnotation();
         }
     }
 
-    async function saveAnnotation() {
-        if (curImage) {
-            const remoteAnnotationData: RemoteAnnotationObject[] = [];
-            let i = 0;
-            for (let box of curAnnotationData) {
-                if (box) {
-                    const {x, y, width, height} = box;
-                    remoteAnnotationData.push({
-                        class: i,
-                        boundingBox: [x, y, width, height]
-                    });
-                }
-                i++;
-            }
-            await api.post(`/api/image/${curImage.id}/set-annotation`, remoteAnnotationData);
-        }
-        setReloadBlocked(false);
-    }
-
-    function removeAnnotationBox(boxId: number) {
-        curAnnotationData[boxId] = undefined;
+    function refresh() {
         setCurAnnotationData({curAnnotationData});
-        setReloadBlocked(true);
-        saveAnnotation();
-    }
-
-    function updateAnnotationBox(boxId: number, data: AnnotationBox) {
-        curAnnotationData[boxId] = data;
-        setCurAnnotationData({curAnnotationData});
-        setReloadBlocked(true);
-        saveAnnotation();
-    }
-
-    let reloadBlocker;
-    if (reloadBlocked) {
-        reloadBlocker = (
-<ReloadBlocker
-            message={'Are you sure you want to quit? Your annotations haven\'t been saved.'}></ReloadBlocker>
-);
     }
 
     return (
-<AnnotationPageContext.Provider value={{
-        curImage,
-        labels,
-        nextImage,
-        prevImage,
-        imageIndex,
-        curAnnotationData,
-        removeAnnotationBox,
-        updateAnnotationBox,
-        selectedBox,
-        setSelectedBox,
-    }}>
-        {reloadBlocker}
-        <AnnotateInner></AnnotateInner>
-    </AnnotationPageContext.Provider>
-);
+        <AnnotationPageContext.Provider value={{
+            curImage,
+            labels,
+            nextImage,
+            prevImage,
+            imageIndex,
+            curAnnotationData,
+            refresh,
+            curLabel,
+            setCurLabel,
+            curBox,
+            setCurBox,
+        }}>
+            <AnnotateInner></AnnotateInner>
+        </AnnotationPageContext.Provider>
+    );
 }
 
 function AnnotateInner() {
@@ -180,11 +151,8 @@ function AnnotateInner() {
         nextImage,
         prevImage,
         imageIndex,
-        curAnnotationData,
-        removeAnnotationBox,
-        updateAnnotationBox,
-        selectedBox,
-        setSelectedBox,
+        curLabel,
+        setCurLabel,
     } = React.useContext(AnnotationPageContext);
     const params = useParams();
 
@@ -198,7 +166,8 @@ function AnnotateInner() {
                 <h1 className={classes.heading}>Picture - {imageIndex + 1}/50</h1>
             </div>
             <div className={classes.submitButtonContainer}>
-                <GradientLink to={`/dashboard/${params.datasetId}/train`} children="Initiate training" gradientDirection="rightToLeft"
+                <GradientLink to={`/dashboard/${params.datasetId}/train`} children="Initiate training"
+                              gradientDirection="rightToLeft"
                               className={classes.initiateTrainingButton}/>
             </div>
             <div className={classes.leftContainer}>
@@ -212,35 +181,20 @@ function AnnotateInner() {
                 <div className={classes.labelList}>
                     {
                         labels.map(function generateLabelButton(labelName, index) {
-                            let used = !!curAnnotationData[index];
-
                             return (
-<Label
-                                key={index}
-                                dotColor={LABEL_COLORS[index]}
-                                used={used}
-                                selected={index === selectedBox}
-                                onClick={() => {
-                                    if (!used) {
-                                        updateAnnotationBox(index, {
-                                            x: 0.5,
-                                            y: 0.5,
-                                            height: 0.5,
-                                            width: 0.5,
-                                        });
-                                    }
-                                    if (selectedBox === index) {
-                                        setSelectedBox(-1);
-                                    } else {
-                                        setSelectedBox(index);
-                                    }
-                                }}
-                                onRemove={used ? function removeLabel(){
-                                    removeAnnotationBox(index);
-                                    setSelectedBox(-1);
-                                } : undefined}
-                            >{labelName}</Label>
-);
+                                <Label
+                                    key={index}
+                                    dotColor={LABEL_COLORS[index]}
+                                    selected={index === curLabel}
+                                    onClick={() => {
+                                        if (curLabel === index) {
+                                            setCurLabel(-1);
+                                        } else {
+                                            setCurLabel(index);
+                                        }
+                                    }}
+                                >{labelName}</Label>
+                            );
                         })
                     }
                 </div>

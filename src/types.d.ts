@@ -34,6 +34,7 @@ declare interface AnnotationBox {
 }
 
 declare interface RemoteAnnotationObject {
+    id: string,
     class: number,
     boundingBox: [number, number, number, number]
 }
@@ -60,7 +61,6 @@ declare interface MonthlyCost {
     storage: number;
     creation: number;
     total: number;
-
     costs: Cost[];
 }
 
@@ -76,6 +76,5 @@ declare interface BaseUser {
 declare interface User extends BaseUser {
     monthlyCost: MonthlyCost;
     payments: Cost[];
-
     datasetIds?: number[]; // ! make not optional 
 }

@@ -3,20 +3,14 @@ import {useNavigate} from 'react-router-dom';
 
 import Loading from '../../components/loading/loading';
 
-import Modal, {ErrorModal} from '../../components/UI/modal/modal';
-import {ModalProps} from '../../components/UI/modal/modal';
-
+import {ErrorModal} from '../../components/UI/modal/modal';
 import CustomSelect, {CustomCreatableSelect} from '../../components/UI/input/selectInput';
 import classes from './createDataset.module.css';
 import MultiFileInput from '../../components/UI/input/multiFileInput/multiFileInput';
 import Button from '../../components/UI/button/button';
-import axios from 'axios';
-import {serverURL} from '../../settings';
 import AsyncArray from '../../helpers/async';
 import api from '../../helpers/api';
 import Textarea from '../../components/UI/input/textarea';
-
-type ModalSettings = ModalProps & { display: boolean };
 
 export default function CreateDataset() {
     const navigate = useNavigate();
