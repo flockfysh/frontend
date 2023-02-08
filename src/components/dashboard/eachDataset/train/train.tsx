@@ -48,13 +48,14 @@ export default function Train(props: { dataset: Dataset }) {
                             {props.dataset.classes.map(function generateSearchQueryInput(classString, index) {
                                 const id = React.useId();
                                 return (
-<React.Fragment key={index}>
-                                    <TrainingLabels htmlFor={id}
-                                                    labelColor={LABEL_COLORS[index]}>{classString}</TrainingLabels>
-                                    <CustomCreatableSelect name={`searchQuery_${index}`} instanceId={id} isMulti={true}
-                                                           className={trainingClasses.querySelect}></CustomCreatableSelect>
-                                </React.Fragment>
-);
+                                    <React.Fragment key={index}>
+                                        <TrainingLabels htmlFor={id}
+                                                        labelColor={LABEL_COLORS[index]}>{classString}</TrainingLabels>
+                                        <CustomCreatableSelect name={`searchQuery_${index}`} instanceId={id}
+                                                               isMulti={true}
+                                                               className={trainingClasses.querySelect}></CustomCreatableSelect>
+                                    </React.Fragment>
+                                );
                             })}
                         </ul>
                     </div>
