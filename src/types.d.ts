@@ -1,26 +1,26 @@
 declare module '*.css';
 declare module '*.svg';
 declare module '*.jpg';
+declare module '*.png';
 
 // #region Datasets
-
 declare interface DatasetImage {
     url: string;
     name: string;
+    displayName?: string;
 }
 
 declare interface PartialDataset {
-    id: string;
     name: string;
+    id: string;
     description: string;
-    numImages: number;
+    itemCount: number; // How many items are there in the database. To be honest, it should have been reserved for datasetImages instead of uploadedImages.
 }
 
 declare interface Dataset extends PartialDataset {
     dateCreated: Date;
-    plan: string; // ? Consider using an ENUM instead
+    plan: string;
     size: number;
-
     monthlyCost: MonthlyCost;
     classes: string[];
     uploadedImages: DatasetImage[];
@@ -35,6 +35,7 @@ declare interface AnnotationBox {
 }
 
 declare interface RemoteAnnotationObject {
+    id: string,
     class: number,
     boundingBox: [number, number, number, number]
 }
@@ -61,7 +62,6 @@ declare interface MonthlyCost {
     storage: number;
     creation: number;
     total: number;
-
     costs: Cost[];
 }
 
@@ -69,7 +69,6 @@ declare interface BaseUser {
     name: string;
     email: string;
     profileImage: string;
-    
     role?: string;
     phoneNumber?: number;
     dateOfBirth?: Date;
@@ -78,4 +77,5 @@ declare interface BaseUser {
 declare interface User extends BaseUser {
     monthlyCost: MonthlyCost;
     payments: Cost[];
+    datasetIds?: number[]; // ! make not optional 
 }

@@ -1,25 +1,33 @@
-import { PropsWithChildren, useEffect, useState, createContext } from 'react';
-
+import {PropsWithChildren, useEffect, useState, createContext} from 'react';
 import Loading from '../components/loading/loading';
 import api from '../helpers/api';
 
-export const UserContext = createContext(
-    {
-        curUser: null as (User | null),
-        setUser: (_: User) => {}
-    }
-);
+interface IUserContext {
+    curUser: User | null;
+    isLoggedIn: boolean;
+    refreshUserState: () => void;
+}
+
+export const UserContext = createContext<IUserContext>({
+    curUser: null as (User | null),
+    isLoggedIn: false,
+    refreshUserState: () => {
+    },
+});
 
 export function UserWrapper(props: PropsWithChildren) {
     const [curUser, setCurUser] = useState<User | null>(null);
-    const [isLoading, updateLoading] = useState(false);
+    const [isLoading, updateLoading] = useState<boolean>(true);
+
+    // Removed. Why do we happen to need to check the logged in state? Can't we simply base it on the user -
+    // can we set it to isLoggedIn = !!user?
+    // const [isLoggedIn, updateLoggedInState] = useState(false);
 
     useEffect(() => {
-        updateLoading(true);
-        
         (async function getUserState() {
             try {
-                const data = (await api.get('/')).data;
+
+                const data = (await api.get(`/`)).data;
                 
                 if (data.success) {
                     const userData = data.data;
@@ -31,26 +39,28 @@ export function UserWrapper(props: PropsWithChildren) {
                         monthlyCost: {} as MonthlyCost,
                         payments: [] as Cost[]
                     });
-                } 
-                else setCurUser(null);
-            } 
-            catch {}
+                } else {
+                    setCurUser(null);
+                }
+            } catch (e) {
 
+            }
             updateLoading(false);
         })();
-    }, []);
+    }, [isLoading]);
 
-    if(isLoading) return <Loading/>;
+    if (isLoading) return <Loading/>;
 
-    function setUser(user: User) {
-        setCurUser(user);
+    const isLoggedIn = Boolean(curUser);
+
+    function refreshUserState() {
+        updateLoading(true);
     }
 
-    const curState = { curUser, setUser };
-
+    const curState = {curUser, isLoggedIn, refreshUserState};
     return (
-        <UserContext.Provider value={ curState }>
-            { props.children }
+        <UserContext.Provider value={curState}>
+            {props.children}
         </UserContext.Provider>
     );
 }

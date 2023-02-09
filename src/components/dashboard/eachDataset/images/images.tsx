@@ -11,21 +11,21 @@ export default function Images(props: { dataset: Dataset }) {
     }
 
     return (
-        <div className={ classes.container }>
-            <div className={ classes.contentContainer }>
+        <div className={classes.container}>
+            <div className={classes.contentContainer}>
                 <h1>Dataset</h1>
 
-                <div className={ imageGridClasses.uploadedImagesContainer }>
+                <div className={imageGridClasses.uploadedImagesContainer}>
                     {
                         testImages.map(
                             (image, index) => (
-                                <DatasetImage key={ index } image={ image }/>
+                                <DatasetImage key={index} image={image}/>
                             )
                         )
                     }
                 </div>
-                <div className={ imageGridClasses.loadBtnContainer }>
-                    <button className={ imageGridClasses.loadBtn }>Load more images</button>
+                <div className={imageGridClasses.loadBtnContainer}>
+                    <button className={imageGridClasses.loadBtn}>Load more images</button>
                 </div>
             </div>
         </div>

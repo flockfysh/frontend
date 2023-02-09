@@ -7,11 +7,12 @@ import NavItem from '../navItem/navItem';
 import MobileNavItem from '../navItem/mobileNavItem';
 
 import { UserContext } from '../../contexts/userContext';
+import { ScreenContext } from '../../contexts/screenContext';
 
 import classes from './navbar.module.css';
 
 export default function Navbar() {
-    const { curUser } = useContext(UserContext);
+    const { isLoggedIn } = useContext(UserContext);
 
     const [navOpen, updateNav] = useState(false);
     
@@ -21,11 +22,11 @@ export default function Navbar() {
             name: 'Home'
         },
         {
-            to: '/blog',
+            to: 'https://blog.flockfysh.tech',
             name: 'Blog'
         },
         {
-            to: '/docs',
+            to: 'https://docs.flockfysh.tech',
             name: 'Documentation'
         },
         {
@@ -44,25 +45,25 @@ export default function Navbar() {
                         <div className={ classes.mobileNavLinksContainer }>
                             {
                                 navLinks.map(
-                                    (link, i) => <MobileNavItem to={ link.to } name={ link.name } key={ i } />
+                                    (link, i) => <MobileNavItem to={ link.to } name={ link.name } key={ i }/>
                                 )
                             }
                         </div>
                     ) : <></>
                 }
 
-                <RxHamburgerMenu onClick={ () => updateNav(!navOpen) } />
+                <RxHamburgerMenu onClick={ () => updateNav(!navOpen) }/>
             </button>
 
             <ul className={ classes.listContainer }>
                 {
                     navLinks.map(
-                        (link, i) => <NavItem to={ link.to } name={ link.name } key={ i } />
+                        (link, i) => <NavItem to={ link.to } name={ link.name } key={ i }/>
                     )
                 }
 
                 {
-                    curUser ? <NavItem to="/dashboard" name="Dashboard" /> : <NavItem to="/login" name="Login" />
+                    isLoggedIn ? <NavItem to="/dashboard" name="Dashboard"/> : <NavItem to="/login" name="Login"/>
                 }
             </ul>
         </nav>

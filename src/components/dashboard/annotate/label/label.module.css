@@ -28,10 +28,6 @@
     background-color: var(--color-blue-primary);
 }
 
-.used {
-    background-color: var(--color-blue-gradients);
-}
-
 .selected {
     border-color: var(--color-blue-primary);
 }

@@ -17,3 +17,7 @@
     position: absolute;
     z-index: 2;
 }
+
+.canvasCrosshair {
+    cursor: crosshair;
+}

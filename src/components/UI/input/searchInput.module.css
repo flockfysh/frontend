@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    background-color: var(--color-black-secondary);
+    border-radius: 1.5rem;
+    overflow: hidden;
+}
+
+.container input {
+    flex: 1;
+    background-color: var(--color-black-secondary);
+    color: white;
+    border: none;
+    font-size: 1.6rem;
+    outline: none;
+    width: 100%;
+    padding: 2rem  2rem 2rem 3rem;
+}
+
+.container img {
+    height: 2rem;
+}
+
+.lookupButton {
+    background: transparent;
+    border: none;
+    padding-inline: 3rem 3rem;
+    flex: none;
+}

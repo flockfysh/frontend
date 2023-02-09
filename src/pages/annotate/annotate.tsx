@@ -1,42 +1,58 @@
-import { useState, useEffect, createContext, useContext } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { RxArrowLeft, RxArrowRight } from 'react-icons/rx';
+import React from 'react';
+import {useState, useEffect} from 'react';
 
 import GradientLink from '../../components/UI/gradientLink/gradientLink';
-import ReloadBlocker from '../../components/UI/reloadBlocker/reloadBlocker';
 import Label from '../../components/dashboard/annotate/label/label';
 import AnnotationWrapper from '../../components/dashboard/annotate/wrapper/annotationWrapper';
+import Button from '../../components/UI/button/button';
 import Loading from '../../components/loading/loading';
-
-import { LABEL_COLORS } from '../../settings';
+import {LABEL_COLORS} from '../../settings';
+import {RxArrowLeft, RxArrowRight, RxPlus} from 'react-icons/rx';
+import {useNavigate, useParams} from 'react-router-dom';
 import api from '../../helpers/api';
-
 import classes from './annotate.module.css';
+import AnnotationObject from '../../components/dashboard/annotate/wrapper/annotationObject';
+import {v4} from 'uuid';
 
 export interface IAnnotationPageContext {
     curImage: UploadedImage | null,
     labels: string[],
     imageIndex: number,
-    curAnnotationData: (AnnotationBox | undefined)[],
-    selectedBox: number,
-    removeAnnotationBox: (id: number) => void;
-    updateAnnotationBox: (id: number, data: AnnotationBox) => void;
     nextImage: () => void;
     prevImage: () => void;
-    setSelectedBox: (boxId: number) => void;
+    curAnnotationData: Map<string, AnnotationObject>;
+    refresh: () => void;
+    curLabel: number;
+    setCurLabel: (label: number) => void;
+    curBox: string;
+    isEditing: boolean;
+    setIsEditing: (data: boolean) => void;
+    setCurBox: (data: string) => void;
+    addAnnotationObject: (params?: AnnotationBox) => Promise<void>;
 }
 
-export const AnnotationPageContext = createContext<IAnnotationPageContext>({
+export const AnnotationPageContext = React.createContext<IAnnotationPageContext>({
     curImage: null,
     labels: [],
     imageIndex: 0,
-    curAnnotationData: [],
-    selectedBox: -1,
-    removeAnnotationBox: () => {},
-    updateAnnotationBox: () => {},
-    nextImage: () => {},
-    prevImage: () => {},
-    setSelectedBox: () => {},
+    curAnnotationData: new Map(),
+    nextImage: () => {
+    },
+    prevImage: () => {
+    },
+    refresh: () => {
+    },
+    curLabel: -1,
+    setCurLabel: () => {
+    },
+    curBox: '',
+    setCurBox: () => {
+    },
+    addAnnotationObject: async () => {
+    },
+    isEditing: false,
+    setIsEditing: () => {
+    }
 });
 
 export default function Annotate() {
@@ -47,149 +63,105 @@ export default function Annotate() {
     const [imageIds, setImageIds] = useState<string[]>([]);
     const [curImage, setCurImage] = useState<UploadedImage | null>(null);
     const [imageIndex, setImageIndex] = useState(0);
-    
     const [{curAnnotationData}, setCurAnnotationData] = useState<{
-        curAnnotationData: (AnnotationBox | undefined)[],
+        curAnnotationData: Map<string, AnnotationObject>,
     }>({
-        curAnnotationData: [],
+        curAnnotationData: new Map(),
     });
-
-    const [reloadBlocked, setReloadBlocked] = useState(false);
-    const [selectedBox, setSelectedBox] = useState(-1);
+    const [curLabel, setCurLabel] = useState(-1);
+    const [curBox, setCurBox] = useState<string>('');
+    const [isEditing, setIsEditing] = useState(false);
 
     useEffect(() => {
-        if(params.datasetId) {
-            (async function getCurrentDataset() {
+        if (params.datasetId) {
+            void async function getCurrentDataset() {
                 try {
-                    const uploadedImages = (await api.get(`/api/dataset/${ params.datasetId }/uploadedImageIds`)).data.data;
-                    const datasetLabels = (await api.get(`/api/dataset/${ params.datasetId }/labels`)).data.data;
-
+                    const uploadedImages = (await api.get(`/api/dataset/${params.datasetId}/uploadedImageIds`)).data.data;
+                    const datasetLabels = (await api.get(`/api/dataset/${params.datasetId}/labels`)).data.data;
                     setImageIndex(0);
                     setImageIds(uploadedImages);
                     setLabels(datasetLabels);
-                } 
-                catch(e) {
+                } catch (e) {
                     console.error(e);
-
                     navigate('/404');
                 }
-            })();
-        } 
-        else {
+            }();
+        } else {
             navigate('/404');
         }
     }, [params.datasetId]);
     useEffect(() => {
-        if(imageIds.length) {
-            (async function getCurrentImageInfo() {
+        if (imageIds.length) {
+            void async function getCurrentImageInfo() {
                 try {
-                    const fetchedImage = (await api.get<{ success: boolean, data: UploadedImage }>(`/api/image/${ imageIds[imageIndex] }`)).data.data;
-                    
+                    // Step 1: Get the image.
+                    const fetchedImage = (await api.get<{ success: boolean, data: UploadedImage }>(`/api/image/${imageIds[imageIndex]}`)).data.data;
                     setCurImage(fetchedImage);
-                    
-                    const remoteAnnotationData = fetchedImage.annotationData;
-                    const localAnnotationData: AnnotationBox[] = [];
-                    
+
+                    // Step 2: Get the image's annotation data.
+                    const remoteAnnotationData = (await api.get<{ success: boolean, data: RemoteAnnotationObject[] }>(`/api/image/${imageIds[imageIndex]}/annotations`)).data.data;
+                    console.log(remoteAnnotationData);
+                    const localAnnotationData = new Map<string, AnnotationObject>();
                     for (let remoteObject of remoteAnnotationData) {
                         const [x, y, width, height] = remoteObject.boundingBox;
-                        
-                        localAnnotationData[remoteObject.class] = {
-                            x, y, width, height
-                        };
+                        localAnnotationData.set(v4(), new AnnotationObject(remoteObject.class, remoteObject.id, {
+                            x, y, width, height,
+                        }));
                     }
-
                     setCurAnnotationData({curAnnotationData: localAnnotationData});
-                    setSelectedBox(Math.max(...remoteAnnotationData.map(remoteObj => remoteObj.class)));
-                } 
-                catch (e) {
+                } catch (e) {
                     console.error(e);
                 }
-            })();
+            }();
         }
     }, [imageIds, imageIndex]);
+    React.useEffect(() => {
+        setCurBox('');
+    }, [curLabel]);
+    React.useEffect(() => {
+        setCurBox('');
+    }, [isEditing]);
 
     function nextImage() {
-        if(imageIndex + 1 < imageIds.length) {
+        if (imageIndex + 1 < imageIds.length) {
             setImageIndex(imageIndex + 1);
-            saveAnnotation();
         }
     }
 
     function prevImage() {
-        if(imageIndex - 1 >= 0) {
+        if (imageIndex - 1 >= 0) {
             setImageIndex(imageIndex - 1);
-            saveAnnotation();
         }
     }
 
-    async function saveAnnotation() {
-        if (curImage) {
-            let i = 0;
-            const remoteAnnotationData: RemoteAnnotationObject[] = [];
-            
-            for (let box of curAnnotationData) {
-                if(box) {
-                    const {x, y, width, height} = box;
+    function refresh() {
+        setCurAnnotationData({curAnnotationData});
+    }
 
-                    remoteAnnotationData.push({
-                        class: i,
-                        boundingBox: [x, y, width, height]
-                    });
-                }
-
-                i++;
-            }
-
-            await api.post(`/api/image/${ curImage.id }/set-annotation`, remoteAnnotationData);
+    async function addAnnotationObject(params?: AnnotationBox) {
+        if (curLabel === -1) {
+            throw new Error('No label selected.');
         }
-
-        setReloadBlocked(false);
-    }
-
-    function removeAnnotationBox(boxId: number) {
-        curAnnotationData[boxId] = undefined;
-
-        setCurAnnotationData({curAnnotationData});
-        setReloadBlocked(true);
-        saveAnnotation();
-    }
-
-    function updateAnnotationBox(boxId: number, data: AnnotationBox) {
-        curAnnotationData[boxId] = data;
-
-        setCurAnnotationData({curAnnotationData});
-        setReloadBlocked(true);
-        saveAnnotation();
-    }
-
-    let reloadBlocker;
-
-    if (reloadBlocked) {
-        reloadBlocker = (
-            <ReloadBlocker
-                message="Are you sure you want to quit? Your annotations haven't been saved."
-            />
-        );
+        if (!curImage) {
+            throw new Error('No image selected.');
+        }
+        let newId: string;
+        do {
+            newId = v4();
+        } while (curAnnotationData.has(newId));
+        const annotationObj = new AnnotationObject(curLabel, undefined, params);
+        curAnnotationData.set(newId, annotationObj);
+        refresh();
+        await annotationObj.saveTo(curImage.id);
     }
 
     return (
-        <AnnotationPageContext.Provider 
-            value={{
-                curImage,
-                labels,
-                nextImage,
-                prevImage,
-                imageIndex,
-                curAnnotationData,
-                removeAnnotationBox,
-                updateAnnotationBox,
-                selectedBox,
-                setSelectedBox
-            }}
-        >
-            { reloadBlocker }
-
-            <AnnotateInner />
+        <AnnotationPageContext.Provider value={{
+            curImage, labels, nextImage, prevImage, imageIndex,
+            curAnnotationData, refresh, curLabel, setCurLabel, curBox,
+            setCurBox, addAnnotationObject, isEditing, setIsEditing
+        }}>
+            <AnnotateInner></AnnotateInner>
         </AnnotationPageContext.Provider>
     );
 }
@@ -201,88 +173,68 @@ function AnnotateInner() {
         nextImage,
         prevImage,
         imageIndex,
-        curAnnotationData,
-        removeAnnotationBox,
-        updateAnnotationBox,
-        selectedBox,
-        setSelectedBox,
-    } = useContext(AnnotationPageContext);
-
+        curLabel,
+        setCurLabel,
+        isEditing,
+        setIsEditing,
+        setCurBox
+    } = React.useContext(AnnotationPageContext);
     const params = useParams();
 
-    if (!curImage) return <Loading/>;
+    if (!curImage) {
+        return <Loading/>;
+    }
 
     return (
-        <div className={ classes.annotateContainer }>
-            <div className={ classes.headingContainer }>
-                <h1 className={ classes.heading }>Picture - { imageIndex + 1 }/50</h1>
+        <div className={classes.annotateContainer}>
+            <div className={classes.headingContainer}>
+                <h1 className={classes.heading}>Picture - {imageIndex + 1}/50</h1>
             </div>
-
             <div className={classes.submitButtonContainer}>
-                <GradientLink 
-                    to={`/dashboard/${ params.datasetId }/train`} 
-                    children="Initiate training" 
-                    gradientDirection="rightToLeft"
-                    className={ classes.initiateTrainingButton }
-                />
+                <GradientLink to={`/dashboard/${params.datasetId}/train`} children="Initiate training"
+                              gradientDirection="rightToLeft"
+                              className={classes.initiateTrainingButton}/>
+            </div>
+            <div className={classes.leftContainer}>
+                <AnnotationWrapper></AnnotationWrapper>
             </div>
 
-            <div className={ classes.leftContainer }>
-                <AnnotationWrapper />
+            <div className={classes.rightContainer}>
+                <div className={classes.box}/>
             </div>
-
-            <div className={ classes.rightContainer }>
-                <div className={ classes.box } />
-            </div>
-
-            <div className={ classes.labelContainer }>
-                <div className={ classes.labelList }>
+            <div className={classes.labelContainer}>
+                <div className={classes.labelList}>
                     {
                         labels.map(function generateLabelButton(labelName, index) {
-                            let used = !!curAnnotationData[index];
-
                             return (
                                 <Label
-                                    key={ index }
-                                    dotColor={ LABEL_COLORS[index] }
-                                    used={ used }
-                                    selected={ index === selectedBox }
+                                    key={index}
+                                    dotColor={LABEL_COLORS[index]}
+                                    selected={index === curLabel}
                                     onClick={() => {
-                                        if(!used) {
-                                            updateAnnotationBox(index, {
-                                                x: 0.5,
-                                                y: 0.5,
-                                                height: 0.5,
-                                                width: 0.5,
-                                            });
+                                        if (curLabel === index) {
+                                            setCurLabel(-1);
+                                        } else {
+                                            setCurLabel(index);
                                         }
-                                        if(selectedBox === index) setSelectedBox(-1);
-                                        else setSelectedBox(index);
                                     }}
-                                    onRemove={
-                                        used ? 
-                                            function removeLabel(){
-                                                removeAnnotationBox(index);
-                                                setSelectedBox(-1);
-                                            } 
-                                        : undefined
-                                    }
-                                >
-                                    {labelName}
-                                </Label>
+                                >{labelName}</Label>
                             );
                         })
                     }
                 </div>
-            </div>
+                <div className={classes.utilityButtons}>
+                    <Button className={classes.addLabelButton} onClick={() => setIsEditing(!isEditing)}>{isEditing ? 'Editing' : 'Adding'}</Button>
+                </div>
 
-            <div className={ classes.switchImageContainer }>
-                <button className={ classes.switchImageButton } onClick={ prevImage }>
-                    <RxArrowLeft className={ classes.switchImageIcon } />
+            </div>
+            <div className={classes.switchImageContainer}>
+                <button className={classes.switchImageButton} onClick={prevImage}>
+                    <RxArrowLeft className={classes.switchImageIcon}/>
                 </button>
 
-                <button className={ classes.switchImageButton } onClick={ nextImage }>
-                    <RxArrowRight className={ classes.switchImageIcon } />
+                <button className={classes.switchImageButton} onClick={nextImage}>
+                    <RxArrowRight className={classes.switchImageIcon}/>
                 </button>
             </div>
         </div>

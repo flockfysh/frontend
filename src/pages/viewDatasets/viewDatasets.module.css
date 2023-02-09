@@ -3,21 +3,6 @@
     font-size: 3rem;
 }
 
-.searchDatasets input {
-    display: flex;
-    background-color: var(--color-black-secondary);
-    border-radius: 1.5rem;
-    overflow: hidden;
-    flex: 1;
-    background-color: var(--color-black-secondary);
-    color: white;
-    border: none;
-    font-size: 1.6rem;
-    outline: none;
-    width: 100%;
-    padding: 2rem 2rem 2rem 3rem;
-}
-
 .datasetsContainer {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
@@ -52,10 +37,11 @@
     gap: var(--gap);
 }
 
+.searchInputContainer {
+    flex: 1;
+}
+
 .noDatasetsFound {
-    margin-top: 20px;
-    font-size: 25px;
-    justify-self: baseline;
     font-weight: lighter;
 }
 

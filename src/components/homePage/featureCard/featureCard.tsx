@@ -1,10 +1,9 @@
-import { ReactNodeLike } from 'prop-types';
-
 import rocket from '../../../images/icons/rocket.svg';
 import sparkles from '../../../images/icons/sparkles.svg';
 import bankNotes from '../../../images/icons/bankNotes.svg';
 
 import classes from './featureCard.module.css';
+import { ReactNodeLike } from 'prop-types';
 
 const ICONS = {
   rocket: rocket,
