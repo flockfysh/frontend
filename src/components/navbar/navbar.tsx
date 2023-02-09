@@ -22,11 +22,11 @@ export default function Navbar() {
             name: 'Home'
         },
         {
-            to: '/blog',
+            to: 'https://blog.flockfysh.tech',
             name: 'Blog'
         },
         {
-            to: '/docs',
+            to: 'https://docs.flockfysh.tech',
             name: 'Documentation'
         },
         {
