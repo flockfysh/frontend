@@ -17,7 +17,7 @@ export default function Hero() {
         />
         <div className={ classes.buttonsHolder }>
           <GradientLink hasArrow={ true } children="Start Flockfyshing" to="/signup" />
-          <LinkUnderline to="https://airtable.com/shr6RKoVDCd0MuFGm" text="Read the docs" />
+          <LinkUnderline to="https://docs.flockfysh.tech/" text="Read the docs" />
         </div>
       </div>
 
