@@ -10,8 +10,8 @@ type LinkUnderlineProps = {
 
 export default function LinkUnderline(props: LinkUnderlineProps) {
   return (
-    <Link to={ props.to } className={ `${classes.link} ${props.className || ''}` }>
+    <a href={ props.to } target="_blank" className={ `${classes.link} ${props.className || ''}` }>
       { props.text }
-    </Link>
+    </a>
   );
 }

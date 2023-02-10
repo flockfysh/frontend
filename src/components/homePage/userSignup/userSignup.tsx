@@ -21,7 +21,7 @@ export default function UserSignup() {
       <GradientLink
         hasArrow={ true }
         children="Commence FlockFyshing!"
-        to={ isLoggedIn ? '/dashboard' : '/signup' }
+        to={"https://airtable.com/shr6RKoVDCd0MuFGm" }
       />
     </section>
   );
