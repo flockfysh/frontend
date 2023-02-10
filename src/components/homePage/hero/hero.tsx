@@ -8,21 +8,29 @@ import classes from './hero.module.css';
 
 export default function Hero() {
   return (
-    <section className={ classes.heroSectionDiv }>
-      <div className={ classes.contentSection }>
+    <section className={classes.heroSectionDiv}>
+      <div className={classes.contentSection}>
         <Heading
           beforeSpan=""
           span="Automatic "
           afterSpan="dataset&nbsp;generation, minus&nbsp;the&nbsp;hassle."
         />
-        <div className={ classes.buttonsHolder }>
-          <GradientLink hasArrow={ true } children="Start Flockfyshing" to="/signup" />
-          <LinkUnderline to="https://docs.flockfysh.tech/" text="Read the docs" />
+        <div className={classes.buttonsHolder}>
+          <GradientLink
+            hasArrow={true}
+            children="Start Flockfyshing"
+            to="/signup"
+          />
+          <LinkUnderline
+            to="https://docs.flockfysh.tech/"
+            text="Read the docs"
+            isExternal={true}
+          />
         </div>
       </div>
 
       <div className={classes.imageContainer}>
-          <img src={ heroImage } alt="Hero" className={ classes.image } />
+        <img src={heroImage} alt="Hero" className={classes.image} />
       </div>
     </section>
   );

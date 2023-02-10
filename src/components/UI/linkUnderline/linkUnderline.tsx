@@ -6,12 +6,26 @@ type LinkUnderlineProps = {
   to: string;
   text: string;
   className?: string;
+  isExternal?: boolean;
 };
 
-export default function LinkUnderline(props: LinkUnderlineProps) {
+export default function LinkUnderline({
+  className = '',
+  isExternal = false,
+  to,
+  text
+}: LinkUnderlineProps) {
   return (
-    <a href={ props.to } target="_blank" className={ `${classes.link} ${props.className || ''}` }>
-      { props.text }
-    </a>
+    <>
+      {isExternal ? (
+        <a href={to} target="_blank" className={`${classes.link} ${className}`}>
+          {text}
+        </a>
+      ) : (
+        <Link to={to} className={`${classes.link} ${className}`}>
+          {text}
+        </Link>
+      )}
+    </>
   );
 }
