@@ -1,6 +1,6 @@
+import { useRef, useEffect } from 'react';
 import Konva from 'konva';
-import {useRef, useEffect} from 'react';
-import {Layer, Rect, Transformer} from 'react-konva';
+import { Layer, Rect, Transformer } from 'react-konva';
 
 export interface RectangleProps {
     shapeProps: Konva.NodeConfig & AnnotationBox,
@@ -19,15 +19,14 @@ export default function Rectangle(props: RectangleProps) {
     useEffect(() => {
         if (props.isSelected) {
             function handler(e: KeyboardEvent) {
-                if (e.key === 'Delete') {
-                    props.onDelete?.();
-                }
+                if (e.key === 'Delete') props.onDelete?.();
             }
 
             trRef.current.nodes([shapeRef.current]);
             trRef.current.getLayer()!.batchDraw();
 
             window.addEventListener('keyup', handler);
+
             return () => window.removeEventListener('keyup', handler);
         }
     }, [props.isSelected]);
@@ -40,17 +39,17 @@ export default function Rectangle(props: RectangleProps) {
     return (
         <Layer>
             <Rect
-                onClick={props.onSelect}
-                onTap={props.onSelect}
-                ref={shapeRef}
-                {...props.shapeProps}
-                x={konvaRectX}
-                y={konvaRectY}
-                width={konvaRectWidth}
-                height={konvaRectHeight}
-                strokeScaleEnabled={false}
-                draggable={props.isSelected}
-                strokeWidth={Math.max(5, 0.01 * Math.min(props.containerWidth, props.containerHeight))}
+                onClick={ props.onSelect }
+                onTap={ props.onSelect }
+                ref={ shapeRef }
+                { ...props.shapeProps }
+                x={ konvaRectX }
+                y={ konvaRectY }
+                width={ konvaRectWidth }
+                height={ konvaRectHeight }
+                strokeScaleEnabled={ false }
+                draggable={ props.isSelected }
+                strokeWidth={ Math.max(5, 0.01 * Math.min(props.containerWidth, props.containerHeight)) }
                 onDragMove={
                     e => {
                         let tempX = Math.max(0, e.currentTarget.x());
@@ -79,7 +78,7 @@ export default function Rectangle(props: RectangleProps) {
                     }
                 }
                 onTransformEnd={
-                    _ => {
+                    () => {
                         const curr = shapeRef.current;
                         const scaleX = curr.scaleX();
                         const scaleY = curr.scaleY();
@@ -102,9 +101,9 @@ export default function Rectangle(props: RectangleProps) {
             {
                 props.isSelected && (
                     <Transformer
-                        ignoreStroke={true}
-                        ref={trRef}
-                        rotateEnabled={false}
+                        ignoreStroke={ true }
+                        ref={ trRef }
+                        rotateEnabled={ false }
                         boundBoxFunc={
                             (oldBox, newBox) => {
                                 // console.log("Testing");

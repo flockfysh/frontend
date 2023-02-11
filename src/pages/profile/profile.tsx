@@ -57,18 +57,18 @@ export default function Profile() {
         <h3 className={ classes.heading }>Your Account</h3>
 
         <div className={ classes.nameDiv }>
-          <UserPicture className={`${classes.image}`}/>
+          <UserPicture className={ `${classes.image}` }/>
 
           <div className={ classes.infoDiv }>
             <h4 className={ classes.name }>{ <UserName/> }</h4>
-            <h6 className={ classes.email }>{<UserEmail/>}</h6>
+            <h6 className={ classes.email }>{ <UserEmail/> }</h6>
           </div>
         </div>
       </div>
 
       <div className={ classes.cardSection }>
         <div className={ classes.card }>
-          <h5 className={ classes.cardHeading} >
+          <h5 className={ classes.cardHeading } >
             Total Monthly Cost <span>${ user.monthlyCost.total }</span>
           </h5>
 
@@ -90,7 +90,7 @@ export default function Profile() {
             user.payments.map(
               (payment, index) => (
                 <p className={ classes.cardText } key={ index }>
-                  { payment.description } {' '}
+                  { payment.description } { ' ' }
                   <span className={ classes.price }>${ payment.amount }</span>
                 </p>
               )

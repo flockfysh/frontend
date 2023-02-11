@@ -1,5 +1,5 @@
-import {useState, useEffect} from 'react';
-import {useParams} from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 import SideBar from '../../components/dashboard/eachDataset/sideBar/sideBar';
 import Overview from '../../components/dashboard/eachDataset/overview/overview';
@@ -13,7 +13,7 @@ import api from '../../helpers/api';
 import Train from '../../components/dashboard/eachDataset/train/train';
 
 export default function EachDataSet(props: { page: string }) {
-    const {datasetId} = useParams();
+    const { datasetId } = useParams();
 
     const [dataset, updateDataset] = useState({} as Dataset);
     const [loading, updateLoading] = useState(true);
@@ -48,7 +48,7 @@ export default function EachDataSet(props: { page: string }) {
                 description: result.description,
                 itemCount: result.itemCount,
             };
-            console.log(dataset);
+            
             updateDataset(dataset);
             updateLoading(false);
         })();
@@ -56,17 +56,17 @@ export default function EachDataSet(props: { page: string }) {
     if (loading) return <Loading/>;
 
     return (
-        <div className={classes.eachDatasetContainer}>
-            <SideBar name={dataset.name} page={subPage}>
-                {subPage === 'overview' && <Overview dataset={dataset}/>}
+        <div className={ classes.eachDatasetContainer }>
+            <SideBar name={ dataset.name } page={ subPage }>
+                { subPage === 'overview' && <Overview dataset={ dataset }/> }
 
-                {subPage === 'uploaded-images' && <UploadedImages dataset={dataset}/>}
+                { subPage === 'uploaded-images' && <UploadedImages dataset={ dataset }/> }
 
-                {subPage === 'dataset-images' && <Images dataset={dataset}/>}
+                { subPage === 'dataset-images' && <Images dataset={ dataset }/> }
 
-                {subPage === 'settings' && <Settings dataset={dataset}/>}
+                { subPage === 'settings' && <Settings dataset={ dataset }/> }
 
-                {subPage === 'train' && <Train dataset={dataset}/>}
+                { subPage === 'train' && <Train dataset={ dataset }/> }
             </SideBar>
 
 

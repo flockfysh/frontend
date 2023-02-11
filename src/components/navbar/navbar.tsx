@@ -7,7 +7,6 @@ import NavItem from '../navItem/navItem';
 import MobileNavItem from '../navItem/mobileNavItem';
 
 import { UserContext } from '../../contexts/userContext';
-import { ScreenContext } from '../../contexts/screenContext';
 
 import classes from './navbar.module.css';
 

@@ -22,7 +22,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className={classes.imageContainer}>
+      <div className={ classes.imageContainer }>
           <img src={ heroImage } alt="Hero" className={ classes.image } />
       </div>
     </section>
