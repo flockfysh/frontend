@@ -37,7 +37,7 @@ export default function Navbar() {
 
     return (
         <nav className={ classes.nav }>
-            <Link className={ classes.logoText } to="/">FlockFysh</Link>
+            <Link className={ classes.logoText } to="/">flockfysh</Link>
 
             <button className={ classes.navOpenButton }>
                 {

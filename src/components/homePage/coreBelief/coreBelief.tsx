@@ -21,7 +21,7 @@ export default function CoreBelief() {
 
         <CoreBeliefCard
           heading="Compatiblity"
-          subHeading="Our tools are built with complete integratability in mind. Use all of your favorite ML tools seamlessly in tandem with Flockfysh to energize your ML workflows."
+          subHeading="Our tools are built with complete integratability in mind. Use all of your favorite ML tools seamlessly in tandem with flockfysh to energize your ML workflows."
         />
       </div>
     </section>
