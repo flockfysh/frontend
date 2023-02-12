@@ -35,9 +35,9 @@ export default function Train(props: { dataset: Dataset }) {
             if (/^searchQuery/.test(key)) {
                 const labelIndex = +key.split('_')[1];
                 const label = props.dataset.classes[labelIndex];
+                classSearchQueries[label] = fd.getAll(key) as string[];
             }
         }
-        console.log(classSearchQueries);
         const requestBody: InitiateTraningRequest = {
             desired_data: +(fd.get('desired_data') as string),
             class_search_queries: classSearchQueries,
