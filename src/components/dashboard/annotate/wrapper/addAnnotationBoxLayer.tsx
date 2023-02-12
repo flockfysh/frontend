@@ -2,6 +2,18 @@ import React from 'react';
 import Konva from 'konva';
 import {Layer, Group, Rect} from 'react-konva';
 
+/**
+ * This canvas layer allows the user to create new annotation rectangles
+ * by dragging-and-dropping on the image canvas.
+ * One rectangle covers the screen and moves around as the user drags,
+ * and moves backs to the old position right after the user drops.
+ * The other rectangle acts as the preview.
+ *
+ * @param props.width The width of the annotation box layer. Should cover the whole stage.
+ * @param props.height The height of the annotation box layer. Should cover the whole stage.
+ * @param props.onAdd This function will be called with the normalized coordinates of the annotation box.
+ * @constructor
+ */
 export default function AddAnnotationBoxLayer(props: {
     width: number,
     height: number,
