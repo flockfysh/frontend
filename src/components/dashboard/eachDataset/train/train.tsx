@@ -5,6 +5,12 @@ import Button from '../../../UI/button/button';
 import {CustomCreatableSelect} from '../../../UI/input/selectInput';
 import React from 'react';
 import {LABEL_COLORS} from '../../../../settings';
+import api from '../../../../helpers/api';
+
+interface InitiateTraningRequest {
+    class_search_queries: Record<string, string[]>;
+    desired_data: number;
+}
 
 function TrainingLabels(props: React.ComponentPropsWithRef<'label'> & { labelColor?: string }) {
     const {labelColor, ...smallProps} = props;
@@ -20,20 +26,28 @@ function TrainingLabels(props: React.ComponentPropsWithRef<'label'> & { labelCol
 }
 
 export default function Train(props: { dataset: Dataset }) {
-    const submissionRef = React.useRef<HTMLFormElement | null>(null);
-
-    function initiateSubmission() {
-        const submissionForm = submissionRef.current;
-        if (submissionForm) {
-            const fd = new FormData(submissionForm);
-            const jsonBody: any = {};
-
+    async function initiateSubmission(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        const submissionForm = e.currentTarget;
+        const fd = new FormData(submissionForm);
+        const classSearchQueries: Record<string, string[]> = {};
+        for (let key of fd.keys()) {
+            if (/^searchQuery/.test(key)) {
+                const labelIndex = +key.split('_')[1];
+                const label = props.dataset.classes[labelIndex];
+            }
         }
+        console.log(classSearchQueries);
+        const requestBody: InitiateTraningRequest = {
+            desired_data: +(fd.get('desired_data') as string),
+            class_search_queries: classSearchQueries,
+        };
+        await api.post(`/api/dataset/${props.dataset.id}/initializeTraining`, requestBody);
     }
 
     return (
         <div className={classes.container}>
-            <form className={classes.contentContainer} ref={submissionRef}>
+            <form className={classes.contentContainer} onSubmit={initiateSubmission}>
                 <div className={classes.titleBar}>
                     <h1>Dataset training</h1>
                     <Button type={'submit'} className={classes.utilityButton} gradient={true}>
@@ -64,13 +78,6 @@ export default function Train(props: { dataset: Dataset }) {
                         <span className={classes.labelledInputContainer__label}>Output Quantity</span>
                         <input type="range" id={'desired_data'} name={'desired_data'} min={20} max={50}
                                defaultValue={30}
-                               className={classes.outputQuantityRange}/>
-                    </label>
-
-                    <label className={classes.labelledInputContainer}>
-                        <span className={classes.labelledInputContainer__label}>Number of images to </span>
-                        <input type="range" id={'num_images_to_ask_for_hf'} name={'num_images_to_ask_for_hf'} min={20}
-                               max={50} defaultValue={30}
                                className={classes.outputQuantityRange}/>
                     </label>
 
