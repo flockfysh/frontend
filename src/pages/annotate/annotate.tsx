@@ -200,10 +200,6 @@ function AnnotateInner() {
             <div className={ classes.leftContainer }>
                 <AnnotationWrapper></AnnotationWrapper>
             </div>
-
-            <div className={ classes.rightContainer }>
-                <div className={ classes.box }/>
-            </div>
             <div className={ classes.labelContainer }>
                 <div className={ classes.labelList }>
                     {
