@@ -35,22 +35,22 @@ export default function LoginForm(props: { type: string }) {
     function oAuthLogin(path: string) {
         const login = serverURL + path;
 
-        location.replace(login);
-        // // Don't open too many auth windows.
-        // if (curPopup.current) curPopup.current.close();
-        // const popup = window.open(login, '_blank');
-        //
-        // if (popup) {
-        //     curPopup.current = popup;
-        //
-        //     window.addEventListener('message', function goToDashboard(e) {
-        //         if (e.data.success) {
-        //             popup.close();
-        //             refreshUserState();
-        //             navigate('/dashboard');
-        //         }
-        //     });
-        // }
+        // location.replace(login);
+        // Don't open too many auth windows.
+        if (curPopup.current) curPopup.current.close();
+        const popup = window.open(login, '_blank');
+
+        if (popup) {
+            curPopup.current = popup;
+
+            window.addEventListener('message', function goToDashboard(e) {
+                if (e.data.success) {
+                    popup.close();
+                    refreshUserState();
+                    navigate('/dashboard');
+                }
+            });
+        }
     }
 
     function passwordValidHandler(password = null as (String | null)) {
