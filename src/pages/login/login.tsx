@@ -33,10 +33,11 @@ export default function LoginForm(props: { type: string }) {
      * @param path Backend API route for login auth
      */
     function oAuthLogin(path: string) {
+        const login = serverURL + path;
+
+        // location.replace(login);
         // Don't open too many auth windows.
         if (curPopup.current) curPopup.current.close();
-
-        const login = serverURL + path;
         const popup = window.open(login, '_blank');
 
         if (popup) {

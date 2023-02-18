@@ -1,6 +1,7 @@
 .heading {
     font-size: 3rem;
     font-weight: 600;
+    flex: 1;
 }
 
 .containerDiv {
@@ -8,6 +9,11 @@
     display: flex;
     flex-direction: column;
     gap: min(calc(3rem + 2vw), 8rem);
+}
+
+.headingRow {
+    display: flex;
+    gap: 2rem;
 }
 
 .imageSection {

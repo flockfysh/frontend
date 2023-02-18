@@ -27,10 +27,8 @@ export function UserWrapper(props: PropsWithChildren) {
         (async function getUserState() {
             try {
                 const data = (await api.get(`/`)).data;
-                
-                if (data.success) {
-                    const userData = data.data;
-
+                const userData = data.data;
+                if (userData.curUser) {
                     setCurUser({
                         name: `${userData.curUser.firstName} ${userData.curUser.lastName}`,
                         email: userData.curUser.email,

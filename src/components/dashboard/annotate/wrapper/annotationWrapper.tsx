@@ -19,7 +19,7 @@ export default function AnnotationWrapper() {
         curLabel,
         curBox,
         setCurBox,
-        refresh
+        refresh,
     } = useContext(AnnotationPageContext);
 
     const [wrapperDimension, setWrapperDimension] = useState<{ width: number, height: number }>({
@@ -36,7 +36,7 @@ export default function AnnotationWrapper() {
             function updateWrapperSize() {
                 setWrapperDimension({
                     width: Math.ceil(imageElem.width),
-                    height: Math.ceil(imageElem.height)
+                    height: Math.ceil(imageElem.height),
                 });
             }
 
@@ -56,15 +56,18 @@ export default function AnnotationWrapper() {
     for (const [id, annotationObject] of curAnnotationData.entries()) {
         if (annotationObject.class === curLabel) {
             rectangles.push((
-                <Rectangle 
+                <Rectangle
                     key={ id }
                     shapeProps={ {
                         ...annotationObject.boundingBox,
                         stroke: LABEL_COLORS[curLabel],
-                        opacity: isEditing ? 1 : 0.2,
+                        opacity: isEditing ? 1 : 0.5,
                     } }
                     onSelect={ () => {
                         setCurBox(id);
+                    } }
+                    onDeselect={ () => {
+                        setCurBox('');
                     } }
                     isSelected={ id === curBox }
                     containerWidth={ wrapperDimension.width }
@@ -90,11 +93,11 @@ export default function AnnotationWrapper() {
 
     return (
         <div className={ classes.annotationWrapper }>
-            <img 
-                alt="" 
+            <img
+                alt=""
                 className={ classes.annotationImage }
-                src={ curImage?.url } 
-                ref={ annotationImageRef } 
+                src={ curImage?.url }
+                ref={ annotationImageRef }
             />
 
             <Stage
@@ -104,16 +107,16 @@ export default function AnnotationWrapper() {
                     e.evt.preventDefault();
                     setCurBox('');
                 } }
-                className={ `${ classes.annotationCanvasStage } ${ !isEditing ? classes.canvasCrosshair : '' }` }>
-                { rectangles }
+                className={ `${classes.annotationCanvasStage} ${!isEditing ? classes.canvasCrosshair : ''}` }>
+                {rectangles}
                 {
                     !isEditing && (
-                        <AddAnnotationBoxLayer 
-                            width={ wrapperDimension.width }                 
+                        <AddAnnotationBoxLayer
+                            width={ wrapperDimension.width }
                             height={ wrapperDimension.height }
                             onAdd={ (coords) => {
                                 addAnnotationObject(coords);
-                            } } 
+                            } }
                         />
                     )
                 }
