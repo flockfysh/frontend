@@ -51,7 +51,7 @@ export const AnnotationPageContext = React.createContext<IAnnotationPageContext>
     },
     isEditing: false,
     setIsEditing: () => {
-    }
+    },
 });
 
 export default function Annotate() {
@@ -81,7 +81,7 @@ export default function Annotate() {
                     setImageIds(uploadedImages);
                     setLabels(datasetLabels);
                 }
-                catch (e) {
+ catch (e) {
                     navigate('/404');
                 }
             })();
@@ -100,7 +100,7 @@ export default function Annotate() {
 
                     // Step 2: Get the image's annotation data.
                     const remoteAnnotationData = (await api.get<{ success: boolean, data: RemoteAnnotationObject[] }>(`/api/image/${imageIds[imageIndex]}/annotations`)).data.data;
-                    
+
                     const localAnnotationData = new Map<string, AnnotationObject>();
                     for (const remoteObject of remoteAnnotationData) {
                         const [x, y, width, height] = remoteObject.boundingBox;
@@ -110,7 +110,7 @@ export default function Annotate() {
                     }
                     setCurAnnotationData({ curAnnotationData: localAnnotationData });
                 }
-                catch (e) {
+ catch (e) {
                 }
             })();
         }
@@ -159,7 +159,7 @@ export default function Annotate() {
         <AnnotationPageContext.Provider value={ {
             curImage, labels, nextImage, prevImage, imageIndex,
             curAnnotationData, refresh, curLabel, setCurLabel, curBox,
-            setCurBox, addAnnotationObject, isEditing, setIsEditing
+            setCurBox, addAnnotationObject, isEditing, setIsEditing,
         } }>
             <AnnotateInner></AnnotateInner>
         </AnnotationPageContext.Provider>
@@ -177,7 +177,7 @@ function AnnotateInner() {
         setCurLabel,
         isEditing,
         setIsEditing,
-        setCurBox
+        setCurBox,
     } = React.useContext(AnnotationPageContext);
     const params = useParams();
 
@@ -190,7 +190,7 @@ function AnnotateInner() {
     return (
         <div className={ classes.annotateContainer }>
             <div className={ classes.headingContainer }>
-                <h1 className={ classes.heading }>Picture - { imageIndex + 1 }/50</h1>
+                <h1 className={ classes.heading }>Picture - {imageIndex + 1}/50</h1>
             </div>
             <div className={ classes.submitButtonContainer }>
                 <GradientLink to={ `/dashboard/${params.datasetId}/train` } children="Initiate training"
@@ -213,17 +213,18 @@ function AnnotateInner() {
                                         if (curLabel === index) {
                                             setCurLabel(-1);
                                         }
- else {
+                                        else {
                                             setCurLabel(index);
                                         }
                                     } }
-                                >{ labelName }</Label>
+                                >{labelName}</Label>
                             );
                         })
                     }
                 </div>
                 <div className={ classes.utilityButtons }>
-                    <Button className={ classes.addLabelButton } onClick={ () => setIsEditing(!isEditing) }>{ isEditing ? 'Editing' : 'Adding' }</Button>
+                    <Button className={ classes.addLabelButton }
+                            onClick={ () => setIsEditing(!isEditing) }>{isEditing ? 'Editing' : 'Adding'}</Button>
                 </div>
 
             </div>
