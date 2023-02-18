@@ -1,14 +1,8 @@
-import { useContext } from 'react';
-
 import GradientLink from '../../UI/gradientLink/gradientLink';
-
-import { UserContext } from '../../../contexts/userContext';
 
 import classes from './userSignup.module.css';
 
 export default function UserSignup() {
-  const { isLoggedIn } = useContext(UserContext);
-
   return (
     <section className={ classes.holder }>
       <h3 className={ classes.heading }>Ready? Set? Create!</h3>
@@ -20,7 +14,7 @@ export default function UserSignup() {
       <GradientLink
         hasArrow={ true }
         children="Commence FlockFyshing!"
-        to={ isLoggedIn ? '/dashboard' : '/signup' }
+        to={ 'https://airtable.com/shr6RKoVDCd0MuFGm' }
       />
     </section>
   );
