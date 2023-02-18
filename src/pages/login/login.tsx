@@ -35,7 +35,7 @@ export default function LoginForm(props: { type: string }) {
     function oAuthLogin(path: string) {
         const login = serverURL + path;
 
-        navigate(login);
+        location.replace(login);
         // // Don't open too many auth windows.
         // if (curPopup.current) curPopup.current.close();
         // const popup = window.open(login, '_blank');
