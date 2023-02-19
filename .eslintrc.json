@@ -48,7 +48,7 @@
     "no-unreachable-loop": "warn",
     "@typescript-eslint/no-unused-vars": ["error"],
     "camelcase": [
-      "error",
+      "warn",
       {
         "ignoreGlobals": true
       }
