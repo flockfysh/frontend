@@ -2,33 +2,23 @@ import { PropsWithChildren, useEffect, useState, createContext } from 'react';
 import Loading from '../components/loading/loading';
 import api from '../helpers/api';
 
-interface IUserContext {
-    curUser: User | null;
-    isLoggedIn: boolean;
-    refreshUserState: () => void;
-}
-
-export const UserContext = createContext<IUserContext>({
+export const UserContext = createContext({
     curUser: null as (User | null),
-    isLoggedIn: false,
-    refreshUserState: () => {
-    },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    setUser: (_: User | null) => {},
 });
 
 export function UserWrapper(props: PropsWithChildren) {
     const [curUser, setCurUser] = useState<User | null>(null);
     const [isLoading, updateLoading] = useState<boolean>(true);
 
-    // Removed. Why do we happen to need to check the logged in state? Can't we simply base it on the user -
-    // can we set it to isLoggedIn = !!user?
-    // const [isLoggedIn, updateLoggedInState] = useState(false);
-
     useEffect(() => {
         (async function getUserState() {
             try {
                 const data = (await api.get(`/`)).data;
                 const userData = data.data;
-                if (userData.curUser) {
+
+                if(userData.curUser) {
                     setCurUser({
                         name: `${userData.curUser.firstName} ${userData.curUser.lastName}`,
                         email: userData.curUser.email,
@@ -47,17 +37,15 @@ export function UserWrapper(props: PropsWithChildren) {
 
             updateLoading(false);
         })();
-    }, [isLoading]);
+    }, []);
 
     if (isLoading) return <Loading/>;
 
-    const isLoggedIn = Boolean(curUser);
-
-    function refreshUserState() {
-        updateLoading(true);
+    function setUser(user: User | null) {
+        setCurUser(user);
     }
 
-    const curState = { curUser, isLoggedIn, refreshUserState };
+    const curState = { curUser, setUser };
     
     return (
         <UserContext.Provider value={ curState }>

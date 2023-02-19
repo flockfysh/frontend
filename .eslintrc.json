@@ -46,7 +46,7 @@
     "no-unmodified-loop-condition": "warn",
     "no-unreachable": "error",
     "no-unreachable-loop": "warn",
-    "@typescript-eslint/no-unused-vars": ["error"],
+    "@typescript-eslint/no-unused-vars": "warn",
     "camelcase": [
       "error",
       {
@@ -54,7 +54,7 @@
       }
     ],
     "eqeqeq": "error",
-    "no-console": "error",
+    "no-console": "warn",
     "prefer-const": "error",
     "no-with": "error",
     "no-void": "error",

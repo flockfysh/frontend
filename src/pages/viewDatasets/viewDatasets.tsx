@@ -16,12 +16,19 @@ export default function ViewDatasets() {
     const [datasets, updateDatasets] = useState<PartialDataset[]>([]);
     const [isLoading, updateLoadingState] = useState(true);
     const [filter, updateFilter] = useState('');
-
+    
     useEffect(() => {
         updateLoadingState(true);
 
         (async function () {
-            const datasets = (await api.get('/api/dataset')).data.data as PartialDataset[];
+            let datasets: PartialDataset[];
+
+            try {
+                datasets = (await api.get('/api/dataset')).data.data as PartialDataset[];
+            }
+            catch {
+                datasets = [];
+            }
             
             updateDatasets(datasets);
             updateLoadingState(false);
@@ -34,6 +41,7 @@ export default function ViewDatasets() {
         <div className={ classes.viewDatasetsContainer }>
             <header className={ classes.header }>
                 <MiniProfile/>
+
                 <div className={ classes.searchDatasets }>
                     <SearchInput
                         type={ 'text' }
@@ -41,7 +49,8 @@ export default function ViewDatasets() {
                         onChange={ e => updateFilter(e.target.value) }
                         onLookup={ data => updateFilter(data) }
                         containerClassName={ classes.searchInputContainer }
-                    ></SearchInput>
+                    />
+
                     <GradientLink
                         hasArrow={ true }
                         gradientDirection="leftToRight"
