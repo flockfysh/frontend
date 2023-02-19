@@ -16,7 +16,7 @@ export default function Features() {
     <>
       Provide our tool with a sample of 50 images of the type of data you are
       looking for, and then watch the magic ensue!
-      <strong> No constant searching for images, </strong> and{' '}
+      <strong> No constant searching for images, </strong> and{ ' ' }
       <strong>no supervision necessary.</strong>
     </>
   );

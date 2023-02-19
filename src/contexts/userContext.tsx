@@ -1,4 +1,4 @@
-import {PropsWithChildren, useEffect, useState, createContext} from 'react';
+import { PropsWithChildren, useEffect, useState, createContext } from 'react';
 import Loading from '../components/loading/loading';
 import api from '../helpers/api';
 
@@ -26,12 +26,9 @@ export function UserWrapper(props: PropsWithChildren) {
     useEffect(() => {
         (async function getUserState() {
             try {
-
                 const data = (await api.get(`/`)).data;
-                
-                if (data.success) {
-                    const userData = data.data;
-
+                const userData = data.data;
+                if (userData.curUser) {
                     setCurUser({
                         name: `${userData.curUser.firstName} ${userData.curUser.lastName}`,
                         email: userData.curUser.email,
@@ -39,12 +36,15 @@ export function UserWrapper(props: PropsWithChildren) {
                         monthlyCost: {} as MonthlyCost,
                         payments: [] as Cost[]
                     });
-                } else {
+                }
+                else {
                     setCurUser(null);
                 }
-            } catch (e) {
+            }
+            catch (e) {
 
             }
+
             updateLoading(false);
         })();
     }, [isLoading]);
@@ -57,10 +57,11 @@ export function UserWrapper(props: PropsWithChildren) {
         updateLoading(true);
     }
 
-    const curState = {curUser, isLoggedIn, refreshUserState};
+    const curState = { curUser, isLoggedIn, refreshUserState };
+    
     return (
-        <UserContext.Provider value={curState}>
-            {props.children}
+        <UserContext.Provider value={ curState }>
+            { props.children }
         </UserContext.Provider>
     );
 }

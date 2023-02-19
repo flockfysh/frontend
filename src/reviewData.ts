@@ -1,6 +1,6 @@
 import Image from './images//heroImage.jpg';
 
-let reviews = [
+const reviews = [
   [
     {
       name: 'Justin Dusk',

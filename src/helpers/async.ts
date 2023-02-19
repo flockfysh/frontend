@@ -9,14 +9,14 @@ export default class AsyncArray<T> extends Array {
         verbose?: true,
     }): Promise<U[]> {
         const maxThreads = params?.maxThreads ?? 100;
-        let resultArr: U[] = Array.from({length: this.length});
-        let pool = new Set<Promise<any>>();
+        const resultArr: U[] = Array.from({ length: this.length });
+        const pool = new Set<Promise<any>>();
         await new Promise(finish => {
             let i = 0;
             let finishedTasks = 0;
             const fillPool = () => {
                 while (pool.size < maxThreads && i < this.length) {
-                    let curIndex = i;
+                    const curIndex = i;
                     i++;
                     const promise = new Promise(async resolve => {
                         const result = await callback.call(thisArg, this[curIndex], curIndex, this);

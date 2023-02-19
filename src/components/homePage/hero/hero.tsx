@@ -16,12 +16,13 @@ export default function Hero() {
           afterSpan="dataset&nbsp;generation, minus&nbsp;the&nbsp;hassle."
         />
         <div className={ classes.buttonsHolder }>
-          <GradientLink hasArrow={ true } children="Start Flockfyshing" to="/signup" />
+          <GradientLink hasArrow={ true } children="Start flockfyshing" to="/signup" />
+          
           <LinkUnderline to="/docs" text="Read the docs" />
         </div>
       </div>
 
-      <div className={classes.imageContainer}>
+      <div className={ classes.imageContainer }>
           <img src={ heroImage } alt="Hero" className={ classes.image } />
       </div>
     </section>

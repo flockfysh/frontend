@@ -22,7 +22,7 @@ export default function ViewDatasets() {
 
         (async function () {
             const datasets = (await api.get('/api/dataset')).data.data as PartialDataset[];
-            console.log(datasets);
+            
             updateDatasets(datasets);
             updateLoadingState(false);
         })();
@@ -31,30 +31,30 @@ export default function ViewDatasets() {
     if (isLoading) return <Loading/>;
 
     return (
-        <div className={classes.viewDatasetsContainer}>
-            <header className={classes.header}>
+        <div className={ classes.viewDatasetsContainer }>
+            <header className={ classes.header }>
                 <MiniProfile/>
-                <div className={classes.searchDatasets}>
+                <div className={ classes.searchDatasets }>
                     <SearchInput
-                        type={'text'}
-                        placeholder={'Find your dataset...'}
-                        onChange={e => updateFilter(e.target.value)}
-                        onLookup={data => updateFilter(data)}
-                        containerClassName={classes.searchInputContainer}
+                        type={ 'text' }
+                        placeholder={ 'Find your dataset...' }
+                        onChange={ e => updateFilter(e.target.value) }
+                        onLookup={ data => updateFilter(data) }
+                        containerClassName={ classes.searchInputContainer }
                     ></SearchInput>
                     <GradientLink
-                        hasArrow={true}
+                        hasArrow={ true }
                         gradientDirection="leftToRight"
                         children="Create a new dataset"
                         to="/dashboard/create-dataset"
-                        className={classes.createDatasetButton}
+                        className={ classes.createDatasetButton }
                     />
                 </div>
             </header>
 
-            <h1 className={classes.viewDatasetsHeader}>Your Datasets</h1>
+            <h1 className={ classes.viewDatasetsHeader }>Your Datasets</h1>
 
-            <ul className={classes.datasetsContainer}>
+            <ul className={ classes.datasetsContainer }>
                 {
                     (function generateFilterElements() {
                         const elements =
@@ -72,16 +72,16 @@ export default function ViewDatasets() {
 
                         if (elements.length === 0)
                             return (
-                                <h2 className={classes.noDatasetsFound}>
-                                    Sorry, no datasets found. Go {' '}
-                                    <Link to="/dashboard/create-dataset">here</Link> {' '}
+                                <h2 className={ classes.noDatasetsFound }>
+                                    Sorry, no datasets found. Go { ' ' }
+                                    <Link to="/dashboard/create-dataset">here</Link> { ' ' }
                                     to create one.
                                 </h2>
                             );
                         else
                             return elements.map(
                                 (dataset, index) => (
-                                    <DatasetCard key={index} dataset={dataset}/>
+                                    <DatasetCard key={ index } dataset={ dataset }/>
                                 )
                             );
                     })()

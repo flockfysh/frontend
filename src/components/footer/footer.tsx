@@ -6,10 +6,10 @@ export default function Footer() {
     return (
         <footer className={ classes.footer }>
             <div className={ classes.footerOtherContent }>
-                <h5>FlockFysh</h5>
+                <h5>flockfysh</h5>
 
                 <small>
-                    <p>Copyright &copy; 2022 FlockFysh</p>
+                    <p>Copyright &copy; 2023 flockfysh</p>
                     <p>All rights reserved.</p>
                 </small>
             </div>

@@ -1,18 +1,17 @@
-import React from 'react';
-import {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
 import GradientLink from '../../components/UI/gradientLink/gradientLink';
 import Label from '../../components/dashboard/annotate/label/label';
 import AnnotationWrapper from '../../components/dashboard/annotate/wrapper/annotationWrapper';
 import Button from '../../components/UI/button/button';
 import Loading from '../../components/loading/loading';
-import {LABEL_COLORS} from '../../settings';
-import {RxArrowLeft, RxArrowRight, RxPlus} from 'react-icons/rx';
-import {useNavigate, useParams} from 'react-router-dom';
+import { LABEL_COLORS } from '../../settings';
+import { RxArrowLeft, RxArrowRight } from 'react-icons/rx';
+import { useNavigate, useParams } from 'react-router-dom';
 import api from '../../helpers/api';
 import classes from './annotate.module.css';
 import AnnotationObject from '../../components/dashboard/annotate/wrapper/annotationObject';
-import {v4} from 'uuid';
+import { v4 } from 'uuid';
 
 export interface IAnnotationPageContext {
     curImage: UploadedImage | null,
@@ -52,7 +51,7 @@ export const AnnotationPageContext = React.createContext<IAnnotationPageContext>
     },
     isEditing: false,
     setIsEditing: () => {
-    }
+    },
 });
 
 export default function Annotate() {
@@ -63,7 +62,7 @@ export default function Annotate() {
     const [imageIds, setImageIds] = useState<string[]>([]);
     const [curImage, setCurImage] = useState<UploadedImage | null>(null);
     const [imageIndex, setImageIndex] = useState(0);
-    const [{curAnnotationData}, setCurAnnotationData] = useState<{
+    const [{ curAnnotationData }, setCurAnnotationData] = useState<{
         curAnnotationData: Map<string, AnnotationObject>,
     }>({
         curAnnotationData: new Map(),
@@ -74,25 +73,26 @@ export default function Annotate() {
 
     useEffect(() => {
         if (params.datasetId) {
-            void async function getCurrentDataset() {
+            (async function getCurrentDataset() {
                 try {
                     const uploadedImages = (await api.get(`/api/dataset/${params.datasetId}/uploadedImageIds`)).data.data;
                     const datasetLabels = (await api.get(`/api/dataset/${params.datasetId}/labels`)).data.data;
                     setImageIndex(0);
                     setImageIds(uploadedImages);
                     setLabels(datasetLabels);
-                } catch (e) {
-                    console.error(e);
+                }
+ catch (e) {
                     navigate('/404');
                 }
-            }();
-        } else {
+            })();
+        }
+        else {
             navigate('/404');
         }
     }, [params.datasetId]);
     useEffect(() => {
         if (imageIds.length) {
-            void async function getCurrentImageInfo() {
+            (async function getCurrentImageInfo() {
                 try {
                     // Step 1: Get the image.
                     const fetchedImage = (await api.get<{ success: boolean, data: UploadedImage }>(`/api/image/${imageIds[imageIndex]}`)).data.data;
@@ -100,19 +100,19 @@ export default function Annotate() {
 
                     // Step 2: Get the image's annotation data.
                     const remoteAnnotationData = (await api.get<{ success: boolean, data: RemoteAnnotationObject[] }>(`/api/image/${imageIds[imageIndex]}/annotations`)).data.data;
-                    console.log(remoteAnnotationData);
+
                     const localAnnotationData = new Map<string, AnnotationObject>();
-                    for (let remoteObject of remoteAnnotationData) {
+                    for (const remoteObject of remoteAnnotationData) {
                         const [x, y, width, height] = remoteObject.boundingBox;
                         localAnnotationData.set(v4(), new AnnotationObject(remoteObject.class, remoteObject.id, {
                             x, y, width, height,
                         }));
                     }
-                    setCurAnnotationData({curAnnotationData: localAnnotationData});
-                } catch (e) {
-                    console.error(e);
+                    setCurAnnotationData({ curAnnotationData: localAnnotationData });
                 }
-            }();
+ catch (e) {
+                }
+            })();
         }
     }, [imageIds, imageIndex]);
     React.useEffect(() => {
@@ -135,7 +135,7 @@ export default function Annotate() {
     }
 
     function refresh() {
-        setCurAnnotationData({curAnnotationData});
+        setCurAnnotationData({ curAnnotationData });
     }
 
     async function addAnnotationObject(params?: AnnotationBox) {
@@ -156,11 +156,11 @@ export default function Annotate() {
     }
 
     return (
-        <AnnotationPageContext.Provider value={{
+        <AnnotationPageContext.Provider value={ {
             curImage, labels, nextImage, prevImage, imageIndex,
             curAnnotationData, refresh, curLabel, setCurLabel, curBox,
-            setCurBox, addAnnotationObject, isEditing, setIsEditing
-        }}>
+            setCurBox, addAnnotationObject, isEditing, setIsEditing,
+        } }>
             <AnnotateInner></AnnotateInner>
         </AnnotationPageContext.Provider>
     );
@@ -177,64 +177,64 @@ function AnnotateInner() {
         setCurLabel,
         isEditing,
         setIsEditing,
-        setCurBox
+        setCurBox,
     } = React.useContext(AnnotationPageContext);
     const params = useParams();
+
+    setCurBox;
 
     if (!curImage) {
         return <Loading/>;
     }
 
     return (
-        <div className={classes.annotateContainer}>
-            <div className={classes.headingContainer}>
-                <h1 className={classes.heading}>Picture - {imageIndex + 1}/50</h1>
+        <div className={ classes.annotateContainer }>
+            <div className={ classes.headingContainer }>
+                <h1 className={ classes.heading }>Picture - {imageIndex + 1}/50</h1>
             </div>
-            <div className={classes.submitButtonContainer}>
-                <GradientLink to={`/dashboard/${params.datasetId}/train`} children="Initiate training"
+            <div className={ classes.submitButtonContainer }>
+                <GradientLink to={ `/dashboard/${params.datasetId}/train` } children="Initiate training"
                               gradientDirection="rightToLeft"
-                              className={classes.initiateTrainingButton}/>
+                              className={ classes.initiateTrainingButton }/>
             </div>
-            <div className={classes.leftContainer}>
+            <div className={ classes.leftContainer }>
                 <AnnotationWrapper></AnnotationWrapper>
             </div>
-
-            <div className={classes.rightContainer}>
-                <div className={classes.box}/>
-            </div>
-            <div className={classes.labelContainer}>
-                <div className={classes.labelList}>
+            <div className={ classes.labelContainer }>
+                <div className={ classes.labelList }>
                     {
                         labels.map(function generateLabelButton(labelName, index) {
                             return (
                                 <Label
-                                    key={index}
-                                    dotColor={LABEL_COLORS[index]}
-                                    selected={index === curLabel}
-                                    onClick={() => {
+                                    key={ index }
+                                    dotColor={ LABEL_COLORS[index] }
+                                    selected={ index === curLabel }
+                                    onClick={ () => {
                                         if (curLabel === index) {
                                             setCurLabel(-1);
-                                        } else {
+                                        }
+                                        else {
                                             setCurLabel(index);
                                         }
-                                    }}
+                                    } }
                                 >{labelName}</Label>
                             );
                         })
                     }
                 </div>
-                <div className={classes.utilityButtons}>
-                    <Button className={classes.addLabelButton} onClick={() => setIsEditing(!isEditing)}>{isEditing ? 'Editing' : 'Adding'}</Button>
+                <div className={ classes.utilityButtons }>
+                    <Button className={ classes.addLabelButton }
+                            onClick={ () => setIsEditing(!isEditing) }>{isEditing ? 'Editing' : 'Adding'}</Button>
                 </div>
 
             </div>
-            <div className={classes.switchImageContainer}>
-                <button className={classes.switchImageButton} onClick={prevImage}>
-                    <RxArrowLeft className={classes.switchImageIcon}/>
+            <div className={ classes.switchImageContainer }>
+                <button className={ classes.switchImageButton } onClick={ prevImage }>
+                    <RxArrowLeft className={ classes.switchImageIcon }/>
                 </button>
 
-                <button className={classes.switchImageButton} onClick={nextImage}>
-                    <RxArrowRight className={classes.switchImageIcon}/>
+                <button className={ classes.switchImageButton } onClick={ nextImage }>
+                    <RxArrowRight className={ classes.switchImageIcon }/>
                 </button>
             </div>
         </div>

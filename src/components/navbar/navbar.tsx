@@ -7,7 +7,6 @@ import NavItem from '../navItem/navItem';
 import MobileNavItem from '../navItem/mobileNavItem';
 
 import { UserContext } from '../../contexts/userContext';
-import { ScreenContext } from '../../contexts/screenContext';
 
 import classes from './navbar.module.css';
 
@@ -22,11 +21,11 @@ export default function Navbar() {
             name: 'Home'
         },
         {
-            to: '/blog',
+            to: 'https://blog.flockfysh.tech',
             name: 'Blog'
         },
         {
-            to: '/docs',
+            to: 'https://docs.flockfysh.tech',
             name: 'Documentation'
         },
         {
@@ -37,7 +36,7 @@ export default function Navbar() {
 
     return (
         <nav className={ classes.nav }>
-            <Link className={ classes.logoText } to="/">FlockFysh</Link>
+            <Link className={ classes.logoText } to="/">flockfysh</Link>
 
             <button className={ classes.navOpenButton }>
                 {

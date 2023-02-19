@@ -1,7 +1,9 @@
-import classes from './selectInput.module.css';
-import Select, {Props, GroupBase, SelectInstance, ClassNamesConfig} from 'react-select';
-import CreatableSelect from 'react-select/creatable';
 import React from 'react';
+
+import Select, { Props, GroupBase, SelectInstance, ClassNamesConfig } from 'react-select';
+import CreatableSelect from 'react-select/creatable';
+
+import classes from './selectInput.module.css';
 
 function commonClasses<Option, IsMulti extends boolean = false, Group extends GroupBase<Option> = GroupBase<Option>>
 (props: Props<Option, IsMulti, Group>): ClassNamesConfig<Option, IsMulti, Group> {
@@ -20,11 +22,14 @@ function commonClasses<Option, IsMulti extends boolean = false, Group extends Gr
         },
         option(state) {
             let internalClass: string;
+
             if (state.isSelected) {
                 internalClass = `${classes.selectOption} ${classes.selectedSelectOption}`;
-            } else if (state.isFocused) {
+            }
+            else if (state.isFocused) {
                 internalClass = `${classes.selectOption} ${classes.focusedSelectOption}`;
-            } else {
+            }
+            else {
                 internalClass = classes.selectOption;
             }
             return `${internalClass} ${props.classNames?.option?.(state) || ''}`;
@@ -51,16 +56,19 @@ const CustomSelect = React.forwardRef<any, Props>(function _CustomSelect<Option,
     props: Props<Option, IsMulti, Group>,
     ref: React.ForwardedRef<SelectInstance<Option, IsMulti, Group>>) {
     return (
-<Select
-        {...props}
-        classNames={commonClasses(props)}
-        className={`${classes.selectElement} ${props.className || ''}`} ref={e => {
-        if (typeof ref === 'function') {
-            ref(e);
-        } else if (ref) {
-            ref.current = e;
-        }
-    }}/>
+        <Select
+            { ...props }
+            classNames={ commonClasses(props) }
+            className={ `${classes.selectElement} ${props.className || ''}` } 
+            ref={ e => {
+                if (typeof ref === 'function') {
+                    ref(e);
+                }
+                else if (ref) {
+                    ref.current = e;
+                }
+            } }
+        />
 );
 });
 
@@ -68,16 +76,19 @@ export const CustomCreatableSelect = React.forwardRef<any, Props>(function _Crea
     props: Props<Option, IsMulti, Group>,
     ref: React.ForwardedRef<SelectInstance<Option, IsMulti, Group>>) {
     return (
-<CreatableSelect
-        {...props}
-        classNames={commonClasses(props)}
-        className={`${classes.selectElement} ${props.className || ''}`} ref={e => {
-        if (typeof ref === 'function') {
-            ref(e);
-        } else if (ref) {
-            ref.current = e;
-        }
-    }}/>
+        <CreatableSelect
+            { ...props }
+            classNames={ commonClasses(props) }
+            className={ `${classes.selectElement} ${props.className || ''}` } 
+            ref={ e => {
+                if (typeof ref === 'function') {
+                    ref(e);
+                }
+                else if (ref) {
+                    ref.current = e;
+                }
+            } }
+        />
 );
 });
 

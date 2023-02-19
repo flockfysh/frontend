@@ -9,7 +9,9 @@ export default function ReloadBlocker(props: ReloadBlockerProps) {
         function messageHandler() {
             return props.message;
         }
+        
         window.addEventListener('beforeunload', messageHandler);
+
         return () => window.removeEventListener('beforeunload', messageHandler);
     }, [props.message]);
 
