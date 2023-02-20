@@ -10,6 +10,20 @@ import { LABEL_COLORS } from '../../../../settings';
 
 import classes from './annotationWrapper.module.css';
 
+/**
+ * The annotation canvas allows users to draw and edit bounding boxes to annotate images.
+ * Converts the curAnnotationData map object to rectangular layers on the canvas.
+ *
+ * If a bounding boxes' label match the current label the user's selecting,
+ * it will be shown on the canvas. Others are hidden.
+ *
+ * If the annotation page is in editing mode, matching bounding boxes are displayed at full opacity and the user
+ * can select one of them.
+ * If the annotation page is in drawing mode, these bounding boxes have lower opacity,
+ * and the user can only draw new boxes on the screen by using drag and drop.
+ *
+ * @constructor
+ */
 export default function AnnotationWrapper() {
     const {
         curImage,
