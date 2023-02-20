@@ -15,9 +15,7 @@ import Textarea from '../../components/UI/input/textarea';
 export default function CreateDataset() {
     const navigate = useNavigate();
 
-    const [isLoading, updateLoading] = useState(false);
-
-    updateLoading;
+    const [isLoading] = useState(false);
 
     const [datasetType, updateDatasetType] = useState('images');
     const [errorMessage, setErrorMessage] = React.useState('');
@@ -36,7 +34,7 @@ export default function CreateDataset() {
         const fd = new FormData(formRef.current);
 
         // Create a dataset.
-        const createDatasetRequestBody: Record<string, any|any[]> = {};
+        const createDatasetRequestBody: Record<string, any | any[]> = {};
 
         createDatasetRequestBody.description = fd.get('description');
         createDatasetRequestBody.name = fd.get('name');

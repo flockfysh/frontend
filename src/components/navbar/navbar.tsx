@@ -11,7 +11,7 @@ import { UserContext } from '../../contexts/userContext';
 import classes from './navbar.module.css';
 
 export default function Navbar() {
-    const { isLoggedIn } = useContext(UserContext);
+    const { curUser } = useContext(UserContext);
 
     const [navOpen, updateNav] = useState(false);
     
@@ -62,7 +62,7 @@ export default function Navbar() {
                 }
 
                 {
-                    isLoggedIn ? <NavItem to="/dashboard" name="Dashboard"/> : <NavItem to="/login" name="Login"/>
+                    curUser ? <NavItem to="/dashboard" name="Dashboard"/> : <NavItem to="/login" name="Login"/>
                 }
             </ul>
         </nav>

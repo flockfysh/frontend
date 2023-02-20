@@ -10,6 +10,20 @@ import { LABEL_COLORS } from '../../../../settings';
 
 import classes from './annotationWrapper.module.css';
 
+/**
+ * The annotation canvas allows users to draw and edit bounding boxes to annotate images.
+ * Converts the curAnnotationData map object to rectangular layers on the canvas.
+ *
+ * If a bounding boxes' label match the current label the user's selecting,
+ * it will be shown on the canvas. Others are hidden.
+ *
+ * If the annotation page is in editing mode, matching bounding boxes are displayed at full opacity and the user
+ * can select one of them.
+ * If the annotation page is in drawing mode, these bounding boxes have lower opacity,
+ * and the user can only draw new boxes on the screen by using drag and drop.
+ *
+ * @constructor
+ */
 export default function AnnotationWrapper() {
     const {
         curImage,
@@ -19,7 +33,7 @@ export default function AnnotationWrapper() {
         curLabel,
         curBox,
         setCurBox,
-        refresh
+        refresh,
     } = useContext(AnnotationPageContext);
 
     const [wrapperDimension, setWrapperDimension] = useState<{ width: number, height: number }>({
@@ -36,7 +50,7 @@ export default function AnnotationWrapper() {
             function updateWrapperSize() {
                 setWrapperDimension({
                     width: Math.ceil(imageElem.width),
-                    height: Math.ceil(imageElem.height)
+                    height: Math.ceil(imageElem.height),
                 });
             }
 
@@ -56,15 +70,18 @@ export default function AnnotationWrapper() {
     for (const [id, annotationObject] of curAnnotationData.entries()) {
         if (annotationObject.class === curLabel) {
             rectangles.push((
-                <Rectangle 
+                <Rectangle
                     key={ id }
                     shapeProps={ {
                         ...annotationObject.boundingBox,
                         stroke: LABEL_COLORS[curLabel],
-                        opacity: isEditing ? 1 : 0.2,
+                        opacity: isEditing ? 1 : 0.5,
                     } }
                     onSelect={ () => {
                         setCurBox(id);
+                    } }
+                    onDeselect={ () => {
+                        setCurBox('');
                     } }
                     isSelected={ id === curBox }
                     containerWidth={ wrapperDimension.width }
@@ -90,11 +107,11 @@ export default function AnnotationWrapper() {
 
     return (
         <div className={ classes.annotationWrapper }>
-            <img 
-                alt="" 
+            <img
+                alt=""
                 className={ classes.annotationImage }
-                src={ curImage?.url } 
-                ref={ annotationImageRef } 
+                src={ curImage?.url }
+                ref={ annotationImageRef }
             />
 
             <Stage
@@ -104,16 +121,16 @@ export default function AnnotationWrapper() {
                     e.evt.preventDefault();
                     setCurBox('');
                 } }
-                className={ `${ classes.annotationCanvasStage } ${ !isEditing ? classes.canvasCrosshair : '' }` }>
-                { rectangles }
+                className={ `${classes.annotationCanvasStage} ${!isEditing ? classes.canvasCrosshair : ''}` }>
+                {rectangles}
                 {
                     !isEditing && (
-                        <AddAnnotationBoxLayer 
-                            width={ wrapperDimension.width }                 
+                        <AddAnnotationBoxLayer
+                            width={ wrapperDimension.width }
                             height={ wrapperDimension.height }
                             onAdd={ (coords) => {
                                 addAnnotationObject(coords);
-                            } } 
+                            } }
                         />
                     )
                 }

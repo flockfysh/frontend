@@ -1,6 +1,7 @@
 .heading {
     font-size: 3rem;
     font-weight: 600;
+    flex: 1;
 }
 
 .containerDiv {
@@ -8,6 +9,11 @@
     display: flex;
     flex-direction: column;
     gap: min(calc(3rem + 2vw), 8rem);
+}
+
+.headingRow {
+    display: flex;
+    gap: 2rem;
 }
 
 .imageSection {
@@ -97,6 +103,25 @@
 
 .cardText:not(:last-of-type) {
     margin-bottom: 1.2rem;
+}
+
+.logoutButton {
+    width: 20%;
+    padding: 15px 0px;
+    cursor: pointer;
+    border-radius: 15px;
+    align-self: center;
+    background: none;
+    color: var(--color-white);
+    font-size: large;
+    margin-left: 100px;
+    border: 2px solid var(--color-white);
+    transition: 0.2s;
+}
+
+.logoutButton:hover {
+    color: var(--color-black-primary);
+    background: var(--color-white);
 }
 
 @media only all and (min-width: 768px) {
