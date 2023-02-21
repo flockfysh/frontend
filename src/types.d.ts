@@ -23,6 +23,7 @@ declare interface Dataset extends PartialDataset {
     size: number;
     monthlyCost: MonthlyCost;
     classes: string[];
+    numTimesHumanFeedback: number,
     uploadedImages: ImageWithoutAnnotation[];
     feedbackImages: ImageWithoutAnnotation[];
     datasetImages: ImageWithoutAnnotation[];

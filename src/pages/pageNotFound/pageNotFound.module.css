@@ -2,8 +2,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     text-align: center;
-    margin-block: 5rem;
+    flex: 1;
+    height: 100%;
+    padding-block: 5rem;
 }
 
 .pnfContainer p {

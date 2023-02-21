@@ -49,7 +49,7 @@ export function ErrorWrapper(props: React.PropsWithChildren) {
     return (
         <ErrorContext.Provider value={ { throwError } }>
             {errorModals}
-            <div>{props.children}</div>
+            {props.children}
         </ErrorContext.Provider>
     );
 }

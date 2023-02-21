@@ -11,7 +11,9 @@ export default function Overview(props: { dataset: Dataset }) {
                 <div className={ classes.titleBar }>
                     <h1>{ props.dataset.name } dataset</h1>
 
-                    <GradientLink className={ classes.utilityButton } to={ `/dashboard/${props.dataset.id}/annotate` } children="Annotate" hasArrow={ true }/>
+                    <GradientLink className={ classes.utilityButton } to={ `/dashboard/${props.dataset.id}/annotate` } hasArrow={ true }>
+                        {props.dataset.numTimesHumanFeedback > 0 ? 'Validate feedback' : 'Annotate'}
+                    </GradientLink>
                 </div>
 
                 <p>{ props.dataset.description }</p>

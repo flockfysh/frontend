@@ -42,6 +42,7 @@ export default function EachDataSet(props: { page: string }) {
                 dateCreated: new Date(result.createdOn),
                 plan: 'Free forever',
                 classes: result.classes,
+                numTimesHumanFeedback: result.numTimesHumanFeedback,
                 datasetImages: [],
                 uploadedImages: result.uploadedImages,
                 feedbackImages: result.feedbackImages,
