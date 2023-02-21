@@ -38,7 +38,6 @@ export default function LoginForm(props: { type: string }) {
         if (popup) {
             curPopup.current = popup;
             window.addEventListener('message', function goToDashboard(e) {
-                console.log(e);
                 if (e.data.success) {
                     popup.close();
                     navigate('/dashboard');
