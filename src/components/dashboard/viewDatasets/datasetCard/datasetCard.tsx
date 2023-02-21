@@ -15,7 +15,7 @@ export default function DatasetCard(props: { dataset: PartialDataset }) {
                     {props.dataset.name}
                 </h2>
                 <Button className={ classes.deleteButton } onClick={ async () => {
-                    await api.delete(`/api/datasets/${props.dataset.id}`);
+                    await api.delete(`/api/dataset/${props.dataset.id}`);
                 } }>
                     <FaTrash className={ classes.trashIcon }></FaTrash>
                 </Button>
