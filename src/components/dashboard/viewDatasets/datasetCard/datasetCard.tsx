@@ -6,7 +6,7 @@ import Button from '../../../UI/button/button';
 import classes from './datasetCard.module.css';
 import api from '../../../../helpers/api';
 
-export default function DatasetCard(props: { dataset: PartialDataset }) {
+export default function DatasetCard(props: { dataset: PartialDataset, onDelete: (id: string) => Promise<void> }) {
     return (
         <li className={ classes.cardContainer }>
             <div className={ classes.cardHeader }>
@@ -15,7 +15,7 @@ export default function DatasetCard(props: { dataset: PartialDataset }) {
                     {props.dataset.name}
                 </h2>
                 <Button className={ classes.deleteButton } onClick={ async () => {
-                    await api.delete(`/api/dataset/${props.dataset.id}`);
+                    props.onDelete(props.dataset.id);
                 } }>
                     <FaTrash className={ classes.trashIcon }></FaTrash>
                 </Button>

@@ -35,6 +35,12 @@ export default function ViewDatasets() {
         })();
     }, []);
 
+    async function deleteDataset(id: string){
+        await api.delete(`/api/dataset/${id}`);
+        const deleted = datasets.filter((dataset) => dataset.id !== id);
+        updateDatasets(deleted);
+    }
+
     if (isLoading) return <Loading/>;
 
     return (
@@ -90,7 +96,7 @@ export default function ViewDatasets() {
                         else
                             return elements.map(
                                 (dataset, index) => (
-                                    <DatasetCard key={ index } dataset={ dataset }/>
+                                    <DatasetCard key={ index } dataset={ dataset } onDelete={ deleteDataset }/>
                                 )
                             );
                     })()
