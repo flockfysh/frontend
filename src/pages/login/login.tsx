@@ -12,7 +12,7 @@ import classes from './login.module.css';
 export default function LoginForm(props: { type: string }) {
     const navigate = useNavigate();
     const curPopup = useRef<Window | null>(null);
-    const { curUser, setUser } = useContext(UserContext);
+    const { curUser, setUser, refresh } = useContext(UserContext);
 
     if (curUser) return <Navigate to="/dashboard" replace={ true }/>;
 
@@ -40,6 +40,7 @@ export default function LoginForm(props: { type: string }) {
             window.addEventListener('message', function goToDashboard(e) {
                 if (e.data.success) {
                     popup.close();
+                    refresh();
                     navigate('/dashboard');
                 }
             });
