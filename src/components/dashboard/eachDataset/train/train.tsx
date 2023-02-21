@@ -6,6 +6,8 @@ import { CustomCreatableSelect } from '../../../UI/input/selectInput';
 import React from 'react';
 import { LABEL_COLORS } from '../../../../settings';
 import api from '../../../../helpers/api';
+import { AxiosError } from 'axios';
+import { ErrorContext } from '../../../../contexts/errorContext';
 
 interface InitiateTraningRequest {
     class_search_queries: Record<string, string[]>;
@@ -26,23 +28,34 @@ function TrainingLabels(props: React.ComponentPropsWithRef<'label'> & { labelCol
 }
 
 export default function Train(props: { dataset: Dataset }) {
+    const { throwError } = React.useContext(ErrorContext);
+
     async function initiateSubmission(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        const submissionForm = e.currentTarget;
-        const fd = new FormData(submissionForm);
-        const classSearchQueries: Record<string, string[]> = {};
-        for (const key of fd.keys()) {
-            if (/^searchQuery/.test(key)) {
-                const labelIndex = +key.split('_')[1];
-                const label = props.dataset.classes[labelIndex];
-                classSearchQueries[label] = fd.getAll(key) as string[];
+        try {
+            e.preventDefault();
+            const submissionForm = e.currentTarget;
+            const fd = new FormData(submissionForm);
+            const classSearchQueries: Record<string, string[]> = {};
+            for (const key of fd.keys()) {
+                if (/^searchQuery/.test(key)) {
+                    const labelIndex = +key.split('_')[1];
+                    const label = props.dataset.classes[labelIndex];
+                    classSearchQueries[label] = fd.getAll(key) as string[];
+                }
+            }
+            const requestBody: InitiateTraningRequest = {
+                // eslint-disable-next-line camelcase
+                desired_data: +(fd.get('desired_data') as string),
+                // eslint-disable-next-line camelcase
+                class_search_queries: classSearchQueries,
+            };
+            await api.post(`/api/dataset/${props.dataset.id}/initializeTraining`, requestBody);
+        }
+ catch (error) {
+            if (error instanceof AxiosError) {
+                throwError(error.response?.data.error.message, 'Training error');
             }
         }
-        const requestBody: InitiateTraningRequest = {
-            desired_data: +(fd.get('desired_data') as string),
-            class_search_queries: classSearchQueries,
-        };
-        await api.post(`/api/dataset/${props.dataset.id}/initializeTraining`, requestBody);
     }
 
     return (

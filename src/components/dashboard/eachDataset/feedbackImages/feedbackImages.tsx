@@ -3,20 +3,24 @@ import ImageComponent from '../imageComponent/imageComponent';
 import classes from '../common.module.css';
 import imageGridClasses from '../images.module.css';
 
-export default function UploadedImages(props: { dataset: Dataset }) {
+export default function FeedbackImages(props: { dataset: Dataset }) {
+
     return (
         <div className={ classes.container }>
             <div className={ classes.contentContainer }>
-                <h1>Uploaded images</h1>
+                <h1>Feedback images</h1>
 
                 <div className={ imageGridClasses.uploadedImagesContainer }>
                     {
-                        props.dataset.uploadedImages.map(
+                        props.dataset.feedbackImages.map(
                             (image, index) => (
                                 <ImageComponent key={ index } image={ image }/>
-                            )
+                            ),
                         )
                     }
+                </div>
+                <div className={ imageGridClasses.loadBtnContainer }>
+                    <button className={ imageGridClasses.loadBtn }>Load more images</button>
                 </div>
             </div>
         </div>

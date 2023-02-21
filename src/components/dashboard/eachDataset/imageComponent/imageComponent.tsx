@@ -1,8 +1,8 @@
 import { FaTrash } from 'react-icons/fa';
 
-import imageClasses from './datasetImage.module.css';
+import imageClasses from './imageComponent.module.css';
 
-export default function DatasetImage(props: { image: DatasetImage }) {
+export default function ImageComponent(props: { image: ImageWithoutAnnotation }) {
   return (
     <div className={ imageClasses.imageContainer }>
       <img src={ props.image.url } alt={ props.image.displayName } />

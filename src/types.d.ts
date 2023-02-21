@@ -4,7 +4,7 @@ declare module '*.jpg';
 declare module '*.png';
 
 // #region Datasets
-declare interface DatasetImage {
+declare interface ImageWithoutAnnotation {
     url: string;
     name: string;
     displayName?: string;
@@ -23,8 +23,9 @@ declare interface Dataset extends PartialDataset {
     size: number;
     monthlyCost: MonthlyCost;
     classes: string[];
-    uploadedImages: DatasetImage[];
-    datasetImages: DatasetImage[];
+    uploadedImages: ImageWithoutAnnotation[];
+    feedbackImages: ImageWithoutAnnotation[];
+    datasetImages: ImageWithoutAnnotation[];
 }
 
 declare interface AnnotationBox {
