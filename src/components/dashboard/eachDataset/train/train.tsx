@@ -8,8 +8,8 @@ import { LABEL_COLORS } from '../../../../settings';
 import api from '../../../../helpers/api';
 
 interface InitiateTraningRequest {
-    class_search_queries: Record<string, string[]>;
-    desired_data: number;
+    classSearchQueries: Record<string, string[]>;
+    desiredData: number;
 }
 
 function TrainingLabels(props: React.ComponentPropsWithRef<'label'> & { labelColor?: string }) {
@@ -31,6 +31,7 @@ export default function Train(props: { dataset: Dataset }) {
         const submissionForm = e.currentTarget;
         const fd = new FormData(submissionForm);
         const classSearchQueries: Record<string, string[]> = {};
+
         for (const key of fd.keys()) {
             if (/^searchQuery/.test(key)) {
                 const labelIndex = +key.split('_')[1];
@@ -38,10 +39,12 @@ export default function Train(props: { dataset: Dataset }) {
                 classSearchQueries[label] = fd.getAll(key) as string[];
             }
         }
+
         const requestBody: InitiateTraningRequest = {
-            desired_data: +(fd.get('desired_data') as string),
-            class_search_queries: classSearchQueries,
+            desiredData: +(fd.get('desired_data') as string),
+            classSearchQueries: classSearchQueries,
         };
+        
         await api.post(`/api/dataset/${props.dataset.id}/initializeTraining`, requestBody);
     }
 
@@ -50,17 +53,21 @@ export default function Train(props: { dataset: Dataset }) {
             <form className={ classes.contentContainer } onSubmit={ initiateSubmission }>
                 <div className={ classes.titleBar }>
                     <h1>Dataset training</h1>
+                    
                     <Button type={ 'submit' } className={ classes.utilityButton } gradient={ true }>
                         <span>Initiate training</span>
                         <RxArrowRight className={ classes.icon }></RxArrowRight>
                     </Button>
                 </div>
+
                 <div className={ classes.formInputs }>
                     <div className={ classes.labelledInputContainer }>
                         <span className={ classes.labelledInputContainer__label }>Search Queries</span>
+
                         <ul className={ trainingClasses.trainingQueriesInputs }>
                             {props.dataset.classes.map(function generateSearchQueryInput(classString, index) {
                                 const id = React.useId();
+
                                 return (
                                     <React.Fragment key={ index }>
                                         <TrainingLabels htmlFor={ id }
