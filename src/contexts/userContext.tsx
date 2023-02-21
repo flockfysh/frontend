@@ -3,15 +3,16 @@ import Loading from '../components/loading/loading';
 import api from '../helpers/api';
 
 interface IUserContext {
-    curUser: User | null;
-    isLoggedIn: boolean;
-    refreshUserState: () => void;
+    curUser: User | null,
+    setUser: (data: User | null) => void;
+    refresh: () => void;
 }
 
 export const UserContext = createContext<IUserContext>({
     curUser: null as (User | null),
-    isLoggedIn: false,
-    refreshUserState: () => {
+    setUser: () => {
+    },
+    refresh: () => {
     },
 });
 
@@ -19,49 +20,50 @@ export function UserWrapper(props: PropsWithChildren) {
     const [curUser, setCurUser] = useState<User | null>(null);
     const [isLoading, updateLoading] = useState<boolean>(true);
 
-    // Removed. Why do we happen to need to check the logged in state? Can't we simply base it on the user -
-    // can we set it to isLoggedIn = !!user?
-    // const [isLoggedIn, updateLoggedInState] = useState(false);
-
     useEffect(() => {
-        (async function getUserState() {
-            try {
-                const data = (await api.get(`/`)).data;
-                const userData = data.data;
-                if (userData.curUser) {
-                    setCurUser({
-                        name: `${userData.curUser.firstName} ${userData.curUser.lastName}`,
-                        email: userData.curUser.email,
-                        profileImage: userData.curUser.profilePhoto,
-                        monthlyCost: {} as MonthlyCost,
-                        payments: [] as Cost[]
-                    });
-                }
-                else {
-                    setCurUser(null);
-                }
-            }
-            catch (e) {
+        if (isLoading) {
+            (async function getUserState() {
+                try {
+                    const data = (await api.get(`/`)).data;
+                    const userData = data.data;
 
-            }
+                    if (userData.curUser) {
+                        setCurUser({
+                            name: `${userData.curUser.firstName} ${userData.curUser.lastName}`,
+                            email: userData.curUser.email,
+                            profileImage: userData.curUser.profilePhoto,
+                            monthlyCost: {} as MonthlyCost,
+                            payments: [] as Cost[],
+                        });
+                    }
+                    else {
+                        setCurUser(null);
+                    }
+                }
+ catch (e) {
 
-            updateLoading(false);
-        })();
+                }
+
+                updateLoading(false);
+            })();
+        }
     }, [isLoading]);
 
     if (isLoading) return <Loading/>;
 
-    const isLoggedIn = Boolean(curUser);
+    function setUser(user: User | null) {
+        setCurUser(user);
+    }
 
-    function refreshUserState() {
+    function refresh() {
         updateLoading(true);
     }
 
-    const curState = { curUser, isLoggedIn, refreshUserState };
-    
+    const curState = { curUser, setUser, refresh };
+
     return (
         <UserContext.Provider value={ curState }>
-            { props.children }
+            {props.children}
         </UserContext.Provider>
     );
 }

@@ -1,6 +1,8 @@
 import { useState, useRef, useContext } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 
+import axios from 'axios';
+
 import { serverURL } from '../../settings';
 
 import { UserContext } from '../../contexts/userContext';
@@ -10,11 +12,9 @@ import classes from './login.module.css';
 export default function LoginForm(props: { type: string }) {
     const navigate = useNavigate();
     const curPopup = useRef<Window | null>(null);
-    const { isLoggedIn } = useContext(UserContext);
+    const { curUser, setUser } = useContext(UserContext);
 
-    if (isLoggedIn) {
-        return <Navigate to="/dashboard" replace={ true } />;
-    }
+    if (curUser) return <Navigate to="/dashboard" replace={ true }/>;
 
     // defaulting to true to account for browser auto-filling
     const [emailIsValid, setEmailIsValid] = useState(true);
@@ -23,30 +23,24 @@ export default function LoginForm(props: { type: string }) {
     const emailRef = useRef({} as HTMLInputElement);
     const passwordRef = useRef({} as HTMLInputElement);
 
-    const { refreshUserState } = useContext(UserContext);
-
-    // TODO: Can we not make a popup?
-
     /**
      * Open oAuth login Popup
      *
      * @param path Backend API route for login auth
      */
     function oAuthLogin(path: string) {
-        const login = serverURL + path;
-
-        // location.replace(login);
         // Don't open too many auth windows.
         if (curPopup.current) curPopup.current.close();
+
+        const login = serverURL + path;
         const popup = window.open(login, '_blank');
 
         if (popup) {
             curPopup.current = popup;
-
             window.addEventListener('message', function goToDashboard(e) {
+                console.log(e);
                 if (e.data.success) {
                     popup.close();
-                    refreshUserState();
                     navigate('/dashboard');
                 }
             });
@@ -61,7 +55,7 @@ export default function LoginForm(props: { type: string }) {
 
             return false;
         }
- else {
+        else {
             setPasswordIsValid(true);
 
             return true;
@@ -90,7 +84,7 @@ export default function LoginForm(props: { type: string }) {
 
             return true;
         }
- else {
+        else {
             setEmailIsValid(false);
 
             return false;
@@ -104,21 +98,22 @@ export default function LoginForm(props: { type: string }) {
         if (!emailValidHandler(email) || !passwordValidHandler(password)) return;
 
         if (emailIsValid && passwordIsValid) {
-            // const response = (await axios(
-            //   {
-            //     method: 'post',
-            //     url: 'http://localhost:8000/' + props.type.toLowerCase(),
-            //     data: {
-            //       email: email,
-            //       password: password
-            //     },
-            //     withCredentials: true,
-            //     headers: {
-            //       'Content-Type': 'application/x-www-form-urlencoded'
-            //     }
-            //   }
-            // )).data;
-            refreshUserState();
+            const response = (await axios(
+                {
+                    method: 'post',
+                    url: serverURL + '/' + props.type.toLowerCase(),
+                    data: {
+                        email: email,
+                        password: password,
+                    },
+                    withCredentials: true,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                },
+            )).data;
+
+            setUser(response);
             navigate('/dashboard');
         }
     }
@@ -139,8 +134,8 @@ export default function LoginForm(props: { type: string }) {
                 />
 
                 <span className={ `${!emailIsValid ? classes.inputInvalidTextActive : classes.inputInvalidText}` }>
-          Not valid email
-        </span>
+                    Not valid email
+                </span>
 
                 <label htmlFor="password" className={ classes.inputHeading }>
                     Password
@@ -155,8 +150,8 @@ export default function LoginForm(props: { type: string }) {
                 />
 
                 <span className={ `${!passwordIsValid ? classes.inputInvalidTextActive : classes.inputInvalidText}` }>
-          Password too short
-        </span>
+                    Password too short
+                </span>
 
                 {
                     props.type === 'Signup' ? (
@@ -175,7 +170,7 @@ export default function LoginForm(props: { type: string }) {
                     className={ classes.submitButton }
                     onClick={ submitHandler }
                 >
-                    { props.type }
+                    {props.type}
                 </button>
             </div>
 
@@ -187,7 +182,7 @@ export default function LoginForm(props: { type: string }) {
                     onClick={ () => oAuthLogin('/auth/github') }
                     type="button"
                 >
-                    { props.type } with Github{ ' ' }
+                    {props.type} with Github{' '}
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className={ classes.githubIcon }
@@ -205,7 +200,7 @@ export default function LoginForm(props: { type: string }) {
                     onClick={ () => oAuthLogin('/auth/google') }
                     type="button"
                 >
-                    { props.type } with Google{ ' ' }
+                    {props.type} with Google{' '}
                     <svg
                         className={ classes.googleIcon }
                         xmlns="http://www.w3.org/2000/svg"

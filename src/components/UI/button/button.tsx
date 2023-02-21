@@ -9,10 +9,13 @@ interface ButtonProps extends React.ComponentPropsWithRef<'button'> {
 
 export default function Button(props: ButtonProps) {
     const { gradient, gradientDirection, ...buttonProps } = props;
+    
+    const gradDir = gradientDirection ? gradientDirection : 'topToBottom';
+
     let gradientClass = '';
 
     if (gradient) {
-        switch (gradientDirection) {
+        switch (gradDir) {
             case 'topToBottom':
                 gradientClass = classes.gradientBottomRight;
                 break;
