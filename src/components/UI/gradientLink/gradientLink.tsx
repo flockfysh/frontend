@@ -32,8 +32,18 @@ export default function GradientLink(props: GradientLinkProps) {
             gradientClass = classes.gradientBottomRight;
     }
 
+    if(props.to.startsWith('http')) return (
+        <a className={ `${classes.button} ${gradientClass} ${props.className || ''}` } href={ props.to } target="_blank">
+            { props.children }
+
+            {
+                hasArrow ? <RxArrowRight className={ classes.svg }/> : <></>
+            }
+        </a>
+    );
+
     return (
-        <Link className={ `${classes.button} ${gradientClass} ${props.className || ''}` } to={ props.to }>
+        <Link className={ `${classes.button} ${gradientClass} ${props.className || ''}` } to={ props.to } target="_blank">
             { props.children }
 
             {
