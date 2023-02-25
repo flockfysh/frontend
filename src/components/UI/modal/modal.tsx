@@ -14,6 +14,7 @@ export interface FilePreviewProps {
 }
 
 export interface TextModalProps {
+    title?: string;
     message: string;
     closeModal: () => void;
 }
@@ -23,9 +24,9 @@ export default function Modal(props: ModalProps) {
     return (
         <div className={ classes.modalContainer }>
             <div className={ classes.modalContent }>
-                <h4 className={ classes.modalTitle }>{ props.title }</h4>
+                <h4 className={ classes.modalTitle }>{props.title}</h4>
 
-                { props.children }
+                {props.children}
 
                 <button onClick={ props.closeModal } className={ classes.closeModal }>Ok</button>
             </div>
@@ -35,8 +36,8 @@ export default function Modal(props: ModalProps) {
 
 export function ErrorModal(props: TextModalProps) {
     return (
-        <Modal closeModal={ props.closeModal } title="Error!">
-            <p>{ props.message }</p>
+        <Modal closeModal={ props.closeModal } title={ props.title ?? 'Error' }>
+            <p>{props.message}</p>
         </Modal>
     );
 }

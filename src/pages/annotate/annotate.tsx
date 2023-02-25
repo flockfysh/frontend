@@ -75,13 +75,20 @@ export default function Annotate() {
         if (params.datasetId) {
             (async function getCurrentDataset() {
                 try {
-                    const uploadedImages = (await api.get(`/api/dataset/${params.datasetId}/uploadedImageIds`)).data.data;
+                    const datasetState = (await api.get(`/api/dataset/${params.datasetId}/state`)).data.data;
+                    let images = [];
+                    if (datasetState === 'feedback') {
+                        images = (await api.get(`/api/dataset/${params.datasetId}/imageIds`, { params: { state: 'feedback' } })).data.data;
+                    }
+                    else if (datasetState === 'untrained') {
+                        images = (await api.get(`/api/dataset/${params.datasetId}/imageIds`, { params: { state: 'uploaded' } })).data.data;
+                    }
                     const datasetLabels = (await api.get(`/api/dataset/${params.datasetId}/labels`)).data.data;
                     setImageIndex(0);
-                    setImageIds(uploadedImages);
+                    setImageIds(images);
                     setLabels(datasetLabels);
                 }
- catch (e) {
+                catch (e) {
                     navigate('/404');
                 }
             })();
