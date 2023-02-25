@@ -12,6 +12,7 @@ import classes from './eachDataset.module.css';
 import api from '../../helpers/api';
 import Train from '../../components/dashboard/eachDataset/train/train';
 import FeedbackImages from '../../components/dashboard/eachDataset/feedbackImages/feedbackImages';
+import Annotate from '../annotate/annotate';
 
 export default function EachDataSet(props: { page: string }) {
     const { datasetId } = useParams();
@@ -50,6 +51,7 @@ export default function EachDataSet(props: { page: string }) {
                 size: result.size,
                 description: result.description,
                 itemCount: result.itemCount,
+                state: result.state,
             };
 
             updateDataset(dataset);
@@ -64,7 +66,7 @@ export default function EachDataSet(props: { page: string }) {
                 {subPage === 'overview' && <Overview dataset={ dataset }/>}
                 {subPage === 'uploaded-images' && <UploadedImages dataset={ dataset }/>}
                 {subPage === 'dataset-images' && <DatasetImages dataset={ dataset }/>}
-                {subPage === 'feedback-images' && <FeedbackImages dataset={ dataset }/>}
+                {subPage === 'annotate' && (dataset.state === 'untrained' || dataset.state === 'feedback' && dataset.feedbackImages.length>0) && <Annotate/>}
                 {subPage === 'settings' && <Settings dataset={ dataset }/>}
                 {subPage === 'train' && <Train dataset={ dataset }/>}
             </SideBar>

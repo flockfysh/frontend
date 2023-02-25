@@ -27,6 +27,7 @@ declare interface Dataset extends PartialDataset {
     uploadedImages: ImageWithoutAnnotation[];
     feedbackImages: ImageWithoutAnnotation[];
     datasetImages: ImageWithoutAnnotation[];
+    state: string;
 }
 
 declare interface AnnotationBox {

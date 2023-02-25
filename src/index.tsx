@@ -75,7 +75,6 @@ function MainApp() {
                             <Route path="profile" element={ <Profile /> }/>
                             <Route path="create-dataset" element={ <CreateDataset /> }/>
 
-                            <Route path=":datasetId/annotate" element={ <Annotate /> }/>
                         </Route>
 
                         <Route
@@ -94,8 +93,8 @@ function MainApp() {
                         />
 
                         <Route
-                            path=":datasetId/feedback-images"
-                            element={ <EachDataSet page="feedback-images" /> }
+                            path=":datasetId/annotate"
+                            element={ <EachDataSet page="annotate" /> }
                         />
 
                         <Route

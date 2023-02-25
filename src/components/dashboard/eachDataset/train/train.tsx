@@ -89,9 +89,9 @@ export default function Train(props: { dataset: Dataset }) {
 
                     <label className={ classes.labelledInputContainer }>
                         <span className={ classes.labelledInputContainer__label }>Output Quantity</span>
-                        <input type="range" id={ 'desired_data' } name={ 'desired_data' } min={ 20 } max={ 50 }
+                        <input type="number" id={ 'desired_data' } name={ 'desired_data' } min={ 1 } max={ 10000 }
                                defaultValue={ 30 }
-                               className={ classes.outputQuantityRange }/>
+                               className={ classes.outputQuantity }/>
                     </label>
 
                 </div>

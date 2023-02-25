@@ -16,8 +16,8 @@ const LINK_DESCRIPTIONS = [
         children: 'Uploaded images',
     },
     {
-        name: 'feedback-images',
-        children: 'Feedback images',
+        name: 'annotate',
+        children: 'Annotate Images',
     },
     {
         name: 'dataset-images',
