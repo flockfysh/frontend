@@ -28,6 +28,7 @@ import { ScreenWrapper } from './contexts/screenContext';
 import { EmotionCacheProvider } from './contexts/reactSelectContext';
 
 import './index.css';
+import { ErrorWrapper } from './contexts/errorContext';
 
 /**
  * Wraps entire App with neccessary Contexts
@@ -39,9 +40,11 @@ function AppWrapper(props: React.PropsWithChildren) {
     return (
         <EmotionCacheProvider>
             <ScreenWrapper>
-                <UserWrapper>
-                    { props.children }
-                </UserWrapper>
+                <ErrorWrapper>
+                    <UserWrapper>
+                        { props.children }
+                    </UserWrapper>
+                </ErrorWrapper>
             </ScreenWrapper>
         </EmotionCacheProvider>
     );
@@ -88,6 +91,11 @@ function MainApp() {
                         <Route
                             path=":datasetId/dataset-images"
                             element={ <EachDataSet page="dataset-images" /> }
+                        />
+
+                        <Route
+                            path=":datasetId/feedback-images"
+                            element={ <EachDataSet page="feedback-images" /> }
                         />
 
                         <Route

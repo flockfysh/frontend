@@ -12,9 +12,9 @@ import classes from './login.module.css';
 export default function LoginForm(props: { type: string }) {
     const navigate = useNavigate();
     const curPopup = useRef<Window | null>(null);
-    const { curUser } = useContext(UserContext);
+    const { curUser, setUser, refresh } = useContext(UserContext);
 
-    if(curUser) return <Navigate to="/dashboard" replace={ true } />;
+    if (curUser) return <Navigate to="/dashboard" replace={ true }/>;
 
     // defaulting to true to account for browser auto-filling
     const [emailIsValid, setEmailIsValid] = useState(true);
@@ -22,8 +22,6 @@ export default function LoginForm(props: { type: string }) {
 
     const emailRef = useRef({} as HTMLInputElement);
     const passwordRef = useRef({} as HTMLInputElement);
-
-    const { setUser } = useContext(UserContext);
 
     /**
      * Open oAuth login Popup
@@ -35,24 +33,18 @@ export default function LoginForm(props: { type: string }) {
         if (curPopup.current) curPopup.current.close();
 
         const login = serverURL + path;
-        window.location.replace(login);
+        const popup = window.open(login, '_blank');
 
-        // if (popup) {
-
-        //     curPopup.current = popup;
-            
-        //     curPopup.current.addEventListener('message', function goToDashboard(e) {
-        //         console.log(e);
-        //         if (e.data.success) {
-        //             popup.close();
-
-
-        //             console.log(e.data);
-
-        //             navigate('/dashboard');
-        //         }
-        //     });
-        // }
+        if (popup) {
+            curPopup.current = popup;
+            window.addEventListener('message', function goToDashboard(e) {
+                if (e.data.success) {
+                    popup.close();
+                    refresh();
+                    navigate('/dashboard');
+                }
+            });
+        }
     }
 
     function passwordValidHandler(password = null as (String | null)) {
@@ -107,18 +99,18 @@ export default function LoginForm(props: { type: string }) {
 
         if (emailIsValid && passwordIsValid) {
             const response = (await axios(
-              {
-                method: 'post',
-                url: serverURL + '/' + props.type.toLowerCase(),
-                data: {
-                  email: email,
-                  password: password
+                {
+                    method: 'post',
+                    url: serverURL + '/' + props.type.toLowerCase(),
+                    data: {
+                        email: email,
+                        password: password,
+                    },
+                    withCredentials: true,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
                 },
-                withCredentials: true,
-                headers: {
-                  'Content-Type': 'application/x-www-form-urlencoded'
-                }
-              }
             )).data;
 
             setUser(response);
@@ -178,7 +170,7 @@ export default function LoginForm(props: { type: string }) {
                     className={ classes.submitButton }
                     onClick={ submitHandler }
                 >
-                    { props.type }
+                    {props.type}
                 </button>
             </div>
 
@@ -190,7 +182,7 @@ export default function LoginForm(props: { type: string }) {
                     onClick={ () => oAuthLogin('/auth/github') }
                     type="button"
                 >
-                    { props.type } with Github{ ' ' }
+                    {props.type} with Github{' '}
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className={ classes.githubIcon }
@@ -208,7 +200,7 @@ export default function LoginForm(props: { type: string }) {
                     onClick={ () => oAuthLogin('/auth/google') }
                     type="button"
                 >
-                    { props.type } with Google{ ' ' }
+                    {props.type} with Google{' '}
                     <svg
                         className={ classes.googleIcon }
                         xmlns="http://www.w3.org/2000/svg"

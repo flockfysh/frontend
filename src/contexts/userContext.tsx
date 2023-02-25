@@ -2,10 +2,18 @@ import { PropsWithChildren, useEffect, useState, createContext } from 'react';
 import Loading from '../components/loading/loading';
 import api from '../helpers/api';
 
-export const UserContext = createContext({
+interface IUserContext {
+    curUser: User | null,
+    setUser: (data: User | null) => void;
+    refresh: () => void;
+}
+
+export const UserContext = createContext<IUserContext>({
     curUser: null as (User | null),
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    setUser: (_: User | null) => {},
+    setUser: () => {
+    },
+    refresh: () => {
+    },
 });
 
 export function UserWrapper(props: PropsWithChildren) {
@@ -13,31 +21,33 @@ export function UserWrapper(props: PropsWithChildren) {
     const [isLoading, updateLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        (async function getUserState() {
-            try {
-                const data = (await api.get(`/`)).data;
-                const userData = data.data;
+        if (isLoading) {
+            (async function getUserState() {
+                try {
+                    const data = (await api.get(`/`)).data;
+                    const userData = data.data;
 
-                if(userData.curUser) {
-                    setCurUser({
-                        name: `${userData.curUser.firstName} ${userData.curUser.lastName}`,
-                        email: userData.curUser.email,
-                        profileImage: userData.curUser.profilePhoto,
-                        monthlyCost: {} as MonthlyCost,
-                        payments: [] as Cost[]
-                    });
+                    if (userData.curUser) {
+                        setCurUser({
+                            name: `${userData.curUser.firstName} ${userData.curUser.lastName}`,
+                            email: userData.curUser.email,
+                            profileImage: userData.curUser.profilePhoto,
+                            monthlyCost: {} as MonthlyCost,
+                            payments: [] as Cost[],
+                        });
+                    }
+                    else {
+                        setCurUser(null);
+                    }
                 }
-                else {
-                    setCurUser(null);
+ catch (e) {
+
                 }
-            }
-            catch (e) {
 
-            }
-
-            updateLoading(false);
-        })();
-    }, []);
+                updateLoading(false);
+            })();
+        }
+    }, [isLoading]);
 
     if (isLoading) return <Loading/>;
 
@@ -45,11 +55,15 @@ export function UserWrapper(props: PropsWithChildren) {
         setCurUser(user);
     }
 
-    const curState = { curUser, setUser };
-    
+    function refresh() {
+        updateLoading(true);
+    }
+
+    const curState = { curUser, setUser, refresh };
+
     return (
         <UserContext.Provider value={ curState }>
-            { props.children }
+            {props.children}
         </UserContext.Provider>
     );
 }

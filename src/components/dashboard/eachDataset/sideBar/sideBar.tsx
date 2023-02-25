@@ -16,6 +16,10 @@ const LINK_DESCRIPTIONS = [
         children: 'Uploaded images',
     },
     {
+        name: 'feedback-images',
+        children: 'Feedback images',
+    },
+    {
         name: 'dataset-images',
         children: 'Dataset images',
     },
