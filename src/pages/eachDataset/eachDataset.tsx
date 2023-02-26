@@ -45,6 +45,7 @@ export default function EachDataSet(props: { page: string }) {
                 }, 0) ?? 0) + monthlyCost.creation;
     
                 const dataset: Dataset = {
+                    state: result.state,
                     name: result.name,
                     id: result.id,
                     dateCreated: new Date(result.createdOn),
