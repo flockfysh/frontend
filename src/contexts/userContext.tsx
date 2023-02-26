@@ -27,7 +27,7 @@ export function UserWrapper(props: PropsWithChildren) {
 
                     if (userData.curUser) {
                         setCurUser({
-                            name: `${ userData.curUser.firstName } ${ userData.curUser.lastName }`,
+                            name: `${ userData.curUser.firstName ?? '' } ${ userData.curUser.lastName ?? '' }`,
                             email: userData.curUser.email,
                             profileImage: userData.curUser.profilePhoto,
                             monthlyCost: {} as MonthlyCost,
