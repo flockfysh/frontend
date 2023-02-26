@@ -17,7 +17,7 @@ export default function ViewDatasets() {
     const [isLoading, updateLoadingState] = useState(true);
     const [filter, updateFilter] = useState('');
     
-    useEffect(() => {
+    useEffect(() => {   
         updateLoadingState(true);
 
         (async function () {
@@ -50,8 +50,8 @@ export default function ViewDatasets() {
 
                 <div className={ classes.searchDatasets }>
                     <SearchInput
-                        type={ 'text' }
-                        placeholder={ 'Find your dataset...' }
+                        type="text"
+                        placeholder="Find your dataset..."
                         onChange={ e => updateFilter(e.target.value) }
                         onLookup={ data => updateFilter(data) }
                         containerClassName={ classes.searchInputContainer }
@@ -83,7 +83,7 @@ export default function ViewDatasets() {
                                                 .replaceAll(' ', '')
                                                 .toLowerCase()
                                         )
-                                );
+                                );  
 
                         if (elements.length === 0)
                             return (

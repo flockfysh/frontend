@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import Loading from '../../components/loading/loading';
 
 import { ErrorModal } from '../../components/UI/modal/modal';
 import CustomSelect, { CustomCreatableSelect } from '../../components/UI/input/selectInput';
@@ -15,12 +13,10 @@ import Textarea from '../../components/UI/input/textarea';
 export default function CreateDataset() {
     const navigate = useNavigate();
 
-    const [isLoading] = useState(false);
-
     const [datasetType, updateDatasetType] = useState('images');
-    const [errorMessage, setErrorMessage] = React.useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const formRef = React.useRef<HTMLFormElement | null>(null);
+    const formRef = useRef<HTMLFormElement | null>(null);
 
     function updateType(type: string) {
         updateDatasetType(type);
@@ -28,10 +24,16 @@ export default function CreateDataset() {
 
     async function createDataset(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        if (!formRef.current) {
-            throw new Error('Missing form element!');
-        }
+        if (!formRef.current) throw new Error('Missing form element!');
         const fd = new FormData(formRef.current);
+
+        const files = new AsyncArray(fd.getAll('files') as File[]);
+
+        if(files.length === 1 && files[0].size === 0) {
+            setErrorMessage('Please upload a file.');
+            
+            return;
+        }
 
         // Create a dataset.
         const createDatasetRequestBody: Record<string, any | any[]> = {};
@@ -45,39 +47,34 @@ export default function CreateDataset() {
         const response = await api.post('/api/dataset', createDatasetRequestBody);
         const datasetId = response.data.data.id;
 
-        // Start adding image to the dataset.
-        const files = new AsyncArray(fd.getAll('files') as File[]);
+        // Start adding images to the dataset.
         const badFiles: string[] = [];
+
         await files.chunkMap(async (file) => {
             try {
                 const fd = new FormData();
                 fd.append('image', file);
-                await api.post(`/api/image/${datasetId}`, fd);
+                await api.post(`/api/image/${ datasetId }`, fd);
             }
- catch (e) {
+            catch (e) {
                 badFiles.push(file.name);
             }
         }, undefined);
-        if (badFiles.length) {
+
+        if(badFiles.length) {
             let badFileString: string;
-            if (badFiles.length <= 5) {
-                badFileString = badFiles.join(', ');
-            }
- else {
-                badFileString = `badFiles.slice(0, 5).join(", ") and ${badFiles.length - 5} more`;
-            }
-            setErrorMessage(`These files failed to upload: ${badFileString}. Please check the dataset for missing files.`);
+
+            if (badFiles.length <= 5) badFileString = badFiles.join(', ');
+            else badFileString = `${ badFiles.slice(0, 5).join(', ') } and ${ badFiles.length - 5 } more`;
+
+            setErrorMessage(`These files failed to upload: ${ badFileString }. Please check the dataset for missing files.`);
         }
- else {
-            navigate('/dashboard');
-        }
+        else navigate('/dashboard');
     }
 
     function closeModal() {
         setErrorMessage('');
     }
-
-    if (isLoading) return <Loading/>;
 
     return (
         <div className={ classes.createDatasetContainer }>
@@ -115,48 +112,75 @@ export default function CreateDataset() {
             <form className={ classes.datasetSecondRow } ref={ formRef } onSubmit={ createDataset }>
                 <div className={ classes.labelledInputContainer }>
                     <label htmlFor="name" className={ classes.labelledInputContainer__label }>Name of Dataset</label>
-                    <input id="name" name="name" type="text"
-                           className={ classes.labelledInputContainer__input }/>
+
+                    <input 
+                        id="name" 
+                        name="name" 
+                        type="text"
+                        className={ classes.labelledInputContainer__input }
+                    />
                 </div>
 
                 <div className={ classes.labelledInputContainer }>
                     <label htmlFor="name" className={ classes.labelledInputContainer__label }>Dataset Description</label>
-                    <Textarea id="name" name="description"
-                              className={ classes.labelledInputContainer__input }/>
+
+                    <Textarea 
+                        id="name" 
+                        name="description"
+                        className={ classes.labelledInputContainer__input }
+                    />
                 </div>
 
 
                 <div className={ classes.labelledInputContainer }>
                     <label htmlFor="pricingPlan" className={ classes.labelledInputContainer__label }>Pricing Plan</label>
-                    <CustomSelect id="pricingPlan" name="tier" className={ classes.labelledInputContainer__input }
-                                  required={ true }
-                                  options={ [
-                                      { label: 'Free forever', value: 'free' },
-                                      { label: 'Hobbyist', value: 'premium1' },
-                                      { label: 'Professional', value: 'premium2' }
-                                  ] }
-                                  defaultValue={ { label: 'Free forever', value: 'free' } }/>
+
+                    <CustomSelect 
+                        id="pricingPlan" 
+                        name="tier" 
+                        className={ classes.labelledInputContainer__input }
+                        required={ true }
+                        options={ [
+                            { label: 'Free forever', value: 'free' },
+                            { label: 'Hobbyist', value: 'premium1' },
+                            { label: 'Professional', value: 'premium2' }
+                        ] }
+                        defaultValue={ { label: 'Free forever', value: 'free' } }
+                    />
                 </div>
 
                 <div className={ classes.labelledInputContainer }>
                     <label htmlFor="classes" className={ classes.labelledInputContainer__label }>Dataset Labels</label>
-                    <CustomCreatableSelect id="classes" name="classes" className={ classes.labelledInputContainer__input }
-                                           required={ true }
-                                           isMulti={ true }
-                                           options={ [] }
-                                           defaultValue={ { label: 'Free forever', value: 'free' } }/>
+
+                    <CustomCreatableSelect 
+                        id="classes" 
+                        name="classes" 
+                        className={ classes.labelledInputContainer__input }
+                        required={ true }
+                        isMulti={ true }
+                        options={ [] }
+                        placeholder="Start typing to create a label..."
+                    />
                 </div>
 
                 <div className={ classes.labelledInputContainer }>
-                    <label htmlFor="addImagesInput" className={ classes.labelledInputContainer__label }>Upload
-                        images</label>
+                    <label 
+                    htmlFor="addImagesInput" 
+                    className={ classes.labelledInputContainer__label }
+                    >
+                        Upload images
+                    </label>
+
                     <MultiFileInput
-                        accept={ '.webp, .png, .jpg, .jpeg' }
-                        buttonLabel={ 'Add images' }
-                        name="files"></MultiFileInput>
+                        accept=".webp, .png, .jpg, .jpeg"
+                        buttonLabel="Add images"
+                        name="files"
+                        setErrorMessage={ setErrorMessage }
+                    />
                 </div>
+
                 <div className={ classes.submitButtonContainer }>
-                    <button type={ 'submit' }>Create Dataset</button>
+                    <button type="submit">Create Dataset</button>
                 </div>
             </form>
         </div>
