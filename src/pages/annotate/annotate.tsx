@@ -28,7 +28,8 @@ export interface IAnnotationPageContext {
     setIsEditing: (data: boolean) => void;
     setCurBox: (data: string) => void;
     addAnnotationObject: (params?: AnnotationBox) => Promise<void>;
-    numImages: number;
+    numImages: number | null;
+    datasetState: string;
 }
 
 export const AnnotationPageContext = React.createContext<IAnnotationPageContext>({
@@ -47,6 +48,7 @@ export const AnnotationPageContext = React.createContext<IAnnotationPageContext>
     setCurLabel: () => {
     },
     curBox: '',
+    datasetState: '',
     setCurBox: () => {
     },
     addAnnotationObject: async () => {
@@ -72,13 +74,14 @@ export default function Annotate() {
     const [curLabel, setCurLabel] = useState(-1);
     const [curBox, setCurBox] = useState<string>('');
     const [isEditing, setIsEditing] = useState(false);
-    const [numImages, setNumImages] = useState(0);
-
+    const [numImages, setNumImages] = useState(null);
+    const [datasetState, setDatasetState] = useState<string>('');
     useEffect(() => {
         if (params.datasetId) {
             (async function getCurrentDataset() {
                 try {
                     const datasetState = (await api.get(`/api/dataset/${params.datasetId}/state`)).data.data;
+                    setDatasetState(datasetState);
                     let images = [];
                     if (datasetState === 'feedback') {
                         images = (await api.get(`/api/dataset/${params.datasetId}/imageIds`, { params: { state: 'feedback' } })).data.data;
@@ -166,11 +169,17 @@ export default function Annotate() {
         await annotationObj.saveTo(curImage.id);
     }
 
+    if(numImages===0){
+        return (
+            <p>A job is currently in progress, please check again later!</p>
+        );
+    }
+
     return (
         <AnnotationPageContext.Provider value={ {
             curImage, labels, nextImage, prevImage, imageIndex,
             curAnnotationData, refresh, curLabel, setCurLabel, curBox,
-            setCurBox, addAnnotationObject, isEditing, setIsEditing, numImages
+            setCurBox, addAnnotationObject, isEditing, setIsEditing, numImages, datasetState
         } }>
             <AnnotateInner></AnnotateInner>
         </AnnotationPageContext.Provider>
@@ -190,11 +199,12 @@ function AnnotateInner() {
         setIsEditing,
         setCurBox,
         numImages,
+        datasetState
     } = React.useContext(AnnotationPageContext);
     const params = useParams();
 
     setCurBox;
-
+        
     if (!curImage) {
         return <Loading/>;
     }
@@ -205,9 +215,15 @@ function AnnotateInner() {
                 <h1 className={ classes.heading }>Picture - {imageIndex + 1}/{numImages}</h1>
             </div>
             <div className={ classes.submitButtonContainer }>
+                { datasetState ==='untrained' && (
                 <GradientLink to={ `/dashboard/${params.datasetId}/train` } children="Initiate training"
                               gradientDirection="rightToLeft"
                               className={ classes.initiateTrainingButton }/>
+                              ) }
+                { datasetState === 'feedback' && (
+                    <Button onClick = { () => api.post(`/api/dataset/${params.datasetId}/continueTraining`) }>Continue Training</Button> 
+                ) }
+
             </div>
             <div className={ classes.leftContainer }>
                 <AnnotationWrapper></AnnotationWrapper>

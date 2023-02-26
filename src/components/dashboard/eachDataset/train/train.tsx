@@ -8,6 +8,7 @@ import { LABEL_COLORS } from '../../../../settings';
 import api from '../../../../helpers/api';
 import { AxiosError } from 'axios';
 import { ErrorContext } from '../../../../contexts/errorContext';
+import { useNavigate } from 'react-router-dom';
 
 interface InitiateTraningRequest {
     class_search_queries: Record<string, string[]>;
@@ -28,8 +29,9 @@ function TrainingLabels(props: React.ComponentPropsWithRef<'label'> & { labelCol
 }
 
 export default function Train(props: { dataset: Dataset }) {
-    const { throwError } = React.useContext(ErrorContext);
 
+    const navigate = useNavigate();
+    const { throwError } = React.useContext(ErrorContext);
     async function initiateSubmission(e: React.FormEvent<HTMLFormElement>) {
         try {
             e.preventDefault();
@@ -50,8 +52,9 @@ export default function Train(props: { dataset: Dataset }) {
                 class_search_queries: classSearchQueries,
             };
             await api.post(`/api/dataset/${props.dataset.id}/initializeTraining`, requestBody);
+            navigate('../annotate');
         }
- catch (error) {
+        catch (error) {
             if (error instanceof AxiosError) {
                 throwError(error.response?.data.error.message, 'Training error');
             }
@@ -63,7 +66,7 @@ export default function Train(props: { dataset: Dataset }) {
             <form className={ classes.contentContainer } onSubmit={ initiateSubmission }>
                 <div className={ classes.titleBar }>
                     <h1>Dataset training</h1>
-                    <Button type={ 'submit' } className={ classes.utilityButton } gradient={ true }>
+                    <Button type={ 'submit' } disabled={ props.dataset.state !== 'untrained' }className={ classes.utilityButton } gradient={ true }>
                         <span>Initiate training</span>
                         <RxArrowRight className={ classes.icon }></RxArrowRight>
                     </Button>
