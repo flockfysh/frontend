@@ -18,7 +18,7 @@ export default function Hero() {
         <div className={ classes.buttonsHolder }>
           <GradientLink hasArrow={ true } children="Start flockfyshing" to="/signup" />
           
-          <LinkUnderline to="/docs" text="Read the docs" />
+          <LinkUnderline to="https://docs.flockfysh.tech/" text="Read the docs" />
         </div>
       </div>
 

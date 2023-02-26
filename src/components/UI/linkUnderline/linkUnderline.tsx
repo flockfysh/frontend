@@ -9,6 +9,12 @@ type LinkUnderlineProps = {
 };
 
 export default function LinkUnderline(props: LinkUnderlineProps) {
+  if(props.to.startsWith('http')) return (
+    <a className={ `${ classes.link } ${ props.className || '' }` } href={ props.to } target="_blank">
+        { props.text }
+    </a>
+  );
+
   return (
     <Link to={ props.to } className={ `${classes.link} ${props.className || ''}` }>
       { props.text }
