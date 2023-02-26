@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
-import GradientLink from '../../components/UI/gradientLink/gradientLink';
-import Label from '../../components/dashboard/annotate/label/label';
-import AnnotationWrapper from '../../components/dashboard/annotate/wrapper/annotationWrapper';
-import Button from '../../components/UI/button/button';
-import Loading from '../../components/loading/loading';
-import { LABEL_COLORS } from '../../settings';
+import GradientLink from '../../../UI/gradientLink/gradientLink';
+import Label from '../label/label';
+import AnnotationWrapper from '../wrapper/annotationWrapper';
+import Button from '../../../UI/button/button';
+import Loading from '../../../loading/loading';
+import { LABEL_COLORS } from '../../../../settings';
 import { RxArrowLeft, RxArrowRight } from 'react-icons/rx';
 import { useNavigate, useParams } from 'react-router-dom';
-import api from '../../helpers/api';
+import api from '../../../../helpers/api';
 import classes from './annotate.module.css';
-import AnnotationObject from '../../components/dashboard/annotate/wrapper/annotationObject';
+import AnnotationObject from '../wrapper/annotationObject';
 import { v4 } from 'uuid';
 
 export interface IAnnotationPageContext {
@@ -28,8 +28,7 @@ export interface IAnnotationPageContext {
     setIsEditing: (data: boolean) => void;
     setCurBox: (data: string) => void;
     addAnnotationObject: (params?: AnnotationBox) => Promise<void>;
-    numImages: number | null;
-    datasetState: string;
+    numImages: number;
 }
 
 export const AnnotationPageContext = React.createContext<IAnnotationPageContext>({
@@ -48,7 +47,6 @@ export const AnnotationPageContext = React.createContext<IAnnotationPageContext>
     setCurLabel: () => {
     },
     curBox: '',
-    datasetState: '',
     setCurBox: () => {
     },
     addAnnotationObject: async () => {
@@ -74,14 +72,13 @@ export default function Annotate() {
     const [curLabel, setCurLabel] = useState(-1);
     const [curBox, setCurBox] = useState<string>('');
     const [isEditing, setIsEditing] = useState(false);
-    const [numImages, setNumImages] = useState(null);
-    const [datasetState, setDatasetState] = useState<string>('');
+    const [numImages, setNumImages] = useState(0);
+
     useEffect(() => {
         if (params.datasetId) {
             (async function getCurrentDataset() {
                 try {
                     const datasetState = (await api.get(`/api/dataset/${params.datasetId}/state`)).data.data;
-                    setDatasetState(datasetState);
                     let images = [];
                     if (datasetState === 'feedback') {
                         images = (await api.get(`/api/dataset/${params.datasetId}/imageIds`, { params: { state: 'feedback' } })).data.data;
@@ -169,17 +166,11 @@ export default function Annotate() {
         await annotationObj.saveTo(curImage.id);
     }
 
-    if(numImages===0){
-        return (
-            <p>A job is currently in progress, please check again later!</p>
-        );
-    }
-
     return (
         <AnnotationPageContext.Provider value={ {
             curImage, labels, nextImage, prevImage, imageIndex,
             curAnnotationData, refresh, curLabel, setCurLabel, curBox,
-            setCurBox, addAnnotationObject, isEditing, setIsEditing, numImages, datasetState
+            setCurBox, addAnnotationObject, isEditing, setIsEditing, numImages
         } }>
             <AnnotateInner></AnnotateInner>
         </AnnotationPageContext.Provider>
@@ -199,12 +190,11 @@ function AnnotateInner() {
         setIsEditing,
         setCurBox,
         numImages,
-        datasetState
     } = React.useContext(AnnotationPageContext);
     const params = useParams();
 
     setCurBox;
-        
+
     if (!curImage) {
         return <Loading/>;
     }
@@ -215,15 +205,9 @@ function AnnotateInner() {
                 <h1 className={ classes.heading }>Picture - {imageIndex + 1}/{numImages}</h1>
             </div>
             <div className={ classes.submitButtonContainer }>
-                { datasetState ==='untrained' && (
                 <GradientLink to={ `/dashboard/${params.datasetId}/train` } children="Initiate training"
                               gradientDirection="rightToLeft"
                               className={ classes.initiateTrainingButton }/>
-                              ) }
-                { datasetState === 'feedback' && (
-                    <Button onClick = { () => api.post(`/api/dataset/${params.datasetId}/continueTraining`) }>Continue Training</Button> 
-                ) }
-
             </div>
             <div className={ classes.leftContainer }>
                 <AnnotationWrapper></AnnotationWrapper>
