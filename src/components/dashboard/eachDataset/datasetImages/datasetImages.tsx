@@ -6,8 +6,8 @@ import imageGridClasses from '../images.module.css';
 export default function DatasetImages(props: { dataset: Dataset }) {
     const testImages = [];
 
-    for (let i = 0; i < 20; i++) {
-        testImages.push(props.dataset.uploadedImages[0]);
+    for (let i = 0; i < props.dataset.uploadedImages.length; i++) {
+        testImages.push(props.dataset.uploadedImages[i]);
     }
 
     return (
