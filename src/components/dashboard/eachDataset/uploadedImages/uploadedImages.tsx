@@ -3,7 +3,7 @@ import ImageComponent from '../imageComponent/imageComponent';
 import classes from '../common.module.css';
 import imageGridClasses from '../images.module.css';
 
-export default function UploadedImages(props: { dataset: Dataset }) {
+export default function UploadedImages(props: { dataset: Dataset, forceUpdate: () => void }) {
     return (
         <div className={ classes.container }>
             <div className={ classes.contentContainer }>
@@ -13,7 +13,7 @@ export default function UploadedImages(props: { dataset: Dataset }) {
                     {
                         props.dataset.uploadedImages.map(
                             (image, index) => (
-                                <ImageComponent key={ index } image={ image }/>
+                                <ImageComponent key={ index } image={ image } dataset={ props.dataset } forceUpdate={ props.forceUpdate } />
                             )
                         )
                     }

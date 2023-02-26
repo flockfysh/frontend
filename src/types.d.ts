@@ -5,6 +5,7 @@ declare module '*.png';
 
 // #region Datasets
 declare interface ImageWithoutAnnotation {
+    _id: string;
     url: string;
     name: string;
     displayName?: string;
@@ -14,7 +15,7 @@ declare interface PartialDataset {
     name: string;
     id: string;
     description: string;
-    itemCount: number; // How many items are there in the database. To be honest, it should have been reserved for datasetImages instead of uploadedImages.
+    numImages: number;
 }
 
 declare interface Dataset extends PartialDataset {
@@ -22,6 +23,7 @@ declare interface Dataset extends PartialDataset {
     plan: string;
     size: number;
     monthlyCost: MonthlyCost;
+    state: string;
     classes: string[];
     numTimesHumanFeedback: number,
     uploadedImages: ImageWithoutAnnotation[];
