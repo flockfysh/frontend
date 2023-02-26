@@ -3,7 +3,7 @@ import ImageComponent from '../imageComponent/imageComponent';
 import classes from '../common.module.css';
 import imageGridClasses from '../images.module.css';
 
-export default function DatasetImages(props: { dataset: Dataset }) {
+export default function DatasetImages(props: { dataset: Dataset, forceUpdate: () => void }) {
     const testImages = [];
 
     for (let i = 0; i < 20; i++) {
@@ -19,11 +19,12 @@ export default function DatasetImages(props: { dataset: Dataset }) {
                     {
                         testImages.map(
                             (image, index) => (
-                                <ImageComponent key={ index } image={ image }/>
+                                <ImageComponent key={ index } image={ image } dataset={ props.dataset } forceUpdate={ props.forceUpdate } />
                             )
                         )
                     }
                 </div>
+
                 <div className={ imageGridClasses.loadBtnContainer }>
                     <button className={ imageGridClasses.loadBtn }>Load more images</button>
                 </div>

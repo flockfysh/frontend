@@ -12,6 +12,7 @@ interface FileInputProps extends React.ComponentPropsWithRef<'input'> {
     classNames?: {};
     maxFileCount?: number;
     buttonLabel?: string;
+    setErrorMessage?: (msg: string) => void;
 }
 
 interface FileInputInternalState {
@@ -19,10 +20,11 @@ interface FileInputInternalState {
 }
 
 const MultiFileInput = React.forwardRef<HTMLInputElement, FileInputProps>(function FileInput(props, ref) {
-    const { classNames, children, maxFileCount, buttonLabel, ...inputProps } = props;
+    const { classNames, children, maxFileCount, buttonLabel, setErrorMessage, ...inputProps } = props;
 
-    classNames;
     children;
+    maxFileCount;
+    classNames;
 
     const [fileDropOverlayVisible, setFileDropOverlayVisible] = React.useState(false);
     const [internalState, setInternalState] = React.useState<FileInputInternalState>(() => {
@@ -75,10 +77,16 @@ const MultiFileInput = React.forwardRef<HTMLInputElement, FileInputProps>(functi
         setFileDropOverlayVisible(false);
         const filesInInput = event.currentTarget.files;
 
+        const unableToUpload: string[] = [];
+
         if (filesInInput) {
             for (const file of filesInInput) {
                 if (internalState.files.size >= _maxFileCount) break;
-                if (props.accept && !mimeChecker(file.type, props.accept)) continue;
+                if (props.accept && !mimeChecker(file.type, props.accept)) {
+                    unableToUpload.push(file.name);
+
+                    continue;
+                }
                 
                 let uuid;
 
@@ -88,6 +96,15 @@ const MultiFileInput = React.forwardRef<HTMLInputElement, FileInputProps>(functi
                 
                 internalState.files.set(uuid, file);
             }
+        }
+
+        if(unableToUpload.length) {
+            let badFileString: string;
+
+            if (unableToUpload.length <= 5) badFileString = unableToUpload.join(', ');
+            else badFileString = `${ unableToUpload.slice(0, 5).join(', ') } and ${ unableToUpload.length - 5 } more`;
+
+            setErrorMessage!(`These files failed to upload: ${ badFileString }. Please make sure to upload the correct type of file.`);
         }
 
         refreshFilesInInput();

@@ -30,7 +30,6 @@ export function ErrorWrapper(props: React.PropsWithChildren) {
             message: message,
             title: title,
         });
-        console.log(errorMessages);
         setErrorMessages({ errorMessages });
     }
 

@@ -10,10 +10,8 @@ interface IUserContext {
 
 export const UserContext = createContext<IUserContext>({
     curUser: null as (User | null),
-    setUser: () => {
-    },
-    refresh: () => {
-    },
+    setUser: () => {},
+    refresh: () => {},
 });
 
 export function UserWrapper(props: PropsWithChildren) {
@@ -24,12 +22,12 @@ export function UserWrapper(props: PropsWithChildren) {
         if (isLoading) {
             (async function getUserState() {
                 try {
-                    const data = (await api.get(`/`)).data;
+                    const data = (await api.get('/')).data;
                     const userData = data.data;
 
                     if (userData.curUser) {
                         setCurUser({
-                            name: `${userData.curUser.firstName} ${userData.curUser.lastName}`,
+                            name: `${ userData.curUser.firstName } ${ userData.curUser.lastName }`,
                             email: userData.curUser.email,
                             profileImage: userData.curUser.profilePhoto,
                             monthlyCost: {} as MonthlyCost,
@@ -40,7 +38,7 @@ export function UserWrapper(props: PropsWithChildren) {
                         setCurUser(null);
                     }
                 }
- catch (e) {
+                catch (e) {
 
                 }
 

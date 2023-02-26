@@ -4,7 +4,6 @@ import LinkUnderline from '../../../UI/linkUnderline/linkUnderline';
 
 import Button from '../../../UI/button/button';
 import classes from './datasetCard.module.css';
-import api from '../../../../helpers/api';
 
 export default function DatasetCard(props: { dataset: PartialDataset, onDelete: (id: string) => Promise<void> }) {
     return (
@@ -12,7 +11,7 @@ export default function DatasetCard(props: { dataset: PartialDataset, onDelete: 
             <div className={ classes.cardHeader }>
 
                 <h2 className={ classes.datasetName }>
-                    {props.dataset.name}
+                    { props.dataset.name }
                 </h2>
                 <Button className={ classes.deleteButton } onClick={ async () => {
                     props.onDelete(props.dataset.id);
@@ -21,7 +20,7 @@ export default function DatasetCard(props: { dataset: PartialDataset, onDelete: 
                 </Button>
             </div>
 
-            <p className={ classes.overview }>{props.dataset.description}</p>
+            <p className={ classes.overview }>{ props.dataset.description }</p>
 
             <div className={ classes.cardBottom }>
                 <LinkUnderline
@@ -30,7 +29,7 @@ export default function DatasetCard(props: { dataset: PartialDataset, onDelete: 
                     text="View dataset"
                 />
 
-                <span>{props.dataset.itemCount} Images</span>
+                <span>{ props.dataset.numImages } Images</span>
             </div>
         </li>
     );
