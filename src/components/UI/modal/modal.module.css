@@ -11,6 +11,14 @@
     justify-content: center;
 }
 
+.buttonContainer {
+    display: flex;
+}
+
+.buttonContainer button {
+    margin: 0px 20px;
+}
+
 .closeModal {
     padding: 10px 50px;
     border-radius: 5px;
