@@ -33,7 +33,7 @@ export default function GradientLink(props: GradientLinkProps) {
     }
 
     if(props.to.startsWith('http')) return (
-        <a className={ `${classes.button} ${gradientClass} ${props.className || ''}` } href={ props.to } target="_blank">
+        <a className={ `${ classes.button } ${ gradientClass } ${ props.className || '' }` } href={ props.to } target="_blank">
             { props.children }
 
             {
@@ -43,7 +43,7 @@ export default function GradientLink(props: GradientLinkProps) {
     );
 
     return (
-        <Link className={ `${classes.button} ${gradientClass} ${props.className || ''}` } to={ props.to } target="_blank">
+        <Link className={ `${ classes.button } ${ gradientClass } ${ props.className || '' }` } to={ props.to }>
             { props.children }
 
             {
