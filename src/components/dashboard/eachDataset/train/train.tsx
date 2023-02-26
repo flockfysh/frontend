@@ -33,23 +33,28 @@ export default function Train(props: { dataset: Dataset }) {
     async function initiateSubmission(e: React.FormEvent<HTMLFormElement>) {
         try {
             e.preventDefault();
-            const submissionForm = e.currentTarget;
-            const fd = new FormData(submissionForm);
-            const classSearchQueries: Record<string, string[]> = {};
-            for (const key of fd.keys()) {
-                if (/^searchQuery/.test(key)) {
-                    const labelIndex = +key.split('_')[1];
-                    const label = props.dataset.classes[labelIndex];
-                    classSearchQueries[label] = fd.getAll(key) as string[];
+            if (props.dataset.state === 'untrained') {
+                const submissionForm = e.currentTarget;
+                const fd = new FormData(submissionForm);
+                const classSearchQueries: Record<string, string[]> = {};
+                for (const key of fd.keys()) {
+                    if (/^searchQuery/.test(key)) {
+                        const labelIndex = +key.split('_')[1];
+                        const label = props.dataset.classes[labelIndex];
+                        classSearchQueries[label] = fd.getAll(key) as string[];
+                    }
                 }
+                const requestBody: InitiateTraningRequest = {
+                    // eslint-disable-next-line camelcase
+                    desired_data: +(fd.get('desired_data') as string),
+                    // eslint-disable-next-line camelcase
+                    class_search_queries: classSearchQueries,
+                };
+                await api.post(`/api/dataset/${props.dataset.id}/initializeTraining`, requestBody);
             }
-            const requestBody: InitiateTraningRequest = {
-                // eslint-disable-next-line camelcase
-                desired_data: +(fd.get('desired_data') as string),
-                // eslint-disable-next-line camelcase
-                class_search_queries: classSearchQueries,
-            };
-            await api.post(`/api/dataset/${props.dataset.id}/initializeTraining`, requestBody);
+            else if (props.dataset.state === 'feedback') {
+                await api.post(`/api/dataset/${props.dataset.id}/continueTraining`);
+            }
         }
  catch (error) {
             if (error instanceof AxiosError) {
@@ -68,33 +73,34 @@ export default function Train(props: { dataset: Dataset }) {
                         <RxArrowRight className={ classes.icon }></RxArrowRight>
                     </Button>
                 </div>
-                <div className={ classes.formInputs }>
-                    <div className={ classes.labelledInputContainer }>
-                        <span className={ classes.labelledInputContainer__label }>Search Queries</span>
-                        <ul className={ trainingClasses.trainingQueriesInputs }>
-                            {props.dataset.classes.map(function generateSearchQueryInput(classString, index) {
-                                const id = React.useId();
-                                return (
-                                    <React.Fragment key={ index }>
-                                        <TrainingLabels htmlFor={ id }
-                                                        labelColor={ LABEL_COLORS[index] }>{classString}</TrainingLabels>
-                                        <CustomCreatableSelect name={ `searchQuery_${index}` } instanceId={ id }
-                                                               isMulti={ true }
-                                                               className={ trainingClasses.querySelect }></CustomCreatableSelect>
-                                    </React.Fragment>
-                                );
-                            })}
-                        </ul>
+                {props.dataset.state === 'untrained' ? (
+                    <div className={ classes.formInputs }>
+                        <div className={ classes.labelledInputContainer }>
+                            <span className={ classes.labelledInputContainer__label }>Search Queries</span>
+                            <ul className={ trainingClasses.trainingQueriesInputs }>
+                                {props.dataset.classes.map(function generateSearchQueryInput(classString, index) {
+                                    const id = React.useId();
+                                    return (
+                                        <React.Fragment key={ index }>
+                                            <TrainingLabels htmlFor={ id }
+                                                            labelColor={ LABEL_COLORS[index] }>{classString}</TrainingLabels>
+                                            <CustomCreatableSelect name={ `searchQuery_${index}` } instanceId={ id }
+                                                                   isMulti={ true }
+                                                                   className={ trainingClasses.querySelect }></CustomCreatableSelect>
+                                        </React.Fragment>
+                                    );
+                                })}
+                            </ul>
+                        </div>
+
+                        <label className={ classes.labelledInputContainer }>
+                            <span className={ classes.labelledInputContainer__label }>Output Quantity</span>
+                            <input type="range" id={ 'desired_data' } name={ 'desired_data' } min={ 20 } max={ 50 }
+                                   defaultValue={ 30 }
+                                   className={ classes.outputQuantityRange }/>
+                        </label>
                     </div>
-
-                    <label className={ classes.labelledInputContainer }>
-                        <span className={ classes.labelledInputContainer__label }>Output Quantity</span>
-                        <input type="range" id={ 'desired_data' } name={ 'desired_data' } min={ 20 } max={ 50 }
-                               defaultValue={ 30 }
-                               className={ classes.outputQuantityRange }/>
-                    </label>
-
-                </div>
+                ) : <></>}
             </form>
         </div>
     );
