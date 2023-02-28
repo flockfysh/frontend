@@ -34,6 +34,7 @@ export default function EachDataSet(props: { page: string }) {
             // fetch dataset here
             try {
                 const result = (await api.get(`/api/dataset/${ datasetId }`)).data.data;
+                console.log(result);
                 const monthlyCost: MonthlyCost = {
                     storage: 0,
                     costs: [],
@@ -56,6 +57,7 @@ export default function EachDataSet(props: { page: string }) {
                     datasetImages: [],
                     uploadedImages: result.uploadedImages,
                     feedbackImages: result.feedbackImages,
+                    completedImages: result.completedImages,
                     monthlyCost: monthlyCost,
                     size: result.size,
                     description: result.description,
@@ -80,8 +82,8 @@ export default function EachDataSet(props: { page: string }) {
 
                 {subPage === 'uploaded-images' && <UploadedImages dataset={ dataset } forceUpdate={ forceUpdate } />}
                 {subPage === 'dataset-images' && <DatasetImages dataset={ dataset } forceUpdate={ forceUpdate } />}
-                {subPage === 'annotate' && <Annotate/>}
                 {subPage === 'feedback-images' && <FeedbackImages dataset={ dataset } forceUpdate={ forceUpdate } />}
+                {subPage === 'annotate' && <Annotate/>}
 
                 {subPage === 'settings' && <Settings dataset={ dataset } />}
                 {subPage === 'train' && <Train dataset={ dataset } />}

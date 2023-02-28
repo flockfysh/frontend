@@ -88,6 +88,11 @@ function MainApp() {
                         />
 
                         <Route
+                            path=":datasetId/feedback-images"
+                            element={ <EachDataSet page="feedback-images" /> }
+                        />
+
+                        <Route
                             path=":datasetId/dataset-images"
                             element={ <EachDataSet page="dataset-images" /> }
                         />

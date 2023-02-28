@@ -16,12 +16,16 @@ const LINK_DESCRIPTIONS = [
         children: 'Uploaded images',
     },
     {
-        name: 'annotate',
-        children: 'Annotate Images',
+        name: 'feedback-images',
+        children: 'Feedback images',
     },
     {
         name: 'dataset-images',
         children: 'Dataset images',
+    },
+    {
+        name: 'annotate',
+        children: 'Annotate images',
     },
     {
         name: 'train',
