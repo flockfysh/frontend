@@ -8,6 +8,7 @@ import { serverURL } from '../../settings';
 import { UserContext } from '../../contexts/userContext';
 
 import classes from './login.module.css';
+import api from '../../helpers/api';
 
 export default function LoginForm(props: { type: string }) {
     const navigate = useNavigate();
@@ -98,20 +99,12 @@ export default function LoginForm(props: { type: string }) {
         if (!emailValidHandler(email) || !passwordValidHandler(password)) return;
 
         if (emailIsValid && passwordIsValid) {
-            const response = (await axios(
-                {
-                    method: 'post',
-                    url: serverURL + '/' + props.type.toLowerCase(),
-                    data: {
-                        email: email,
-                        password: password,
-                    },
-                    withCredentials: true,
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
+            const response = (await api.post('/api/auth/' + props.type.toLowerCase(), {
+                data: {
+                    email: email,
+                    password: password,
                 },
-            )).data;
+            })).data;
 
             setUser(response);
             navigate('/dashboard');
@@ -179,7 +172,7 @@ export default function LoginForm(props: { type: string }) {
             <div className={ classes.buttonDiv }>
                 <button
                     className={ `${classes.githubButton} ${classes.socialButton}` }
-                    onClick={ () => oAuthLogin('/auth/github') }
+                    onClick={ () => oAuthLogin('/api/auth/github') }
                     type="button"
                 >
                     {props.type} with Github{' '}
@@ -197,7 +190,7 @@ export default function LoginForm(props: { type: string }) {
 
                 <button
                     className={ `${classes.googleButton} ${classes.socialButton}` }
-                    onClick={ () => oAuthLogin('/auth/google') }
+                    onClick={ () => oAuthLogin('/api/auth/google') }
                     type="button"
                 >
                     {props.type} with Google{' '}

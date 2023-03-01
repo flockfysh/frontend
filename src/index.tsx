@@ -12,7 +12,6 @@ import Docs from './pages/docs/docs';
 import Blog from './pages/blog/blog';
 import About from './pages/about/about';
 import Profile from './pages/profile/profile';
-import Annotate from './components/dashboard/annotate/main/annotate';
 
 import ViewDatasets from './pages/viewDatasets/viewDatasets';
 import EachDataSet from './pages/eachDataset/eachDataset';

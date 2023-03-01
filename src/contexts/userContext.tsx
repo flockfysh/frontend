@@ -22,7 +22,7 @@ export function UserWrapper(props: PropsWithChildren) {
         if (isLoading) {
             (async function getUserState() {
                 try {
-                    const data = (await api.get('/')).data;
+                    const data = (await api.get('/api/auth/currentUser')).data;
                     const userData = data.data;
 
                     if (userData.curUser) {
