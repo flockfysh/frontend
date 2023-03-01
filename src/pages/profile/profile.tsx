@@ -1,67 +1,41 @@
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
+
+import { UserContext } from '../../contexts/userContext';
 
 import Loading from '../../components/loading/loading';
-
-import classes from './profile.module.css';
-import UserPicture from '../../components/UI/currentUser/userPicture';
-import UserName from '../../components/UI/currentUser/userName';
-import UserEmail from '../../components/UI/currentUser/userEmail';
 import Logout from '../../components/account/logout';
 
+import classes from './profile.module.css';
+
 export default function Profile() {
-    const [user, updateUser] = useState({} as User);
-    const [loading, updateLoading] = useState(true);
+    const { curUser } = useContext(UserContext);
 
-    useEffect(() => {
-        updateLoading(true);
+    if(!curUser) return <Loading />;
 
-        (async function fetchUser() {
-            const testUser: User = {
-                name: 'Raymond Tian',
-                email: 'raymond@gmail.com',
-                profileImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj2ueFQbN4a-eE_Gv-L4zOnsJBfsJZqiUek_ZiQvJ1gQ&s',
-                monthlyCost: {
-                    storage: 100,
-                    creation: 100,
-                    total: 230,
-                    costs: [
-                        {
-                            description: 'Dataset creation',
-                            amount: 40,
-                            paid: false,
-                            timestamp: new Date()
-                        }
-                    ]
-                },
-                payments: [
-                    {
-                        description: 'Dataset payment',
-                        amount: 40,
-                        paid: true,
-                        timestamp: new Date()
-                    }
-                ]
-            };
-            updateUser(testUser);
-            updateLoading(false);
-        })();
-    }, []);
-
-    if (loading) return <Loading/>;
+    // ! Temporary until backend returns a monthly cost object
+    curUser.monthlyCost = {
+        storage: 100,
+        creation: 100,
+        total: 200,
+        costs: []
+    };
 
     return (
         <div className={ classes.containerDiv }>
             <div className={ classes.imageSection }>
                 <div className={ classes.headingRow }>
                     <h3 className={ classes.heading }>Your Account</h3>
-                    <Logout></Logout>
+                    
+                    <Logout />
                 </div>
+                
                 <div className={ classes.nameDiv }>
-                    <UserPicture className={ `${classes.image}` }/>
+                    <img className={ classes.image } src={ curUser.profileImage } alt={ curUser.name } />
 
                     <div className={ classes.infoDiv }>
-                        <h4 className={ classes.name }>{<UserName/>}</h4>
-                        <h6 className={ classes.email }>{<UserEmail/>}</h6>
+                        <h4 className={ classes.name }>{ curUser.name }</h4>
+
+                        <h6 className={ classes.email }>{ curUser.email }</h6>
                     </div>
                 </div>
             </div>
@@ -69,15 +43,17 @@ export default function Profile() {
             <div className={ classes.cardSection }>
                 <div className={ classes.card }>
                     <h5 className={ classes.cardHeading }>
-                        Total Monthly Cost <span>${user.monthlyCost.total}</span>
+                        Total Monthly Cost <span>${ curUser.monthlyCost.total }</span>
                     </h5>
 
                     {
-                        user.monthlyCost.costs!.map(
-                            (cost, index) => (
-                                <p className={ classes.cardText } key={ index }>
-                                    {cost.description} <span className={ classes.price }>${cost.amount}</span>
-                                </p>
+                        curUser.monthlyCost.costs.length === 0 ? <p className={ classes.cardText }>No costs to display</p> : (
+                            curUser.monthlyCost.costs!.map(
+                                (cost, index) => (
+                                    <p className={ classes.cardText } key={ index }>
+                                        { cost.description } <span className={ classes.price }>${ cost.amount }</span>
+                                    </p>
+                                )
                             )
                         )
                     }
@@ -87,12 +63,14 @@ export default function Profile() {
                     <h5 className={ classes.cardHeading }>Payment History</h5>
 
                     {
-                        user.payments.map(
-                            (payment, index) => (
-                                <p className={ classes.cardText } key={ index }>
-                                    {payment.description} {' '}
-                                    <span className={ classes.price }>${payment.amount}</span>
-                                </p>
+                        curUser.payments.length === 0 ? <p className={ classes.cardText }>No payments to display</p> : (
+                            curUser.payments.map(
+                                (payment, index) => (
+                                    <p className={ classes.cardText } key={ index }>
+                                        { payment.description } {' '}
+                                        <span className={ classes.price }>${ payment.amount }</span>
+                                    </p>
+                                )
                             )
                         )
                     }

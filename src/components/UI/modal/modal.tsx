@@ -8,6 +8,10 @@ export interface ModalProps {
     title: string;
 }
 
+export interface ConfirmModalProps extends ModalProps {
+    confirm: () => void;
+}
+
 export interface FilePreviewProps {
     file: File;
     closeModal: () => void;
@@ -19,14 +23,35 @@ export interface TextModalProps {
     closeModal: () => void;
 }
 
+export function ConfirmModal(props: ConfirmModalProps) {
+    function confirm() {
+        props.confirm();
+        props.closeModal();
+    }
+
+    return (
+        <div className={ classes.modalContainer }>
+            <div className={ classes.modalContent }>
+                <h4 className={ classes.modalTitle }>{ props.title }</h4>
+
+                { props.children }
+
+                <div className={ classes.buttonContainer }>
+                    <button onClick={ confirm } className={ classes.closeModal }>Yes</button>
+                    <button onClick={ props.closeModal } className={ classes.closeModal }>No</button>
+                </div>
+            </div>
+        </div>
+    );
+}
 
 export default function Modal(props: ModalProps) {
     return (
         <div className={ classes.modalContainer }>
             <div className={ classes.modalContent }>
-                <h4 className={ classes.modalTitle }>{props.title}</h4>
+                <h4 className={ classes.modalTitle }>{ props.title }</h4>
 
-                {props.children}
+                { props.children }
 
                 <button onClick={ props.closeModal } className={ classes.closeModal }>Ok</button>
             </div>
@@ -37,7 +62,7 @@ export default function Modal(props: ModalProps) {
 export function ErrorModal(props: TextModalProps) {
     return (
         <Modal closeModal={ props.closeModal } title={ props.title ?? 'Error' }>
-            <p>{props.message}</p>
+            <p>{ props.message }</p>
         </Modal>
     );
 }
