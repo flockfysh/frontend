@@ -15,7 +15,7 @@ export default function CreateDataset() {
 
     const [datasetType, updateDatasetType] = useState('images');
     const [errorMessage, setErrorMessage] = useState('');
-
+    const [disabled, setDisabled] = useState(false);
     const formRef = useRef<HTMLFormElement | null>(null);
 
     function updateType(type: string) {
@@ -23,6 +23,8 @@ export default function CreateDataset() {
     }
 
     async function createDataset(e: React.FormEvent<HTMLFormElement>) {
+        if(disabled) return;
+        setDisabled(true);
         e.preventDefault();
         if (!formRef.current) throw new Error('Missing form element!');
         const fd = new FormData(formRef.current);
@@ -60,7 +62,6 @@ export default function CreateDataset() {
                 badFiles.push(file.name);
             }
         }, undefined);
-
         if(badFiles.length) {
             let badFileString: string;
 

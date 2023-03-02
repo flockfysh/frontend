@@ -1,5 +1,6 @@
 .annotateContainer {
-    margin-block: 5rem;
+    margin-block: 6.5rem;
+    margin-inline: 3rem;
     display: grid;
     grid-template-columns: 1fr auto;
     grid-template-rows: auto 1fr auto;

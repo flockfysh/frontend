@@ -12,12 +12,10 @@ export default function Logout() {
     const navigate = useNavigate();
 
     const { setUser } = useContext(UserContext);
-    
+
     async function logout() {
-        await api.get('/logout');
-
+        await api.get('/api/auth/logout');
         setUser(null);
-
         navigate('/');
     }
 

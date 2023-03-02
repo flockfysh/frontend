@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
-import GradientLink from '../../components/UI/gradientLink/gradientLink';
-import Label from '../../components/dashboard/annotate/label/label';
-import AnnotationWrapper from '../../components/dashboard/annotate/wrapper/annotationWrapper';
-import Button from '../../components/UI/button/button';
-import Loading from '../../components/loading/loading';
-import { LABEL_COLORS } from '../../settings';
+import GradientLink from '../../../UI/gradientLink/gradientLink';
+import Label from '../label/label';
+import AnnotationWrapper from '../wrapper/annotationWrapper';
+import Button from '../../../UI/button/button';
+import Loading from '../../../loading/loading';
+import { LABEL_COLORS } from '../../../../settings';
 import { RxArrowLeft, RxArrowRight } from 'react-icons/rx';
 import { useNavigate, useParams } from 'react-router-dom';
-import api from '../../helpers/api';
+import api from '../../../../helpers/api';
 import classes from './annotate.module.css';
-import AnnotationObject from '../../components/dashboard/annotate/wrapper/annotationObject';
+import AnnotationObject from '../wrapper/annotationObject';
 import { v4 } from 'uuid';
 
 export interface IAnnotationPageContext {
@@ -28,6 +28,7 @@ export interface IAnnotationPageContext {
     setIsEditing: (data: boolean) => void;
     setCurBox: (data: string) => void;
     addAnnotationObject: (params?: AnnotationBox) => Promise<void>;
+    numImages: number;
 }
 
 export const AnnotationPageContext = React.createContext<IAnnotationPageContext>({
@@ -35,6 +36,7 @@ export const AnnotationPageContext = React.createContext<IAnnotationPageContext>
     labels: [],
     imageIndex: 0,
     curAnnotationData: new Map(),
+    numImages: 0,
     nextImage: () => {
     },
     prevImage: () => {
@@ -70,6 +72,7 @@ export default function Annotate() {
     const [curLabel, setCurLabel] = useState(-1);
     const [curBox, setCurBox] = useState<string>('');
     const [isEditing, setIsEditing] = useState(false);
+    const [numImages, setNumImages] = useState(0);
 
     useEffect(() => {
         if (params.datasetId) {
@@ -86,6 +89,7 @@ export default function Annotate() {
                     const datasetLabels = (await api.get(`/api/dataset/${params.datasetId}/labels`)).data.data;
                     setImageIndex(0);
                     setImageIds(images);
+                    setNumImages(images.length);
                     setLabels(datasetLabels);
                 }
                 catch (e) {
@@ -166,7 +170,7 @@ export default function Annotate() {
         <AnnotationPageContext.Provider value={ {
             curImage, labels, nextImage, prevImage, imageIndex,
             curAnnotationData, refresh, curLabel, setCurLabel, curBox,
-            setCurBox, addAnnotationObject, isEditing, setIsEditing,
+            setCurBox, addAnnotationObject, isEditing, setIsEditing, numImages
         } }>
             <AnnotateInner></AnnotateInner>
         </AnnotationPageContext.Provider>
@@ -185,6 +189,7 @@ function AnnotateInner() {
         isEditing,
         setIsEditing,
         setCurBox,
+        numImages,
     } = React.useContext(AnnotationPageContext);
     const params = useParams();
 
@@ -197,7 +202,7 @@ function AnnotateInner() {
     return (
         <div className={ classes.annotateContainer }>
             <div className={ classes.headingContainer }>
-                <h1 className={ classes.heading }>Picture - {imageIndex + 1}/50</h1>
+                <h1 className={ classes.heading }>Picture - {imageIndex + 1}/{numImages}</h1>
             </div>
             <div className={ classes.submitButtonContainer }>
                 <GradientLink to={ `/dashboard/${params.datasetId}/train` } children="Initiate training"
@@ -231,7 +236,7 @@ function AnnotateInner() {
                 </div>
                 <div className={ classes.utilityButtons }>
                     <Button className={ classes.addLabelButton }
-                            onClick={ () => setIsEditing(!isEditing) }>{isEditing ? 'Editing' : 'Adding'}</Button>
+                            onClick={ () => setIsEditing(!isEditing) }>{isEditing ? 'Edit Bounding Boxes' : 'Add Bounding Box'}</Button>
                 </div>
 
             </div>
