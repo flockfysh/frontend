@@ -34,7 +34,6 @@ export default function EachDataSet(props: { page: string }) {
             // fetch dataset here
             try {
                 const result = (await api.get(`/api/dataset/${ datasetId }`)).data.data;
-                console.log(result);
                 const monthlyCost: MonthlyCost = {
                     storage: 0,
                     costs: [],
