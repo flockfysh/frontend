@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ErrorModal } from '../../components/UI/modal/modal';
@@ -9,12 +9,12 @@ import Button from '../../components/UI/button/button';
 import AsyncArray from '../../helpers/async';
 import api from '../../helpers/api';
 import Textarea from '../../components/UI/input/textarea';
+import { ErrorContext } from '../../contexts/errorContext';
 
 export default function CreateDataset() {
     const navigate = useNavigate();
-
+    const { throwError } = useContext(ErrorContext);
     const [datasetType, updateDatasetType] = useState('images');
-    const [errorMessage, setErrorMessage] = useState('');
     const [disabled, setDisabled] = useState(false);
     const formRef = useRef<HTMLFormElement | null>(null);
 
@@ -32,7 +32,7 @@ export default function CreateDataset() {
         const files = new AsyncArray(fd.getAll('files') as File[]);
 
         if(files.length === 1 && files[0].size === 0) {
-            setErrorMessage('Please upload a file.');
+            throwError('Please upload a file.');
             
             return;
         }
@@ -68,21 +68,13 @@ export default function CreateDataset() {
             if (badFiles.length <= 5) badFileString = badFiles.join(', ');
             else badFileString = `${ badFiles.slice(0, 5).join(', ') } and ${ badFiles.length - 5 } more`;
 
-            setErrorMessage(`These files failed to upload: ${ badFileString }. Please check the dataset for missing files.`);
+            throwError(`These files failed to upload: ${ badFileString }. Please check the dataset for missing files.`);
         }
         else navigate('/dashboard');
     }
 
-    function closeModal() {
-        setErrorMessage('');
-    }
-
     return (
         <div className={ classes.createDatasetContainer }>
-            {
-                errorMessage ? <ErrorModal message={ errorMessage } closeModal={ closeModal }/> : <></>
-            }
-
             <h1>Create a new Dataset</h1>
 
             <div className={ classes.datasetTypeRow }>
@@ -176,7 +168,6 @@ export default function CreateDataset() {
                         accept=".webp, .png, .jpg, .jpeg"
                         buttonLabel="Add images"
                         name="files"
-                        setErrorMessage={ setErrorMessage }
                     />
                 </div>
 
