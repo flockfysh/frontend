@@ -1,7 +1,6 @@
 import { useState, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { ErrorModal } from '../../components/UI/modal/modal';
 import CustomSelect, { CustomCreatableSelect } from '../../components/UI/input/selectInput';
 import classes from './createDataset.module.css';
 import MultiFileInput from '../../components/UI/input/multiFileInput/multiFileInput';
@@ -14,8 +13,10 @@ import { ErrorContext } from '../../contexts/errorContext';
 export default function CreateDataset() {
     const navigate = useNavigate();
     const { throwError } = useContext(ErrorContext);
+
     const [datasetType, updateDatasetType] = useState('images');
     const [disabled, setDisabled] = useState(false);
+    
     const formRef = useRef<HTMLFormElement | null>(null);
 
     function updateType(type: string) {
@@ -24,9 +25,12 @@ export default function CreateDataset() {
 
     async function createDataset(e: React.FormEvent<HTMLFormElement>) {
         if(disabled) return;
+
         setDisabled(true);
         e.preventDefault();
+
         if (!formRef.current) throw new Error('Missing form element!');
+        
         const fd = new FormData(formRef.current);
 
         const files = new AsyncArray(fd.getAll('files') as File[]);

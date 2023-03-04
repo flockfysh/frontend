@@ -17,7 +17,7 @@ export default function HomePage() {
             <Features />
             <CoreBelief />
 
-            { windowTooSmall ? <></> : <Reviews /> }
+            {/* { windowTooSmall ? <></> : <Reviews /> } */}
 
             <UserSignup />
         </>
