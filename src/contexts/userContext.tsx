@@ -16,7 +16,7 @@ export const UserContext = createContext<UserContext>({
 
 export function UserWrapper(props: PropsWithChildren) {
     const [curUser, setCurUser] = useState<User | null>(null);
-    const [isLoading, updateLoading] = useState<boolean>(true);
+    const [isLoading, updateLoading] = useState(true);
 
     useEffect(() => {
         if (isLoading) {
