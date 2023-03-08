@@ -7,7 +7,12 @@
     justify-content: center;
 }
 
+.loading h2 {
+    width: auto;
+}
+
 .loading svg {
     margin-left: 20px;
+    align-self: center;
     fill: var(--color-blue-primary);
 }

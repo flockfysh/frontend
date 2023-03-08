@@ -65,6 +65,10 @@ function MainApp() {
                         <Route path="/login" element={ <LoginPage type="Login" /> }/>
                         <Route path="/signup" element={ <LoginPage type="Signup" /> }/>
 
+                        <Route element={ <PrivateRoutes /> }>
+                            <Route path="/authorize" element={ <Authorize /> }/>
+                        </Route>
+
                         <Route path="*" element={ <PageNotFound /> }/>
                     </Route>
 
@@ -73,8 +77,7 @@ function MainApp() {
                             <Route index element={ <ViewDatasets /> }/>
 
                             <Route path="profile" element={ <Profile /> }/>
-                            <Route path="create-dataset" element={ <CreateDataset /> }/>
-
+                            <Route path="create-dataset" element={ <CreateDataset /> }/> 
                         </Route>
 
                         <Route
