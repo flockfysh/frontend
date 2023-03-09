@@ -8,6 +8,7 @@ import api from '../../helpers/api';
 import classes from './authorize.module.css';
 import Button from '../../components/UI/button/button';
 import GradientLink from '../../components/UI/gradientLink/gradientLink';
+import { AxiosError } from 'axios';
 
 type AuthorizationFeedback = 'reject' | 'approve';
 const PERMISSION_MAPPING: Record<string, { description: string, Icon: typeof IconBase }> = {
@@ -77,15 +78,18 @@ export default function Authorize() {
             'approve': '/api/auth/oauth/deviceAuthorization/accept',
             'reject': '/api/auth/oauth/deviceAuthorization/reject',
         };
-
-        await api.post(urls[mode], {}, {
-            params: {
-                // eslint-disable-next-line camelcase
-                user_code: code,
-            },
-        });
-
-        window.close();
+        try {
+            await api.post(urls[mode], {}, {
+                params: {
+                    // eslint-disable-next-line camelcase
+                    user_code: code,
+                },
+            });
+            window.close();
+        }
+        catch (e) {
+            if (e instanceof AxiosError) setError(e.response?.data.error.message);
+        }
     }
 
     if (error) {
