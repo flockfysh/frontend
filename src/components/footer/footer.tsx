@@ -20,25 +20,24 @@ export default function Footer() {
 
                     <Link to="/product">Sneak Peeks</Link>
                     <Link to="/product">Pricing</Link>
-                    <Link to="/product">Documentation</Link>
+                    <a href="https://docs.flockfysh.tech/">Documentation</a>
                     <Link to="/product">Feedback</Link>
                 </div>
 
                 <div className={ classes.footerLinks }>
                     <h6>Company</h6>
 
-                    <Link to="/product">Home</Link>
-                    <Link to="/product">About</Link>
-                    <Link to="/product">Blog</Link>
+                    <Link to="/">Home</Link>
+                    <Link to="/about">About</Link>
+                    <a href="https://blog.flockfysh.tech/">Blog</a>
                 </div>
 
                 <div className={ classes.footerLinks }>
                     <h6>Contact</h6>
 
-                    <Link to="/product">Twitter</Link>
-                    <Link to="/product">Discord</Link>
-                    <a href="https://github.com/teamnebulaco">Github</a>
-                    <Link to="/product">Email</Link>
+                    <a href="" target="_blank">Twitter</a>
+                    <a href="https://discord.gg/rjS8nXq7CK" target="_blank">Discord</a>
+                    <a href="https://github.com/teamnebulaco" target="_blank">Github</a>
                 </div>
 
                 <div className={ classes.footerLinks }>
