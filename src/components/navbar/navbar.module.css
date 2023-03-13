@@ -10,17 +10,28 @@
     display: none;
     align-items: center;
     gap: 0.5rem;
-    margin-right: -3rem;
 }
 
-.logoText {
+.logo {
     font-size: 2.5rem;
     font-weight: 600;
     transition: 0.2s;
+    display: flex;
+    align-items: center;
 }
 
-.logoText:hover {
+.logo:hover {
     color: var(--color-blue-primary);
+}
+
+.logoImg {
+    height: 21.35px;
+}
+
+.logoText {
+    margin-left: 6px;
+    color: #0E3DE8;
+    font-size: 14px;
 }
 
 /* #region Nav Mobile Styles */
@@ -35,6 +46,8 @@
     padding-inline: 1rem;
     margin-right: -1rem;
     border: none;
+    display: flex;
+    align-items: center;
 }
 
 .navOpenButton:hover {
@@ -65,9 +78,54 @@
     transform: translate(-50%, -50%);
 }
 
+.signinWrapper {
+    display: none;
+}
+
+.signinButton {
+    padding: 1rem 1.25rem;
+    text-align: center;
+    vertical-align: center;
+    border-radius: 6px;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    display: flex;
+    align-items: center;
+    color: rgba(239, 247, 255, 0.62);
+    border: 1px solid rgba(223, 239, 254, 0.13);
+    background: rgba(226, 240, 253, 0.08);
+    background-blend-mode: normal;
+    transition: .2s;
+    cursor: pointer;
+}
+
+.signinButton:hover {
+    color: rgba(239, 247, 255, 0.62);
+    border: 1px solid rgba(223, 239, 254, 0.13);
+    background: rgba(226, 240, 253, 0.212);
+}
+
+.siginArrow {
+    margin-left: 6px;
+}
+
 @media only all and (min-width: 1024px) {
+    .logoImg {
+        height: 52px;
+    }
+    
+    .logoText {
+        margin-left: 12px;
+        font-size: 24px;
+    }
+    
     .navOpenButton {
         display: none;
+    }
+    
+    .signinWrapper {
+        display: flex;
+        align-items: center;
     }
 
     .listContainer {
