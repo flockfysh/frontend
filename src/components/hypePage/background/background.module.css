@@ -1,3 +1,14 @@
+.bacgroundWrapper {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: -100;
+}
+
 .gradient1 {
   overflow: hidden;
   position: absolute;
@@ -5,7 +16,6 @@
   height: 616px;
   left: 97px;
   top: 687px;
-  z-index: -100;
 
   filter: blur(300px);
 }
@@ -100,7 +110,6 @@
   height: 847px;
   left: -623px;
   top: -74px;
-  z-index: -100;
 
   filter: blur(300px);
 }

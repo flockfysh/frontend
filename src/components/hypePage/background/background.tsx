@@ -3,7 +3,7 @@ import classes from './background.module.css';
 export default function Background() {
 
     return (
-        <>
+        <div className={ classes.bacgroundWrapper }>
             <div className={ classes.gradient1 }>
                 <div className={ classes.rectangle1_1 }>
                     <div className={ classes.shape1 }>
@@ -29,6 +29,6 @@ export default function Background() {
                 </div>
                 <div className={ classes.rectangle2_2 } />
             </div>
-        </>
+        </div>
     );
 }
