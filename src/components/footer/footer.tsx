@@ -1,4 +1,5 @@
 import { FaGithub, FaLinkedinIn, FaTwitter } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 import foundryImage from '../../images/citris-foundry.png';
 
@@ -21,8 +22,8 @@ export default function Footer() {
                 </div>
 
                 <div className={ classes.footerOtherAddressLinks }>
-                    <span>261 Market Street</span>
-                    <span>Berkeley, CA, United States</span>
+                    <span>2594 Hearst Ave</span>
+                    <span>Berkeley, CA 94720, US</span>
                 </div>
             </div>
 
@@ -36,8 +37,8 @@ export default function Footer() {
             </div>
 
             <div className={ classes.footerPrivacy }>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Use</a>
+                <Link to="/privacy">Privacy Policy</Link>
+                <Link to="/terms">Terms of Use</Link>
             </div>
         </footer>
     );
