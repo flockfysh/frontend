@@ -6,7 +6,7 @@ import { Route, BrowserRouter, Routes } from 'react-router-dom';
 
 import PageNotFound from './pages/pageNotFound/pageNotFound';
 
-import HomePage from './pages/home/home';
+import HypePage from './pages/hype/hype';
 import LoginPage from './pages/login/login';
 import Docs from './pages/docs/docs';
 import Blog from './pages/blog/blog';
@@ -56,7 +56,7 @@ function MainApp() {
             <Routes>
                 <Route>
                     <Route path="/" element={ <RootLayout /> }>
-                        <Route index element={ <HomePage /> }/>
+                        <Route index element={ <HypePage /> }/>
 
                         <Route path="/blog" element={ <Blog /> }/>
                         <Route path="/docs" element={ <Docs /> }/>

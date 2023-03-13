@@ -1,0 +1,164 @@
+.heroSectionDiv {
+   margin: 72px 0;
+   display: flex;
+   align-items: center;
+   text-align: center;
+   flex-direction: column;
+   gap: 24px;
+}
+
+.infoFoundry {
+   display: flex;
+   flex-direction: row;
+   gap: 6px;
+   border: 1px solid #171720;
+   background: rgba(12, 12, 15, 0.5);
+   background-blend-mode: normal;
+   border-radius: 24px;
+   padding: 4px 16px;
+}
+
+.infoFoundry div {
+   display: flex;
+   align-items: center;
+   font-size: 1.4rem;
+   font-weight: 400;
+   line-height: 2rem;
+}
+
+.foundryLogo {
+   height: 30px;
+}
+
+.contentSection {
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+}
+
+.contentSection h1 {
+   font-size: 36px;
+   text-align: center;
+}
+
+.contentSection span {
+   font-size: 1.4rem;
+   line-height: 2.4rem;
+   text-align: center;
+}
+
+.infoBeta {
+   padding: 0 .875rem;
+   background: rgba(253, 84, 0, 0.12);
+   background-blend-mode: normal;
+   font-weight: bold !important;
+   font-size: 1.2rem !important;
+   line-height: 1.6rem;
+   border-radius: 4px;
+   color: rgba(255, 140, 63, 0.98);
+   font-weight: 800;
+}
+
+.extraInfo {
+   display: none;
+}
+
+.inputEmail {
+   display: flex;
+   row-gap: 30px;
+   column-gap: 42px;
+   flex-direction: column;
+}
+
+.inputEmail input {
+   padding: 6px 12px;
+   border-radius: 6px;
+   font-size: 1.4rem;
+   text-align: center;
+   border: 1px solid rgba(223, 239, 254, 0.13);
+   background: rgba(226, 240, 253, 0.1);
+   background-blend-mode: normal;
+   color: var(--color-white);
+}
+
+.inputEmail button {
+   padding: 6px 12px;
+   border-radius: 6px;
+   font-size: 1.4rem;
+   border: 1px solid #e5e7eb;
+   background: #ffffff;
+   background-blend-mode: normal;
+   box-shadow: 8px 0px 20px rgba(255, 178, 36, 0.3),
+      0px 0px 20px rgba(112, 225, 200, 0.3),
+      -8px 0px 20px rgba(5, 162, 194, 0.3);
+   transition: .2s;
+   cursor: pointer;
+}
+
+.inputEmail button:hover {
+   box-shadow: 8px 0px 24px rgba(255, 178, 36, 0.3),
+      0px 0px 24px rgba(112, 225, 200, 0.3),
+      -8px 0px 24px rgba(5, 162, 194, 0.3);
+}
+
+.otherContent {
+   font-size: 1.4rem;
+   line-height: 2.4rem;
+}
+
+@media only all and (min-width: 1024px) {
+   .heroSectionDiv {
+      gap: 36px;
+   }
+
+   .infoFoundry {
+      gap: 24px;
+   }
+
+   .infoFoundry div {
+      font-size: 1.6rem;
+      line-height: 2.4rem;
+   }
+
+   .foundryLogo {
+      height: 38px;
+   }
+
+   .infoBeta {
+      margin-bottom: 16px;
+      font-size: 1.2rem !important;
+   }
+
+   .contentSection span {
+      font-size: 1.6rem;
+      line-height: 2.6rem;
+   }
+
+   .contentSection h1 {
+      margin-bottom: 26px;
+      font-size: 64px;
+   }
+
+   .extraInfo {
+      display: inherit;
+   }
+
+   .inputEmail {
+      flex-direction: row;
+   }
+
+   .inputEmail input {
+      font-size: 1.9rem;
+      padding: 12px 16px;
+   }
+
+   .inputEmail button {
+      font-size: 1.9rem;
+      padding: 12px 16px;
+   }
+
+   .otherContent {
+      display: none;
+   }
+
+}
