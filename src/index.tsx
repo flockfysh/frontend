@@ -6,11 +6,13 @@ import { Route, BrowserRouter, Routes } from 'react-router-dom';
 
 import PageNotFound from './pages/pageNotFound/pageNotFound';
 
-import HomePage from './pages/home/home';
+import HypePage from './pages/hype/hype';
 import LoginPage from './pages/login/login';
 import Docs from './pages/docs/docs';
 import Blog from './pages/blog/blog';
 import About from './pages/about/about';
+import PrivacyPage from './pages/privacy/privacy';
+import TermsPage from './pages/terms/terms';
 import Profile from './pages/profile/profile';
 import Authorize from './pages/authorize/authorize';
 
@@ -56,12 +58,13 @@ function MainApp() {
             <Routes>
                 <Route>
                     <Route path="/" element={ <RootLayout /> }>
-                        <Route index element={ <HomePage /> }/>
+                        <Route index element={ <HypePage /> }/>
 
                         <Route path="/blog" element={ <Blog /> }/>
                         <Route path="/docs" element={ <Docs /> }/>
                         <Route path="/about" element={ <About /> }/>
-
+                        <Route path="/privacy" element={ <PrivacyPage /> } />
+                        <Route path="/terms" element={ <TermsPage /> } />
                         <Route path="/login" element={ <LoginPage type="Login" /> }/>
                         <Route path="/signup" element={ <LoginPage type="Signup" /> }/>
 

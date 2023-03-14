@@ -1,13 +1,13 @@
 .footer {
-    padding: 8rem 0;
+    padding: 2rem 0;
+    margin-bottom: 16px;
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
     position: relative;
     /*overflow-x: visible;*/
     /*overflow-y: hidden;*/
-    flex-direction: column-reverse;
-    row-gap: 6rem;
-    column-gap: 2rem;
+    flex-direction: row;
     flex: none;
 }
 
@@ -19,75 +19,70 @@
     color: #b0b0b0;
 }
 
-.footer::before {
-    content: "";
-    height: min(120vw, 120%);
-    aspect-ratio: 2/1;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%, 0);
-    position: absolute;
-    z-index: -1;
-    background-image: radial-gradient(
-            circle at 50% 100%,
-            var(--color-blue-gradients) 10%,
-            rgba(0, 0, 0, 0) 70%
-    );
-
-}
-
-.footerLinksHolder {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 4rem;
-}
-
-.footerLinks {
+.footerFoundry {
     display: flex;
-    flex-direction: column;
+    color: rgba(239,247,255,0.62);
 }
 
-.footerLinks a {
-    font-size: 1.1rem;
-    margin-block: 1rem;
+.footerFoundryBackedByContainer {
+    display: flex;
+    align-items: center;
 }
 
-.footerLinks h6 {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
-    font-weight: 600;
+.footerFoundryLogoContainer img {
+    height: 34px;
 }
 
 .footerOtherContent {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 4px;
 }
 
-.footerOtherContent h5 {
-    font-size: 2rem;
+.footerOtherAddressLinks {
+    display: flex;
+    flex-direction: column;
 }
 
+.footerOtherAddressLinks span {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    color: rgba(239,247,255,0.62);
+}
+
+.footerOtherContentLinks {
+    display: flex;
+    gap: 16px;
+}
+
+.footerOtherContentLinks a {
+    font-size: 24px;
+    color: rgba(239,247,255,0.62);
+}
+
+.footerPrivacy {
+    display: none;
+    height: 100%;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    color: rgba(239, 247, 255, 0.62);
+}
 
 @media only all and (min-width: 640px) {
-    .footerLinksHolder {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-
+    .footerFoundryBackedByContainer {
+        font-size: 1.4rem;
     }
 
-    .footer {
-        flex-direction: row;
-    }
-
-    .footerLinks a {
-        font-size: 1.1rem;
-        margin-block: 1.5rem;
+    .footerFoundryLogoContainer img {
+        height: 70px;
     }
 }
 
 @media only all and (min-width: 1024px) {
-    .footerLinksHolder {
-        grid-gap: 7rem;
+    .footerPrivacy {
+        display: flex;
     }
 }
