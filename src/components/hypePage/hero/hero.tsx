@@ -8,7 +8,7 @@ export default function Hero() {
         <section className={ classes.heroSectionDiv }>
             <div className={ classes.infoFoundry }>
                 <div>
-                    flockfish join
+                    flockfysh join
                 </div>
                 <div>
                     <img src={ foundryImage } className={ classes.foundryLogo } />
