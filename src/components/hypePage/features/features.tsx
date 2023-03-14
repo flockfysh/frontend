@@ -1,9 +1,9 @@
-import classes from './features.module.css';
-
 import ctrlIcon from '../../../images/icons/ctrl.svg';
 import painlessIcon from '../../../images/icons/painless.svg';
 import flexIcon from '../../../images/icons/flex.svg';
 import compatibilityIcon from '../../../images/icons/compatibility.svg';
+
+import classes from './features.module.css';
 
 export default function Features() {
     const featureItems = [
@@ -30,21 +30,23 @@ export default function Features() {
             title: 'Compatibility',
             src: compatibilityIcon,
             description: 'Our tools are built with complete integrability in mind. Use all of your favourite ML tools seamlessly in tandem with flockfysh to energize your ML workflows.'
-        },
+        }
     ];
 
     return (
         <section className={ classes.featuresWrapper }>
-            {featureItems.map(item => (
-                <div key={ item.name } className={ classes.featureItem }>
-                    <div className={ classes.itemTitle }>
-                        <img src={ item.src } alt={ `${item.name}-icon` } />
-                        <h3>{item.title}</h3>
-                    </div>
+            {
+                featureItems.map(item => (
+                    <div key={ item.name } className={ classes.featureItem }>
+                        <div className={ classes.itemTitle }>
+                            <img src={ item.src } alt={ `${item.name}-icon` } />
+                            <h3>{item.title}</h3>
+                        </div>
 
-                    <div className={ classes.itemDescription }>{item.description}</div>
-                </div>
-            ))}
+                        <div className={ classes.itemDescription }>{item.description}</div>
+                    </div>
+                ))
+            }
         </section>
     );
 }
