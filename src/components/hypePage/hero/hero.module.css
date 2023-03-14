@@ -30,6 +30,21 @@
    height: 30px;
 }
 
+.readMoreFoundry {
+   text-decoration: underline;
+   color: var(--color-blue-primary);
+   transition: 0.2s;
+}
+
+.readMoreFoundry a {
+   margin-right: 4px;
+   color: inherit;
+}
+
+.readMoreFoundry:hover {
+   color: var(--color-blue-secondary);
+}
+
 .contentSection {
    display: flex;
    align-items: center;
@@ -79,6 +94,7 @@
    background: rgba(226, 240, 253, 0.1);
    background-blend-mode: normal;
    color: var(--color-white);
+   height: 43px;
 }
 
 .inputEmail input::placeholder {
@@ -97,6 +113,7 @@
       -8px 0px 20px rgba(5, 162, 194, 0.3);
    transition: .2s;
    cursor: pointer;
+   height: 43px;
 }
 
 .inputEmail button:hover {
@@ -152,13 +169,15 @@
    }
 
    .inputEmail input {
-      font-size: 1.9rem;
+      font-size: 2rem;
       padding: 12px 16px;
+      height: 65px;
    }
 
    .inputEmail button {
-      font-size: 1.9rem;
+      font-size: 2rem;
       padding: 12px 16px;
+      height: 65px;
    }
 
    .otherContent {

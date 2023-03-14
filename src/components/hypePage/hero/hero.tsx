@@ -1,3 +1,4 @@
+import { BsArrowRight } from 'react-icons/bs';
 import foundryImage from '../../../images/citris-foundry.png';
 
 import classes from './hero.module.css';
@@ -13,8 +14,9 @@ export default function Hero() {
                     <img src={ foundryImage } className={ classes.foundryLogo } />
                 </div>
                 <div>|</div>
-                <div>
+                <div className={ classes.readMoreFoundry }>
                     <a href="#">Read More</a>
+                    <BsArrowRight size={ 15 } />
                 </div>
             </div>
             <div className={ classes.contentSection }>
@@ -25,7 +27,7 @@ export default function Hero() {
             </div>
             <div className={ classes.inputEmail }>
                 <input type="email" name="" id="" placeholder="Your Email Here" />
-                <button type="submit">Request access</button>
+                <button type="submit">Request Access</button>
             </div>
             <div className={ classes.otherContent }>
                 <span>Designed for Developers, Researchers and enthusiasts.</span>
