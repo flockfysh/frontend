@@ -110,8 +110,14 @@
 }
 
 @media only all and (min-width: 1024px) {
+    .logo {
+        flex: 1;
+        justify-content: flex-start;
+    }
+
     .logoImg {
         height: 52px;
+        width: fit-content;
     }
     
     .logoText {
@@ -122,10 +128,18 @@
     .navOpenButton {
         display: none;
     }
+
+    .listContainer {
+        flex: 3;
+        display: flex;
+        justify-content: center;
+    }
     
     .signinWrapper {
         display: flex;
         align-items: center;
+        justify-content: flex-end;
+        flex: 1;
     }
 
     .listContainer {
