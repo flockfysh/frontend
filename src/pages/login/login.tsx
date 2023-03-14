@@ -13,7 +13,26 @@ export default function LoginForm(props: { type: string }) {
     const curPopup = useRef<Window | null>(null);
     const { curUser, setUser, refresh } = useContext(UserContext);
 
-    if(curUser) return <Navigate to="/dashboard" replace={ true } />;
+    const url = new URL(window.location.href);
+    const code = url.searchParams.get('code');
+
+    if (curUser) {
+        if (!code) {
+            return <Navigate to="/dashboard" replace={ true }/>;
+        }
+        else {
+            return <Navigate to={ `/authorize?code=${code}` } replace={ true }/>;
+        }
+    }
+
+    function redirect() {
+        if (code !== null) {
+            navigate(`/authorize?code=${code}`);
+        }
+        else {
+            navigate('/dashboard');
+        }
+    }
 
     // defaulting to true to account for browser auto-filling
     const [emailIsValid, setEmailIsValid] = useState(true);
@@ -22,8 +41,6 @@ export default function LoginForm(props: { type: string }) {
     const emailRef = useRef({} as HTMLInputElement);
     const passwordRef = useRef({} as HTMLInputElement);
 
-    const url = new URL(window.location.href);
-    const code = url.searchParams.get('code');
 
     /**
      * Open oAuth login Popup
@@ -43,13 +60,7 @@ export default function LoginForm(props: { type: string }) {
                 if (e.data.success) {
                     popup.close();
                     refresh();
-
-                    if (code !== null) {
-                        navigate(`/authorize?code=${ code }`);
-                    }
-                    else {
-                        navigate('/dashboard');
-                    }
+                    redirect();
                 }
             });
         }
@@ -114,7 +125,7 @@ export default function LoginForm(props: { type: string }) {
             })).data;
 
             setUser(response);
-            navigate('/dashboard');
+            redirect();
         }
     }
 
