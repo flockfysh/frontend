@@ -82,7 +82,18 @@
 }
 
 @media only all and (min-width: 1024px) {
+    .footerOtherContent {
+        flex: 1;
+    }
+
+    .footerFoundry {
+        flex: 1;
+        justify-content: center;
+    }
+
     .footerPrivacy {
         display: flex;
+        flex: 1;
+        justify-content: flex-end;
     }
 }
