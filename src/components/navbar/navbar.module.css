@@ -59,23 +59,12 @@
     width: 20rem;
     right: 0;
     top: 100%;
+    margin-top: 6px;
+    padding: 6px 0;
     background: var(--color-black-secondary);
-    border-radius: 2rem;
+    border-radius: 1.4rem;
     list-style: none;
-}
-
-.mobileNavLinksContainer::before {
-    position: absolute;
-    content: "";
-    border-radius: 2rem;
-    width: 106%;
-    height: 106%;
-    filter: blur(1rem);
-    background: var(--color-blue-gradients);
-    z-index: -1;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    border: 1px solid rgba(223, 239, 254, 0.13);
 }
 
 .signinWrapper {
