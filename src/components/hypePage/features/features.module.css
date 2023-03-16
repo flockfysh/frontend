@@ -8,7 +8,7 @@
 }
 
 .featureItem {
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   padding: 1.4rem 2rem 2rem 2rem;
 }
