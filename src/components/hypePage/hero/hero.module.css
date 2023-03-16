@@ -10,7 +10,7 @@
 .infoFoundry {
    display: flex;
    flex-direction: row;
-   gap: 6px;
+   gap: 4px;
    border: 1px solid #171720;
    background: rgba(12, 12, 15, 0.5);
    background-blend-mode: normal;
