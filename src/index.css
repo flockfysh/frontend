@@ -129,7 +129,6 @@ p {
 
 @media only screen and (min-width: 1800px) {
     body {
-        max-width: 150rem;
         margin: 0 auto;
     }
 }
