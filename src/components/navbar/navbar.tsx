@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { HiOutlineMenuAlt4 } from 'react-icons/hi';
+import { RxHamburgerMenu } from 'react-icons/rx';
 import { BsArrowRight } from 'react-icons/bs';
 
 import NavItem from '../navItem/navItem';
@@ -58,7 +58,7 @@ export default function Navbar() {
                     ) : <></>
                 }
 
-                <HiOutlineMenuAlt4 onClick={ () => updateNav(!navOpen) }/>
+                <RxHamburgerMenu onClick={ () => updateNav(!navOpen) }/>
             </button>
 
             <ul className={ classes.listContainer }>
