@@ -66,6 +66,8 @@ body {
 }
 
 #root {
+    margin: auto;
+    max-width: 200rem;
     padding: 0 calc(1rem + 5vw);
     display: flex;
     flex-direction: column;
