@@ -1,221 +1,222 @@
-.bacgroundWrapper {
-  overflow: hidden;
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  z-index: -100;
+.backgroundWrapper {
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: -100;
 }
 
 .gradient1 {
-  overflow: hidden;
-  position: absolute;
-  width: 548px;
-  height: 616px;
-  left: 97px;
-  top: 687px;
+    overflow: hidden;
+    position: absolute;
+    width: 548px;
+    height: 616px;
+    left: 97px;
+    top: 687px;
 
-  filter: blur(300px);
+    filter: blur(300px);
 }
 
 .shape1 {
-  position: absolute;
-  left: -23.88%;
-  right: -22.11%;
-  top: -56.16%;
-  bottom: -54.34%;
+    position: absolute;
+    left: -23.88%;
+    right: -22.11%;
+    top: -56.16%;
+    bottom: -54.34%;
 
-  filter: blur(200px);
+    filter: blur(200px);
 }
 
 .vector1_1 {
-  position: absolute;
-  left: -17.92%;
-  right: 50.01%;
-  top: 19.89%;
-  bottom: -38.71%;
+    position: absolute;
+    left: -17.92%;
+    right: 50.01%;
+    top: 19.89%;
+    bottom: -38.71%;
 
-  background: #0375D2;
-  transform: matrix(1, 0.09, -0.03, 1, 0, 0);
+    background: #0375D2;
+    transform: matrix(1, 0.09, -0.03, 1, 0, 0);
 }
 
 .vector1_2 {
-  position: absolute;
-  left: -23.88%;
-  right: 55.5%;
-  top: -19.94%;
-  bottom: 28.92%;
+    position: absolute;
+    left: -23.88%;
+    right: 55.5%;
+    top: -19.94%;
+    bottom: 28.92%;
 
-  background: #2748F7;
+    background: #2748F7;
 }
 
 
 .vector1_3 {
-  position: absolute;
-  left: 45.43%;
-  right: -22.11%;
-  top: -42.01%;
-  bottom: 26.33%;
+    position: absolute;
+    left: 45.43%;
+    right: -22.11%;
+    top: -42.01%;
+    bottom: 26.33%;
 
-  background: #08066C;
+    background: #08066C;
 }
-.vector1_4 {
-  position: absolute;
-  left: 38.43%;
-  right: -10.45%;
-  top: 49.92%;
-  bottom: -54.34%;
 
-  background: #070EBD;
+.vector1_4 {
+    position: absolute;
+    left: 38.43%;
+    right: -10.45%;
+    top: 49.92%;
+    bottom: -54.34%;
+
+    background: #070EBD;
 }
 
 .vector1_5 {
-  position: absolute;
-  left: 2.61%;
-  right: 36.1%;
-  top: -56.16%;
-  bottom: 24.96%;
+    position: absolute;
+    left: 2.61%;
+    right: 36.1%;
+    top: -56.16%;
+    bottom: 24.96%;
 
-  background: #021B50;
+    background: #021B50;
 }
 
 .rectangle1_1 {
-  position: absolute;
-  left: 0%;
-  right: 0%;
-  top: 0%;
-  bottom: 0%;
-  mix-blend-mode: overlay;
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    mix-blend-mode: overlay;
 
-  background: #D9D9D9;
+    background: #D9D9D9;
 }
 
 .rectangle1_2 {
-  position: absolute;
-  left: 0%;
-  right: 0%;
-  top: 0%;
-  bottom: 0%;
-  mix-blend-mode: overlay;
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    mix-blend-mode: overlay;
 
-  background: #D9D9D9;
+    background: #D9D9D9;
 }
 
 .gradient2 {
-  overflow: hidden;
-  position: absolute;
-  width: 924px;
-  height: 847px;
-  left: -623px;
-  top: -74px;
+    overflow: hidden;
+    position: absolute;
+    width: 924px;
+    height: 847px;
+    left: -623px;
+    top: -74px;
 
-  filter: blur(300px);
+    filter: blur(300px);
 }
 
 .shape2 {
-  position: absolute;
-  left: -23.88%;
-  right: -22.11%;
-  top: -56.16%;
-  bottom: -54.34%;
+    position: absolute;
+    left: -23.88%;
+    right: -22.11%;
+    top: -56.16%;
+    bottom: -54.34%;
 
-  filter: blur(200px);
+    filter: blur(200px);
 }
 
 .vector2_1 {
-  position: absolute;
-  left: -17.92%;
-  right: 50.11%;
-  top: 19.89%;
-  bottom: -38.73%;
+    position: absolute;
+    left: -17.92%;
+    right: 50.11%;
+    top: 19.89%;
+    bottom: -38.73%;
 
-  background: #0375D2;
-  transform: matrix(1, 0.08, -0.03, 1, 0, 0);
+    background: #0375D2;
+    transform: matrix(1, 0.08, -0.03, 1, 0, 0);
 }
 
 .vector2_2 {
-  position: absolute;
-  left: -23.88%;
-  right: 55.5%;
-  top: -19.94%;
-  bottom: 28.92%;
+    position: absolute;
+    left: -23.88%;
+    right: 55.5%;
+    top: -19.94%;
+    bottom: 28.92%;
 
-  background: #2748F7;
+    background: #2748F7;
 }
 
 
 .vector2_3 {
-  position: absolute;
-  left: 45.43%;
-  right: -22.11%;
-  top: -42.01%;
-  bottom: 26.33%;
+    position: absolute;
+    left: 45.43%;
+    right: -22.11%;
+    top: -42.01%;
+    bottom: 26.33%;
 
-  background: #08066C;
+    background: #08066C;
 }
 
 .vector2_4 {
-  position: absolute;
-  left: 38.43%;
-  right: -10.45%;
-  top: 49.92%;
-  bottom: -54.34%;
+    position: absolute;
+    left: 38.43%;
+    right: -10.45%;
+    top: 49.92%;
+    bottom: -54.34%;
 
-  background: #070EBD;
+    background: #070EBD;
 }
 
 .vector2_5 {
-  position: absolute;
-  left: 2.61%;
-  right: 36.1%;
-  top: -56.16%;
-  bottom: 24.96%;
+    position: absolute;
+    left: 2.61%;
+    right: 36.1%;
+    top: -56.16%;
+    bottom: 24.96%;
 
-  background: #021B50;
+    background: #021B50;
 }
 
 .rectangle2_1 {
-  position: absolute;
-  left: 0%;
-  right: 0%;
-  top: 0%;
-  bottom: 0%;
-  mix-blend-mode: overlay;
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    mix-blend-mode: overlay;
 
-  background: #D9D9D9;
+    background: #D9D9D9;
 }
 
 .rectangle2_2 {
-  position: absolute;
-  left: 0%;
-  right: 0%;
-  top: 0%;
-  bottom: 0%;
-  mix-blend-mode: overlay;
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    mix-blend-mode: overlay;
 
-  background: #D9D9D9;
+    background: #D9D9D9;
 }
 
 @media only all and (min-width: 1024px) {
-  .gradient1 {
-      width: 673px;
-      height: 803px;
-      left: 767px;
-      top: 791px;
+    .gradient1 {
+        width: 673px;
+        height: 803px;
+        left: 767px;
+        top: 791px;
     }
-  
-    .vector1_1 {
-      right: 49.97%;
 
-      transform: matrix(1, 0.1, -0.03, 1, 0, 0);
+    .vector1_1 {
+        right: 49.97%;
+
+        transform: matrix(1, 0.1, -0.03, 1, 0, 0);
     }
-  
+
     .gradient2 {
-      width: 924px;
-      height: 847px;
-      left: -9px;
-      top: 244px;
+        width: 924px;
+        height: 847px;
+        left: -9px;
+        top: 244px;
     }
 }

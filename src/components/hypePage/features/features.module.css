@@ -1,7 +1,6 @@
 .featuresWrapper {
   display: grid;
   grid-template-rows: repeat(4, 1fr);
-  grid-template-columns: 1fr;
   gap: 30px;
   margin-bottom: 120px;
   margin-top: 80px;
@@ -10,14 +9,14 @@
 .featureItem {
   border: 2px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
-  padding: 1.4rem 2rem 2rem 2rem;
+  padding: 1.6rem 2.6rem 2rem;
 }
 
 .itemTitle {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 8px;
+  margin-bottom: 1.2rem;
 }
 
 .itemTitle img {
@@ -27,6 +26,7 @@
 
 .itemTitle h3 {
   font-size: 2.6rem;
+  margin-bottom: 0;
 }
 
 .itemDescription {
@@ -39,14 +39,14 @@
     grid-template-rows: repeat(2, 1fr);
     grid-template-columns: repeat(2, 1fr);
     margin-bottom: 220px;
-    margin-top: 170px;
+    margin-top: 120px;
   }
 }
 
 @media only all and (min-width: 1024px) {
   .featuresWrapper {
-    column-gap: 150px;
-    row-gap: 112px;
+    column-gap: 100px;
+    row-gap: 65px;
   }
 
   .itemTitle img {
@@ -61,5 +61,9 @@
   .itemDescription {
     font-size: 1.6rem;
     line-height: 2.5rem;
+  }
+
+  .featureItem {
+    padding: 2.4rem 4rem;
   }
 }
