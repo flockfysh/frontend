@@ -8,7 +8,7 @@ export default function HypePage() {
             <Hero />
             <Features />
             
-            <Background />
+            {/*<Background />*/}
         </>
     );
 }
