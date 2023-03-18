@@ -1,12 +1,13 @@
 import React from 'react';
 import { BsArrowRight } from 'react-icons/bs';
 import foundryImage from '../../../images/citris-foundry.png';
-
+import validateEmail from '../../../helpers/validateEmail';
 import classes from './hero.module.css';
 import api from '../../../helpers/api';
 
 export default function Hero() {
     const [accessRequestSuccess, setAccessRequestSuccess] = React.useState(false);
+    const [errorMessage, updateErrorMessage] = React.useState('');
     const waitlistFormRef = React.useRef<HTMLFormElement | null>(null);
 
     async function addUserToWaitlist(e: React.MouseEvent) {
@@ -14,8 +15,18 @@ export default function Hero() {
         if (waitlistFormRef.current) {
             const waitlistForm = waitlistFormRef.current;
             const fd = new FormData(waitlistForm);
+            const email = fd.get('email') as string;
+            if (!email) {
+                updateErrorMessage('Please enter an email.');
+                return;
+            }
+            else if (!validateEmail(email)) {
+                updateErrorMessage('Please enter a valid email.');
+
+                return;
+            }
             await api.post('/api/auth/waitlist', {
-                email: fd.get('email'),
+                email,
             });
             setAccessRequestSuccess(true);
         }
@@ -48,7 +59,10 @@ export default function Hero() {
             </div>
 
             <form className={ classes.inputEmail } ref={ waitlistFormRef }>
-                <input type="email" name="email" placeholder="Your email here"/>
+                <div>
+                    <input type="email" name="email" placeholder="Your email here"/>
+                    <label>{errorMessage}</label>
+                </div>
                 <button type="submit"
                         onClick={ addUserToWaitlist }
                         className={ `${classes.submitButton} ${accessRequestSuccess ? classes.submitSuccess : ''}` }>{accessRequestSuccess ? 'Access request sent!' : 'Request access'}

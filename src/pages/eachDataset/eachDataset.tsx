@@ -77,13 +77,13 @@ export default function EachDataSet(props: { page: string }) {
     return (
         <div className={ classes.eachDatasetContainer }>
             <SideBar name={ dataset.name } page={ subPage } dataset={ dataset }>
-                {subPage === 'overview' && <Overview dataset={ dataset } />}
-                {subPage === 'uploaded-images' && <UploadedImages dataset={ dataset } forceUpdate={ forceUpdate } />}
-                {subPage === 'dataset-images' && <DatasetImages dataset={ dataset } forceUpdate={ forceUpdate } />}
-                {subPage === 'feedback-images' && <FeedbackImages dataset={ dataset } forceUpdate={ forceUpdate } />}
-                {subPage === 'annotate' && <Annotate/>}
-                {subPage === 'settings' && <Settings dataset={ dataset } />}
-                {subPage === 'train' && <Train dataset={ dataset } />}
+                { subPage === 'overview' && <Overview dataset={ dataset } /> }
+                { subPage === 'uploaded-images' && <UploadedImages dataset={ dataset } forceUpdate={ forceUpdate } /> }
+                { subPage === 'dataset-images' && <DatasetImages dataset={ dataset } forceUpdate={ forceUpdate } /> }
+                { subPage === 'feedback-images' && <FeedbackImages dataset={ dataset } forceUpdate={ forceUpdate } /> }
+                { subPage === 'annotate' && <Annotate/> }
+                { subPage === 'settings' && <Settings dataset={ dataset } /> }
+                { subPage === 'train' && <Train dataset={ dataset } /> }
             </SideBar>
 
 
