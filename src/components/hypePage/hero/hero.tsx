@@ -36,7 +36,7 @@ export default function Hero() {
         <section className={ classes.heroSectionDiv }>
             <div className={ classes.infoFoundry }>
                 <div>
-                    flockfysh join
+                    flockfysh joins
                 </div>
 
                 <div>
