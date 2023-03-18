@@ -36,7 +36,7 @@ export default function Hero() {
         <section className={ classes.heroSectionDiv }>
             <div className={ classes.infoFoundry }>
                 <div>
-                    flockfysh join
+                    flockfysh joins
                 </div>
 
                 <div>
@@ -55,7 +55,8 @@ export default function Hero() {
                 <span className={ classes.infoBeta }>Currently in private beta</span>
                 <h1 className={ classes.heroHeading }>Dataset&nbsp;creation from&nbsp;the&nbsp;future.</h1>
                 <span>Made for any use cases, flockfysh is the AI that takes the complexity out of getting datasets.</span>
-                <span className={ classes.extraInfo }>Designed for Developers, Researchers and Enthusiasts.</span>
+                <span
+                    className={ classes.extraInfo }>Designed for developers, researchers and those who dare to dream.</span>
             </div>
 
             <form className={ classes.inputEmail } ref={ waitlistFormRef }>
@@ -70,7 +71,7 @@ export default function Hero() {
             </form>
 
             <div className={ classes.otherContent }>
-                <span>Designed for Developers, Researchers and enthusiasts.</span>
+                <span>Designed for developers, researchers and those who dare to dream.</span>
             </div>
         </section>
     );
