@@ -86,6 +86,7 @@
 }
 
 .inputEmail input {
+   outline: none;
    padding: 6px 12px;
    border-radius: 6px;
    font-size: 1.4rem;
@@ -98,10 +99,19 @@
 }
 
 .inputEmail input::placeholder {
-   color: var(--color-white);
+   color: rgba(255, 255, 255, 0.685);
+}
+
+.inputEmail label {
+   position: absolute;
+   color: var(--color-red-primary);
+   display: block;
+   font-size: 15px;
+   margin-top: 10px;
 }
 
 .inputEmail button {
+   outline: none;
    padding: 6px 12px;
    border-radius: 6px;
    font-size: 1.4rem;
@@ -120,6 +130,7 @@
    box-shadow: 8px 0px 24px rgba(255, 178, 36, 0.3),
       0px 0px 24px rgba(112, 225, 200, 0.3),
       -8px 0px 24px rgba(5, 162, 194, 0.3);
+   color: var(--color-blue-secondary);
 }
 
 .otherContent {

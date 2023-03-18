@@ -5,8 +5,10 @@ import { serverURL } from '../../settings';
 
 import { UserContext } from '../../contexts/userContext';
 
-import classes from './login.module.css';
 import api from '../../helpers/api';
+import validateEmail from '../../helpers/validateEmail';
+
+import classes from './login.module.css';
 
 export default function LoginForm(props: { type: string }) {
     const navigate = useNavigate();
@@ -81,24 +83,10 @@ export default function LoginForm(props: { type: string }) {
         }
     }
 
-    function emailValidHandler(email = null as (String | null)) {
+    function emailValidHandler(email = null as (string | null)) {
         if (!email) email = emailRef.current.value;
 
-        // logic below
-        // email shouldn't include spaces
-        // email is at least 5 letters and include @ and .
-        // there are letters before @
-        // there are letters after .
-        // and if there are letters between @ and .
-        if (
-            !email.includes(' ') &&
-            email.length >= 5 &&
-            email.includes('@') &&
-            email.includes('.') &&
-            email.split('@')[0].length > 0 &&
-            email.split('.')[1].length > 0 &&
-            email.split('@')[1].split('')[0] !== '.'
-        ) {
+        if (validateEmail(email)) {
             setEmailIsValid(true);
 
             return true;
