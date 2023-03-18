@@ -58,69 +58,69 @@ export default function AddAnnotationBoxLayer(props: {
 
     return (
         <Layer>
-            <Rect ref={ internalRectRef } stroke="red" strokeWidth={ 4 } opacity={ isDragging ? 1 : 0 } />
+            <Rect ref={ internalRectRef } stroke="red" strokeWidth={ 4 } opacity={ isDragging ? 1 : 0 }/>
 
-            <Rect 
+            <Rect
                 draggable
-                x={ 0 } 
-                y={ 0 } 
-                strokeScaleEnabled={ false } 
+                x={ 0 }
+                y={ 0 }
+                strokeScaleEnabled={ false }
                 width={ props.width }
-                height={ props.height } 
-                onDragStart={ e => {
-                        const { x, y } = e.currentTarget.getStage()!.getRelativePointerPosition();
+                height={ props.height }
+                onMouseDown={ e => {
+                    const { x, y } = e.currentTarget.getStage()!.getRelativePointerPosition();
 
-                        start.current.sX = x;
-                        start.current.sY = y;
-
-                        setIsDragging(true);
-                        updateRectangle();
-                    }
-                }
+                    start.current.sX = x;
+                    start.current.sY = y;
+                } }
+                onDragStart={ () => {
+                    setIsDragging(true);
+                    updateRectangle();
+                } }
                 onDragMove={ e => {
-                        const stage = e.currentTarget.getStage()!;
-                        let { x, y } = stage.getRelativePointerPosition();
+                    const stage = e.currentTarget.getStage()!;
+                    let { x, y } = stage.getRelativePointerPosition();
 
-                        x = boundCoordinates(x, 0, stage.width());
-                        y = boundCoordinates(y, 0, stage.height());
-                        end.current.eX = x;
-                        end.current.eY = y;
-                        
-                        updateRectangle();
-                    }
+                    x = boundCoordinates(x, 0, stage.width());
+                    y = boundCoordinates(y, 0, stage.height());
+                    end.current.eX = x;
+                    end.current.eY = y;
+
+                    updateRectangle();
+                }
                 }
                 onDragEnd={ e => {
-                        const rectangle = e.currentTarget;
+                    const rectangle = e.currentTarget;
 
-                        rectangle.x(0);
-                        rectangle.y(0);
+                    rectangle.x(0);
+                    rectangle.y(0);
 
-                        setIsDragging(false);
+                    setIsDragging(false);
 
-                        const { sX, sY } = start.current;
-                        const { eX, eY } = end.current;
+                    const { sX, sY } = start.current;
+                    const { eX, eY } = end.current;
 
-                        const width = Math.abs(sX - eX);
-                        const height = Math.abs(sY - eY);
-                        const stage = rectangle.getStage()!;
-                        const stageWidth = stage.width();
-                        const stageHeight = stage.height();
-                        const normalizedX = (sX + eX) / 2 / stageWidth;
-                        const normalizedY = (sY + eY) / 2 / stageHeight;
-                        const normalizedWidth = width / stageWidth;
-                        const normalizedHeight = height / stageHeight;
+                    const width = Math.abs(sX - eX);
+                    const height = Math.abs(sY - eY);
+                    const stage = rectangle.getStage()!;
+                    const stageWidth = stage.width();
+                    const stageHeight = stage.height();
+                    const normalizedX = (sX + eX) / 2 / stageWidth;
+                    const normalizedY = (sY + eY) / 2 / stageHeight;
+                    const normalizedWidth = width / stageWidth;
+                    const normalizedHeight = height / stageHeight;
 
-                        if (normalizedHeight < 0.02 || normalizedHeight < 0.02) return;
+                    if (normalizedHeight < 0.02 || normalizedHeight < 0.02) return;
 
-                        const coords = {
-                            x: normalizedX,
-                            y: normalizedY,
-                            width: normalizedWidth,
-                            height: normalizedHeight,
-                        };
+                    const coords = {
+                        x: normalizedX,
+                        y: normalizedY,
+                        width: normalizedWidth,
+                        height: normalizedHeight,
+                    };
 
-                        props.onAdd?.(coords);
-                    }
+                    props.onAdd?.(coords);
+                }
                 }>
             </Rect>
         </Layer>
