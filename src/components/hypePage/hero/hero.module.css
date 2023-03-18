@@ -133,6 +133,14 @@
    line-height: 2.4rem;
 }
 
+.submitButton {
+   transition: width 0.2s ease-out;
+}
+
+.submitSuccess {
+
+}
+
 @media only all and (min-width: 1024px) {
    .heroSectionDiv {
       gap: 36px;

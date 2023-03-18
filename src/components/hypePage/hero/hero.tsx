@@ -1,9 +1,26 @@
+import React from 'react';
 import { BsArrowRight } from 'react-icons/bs';
 import foundryImage from '../../../images/citris-foundry.png';
 
 import classes from './hero.module.css';
+import api from '../../../helpers/api';
 
 export default function Hero() {
+    const [accessRequestSuccess, setAccessRequestSuccess] = React.useState(false);
+    const waitlistFormRef = React.useRef<HTMLFormElement | null>(null);
+
+    async function addUserToWaitlist(e: React.MouseEvent) {
+        e.preventDefault();
+        if (waitlistFormRef.current) {
+            const waitlistForm = waitlistFormRef.current;
+            const fd = new FormData(waitlistForm);
+            await api.post('/api/auth/waitlist', {
+                email: fd.get('email'),
+            });
+            setAccessRequestSuccess(true);
+        }
+    }
+
     return (
         <section className={ classes.heroSectionDiv }>
             <div className={ classes.infoFoundry }>
@@ -30,10 +47,13 @@ export default function Hero() {
                 <span className={ classes.extraInfo }>Designed for Developers, Researchers and Enthusiasts.</span>
             </div>
 
-            <div className={ classes.inputEmail }>
-                <input type="email" name="" id="" placeholder="Your Email Here"/>
-                <button type="submit">Request Access</button>
-            </div>
+            <form className={ classes.inputEmail } ref={ waitlistFormRef }>
+                <input type="email" name="email" placeholder="Your email here"/>
+                <button type="submit"
+                        onClick={ addUserToWaitlist }
+                        className={ `${classes.submitButton} ${accessRequestSuccess ? classes.submitSuccess : ''}` }>{accessRequestSuccess ? 'Access request sent!' : 'Request access'}
+                </button>
+            </form>
 
             <div className={ classes.otherContent }>
                 <span>Designed for Developers, Researchers and enthusiasts.</span>

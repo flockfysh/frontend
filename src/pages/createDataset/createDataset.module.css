@@ -4,22 +4,23 @@
     flex-direction: column;
     row-gap: 5rem;
 }
-.createDatasetContainer::after {
-    z-index: -1;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    background: radial-gradient(
-            circle at top left,
-            var(--color-blue-gradients),
-            rgba(0, 0, 0, 0) 30%
-    ) top left;
+/*.createDatasetContainer::after {*/
+/*    z-index: -1;*/
+/*    height: 100%;*/
+/*    width: 100%;*/
+/*    position: absolute;*/
+/*    background: radial-gradient(*/
+/*            circle at top left,*/
+/*            var(--color-blue-gradients),*/
+/*            rgba(0, 0, 0, 0) 30%*/
+/*    ) top left;*/
 
-    content: "";
-    top: 0;
-    left: 0;
-    min-width: 30rem;
-}
+/*    content: "";*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    min-width: 30rem;*/
+/*}*/
+
 .datasetTypeRow {
     display: flex;
     justify-content: space-between;
