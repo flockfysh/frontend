@@ -48,7 +48,6 @@ html {
 body, html {
     margin: 0;
     padding: 0;
-    position: relative;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
