@@ -6,13 +6,15 @@ import { Route, BrowserRouter, Routes } from 'react-router-dom';
 
 import PageNotFound from './pages/pageNotFound/pageNotFound';
 
-import HomePage from './pages/home/home';
+import HypePage from './pages/hype/hype';
 import LoginPage from './pages/login/login';
 import Docs from './pages/docs/docs';
 import Blog from './pages/blog/blog';
 import About from './pages/about/about';
+import PrivacyPage from './pages/privacy/privacy';
+import TermsPage from './pages/terms/terms';
 import Profile from './pages/profile/profile';
-import Annotate from './pages/annotate/annotate';
+import Authorize from './pages/authorize/authorize';
 
 import ViewDatasets from './pages/viewDatasets/viewDatasets';
 import EachDataSet from './pages/eachDataset/eachDataset';
@@ -29,10 +31,11 @@ import { EmotionCacheProvider } from './contexts/reactSelectContext';
 
 import './index.css';
 import { ErrorWrapper } from './contexts/errorContext';
+import Background from './components/hypePage/background/background';
 
 /**
  * Wraps entire App with neccessary Contexts
- * 
+ *
  * @param props App
  * @returns Wrapped Component
  */
@@ -42,7 +45,8 @@ function AppWrapper(props: React.PropsWithChildren) {
             <ScreenWrapper>
                 <ErrorWrapper>
                     <UserWrapper>
-                        { props.children }
+                        <Background></Background>
+                        {props.children}
                     </UserWrapper>
                 </ErrorWrapper>
             </ScreenWrapper>
@@ -55,27 +59,30 @@ function MainApp() {
         <AppWrapper>
             <Routes>
                 <Route>
-                    <Route path="/" element={ <RootLayout /> }>
-                        <Route index element={ <HomePage /> }/>
+                    <Route path="/" element={ <RootLayout/> }>
+                        <Route index element={ <HypePage/> }/>
 
-                        <Route path="/blog" element={ <Blog /> }/>
-                        <Route path="/docs" element={ <Docs /> }/>
-                        <Route path="/about" element={ <About /> }/>
+                        <Route path="/blog" element={ <Blog/> }/>
+                        <Route path="/docs" element={ <Docs/> }/>
+                        <Route path="/about" element={ <About/> }/>
+                        <Route path="/privacy" element={ <PrivacyPage/> }/>
+                        <Route path="/terms" element={ <TermsPage/> }/>
+                        <Route path="/login" element={ <LoginPage type="Login"/> }/>
+                        <Route path="/signup" element={ <LoginPage type="Signup"/> }/>
 
-                        <Route path="/login" element={ <LoginPage type="Login" /> }/>
-                        <Route path="/signup" element={ <LoginPage type="Signup" /> }/>
+                        <Route element={ <PrivateRoutes/> }>
+                            <Route path="/authorize" element={ <Authorize/> }/>
+                        </Route>
 
-                        <Route path="*" element={ <PageNotFound /> }/>
+                        <Route path="*" element={ <PageNotFound/> }/>
                     </Route>
 
-                    <Route path="/dashboard" element={ <PrivateRoutes /> }>
-                        <Route element={ <RootLayout /> }>
-                            <Route index element={ <ViewDatasets /> }/>
+                    <Route path="/dashboard" element={ <PrivateRoutes/> }>
+                        <Route element={ <RootLayout/> }>
+                            <Route index element={ <ViewDatasets/> }/>
 
-                            <Route path="profile" element={ <Profile /> }/>
-                            <Route path="create-dataset" element={ <CreateDataset /> }/>
-
-                            <Route path=":datasetId/annotate" element={ <Annotate /> }/>
+                            <Route path="profile" element={ <Profile/> }/>
+                            <Route path="create-dataset" element={ <CreateDataset/> }/>
                         </Route>
 
                         <Route
@@ -85,27 +92,32 @@ function MainApp() {
 
                         <Route
                             path=":datasetId/uploaded-images"
-                            element={ <EachDataSet page="uploaded-images" /> }
-                        />
-
-                        <Route
-                            path=":datasetId/dataset-images"
-                            element={ <EachDataSet page="dataset-images" /> }
+                            element={ <EachDataSet page="uploaded-images"/> }
                         />
 
                         <Route
                             path=":datasetId/feedback-images"
-                            element={ <EachDataSet page="feedback-images" /> }
+                            element={ <EachDataSet page="feedback-images"/> }
+                        />
+
+                        <Route
+                            path=":datasetId/dataset-images"
+                            element={ <EachDataSet page="dataset-images"/> }
+                        />
+
+                        <Route
+                            path=":datasetId/annotate"
+                            element={ <EachDataSet page="annotate"/> }
                         />
 
                         <Route
                             path=":datasetId/settings"
-                            element={ <EachDataSet page="settings" /> }
+                            element={ <EachDataSet page="settings"/> }
                         />
 
                         <Route
                             path=":datasetId/train"
-                            element={ <EachDataSet page="train" /> }
+                            element={ <EachDataSet page="train"/> }
                         />
                     </Route>
                 </Route>
@@ -118,8 +130,8 @@ const root = ReactDOM.createRoot(document.getElementById('root')!);
 
 root.render(
     // <React.StrictMode>
-        <BrowserRouter>
-            <MainApp />
-        </BrowserRouter>
+    <BrowserRouter>
+        <MainApp/>
+    </BrowserRouter>,
     // </React.StrictMode>
 );

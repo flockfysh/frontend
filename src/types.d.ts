@@ -23,12 +23,13 @@ declare interface Dataset extends PartialDataset {
     plan: string;
     size: number;
     monthlyCost: MonthlyCost;
-    state: string;
     classes: string[];
     numTimesHumanFeedback: number,
     uploadedImages: ImageWithoutAnnotation[];
     feedbackImages: ImageWithoutAnnotation[];
     datasetImages: ImageWithoutAnnotation[];
+    state: string;
+    completedImages: ImageWithoutAnnotation[];
 }
 
 declare interface AnnotationBox {
@@ -81,5 +82,5 @@ declare interface BaseUser {
 declare interface User extends BaseUser {
     monthlyCost: MonthlyCost;
     payments: Cost[];
-    datasetIds?: number[]; // ! make not optional 
+    datasetIds?: number[];
 }

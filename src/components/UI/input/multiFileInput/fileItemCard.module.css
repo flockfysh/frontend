@@ -5,6 +5,7 @@
     background: var(--color-black-secondary);
     gap: 2rem;
     align-items: center;
+    overflow: hidden;
 }
 
 .fileItemName {
@@ -12,6 +13,9 @@
     font-weight: lighter;
     text-align: left;
     flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0;
 }
 
 .viewImage {
@@ -21,6 +25,8 @@
     cursor: pointer;
     border: none;
     transition: 0.2s;
+    padding: 1.3rem 1.5rem;
+    flex: none;
 }
 
 .viewImage:hover {
@@ -30,6 +36,7 @@
 .deleteUpload {
     color: var(--color-white);
     font-size: 15px;
+    flex: none;
     cursor: pointer;
     border: none;
     transition: 0.2s;

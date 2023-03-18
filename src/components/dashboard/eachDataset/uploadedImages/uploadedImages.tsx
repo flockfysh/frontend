@@ -13,7 +13,7 @@ export default function UploadedImages(props: { dataset: Dataset, forceUpdate: (
                     {
                         props.dataset.uploadedImages.map(
                             (image, index) => (
-                                <ImageComponent key={ index } image={ image } dataset={ props.dataset } forceUpdate={ props.forceUpdate } />
+                                <ImageComponent key={ index } image={ image } forceUpdate={ props.forceUpdate } />
                             )
                         )
                     }

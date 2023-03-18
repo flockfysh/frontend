@@ -1,20 +1,38 @@
 import { useState, useRef, useContext } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 
-import axios from 'axios';
-
 import { serverURL } from '../../settings';
 
 import { UserContext } from '../../contexts/userContext';
 
 import classes from './login.module.css';
+import api from '../../helpers/api';
 
 export default function LoginForm(props: { type: string }) {
     const navigate = useNavigate();
     const curPopup = useRef<Window | null>(null);
     const { curUser, setUser, refresh } = useContext(UserContext);
 
-    if (curUser) return <Navigate to="/dashboard" replace={ true }/>;
+    const url = new URL(window.location.href);
+    const code = url.searchParams.get('code');
+
+    if (curUser) {
+        if (!code) {
+            return <Navigate to="/dashboard" replace={ true }/>;
+        }
+        else {
+            return <Navigate to={ `/authorize?code=${code}` } replace={ true }/>;
+        }
+    }
+
+    function redirect() {
+        if (code !== null) {
+            navigate(`/authorize?code=${code}`);
+        }
+        else {
+            navigate('/dashboard');
+        }
+    }
 
     // defaulting to true to account for browser auto-filling
     const [emailIsValid, setEmailIsValid] = useState(true);
@@ -22,6 +40,7 @@ export default function LoginForm(props: { type: string }) {
 
     const emailRef = useRef({} as HTMLInputElement);
     const passwordRef = useRef({} as HTMLInputElement);
+
 
     /**
      * Open oAuth login Popup
@@ -41,7 +60,7 @@ export default function LoginForm(props: { type: string }) {
                 if (e.data.success) {
                     popup.close();
                     refresh();
-                    navigate('/dashboard');
+                    redirect();
                 }
             });
         }
@@ -98,23 +117,15 @@ export default function LoginForm(props: { type: string }) {
         if (!emailValidHandler(email) || !passwordValidHandler(password)) return;
 
         if (emailIsValid && passwordIsValid) {
-            const response = (await axios(
-                {
-                    method: 'post',
-                    url: serverURL + '/' + props.type.toLowerCase(),
-                    data: {
-                        email: email,
-                        password: password,
-                    },
-                    withCredentials: true,
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
+            const response = (await api.post('/api/auth/' + props.type.toLowerCase(), {
+                data: {
+                    email: email,
+                    password: password,
                 },
-            )).data;
+            })).data;
 
             setUser(response);
-            navigate('/dashboard');
+            redirect();
         }
     }
 
@@ -179,7 +190,7 @@ export default function LoginForm(props: { type: string }) {
             <div className={ classes.buttonDiv }>
                 <button
                     className={ `${classes.githubButton} ${classes.socialButton}` }
-                    onClick={ () => oAuthLogin('/auth/github') }
+                    onClick={ () => oAuthLogin('/api/auth/github') }
                     type="button"
                 >
                     {props.type} with Github{' '}
@@ -197,7 +208,7 @@ export default function LoginForm(props: { type: string }) {
 
                 <button
                     className={ `${classes.googleButton} ${classes.socialButton}` }
-                    onClick={ () => oAuthLogin('/auth/google') }
+                    onClick={ () => oAuthLogin('/api/auth/google') }
                     type="button"
                 >
                     {props.type} with Google{' '}

@@ -10,17 +10,28 @@
     display: none;
     align-items: center;
     gap: 0.5rem;
-    margin-right: -3rem;
 }
 
-.logoText {
+.logo {
     font-size: 2.5rem;
     font-weight: 600;
     transition: 0.2s;
+    display: flex;
+    align-items: center;
 }
 
-.logoText:hover {
+.logo:hover {
     color: var(--color-blue-primary);
+}
+
+.logoImg {
+    height: 21.35px;
+}
+
+.logoText {
+    margin-left: 6px;
+    color: #eeeeee;
+    font-size: 14px;
 }
 
 /* #region Nav Mobile Styles */
@@ -35,6 +46,8 @@
     padding-inline: 1rem;
     margin-right: -1rem;
     border: none;
+    display: flex;
+    align-items: center;
 }
 
 .navOpenButton:hover {
@@ -46,28 +59,76 @@
     width: 20rem;
     right: 0;
     top: 100%;
+    margin-top: 6px;
+    padding: 6px 0;
     background: var(--color-black-secondary);
-    border-radius: 2rem;
+    border-radius: 1.4rem;
     list-style: none;
+    border: 1px solid rgba(223, 239, 254, 0.13);
 }
 
-.mobileNavLinksContainer::before {
-    position: absolute;
-    content: "";
-    border-radius: 2rem;
-    width: 106%;
-    height: 106%;
-    filter: blur(1rem);
-    background: var(--color-blue-gradients);
-    z-index: -1;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+.signinWrapper {
+    display: none;
+}
+
+.signinButton {
+    padding: 1rem 1.25rem;
+    text-align: center;
+    vertical-align: center;
+    border-radius: 6px;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    display: flex;
+    align-items: center;
+    color: rgba(239, 247, 255, 0.62);
+    border: 1px solid rgba(223, 239, 254, 0.13);
+    background: rgba(226, 240, 253, 0.08);
+    background-blend-mode: normal;
+    transition: .2s;
+    cursor: pointer;
+}
+
+.signinButton:hover {
+    color: rgba(239, 247, 255, 0.62);
+    border: 1px solid rgba(223, 239, 254, 0.13);
+    background: rgba(226, 240, 253, 0.212);
+}
+
+.siginArrow {
+    margin-left: 6px;
 }
 
 @media only all and (min-width: 1024px) {
+    .logo {
+        flex: 1;
+        justify-content: flex-start;
+    }
+
+    .logoImg {
+        height: 52px;
+        width: fit-content;
+    }
+    
+    .logoText {
+        margin-left: 12px;
+        font-size: 24px;
+    }
+    
     .navOpenButton {
         display: none;
+    }
+
+    .listContainer {
+        flex: 3;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .signinWrapper {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex: 1;
     }
 
     .listContainer {

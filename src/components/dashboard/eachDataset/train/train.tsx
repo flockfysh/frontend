@@ -8,6 +8,7 @@ import { LABEL_COLORS } from '../../../../settings';
 import api from '../../../../helpers/api';
 import { AxiosError } from 'axios';
 import { ErrorContext } from '../../../../contexts/errorContext';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 interface InitiateTraningRequest {
     class_search_queries: Record<string, string[]>;
@@ -28,7 +29,13 @@ function TrainingLabels(props: React.ComponentPropsWithRef<'label'> & { labelCol
 }
 
 export default function Train(props: { dataset: Dataset }) {
+
+    const navigate = useNavigate();
     const { throwError } = React.useContext(ErrorContext);
+
+    if (props.dataset.state === 'completed') {
+        return <Navigate to={ `/dashboard/${props.dataset.id}/dataset-images` }/>;
+    }
 
     async function initiateSubmission(e: React.FormEvent<HTMLFormElement>) {
         try {
@@ -55,6 +62,7 @@ export default function Train(props: { dataset: Dataset }) {
             else if (props.dataset.state === 'feedback') {
                 await api.post(`/api/dataset/${props.dataset.id}/continueTraining`);
             }
+            navigate('../annotate');
         }
  catch (error) {
             if (error instanceof AxiosError) {
@@ -63,13 +71,19 @@ export default function Train(props: { dataset: Dataset }) {
         }
     }
 
+    const buttonLabel: Record<string, React.ReactNode> = {
+        'untrained': <span>Initiate training</span>,
+        'feedback': <span>Continue training</span>,
+        'completed': null,
+    };
+
     return (
         <div className={ classes.container }>
             <form className={ classes.contentContainer } onSubmit={ initiateSubmission }>
                 <div className={ classes.titleBar }>
                     <h1>Dataset training</h1>
                     <Button type={ 'submit' } className={ classes.utilityButton } gradient={ true }>
-                        <span>Initiate training</span>
+                        {buttonLabel[props.dataset.state]}
                         <RxArrowRight className={ classes.icon }></RxArrowRight>
                     </Button>
                 </div>
@@ -95,10 +109,11 @@ export default function Train(props: { dataset: Dataset }) {
 
                         <label className={ classes.labelledInputContainer }>
                             <span className={ classes.labelledInputContainer__label }>Output Quantity</span>
-                            <input type="range" id={ 'desired_data' } name={ 'desired_data' } min={ 20 } max={ 50 }
+                            <input type="number" id={ 'desired_data' } name={ 'desired_data' } min={ 1 } max={ 10000 }
                                    defaultValue={ 30 }
-                                   className={ classes.outputQuantityRange }/>
+                                   className={ classes.outputQuantity }/>
                         </label>
+
                     </div>
                 ) : <></>}
             </form>

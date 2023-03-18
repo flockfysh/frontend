@@ -2,11 +2,14 @@ import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { RxHamburgerMenu } from 'react-icons/rx';
+import { BsArrowRight } from 'react-icons/bs';
 
 import NavItem from '../navItem/navItem';
 import MobileNavItem from '../navItem/mobileNavItem';
 
 import { UserContext } from '../../contexts/userContext';
+
+import logoIcon from '../../images/icons/Logo.svg';
 
 import classes from './navbar.module.css';
 
@@ -18,25 +21,29 @@ export default function Navbar() {
     const navLinks = [
         {
             to: '/',
-            name: 'Home'
+            name: 'Roadmap'
+        },
+        {
+            to: 'https://docs.flockfysh.tech',
+            name: 'Docs'
         },
         {
             to: 'https://blog.flockfysh.tech',
             name: 'Blog'
         },
         {
-            to: 'https://docs.flockfysh.tech',
-            name: 'Documentation'
-        },
-        {
-            to: '/about',
-            name: 'About'
+            to: '/',
+            name: 'Team'
         }
     ];
 
     return (
         <nav className={ classes.nav }>
-            <Link className={ classes.logoText } to="/">flockfysh</Link>
+            <Link className={ classes.logo } to="/">
+                <img src={ logoIcon } className={ classes.logoImg } />
+                <span className={ classes.logoText }>flockfysh</span>
+                
+            </Link>
 
             <button className={ classes.navOpenButton }>
                 {
@@ -61,10 +68,19 @@ export default function Navbar() {
                     )
                 }
 
-                {
-                    curUser ? <NavItem to="/dashboard" name="Dashboard"/> : <NavItem to="/login" name="Login"/>
-                }
             </ul>
+
+            <div className={ classes.signinWrapper }>
+                {curUser ? (
+                    <Link to="/dashboard" className={ classes.signinButton }>
+                        Dashboard <BsArrowRight size={ 15 } className={ classes.siginArrow } />
+                    </Link>
+                ) : (
+                    <Link to="/login" className={ classes.signinButton }>
+                        Sign In <BsArrowRight size={ 15 } className={ classes.siginArrow } />
+                    </Link>
+                )}
+            </div>
         </nav>
     );
 }

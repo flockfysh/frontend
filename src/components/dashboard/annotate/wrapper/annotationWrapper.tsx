@@ -4,7 +4,7 @@ import { Stage } from 'react-konva';
 import Rectangle from './rectangle';
 import AddAnnotationBoxLayer from './addAnnotationBoxLayer';
 
-import { AnnotationPageContext } from '../../../../pages/annotate/annotate';
+import { AnnotationPageContext } from '../main/annotate';
 
 import { LABEL_COLORS } from '../../../../settings';
 
@@ -138,3 +138,4 @@ export default function AnnotationWrapper() {
         </div>
     );
 }
+

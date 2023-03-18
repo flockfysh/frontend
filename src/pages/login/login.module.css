@@ -72,22 +72,22 @@
    height: fit-content;
 }
 
-.form::before {
-   content: "";
-   position: absolute;
-   left: 50%;
-   top: 50%;
-   transform: translate(-50%, -50%);
-   width: 140%;
-   aspect-ratio: 1/1;
-   z-index: -1;
-   background-image: radial-gradient(
-      circle, 
-      var(--color-blue-gradients) 10%, 
-      rgba(0, 0, 0, 0) 70%
-   );
-   border-radius: 300rem;
-}
+/*.form::before {*/
+/*   content: "";*/
+/*   position: absolute;*/
+/*   left: 50%;*/
+/*   top: 50%;*/
+/*   transform: translate(-50%, -50%);*/
+/*   width: 140%;*/
+/*   aspect-ratio: 1/1;*/
+/*   z-index: -1;*/
+/*   background-image: radial-gradient(*/
+/*      circle, */
+/*      var(--color-blue-gradients) 10%, */
+/*      rgba(0, 0, 0, 0) 70%*/
+/*   );*/
+/*   border-radius: 300rem;*/
+/*}*/
 
 .input {
    background-color: var(--color-gray);

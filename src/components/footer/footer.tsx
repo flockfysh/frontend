@@ -1,4 +1,7 @@
+import { FaGithub, FaLinkedinIn, FaTwitter } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+
+import foundryImage from '../../images/citris-foundry.png';
 
 import classes from './footer.module.css';
 
@@ -6,48 +9,36 @@ export default function Footer() {
     return (
         <footer className={ classes.footer }>
             <div className={ classes.footerOtherContent }>
-                <h5>flockfysh</h5>
+                <div className={ classes.footerOtherContentLinks }>
+                    <a href="https://github.com/flockfysh" target="_blank">
+                        <FaGithub />
+                    </a>
+                    <a href="https://twitter.com/flockfysh" target="_blank">
+                        <FaTwitter />
+                    </a>
+                    <a href="https://www.linkedin.com/company/flockfysh/" target="_blank">
+                        <FaLinkedinIn />
+                    </a>
+                </div>
 
-                <small>
-                    <p>Copyright &copy; 2023 flockfysh</p>
-                    <p>All rights reserved.</p>
-                </small>
+                <div className={ classes.footerOtherAddressLinks }>
+                    <span>2594 Hearst Ave</span>
+                    <span>Berkeley, CA 94720, US</span>
+                </div>
             </div>
 
-            <div className={ classes.footerLinksHolder }>
-                <div className={ classes.footerLinks }>
-                    <h6>Product</h6>
-
-                    <Link to="/product">Sneak Peeks</Link>
-                    <Link to="/product">Pricing</Link>
-                    <Link to="/product">Documentation</Link>
-                    <Link to="/product">Feedback</Link>
+            <div className={ classes.footerFoundry }>
+                <div className={ classes.footerFoundryBackedByContainer }>
+                    <b>Backed by</b>
                 </div>
-
-                <div className={ classes.footerLinks }>
-                    <h6>Company</h6>
-
-                    <Link to="/product">Home</Link>
-                    <Link to="/product">About</Link>
-                    <Link to="/product">Blog</Link>
+                <div className={ classes.footerFoundryLogoContainer }>
+                    <img src={ foundryImage } alt="Foundry logo" />
                 </div>
+            </div>
 
-                <div className={ classes.footerLinks }>
-                    <h6>Contact</h6>
-
-                    <Link to="/product">Twitter</Link>
-                    <Link to="/product">Discord</Link>
-                    <a href="https://github.com/teamnebulaco">Github</a>
-                    <Link to="/product">Email</Link>
-                </div>
-
-                <div className={ classes.footerLinks }>
-                    <h6>Legal</h6>
-
-                    <Link to="/product">Privacy Policy</Link>
-                    <Link to="/product">Terms of Service</Link>
-                    <Link to="/product">Legal Use</Link>
-                </div>
+            <div className={ classes.footerPrivacy }>
+                <Link to="/privacy">Privacy Policy</Link>
+                <Link to="/terms">Terms of Use</Link>
             </div>
         </footer>
     );

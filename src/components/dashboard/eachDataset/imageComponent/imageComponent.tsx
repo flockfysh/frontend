@@ -4,7 +4,7 @@ import api from '../../../../helpers/api';
 
 import imageClasses from './imageComponent.module.css';
 
-export default function ImageComponent(props: { image: ImageWithoutAnnotation, dataset: Dataset, forceUpdate: () => void }) {
+export default function ImageComponent(props: { image: ImageWithoutAnnotation, forceUpdate: () => void }) {
   async function deleteImage() {
     const res = await api.delete(`/api/image/${ props.image._id }`);
 
