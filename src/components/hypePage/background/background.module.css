@@ -206,10 +206,15 @@
 }
 
 @media only all and (min-width: 1024px) {
+    .backgroundWrapper {
+        position: absolute;
+    }
+
     .gradient1 {
-        width: 673px;
+        width: 46.73%;
+        aspect-ratio: 673 / 803;
         height: 803px;
-        left: 767px;
+        left: 53.26%;
         top: 791px;
     }
 
@@ -220,9 +225,10 @@
     }
 
     .gradient2 {
-        width: 924px;
+        width: 64.16%;
+        aspect-ratio: 12 / 11;
         height: 847px;
-        left: -9px;
+        left: 0.62%;
         top: 244px;
     }
 }
