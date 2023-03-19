@@ -130,6 +130,10 @@
    transition: .2s;
    cursor: pointer;
    height: 43px;
+   opacity: 1;
+   color: var(--color-black-primary);
+   -webkit-opacity: 1;
+   -webkit-text-fill-color: var(--color-black-primary);
 }
 
 .inputEmail button:hover {
