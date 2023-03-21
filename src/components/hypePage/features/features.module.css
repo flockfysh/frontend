@@ -10,6 +10,9 @@
   border: 2px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   padding: 1.6rem 2.6rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .itemTitle {

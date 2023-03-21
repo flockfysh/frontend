@@ -127,7 +127,7 @@ p {
 
 ::-webkit-scrollbar-thumb {
     border-radius: 2rem;
-    background-color: var(--color-black-secondary);
+    background-color: rgba(239, 247, 255, 0.514);;
 }
 
 /* #region Media Queries */
