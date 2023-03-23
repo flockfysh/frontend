@@ -11,7 +11,7 @@ export default function Features() {
             name: 'control',
             title: 'Control',
             src: ctrlIcon,
-            description: 'Our tool can be picked up and used by any researcher, hobbyist, or company, and easily tailored to your personal needs. Clearly receive the dataset you envision, with support around the clock..',
+            description: 'flockfysh can be picked up and used by any researcher, hobbyist, or company, and easily tailored to your personal needs. Clearly receive the dataset you envision, with support around the clock..',
         },
         {
             name: 'compatibility',
@@ -23,13 +23,13 @@ export default function Features() {
             name: 'flexivility',
             title: 'Flexibility',
             src: flexIcon,
-            description: 'Seamlessly combine, auto-annotate, and enlarge datasets specific to your needs. Our tools easily adapt to existing datasets you have, and create more data / annotations.',
+            description: 'Seamlessly combine, auto-annotate, and enlarge datasets specific to your needs. flockfysh easily adapt to existing datasets you have, and create more data / annotations.',
         },
         {
             name: 'effortless',
             title: 'Effortless',
             src: effortlessIcon,
-            description: 'Provide our tool with a sample of 50 images of the type of data you are looking for, and then watch the magic ensue! No constant searching for data, and nearly zero supervision necessary.',
+            description: 'Provide flockfysh with a sample of 50 images of the type of data you are looking for, and then watch the magic ensue! No constant searching for data, and nearly zero supervision necessary.',
         },
     ];
 
