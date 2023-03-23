@@ -109,11 +109,10 @@
 }
 
 .inputEmail label {
-   position: absolute;
    color: var(--color-red-primary);
    display: block;
    font-size: 15px;
-   margin-top: 10px;
+   margin-top: 4px;
 }
 
 .inputEmail button {
