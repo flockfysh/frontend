@@ -69,7 +69,7 @@ export default function Hero() {
             <div className={ classes.contentSection }>
                 <span className={ classes.infoBeta }>Currently in private beta</span>
                 <h1 className={ classes.heroHeading }>Dataset&nbsp;creation from&nbsp;the&nbsp;future.</h1>
-                <span>Made for any use cases, flockfysh is the AI that takes the complexity out of getting datasets.</span>
+                <span>Polished for any use case, flockfysh takes the complexity out of datasets.</span>
                 <span
                     className={ classes.extraInfo }>Designed for developers, researchers and those who dare to dream.</span>
             </div>
