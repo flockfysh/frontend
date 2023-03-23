@@ -29,7 +29,7 @@ export default function Features() {
             name: 'effortless',
             title: 'Effortless',
             src: effortlessIcon,
-            description: 'Provide flockfysh with 50 sample images of the data you are looking for and then watch the magic ensue! No constant searching for data and nearly zero supervision necessary.',
+            description: 'Provide flockfysh with 50 samples of the image/text data you are looking for and then watch the magic ensue! No constant searching for data and nearly zero supervision necessary.',
         },
     ];
 
