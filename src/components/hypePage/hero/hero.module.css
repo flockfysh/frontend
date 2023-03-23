@@ -102,6 +102,7 @@
    background-blend-mode: normal;
    color: var(--color-white);
    height: 43px;
+   transition: 0.3s
 }
 
 .inputEmail input::placeholder {
@@ -109,11 +110,21 @@
 }
 
 .inputEmail label {
-   position: absolute;
    color: var(--color-red-primary);
    display: block;
    font-size: 15px;
-   margin-top: 10px;
+   margin-top: 4px;
+}
+
+.inputEmail span {
+   color: #a3e86b;
+   display: block;
+   font-size: 1.5rem;
+   margin-top: 4px;
+}
+
+.inputSuccessEmail input {
+  border-color: #a3e86b;
 }
 
 .inputEmail button {
