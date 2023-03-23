@@ -17,7 +17,7 @@ export default function Features() {
             name: 'compatibility',
             title: 'Compatibility',
             src: compatibilityIcon,
-            description: 'Our tools are built with complete integrability in mind. Use all of your favourite ML tools seamlessly in tandem with flockfysh to energize your ML workflows.',
+            description: 'Flockfysh are built with complete integrability in mind. Use all of your favourite ML tools seamlessly in tandem with flockfysh to energize your ML workflows.',
         },
         {
             name: 'flexivility',
