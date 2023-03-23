@@ -10,6 +10,12 @@ export default function Hero() {
     const [errorMessage, updateErrorMessage] = React.useState('');
     const waitlistFormRef = React.useRef<HTMLFormElement | null>(null);
 
+    const onEmailChange = React.useCallback(() => {
+        if (errorMessage) {
+            updateErrorMessage('');
+        }
+    }, [errorMessage]);
+
     async function addUserToWaitlist(e: React.MouseEvent) {
         e.preventDefault();
         if (waitlistFormRef.current) {
@@ -61,7 +67,7 @@ export default function Hero() {
 
             <form className={ classes.inputEmail } ref={ waitlistFormRef }>
                 <div>
-                    <input type="email" name="email" placeholder="Your email here"/>
+                    <input onChange={ onEmailChange } type="email" name="email" placeholder="Your email here"/>
                     <label>{errorMessage}</label>
                 </div>
                 <button type="submit"
