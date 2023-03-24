@@ -17,7 +17,7 @@ import Profile from './pages/profile/profile';
 import Authorize from './pages/authorize/authorize';
 
 import ViewDatasets from './pages/viewDatasets/viewDatasets';
-import EachDataSet from './pages/eachDataset/eachDataset';
+import EachDataset from './pages/eachDataset/eachDataset';
 import CreateDataset from './pages/createDataset/createDataset';
 
 // #endregion
@@ -87,37 +87,37 @@ function MainApp() {
 
                         <Route
                             path=":datasetId/overview"
-                            element={ <EachDataSet page="overview"/> }
+                            element={ <EachDataset page="overview"/> }
                         />
 
                         <Route
                             path=":datasetId/uploaded-images"
-                            element={ <EachDataSet page="uploaded-images"/> }
+                            element={ <EachDataset page="uploaded-images"/> }
                         />
 
                         <Route
                             path=":datasetId/feedback-images"
-                            element={ <EachDataSet page="feedback-images"/> }
+                            element={ <EachDataset page="feedback-images"/> }
                         />
 
                         <Route
                             path=":datasetId/dataset-images"
-                            element={ <EachDataSet page="dataset-images"/> }
+                            element={ <EachDataset page="dataset-images"/> }
                         />
 
                         <Route
                             path=":datasetId/annotate"
-                            element={ <EachDataSet page="annotate"/> }
+                            element={ <EachDataset page="annotate"/> }
                         />
 
                         <Route
                             path=":datasetId/settings"
-                            element={ <EachDataSet page="settings"/> }
+                            element={ <EachDataset page="settings"/> }
                         />
 
                         <Route
                             path=":datasetId/train"
-                            element={ <EachDataSet page="train"/> }
+                            element={ <EachDataset page="train"/> }
                         />
                     </Route>
                 </Route>
