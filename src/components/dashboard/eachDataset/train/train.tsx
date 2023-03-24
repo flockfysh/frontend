@@ -46,9 +46,6 @@ export default function Train(props: { dataset: Dataset }) {
         description: 'Starting a new Flockfysh job...',
     });
 
-    if (props.dataset.state === 'completed') {
-        return <Navigate to={ `/dashboard/${props.dataset.id}/dataset-images` }/>;
-    }
 
     React.useEffect(() => {
         async function refreshProgress() {
@@ -75,6 +72,10 @@ export default function Train(props: { dataset: Dataset }) {
 
         return () => clearInterval(interval);
     }, []);
+
+    if (props.dataset.state === 'completed') {
+        return <Navigate to={ `/dashboard/${props.dataset.id}/dataset-images` }/>;
+    }
 
     async function initiateSubmission(e: React.FormEvent<HTMLFormElement>) {
         try {
