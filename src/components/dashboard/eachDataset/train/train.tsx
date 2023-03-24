@@ -8,7 +8,7 @@ import { LABEL_COLORS } from '../../../../settings';
 import api from '../../../../helpers/api';
 import { AxiosError } from 'axios';
 import { ErrorContext } from '../../../../contexts/errorContext';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import Loading from '../../../loading/loading';
 import dayjs from 'dayjs';
 import Duration from 'dayjs/plugin/duration';
@@ -54,8 +54,13 @@ export default function Train(props: { dataset: Dataset }) {
         async function refreshProgress() {
             const progressData = (await api.get(`/api/dataset/${props.dataset.id}/progress`)).data.data;
             setLoaded(true);
+            setTaskInProgress(!!progressData.taskInProgress);
 
             const progressObject = progressData.result ?? progressData.info;
+
+            if (!progressObject) {
+                return;
+            }
 
             setProgressBar({
                 current: progressObject.current,
@@ -63,7 +68,6 @@ export default function Train(props: { dataset: Dataset }) {
                 description: progressObject.status,
                 eta: progressObject.eta,
             });
-            setTaskInProgress(!!progressData.taskInProgress);
         }
 
         refreshProgress();
