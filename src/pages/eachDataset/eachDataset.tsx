@@ -3,13 +3,11 @@ import { useParams } from 'react-router-dom';
 
 import SideBar from '../../components/dashboard/eachDataset/sideBar/sideBar';
 import Overview from '../../components/dashboard/eachDataset/overview/overview';
-import UploadedImages from '../../components/dashboard/eachDataset/uploadedImages/uploadedImages';
 import ImageBrowser from '../../components/dashboard/eachDataset/imageBrowser/imageBrowser';
 import Settings from '../../components/dashboard/eachDataset/settings/settings';
 import Loading from '../../components/loading/loading';
 
 import Train from '../../components/dashboard/eachDataset/train/train';
-import FeedbackImages from '../../components/dashboard/eachDataset/feedbackImages/feedbackImages';
 
 import api from '../../helpers/api';
 
