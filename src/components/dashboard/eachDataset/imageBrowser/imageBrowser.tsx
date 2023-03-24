@@ -47,7 +47,6 @@ export default function ImageBrowser(props: { type: ImageType, dataset: Dataset,
         imageComponents.push(<ImageComponent key={ id } image={ image } forceUpdate={ props.forceUpdate }/>);
     });
 
-    console.log(isInitialized || !!lastId);
     return (
         <div className={ classes.container } ref={ containerRef }>
             <InfiniteScroll hasMore={ isInitialized || !!lastId } loadMore={ fetchImages }
