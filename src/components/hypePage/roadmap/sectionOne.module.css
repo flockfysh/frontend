@@ -1,0 +1,47 @@
+.cards {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  position: relative;
+}
+
+.cardHolder {
+  margin-bottom: 5rem;
+  display: flex;
+}
+
+.cardHolder div:not(:first-of-type) {
+  margin-left: 20rem;
+}
+
+.heading,
+.subHeading,
+.body {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.body {
+  width: 60%;
+  font-size: 1.4rem;
+  font-weight: 300;
+  margin-bottom: 40rem;
+}
+
+.heading {
+  font-size: 3.4rem;
+}
+.subHeading {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-aqua);
+}
+.mainImage {
+  position: absolute;
+  z-index: -1;
+  height: 120rem;
+  left: 5rem;
+}

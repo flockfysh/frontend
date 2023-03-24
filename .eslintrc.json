@@ -4,12 +4,9 @@
     "es2021": true
   },
   "root": true,
-  "overrides": [
-  ],
+  "overrides": [],
   "parser": "@typescript-eslint/parser",
-  "ignorePatterns": [
-    "node_modules/"
-  ],
+  "ignorePatterns": ["node_modules/"],
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module",
@@ -17,10 +14,7 @@
       "jsx": true
     }
   },
-  "plugins": [
-    "react",
-    "@typescript-eslint"
-  ],
+  "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "no-constant-condition": "error",
     "no-dupe-else-if": "error",
@@ -63,29 +57,17 @@
     "arrow-spacing": [
       "error",
       {
-        "before": true, 
+        "before": true,
         "after": true
       }
     ],
     "block-spacing": "error",
-    "brace-style": [
-      "error",
-      "stroustrup"
-    ],
-    "comma-dangle": [
-      "error",
-      "only-multiline"
-    ],
+    "brace-style": ["error", "stroustrup"],
+    "comma-dangle": ["error", "only-multiline"],
     "comma-spacing": "error",
     "eol-last": "error",
-    "jsx-quotes": [
-      "error",
-      "prefer-double"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ],
+    "jsx-quotes": ["error", "prefer-double"],
+    "semi": ["error", "always"],
     "quotes": [
       "error",
       "single",
@@ -96,7 +78,7 @@
     "no-extra-semi": "error",
     "react/react-in-jsx-scope": "off",
     "react/jsx-curly-spacing": [
-      "error", 
+      "error",
       {
         "when": "always"
       }
@@ -113,9 +95,6 @@
         "prop": "parens-new-line"
       }
     ],
-    "object-curly-spacing": [
-      "error",
-      "always"
-    ]
+    "object-curly-spacing": ["error", "always"]
   }
 }
