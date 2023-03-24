@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import SideBar from '../../components/dashboard/eachDataset/sideBar/sideBar';
@@ -20,14 +20,12 @@ export default function EachDataset(props: { page: string }) {
     const [dummy, updateState] = useState(null as any);
     const forceUpdate = useCallback(() => updateState({}), []);
 
-    const [dataset, updateDataset] = useState({} as Dataset);
-    const [loading, updateLoading] = useState(true);
+    const [dataset, updateDataset] = useState<Dataset | undefined>();
+
 
     const subPage = props.page;
 
     useEffect(() => {
-        updateLoading(true);
-
         (async function () {
             try {
                 const result = (await api.get(`/api/dataset/${datasetId}`)).data.data;
@@ -56,7 +54,6 @@ export default function EachDataset(props: { page: string }) {
                     numImages: result.itemCount,
                 };
                 updateDataset(dataset);
-                updateLoading(false);
             }
  catch (error) {
 
@@ -65,21 +62,29 @@ export default function EachDataset(props: { page: string }) {
     }, [dummy]);
 
 
-    if (loading) return <Loading/>;
+    if (!dataset) return <Loading/>;
 
+    const pages: Record<string, JSX.Element> = {
+        'overview': <Overview dataset={ dataset }/>,
+        'annotate': <Annotate></Annotate>,
+        'train': <Train dataset={ dataset }></Train>,
+        'settings': <Settings dataset={ dataset }></Settings>,
+        'uploaded-images':
+            <ImageBrowser type={ 'uploaded' } dataset={ dataset }
+                          forceUpdate={ forceUpdate }/>,
+        'feedback-images':
+            <ImageBrowser type={ 'feedback' } dataset={ dataset }
+                          forceUpdate={ forceUpdate }/>,
+        'dataset-images':
+            <ImageBrowser type={ 'completed' } dataset={ dataset }
+                          forceUpdate={ forceUpdate }/>,
+    };
+    const element = pages[subPage];
     return (
         <div className={ classes.eachDatasetContainer }>
             <SideBar name={ dataset.name } page={ subPage } dataset={ dataset }>
-                {subPage === 'overview' && <Overview dataset={ dataset }/>}
-                {subPage === 'uploaded-images' && <ImageBrowser type={ 'uploaded' } dataset={ dataset } forceUpdate={ forceUpdate }/>}
-                {subPage === 'dataset-images' && <ImageBrowser type={ 'completed' } dataset={ dataset } forceUpdate={ forceUpdate }/>}
-                {subPage === 'feedback-images' && <ImageBrowser type={ 'feedback' } dataset={ dataset } forceUpdate={ forceUpdate }/>}
-                {subPage === 'annotate' && <Annotate/>}
-                {subPage === 'settings' && <Settings dataset={ dataset }/>}
-                {subPage === 'train' && <Train dataset={ dataset }/>}
+                {element}
             </SideBar>
-
-
         </div>
     );
 }
