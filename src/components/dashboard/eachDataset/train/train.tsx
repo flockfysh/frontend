@@ -13,6 +13,7 @@ import Loading from '../../../loading/loading';
 import dayjs from 'dayjs';
 import Duration from 'dayjs/plugin/duration';
 import RelativeTime from 'dayjs/plugin/relativeTime';
+import { v4 } from 'uuid';
 
 dayjs.extend(Duration);
 dayjs.extend(RelativeTime);
@@ -45,7 +46,6 @@ export default function Train(props: { dataset: Dataset }) {
         total: 100,
         description: 'Starting a new Flockfysh job...',
     });
-
 
     React.useEffect(() => {
         async function refreshProgress() {
@@ -158,7 +158,7 @@ export default function Train(props: { dataset: Dataset }) {
                             <span className={ classes.labelledInputContainer__label }>Search Queries</span>
                             <ul className={ trainingClasses.trainingQueriesInputs }>
                                 {props.dataset.classes.map(function generateSearchQueryInput(classString, index) {
-                                    const id = React.useId();
+                                    const id = v4();
                                     return (
                                         <React.Fragment key={ index }>
                                             <TrainingLabels htmlFor={ id }
