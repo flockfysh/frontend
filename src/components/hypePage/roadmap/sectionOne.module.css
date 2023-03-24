@@ -45,3 +45,12 @@
   height: 120rem;
   left: 5rem;
 }
+
+@media only screen and (max-width: 910px) {
+  .mainImage {
+    display: none;
+  }
+  .cardHolder div:not(:first-of-type) {
+    margin-left: 5rem;
+  }
+}

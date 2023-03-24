@@ -32,8 +32,8 @@ function SectionOne() {
         </div>
         <img src={ mainImage } alt="" className={ classes.mainImage } />
         <div className={ classes.cardHolder }>
-          <Card heading="Local flexibility" body={ card3body } icon={ icon1 } />
-          <Card heading="Broad applicability" body={ card4body } icon={ icon2 } />
+          <Card heading="Local flexibility" body={ card3body } icon={ icon3 } />
+          <Card heading="Broad applicability" body={ card4body } icon={ icon4 } />
         </div>
       </div>
     </div>
