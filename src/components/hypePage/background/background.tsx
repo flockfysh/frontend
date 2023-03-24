@@ -33,11 +33,7 @@ export default function Background() {
 
     return (
         <div className={ classes.backgroundWrapper2 }>
-            <div className={ classes.backgroundWrapper3 }>
-                <div className={ classes.backgroundWrapper4 }>
-                    {contents}
-                </div>
-            </div>
+            {contents}
         </div>
     );
 }
