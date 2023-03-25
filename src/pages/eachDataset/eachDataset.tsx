@@ -81,7 +81,7 @@ export default function EachDataset(props: { page: string }) {
     const [progressScreenProps, setProgressScreenProps] = React.useState<ProgressScreenProps | undefined>({
         current: 0,
         total: 100,
-        description: 'Starting a new Flockfysh job...',
+        description: 'Starting Flockfysh training',
     });
 
     async function refreshDatasetProgress() {
@@ -135,7 +135,8 @@ export default function EachDataset(props: { page: string }) {
     const pages: Record<string, JSX.Element> = {
         'overview': <Overview dataset={ dataset }/>,
         'annotate': guardElement(<Annotate></Annotate>),
-        'train': guardElement(<Train dataset={ dataset } setTaskInProgress={ setTaskInProgress }></Train>),
+        'train': guardElement(<Train dataset={ dataset } setTaskInProgress={ setTaskInProgress }
+                                     setProgressScreenProps={ setProgressScreenProps }></Train>),
         'settings': <Settings dataset={ dataset }></Settings>,
         'uploaded-images':
             <ImageBrowser type={ 'uploaded' } dataset={ dataset }/>,
