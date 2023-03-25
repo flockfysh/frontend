@@ -4,6 +4,7 @@ import icon1 from '.././icons/icon1.svg';
 import icon2 from '.././icons/icon2.svg';
 import icon3 from '.././icons/icon3.svg';
 import icon4 from '.././icons/icon4.svg';
+import oneFish from '.././Images/oneFish.svg';
 import mainImage from '.././Images/firstSectionImage.svg';
 
 const card1body =
@@ -18,6 +19,10 @@ const card4body =
 function SectionOne() {
   return (
     <div>
+      <div className={ classes.numberDiv }>
+        <img src={ oneFish } alt="" className={ classes.fish } />
+        <h3 className={ classes.number }>1</h3>
+      </div>
       <h4 className={ classes.subHeading }>Dive in headfirst</h4>
       <h3 className={ classes.heading }>"No homework necessary"</h3>
       <p className={ classes.body }>
