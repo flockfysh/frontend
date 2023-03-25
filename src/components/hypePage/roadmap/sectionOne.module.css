@@ -1,0 +1,66 @@
+.featureSection {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.cardHolder {
+    margin-bottom: 5rem;
+    display: grid;
+    grid-gap: 40px;
+    position: absolute;
+    background: var(--color-black-primary);
+    transform: translateY(7.5%);
+}
+
+.cardHolder div:not(:first-of-type) {
+
+}
+
+.heading,
+.subHeading,
+.body {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.body {
+    width: 60%;
+    font-size: 1.4rem;
+    font-weight: 300;
+    margin-bottom: 50px;
+}
+
+.heading {
+    font-size: 3.4rem;
+}
+
+.subHeading {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--color-aqua);
+}
+
+.mainImage {
+    position: relative;
+    z-index: -1;
+    height: 1200px;
+    left: 50px;
+}
+
+@media only screen and (min-width: 1024px) {
+    .cardHolder {
+        background: none;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 50px 150px;
+        /*width: 100%;*/
+        justify-items: center;
+        justify-content: center;
+    }
+}

@@ -1,0 +1,18 @@
+.loadingIcon {
+    width: 30%;
+    aspect-ratio: 1/1;
+    max-width: 15rem;
+    animation: spin 2s linear infinite;
+    /*background: white;*/
+    /*background: linear-gradient(var(--color-blue-primary), dodgerblue);*/
+}
+
+@keyframes spin {
+    0% {
+        transform: none;
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

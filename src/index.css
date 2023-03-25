@@ -1,11 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300;400;500;600;700;800;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
     --color-blue-primary: #91a7ff;
     --color-blue-secondary: #364fc7;
-    --color-blue-tertiary: #748FFC;
+    --color-blue-tertiary: #748ffc;
     --color-blue-gradients: #748ffc7e;
     --color-blue-gradients-card: #364ec75b;
+    --color-aqua: #4accf4;
 
     --color-red-primary: #fa5252;
     --color-red-secondary: #ffc9c9;
@@ -31,37 +32,41 @@
     );
 }
 
+
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
-*, *::before, *::after {
-    box-sizing: inherit;
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
 }
 
 html {
-    box-sizing: border-box;
-    font-size: 62.5%;
+  box-sizing: border-box;
+  font-size: 62.5%;
 }
 
-body, html {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+body,
+html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-    background-color: var(--color-black-primary);
-    color: var(--color-white);
-    font-family: "Poppins", sans-serif;
-    /*margin: 0 17rem;*/
-    overflow-x: hidden;
-    overflow-y: auto;
-    overflow-y: overlay;
+  background-color: var(--color-black-primary);
+  color: var(--color-white);
+  font-family: 'Poppins', sans-serif;
+  /*margin: 0 17rem;*/
+  overflow-x: hidden;
+  overflow-y: auto;
+  overflow-y: overlay;
 }
 
 #root {

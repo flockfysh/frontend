@@ -1,18 +1,15 @@
 .loading {
+    position: fixed;
     display: flex;
     align-self: center;
     align-items: center;
+    flex-direction: column;
     font-size: 20px;
-    height: 50vh;
+    width: 100%;
+    height: 100%;
     justify-content: center;
 }
 
 .loading h2 {
     width: auto;
-}
-
-.loading svg {
-    margin-left: 20px;
-    align-self: center;
-    fill: var(--color-blue-primary);
 }

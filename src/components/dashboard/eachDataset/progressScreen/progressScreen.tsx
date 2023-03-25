@@ -1,8 +1,12 @@
+import FillableSVG from '../../../UI/image/fillableSVG/fillableSVG';
+
 import classes from '../common.module.css';
 import progressScreenClasses from './progressScreen.module.css';
 import dayjs from 'dayjs';
 import Duration from 'dayjs/plugin/duration';
 import RelativeTime from 'dayjs/plugin/relativeTime';
+import loadingIcon from '../../../../images/icons/loading.svg';
+import LoadingIcon from '../../../UI/loadingIcon/loadingIcon';
 
 export interface ProgressScreenProps {
     current: number;
@@ -45,6 +49,7 @@ export default function ProgressScreen(props: ProgressScreenProps) {
         <>
             <div className={ classes.container }>
                 <div className={ classes.progressContainer }>
+                    <LoadingIcon></LoadingIcon>
                     <ProgressBar current={ props.current } total={ props.total }></ProgressBar>
                     <p>{props.description}</p>
                     {progressBarETA}
