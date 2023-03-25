@@ -9,7 +9,6 @@ import api from '../../../../helpers/api';
 import { AxiosError } from 'axios';
 import { ErrorContext } from '../../../../contexts/errorContext';
 import { Navigate } from 'react-router-dom';
-import Loading from '../../../loading/loading';
 import dayjs from 'dayjs';
 import Duration from 'dayjs/plugin/duration';
 import RelativeTime from 'dayjs/plugin/relativeTime';
@@ -36,42 +35,8 @@ function TrainingLabels(props: React.ComponentPropsWithRef<'label'> & { labelCol
     );
 }
 
-export default function Train(props: { dataset: Dataset }) {
+export default function Train(props: { dataset: Dataset, setTaskInProgress: React.Dispatch<React.SetStateAction<boolean>> }) {
     const { throwError } = React.useContext(ErrorContext);
-
-    const [loaded, setLoaded] = React.useState(false);
-    const [taskInProgress, setTaskInProgress] = React.useState(false);
-    const [progressBar, setProgressBar] = React.useState<{ current: number, total: number, description: string, eta?: number }>({
-        current: 0,
-        total: 100,
-        description: 'Starting a new Flockfysh job...',
-    });
-
-    React.useEffect(() => {
-        async function refreshProgress() {
-            const progressData = (await api.get(`/api/dataset/${props.dataset.id}/progress`)).data.data;
-            setLoaded(true);
-            setTaskInProgress(!!progressData.taskInProgress);
-
-            const progressObject = progressData.result ?? progressData.info;
-
-            if (!progressObject) {
-                return;
-            }
-
-            setProgressBar({
-                current: progressObject.current,
-                total: progressObject.total,
-                description: progressObject.status,
-                eta: progressObject.eta,
-            });
-        }
-
-        refreshProgress();
-        const interval = setInterval(refreshProgress, 5000);
-
-        return () => clearInterval(interval);
-    }, []);
 
     if (props.dataset.state === 'completed') {
         return <Navigate to={ `/dashboard/${props.dataset.id}/dataset-images` }/>;
@@ -102,6 +67,7 @@ export default function Train(props: { dataset: Dataset }) {
             else if (props.dataset.state === 'feedback') {
                 await api.post(`/api/dataset/${props.dataset.id}/continueTraining`);
             }
+            props.setTaskInProgress(true);
         }
  catch (error) {
             if (error instanceof AxiosError) {
@@ -116,32 +82,6 @@ export default function Train(props: { dataset: Dataset }) {
         'completed': null,
     };
 
-    if (!loaded) return <Loading></Loading>;
-    if (taskInProgress) {
-        let progressBarETA;
-        if (progressBar.eta !== undefined) {
-            const secondsLeft = +progressBar.eta.toFixed(2);
-            const formatted = dayjs.duration({ seconds: secondsLeft }).humanize();
-            progressBarETA = (
-                <p>
-                    Estimated time remaining: {formatted}
-                </p>
-            );
-        }
-        return (
-            <>
-                <div className={ classes.container }>
-                    <div className={ classes.progressContainer }>
-                        <progress max={ progressBar.total } value={ progressBar.current }
-                                  className={ classes.progressBar }></progress>
-                        <p>{progressBar.description}</p>
-                        {progressBarETA}
-                    </div>
-                </div>
-
-            </>
-        );
-    }
     return (
         <div className={ classes.container }>
             <form className={ classes.contentContainer } onSubmit={ initiateSubmission }>

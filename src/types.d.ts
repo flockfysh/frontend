@@ -17,13 +17,15 @@ declare interface PartialDataset {
     numImages: number;
 }
 
+type DatasetState = 'untrained' | 'feedback' | 'completed'
+
 declare interface Dataset extends PartialDataset {
     dateCreated: Date;
     plan: string;
     monthlyCost: MonthlyCost;
     classes: string[];
     numTimesHumanFeedback: number,
-    state: string;
+    state: DatasetState;
     entityInfo: {
         itemCount: number;
         uploadedItemCount: number;

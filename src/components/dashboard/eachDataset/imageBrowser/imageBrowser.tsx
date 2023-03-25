@@ -8,7 +8,7 @@ import api from '../../../../helpers/api';
 
 type ImageType = 'completed' | 'feedback' | 'uploaded'
 
-export default function ImageBrowser(props: { type: ImageType, dataset: Dataset, forceUpdate: () => void }) {
+export default function ImageBrowser(props: { type: ImageType, dataset: Dataset }) {
     const [{ images }, setImages] = React.useState<{ images: Map<string, ImageWithoutAnnotation> }>({ images: new Map() });
     const [lastId, setLastId] = React.useState<string | undefined>(undefined);
     const [isInitialized, setIsInitialized] = React.useState<boolean>(true);
@@ -44,7 +44,7 @@ export default function ImageBrowser(props: { type: ImageType, dataset: Dataset,
 
     const imageComponents: React.ReactNode[] = [];
     images.forEach(function createImageComponent(image, id) {
-        imageComponents.push(<ImageComponent key={ id } image={ image } forceUpdate={ props.forceUpdate }/>);
+        imageComponents.push(<ImageComponent key={ id } image={ image }/>);
     });
     return (
         <div className={ classes.container } ref={ containerRef }>
