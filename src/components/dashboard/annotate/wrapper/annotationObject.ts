@@ -1,8 +1,5 @@
 import api from '../../../../helpers/api';
-
-function delay(secs: number): Promise<void> {
-    return new Promise<void>(resolve => setTimeout(resolve, secs * 1000));
-}
+import { delay } from '../../../../helpers/timers';
 
 /**
  * This class is a wrapper that adds, edits, and delete annotation boxes and synchronizes with the server.
