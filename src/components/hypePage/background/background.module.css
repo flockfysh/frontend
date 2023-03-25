@@ -7,12 +7,7 @@
     width: 100%;
     height: 100%;
     z-index: -100;
-}
-
-.backgroundWrapper {
-    position: fixed;
-    height: 100%;
-    width: 100%;
+    overflow-y: clip;
 }
 
 .gradient1 {
@@ -22,7 +17,7 @@
     height: 616px;
     left: 97px;
     top: 687px;
-
+    transform: translate3d(0, 0, 0);
     filter: blur(300px);
 }
 
@@ -32,7 +27,7 @@
     right: -22.11%;
     top: -56.16%;
     bottom: -54.34%;
-
+    transform: translate3d(0, 0, 0);
     filter: blur(200px);
 }
 
@@ -42,7 +37,7 @@
     right: 50.01%;
     top: 19.89%;
     bottom: -38.71%;
-
+    transform: translate3d(0, 0, 0);
     background: #0375D2;
     transform: matrix(1, 0.09, -0.03, 1, 0, 0);
 }
@@ -53,7 +48,7 @@
     right: 55.5%;
     top: -19.94%;
     bottom: 28.92%;
-
+    transform: translate3d(0, 0, 0);
     background: #2748F7;
 }
 
@@ -64,7 +59,7 @@
     right: -22.11%;
     top: -42.01%;
     bottom: 26.33%;
-
+    transform: translate3d(0, 0, 0);
     background: #08066C;
 }
 
@@ -74,7 +69,7 @@
     right: -10.45%;
     top: 49.92%;
     bottom: -54.34%;
-
+    transform: translate3d(0, 0, 0);
     background: #070EBD;
 }
 
@@ -84,7 +79,7 @@
     right: 36.1%;
     top: -56.16%;
     bottom: 24.96%;
-
+    transform: translate3d(0, 0, 0);
     background: #021B50;
 }
 
@@ -95,7 +90,7 @@
     top: 0%;
     bottom: 0%;
     mix-blend-mode: overlay;
-
+    transform: translate3d(0, 0, 0);
     background: #D9D9D9;
 }
 
@@ -106,7 +101,7 @@
     top: 0%;
     bottom: 0%;
     mix-blend-mode: overlay;
-
+    transform: translate3d(0, 0, 0);
     background: #D9D9D9;
 }
 
@@ -117,7 +112,7 @@
     height: 847px;
     left: -623px;
     top: -74px;
-
+    transform: translate3d(0, 0, 0);
     filter: blur(300px);
 }
 
@@ -127,7 +122,7 @@
     right: -22.11%;
     top: -56.16%;
     bottom: -54.34%;
-
+    transform: translate3d(0, 0, 0);
     filter: blur(200px);
 }
 
@@ -137,7 +132,7 @@
     right: 50.11%;
     top: 19.89%;
     bottom: -38.73%;
-
+    transform: translate3d(0, 0, 0);
     background: #0375D2;
     transform: matrix(1, 0.08, -0.03, 1, 0, 0);
 }
@@ -148,7 +143,7 @@
     right: 55.5%;
     top: -19.94%;
     bottom: 28.92%;
-
+    transform: translate3d(0, 0, 0);
     background: #2748F7;
 }
 
@@ -159,7 +154,7 @@
     right: -22.11%;
     top: -42.01%;
     bottom: 26.33%;
-
+    transform: translate3d(0, 0, 0);
     background: #08066C;
 }
 
@@ -169,7 +164,7 @@
     right: -10.45%;
     top: 49.92%;
     bottom: -54.34%;
-
+    transform: translate3d(0, 0, 0);
     background: #070EBD;
 }
 
@@ -179,7 +174,7 @@
     right: 36.1%;
     top: -56.16%;
     bottom: 24.96%;
-
+    transform: translate3d(0, 0, 0);
     background: #021B50;
 }
 
@@ -190,7 +185,7 @@
     top: 0%;
     bottom: 0%;
     mix-blend-mode: overlay;
-
+    transform: translate3d(0, 0, 0);
     background: #D9D9D9;
 }
 
@@ -201,28 +196,34 @@
     top: 0%;
     bottom: 0%;
     mix-blend-mode: overlay;
-
+    transform: translate3d(0, 0, 0);
     background: #D9D9D9;
 }
 
 @media only all and (min-width: 1024px) {
+    .backgroundWrapper {
+        /*position: absolute;*/
+    }
+
     .gradient1 {
-        width: 673px;
+        width: 46.73%;
+        aspect-ratio: 673 / 803;
         height: 803px;
-        left: 767px;
+        left: 53.26%;
         top: 791px;
     }
 
     .vector1_1 {
         right: 49.97%;
-
+        transform: translate3d(0, 0, 0);
         transform: matrix(1, 0.1, -0.03, 1, 0, 0);
     }
 
     .gradient2 {
-        width: 924px;
+        width: 64.16%;
+        aspect-ratio: 12 / 11;
         height: 847px;
-        left: -9px;
+        left: 0.62%;
         top: 244px;
     }
 }

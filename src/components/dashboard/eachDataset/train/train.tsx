@@ -8,7 +8,14 @@ import { LABEL_COLORS } from '../../../../settings';
 import api from '../../../../helpers/api';
 import { AxiosError } from 'axios';
 import { ErrorContext } from '../../../../contexts/errorContext';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import dayjs from 'dayjs';
+import Duration from 'dayjs/plugin/duration';
+import RelativeTime from 'dayjs/plugin/relativeTime';
+import { v4 } from 'uuid';
+
+dayjs.extend(Duration);
+dayjs.extend(RelativeTime);
 
 interface InitiateTraningRequest {
     class_search_queries: Record<string, string[]>;
@@ -28,9 +35,7 @@ function TrainingLabels(props: React.ComponentPropsWithRef<'label'> & { labelCol
     );
 }
 
-export default function Train(props: { dataset: Dataset }) {
-
-    const navigate = useNavigate();
+export default function Train(props: { dataset: Dataset, setTaskInProgress: React.Dispatch<React.SetStateAction<boolean>> }) {
     const { throwError } = React.useContext(ErrorContext);
 
     if (props.dataset.state === 'completed') {
@@ -62,7 +67,7 @@ export default function Train(props: { dataset: Dataset }) {
             else if (props.dataset.state === 'feedback') {
                 await api.post(`/api/dataset/${props.dataset.id}/continueTraining`);
             }
-            navigate('../annotate');
+            props.setTaskInProgress(true);
         }
  catch (error) {
             if (error instanceof AxiosError) {
@@ -93,7 +98,7 @@ export default function Train(props: { dataset: Dataset }) {
                             <span className={ classes.labelledInputContainer__label }>Search Queries</span>
                             <ul className={ trainingClasses.trainingQueriesInputs }>
                                 {props.dataset.classes.map(function generateSearchQueryInput(classString, index) {
-                                    const id = React.useId();
+                                    const id = v4();
                                     return (
                                         <React.Fragment key={ index }>
                                             <TrainingLabels htmlFor={ id }

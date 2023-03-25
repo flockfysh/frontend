@@ -4,7 +4,8 @@
     left: 0;
     width: 100%;
     padding: 0 3rem;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-y: overlay;
 }
 
 .contentContainer {
@@ -13,6 +14,16 @@
     flex-direction: column;
     row-gap: 3rem;
     margin-block: 3rem;
+}
+
+.progressContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .contentContainer h1 {

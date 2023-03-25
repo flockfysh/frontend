@@ -7,7 +7,6 @@ declare module '*.png';
 declare interface ImageWithoutAnnotation {
     _id: string;
     url: string;
-    name: string;
     displayName?: string;
 }
 
@@ -18,18 +17,22 @@ declare interface PartialDataset {
     numImages: number;
 }
 
+type DatasetState = 'untrained' | 'feedback' | 'completed'
+
 declare interface Dataset extends PartialDataset {
     dateCreated: Date;
     plan: string;
-    size: number;
     monthlyCost: MonthlyCost;
     classes: string[];
     numTimesHumanFeedback: number,
-    uploadedImages: ImageWithoutAnnotation[];
-    feedbackImages: ImageWithoutAnnotation[];
-    datasetImages: ImageWithoutAnnotation[];
-    state: string;
-    completedImages: ImageWithoutAnnotation[];
+    state: DatasetState;
+    entityInfo: {
+        itemCount: number;
+        uploadedItemCount: number;
+        feedbackItemCount: number;
+        completedItemCount: number;
+        size: number;
+    }
 }
 
 declare interface AnnotationBox {

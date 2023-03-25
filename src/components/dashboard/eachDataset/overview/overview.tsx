@@ -19,9 +19,11 @@ export default function Overview(props: { dataset: Dataset }) {
                 <p>{ props.dataset.description }</p>
                 
                 <ul className={ classes.infoCards }>
-                    <li>Uploaded items: { props.dataset.uploadedImages.length }</li>
-                    <li>Dataset items: { props.dataset.datasetImages.length }</li>
-                    <li>Size of Dataset: { formatFileSize(props.dataset.size) }</li>
+                    <li>Total items: { props.dataset.entityInfo.itemCount }</li>
+                    <li>Uploaded items: { props.dataset.entityInfo.uploadedItemCount }</li>
+                    <li>Items pending feedback: { props.dataset.entityInfo.feedbackItemCount }</li>
+                    <li>Dataset items: { props.dataset.entityInfo.completedItemCount }</li>
+                    <li>Size of Dataset: { formatFileSize(props.dataset.entityInfo.size) }</li>
                     <li>Date created: { props.dataset.dateCreated.toDateString() }</li>
                 </ul>
             </section>

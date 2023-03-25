@@ -3,10 +3,8 @@
     margin-bottom: 16px;
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
     position: relative;
-    /*overflow-x: visible;*/
-    /*overflow-y: hidden;*/
     flex-direction: row;
     flex: none;
 }
