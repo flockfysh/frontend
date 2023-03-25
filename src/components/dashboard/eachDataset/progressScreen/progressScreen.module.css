@@ -18,5 +18,5 @@
     height: 100%;
     border-radius: 9999px;
     transition: width 0.25s ease-in-out;
-    background: var(--color-blue-secondary);
+    background: var(--color-blue-primary);
 }

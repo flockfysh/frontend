@@ -13,6 +13,7 @@ import dayjs from 'dayjs';
 import Duration from 'dayjs/plugin/duration';
 import RelativeTime from 'dayjs/plugin/relativeTime';
 import { v4 } from 'uuid';
+import { ProgressScreenProps } from '../progressScreen/progressScreen';
 
 dayjs.extend(Duration);
 dayjs.extend(RelativeTime);
@@ -35,7 +36,11 @@ function TrainingLabels(props: React.ComponentPropsWithRef<'label'> & { labelCol
     );
 }
 
-export default function Train(props: { dataset: Dataset, setTaskInProgress: React.Dispatch<React.SetStateAction<boolean>> }) {
+export default function Train(props: {
+    dataset: Dataset,
+    setTaskInProgress: React.Dispatch<React.SetStateAction<boolean>>
+    setProgressScreenProps: React.Dispatch<React.SetStateAction<ProgressScreenProps|undefined>>
+}) {
     const { throwError } = React.useContext(ErrorContext);
 
     if (props.dataset.state === 'completed') {
@@ -68,6 +73,11 @@ export default function Train(props: { dataset: Dataset, setTaskInProgress: Reac
                 await api.post(`/api/dataset/${props.dataset.id}/continueTraining`);
             }
             props.setTaskInProgress(true);
+            props.setProgressScreenProps({
+                current: 0,
+                total: 100,
+                description: 'Starting Flockfysh training...',
+            });
         }
  catch (error) {
             if (error instanceof AxiosError) {

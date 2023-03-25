@@ -29,6 +29,7 @@
 
 .footerFoundryLogoContainer img {
     height: 34px;
+    width: auto;
 }
 
 .footerOtherContent {
