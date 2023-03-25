@@ -1,5 +1,6 @@
 import Features from '../../components/hypePage/features/features';
 import Hero from '../../components/hypePage/hero/hero';
+import Roadmap from '../../components/hypePage/roadmap';
 
 export default function HypePage() {
     return (
@@ -7,6 +8,7 @@ export default function HypePage() {
             <Hero />
             <Features />
             
+            <Roadmap />
             {/*<Background />*/}
         </>
     );
