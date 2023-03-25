@@ -1,92 +1,162 @@
-import { useState, useEffect, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useCallback, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import SideBar from '../../components/dashboard/eachDataset/sideBar/sideBar';
 import Overview from '../../components/dashboard/eachDataset/overview/overview';
-import UploadedImages from '../../components/dashboard/eachDataset/uploadedImages/uploadedImages';
-import DatasetImages from '../../components/dashboard/eachDataset/datasetImages/datasetImages';
+import ImageBrowser from '../../components/dashboard/eachDataset/imageBrowser/imageBrowser';
 import Settings from '../../components/dashboard/eachDataset/settings/settings';
 import Loading from '../../components/loading/loading';
 
 import Train from '../../components/dashboard/eachDataset/train/train';
-import FeedbackImages from '../../components/dashboard/eachDataset/feedbackImages/feedbackImages';
-
 import api from '../../helpers/api';
-
 import classes from './eachDataset.module.css';
 import Annotate from '../../components/dashboard/annotate/main/annotate';
+import ProgressScreen, {
+    ProgressScreenProps,
+} from '../../components/dashboard/eachDataset/progressScreen/progressScreen';
 
-export default function EachDataSet(props: { page: string }) {
+async function getDataset(datasetId: string): Promise<Dataset> {
+    const result = (await api.get(`/api/dataset/${datasetId}`)).data.data;
+    const monthlyCost: MonthlyCost = {
+        storage: 0,
+        costs: [],
+        creation: 0,
+        total: 0,
+    };
+
+    monthlyCost.total = monthlyCost.storage + (monthlyCost.costs?.reduce((cPrev, c2) => {
+        return cPrev + c2.amount;
+    }, 0) ?? 0) + monthlyCost.creation;
+
+    return {
+        state: result.state,
+        name: result.name,
+        id: result.id,
+        dateCreated: new Date(result.createdOn),
+        plan: 'Free forever',
+        classes: result.classes,
+        numTimesHumanFeedback: result.numTimesHumanFeedback,
+        monthlyCost: monthlyCost,
+        entityInfo: result.entityInfo,
+        description: result.description,
+        numImages: result.itemCount,
+    };
+}
+
+
+interface DatasetProgressObject {
+    taskInProgress: boolean,
+    taskInfo?: ProgressScreenProps,
+}
+
+async function getDatasetProgress(datasetId: string): Promise<DatasetProgressObject> {
+    const state = (await api.get(`/api/dataset/${datasetId}/progress`)).data.data;
+    const currentTaskInfo = state.result ?? state.info;
+
+    const result: DatasetProgressObject = {
+        taskInProgress: state.taskInProgress,
+    };
+
+    if (currentTaskInfo) {
+        result.taskInfo = {
+            current: currentTaskInfo.current,
+            total: currentTaskInfo.total,
+            description: currentTaskInfo.status,
+            eta: currentTaskInfo.eta,
+        };
+    }
+
+    return result;
+}
+
+export default function EachDataset(props: { page: string }) {
     const { datasetId } = useParams();
-
-    const [dummy, updateState] = useState(null as any);
-    const forceUpdate = useCallback(() => updateState({}), []);
-    
-    const [dataset, updateDataset] = useState({} as Dataset);
-    const [loading, updateLoading] = useState(true);
-
+    const navigate = useNavigate();
     const subPage = props.page;
 
-    useEffect(() => {
-        updateLoading(true);
+    const [dataset, updateDataset] = useState<Dataset | undefined>();
 
-        (async function () {
-            // fetch dataset here
-            try {
-                const result = (await api.get(`/api/dataset/${ datasetId }`)).data.data;
-                const monthlyCost: MonthlyCost = {
-                    storage: 0,
-                    costs: [],
-                    creation: 0,
-                    total: 0,
-                };
-    
-                monthlyCost.total = monthlyCost.storage + (monthlyCost.costs?.reduce((cPrev, c2) => {
-                    return cPrev + c2.amount;
-                }, 0) ?? 0) + monthlyCost.creation;
-    
-                const dataset: Dataset = {
-                    state: result.state,
-                    name: result.name,
-                    id: result.id,
-                    dateCreated: new Date(result.createdOn),
-                    plan: 'Free forever',
-                    classes: result.classes,
-                    numTimesHumanFeedback: result.numTimesHumanFeedback,
-                    datasetImages: [],
-                    uploadedImages: result.uploadedImages,
-                    feedbackImages: result.feedbackImages,
-                    completedImages: result.completedImages,
-                    monthlyCost: monthlyCost,
-                    size: result.size,
-                    description: result.description,
-                    numImages: result.itemCount,
-                };
-                updateDataset(dataset);
-                updateLoading(false);
-            }
-            catch(error) {
+    const [datasetProgressLoaded, setDatasetProgressLoaded] = React.useState(false);
+    const [taskInProgress, setTaskInProgress] = React.useState(false);
+    const [progressScreenProps, setProgressScreenProps] = React.useState<ProgressScreenProps | undefined>({
+        current: 0,
+        total: 100,
+        description: 'Starting a new Flockfysh job...',
+    });
 
-            }
-        })();
-    }, [dummy]);
+    async function refreshDatasetProgress() {
+        if (!datasetId) throw new Error('Dataset ID not found.');
+        const datasetProgressObject = await getDatasetProgress(datasetId);
+        setProgressScreenProps(datasetProgressObject.taskInfo);
+        setTaskInProgress(datasetProgressObject.taskInProgress);
+        setDatasetProgressLoaded(true);
+    }
+
+    function refreshDataset() {
+        if (!datasetId) throw new Error('Dataset ID not found.');
+        getDataset(datasetId).then(dataset => updateDataset(dataset));
+    }
+
+    React.useEffect(() => {
+        if (!datasetId) {
+            navigate('/dashboard');
+            return;
+        }
+
+        setTimeout(refreshDatasetProgress, 0);
+        const interval = setInterval(refreshDatasetProgress, 5000);
+
+        return () => clearInterval(interval);
+    }, [datasetId, datasetProgressLoaded]);
 
 
-    if (loading) return <Loading/>;
+    React.useEffect(() => {
+        setDatasetProgressLoaded(false);
+        if (!datasetId) {
+            navigate('/dashboard');
+            return;
+        }
 
+        setTimeout(refreshDataset, 0);
+        const interval = setInterval(refreshDataset, 5000);
+
+        return () => clearInterval(interval);
+    }, [datasetId]);
+
+    if (!dataset || !datasetProgressLoaded) return <Loading/>;
+
+    function guardElement(element: JSX.Element): JSX.Element {
+        if (taskInProgress && progressScreenProps) {
+            return <ProgressScreen { ...progressScreenProps }/>;
+        }
+        return element;
+    }
+
+    const pages: Record<string, JSX.Element> = {
+        'overview': <Overview dataset={ dataset }/>,
+        'annotate': guardElement(<Annotate></Annotate>),
+        'train': guardElement(<Train dataset={ dataset } setTaskInProgress={ setTaskInProgress }></Train>),
+        'settings': <Settings dataset={ dataset }></Settings>,
+        'uploaded-images':
+            <ImageBrowser type={ 'uploaded' } dataset={ dataset }/>,
+        'feedback-images':
+            guardElement(<ImageBrowser type={ 'feedback' } dataset={ dataset }/>),
+        'dataset-images':
+            <ImageBrowser type={ 'completed' } dataset={ dataset }/>,
+    };
+
+    for (const key in pages) {
+        const element = pages[key];
+        if (element && typeof element === 'object') {
+            pages[key] = React.cloneElement(element, { key });
+        }
+    }
+    const element = pages[subPage];
     return (
         <div className={ classes.eachDatasetContainer }>
             <SideBar name={ dataset.name } page={ subPage } dataset={ dataset }>
-                { subPage === 'overview' && <Overview dataset={ dataset } /> }
-                { subPage === 'uploaded-images' && <UploadedImages dataset={ dataset } forceUpdate={ forceUpdate } /> }
-                { subPage === 'dataset-images' && <DatasetImages dataset={ dataset } forceUpdate={ forceUpdate } /> }
-                { subPage === 'feedback-images' && <FeedbackImages dataset={ dataset } forceUpdate={ forceUpdate } /> }
-                { subPage === 'annotate' && <Annotate/> }
-                { subPage === 'settings' && <Settings dataset={ dataset } /> }
-                { subPage === 'train' && <Train dataset={ dataset } /> }
+                {element}
             </SideBar>
-
-
         </div>
     );
 }
