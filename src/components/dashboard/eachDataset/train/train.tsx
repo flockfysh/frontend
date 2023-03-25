@@ -39,7 +39,7 @@ function TrainingLabels(props: React.ComponentPropsWithRef<'label'> & { labelCol
 export default function Train(props: {
     dataset: Dataset,
     setTaskInProgress: React.Dispatch<React.SetStateAction<boolean>>
-    setProgressScreenProps: React.Dispatch<React.SetStateAction<ProgressScreenProps>>
+    setProgressScreenProps: React.Dispatch<React.SetStateAction<ProgressScreenProps|undefined>>
 }) {
     const { throwError } = React.useContext(ErrorContext);
 
