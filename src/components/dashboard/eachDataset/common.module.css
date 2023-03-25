@@ -26,11 +26,6 @@
     gap: 1rem;
 }
 
-.progressBar {
-    width: 40%;
-    max-width: 50rem;
-}
-
 .contentContainer h1 {
     font-size: 3rem;
 }
