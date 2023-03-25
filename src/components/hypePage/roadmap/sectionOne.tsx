@@ -4,7 +4,8 @@ import icon1 from '.././icons/icon1.svg';
 import icon2 from '.././icons/icon2.svg';
 import icon3 from '.././icons/icon3.svg';
 import icon4 from '.././icons/icon4.svg';
-import mainImage from '.././Images/firstSectionImage.svg';
+import stage1 from '../images/stage1.svg';
+import mainImage from '../images/firstSectionImage.svg';
 
 const card1body =
     'Build top-notch, labeled large scale datasets whether you have 50 or 50,000 data samples.';
@@ -18,6 +19,7 @@ const card4body =
 function SectionOne() {
     return (
         <section>
+            <img src={ stage1 } alt="" className={ classes.stage }/>
             <h4 className={ classes.subHeading }>Dive in headfirst</h4>
             <h3 className={ classes.heading }>"No homework necessary"</h3>
             <p className={ classes.body }>
