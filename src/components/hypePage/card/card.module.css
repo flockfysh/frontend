@@ -3,6 +3,7 @@
   border-radius: 2rem;
   padding: 3rem 4rem;
   width: 40rem;
+  box-shadow: 0 6px 2px 0 #3796b4;
 }
 .heading {
   font-weight: bold;

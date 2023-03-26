@@ -1,3 +1,8 @@
+.stage {
+    height: 150px;
+    margin-block: 40px;
+}
+
 .featureSection {
     display: flex;
     flex-direction: column;
@@ -12,7 +17,7 @@
 .cardHolder {
     margin-bottom: 5rem;
     display: grid;
-    grid-gap: 40px;
+    grid-gap: 20px;
     position: absolute;
     background: var(--color-black-primary);
     transform: translateY(7.5%);
