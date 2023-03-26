@@ -1,10 +1,11 @@
 import classes from './sectionThree.module.css';
 import threeFish from '.././Images/threeFish.svg';
-import Card from '../card/card';
 import icon9 from '.././icons/icon9.svg';
 import icon10 from '.././icons/icon10.svg';
 import icon11 from '.././icons/icon11.svg';
 import mainImage from '.././Images/thirdSectionImage.svg';
+import SectionHeader from './components/sectionHeader';
+import Card from '../../card';
 
 const card1body =
   'Rapidly train, explore models, and conduct customizable experiments through Python or the command line.';
@@ -19,14 +20,11 @@ function SectionThree() {
         <img src={ threeFish } alt="" className={ classes.fish } />
         <h3 className={ classes.number }>3</h3>
       </div>
-      <h4 className={ classes.subHeading }>Harness the power of the sea.</h4>
-      <h3 className={ classes.heading }>
-        "Teleport your datasets into your workflows without a hitch"
-      </h3>
-      <p className={ classes.body }>
-        Through support, lightning fast integrations and deployments, continue
-        challenging the boundaries without skipping a beat.
-      </p>
+      <SectionHeader
+        subHeader="Harness the power of the sea."
+        header='"Teleport your datasets into your workflows without a hitch"'
+        body="Through support, lightning fast integrations and deployments, continue challenging the boundaries without skipping a beat."
+      />
       <div className={ classes.cardDiv }>
         <img className={ classes.cardImage } src={ mainImage } alt="" />
         <Card heading="flockfysh CLI" body={ card1body } icon={ icon9 } />

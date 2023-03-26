@@ -1,11 +1,12 @@
 import classes from './sectionOne.module.css';
-import Card from '../card/card';
+import Card from '../../card';
 import icon1 from '.././icons/icon1.svg';
 import icon2 from '.././icons/icon2.svg';
 import icon3 from '.././icons/icon3.svg';
 import icon4 from '.././icons/icon4.svg';
 import oneFish from '.././Images/oneFish.svg';
 import mainImage from '.././Images/firstSectionImage.svg';
+import SectionHeader from './components/sectionHeader';
 
 const card1body =
   'Build top-notch, labeled large scale datasets whether you have 50 or 50,000 data samples.';
@@ -23,13 +24,11 @@ function SectionOne() {
         <img src={ oneFish } alt="" className={ classes.fish } />
         <h3 className={ classes.number }>1</h3>
       </div>
-      <h4 className={ classes.subHeading }>Dive in headfirst</h4>
-      <h3 className={ classes.heading }>"No homework necessary"</h3>
-      <p className={ classes.body }>
-        No matter where you are in the process, whether you have a couple
-        pieces, or a large stack of data, our dataset tooling can process and
-        expand the data to gear it for a large scale
-      </p>
+      <SectionHeader
+        subHeader="Dive in headfirst"
+        header='"No homework necessary"'
+        body="No matter where you are in the process, whether you have a couple pieces, or a large stack of data, our dataset tooling can process and expand the data to gear it for a large scale"
+      />
       <div className={ classes.cards }>
         <div className={ classes.cardHolder }>
           <Card heading="Minimal Requirements" body={ card1body } icon={ icon1 } />
