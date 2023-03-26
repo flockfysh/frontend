@@ -1,6 +1,6 @@
 .sectionTwoContainer {
-    margin-top: 50px;
     text-align: center;
+    margin-inline: 0;
 }
 
 .number {
@@ -55,7 +55,7 @@
     margin: auto;
 }
 
-@media only all and (min-width: 640px) {
+@media only all and (min-width: 1024px) {
     .infoContainer {
         column-gap: 20px;
     }
@@ -77,6 +77,7 @@
         overflow: hidden;
         width: 100%;
         z-index: -100;
+        margin-left: -30px;
     }
 
     .middleImagewrapper {
@@ -97,11 +98,15 @@
     .infoContainer {
         margin-top: 90px;
         column-gap: 40px;
-        row-gap: 100px;
+        row-gap: 75px;
         max-width: 1000px;
     }
 
     .infoContainer div:nth-child(2) {
-        margin-right: 45px;
+        margin-right: 50px;
+    }
+
+    .infoContainer div:nth-child(4) {
+        margin-right: 40px;
     }
 }

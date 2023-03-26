@@ -40,7 +40,7 @@ const cardsInfo = [
 
 function SectionTwo() {
     return (
-        <section className={ commonClasses.section }>
+        <section className={ `${commonClasses.section} ${classes.sectionTwoContainer}` }>
             <div className={ classes.numberDiv }>
                 <img src={ twoFish } alt="" className={ classes.fish }/>
                 <h3 className={ classes.number }>2</h3>
