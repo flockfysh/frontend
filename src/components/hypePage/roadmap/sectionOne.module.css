@@ -1,97 +1,140 @@
 .cards {
-  display: flex;
-  flex-direction: column;
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
-  justify-content: center;
-  position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 }
 
 .cardHolder {
-  margin-bottom: 5rem;
-  display: flex;
+    display: grid;
+    grid-gap: 30px;
+    position: relative;
+    background: var(--color-black-primary);
+
 }
 
-.cardHolder div:not(:first-of-type) {
-  margin-left: 10rem;
+.heading,
+.subHeading,
+.body {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.body {
+    width: 60%;
+    font-size: 1.4rem;
+    font-weight: 300;
+    margin-bottom: 50px;
+}
+
+.heading {
+    font-size: 3.4rem;
+}
+
+.subHeading {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--color-aqua);
 }
 
 .mainImage {
-  position: absolute;
-  display: none;
-  z-index: -1;
-  height: 120rem;
-  left: 5rem;
+    position: absolute;
+    z-index: -1;
+    display: none;
+    height: 1500px;
+    left: 65px;
 }
+
+@media only screen and (min-width: 480px) {
+    .cardHolder {
+        position: absolute;
+        transform: translateY(5%);
+    }
+
+    .mainImage {
+        display: block;
+        position: relative;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    .cardHolder {
+        background: none;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 50px 150px;
+        /*width: 110%;*/
+        justify-items: center;
+        justify-content: center;
+    }
+
+    .mainImage {
+        height: 1200px;
+        left: 60px;
+    }
+}
+
 .number {
-  font-size: 3.5rem;
-  text-align: center;
-  margin-top: auto;
-  margin-bottom: auto;
+    font-size: 3.5rem;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
 }
+
 .numberDiv {
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  position: relative;
-  align-items: center;
-  justify-content: center;
-  width: 9.5rem;
-  height: 9.5rem;
-  border: 4px solid var(--color-blue-secondary);
-  border-radius: 30rem;
-  margin-bottom: 10rem;
-  margin-top: 30rem;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: 9.5rem;
+    height: 9.5rem;
+    border: 4px solid var(--color-blue-secondary);
+    border-radius: 50%;
+    margin: 50px auto;
 }
+
 .fish {
-  position: absolute;
-  right: 4.5rem;
-  bottom: 1rem;
-  width: 11rem;
+    position: absolute;
+    right: 4.5rem;
+    bottom: 1rem;
+    width: 11rem;
 }
 
 @media only screen and (max-width: 910px) {
-  .mainImage {
-    display: none;
-  }
-  .cardHolder div:not(:first-of-type) {
-    margin-left: 5rem;
-  }
-  .number {
-    font-size: 3rem;
-  }
-  .numberDiv {
-    width: 8rem;
-    height: 8rem;
-    margin-top: 10rem;
-  }
-  .fish {
-    width: 9rem;
-    right: 4rem;
-  }
+    .number {
+        font-size: 3rem;
+    }
+
+    .numberDiv {
+        width: 8rem;
+        height: 8rem;
+    }
+
+    .fish {
+        width: 9rem;
+        right: 4rem;
+    }
 }
-@media only screen and (max-width: 700px) {
-  .cardHolder {
-    flex-direction: column;
-  }
-  .cardHolder div:not(:first-of-type) {
-    margin-left: 0;
-    margin-top: 5rem;
-  }
-}
+
 @media only screen and (max-width: 500px) {
-  .number {
-    font-size: 2.7rem;
-  }
-  .numberDiv {
-    width: 7.3rem;
-    height: 7.3rem;
-    margin-bottom: 7rem;
-    margin-top: 3rem;
-  }
-  .fish {
-    width: 8rem;
-    right: 3.3rem;
-  }
+    .number {
+        font-size: 2.7rem;
+    }
+
+    .numberDiv {
+        width: 7.3rem;
+        height: 7.3rem;
+        margin-bottom: 7rem;
+        margin-top: 3rem;
+    }
+
+    .fish {
+        width: 8rem;
+        right: 3.3rem;
+    }
 }
+

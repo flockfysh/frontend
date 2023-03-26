@@ -7,7 +7,7 @@
     position: relative;
 }
 
-.imageContainer img {
+.image {
     transition: 0.2s;
     width: 100%;
     aspect-ratio: 3/2;
@@ -40,4 +40,43 @@
 
 .imageContainer:hover img {
     opacity: .2;
+}
+
+.imageFrame {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.loadingFrame {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--color-black-primary);
+}
+
+.loadingIcon {
+    height: 70%;
+    width: unset;
+}
+
+.loadingHidden {
+    animation: hide 0.15s ease-in forwards;
+    pointer-events: none;
+}
+
+@keyframes hide {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        display: none;
+    }
 }

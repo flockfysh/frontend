@@ -1,37 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
-  --color-blue-primary: #91a7ff;
-  --color-blue-secondary: #364fc7;
-  --color-blue-tertiary: #748ffc;
-  --color-blue-gradients: #748ffc7e;
-  --color-blue-gradients-card: #364ec75b;
-  --color-aqua: #4accf4;
-  --color-aqua-shadow: #4accf462;
+    --color-blue-primary: #91a7ff;
+    --color-blue-secondary: #364fc7;
+    --color-blue-tertiary: #748ffc;
+    --color-blue-gradients: #748ffc7e;
+    --color-blue-gradients-card: #364ec75b;
+    --color-aqua: #4accf4;
 
-  --color-red-primary: #fa5252;
-  --color-red-secondary: #ffc9c9;
+    --color-red-primary: #fa5252;
+    --color-red-secondary: #ffc9c9;
 
-  --color-white: #fff;
-  --color-gray: #c9c9c9;
-  --color-black-primary: #040409;
-  --color-black-secondary: #191924;
-  --color-black-tertiary: #0c0c11;
-  --color-black-secondary-translucent: rgba(25, 25, 36, 0.22);
+    --color-white: #fff;
+    --color-gray: #c9c9c9;
+    --color-black-primary: #040409;
+    --color-black-secondary: #191924;
+    --color-black-tertiary: #0c0c11;
+    --color-black-secondary-translucent: rgba(25, 25, 36, 0.22);
 
-  --landing-page-mobile-size: min(max(50rem, 50%), 100%);
+    --landing-page-mobile-size: min(max(50rem, 50%), 100%);
 
-  --gradient-lr: linear-gradient(
-    to right,
-    var(--color-blue-secondary),
-    var(--color-blue-primary)
-  );
-  --gradient-rl: linear-gradient(
-    to left,
-    var(--color-blue-secondary),
-    var(--color-blue-primary)
-  );
+    --gradient-lr: linear-gradient(
+            to right,
+            var(--color-blue-secondary),
+            var(--color-blue-primary)
+    );
+    --gradient-rl: linear-gradient(
+            to left,
+            var(--color-blue-secondary),
+            var(--color-blue-primary)
+    );
 }
+
 
 * {
   margin: 0;
@@ -70,109 +70,100 @@ body {
 }
 
 #root {
-  margin: auto;
-  max-width: 200rem;
-  padding: 0 calc(1rem + 5vw);
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  position: relative;
-  height: 100%;
+    margin: auto;
+    max-width: 200rem;
+    padding: 0 calc(1rem + 5vw);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 main {
-  position: relative;
-  flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1;
 }
 
-button,
-input {
-  font: inherit;
-  border: none;
+button, input {
+    font: inherit;
+    border: none;
 }
 
 a {
-  text-decoration: none;
-  color: var(--color-white);
-  font-weight: 400;
+    text-decoration: none;
+    color: var(--color-white);
+    font-weight: 400;
 }
 
-a:hover,
-a:focus {
-  color: var(--color-white);
+a:hover, a:focus {
+    color: var(--color-white);
 }
 
 ul {
-  list-style: none;
+    list-style: none;
 }
 
 img {
-  display: block;
-  width: 100%;
+    display: block;
+    width: 100%;
 }
 
 h1 {
-  font-size: 3.5rem;
+    font-size: 3.5rem;
 }
 
 h2 {
-  font-size: 3rem;
+    font-size: 3rem;
 }
 
 h3 {
-  font-size: 2rem;
+    font-size: 2rem;
 }
 
 p {
-  font-size: 1.25rem;
+    font-size: 1.25rem;
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 1px;
+    width: 10px;
+    height: 1px;
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 2rem;
-  background-color: rgba(239, 247, 255, 0.514);
+    border-radius: 2rem;
+    background-color: rgba(239, 247, 255, 0.514);;
 }
 
 /* #region Media Queries */
 
 @media only screen and (min-width: 1800px) {
-  body {
-    margin: 0 auto;
-  }
-}
-
-@media only screen and (max-width: 1220px) {
-  html {
-    font-size: 50%;
-  }
+    body {
+        margin: 0 auto;
+    }
 }
 
 @media only all and (min-width: 1024px) {
-  #root {
-    padding: 0 calc(8rem + 2vw);
-  }
+    #root {
+        padding: 0 calc(8rem + 2vw);
+    }
 }
 
 @media only all and (min-width: 1024px) {
-  h1,
-  h2,
-  h3,
-  h4 {
-    text-align: left;
-    width: 100%;
-  }
+    h1, h2, h3, h4 {
+        text-align: left;
+        width: 100%;
+    }
 
-  h1 {
-    font-size: min(calc(1rem + 2.2vw), 4.5rem);
-  }
+    h1 {
+        font-size: min(calc(1rem + 2.2vw), 4.5rem);
+    }
 
-  h2 {
-    font-size: min(calc(1rem + 1.75vw), 4rem);
-  }
+    h2 {
+        font-size: min(calc(1rem + 1.75vw), 4rem);
+    }
 }
 
 /* #endregion */

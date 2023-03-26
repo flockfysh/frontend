@@ -1,13 +1,14 @@
+import commonClasses from './common.module.css';
 import classes from './sectionTwo.module.css';
-import rapidExperimentationIcon from '.././Images/rapidExperimentation.svg';
-import lightningFastIcon from '.././Images/lightningFast.svg';
-import absoluteControlIcon from '.././Images/absoluteControl.svg';
-import minimalHumanEffortIcon from '.././Images/minimalHumanEffort.svg';
-import secondSectionImage from '.././Images/secondSectionImage.svg';
-import twoFish from '.././Images/twoFish.svg';
-import aboveImage from '.././Images/aboveImageSecondSection.svg';
-import belowImage from '.././Images/belowImageSecondSection.svg';
-import Card from '../../card';
+import rapidExperimentationIcon from '.././images/rapidExperimentation.svg';
+import lightningFastIcon from '.././images/lightningFast.svg';
+import absoluteControlIcon from '.././images/absoluteControl.svg';
+import minimalHumanEffortIcon from '.././images/minimalHumanEffort.svg';
+import secondSectionImage from '.././images/secondSectionImage.svg';
+import twoFish from '.././images/twoFish.svg';
+import aboveImage from '.././images/aboveImageSecondSection.svg';
+import belowImage from '.././images/belowImageSecondSection.svg';
+import Card from '../../UI/card';
 import SectionHeader from './components/sectionHeader';
 
 const cardsInfo = [
@@ -39,9 +40,9 @@ const cardsInfo = [
 
 function SectionTwo() {
     return (
-        <div className={ classes.sectionTwoContainer }>
+        <section className={ commonClasses.section }>
             <div className={ classes.numberDiv }>
-                <img src={ twoFish } alt="" className={ classes.fish } />
+                <img src={ twoFish } alt="" className={ classes.fish }/>
                 <h3 className={ classes.number }>2</h3>
             </div>
 
@@ -53,26 +54,26 @@ function SectionTwo() {
 
             <div className={ classes.middleImageContainer }>
                 <div className={ classes.middleImagewrapper }>
-                    <img src={ secondSectionImage } alt="" />
+                    <img src={ secondSectionImage } alt=""/>
                 </div>
             </div>
 
             <div className={ classes.aboveImageContainer }>
-                <img src={ aboveImage } alt="" />
+                <img src={ aboveImage } alt=""/>
             </div>
 
             <div className={ classes.infoContainer }>
                 {
                     cardsInfo.map(item => (
-                        <Card heading={ item.title } body={ item.description } icon={ item.icon } />
+                        <Card heading={ item.title } body={ item.description } icon={ item.icon }/>
                     ))
                 }
             </div>
 
             <div className={ classes.belowImageContainer }>
-                <img src={ belowImage } alt="" />
+                <img src={ belowImage } alt=""/>
             </div>
-        </div>
+        </section>
     );
 }
 

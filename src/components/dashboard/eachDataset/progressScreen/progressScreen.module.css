@@ -1,0 +1,22 @@
+.progressBarAccessibility {
+    width: 40%;
+    max-width: 50rem;
+    display: none;
+}
+
+.progressBarOuter {
+    display: flex;
+    border-radius: 9999px;
+    height: 8px;
+    width: 40%;
+    max-width: 400px;
+    background: #fff5;
+    overflow: hidden;
+}
+
+.progressBarInner {
+    height: 100%;
+    border-radius: 9999px;
+    transition: width 0.25s ease-in-out;
+    background: var(--color-blue-primary);
+}

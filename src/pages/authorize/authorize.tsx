@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import type { IconBase } from 'react-icons';
 import { RxEyeOpen, RxPencil1 } from 'react-icons/rx';
-import { FaMoneyBillAlt, FaCloud } from 'react-icons/fa';
+import { FaCloud } from 'react-icons/fa';
 import { IoPerson } from 'react-icons/io5';
 import Loading from '../../components/loading/loading';
 import api from '../../helpers/api';
