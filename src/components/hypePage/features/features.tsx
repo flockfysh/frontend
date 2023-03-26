@@ -4,6 +4,7 @@ import flexIcon from '../../../images/icons/flex.svg';
 import compatibilityIcon from '../../../images/icons/compatibility.svg';
 
 import classes from './features.module.css';
+import Card from '../../card';
 
 export default function Features() {
     const featureItems = [
@@ -37,14 +38,7 @@ export default function Features() {
         <section className={ classes.featuresWrapper }>
             {
                 featureItems.map(item => (
-                    <div key={ item.name } className={ classes.featureItem }>
-                        <div className={ classes.itemTitle }>
-                            <img src={ item.src } alt={ `${item.name}-icon` }/>
-                            <h3>{item.title}</h3>
-                        </div>
-
-                        <div className={ classes.itemDescription }>{item.description}</div>
-                    </div>
+                    <Card heading={ item.title } body={ item.description } icon={ item.src } />
                 ))
             }
         </section>

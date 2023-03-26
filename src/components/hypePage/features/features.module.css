@@ -43,12 +43,14 @@
     grid-template-columns: repeat(2, 1fr);
     margin-bottom: 220px;
     margin-top: 120px;
+    align-items: center;
+    justify-items: center;
   }
 }
 
 @media only all and (min-width: 1024px) {
   .featuresWrapper {
-    column-gap: 100px;
+    /* column-gap: 100px; */
     row-gap: 65px;
   }
 
