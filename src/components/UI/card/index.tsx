@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import classes from './card.module.css';
+import classes from './index.module.css';
 
 type AppProps = {
   heading: string;
@@ -12,7 +12,7 @@ const Card = ({ heading, body, icon }: AppProps) => {
     <div className={ classes.box }>
       <div>
         <h4 className={ classes.heading }>{heading}</h4>
-        <img src={ icon } alt="" className={ classes.icon } />
+        <img src={ icon } alt={ `${heading} Icon` } className={ classes.icon } />
       </div>
       <p className={ classes.body }>{body}</p>
     </div>

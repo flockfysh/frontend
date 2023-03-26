@@ -1,7 +1,7 @@
-.featureSection {
+.cards {
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
     justify-content: center;
@@ -10,15 +10,10 @@
 }
 
 .cardHolder {
-    margin-bottom: 5rem;
     display: grid;
-    grid-gap: 40px;
-    position: absolute;
+    grid-gap: 30px;
+    position: relative;
     background: var(--color-black-primary);
-    transform: translateY(7.5%);
-}
-
-.cardHolder div:not(:first-of-type) {
 
 }
 
@@ -48,10 +43,23 @@
 }
 
 .mainImage {
-    position: relative;
+    position: absolute;
     z-index: -1;
-    height: 1200px;
-    left: 50px;
+    display: none;
+    height: 1500px;
+    left: 65px;
+}
+
+@media only screen and (min-width: 480px) {
+    .cardHolder {
+        position: absolute;
+        transform: translateY(5%);
+    }
+
+    .mainImage {
+        display: block;
+        position: relative;
+    }
 }
 
 @media only screen and (min-width: 1024px) {
@@ -59,8 +67,74 @@
         background: none;
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 50px 150px;
-        /*width: 100%;*/
+        /*width: 110%;*/
         justify-items: center;
         justify-content: center;
     }
+
+    .mainImage {
+        height: 1200px;
+        left: 60px;
+    }
 }
+
+.number {
+    font-size: 3.5rem;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.numberDiv {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: 9.5rem;
+    height: 9.5rem;
+    border: 4px solid var(--color-blue-secondary);
+    border-radius: 50%;
+    margin: 50px auto;
+}
+
+.fish {
+    position: absolute;
+    right: 4.5rem;
+    bottom: 1rem;
+    width: 11rem;
+}
+
+@media only screen and (max-width: 910px) {
+    .number {
+        font-size: 3rem;
+    }
+
+    .numberDiv {
+        width: 8rem;
+        height: 8rem;
+    }
+
+    .fish {
+        width: 9rem;
+        right: 4rem;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .number {
+        font-size: 2.7rem;
+    }
+
+    .numberDiv {
+        width: 7.3rem;
+        height: 7.3rem;
+        margin-bottom: 7rem;
+        margin-top: 3rem;
+    }
+
+    .fish {
+        width: 8rem;
+        right: 3.3rem;
+    }
+}
+
