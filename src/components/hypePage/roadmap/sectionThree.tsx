@@ -7,13 +7,13 @@ import mainImage from '.././images/thirdSectionImage.svg';
 import SectionHeader from './components/sectionHeader';
 import Card from '../../UI/card';
 
-const card1body =
-    'Rapidly train, explore models, and conduct customizable experiments through Python or the command line.';
-const card2body =
-    'Connect flockfysh datasets into any MLOps workflow with our flexibile compatibility';
-const card3body = 'Have any questions answered rapidly by our support team.';
-
 function SectionThree() {
+    const card1body =
+        'Rapidly train, explore models, and conduct customizable experiments through Python or the command line.';
+    const card2body =
+        'Connect flockfysh datasets into any MLOps workflow with our flexibile compatibility.';
+    const card3body = 'Have any questions answered rapidly by our support team.';
+
     return (
         <div>
             <div className={ classes.numberDiv }>
