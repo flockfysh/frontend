@@ -9,7 +9,7 @@ import MobileNavItem from '../navItem/mobileNavItem';
 
 import { UserContext } from '../../contexts/userContext';
 
-import logoIcon from '../../images/icons/Logo.svg';
+import logoIcon from '../../images/icons/logo.svg';
 
 import classes from './navbar.module.css';
 
@@ -42,7 +42,6 @@ export default function Navbar() {
             <Link className={ classes.logo } to="/">
                 <img src={ logoIcon } className={ classes.logoImg } />
                 <span className={ classes.logoText }>flockfysh</span>
-                
             </Link>
 
             <button className={ classes.navOpenButton }>
