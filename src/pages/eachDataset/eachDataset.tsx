@@ -78,11 +78,7 @@ export default function EachDataset(props: { page: string }) {
 
     const [datasetProgressLoaded, setDatasetProgressLoaded] = React.useState(false);
     const [taskInProgress, setTaskInProgress] = React.useState(false);
-    const [progressScreenProps, setProgressScreenProps] = React.useState<ProgressScreenProps | undefined>({
-        current: 0,
-        total: 100,
-        description: 'Starting Flockfysh training',
-    });
+    const [progressScreenProps, setProgressScreenProps] = React.useState<ProgressScreenProps | undefined>(undefined);
 
     async function refreshDatasetProgress() {
         if (!datasetId) throw new Error('Dataset ID not found.');
