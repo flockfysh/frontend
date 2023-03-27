@@ -32,6 +32,7 @@ import { EmotionCacheProvider } from './contexts/reactSelectContext';
 import './index.css';
 import { ErrorWrapper } from './contexts/errorContext';
 import Background from './components/hypePage/background/background';
+import Tester from './pages/tester/tester';
 
 /**
  * Wraps entire App with neccessary Contexts
@@ -62,6 +63,7 @@ function MainApp() {
                     <Route path="/" element={ <RootLayout/> }>
                         <Route index element={ <HypePage/> }/>
 
+                        <Route path="/tester" element={ <Tester/> }/>
                         <Route path="/blog" element={ <Blog/> }/>
                         <Route path="/docs" element={ <Docs/> }/>
                         <Route path="/about" element={ <About/> }/>
