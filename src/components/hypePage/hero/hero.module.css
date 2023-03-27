@@ -5,6 +5,7 @@
    text-align: center;
    flex-direction: column;
    gap: 24px;
+   width: auto;
 }
 
 .infoFoundry {
@@ -27,7 +28,7 @@
 }
 
 .foundryLogo {
-   height: 30px;
+   width: 9rem;
    width: auto;
 }
 
