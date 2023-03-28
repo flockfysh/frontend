@@ -1,168 +1,171 @@
 .heroSectionDiv {
-   margin: 72px 0;
-   display: flex;
-   align-items: center;
-   text-align: center;
-   flex-direction: column;
-   gap: 24px;
-   width: auto;
+    margin: 72px 0;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    gap: 24px;
+    width: auto;
 }
 
 .infoFoundry {
-   display: flex;
-   flex-direction: row;
-   gap: 4px;
-   border: 1px solid #171720;
-   background: rgba(12, 12, 15, 0.5);
-   background-blend-mode: normal;
-   border-radius: 24px;
-   padding: 4px 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    border: 1px solid #171720;
+    background: rgba(12, 12, 15, 0.5);
+    background-blend-mode: normal;
+    border-radius: 24px;
+    padding: 4px 16px;
 }
 
 .infoFoundry div {
-   display: flex;
-   align-items: center;
-   font-size: 1.4rem;
-   font-weight: 400;
-   line-height: 2rem;
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 2rem;
+}
+
+.foundryLogoContainer {
+    flex: none;
 }
 
 .foundryLogo {
-   width: 9rem;
-   width: auto;
+    height: 4rem;
 }
 
 .readMoreFoundry {
-   text-decoration: underline;
-   color: var(--color-blue-primary);
-   transition: 0.2s;
+    text-decoration: underline;
+    color: var(--color-blue-primary);
+    transition: 0.2s;
 }
 
 .readMoreFoundry a {
-   margin-right: 4px;
-   color: inherit;
+    margin-right: 4px;
+    color: inherit;
 }
 
 .readMoreFoundry:hover {
-   color: var(--color-blue-secondary);
+    color: var(--color-blue-secondary);
 }
 
 .heroHeading {
 }
 
 .contentSection {
-   display: flex;
-   align-items: center;
-   flex-direction: column;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 .contentSection h1 {
-   font-family: "Poppins", sans-serif;
-   font-size: 3.6rem;
-   line-height: 1.5em;
-   margin-block: 1rem;
-   text-align: center;
+    font-family: "Poppins", sans-serif;
+    font-size: 3.6rem;
+    line-height: 1.5em;
+    margin-block: 1rem;
+    text-align: center;
 }
 
 .contentSection span {
-   font-size: 1.4rem;
-   line-height: 2.4rem;
-   text-align: center;
+    font-size: 1.4rem;
+    line-height: 2.4rem;
+    text-align: center;
 }
 
 .infoBeta {
-   padding: 0 .875rem;
-   background: rgba(253, 84, 0, 0.12);
-   background-blend-mode: normal;
-   font-weight: bold !important;
-   font-size: 1.2rem !important;
-   line-height: 1.6rem;
-   border-radius: 4px;
-   color: rgba(255, 140, 63, 0.98);
-   font-weight: 800;
+    padding: 0 .875rem;
+    background: rgba(253, 84, 0, 0.12);
+    background-blend-mode: normal;
+    font-weight: bold !important;
+    font-size: 1.2rem !important;
+    line-height: 1.6rem;
+    border-radius: 4px;
+    color: rgba(255, 140, 63, 0.98);
+    font-weight: 800;
 }
 
 .extraInfo {
-   display: none;
+    display: none;
 }
 
 .inputEmail {
-   display: flex;
-   row-gap: 2rem;
-   column-gap: 2rem;
-   flex-direction: column;
+    display: flex;
+    row-gap: 2rem;
+    column-gap: 2rem;
+    flex-direction: column;
 }
 
 .inputEmail input {
-   outline: none;
-   padding: 6px 12px;
-   border-radius: 6px;
-   font-size: 1.4rem;
-   text-align: center;
-   border: 1px solid rgba(223, 239, 254, 0.13);
-   background: rgba(226, 240, 253, 0.1);
-   background-blend-mode: normal;
-   color: var(--color-white);
-   height: 43px;
-   transition: 0.3s
+    outline: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 1.4rem;
+    text-align: center;
+    border: 1px solid rgba(223, 239, 254, 0.13);
+    background: rgba(226, 240, 253, 0.1);
+    background-blend-mode: normal;
+    color: var(--color-white);
+    height: 43px;
+    transition: 0.3s
 }
 
 .inputEmail input::placeholder {
-   color: rgba(255, 255, 255, 0.685);
+    color: rgba(255, 255, 255, 0.685);
 }
 
 .inputEmail label {
-   color: var(--color-red-primary);
-   display: block;
-   font-size: 15px;
-   margin-top: 4px;
+    color: var(--color-red-primary);
+    display: block;
+    font-size: 15px;
+    margin-top: 4px;
 }
 
 .inputEmail span {
-   color: #a3e86b;
-   display: block;
-   font-size: 1.5rem;
-   margin-top: 4px;
+    color: #a3e86b;
+    display: block;
+    font-size: 1.5rem;
+    margin-top: 4px;
 }
 
 .inputSuccessEmail input {
-  border-color: #a3e86b;
+    border-color: #a3e86b;
 }
 
 .inputEmail button {
-   outline: none;
-   padding: 6px 12px;
-   border-radius: 6px;
-   font-size: 1.4rem;
-   border: 1px solid #e5e7eb;
-   background: #ffffff;
-   background-blend-mode: normal;
-   box-shadow: 8px 0px 20px rgba(255, 178, 36, 0.3),
-      0px 0px 20px rgba(112, 225, 200, 0.3),
-      -8px 0px 20px rgba(5, 162, 194, 0.3);
-   transition: .2s;
-   cursor: pointer;
-   height: 43px;
-   opacity: 1;
-   color: var(--color-black-primary);
-   -webkit-opacity: 1;
-   -webkit-text-fill-color: var(--color-black-primary);
+    outline: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 1.4rem;
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    background-blend-mode: normal;
+    box-shadow: 8px 0px 20px rgba(255, 178, 36, 0.3),
+    0px 0px 20px rgba(112, 225, 200, 0.3),
+    -8px 0px 20px rgba(5, 162, 194, 0.3);
+    transition: .2s;
+    cursor: pointer;
+    height: 43px;
+    opacity: 1;
+    color: var(--color-black-primary);
+    -webkit-opacity: 1;
+    -webkit-text-fill-color: var(--color-black-primary);
 }
 
 .inputEmail button:hover {
-   box-shadow: 8px 0px 24px rgba(255, 178, 36, 0.3),
-      0px 0px 24px rgba(112, 225, 200, 0.3),
-      -8px 0px 24px rgba(5, 162, 194, 0.3);
-   color: var(--color-blue-secondary);
+    box-shadow: 8px 0px 24px rgba(255, 178, 36, 0.3),
+    0px 0px 24px rgba(112, 225, 200, 0.3),
+    -8px 0px 24px rgba(5, 162, 194, 0.3);
+    color: var(--color-blue-secondary);
 }
 
 .otherContent {
-   font-size: 1.4rem;
-   line-height: 2.4rem;
+    font-size: 1.4rem;
+    line-height: 2.4rem;
 }
 
 .submitButton {
-   transition: width 0.2s ease-out;
+    transition: width 0.2s ease-out;
 }
 
 .submitSuccess {
@@ -170,60 +173,60 @@
 }
 
 @media only all and (min-width: 1024px) {
-   .heroSectionDiv {
-      gap: 36px;
-   }
+    .heroSectionDiv {
+        gap: 36px;
+    }
 
-   .infoFoundry {
-      gap: 24px;
-   }
+    .infoFoundry {
+        gap: 24px;
+    }
 
-   .infoFoundry div {
-      font-size: 1.6rem;
-      line-height: 2.4rem;
-   }
+    .infoFoundry div {
+        font-size: 1.6rem;
+        line-height: 2.4rem;
+    }
 
-   .foundryLogo {
-      height: 38px;
-   }
+    .foundryLogo {
+        height: 4.5rem;
+    }
 
-   .infoBeta {
-      margin-bottom: 16px;
-      font-size: 1.2rem !important;
-   }
+    .infoBeta {
+        margin-bottom: 16px;
+        font-size: 1.2rem !important;
+    }
 
-   .contentSection span {
-      font-size: 1.6rem;
-      line-height: 2.6rem;
-   }
+    .contentSection span {
+        font-size: 1.6rem;
+        line-height: 2.6rem;
+    }
 
-   .contentSection h1 {
-      margin-bottom: 26px;
-      font-size: 64px;
-   }
+    .contentSection h1 {
+        margin-bottom: 26px;
+        font-size: 64px;
+    }
 
-   .extraInfo {
-      display: inherit;
-   }
+    .extraInfo {
+        display: inherit;
+    }
 
-   .inputEmail {
-      flex-direction: row;
-   }
+    .inputEmail {
+        flex-direction: row;
+    }
 
-   .inputEmail input {
-      font-size: 2rem;
-      padding: 12px 16px;
-      height: 65px;
-   }
+    .inputEmail input {
+        font-size: 2rem;
+        padding: 12px 16px;
+        height: 65px;
+    }
 
-   .inputEmail button {
-      font-size: 2rem;
-      padding: 12px 16px;
-      height: 65px;
-   }
+    .inputEmail button {
+        font-size: 2rem;
+        padding: 12px 16px;
+        height: 65px;
+    }
 
-   .otherContent {
-      display: none;
-   }
+    .otherContent {
+        display: none;
+    }
 
 }

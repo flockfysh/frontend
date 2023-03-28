@@ -66,6 +66,8 @@ async function getDatasetProgress(datasetId: string): Promise<DatasetProgressObj
         };
     }
 
+    console.log(datasetId, result);
+
     return result;
 }
 
@@ -80,26 +82,21 @@ export default function EachDataset(props: { page: string }) {
     const [taskInProgress, setTaskInProgress] = React.useState(false);
     const [progressScreenProps, setProgressScreenProps] = React.useState<ProgressScreenProps | undefined>(undefined);
 
-    async function refreshDatasetProgress() {
-        if (!datasetId) throw new Error('Dataset ID not found.');
-        const datasetProgressObject = await getDatasetProgress(datasetId);
-        setProgressScreenProps(datasetProgressObject.taskInfo);
-        setTaskInProgress(datasetProgressObject.taskInProgress);
-        setDatasetProgressLoaded(true);
-    }
-
-    function refreshDataset() {
-        if (!datasetId) throw new Error('Dataset ID not found.');
-        getDataset(datasetId).then(dataset => updateDataset(dataset));
-    }
-
     React.useEffect(() => {
         if (!datasetId) {
             navigate('/dashboard');
             return;
         }
 
-        setTimeout(refreshDatasetProgress, 0);
+        async function refreshDatasetProgress() {
+            if (!datasetId) throw new Error('Dataset ID not found.');
+            const datasetProgressObject = await getDatasetProgress(datasetId);
+            setProgressScreenProps(datasetProgressObject.taskInfo);
+            setTaskInProgress(datasetProgressObject.taskInProgress);
+            setDatasetProgressLoaded(true);
+        }
+
+        refreshDatasetProgress().then();
         const interval = setInterval(refreshDatasetProgress, 5000);
 
         return () => clearInterval(interval);
@@ -113,7 +110,12 @@ export default function EachDataset(props: { page: string }) {
             return;
         }
 
-        setTimeout(refreshDataset, 0);
+        function refreshDataset() {
+            if (!datasetId) throw new Error('Dataset ID not found.');
+            getDataset(datasetId).then(dataset => updateDataset(dataset));
+        }
+
+        refreshDataset();
         const interval = setInterval(refreshDataset, 5000);
 
         return () => clearInterval(interval);
