@@ -65,9 +65,7 @@ async function getDatasetProgress(datasetId: string): Promise<DatasetProgressObj
             eta: currentTaskInfo.eta,
         };
     }
-
-    console.log(datasetId, result);
-
+    
     return result;
 }
 
