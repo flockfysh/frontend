@@ -1,4 +1,4 @@
-.backgroundWrapper2 {
+.backgroundWrapper {
     position: absolute;
     top: 0;
     right: 0;
@@ -10,220 +10,67 @@
     overflow-y: clip;
 }
 
-.gradient1 {
-    overflow: hidden;
-    position: absolute;
-    width: 548px;
-    height: 616px;
-    left: 97px;
-    top: 687px;
-    transform: translate3d(0, 0, 0);
-    filter: blur(300px);
+.bgDesktop2,
+.bgDesktop1 {
+    display: none;
 }
 
-.shape1 {
+.bgDesktop1 {
     position: absolute;
-    left: -23.88%;
-    right: -22.11%;
-    top: -56.16%;
-    bottom: -54.34%;
-    transform: translate3d(0, 0, 0);
-    filter: blur(200px);
+    width: 2184px;
+    height: 2100px;
+    left: -1033px;
+    top: -610px;
 }
 
-.vector1_1 {
+.bgDesktop2 {
     position: absolute;
-    left: -17.92%;
-    right: 50.01%;
-    top: 19.89%;
-    bottom: -38.71%;
-    transform: translate3d(0, 0, 0);
-    background: #0375D2;
-    transform: matrix(1, 0.09, -0.03, 1, 0, 0);
+    width: 1861px;
+    height: 2029px;
+    right: -833px;
 }
 
-.vector1_2 {
+.bgMobile1 {
     position: absolute;
-    left: -23.88%;
-    right: 55.5%;
-    top: -19.94%;
-    bottom: 28.92%;
-    transform: translate3d(0, 0, 0);
-    background: #2748F7;
+    width: 2133px;
+    height: 2110px;
+    left: -1233px;
+    top: -610px;
 }
 
-
-.vector1_3 {
-    position: absolute;
-    left: 45.43%;
-    right: -22.11%;
-    top: -42.01%;
-    bottom: 26.33%;
-    transform: translate3d(0, 0, 0);
-    background: #08066C;
-}
-
-.vector1_4 {
-    position: absolute;
-    left: 38.43%;
-    right: -10.45%;
-    top: 49.92%;
-    bottom: -54.34%;
-    transform: translate3d(0, 0, 0);
-    background: #070EBD;
-}
-
-.vector1_5 {
-    position: absolute;
-    left: 2.61%;
-    right: 36.1%;
-    top: -56.16%;
-    bottom: 24.96%;
-    transform: translate3d(0, 0, 0);
-    background: #021B50;
-}
-
-.rectangle1_1 {
-    position: absolute;
-    left: 0%;
-    right: 0%;
-    top: 0%;
-    bottom: 0%;
-    mix-blend-mode: overlay;
-    transform: translate3d(0, 0, 0);
-    background: #D9D9D9;
-}
-
-.rectangle1_2 {
-    position: absolute;
-    left: 0%;
-    right: 0%;
-    top: 0%;
-    bottom: 0%;
-    mix-blend-mode: overlay;
-    transform: translate3d(0, 0, 0);
-    background: #D9D9D9;
-}
-
-.gradient2 {
-    overflow: hidden;
-    position: absolute;
-    width: 924px;
-    height: 847px;
-    left: -623px;
-    top: -74px;
-    transform: translate3d(0, 0, 0);
-    filter: blur(300px);
-}
-
-.shape2 {
-    position: absolute;
-    left: -23.88%;
-    right: -22.11%;
-    top: -56.16%;
-    bottom: -54.34%;
-    transform: translate3d(0, 0, 0);
-    filter: blur(200px);
-}
-
-.vector2_1 {
-    position: absolute;
-    left: -17.92%;
-    right: 50.11%;
-    top: 19.89%;
-    bottom: -38.73%;
-    transform: translate3d(0, 0, 0);
-    background: #0375D2;
-    transform: matrix(1, 0.08, -0.03, 1, 0, 0);
-}
-
-.vector2_2 {
-    position: absolute;
-    left: -23.88%;
-    right: 55.5%;
-    top: -19.94%;
-    bottom: 28.92%;
-    transform: translate3d(0, 0, 0);
-    background: #2748F7;
-}
-
-
-.vector2_3 {
-    position: absolute;
-    left: 45.43%;
-    right: -22.11%;
-    top: -42.01%;
-    bottom: 26.33%;
-    transform: translate3d(0, 0, 0);
-    background: #08066C;
-}
-
-.vector2_4 {
-    position: absolute;
-    left: 38.43%;
-    right: -10.45%;
-    top: 49.92%;
-    bottom: -54.34%;
-    transform: translate3d(0, 0, 0);
-    background: #070EBD;
-}
-
-.vector2_5 {
-    position: absolute;
-    left: 2.61%;
-    right: 36.1%;
-    top: -56.16%;
-    bottom: 24.96%;
-    transform: translate3d(0, 0, 0);
-    background: #021B50;
-}
-
-.rectangle2_1 {
-    position: absolute;
-    left: 0%;
-    right: 0%;
-    top: 0%;
-    bottom: 0%;
-    mix-blend-mode: overlay;
-    transform: translate3d(0, 0, 0);
-    background: #D9D9D9;
-}
-
-.rectangle2_2 {
-    position: absolute;
-    left: 0%;
-    right: 0%;
-    top: 0%;
-    bottom: 0%;
-    mix-blend-mode: overlay;
-    transform: translate3d(0, 0, 0);
-    background: #D9D9D9;
+.bgMobile2 {
+    width: 1752px;
+    height: 1819px;
 }
 
 @media only all and (min-width: 1024px) {
-    .backgroundWrapper {
-        /*position: absolute;*/
+    .bgDesktop2,
+    .bgDesktop1 {
+        display: inherit;
     }
 
-    .gradient1 {
-        width: 46.73%;
-        aspect-ratio: 673 / 803;
-        height: 803px;
-        left: 53.26%;
-        top: 791px;
+    .bgMobile2,
+    .bgMobile1 {
+        display: none;
+    }
+}
+
+@media only all and (min-width: 1278px) {
+    .bgDesktop1 {
+        left: -833px;
     }
 
-    .vector1_1 {
-        right: 49.97%;
-        transform: translate3d(0, 0, 0);
-        transform: matrix(1, 0.1, -0.03, 1, 0, 0);
+    .bgDesktop2 {
+        right: -533px;
+    }
+}
+
+@media only all and (min-width: 1668px) {
+    .bgDesktop1 {
+        left: -533px;
     }
 
-    .gradient2 {
-        width: 64.16%;
-        aspect-ratio: 12 / 11;
-        height: 847px;
-        left: 0.62%;
-        top: 244px;
+    .bgDesktop2 {
+        right: -333px;
     }
 }
