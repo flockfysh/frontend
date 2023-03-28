@@ -1,39 +1,17 @@
 import classes from './background.module.css';
+import bgDesktop1 from '../../../images/BGDesktop1.png';
+import bgDesktop2 from '../../../images/BGDesktop2.png';
+import bgMobile1 from '../../../images/BGMobile1.png';
+import bgMobile2 from '../../../images/BGMobile2.png';
 
 export default function Background() {
-    const contents = (
+   return (
         <div className={ classes.backgroundWrapper }>
-            <div className={ classes.gradient1 }>
-                <div className={ classes.rectangle1_1 }>
-                    <div className={ classes.shape1 }>
-                        <div className={ classes.vector1_1 }/>
-                        <div className={ classes.vector1_2 }/>
-                        <div className={ classes.vector1_3 }/>
-                        <div className={ classes.vector1_4 }/>
-                        <div className={ classes.vector1_5 }/>
-                    </div>
-                </div>
-                <div className={ classes.rectangle1_2 }/>
-            </div>
-
-            <div className={ classes.gradient2 }>
-                <div className={ classes.rectangle2_1 }>
-                    <div className={ classes.shape2 }>
-                        <div className={ classes.vector2_1 }/>
-                        <div className={ classes.vector2_2 }/>
-                        <div className={ classes.vector2_3 }/>
-                        <div className={ classes.vector2_4 }/>
-                        <div className={ classes.vector2_5 }/>
-                    </div>
-                </div>
-                <div className={ classes.rectangle2_2 }/>
-            </div>
+            <img className={ classes.bgDesktop1 } src={ bgDesktop1 } alt="" />
+            <img className={ classes.bgDesktop2 } src={ bgDesktop2 } alt="" />
+            <img className={ classes.bgMobile1 } src={ bgMobile1 } alt="" />
+            <img className={ classes.bgMobile2 } src={ bgMobile2 } alt="" />
         </div>
     );
 
-    return (
-        <div className={ classes.backgroundWrapper2 }>
-            {contents}
-        </div>
-    );
 }
