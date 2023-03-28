@@ -1,5 +1,6 @@
 .nav {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     margin-top: 3rem;
     position: relative;
@@ -26,6 +27,7 @@
 
 .logoImg {
     height: 15px;
+    width: auto;
     margin-right: 10px;
 }
 
