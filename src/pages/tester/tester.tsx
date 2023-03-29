@@ -1,9 +1,9 @@
-import React from 'react';
-import { register } from '../../helpers/notifications';
-
-
+// import React from 'react';
+// import { register } from '../../helpers/notifications';
+//
+//
 export default function Tester() {
-    register();
+    // register();
 
     return (
         <main>

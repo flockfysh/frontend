@@ -8,6 +8,7 @@
     "@types/react-dom": "^18.0.10",
     "@types/react-infinite-scroller": "^1.2.3",
     "@types/react-router-dom": "^5.3.3",
+    "@vespaiach/axios-fetch-adapter": "^0.3.1",
     "@zip.js/zip.js": "^2.6.62",
     "axios": "^1.2.2",
     "compile-mime-match": "^0.1.0",
@@ -59,6 +60,7 @@
     ]
   },
   "devDependencies": {
+    "@types/": "vespaiach/axios-fetch-adapter",
     "@types/axios": "^0.14.0",
     "@types/mime-types": "^2.1.1",
     "@types/path-browserify": "^1.0.0",

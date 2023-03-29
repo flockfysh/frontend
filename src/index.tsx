@@ -33,6 +33,7 @@ import './index.css';
 import { ErrorWrapper } from './contexts/errorContext';
 import Background from './components/hypePage/background/background';
 import Tester from './pages/tester/tester';
+import NotificationWrapper from './contexts/notificationContext';
 
 /**
  * Wraps entire App with neccessary Contexts
@@ -46,6 +47,7 @@ function AppWrapper(props: React.PropsWithChildren) {
             <ScreenWrapper>
                 <ErrorWrapper>
                     <UserWrapper>
+                        <NotificationWrapper></NotificationWrapper>
                         <Background></Background>
                         {props.children}
                     </UserWrapper>

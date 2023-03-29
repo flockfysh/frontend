@@ -2,7 +2,9 @@
 module.exports = function override(config, env) {
     console.log('Polyfill override for create-react-app');
     const loaders = config.resolve;
-    loaders.fallback = {};
+    loaders.fallback = {
+        'path': require.resolve('path-browserify'),
+    };
     // This enables testing for service worker scripts. Should be disabled.
     config.devServer = {
         host: '0.0.0.0',

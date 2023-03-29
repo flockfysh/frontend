@@ -1,9 +1,11 @@
 import logoIcon from '../images/icons/logo.svg';
+import { serverURL } from '../settings';
 
 if (!(self instanceof ServiceWorkerGlobalScope)) {
     throw new Error();
 }
 const worker: ServiceWorkerGlobalScope = self;
+
 
 export interface NotificationData {
     title: string,
@@ -23,9 +25,12 @@ export async function sendNotification(data: NotificationData) {
     });
 }
 
-self.addEventListener('notificationclick', function (e: NotificationEvent) {
-    const url: string | undefined = e.notification.data.url;
-    if (url) {
-        window.open(url);
-    }
+
+worker.addEventListener('push', async function (evt) {
+    const rawData = evt.data?.json();
+    if (!rawData) return;
+    await sendNotification({
+        body: rawData.body,
+        title: rawData.title,
+    });
 });
