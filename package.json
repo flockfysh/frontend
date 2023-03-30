@@ -60,7 +60,6 @@
     ]
   },
   "devDependencies": {
-    "@types/": "vespaiach/axios-fetch-adapter",
     "@types/axios": "^0.14.0",
     "@types/mime-types": "^2.1.1",
     "@types/path-browserify": "^1.0.0",

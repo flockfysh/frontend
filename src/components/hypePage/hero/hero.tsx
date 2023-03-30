@@ -61,7 +61,7 @@ export default function Hero() {
                 <div>|</div>
 
                 <div className={ classes.readMoreFoundry }>
-                    <a href="#">Read More</a>
+                    <a href="https://blog.flockfysh.tech/posts/flockfysh-joins-citris/">Read More</a>
                     <BsArrowRight size={ 15 }/>
                 </div>
             </div>
