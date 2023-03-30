@@ -5,7 +5,7 @@ export const LABEL_COLORS = ['#28a11b',
     '#ff4747',
     '#ff49a7',
     '#00A3FF',
-    '#00CCFF'
+    '#00CCFF',
 ];
 
 export const DEBUG = process.env.NODE_ENV === 'development';
@@ -16,3 +16,8 @@ export const baseURL =
 
 export const serverURL =
     DEBUG ? 'http://localhost:8000' : 'https://api.flockfysh.tech';
+
+const _socketIOServerURL = new URL(serverURL);
+_socketIOServerURL.protocol = DEBUG ? 'ws' : 'wss';
+
+export const socketIOServerURL = _socketIOServerURL.toString();

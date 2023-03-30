@@ -24,25 +24,25 @@ export default function Hero() {
         e.preventDefault();
         try {
             if (waitlistFormRef.current) {
-              const waitlistForm = waitlistFormRef.current;
-              const fd = new FormData(waitlistForm);
-              const email = fd.get('email') as string;
-              if (!email) {
-                  updateErrorMessage('Please enter an email.');
-                  return;
-              }
-              else if (!validateEmail(email)) {
-                  updateErrorMessage('Please enter a valid email.');
-                  return;
-              }
-              await api.post('/api/auth/waitlist', {
-                  email,
-              });
-              updateSuccesMessage('You are on the waiting list');
-              setAccessRequestSuccess(true);
+                const waitlistForm = waitlistFormRef.current;
+                const fd = new FormData(waitlistForm);
+                const email = fd.get('email') as string;
+                if (!email) {
+                    updateErrorMessage('Please enter an email.');
+                    return;
+                }
+                else if (!validateEmail(email)) {
+                    updateErrorMessage('Please enter a valid email.');
+                    return;
+                }
+                await api.post('/api/auth/waitlist', {
+                    email,
+                });
+                updateSuccesMessage('You are on the waiting list');
+                setAccessRequestSuccess(true);
             }
         }
-        catch (Error) {
+ catch (Error) {
             throw Error;
         }
     }
@@ -54,7 +54,7 @@ export default function Hero() {
                     flockfysh joins
                 </div>
 
-                <div>
+                <div className={ classes.foundryLogoContainer }>
                     <img src={ foundryImage } className={ classes.foundryLogo }/>
                 </div>
 
@@ -74,11 +74,12 @@ export default function Hero() {
                     className={ classes.extraInfo }>Designed for developers, researchers and those who dare to dream.</span>
             </div>
 
-            <form className={ `${classes.inputEmail} ${successMessage !== '' ? classes.inputSuccessEmail : ''}` } ref={ waitlistFormRef }>
+            <form className={ `${classes.inputEmail} ${successMessage !== '' ? classes.inputSuccessEmail : ''}` }
+                  ref={ waitlistFormRef }>
                 <div>
-                    <input onChange={ onEmailChange } 
-                           type="email" 
-                           name="email" 
+                    <input onChange={ onEmailChange }
+                           type="email"
+                           name="email"
                            placeholder="Your email here"/>
                     <label>{errorMessage}</label>
                     <span>{successMessage}</span>
