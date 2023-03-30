@@ -1,5 +1,4 @@
 import logoIcon from '../images/icons/logo.svg';
-import { serverURL } from '../settings';
 
 if (!(self instanceof ServiceWorkerGlobalScope)) {
     throw new Error();
@@ -29,8 +28,8 @@ export async function sendNotification(data: NotificationData) {
 worker.addEventListener('push', async function (evt) {
     const rawData = evt.data?.json();
     if (!rawData) return;
-    await sendNotification({
+    evt.waitUntil(sendNotification({
         body: rawData.body,
         title: rawData.title,
-    });
+    }));
 });
