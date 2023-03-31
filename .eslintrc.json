@@ -14,8 +14,9 @@
       "jsx": true
     }
   },
-  "plugins": ["react", "@typescript-eslint"],
+  "plugins": ["react", "@typescript-eslint", "prettier"],
   "rules": {
+    "prettier/prettier": "error",
     "no-constant-condition": "error",
     "no-dupe-else-if": "error",
     "no-dupe-args": "error",
