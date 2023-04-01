@@ -22,6 +22,7 @@ export default function Hero() {
 
     async function addUserToWaitlist(e: React.MouseEvent) {
         e.preventDefault();
+
         try {
             if (waitlistFormRef.current) {
                 const waitlistForm = waitlistFormRef.current;
@@ -42,7 +43,7 @@ export default function Hero() {
                 setAccessRequestSuccess(true);
             }
         }
- catch (Error) {
+        catch (Error) {
             throw Error;
         }
     }
@@ -68,31 +69,45 @@ export default function Hero() {
 
             <div className={ classes.contentSection }>
                 <span className={ classes.infoBeta }>Currently in private beta</span>
+                
                 <h1 className={ classes.heroHeading }>Dataset&nbsp;creation from&nbsp;the&nbsp;future.</h1>
+                
                 <span>Polished for any use case, flockfysh takes the complexity out of datasets.</span>
                 <span
-                    className={ classes.extraInfo }>Designed for developers, researchers and those who dare to dream.</span>
+                    className={ classes.extraInfo }
+                >
+                    Designed for developers, researchers, and those who dare to dream.
+                </span>
             </div>
 
-            <form className={ `${classes.inputEmail} ${successMessage !== '' ? classes.inputSuccessEmail : ''}` }
-                  ref={ waitlistFormRef }>
+            <form 
+                className={ `${classes.inputEmail} ${ successMessage !== '' ? classes.inputSuccessEmail : '' }` }
+                ref={ waitlistFormRef }
+            >
                 <div>
-                    <input onChange={ onEmailChange }
-                           type="email"
-                           name="email"
-                           placeholder="Your email here"/>
-                    <label>{errorMessage}</label>
-                    <span>{successMessage}</span>
+                    <input
+                        onChange={ onEmailChange }
+                        type="email"
+                        name="email"
+                        placeholder="Your email here"
+                    />
+                    
+                    <label>{ errorMessage }</label>
+                    <span>{ successMessage }</span>
                 </div>
-                <button type="submit"
-                        disabled={ successMessage !== '' }
-                        onClick={ addUserToWaitlist }
-                        className={ `${classes.submitButton} ${accessRequestSuccess ? classes.submitSuccess : ''}` }>{accessRequestSuccess ? 'Access request sent!' : 'Request access'}
+
+                <button 
+                    type="submit"
+                    disabled={ successMessage !== '' }
+                    onClick={ addUserToWaitlist }
+                    className={ `${ classes.submitButton } ${ accessRequestSuccess ? classes.submitSuccess : '' }` }
+                >
+                    { accessRequestSuccess ? 'Access request sent!' : 'Request access' }
                 </button>
             </form>
 
             <div className={ classes.otherContent }>
-                <span>Designed for developers, researchers and those who dare to dream.</span>
+                <span>Designed for developers, researchers, and those who dare to dream.</span>
             </div>
         </section>
     );

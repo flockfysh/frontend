@@ -47,9 +47,10 @@ function AppWrapper(props: React.PropsWithChildren) {
             <ScreenWrapper>
                 <ErrorWrapper>
                     <UserWrapper>
-                        <NotificationWrapper></NotificationWrapper>
-                        <Background></Background>
-                        {props.children}
+                        <NotificationWrapper />
+                        <Background />
+
+                        { props.children }
                     </UserWrapper>
                 </ErrorWrapper>
             </ScreenWrapper>
