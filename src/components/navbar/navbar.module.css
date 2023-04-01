@@ -87,7 +87,7 @@
     border: 1px solid rgba(223, 239, 254, 0.13);
     background: rgba(226, 240, 253, 0.08);
     background-blend-mode: normal;
-    transition: .2s;
+    transition: .15s;
     cursor: pointer;
 }
 

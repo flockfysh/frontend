@@ -102,7 +102,7 @@ export default function Hero() {
                     onClick={ addUserToWaitlist }
                     className={ `${ classes.submitButton } ${ accessRequestSuccess ? classes.submitSuccess : '' }` }
                 >
-                    { accessRequestSuccess ? 'Access request sent!' : 'Request access' }
+                    { accessRequestSuccess ? 'Request sent!' : 'Request access' }
                 </button>
             </form>
 
