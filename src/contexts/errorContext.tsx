@@ -22,14 +22,23 @@ export function ErrorWrapper(props: React.PropsWithChildren) {
     }>({ errorMessages: new Map() });
 
     function throwError(message: string, title?: string) {
+        if(
+            Array.from(errorMessages.values()).filter(
+                e => e.message === message
+            ).length !== 0
+        ) return;
+
         let newId: string;
+
         do {
             newId = v4();
         } while (errorMessages.has(newId));
+
         errorMessages.set(newId, {
             message: message,
             title: title,
         });
+
         setErrorMessages({ errorMessages });
     }
 
@@ -41,14 +50,19 @@ export function ErrorWrapper(props: React.PropsWithChildren) {
     const errorModals: React.ReactNode[] = [];
 
     errorMessages.forEach(function createErrorModal({ message, title }, key) {
-        errorModals.push(<ErrorModal message={ message || 'Unspecified error.' } title={ title } key={ key }
-                                     closeModal={ () => closeModal(key) }/>);
+        errorModals.push(
+            <ErrorModal 
+                message={ message || 'Unspecified error.' } 
+                title={ title } key={ key }
+                closeModal={ () => closeModal(key) }
+            />
+        );
     });
 
     return (
         <ErrorContext.Provider value={ { throwError } }>
-            {errorModals}
-            {props.children}
+            { errorModals }
+            { props.children }
         </ErrorContext.Provider>
     );
 }
