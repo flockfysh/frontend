@@ -4,6 +4,7 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { serverURL } from '../../settings';
 
 import { UserContext } from '../../contexts/userContext';
+import { ErrorContext } from '../../contexts/errorContext';
 
 import classes from './login.module.css';
 import api from '../../helpers/api';
@@ -11,7 +12,9 @@ import api from '../../helpers/api';
 export default function LoginForm(props: { type: string }) {
     const navigate = useNavigate();
     const curPopup = useRef<Window | null>(null);
+    
     const { curUser, setUser, refresh } = useContext(UserContext);
+    const { throwError } = useContext(ErrorContext);
 
     const url = new URL(window.location.href);
     const code = url.searchParams.get('code');
@@ -41,7 +44,6 @@ export default function LoginForm(props: { type: string }) {
     const emailRef = useRef({} as HTMLInputElement);
     const passwordRef = useRef({} as HTMLInputElement);
 
-
     /**
      * Open oAuth login Popup
      *
@@ -56,11 +58,17 @@ export default function LoginForm(props: { type: string }) {
 
         if (popup) {
             curPopup.current = popup;
+
             window.addEventListener('message', function goToDashboard(e) {
                 if (e.data.success) {
                     popup.close();
                     refresh();
                     redirect();
+                }
+                else if(!e.data.success) {
+                    throwError(e.data.message);
+                    
+                    popup.close();
                 }
             });
         }

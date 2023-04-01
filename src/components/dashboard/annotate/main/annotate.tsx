@@ -202,7 +202,7 @@ function AnnotateInner() {
     return (
         <div className={ classes.annotateContainer }>
             <div className={ classes.headingContainer }>
-                <h1 className={ classes.heading }>Picture - {imageIndex + 1}/{numImages}</h1>
+                <h1 className={ classes.heading }>Image - {imageIndex + 1}/{numImages}</h1>
             </div>
             <div className={ classes.submitButtonContainer }>
                 <GradientLink to={ `/dashboard/${params.datasetId}/train` } children="Initiate training"
@@ -236,7 +236,7 @@ function AnnotateInner() {
                 </div>
                 <div className={ classes.utilityButtons }>
                     <Button className={ classes.addLabelButton }
-                            onClick={ () => setIsEditing(!isEditing) }>{isEditing ? 'Edit Bounding Boxes' : 'Add Bounding Box'}</Button>
+                            onClick={ () => setIsEditing(!isEditing) }>{isEditing ? 'Currently Editing' : 'Edit Bounding Box'}</Button>
                 </div>
 
             </div>
