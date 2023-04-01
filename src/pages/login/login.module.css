@@ -19,13 +19,13 @@
 }
 
 .githubButton:hover {
-   background-color: var(--color-blue-primary);
-   color: var(--color-black-secondary);
-   border-color: var(--color-black-secondary);
+   background-color: var(--color-blue-gradients-card);
+
+   color: var(--color-white);
 }
 
 .githubButton:hover .githubIcon {
-   fill: var(--color-black-secondary);
+   fill: var(--color-white);
 }
 
 .githubIcon {

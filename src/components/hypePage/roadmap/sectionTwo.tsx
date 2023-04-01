@@ -64,8 +64,8 @@ function SectionTwo() {
 
             <div className={ classes.infoContainer }>
                 {
-                    cardsInfo.map(item => (
-                        <Card heading={ item.title } body={ item.description } icon={ item.icon }/>
+                    cardsInfo.map((item, i) => (
+                        <Card key={ i } heading={ item.title } body={ item.description } icon={ item.icon }/>
                     ))
                 }
             </div>

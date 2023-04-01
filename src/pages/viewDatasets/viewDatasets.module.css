@@ -51,7 +51,7 @@
 }
 
 .noDatasetsFound a:hover {
-    color: var(--color-blue-secondary);
+    color: var(--color-aqua);
 }
 
 @media only all and (min-width: 640px) {
