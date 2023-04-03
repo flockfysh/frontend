@@ -19,7 +19,7 @@ export default function LoginForm(props: { type: string }) {
     const url = new URL(window.location.href);
     const code = url.searchParams.get('code');
 
-    if (curUser) {
+    if(curUser) {
         if (!code) {
             return <Navigate to="/dashboard" replace={ true }/>;
         }
@@ -77,7 +77,7 @@ export default function LoginForm(props: { type: string }) {
     function passwordValidHandler(password = null as (String | null)) {
         if (!password) password = passwordRef.current.value;
 
-        if (password.length < 8) {
+        if(password.length < 8) {
             setPasswordIsValid(false);
 
             return false;
@@ -129,6 +129,12 @@ export default function LoginForm(props: { type: string }) {
                 email: email,
                 password: password,
             })).data;
+
+            if(!response.success) {
+                throwError(response.data.message);
+
+                return;
+            }
 
             setUser(response);
             redirect();
