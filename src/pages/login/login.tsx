@@ -12,7 +12,7 @@ import api from '../../helpers/api';
 export default function LoginForm(props: { type: string }) {
     const navigate = useNavigate();
     const curPopup = useRef<Window | null>(null);
-    
+
     const { curUser, setUser, refresh } = useContext(UserContext);
     const { throwError } = useContext(ErrorContext);
 
@@ -65,9 +65,9 @@ export default function LoginForm(props: { type: string }) {
                     refresh();
                     redirect();
                 }
-                else if(!e.data.success) {
+                else if (!e.data.success) {
                     throwError(e.data.message);
-                    
+
                     popup.close();
                 }
             });
@@ -126,10 +126,8 @@ export default function LoginForm(props: { type: string }) {
 
         if (emailIsValid && passwordIsValid) {
             const response = (await api.post('/api/auth/' + props.type.toLowerCase(), {
-                data: {
-                    email: email,
-                    password: password,
-                },
+                email: email,
+                password: password,
             })).data;
 
             setUser(response);
