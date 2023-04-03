@@ -20,7 +20,7 @@ export default function Navbar() {
     
     const navLinks = [
         {
-            to: '/',
+            to: '#roadmap',
             name: 'Roadmap'
         },
         {
