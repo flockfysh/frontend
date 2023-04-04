@@ -1,13 +1,18 @@
 .loading {
-    position: fixed;
     display: flex;
     align-self: center;
     align-items: center;
     flex-direction: column;
-    font-size: 20px;
     width: 100%;
     height: 100%;
+    flex: 1;
     justify-content: center;
+}
+
+.loadingScreen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
 }
 
 .loading h2 {

@@ -8,7 +8,7 @@ import api from '../../helpers/api';
 
 import classes from './logout.module.css';
 
-export default function Logout() {
+export default function Logout(props: { closeError?: () => void }) {
     const navigate = useNavigate();
 
     const { setUser } = useContext(UserContext);
@@ -17,6 +17,7 @@ export default function Logout() {
         await api.get('/api/auth/logout');
         setUser(null);
         navigate('/');
+        props.closeError?.();
     }
 
     return (
