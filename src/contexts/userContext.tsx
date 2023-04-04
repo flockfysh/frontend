@@ -60,7 +60,6 @@ export function UserWrapper(props: PropsWithChildren) {
     }
 
     const curState = { curUser, setUser, refresh };
-    console.log(curState);
     return (
         <UserContext.Provider value={ curState }>
             {props.children}
