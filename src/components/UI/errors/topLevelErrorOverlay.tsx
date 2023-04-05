@@ -20,7 +20,7 @@ export default function TopLevelErrorOverlay(props: {
     }
     return (
         <section className={ classes.overlay }>
-            <div className={ `${classes.overlayInner} ${classes.fullScreen}` }>
+            <div className={ `${classes.overlayInner} ${props.fullScreen ? classes.fullScreen : ''}` }>
                 {props.background ? (
                     <>
                         <div className={ classes.background } style={ {
