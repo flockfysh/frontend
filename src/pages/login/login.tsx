@@ -199,9 +199,9 @@ export default function LoginForm(props: { type: string }) {
                 </button>
 
                 <p className={ classes.terms }>
-                    By {props.type === 'Signup' ? 'signing up' : 'logging in'}, you agree to the 
-                    <LinkUnderline className={ classes.termLinks } text="Terms of Use" to=""/> and 
-                    <LinkUnderline className={ classes.termLinks } text="Privacy Policy" to=""/>
+                    By { props.type === 'Signup' ? 'signing up' : 'logging in' }, you agree to the 
+                    <LinkUnderline className={ classes.termLinks } text="Terms of Use" to="" /> and 
+                    <LinkUnderline className={ classes.termLinks } text="Privacy Policy" to="" />.
                 </p>
             </div>
 

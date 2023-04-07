@@ -74,11 +74,11 @@
 
 .terms {
    margin-top: 2rem;
-   font-size: 0.8rem;
+   font-size: 10px;
 }
 
 .termLinks {
-   font-size: 0.8rem;
+   font-size: 10px;
    margin: 0 0.3rem;
 }
 
@@ -209,6 +209,7 @@
 
    .formSeparator {
       height: 20rem;
+      margin-left: -8rem;
       width: 0.0625rem;
    }
 }

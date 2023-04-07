@@ -1,5 +1,4 @@
 import { useContext, useState } from 'react';
-import AnchorLink from 'react-anchor-link-smooth-scroll';
 import { Link } from 'react-router-dom';
 
 import { RxHamburgerMenu } from 'react-icons/rx';

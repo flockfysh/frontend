@@ -143,6 +143,7 @@ export default function CreateDataset() {
                             { label: 'Professional', value: 'premium2' }
                         ] }
                         defaultValue={ { label: 'Free forever', value: 'free' } }
+                        isSearchable={ false }
                     />
                 </div>
 
