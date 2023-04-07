@@ -3,6 +3,8 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 import { serverURL } from '../../settings';
 
+import LinkUnderline from '../../components/UI/linkUnderline/linkUnderline';
+
 import { UserContext } from '../../contexts/userContext';
 import { ErrorContext } from '../../contexts/errorContext';
 
@@ -74,7 +76,7 @@ export default function LoginForm(props: { type: string }) {
         }
     }
 
-    function passwordValidHandler(password = null as (String | null)) {
+    function passwordValidHandler(password = null as (string | null)) {
         if (!password) password = passwordRef.current.value;
 
         if(password.length < 8) {
@@ -89,7 +91,7 @@ export default function LoginForm(props: { type: string }) {
         }
     }
 
-    function emailValidHandler(email = null as (String | null)) {
+    function emailValidHandler(email = null as (string | null)) {
         if (!email) email = emailRef.current.value;
 
         // logic below
@@ -195,6 +197,12 @@ export default function LoginForm(props: { type: string }) {
                 >
                     {props.type}
                 </button>
+
+                <p className={ classes.terms }>
+                    By { props.type === 'Signup' ? 'signing up' : 'logging in' }, you agree to the 
+                    <LinkUnderline className={ classes.termLinks } text="Terms of Use" to="" /> and 
+                    <LinkUnderline className={ classes.termLinks } text="Privacy Policy" to="" />.
+                </p>
             </div>
 
             <div className={ classes.formSeparator }></div>
@@ -205,7 +213,7 @@ export default function LoginForm(props: { type: string }) {
                     onClick={ () => oAuthLogin('/api/auth/github') }
                     type="button"
                 >
-                    {props.type} with Github{' '}
+                    { props.type } with Github{' '}
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className={ classes.githubIcon }
@@ -223,7 +231,7 @@ export default function LoginForm(props: { type: string }) {
                     onClick={ () => oAuthLogin('/api/auth/google') }
                     type="button"
                 >
-                    {props.type} with Google{' '}
+                    { props.type } with Google{' '}
                     <svg
                         className={ classes.googleIcon }
                         xmlns="http://www.w3.org/2000/svg"

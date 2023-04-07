@@ -14,72 +14,67 @@ import logoIcon from '../../images/icons/logo.svg';
 import classes from './navbar.module.css';
 
 export default function Navbar() {
-    const { curUser } = useContext(UserContext);
+  const { curUser } = useContext(UserContext);
 
-    const [navOpen, updateNav] = useState(false);
-    
-    const navLinks = [
-        {
-            to: '/',
-            name: 'Roadmap'
-        },
-        {
-            to: 'https://docs.flockfysh.tech',
-            name: 'Docs'
-        },
-        {
-            to: 'https://blog.flockfysh.tech',
-            name: 'Blog'
-        },
-        {
-            to: '/',
-            name: 'Team'
-        }
-    ];
+  const [navOpen, updateNav] = useState(false);
 
-    return (
-        <nav className={ classes.nav }>
-            <Link className={ classes.logo } to="/">
-                <img src={ logoIcon } className={ classes.logoImg } />
-                <span className={ classes.logoText }>flockfysh</span>
-            </Link>
+  const navLinks = [
+    {
+      to: '/#roadmap',
+      name: 'Roadmap',
+    },
+    {
+      to: 'https://docs.flockfysh.tech',
+      name: 'Docs',
+    },
+    {
+      to: 'https://blog.flockfysh.tech',
+      name: 'Blog',
+    },
+    {
+      to: '/',
+      name: 'Team',
+    },
+  ];
 
-            <button className={ classes.navOpenButton }>
-                {
-                    navOpen ? (
-                        <div className={ classes.mobileNavLinksContainer }>
-                            {
-                                navLinks.map(
-                                    (link, i) => <MobileNavItem to={ link.to } name={ link.name } key={ i }/>
-                                )
-                            }
-                        </div>
-                    ) : <></>
-                }
+  return (
+    <nav className={ classes.nav }>
+      <Link className={ classes.logo } to="/">
+        <img src={ logoIcon } className={ classes.logoImg } />
+        <span className={ classes.logoText }>flockfysh</span>
+      </Link>
 
-                <RxHamburgerMenu onClick={ () => updateNav(!navOpen) }/>
-            </button>
+      <button className={ classes.navOpenButton }>
+        {navOpen ? (
+          <div className={ classes.mobileNavLinksContainer }>
+            {navLinks.map((link, i) => (
+              <MobileNavItem to={ link.to } name={ link.name } key={ i } />
+            ))}
+          </div>
+        ) : (
+          <></>
+        )}
 
-            <ul className={ classes.listContainer }>
-                {
-                    navLinks.map(
-                        (link, i) => <NavItem to={ link.to } name={ link.name } key={ i }/>
-                    )
-                }
+        <RxHamburgerMenu onClick={ () => updateNav(!navOpen) } />
+      </button>
 
-            </ul>
+      <ul className={ classes.listContainer }>
+        {navLinks.map((link, i) => (
+          <NavItem to={ link.to } name={ link.name } key={ i } />
+        ))}
+      </ul>
 
-            <div className={ classes.signinWrapper }>
-                {curUser ? (
-                    <Link to="/dashboard" className={ classes.signinButton }>
-                        Dashboard <BsArrowRight size={ 15 } className={ classes.siginArrow } />
-                    </Link>
-                ) : (
-                    <Link to="/login" className={ classes.signinButton }>
-                        Sign In <BsArrowRight size={ 15 } className={ classes.siginArrow } />
-                    </Link>
-                )}
-            </div>
-        </nav>
-    );
+      <div className={ classes.signinWrapper }>
+        {curUser ? (
+          <Link to="/dashboard" className={ classes.signinButton }>
+            Dashboard <BsArrowRight size={ 15 } className={ classes.siginArrow } />
+          </Link>
+        ) : (
+          <Link to="/login" className={ classes.signinButton }>
+            Sign In <BsArrowRight size={ 15 } className={ classes.siginArrow } />
+          </Link>
+        )}
+      </div>
+    </nav>
+  );
 }

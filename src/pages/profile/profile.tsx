@@ -14,9 +14,9 @@ export default function Profile() {
 
     // ! Temporary until backend returns a monthly cost object
     curUser.monthlyCost = {
-        storage: 100,
-        creation: 100,
-        total: 200,
+        storage: 0,
+        creation: 0,
+        total: 0,
         costs: []
     };
 

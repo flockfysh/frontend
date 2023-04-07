@@ -1,6 +1,6 @@
 .navbarLink {
     font-size: 1.5rem;
-    transition: all 0.25s ease-in-out;
+    transition: all 0.2s ease-in-out;
     color: var(--color-white);
 }
 

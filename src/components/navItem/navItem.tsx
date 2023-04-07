@@ -10,7 +10,9 @@ export default function NavItem(props: NavItemProps) {
     return (
         <li className={ classes.listItem }>
             <NavLink
-                to={ { pathname: props.to } }
+                to={
+                    props.to.split('')[0] === '#' ? { hash: props.to } : { pathname: props.to }
+                }
                 className={
                     navData => navData.isActive
                         ? `${classes.navbarLinkActive} ${classes.navbarLink}`
@@ -19,7 +21,7 @@ export default function NavItem(props: NavItemProps) {
                 relative={ 'path' }
 
             >
-                {props.name}
+                { props.name }
             </NavLink>
         </li>
     );
