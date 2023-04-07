@@ -50,6 +50,11 @@ export default function Navbar() {
             {navLinks.map((link, i) => (
               <MobileNavItem to={ link.to } name={ link.name } key={ i } />
             ))}
+            {curUser ? (
+              <MobileNavItem to="/dashboard" name="Dashboard" />
+            ) : (
+              <MobileNavItem to="/login" name="Sign In" />
+            )}
           </div>
         ) : (
           <></>
