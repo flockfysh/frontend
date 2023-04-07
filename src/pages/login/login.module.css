@@ -72,6 +72,16 @@
    height: fit-content;
 }
 
+.terms {
+   margin-top: 2rem;
+   font-size: 0.8rem;
+}
+
+.termLinks {
+   font-size: 0.8rem;
+   margin: 0 0.3rem;
+}
+
 /*.form::before {*/
 /*   content: "";*/
 /*   position: absolute;*/
