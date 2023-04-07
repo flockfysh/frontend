@@ -51,25 +51,15 @@
     flex-direction: column;
     align-items: center;
     text-align: start;
-    max-width: 700px;
+    max-width: 90rem;
     margin: auto;
 }
 
-@media only all and (min-width: 1024px) {
+@media only all and (min-width: 70rem) {
     .infoContainer {
-        column-gap: 20px;
+        column-gap: 2rem;
     }
 
-    .infoContainer div:nth-child(even) {
-        align-self: flex-end;
-    }
-
-    .infoContainer div:nth-child(odd) {
-        align-self: flex-start;
-    }
-}
-
-@media only all and (min-width: 1024px) {
     .middleImageContainer {
         display: flex;
         position: absolute;
@@ -77,11 +67,13 @@
         overflow: hidden;
         width: 100%;
         z-index: -100;
-        margin-left: -30px;
+        margin-left: -3rem;
     }
 
     .middleImagewrapper {
         display: flex;
+        width: 100%;
+        max-width: 42rem;
         justify-content: center;
     }
 
@@ -97,16 +89,19 @@
 
     .infoContainer {
         margin-top: 90px;
-        column-gap: 40px;
-        row-gap: 75px;
-        max-width: 1000px;
+        row-gap: 6.5rem;
+        max-width: 100rem;
     }
 
-    .infoContainer div:nth-child(2) {
-        margin-right: 50px;
+    .infoContainer > div {
+        position: relative;
     }
 
-    .infoContainer div:nth-child(4) {
-        margin-right: 40px;
+    .infoContainer > div:nth-child(even) {
+        left: 25rem;
+    }
+
+    .infoContainer > div:nth-child(odd) {
+        right: 28rem;
     }
 }

@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
+    font-size: 62.5%;
+
     --color-blue-primary: #91a7ff;
     --color-blue-secondary: #364fc7;
     --color-blue-tertiary: #748ffc;
@@ -47,12 +49,14 @@
 
 html {
     box-sizing: border-box;
-    font-size: 62.5%;
+
     overflow-x: hidden;
 }
-*{
+
+* {
     scroll-behavior: smooth;
 }
+
 body,
 html {
     width: 100%;
