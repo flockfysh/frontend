@@ -31,10 +31,6 @@ export default function Navbar() {
       to: 'https://blog.flockfysh.tech',
       name: 'Blog',
     },
-    {
-      to: '/',
-      name: 'Team',
-    },
   ];
 
   return (
