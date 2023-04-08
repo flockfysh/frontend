@@ -74,7 +74,7 @@ export default function LoginForm(props: { type: string }) {
         }
     }
 
-    function passwordValidHandler(password = null as (String | null)) {
+    function passwordValidHandler(password = null as (string | null)) {
         if (!password) password = passwordRef.current.value;
 
         if(password.length < 8) {
@@ -89,7 +89,7 @@ export default function LoginForm(props: { type: string }) {
         }
     }
 
-    function emailValidHandler(email = null as (String | null)) {
+    function emailValidHandler(email = null as (string | null)) {
         if (!email) email = emailRef.current.value;
 
         // logic below
