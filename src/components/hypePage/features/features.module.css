@@ -37,7 +37,7 @@
     line-height: 1.5rem;
 }
 
-@media only all and (min-width: 960px) {
+@media only all and (min-width: 65rem) {
     .featuresWrapper {
         grid-template-rows: repeat(2, 1fr);
         grid-template-columns: repeat(2, 1fr);

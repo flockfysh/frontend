@@ -5,6 +5,7 @@
     margin-top: 3rem;
     position: relative;
     z-index: 1;
+    align-items: center;
 }
 
 .listContainer {
@@ -14,12 +15,12 @@
 }
 
 .logo {
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-weight: 600;
     transition: 0.2s;
     display: flex;
     align-items: center;
-    width: 10%;
+    height: 3.5rem;
 }
 
 .logo:hover {
@@ -27,7 +28,7 @@
 }
 
 .logoImg {
-    height: 15px;
+    height: inherit;
     width: auto;
     margin-right: 10px;
 }
@@ -35,7 +36,7 @@
 .logoText {
     margin-left: 6px;
     color: #eeeeee;
-    font-size: 14px;
+    font-size: 1.5rem;
 }
 
 /* #region Nav Mobile Styles */
@@ -110,7 +111,7 @@
     margin-left: 6px;
 }
 
-@media only all and (min-width: 1024px) {
+@media only all and (min-width: 65rem) {
     .logo {
         flex: 1;
         justify-content: flex-start;
@@ -120,12 +121,12 @@
         height: 52px;
         width: fit-content;
     }
-    
+
     .logoText {
         margin-left: 12px;
         font-size: 24px;
     }
-    
+
     .navOpenButton {
         display: none;
     }
@@ -135,7 +136,7 @@
         display: flex;
         justify-content: center;
     }
-    
+
     .signinWrapper {
         display: flex;
         align-items: center;

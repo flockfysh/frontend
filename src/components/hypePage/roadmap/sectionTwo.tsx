@@ -52,26 +52,32 @@ function SectionTwo() {
                 body="Efficiently unlock the true potential of the data you brought."
             />
 
-            <div className={ classes.middleImageContainer }>
-                <div className={ classes.middleImagewrapper }>
-                    <img src={ secondSectionImage } alt=""/>
+            <div className={ classes.container }>
+                <div className={ classes.middleImageContainer }>
+                    <div className={ classes.middleImagewrapper }>
+                        <img src={ secondSectionImage } alt=""/>
+                    </div>
                 </div>
-            </div>
 
-            <div className={ classes.aboveImageContainer }>
-                <img src={ aboveImage } alt=""/>
-            </div>
+                <div className={ classes.aboveImageContainer }>
+                    <img src={ aboveImage } alt=""/>
+                </div>
 
-            <div className={ classes.infoContainer }>
-                {
-                    cardsInfo.map((item, i) => (
-                        <Card key={ i } heading={ item.title } body={ item.description } icon={ item.icon }/>
-                    ))
-                }
-            </div>
+                <div className={ classes.infoContainer }>
+                    {
+                        cardsInfo.map((item, i) => (
+                            <div key={ i } className={ `${classes['anchor' + i]} ${classes.anchor}` }>
+                                <Card className={ `${classes['card' + i]} ${classes.card}` } heading={ item.title }
+                                      body={ item.description }
+                                      icon={ item.icon }/>
+                            </div>
+                        ))
+                    }
+                </div>
 
-            <div className={ classes.belowImageContainer }>
-                <img src={ belowImage } alt=""/>
+                <div className={ classes.belowImageContainer }>
+                    <img src={ belowImage } alt=""/>
+                </div>
             </div>
         </section>
     );

@@ -27,6 +27,14 @@
     width: 24rem;
 }
 
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .middleImageContainer {
     display: none;
 }
@@ -51,37 +59,27 @@
     flex-direction: column;
     align-items: center;
     text-align: start;
-    max-width: 700px;
     margin: auto;
 }
 
-@media only all and (min-width: 1024px) {
+@media only all and (min-width: 70rem) {
     .infoContainer {
-        column-gap: 20px;
+        position: absolute;
     }
 
-    .infoContainer div:nth-child(even) {
-        align-self: flex-end;
-    }
-
-    .infoContainer div:nth-child(odd) {
-        align-self: flex-start;
-    }
-}
-
-@media only all and (min-width: 1024px) {
     .middleImageContainer {
         display: flex;
-        position: absolute;
         justify-content: center;
         overflow: hidden;
         width: 100%;
         z-index: -100;
-        margin-left: -30px;
+        margin-left: -3rem;
     }
 
     .middleImagewrapper {
         display: flex;
+        width: 100%;
+        max-width: 65rem;
         justify-content: center;
     }
 
@@ -96,17 +94,53 @@
     }
 
     .infoContainer {
-        margin-top: 90px;
-        column-gap: 40px;
-        row-gap: 75px;
-        max-width: 1000px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
     }
 
-    .infoContainer div:nth-child(2) {
-        margin-right: 50px;
+    .anchor {
+        position: absolute;
     }
 
-    .infoContainer div:nth-child(4) {
-        margin-right: 40px;
+    .anchor0 {
+        transform: translate(-3rem, -31rem);
+    }
+
+    .anchor1 {
+        transform: translate(-1rem, -9rem);
+    }
+
+    .anchor2 {
+        transform: translate(-3rem, 24rem);
+    }
+
+    .anchor3 {
+        transform: translate(8rem, 47rem);
+    }
+
+    .card0 {
+        transform: translate(-100%, -100%);
+    }
+
+    .card1 {
+        transform: translate(0, -50%);
+    }
+
+    .card2 {
+        transform: translate(-100%, -50%);
+    }
+
+    .card3 {
+        transform: translate(0, -50%);
+    }
+
+    .card {
+        position: absolute;
     }
 }
