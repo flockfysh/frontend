@@ -34,6 +34,7 @@ import { ErrorWrapper } from './contexts/errorContext';
 import Background from './components/hypePage/background/background';
 import Tester from './pages/tester/tester';
 import NotificationWrapper from './contexts/notificationContext';
+import TopLevelErrorBoundary from './contexts/topLevelErrorBoundary';
 
 /**
  * Wraps entire App with neccessary Contexts
@@ -45,14 +46,16 @@ function AppWrapper(props: React.PropsWithChildren) {
     return (
         <EmotionCacheProvider>
             <ScreenWrapper>
-                <ErrorWrapper>
-                    <UserWrapper>
-                        <NotificationWrapper />
-                        <Background />
+                <UserWrapper>
+                    <TopLevelErrorBoundary>
+                        <ErrorWrapper>
+                            <NotificationWrapper/>
+                            <Background/>
 
-                        { props.children }
-                    </UserWrapper>
-                </ErrorWrapper>
+                            {props.children}
+                        </ErrorWrapper>
+                    </TopLevelErrorBoundary>
+                </UserWrapper>
             </ScreenWrapper>
         </EmotionCacheProvider>
     );

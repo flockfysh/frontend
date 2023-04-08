@@ -16,26 +16,18 @@ export default function ViewDatasets() {
     const [datasets, updateDatasets] = useState<PartialDataset[]>([]);
     const [isLoading, updateLoadingState] = useState(true);
     const [filter, updateFilter] = useState('');
-    
-    useEffect(() => {   
+
+    useEffect(() => {
         updateLoadingState(true);
 
         (async function () {
-            let datasets: PartialDataset[];
-
-            try {
-                datasets = (await api.get('/api/dataset')).data.data as PartialDataset[];
-            }
-            catch {
-                datasets = [];
-            }
-            
+            const datasets: PartialDataset[] = (await api.get('/api/dataset')).data.data as PartialDataset[];
             updateDatasets(datasets);
             updateLoadingState(false);
         })();
     }, []);
 
-    async function deleteDataset(id: string){
+    async function deleteDataset(id: string) {
         await api.delete(`/api/dataset/${id}`);
         const deleted = datasets.filter((dataset) => dataset.id !== id);
         updateDatasets(deleted);
@@ -81,15 +73,15 @@ export default function ViewDatasets() {
                                         .includes(
                                             filter
                                                 .replaceAll(' ', '')
-                                                .toLowerCase()
-                                        )
-                                );  
+                                                .toLowerCase(),
+                                        ),
+                                );
 
                         if (elements.length === 0)
                             return (
                                 <h2 className={ classes.noDatasetsFound }>
-                                    Sorry, no datasets found. Go { ' ' }
-                                    <Link to="/dashboard/create-dataset">here</Link> { ' ' }
+                                    Sorry, no datasets found. Go {' '}
+                                    <Link to="/dashboard/create-dataset">here</Link> {' '}
                                     to create one.
                                 </h2>
                             );
@@ -97,7 +89,7 @@ export default function ViewDatasets() {
                             return elements.map(
                                 (dataset, index) => (
                                     <DatasetCard key={ index } dataset={ dataset } onDelete={ deleteDataset }/>
-                                )
+                                ),
                             );
                     })()
                 }

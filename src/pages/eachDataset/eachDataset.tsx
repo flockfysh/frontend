@@ -65,7 +65,7 @@ async function getDatasetProgress(datasetId: string): Promise<DatasetProgressObj
             eta: currentTaskInfo.eta,
         };
     }
-    
+
     return result;
 }
 
@@ -122,8 +122,17 @@ export default function EachDataset(props: { page: string }) {
     if (!dataset || !datasetProgressLoaded) return <Loading/>;
 
     function guardElement(element: JSX.Element): JSX.Element {
-        if (taskInProgress && progressScreenProps) {
-            return <ProgressScreen { ...progressScreenProps }/>;
+        if (taskInProgress) {
+            if (progressScreenProps) {
+                return <ProgressScreen { ...progressScreenProps }/>;
+            }
+            else {
+                return (
+                    <ProgressScreen current={ 0 } total={ 100 }
+                                    description={ 'Your training request has been submitted, ' +
+                                        'please wait until Flockfysh training servers go online.' }/>
+                );
+            }
         }
         return element;
     }
