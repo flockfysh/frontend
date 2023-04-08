@@ -1,10 +1,12 @@
 import Card from '../../UI/card';
-import icon1 from '.././icons/icon1.svg';
-import icon2 from '.././icons/icon2.svg';
-import icon3 from '.././icons/icon3.svg';
-import icon4 from '.././icons/icon4.svg';
-import oneFish from '.././images/oneFish.svg';
-import mainImage from '.././images/firstSectionImage.svg';
+import icon1 from '../icons/icon1.svg';
+import icon2 from '../icons/icon2.svg';
+import icon3 from '../icons/icon3.svg';
+import icon4 from '../icons/icon4.svg';
+import oneFish from '../images/oneFish.svg';
+import mainImage from '../images/firstSectionImage.svg';
+import mobileImage1 from '../images/firstSectionMobile1.svg';
+import mobileImage2 from '../images/firstSectionMobile2.svg';
 import SectionHeader from './components/sectionHeader';
 
 import classes from './sectionOne.module.css';
@@ -33,13 +35,15 @@ function SectionOne() {
             />
             <div className={ classes.cards }>
                 <img src={ mainImage } alt="" className={ classes.mainImage }/>
-
+                <img src={ mobileImage1 } alt="" className={ classes.mobileImage }/>
                 <div className={ classes.cardHolder }>
                     <Card heading="Minimal Requirements" body={ card1body } icon={ icon1 } className={ classes.card }/>
                     <Card heading="Cloud Portability" body={ card2body } icon={ icon2 } className={ classes.card }/>
                     <Card heading="Local flexibility" body={ card3body } icon={ icon3 } className={ classes.card }/>
                     <Card heading="Broad applicability" body={ card4body } icon={ icon4 } className={ classes.card }/>
                 </div>
+                <img src={ mobileImage2 } alt="" className={ classes.mobileImage }/>
+
             </div>
         </section>
     );

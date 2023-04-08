@@ -86,9 +86,6 @@
     font-weight: 800;
 }
 
-.extraInfo {
-    display: none;
-}
 
 .inputEmail {
     display: flex;
@@ -173,7 +170,7 @@
 
 }
 
-@media only all and (min-width: 1024px) {
+@media only all and (min-width: 50rem) {
     .heroSectionDiv {
         gap: 36px;
     }
@@ -202,8 +199,8 @@
     }
 
     .contentSection h1 {
-        margin-bottom: 26px;
-        font-size: 64px;
+        margin-bottom: 2.6rem;
+        font-size: 6.4rem;
     }
 
     .extraInfo {

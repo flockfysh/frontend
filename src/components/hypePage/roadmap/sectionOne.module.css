@@ -7,6 +7,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
+    gap: 30px;
 }
 
 .cardHolder {
@@ -15,8 +16,13 @@
     position: relative;
 }
 
+.mobileImage {
+    width: 30%;
+    max-width: 15rem;
+}
+
 .card {
-    background: var(--color-black-primary);
+    /*background: var(--color-black-primary);*/
 }
 
 .heading,
@@ -52,23 +58,25 @@
     left: 65px;
 }
 
-@media only screen and (min-width: 480px) {
+@media only screen and (min-width: 102rem) {
     .cardHolder {
         position: absolute;
         transform: translateY(5%);
+    }
+
+    .mobileImage {
+        display: none;
     }
 
     .mainImage {
         display: block;
         position: relative;
     }
-}
 
-@media only screen and (min-width: 1024px) {
     .cardHolder {
         background: none;
         grid-template-columns: repeat(2, 1fr);
-        grid-gap: 50px 150px;
+        grid-gap: 100px 170px;
         /*width: 110%;*/
         justify-items: center;
         justify-content: center;
@@ -79,8 +87,8 @@
     }
 
     .mainImage {
-        height: 960px;
-        left: 40px;
+        height: 1020px;
+        left: 45px;
     }
 }
 
@@ -110,7 +118,7 @@
     width: 11rem;
 }
 
-@media only screen and (max-width: 910px) {
+@media only screen and (max-width: 91rem) {
     .number {
         font-size: 3rem;
     }
@@ -126,7 +134,7 @@
     }
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 50rem) {
     .number {
         font-size: 2.7rem;
     }
