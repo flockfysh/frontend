@@ -13,8 +13,10 @@
     display: grid;
     grid-gap: 30px;
     position: relative;
-    background: var(--color-black-primary);
+}
 
+.card {
+    background: var(--color-black-primary);
 }
 
 .heading,
@@ -72,9 +74,13 @@
         justify-content: center;
     }
 
+    .card {
+        background: none;
+    }
+
     .mainImage {
-        height: 1200px;
-        left: 60px;
+        height: 960px;
+        left: 40px;
     }
 }
 
