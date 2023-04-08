@@ -72,6 +72,16 @@
    height: fit-content;
 }
 
+.terms {
+   margin-top: 2rem;
+   font-size: 10px;
+}
+
+.termLinks {
+   font-size: 10px;
+   margin: 0 0.3rem;
+}
+
 /*.form::before {*/
 /*   content: "";*/
 /*   position: absolute;*/
@@ -199,6 +209,7 @@
 
    .formSeparator {
       height: 20rem;
+      margin-left: -8rem;
       width: 0.0625rem;
    }
 }

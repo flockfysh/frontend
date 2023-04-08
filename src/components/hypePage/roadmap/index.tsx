@@ -1,3 +1,4 @@
+import RoadmapBackground from './background/background';
 import EndMessage from './endMessage';
 import SectionOne from './sectionOne';
 import SectionThree from './sectionThree';
@@ -10,6 +11,7 @@ function Roadmap() {
             <SectionTwo />
             <SectionThree />
             <EndMessage />
+            <RoadmapBackground />
         </>
     );
 }

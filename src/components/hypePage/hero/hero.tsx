@@ -43,7 +43,7 @@ export default function Hero() {
                 setAccessRequestSuccess(true);
             }
         }
-        catch (Error) {
+ catch (Error) {
             throw Error;
         }
     }
@@ -69,9 +69,9 @@ export default function Hero() {
 
             <div className={ classes.contentSection }>
                 <span className={ classes.infoBeta }>Currently in private beta</span>
-                
+
                 <h1 className={ classes.heroHeading }>Dataset&nbsp;creation from&nbsp;the&nbsp;future.</h1>
-                
+
                 <span>Polished for any use case, flockfysh takes the complexity out of datasets.</span>
                 <span
                     className={ classes.extraInfo }
@@ -80,8 +80,8 @@ export default function Hero() {
                 </span>
             </div>
 
-            <form 
-                className={ `${classes.inputEmail} ${ successMessage !== '' ? classes.inputSuccessEmail : '' }` }
+            <form
+                className={ `${classes.inputEmail} ${successMessage !== '' ? classes.inputSuccessEmail : ''}` }
                 ref={ waitlistFormRef }
             >
                 <div>
@@ -91,24 +91,20 @@ export default function Hero() {
                         name="email"
                         placeholder="Your email here"
                     />
-                    
-                    <label>{ errorMessage }</label>
-                    <span>{ successMessage }</span>
+
+                    <label>{errorMessage}</label>
+                    <span>{successMessage}</span>
                 </div>
 
-                <button 
+                <button
                     type="submit"
                     disabled={ successMessage !== '' }
                     onClick={ addUserToWaitlist }
-                    className={ `${ classes.submitButton } ${ accessRequestSuccess ? classes.submitSuccess : '' }` }
+                    className={ `${classes.submitButton} ${accessRequestSuccess ? classes.submitSuccess : ''}` }
                 >
-                    { accessRequestSuccess ? 'Request sent!' : 'Request access' }
+                    {accessRequestSuccess ? 'Request sent!' : 'Request access'}
                 </button>
             </form>
-
-            <div className={ classes.otherContent }>
-                <span>Designed for developers, researchers, and those who dare to dream.</span>
-            </div>
         </section>
     );
 }

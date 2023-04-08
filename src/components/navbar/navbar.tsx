@@ -1,5 +1,4 @@
 import { useContext, useState } from 'react';
-import AnchorLink from 'react-anchor-link-smooth-scroll';
 import { Link } from 'react-router-dom';
 
 import { RxHamburgerMenu } from 'react-icons/rx';
@@ -32,10 +31,6 @@ export default function Navbar() {
       to: 'https://blog.flockfysh.tech',
       name: 'Blog',
     },
-    {
-      to: '/',
-      name: 'Team',
-    },
   ];
 
   return (
@@ -51,6 +46,11 @@ export default function Navbar() {
             {navLinks.map((link, i) => (
               <MobileNavItem to={ link.to } name={ link.name } key={ i } />
             ))}
+            {curUser ? (
+              <MobileNavItem to="/dashboard" name="Dashboard" />
+            ) : (
+              <MobileNavItem to="/login" name="Sign In" />
+            )}
           </div>
         ) : (
           <></>
