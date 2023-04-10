@@ -9,6 +9,7 @@ import AsyncArray from '../../helpers/async';
 import api from '../../helpers/api';
 import Textarea from '../../components/UI/input/textarea';
 import { ErrorContext } from '../../contexts/errorContext';
+import Loading from '../../components/loading/loading';
 
 export default function CreateDataset() {
     const navigate = useNavigate();
@@ -25,12 +26,9 @@ export default function CreateDataset() {
 
     async function createDataset(e: React.FormEvent<HTMLFormElement>) {
         if(disabled) return;
-
-        setDisabled(true);
         e.preventDefault();
 
         if (!formRef.current) throw new Error('Missing form element!');
-        
         const fd = new FormData(formRef.current);
 
         const files = new AsyncArray(fd.getAll('files') as File[]);
@@ -40,7 +38,8 @@ export default function CreateDataset() {
             
             return;
         }
-
+        setDisabled(true);
+        console.log(disabled);
         // Create a dataset.
         const createDatasetRequestBody: Record<string, any | any[]> = {};
 
@@ -175,10 +174,12 @@ export default function CreateDataset() {
                         name="files"
                     />
                 </div>
-
-                <div className={ classes.submitButtonContainer }>
-                    <button type="submit">Create Dataset</button>
-                </div>
+                
+                { !disabled ? (
+                    <div className={ classes.submitButtonContainer }>
+                        <button disabled={ disabled } type="submit">Create Dataset</button>
+                    </div> 
+                ) : <Loading />}
             </form>
         </div>
     );
