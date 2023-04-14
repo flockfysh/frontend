@@ -19,7 +19,7 @@
 
 .footerFoundry {
     display: flex;
-    color: rgba(239,247,255,0.62);
+    color: rgba(239, 247, 255, 0.62);
 }
 
 .footerFoundryBackedByContainer {
@@ -43,10 +43,11 @@
     flex-direction: column;
 }
 
-.footerOtherAddressLinks span {
+.footerOtherAddressLinks span,
+.footerOtherAddressLinks a {
     font-size: 1.2rem;
     line-height: 1.6rem;
-    color: rgba(239,247,255,0.62);
+    color: rgba(239, 247, 255, 0.62);
 }
 
 .footerOtherContentLinks {
@@ -56,7 +57,7 @@
 
 .footerOtherContentLinks a {
     font-size: 24px;
-    color: rgba(239,247,255,0.62);
+    color: rgba(239, 247, 255, 0.62);
 }
 
 .footerPrivacy {
