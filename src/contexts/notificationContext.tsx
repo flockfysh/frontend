@@ -8,6 +8,7 @@ export default function NotificationWrapper() {
     const [worker, setWorker] = React.useState<ServiceWorkerRegistration | undefined>(undefined);
 
     async function registerNotificationWorker() {
+        if(!navigator.serviceWorker) return;
         const serviceWorker = await navigator.serviceWorker.register(new URL('../workers/notifications.ts', import.meta.url));
         await serviceWorker.update();
         return serviceWorker;
@@ -40,8 +41,10 @@ export default function NotificationWrapper() {
             }
             return workerSubscription;
         }
-
-        let curSubscription = await worker.pushManager.getSubscription();
+        let curSubscription: PushSubscription | null = null;
+        if(worker.pushManager){
+            curSubscription = await worker.pushManager.getSubscription();
+        }
         if (!curSubscription) {
             curSubscription = await newSubscription();
         }
@@ -54,6 +57,7 @@ export default function NotificationWrapper() {
     }
 
     async function unsubscribeFromNotifications(worker: ServiceWorkerRegistration) {
+        if(!worker.pushManager) return;
         const currentSubscription = await worker.pushManager.getSubscription();
         if (!currentSubscription) return;
         await currentSubscription.unsubscribe();
