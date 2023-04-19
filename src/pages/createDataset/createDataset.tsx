@@ -1,7 +1,7 @@
 import { useState, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import CustomSelect, { CustomCreatableSelect } from '../../components/UI/input/selectInput';
+import { CustomCreatableSelect } from '../../components/UI/input/selectInput';
 import classes from './createDataset.module.css';
 import MultiFileInput from '../../components/UI/input/multiFileInput/multiFileInput';
 import Button from '../../components/UI/button/button';
@@ -43,11 +43,11 @@ export default function CreateDataset() {
 
         // Create a dataset.
         const createDatasetRequestBody: Record<string, any | any[]> = {};
-
+        
         createDatasetRequestBody.description = fd.get('description');
         createDatasetRequestBody.name = fd.get('name');
         createDatasetRequestBody.classes = fd.getAll('classes');
-        createDatasetRequestBody.tier = fd.get('tier');
+        createDatasetRequestBody.tier = 'free'; // TODO:! Need to get this from curUser 
         createDatasetRequestBody.type = datasetType;
 
         const response = await api.post('/api/dataset', createDatasetRequestBody);
@@ -125,25 +125,6 @@ export default function CreateDataset() {
                         id="name" 
                         name="description"
                         className={ classes.labelledInputContainer__input }
-                    />
-                </div>
-
-
-                <div className={ classes.labelledInputContainer }>
-                    <label htmlFor="pricingPlan" className={ classes.labelledInputContainer__label }>Pricing Plan</label>
-
-                    <CustomSelect 
-                        id="pricingPlan" 
-                        name="tier" 
-                        className={ classes.labelledInputContainer__input }
-                        required={ true }
-                        options={ [
-                            { label: 'Free forever', value: 'free' },
-                            { label: 'Hobbyist', value: 'premium1' },
-                            { label: 'Professional', value: 'premium2' }
-                        ] }
-                        defaultValue={ { label: 'Free forever', value: 'free' } }
-                        isSearchable={ false }
                     />
                 </div>
 

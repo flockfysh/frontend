@@ -31,7 +31,7 @@ export default function Button(props: ButtonProps) {
     }
 
     return (
-        <button type={ 'button' } { ...buttonProps }
+        <button type="button" { ...buttonProps }
                 className={ `${classes.button} ${gradientClass} ${props.className || ''}` }>
             {props.children}
         </button>
