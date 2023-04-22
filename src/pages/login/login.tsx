@@ -1,4 +1,4 @@
-import { useState, useRef, useContext } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 import { serverURL } from '../../settings';
@@ -10,6 +10,41 @@ import { ErrorContext } from '../../contexts/errorContext';
 
 import classes from './login.module.css';
 import api from '../../helpers/api';
+import { z } from 'zod';
+
+
+const LoginField = React.forwardRef<HTMLInputElement, {
+    validationHandler: (data: any) => string | null,
+    errorMessage?: string,
+    type?: string,
+    label: string
+}>((props, ref) => {
+    return (
+        <div>
+            <label htmlFor="email" className={ classes.inputHeading }>
+                {props.label}
+            </label>
+
+            <input
+                ref={ (e) => {
+                    if (typeof ref === 'function') {
+                        ref(e);
+                    }
+                    else if (ref) {
+                        ref.current = e;
+                    }
+                } }
+                className={ `${props.errorMessage ? classes.inputInvalid : ''} ${classes.input}` }
+                onChange={ (e) => props.validationHandler(e.currentTarget.value) }
+                type={ props.type }
+            />
+
+            <span className={ `${props.errorMessage ? classes.inputInvalidTextActive : classes.inputInvalidText}` }>
+                {props.errorMessage}
+            </span>
+        </div>
+    );
+});
 
 export default function LoginForm(props: { type: string }) {
     const navigate = useNavigate();
@@ -21,7 +56,7 @@ export default function LoginForm(props: { type: string }) {
     const url = new URL(window.location.href);
     const code = url.searchParams.get('code');
 
-    if(curUser) {
+    if (curUser) {
         if (!code) {
             return <Navigate to="/dashboard" replace={ true }/>;
         }
@@ -39,12 +74,13 @@ export default function LoginForm(props: { type: string }) {
         }
     }
 
-    // defaulting to true to account for browser auto-filling
-    const [emailIsValid, setEmailIsValid] = useState(true);
-    const [passwordIsValid, setPasswordIsValid] = useState(true);
+    const [nameError, setNameError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [emailError, setEmailError] = useState('');
 
-    const emailRef = useRef({} as HTMLInputElement);
-    const passwordRef = useRef({} as HTMLInputElement);
+    const nameRef = useRef<HTMLInputElement | null>(null);
+    const emailRef = useRef<HTMLInputElement | null>(null);
+    const passwordRef = useRef<HTMLInputElement | null>(null);
 
     /**
      * Open oAuth login Popup
@@ -69,75 +105,90 @@ export default function LoginForm(props: { type: string }) {
                 }
                 else if (!e.data.success) {
                     throwError(e.data.message);
-
                     popup.close();
                 }
             });
         }
     }
 
-    function passwordValidHandler(password = null as (string | null)) {
-        if (!password) password = passwordRef.current.value;
-
-        if(password.length < 8) {
-            setPasswordIsValid(false);
-
-            return false;
+    function passwordHandler(password: unknown): string | null {
+        try {
+            const result = z.string({
+                required_error: 'Missing password.',
+                invalid_type_error: 'Password must be a string.',
+            })
+                .min(8, 'The password must be at least 8 characters long.')
+                .parse(password);
+            setPasswordError('');
+            return result;
         }
-        else {
-            setPasswordIsValid(true);
-
-            return true;
+ catch (e) {
+            if (e instanceof z.ZodError) {
+                setPasswordError(e.issues[0].message);
+                return null;
+            }
+            throw e;
         }
     }
 
-    function emailValidHandler(email = null as (string | null)) {
-        if (!email) email = emailRef.current.value;
-
-        // logic below
-        // email shouldn't include spaces
-        // email is at least 5 letters and include @ and .
-        // there are letters before @
-        // there are letters after .
-        // and if there are letters between @ and .
-        if (
-            !email.includes(' ') &&
-            email.length >= 5 &&
-            email.includes('@') &&
-            email.includes('.') &&
-            email.split('@')[0].length > 0 &&
-            email.split('.')[1].length > 0 &&
-            email.split('@')[1].split('')[0] !== '.'
-        ) {
-            setEmailIsValid(true);
-
-            return true;
+    function emailHandler(email: unknown): string | null {
+        try {
+            const result = z.string({
+                required_error: 'Missing email.',
+                invalid_type_error: 'Email must be a string.',
+            }).nonempty('Missing email.').email('Email is invalid.').parse(email);
+            setEmailError('');
+            return result;
         }
-        else {
-            setEmailIsValid(false);
+ catch (e) {
+            if (e instanceof z.ZodError) {
+                setEmailError(e.issues[0].message);
+                return null;
+            }
+            throw e;
+        }
+    }
 
-            return false;
+    function nameHandler(name: unknown): string | null {
+        try {
+            const result = z.string({
+                required_error: 'Missing display name.',
+                invalid_type_error: 'Display name must be a string.',
+            }).nonempty('Missing display name.').parse(name);
+            setNameError('');
+            return result;
+        }
+ catch (e) {
+            if (e instanceof z.ZodError) {
+                setNameError(e.issues[0].message);
+                return null;
+            }
+            throw e;
         }
     }
 
     async function submitHandler() {
-        const email = emailRef.current.value;
-        const password = passwordRef.current.value;
+        if (props.type.toLowerCase() === 'signup') {
+            const email = emailHandler(emailRef.current?.value),
+                password = passwordHandler(passwordRef.current?.value),
+                name = nameHandler(nameRef.current?.value);
 
-        if (!emailValidHandler(email) || !passwordValidHandler(password)) return;
+            const response = (await api.post('/api/auth/signup', {
+                email: email,
+                password: password,
+                fullName: name,
+            })).data;
+            setUser(response);
+            redirect();
+        }
+        else {
+            const email = emailHandler(emailRef.current?.value),
+                password = passwordHandler(passwordRef.current?.value);
 
-        if (emailIsValid && passwordIsValid) {
-            const response = (await api.post('/api/auth/' + props.type.toLowerCase(), {
+            const response = (await api.post('/api/auth/login', {
                 email: email,
                 password: password,
             })).data;
-
-            if(!response.success) {
-                throwError(response.data.message);
-
-                return;
-            }
-
             setUser(response);
             redirect();
         }
@@ -145,38 +196,17 @@ export default function LoginForm(props: { type: string }) {
 
     return (
         <form className={ classes.form }>
-            <div className={ classes.emailDiv }>
-                <label htmlFor="email" className={ classes.inputHeading }>
-                    Email
-                </label>
-
-                <input
-                    ref={ emailRef }
-                    className={ `${!emailIsValid ? classes.inputInvalid : classes.input}` }
-                    onChange={ () => emailValidHandler }
-                    type="email"
-                    name="email"
-                />
-
-                <span className={ `${!emailIsValid ? classes.inputInvalidTextActive : classes.inputInvalidText}` }>
-                    Not valid email
-                </span>
-
-                <label htmlFor="password" className={ classes.inputHeading }>
-                    Password
-                </label>
-
-                <input
-                    ref={ passwordRef }
-                    className={ `${!passwordIsValid ? classes.inputInvalid : classes.input}` }
-                    onChange={ () => passwordValidHandler }
-                    name="password"
-                    type="password"
-                />
-
-                <span className={ `${!passwordIsValid ? classes.inputInvalidTextActive : classes.inputInvalidText}` }>
-                    Password too short
-                </span>
+            <div className={ classes.localLogin }>
+                <div className={ classes.loginFields }>
+                    {props.type.toLowerCase() === 'signup' ? (
+                        <LoginField ref={ nameRef } errorMessage={ nameError } label={ 'Display name' }
+                                    validationHandler={ nameHandler }></LoginField>
+                    ) : <></>}
+                    <LoginField type={ 'email' } ref={ emailRef } errorMessage={ emailError } label={ 'Email' }
+                                validationHandler={ emailHandler }></LoginField>
+                    <LoginField type={ 'password' } ref={ passwordRef } errorMessage={ passwordError } label={ 'Password' }
+                                validationHandler={ passwordHandler }></LoginField>
+                </div>
 
                 {
                     props.type === 'Signup' ? (
@@ -199,9 +229,9 @@ export default function LoginForm(props: { type: string }) {
                 </button>
 
                 <p className={ classes.terms }>
-                    By { props.type === 'Signup' ? 'signing up' : 'logging in' }, you agree to the 
-                    <LinkUnderline className={ classes.termLinks } text="Terms of Use" to="/terms" /> and 
-                    <LinkUnderline className={ classes.termLinks } text="Privacy Policy" to="/privacy" />.
+                    By {props.type === 'Signup' ? 'signing up' : 'logging in'}, you agree to the
+                    <LinkUnderline className={ classes.termLinks } text="Terms of Use" to="/terms"/> and
+                    <LinkUnderline className={ classes.termLinks } text="Privacy Policy" to="/privacy"/>.
                 </p>
             </div>
 
@@ -213,7 +243,7 @@ export default function LoginForm(props: { type: string }) {
                     onClick={ () => oAuthLogin('/api/auth/github') }
                     type="button"
                 >
-                    { props.type } with Github{' '}
+                    {props.type} with Github{' '}
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className={ classes.githubIcon }
@@ -231,7 +261,7 @@ export default function LoginForm(props: { type: string }) {
                     onClick={ () => oAuthLogin('/api/auth/google') }
                     type="button"
                 >
-                    { props.type } with Google{' '}
+                    {props.type} with Google{' '}
                     <svg
                         className={ classes.googleIcon }
                         xmlns="http://www.w3.org/2000/svg"

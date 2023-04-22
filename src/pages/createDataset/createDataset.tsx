@@ -1,7 +1,7 @@
 import { useState, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import CustomSelect, { CustomCreatableSelect } from '../../components/UI/input/selectInput';
+import { CustomCreatableSelect } from '../../components/UI/input/selectInput';
 import classes from './createDataset.module.css';
 import MultiFileInput from '../../components/UI/input/multiFileInput/multiFileInput';
 import Button from '../../components/UI/button/button';
@@ -9,6 +9,7 @@ import AsyncArray from '../../helpers/async';
 import api from '../../helpers/api';
 import Textarea from '../../components/UI/input/textarea';
 import { ErrorContext } from '../../contexts/errorContext';
+import Loading from '../../components/loading/loading';
 
 export default function CreateDataset() {
     const navigate = useNavigate();
@@ -25,12 +26,9 @@ export default function CreateDataset() {
 
     async function createDataset(e: React.FormEvent<HTMLFormElement>) {
         if(disabled) return;
-
-        setDisabled(true);
         e.preventDefault();
 
         if (!formRef.current) throw new Error('Missing form element!');
-        
         const fd = new FormData(formRef.current);
 
         const files = new AsyncArray(fd.getAll('files') as File[]);
@@ -40,14 +38,15 @@ export default function CreateDataset() {
             
             return;
         }
-
+        setDisabled(true);
+        console.log(disabled);
         // Create a dataset.
         const createDatasetRequestBody: Record<string, any | any[]> = {};
-
+        
         createDatasetRequestBody.description = fd.get('description');
         createDatasetRequestBody.name = fd.get('name');
         createDatasetRequestBody.classes = fd.getAll('classes');
-        createDatasetRequestBody.tier = fd.get('tier');
+        createDatasetRequestBody.tier = 'free'; // TODO:! Need to get this from curUser 
         createDatasetRequestBody.type = datasetType;
 
         const response = await api.post('/api/dataset', createDatasetRequestBody);
@@ -128,25 +127,6 @@ export default function CreateDataset() {
                     />
                 </div>
 
-
-                <div className={ classes.labelledInputContainer }>
-                    <label htmlFor="pricingPlan" className={ classes.labelledInputContainer__label }>Pricing Plan</label>
-
-                    <CustomSelect 
-                        id="pricingPlan" 
-                        name="tier" 
-                        className={ classes.labelledInputContainer__input }
-                        required={ true }
-                        options={ [
-                            { label: 'Free forever', value: 'free' },
-                            { label: 'Hobbyist', value: 'premium1' },
-                            { label: 'Professional', value: 'premium2' }
-                        ] }
-                        defaultValue={ { label: 'Free forever', value: 'free' } }
-                        isSearchable={ false }
-                    />
-                </div>
-
                 <div className={ classes.labelledInputContainer }>
                     <label htmlFor="classes" className={ classes.labelledInputContainer__label }>Dataset Labels</label>
 
@@ -175,10 +155,12 @@ export default function CreateDataset() {
                         name="files"
                     />
                 </div>
-
-                <div className={ classes.submitButtonContainer }>
-                    <button type="submit">Create Dataset</button>
-                </div>
+                
+                { !disabled ? (
+                    <div className={ classes.submitButtonContainer }>
+                        <button disabled={ disabled } type="submit">Create Dataset</button>
+                    </div> 
+                ) : <Loading />}
             </form>
         </div>
     );

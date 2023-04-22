@@ -24,6 +24,9 @@ export default function Footer() {
                 <div className={ classes.footerOtherAddressLinks }>
                     <span>2594 Hearst Ave</span>
                     <span>Berkeley, CA 94720, US</span>
+                    <a href="mailto:hey@flockfysh.tech" target="_blank">
+                        hey@flockfysh.tech
+                    </a>
                 </div>
             </div>
 

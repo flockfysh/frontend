@@ -1,7 +1,9 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 
 import { UserContext } from '../../contexts/userContext';
 
+import Button from '../../components/UI/button/button';
+import CustomSelect from '../../components/UI/input/selectInput';
 import Loading from '../../components/loading/loading';
 import Logout from '../../components/account/logout';
 
@@ -9,6 +11,7 @@ import classes from './profile.module.css';
 
 export default function Profile() {
     const { curUser } = useContext(UserContext);
+    const [isPaying, setIsPaying] = useState(false);
 
     if(!curUser) return <Loading />;
 
@@ -20,22 +23,57 @@ export default function Profile() {
         costs: []
     };
 
+    // TODO: get payment info from backend
+
+    function handleSelectChange(newValue: unknown, actionMeta: any) {
+        const val = newValue as { label: string, value: string };
+
+        // TODO: need to get subscription from backend
+
+        const testSubType = 'free';
+
+        setIsPaying(val.value !== testSubType);
+    }
+
     return (
         <div className={ classes.containerDiv }>
             <div className={ classes.imageSection }>
                 <div className={ classes.headingRow }>
                     <h3 className={ classes.heading }>Your Account</h3>
-                    
+
                     <Logout />
                 </div>
-                
-                <div className={ classes.nameDiv }>
-                    <img className={ classes.image } src={ curUser.profileImage } alt={ curUser.name } />
 
-                    <div className={ classes.infoDiv }>
-                        <h4 className={ classes.name }>{ curUser.name }</h4>
+                <div className={ classes.subHeadingContainer }>
+                    <div className={ classes.nameDiv }>
+                        <img className={ classes.image } src={ curUser.profileImage } alt={ curUser.name } />
 
-                        <h6 className={ classes.email }>{ curUser.email }</h6>
+                        <div className={ classes.infoDiv }>
+                            <h4 className={ classes.name }>{ curUser.name }</h4>
+
+                            <h6 className={ classes.email }>{ curUser.email }</h6>
+                        </div>
+                    </div>
+
+                    <div className={ classes.payingPlanContainer }>
+                        <h3>Your Subscription</h3>
+
+                        <CustomSelect
+                            id="pricingPlan"
+                            name="tier"
+                            className={ classes.pricePlanSelect }
+                            required={ true }
+                            options={ [
+                                { label: 'Free forever', value: 'free' },
+                                { label: 'Hobbyist', value: 'premium1' },
+                                { label: 'Professional', value: 'premium2' }
+                            ] }
+                            defaultValue={ { label: 'Free forever', value: 'free' } }
+                            isSearchable={ false }
+                            onChange={ handleSelectChange }
+                        />
+
+                        { isPaying && <Button gradient className={ classes.payButton }>Pay</Button> }
                     </div>
                 </div>
             </div>

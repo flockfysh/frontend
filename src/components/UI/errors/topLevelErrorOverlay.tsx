@@ -16,7 +16,7 @@ export default function TopLevelErrorOverlay(props: {
         mainButton = <Logout closeError={ props.closeError }></Logout>;
     }
     else {
-        mainButton = <Button onClick={ props.closeError }>OK</Button>;
+        mainButton = <Button onClick={ props.closeError } gradient={ true }>OK</Button>;
     }
     return (
         <section className={ classes.overlay }>

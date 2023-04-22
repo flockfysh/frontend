@@ -129,6 +129,19 @@
     background: var(--color-white);
 }
 
+.payButton {
+    margin-top: 1.5em;
+}
+
+.pricePlanSelect {
+    width: 150%;
+}
+
+.subHeadingContainer {
+    gap: 10%;
+    display: flex;
+}
+
 @media only all and (min-width: 768px) {
     .card {
         flex: 1;
