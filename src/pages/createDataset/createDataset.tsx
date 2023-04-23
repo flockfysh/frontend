@@ -17,7 +17,7 @@ export default function CreateDataset() {
 
     const [datasetType, updateDatasetType] = useState('images');
     const [disabled, setDisabled] = useState(false);
-    
+
     const formRef = useRef<HTMLFormElement | null>(null);
 
     function updateType(type: string) {
@@ -25,7 +25,7 @@ export default function CreateDataset() {
     }
 
     async function createDataset(e: React.FormEvent<HTMLFormElement>) {
-        if(disabled) return;
+        if (disabled) return;
         e.preventDefault();
 
         if (!formRef.current) throw new Error('Missing form element!');
@@ -33,20 +33,20 @@ export default function CreateDataset() {
 
         const files = new AsyncArray(fd.getAll('files') as File[]);
 
-        if(files.length === 1 && files[0].size === 0) {
+        if (files.length === 1 && files[0].size === 0) {
             throwError('Please upload a file.');
-            
+
             return;
         }
         setDisabled(true);
         console.log(disabled);
         // Create a dataset.
         const createDatasetRequestBody: Record<string, any | any[]> = {};
-        
+
         createDatasetRequestBody.description = fd.get('description');
         createDatasetRequestBody.name = fd.get('name');
         createDatasetRequestBody.classes = fd.getAll('classes');
-        createDatasetRequestBody.tier = 'free'; // TODO:! Need to get this from curUser 
+        createDatasetRequestBody.tier = 'free'; // TODO:! Need to get this from curUser
         createDatasetRequestBody.type = datasetType;
 
         const response = await api.post('/api/dataset', createDatasetRequestBody);
@@ -59,19 +59,19 @@ export default function CreateDataset() {
             try {
                 const fd = new FormData();
                 fd.append('image', file);
-                await api.post(`/api/image/${ datasetId }`, fd);
+                await api.post(`/api/image/${datasetId}`, fd);
             }
-            catch (e) {
+ catch (e) {
                 badFiles.push(file.name);
             }
         }, undefined);
-        if(badFiles.length) {
+        if (badFiles.length) {
             let badFileString: string;
 
             if (badFiles.length <= 5) badFileString = badFiles.join(', ');
-            else badFileString = `${ badFiles.slice(0, 5).join(', ') } and ${ badFiles.length - 5 } more`;
+            else badFileString = `${badFiles.slice(0, 5).join(', ')} and ${badFiles.length - 5} more`;
 
-            throwError(`These files failed to upload: ${ badFileString }. Please check the dataset for missing files.`);
+            throwError(`These files failed to upload: ${badFileString}. Please check the dataset for missing files.`);
         }
         else navigate('/dashboard');
     }
@@ -82,8 +82,8 @@ export default function CreateDataset() {
 
             <div className={ classes.datasetTypeRow }>
                 <Button
-                    className={ datasetType === 'images' ? classes.selected : '' }
-                    onClick={ () => updateType('images') }
+                    className={ datasetType === 'image' ? classes.selected : '' }
+                    onClick={ () => updateType('image') }
                 >
                     Images
                 </Button>
@@ -109,9 +109,9 @@ export default function CreateDataset() {
                 <div className={ classes.labelledInputContainer }>
                     <label htmlFor="name" className={ classes.labelledInputContainer__label }>Name of Dataset</label>
 
-                    <input 
-                        id="name" 
-                        name="name" 
+                    <input
+                        id="name"
+                        name="name"
                         type="text"
                         className={ classes.labelledInputContainer__input }
                     />
@@ -120,8 +120,8 @@ export default function CreateDataset() {
                 <div className={ classes.labelledInputContainer }>
                     <label htmlFor="name" className={ classes.labelledInputContainer__label }>Dataset Description</label>
 
-                    <Textarea 
-                        id="name" 
+                    <Textarea
+                        id="name"
                         name="description"
                         className={ classes.labelledInputContainer__input }
                     />
@@ -130,9 +130,9 @@ export default function CreateDataset() {
                 <div className={ classes.labelledInputContainer }>
                     <label htmlFor="classes" className={ classes.labelledInputContainer__label }>Dataset Labels</label>
 
-                    <CustomCreatableSelect 
-                        id="classes" 
-                        name="classes" 
+                    <CustomCreatableSelect
+                        id="classes"
+                        name="classes"
                         className={ classes.labelledInputContainer__input }
                         required={ true }
                         isMulti={ true }
@@ -142,9 +142,9 @@ export default function CreateDataset() {
                 </div>
 
                 <div className={ classes.labelledInputContainer }>
-                    <label 
-                    htmlFor="addImagesInput" 
-                    className={ classes.labelledInputContainer__label }
+                    <label
+                        htmlFor="addImagesInput"
+                        className={ classes.labelledInputContainer__label }
                     >
                         Upload images
                     </label>
@@ -155,12 +155,12 @@ export default function CreateDataset() {
                         name="files"
                     />
                 </div>
-                
-                { !disabled ? (
+
+                {!disabled ? (
                     <div className={ classes.submitButtonContainer }>
                         <button disabled={ disabled } type="submit">Create Dataset</button>
-                    </div> 
-                ) : <Loading />}
+                    </div>
+                ) : <Loading/>}
             </form>
         </div>
     );
