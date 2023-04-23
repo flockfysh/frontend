@@ -15,7 +15,7 @@ export default function CreateDataset() {
     const navigate = useNavigate();
     const { throwError } = useContext(ErrorContext);
 
-    const [datasetType, updateDatasetType] = useState('images');
+    const [datasetType, updateDatasetType] = useState('image');
     const [disabled, setDisabled] = useState(false);
 
     const formRef = useRef<HTMLFormElement | null>(null);
@@ -46,7 +46,6 @@ export default function CreateDataset() {
         createDatasetRequestBody.description = fd.get('description');
         createDatasetRequestBody.name = fd.get('name');
         createDatasetRequestBody.classes = fd.getAll('classes');
-        createDatasetRequestBody.tier = 'free'; // TODO:! Need to get this from curUser
         createDatasetRequestBody.type = datasetType;
 
         const response = await api.post('/api/dataset', createDatasetRequestBody);
