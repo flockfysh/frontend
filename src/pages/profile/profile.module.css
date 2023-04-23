@@ -5,7 +5,7 @@
 }
 
 .containerDiv {
-    margin: 6rem 0 7rem 0;
+    margin: 8rem 0 7rem 0;
     display: flex;
     flex-direction: column;
     gap: min(calc(3rem + 2vw), 8rem);
@@ -40,7 +40,7 @@
 }
 
 .image {
-    width: 10rem;
+    width: 8rem;
     aspect-ratio: 1/1;
     object-fit: cover;
     border-radius: 2rem;
@@ -50,6 +50,15 @@
 .name {
     font-size: 2.5rem;
     font-weight: 500;
+}
+
+.editName {
+    color: var(--color-blue-tertiary);
+    transition: .3s all ease-in;
+}
+
+.editName:hover {
+    color: var(--color-blue-secondary);
 }
 
 .email {
@@ -75,11 +84,9 @@
     height: 100%;
     z-index: -1;
 
-    background: linear-gradient(
-        to bottom right,
-        var(--color-aqua),
-        var(--color-blue-tertiary)
-    );
+    background: linear-gradient(to bottom right,
+            var(--color-aqua),
+            var(--color-blue-tertiary));
 
     filter: blur(2rem);
 }
@@ -133,13 +140,24 @@
     margin-top: 1.5em;
 }
 
-.pricePlanSelect {
-    width: 150%;
+.subHeadingWrapper {
+    display: flex;
+    width: 100%;
+    flex-direction: column-reverse;
 }
 
 .subHeadingContainer {
     gap: 10%;
+    width: 100%;
     display: flex;
+    flex-direction: column;
+}
+
+.logoutButtonContainer {
+    margin-bottom: 24px;
+    display: flex;
+    height: fit-content;
+    justify-content: flex-end;
 }
 
 @media only all and (min-width: 768px) {
@@ -150,5 +168,21 @@
     .cardSection {
         flex-direction: row;
         column-gap: min(calc(4rem + 4vw), 20rem);
+    }
+
+    .subHeadingContainer {
+        flex-direction: row;
+    }
+}
+
+@media only all and (min-width: 1098px) {
+    .subHeadingWrapper {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .logoutButtonContainer {
+        margin-bottom: 0px;
+        display: inherit;
     }
 }
