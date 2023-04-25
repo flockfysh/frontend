@@ -2,6 +2,7 @@ import api from '../helpers/api';
 import React from 'react';
 import { UserContext } from './userContext';
 import { delay } from '../helpers/timers';
+import jsonLocalStorage from '../helpers/JSONLocalStorage';
 
 export default function NotificationWrapper() {
     const { curUser } = React.useContext(UserContext);
@@ -9,13 +10,14 @@ export default function NotificationWrapper() {
 
     async function registerNotificationWorker() {
         try {
-            if (!navigator.serviceWorker) return;
+            const storedNotificationPermission = jsonLocalStorage.getDefault('notifications', true);
+            if (!navigator.serviceWorker || !storedNotificationPermission) return;
             const serviceWorker = await navigator.serviceWorker.register(new URL('../workers/notifications.ts', import.meta.url));
             await serviceWorker.update();
             return serviceWorker;
         }
  catch (e) {
-
+            jsonLocalStorage.set('notifications', false);
         }
     }
 
