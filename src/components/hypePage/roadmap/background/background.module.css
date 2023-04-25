@@ -7,7 +7,6 @@
     width: 100%;
     height: 100%;
     z-index: -100;
-    overflow-y: clip;
     user-select: none;
 }
 
@@ -146,7 +145,7 @@
     .bgRoadmapDesktop4 {
         right: -1433px;
     }
-    
+
     .bgRoadmapDesktop5 {
         left: -1033px;
     }
@@ -154,7 +153,7 @@
     .bgRoadmapDesktop7 {
         right: -1433px;
     }
-    
+
     .bgRoadmapDesktop6 {
         left: -1033px;
     }
