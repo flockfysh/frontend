@@ -65,16 +65,18 @@ export default function NotificationWrapper() {
     }
 
     React.useEffect(() => {
-        (async function () {
-            if (worker) {
-                if (!curUser) {
-                    await unsubscribeFromNotifications(worker);
+        if(navigator.serviceWorker){
+            (async function () {
+                if (worker) {
+                    if (!curUser) {
+                        await unsubscribeFromNotifications(worker);
+                    }
+                    else {
+                        await subscribeToNotifications(worker);
+                    }
                 }
-                else {
-                    await subscribeToNotifications(worker);
-                }
-            }
-        })();
+            })();
+        }
     }, [worker, curUser]);
 
     return <></>;
