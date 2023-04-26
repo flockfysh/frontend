@@ -8,14 +8,15 @@ export default function NotificationWrapper() {
     const [worker, setWorker] = React.useState<ServiceWorkerRegistration | undefined>(undefined);
 
     async function registerNotificationWorker() {
-        if(!navigator.serviceWorker) return;
         const serviceWorker = await navigator.serviceWorker.register(new URL('../workers/notifications.ts', import.meta.url));
         await serviceWorker.update();
         return serviceWorker;
     }
 
     React.useEffect(() => {
-        registerNotificationWorker().then(worker => setWorker(worker));
+        if(navigator.serviceWorker){
+            registerNotificationWorker().then(worker => setWorker(worker));
+        }
     }, []);
 
     async function subscribeToNotifications(worker: ServiceWorkerRegistration) {
