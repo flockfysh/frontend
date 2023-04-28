@@ -39,7 +39,6 @@ export default function CreateDataset() {
             return;
         }
         setDisabled(true);
-        console.log(disabled);
         // Create a dataset.
         const createDatasetRequestBody: Record<string, any | any[]> = {};
 
