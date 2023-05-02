@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import { AiOutlineEdit } from 'react-icons/ai';
 
 import { UserContext } from '../../contexts/userContext';
 
@@ -41,39 +42,44 @@ export default function Profile() {
                 <div className={ classes.headingRow }>
                     <h3 className={ classes.heading }>Your Account</h3>
 
-                    <Logout />
                 </div>
 
-                <div className={ classes.subHeadingContainer }>
-                    <div className={ classes.nameDiv }>
-                        <img className={ classes.image } src={ curUser.profileImage } alt={ curUser.name } />
+                <div className={ classes.subHeadingWrapper }>
+                    <div className={ classes.subHeadingContainer }>
+                        <div className={ classes.nameDiv }>
+                            <img className={ classes.image } src={ curUser.profileImage } alt={ curUser.name } />
 
-                        <div className={ classes.infoDiv }>
-                            <h4 className={ classes.name }>{ curUser.name }</h4>
+                            <div className={ classes.infoDiv }>
+                                <h4 className={ classes.name }>{ curUser.name } <small className={ classes.editName }><AiOutlineEdit /></small></h4>
 
-                            <h6 className={ classes.email }>{ curUser.email }</h6>
+                                <h6 className={ classes.email }>{ curUser.email }</h6>
+                            </div>
+                        </div>
+
+                        <div className={ classes.payingPlanContainer }>
+                            <h3>Your Subscription</h3>
+
+                            <CustomSelect
+                                id="pricingPlan"
+                                name="tier"
+                                className={ classes.pricePlanSelect }
+                                required={ true }
+                                options={ [
+                                    { label: 'Free forever', value: 'free' },
+                                    { label: 'Hobbyist', value: 'premium1' },
+                                    { label: 'Professional', value: 'premium2' }
+                                ] }
+                                defaultValue={ { label: 'Free forever', value: 'free' } }
+                                isSearchable={ false }
+                                onChange={ handleSelectChange }
+                            />
+
+                            { isPaying && <Button gradient className={ classes.payButton }>Pay</Button> }
                         </div>
                     </div>
-
-                    <div className={ classes.payingPlanContainer }>
-                        <h3>Your Subscription</h3>
-
-                        <CustomSelect
-                            id="pricingPlan"
-                            name="tier"
-                            className={ classes.pricePlanSelect }
-                            required={ true }
-                            options={ [
-                                { label: 'Free forever', value: 'free' },
-                                { label: 'Hobbyist', value: 'premium1' },
-                                { label: 'Professional', value: 'premium2' }
-                            ] }
-                            defaultValue={ { label: 'Free forever', value: 'free' } }
-                            isSearchable={ false }
-                            onChange={ handleSelectChange }
-                        />
-
-                        { isPaying && <Button gradient className={ classes.payButton }>Pay</Button> }
+                    
+                    <div className={ classes.logoutButtonContainer }>
+                        <Logout />
                     </div>
                 </div>
             </div>
