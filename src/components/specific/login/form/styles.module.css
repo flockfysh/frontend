@@ -1,0 +1,88 @@
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.loginFieldset {
+    border-radius: 16px;
+    padding: 12px 16px;
+    background: var(--secondary-background);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    color: var(--accent-2);
+
+}
+
+.loginFormHeading {
+    font-weight: 700;
+}
+
+.input {
+    border-radius: 9999px;
+    background: transparent;
+    border: 2px solid var(--accent-1);
+    padding: 16px;
+    font-size: 0.875rem;
+    line-height: 1rem;
+    color: var(--primary);
+}
+
+.inputInvalid {
+    border-color: var(--error);
+}
+
+.input::placeholder {
+    color: var(--accent-3);
+}
+
+.checkbox {
+    width: 24px;
+    height: 24px;
+    appearance: none;
+    position: relative;
+}
+
+.checkbox::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+    border: 1.5px solid var(--accent-2);
+}
+
+.checkbox:checked::before {
+    background: var(--accent-2);
+}
+
+.label {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.signInUtilities {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.forgotPassword {
+    color: var(--error)
+}
+
+.signIn {
+    background: var(--primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--secondary);
+    font-size: 1rem;
+    line-height: 1.25rem;
+    gap: 8px;
+    border-radius: 9999px;
+    padding: 10px 16px;
+    font-weight: 600;
+}

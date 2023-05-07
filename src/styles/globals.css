@@ -1,5 +1,40 @@
-:root {
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --secondary-background: #08066C;
+    --primary-background: #04033E;
+    --tertiary-background: #333333;
+    --primary: #FFFFFF;
+    --secondary: #08066C;
+    --tertiary: #9E9E9E;
+    --error: #EA2E2E;
+    --accent-0: #2131FF;
+    --accent-1: #7DA0FF;
+    --accent-2: #ADC7FF;
+    --accent-3: #D2E1FF;
+    --accent-4: #E1F4FD;
+    --accent-5: #80DBF9;
+}
+
+html {
+    font-family: Inter, system-ui, sans-serif;
+}
+
+body {
+    color: var(--primary);
+    line-height: 1.5em;
+}
+
+a {
+    text-decoration: none;
+}
+
+img, svg {
+    display: block;
 }
 
 /* Potential dark/light mode */
