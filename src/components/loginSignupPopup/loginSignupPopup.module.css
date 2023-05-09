@@ -1,3 +1,49 @@
 .container {
-    
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.contentContainer {
+    padding: 2rem;
+    border-radius: 20px;
+    width: 30%;
+    height: 80%;
+    background: var(--primary1-950);
+}
+
+.headerSection {
+    width: 100%;
+}
+
+.headerSection h1 {
+    color: var(--primary1-100);
+    text-align: center;
+    font-size: 32px;
+    line-height: 40px;
+}
+
+.headerSection button {
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    border-radius: 50px;
+    gap: 8px;
+    color: var(--white);
+    font-size: 25px;
+    font-weight: 100;
+    cursor: pointer;
+    transition: 0.2s;
+    background: var(--primary2-950);
+}
+
+.closeIcon {
+    margin-top: 5px;
 }
