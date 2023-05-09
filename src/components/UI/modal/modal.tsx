@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import classes from './styles.module.css';
 
 export interface ModalProps {
@@ -31,9 +31,9 @@ export function ConfirmModal(props: ConfirmModalProps) {
     return (
         <div className={ classes.modalContainer }>
             <div className={ classes.modalContent }>
-                <h4 className={ classes.modalTitle }>{props.title}</h4>
+                <h4 className={ classes.modalTitle }>{ props.title }</h4>
 
-                {props.children}
+                { props.children }
 
                 <div className={ classes.buttonContainer }>
                     <button onClick={ confirm } className={ classes.closeModal }>Yes</button>
@@ -48,8 +48,8 @@ export default function Index(props: ModalProps) {
     return (
         <div className={ classes.modalContainer }>
             <div className={ classes.modalContent }>
-                <h4 className={ classes.modalTitle }>{props.title}</h4>
-                {props.children}
+                <h4 className={ classes.modalTitle }>{ props.title }</h4>
+                { props.children }
                 <button onClick={ props.closeModal } className={ classes.closeModal }>Ok</button>
             </div>
         </div>
@@ -59,17 +59,19 @@ export default function Index(props: ModalProps) {
 export function ErrorModal(props: TextModalProps) {
     return (
         <Index closeModal={ props.closeModal } title={ props.title ?? 'Error' }>
-            <p>{props.message}</p>
+            <p>{ props.message }</p>
         </Index>
     );
 }
 
 export function FilePreview(props: FilePreviewProps) {
-    const [url, setUrl] = React.useState('');
+    const [url, setUrl] = useState('');
 
-    React.useEffect(() => {
+    useEffect(() => {
         const newUrl = URL.createObjectURL(props.file);
+        
         setUrl(newUrl);
+
         return () => {
             URL.revokeObjectURL(newUrl);
         };

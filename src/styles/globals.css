@@ -92,6 +92,7 @@
 * {
     margin: 0;
     padding: 0;
+    scroll-behavior: smooth;
 }
 
 *,
@@ -104,10 +105,6 @@ html {
     box-sizing: border-box;
 
     overflow-x: hidden;
-}
-
-* {
-    scroll-behavior: smooth;
 }
 
 body, html {
@@ -123,7 +120,8 @@ body {
     background-color: var(--primary2-950);
     color: var(--white);
 
-    font-family: 'Inter', sans-serif;
+    /* font-family: 'Inter', sans-serif; */
+
     overflow-x: hidden;
     overflow-y: auto;
     overflow-y: overlay;

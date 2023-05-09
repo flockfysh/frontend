@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import LoginSignupPopup from '../components/loginSignupPopup/loginSignupPopup';
+// import LoginSignupPopup from '../components/loginSignupPopup/loginSignupPopup';
 
 import classes from '../styles/index.module.css';
 

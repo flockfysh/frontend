@@ -4,6 +4,7 @@ const fs = require('fs');
 async function main() {
     await fs.promises.mkdir('./icons/main');
     const files = await fs.promises.readdir('./icons/base');
+    
     for (const file of files) {
         if (file.endsWith('.svg')) {
             const data = (await fs.promises.readFile(path.join('./icons/base', file))).toString();

@@ -1,4 +1,4 @@
-import Logo from '@/components/UI/Logo';
+import Logo from '@/components/UI/logo/logo';
 import { ReactSVG } from 'react-svg';
 import Link from 'next/link';
 import home from '@/icons/main/home.svg';
@@ -10,7 +10,7 @@ import help from '@/icons/main/help-circle.svg';
 import bell from '@/icons/main/bell.svg';
 import { StaticImageData } from 'next/image';
 import classes from './styles.module.css';
-import Profile from '@/components/UI/Profile';
+import Profile from '@/components/UI/profile/profile';
 
 interface SidebarLinkProps {
     icon: StaticImageData,

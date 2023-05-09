@@ -1,0 +1,11 @@
+.logoContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.name {
+    font-size: 1.5rem;
+    line-height: 1.2em;
+    font-weight: 600;
+}
