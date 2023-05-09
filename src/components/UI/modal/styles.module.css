@@ -1,0 +1,80 @@
+.modalContainer {
+    background: #0005;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttonContainer {
+    display: flex;
+}
+
+.buttonContainer button {
+    margin: 0px 20px;
+}
+
+.closeModal {
+    padding: 10px 50px;
+    border-radius: 5px;
+    background: linear-gradient(
+            to bottom right,
+            var(--color-blue-secondary),
+            var(--color-blue-primary)
+    );
+    cursor: pointer;
+    color: var(--color-white);
+    transition: 0.2s;
+    flex: none;
+}
+
+.closeModal:hover {
+    color: rgb(0, 12, 121);
+}
+
+.modalContent {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: var(--color-black-secondary);
+    box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.473);
+    border-radius: 1.5rem;
+    padding: 2rem 3rem;
+    gap: 2rem;
+    font-size: 1.5rem;
+    height: fit-content;
+    overflow: hidden;
+}
+
+.image {
+    width: fit-content;
+    height: fit-content;
+    max-width: 60vw;
+    max-height: 60vh;
+    border-radius: 1.5rem;
+    object-fit: contain;
+    object-position: center;
+    box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.473);
+}
+
+.imageContainer {
+    flex: 1;
+    /*background: red;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.modalTitle {
+    font-size: 1.5rem;
+    text-align: center;
+}
