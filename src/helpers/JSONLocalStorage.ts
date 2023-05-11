@@ -24,4 +24,5 @@ class JSONLocalStorage {
 }
 
 const jsonLocalStorage = new JSONLocalStorage();
+
 export default jsonLocalStorage;

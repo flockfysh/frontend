@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
-
-import classes from './modal.module.css';
+import { useEffect, useState } from 'react';
+import classes from './styles.module.css';
 
 export interface ModalProps {
     closeModal: () => void;
@@ -45,14 +44,12 @@ export function ConfirmModal(props: ConfirmModalProps) {
     );
 }
 
-export default function Modal(props: ModalProps) {
+export default function Index(props: ModalProps) {
     return (
         <div className={ classes.modalContainer }>
             <div className={ classes.modalContent }>
                 <h4 className={ classes.modalTitle }>{ props.title }</h4>
-
                 { props.children }
-
                 <button onClick={ props.closeModal } className={ classes.closeModal }>Ok</button>
             </div>
         </div>
@@ -61,9 +58,9 @@ export default function Modal(props: ModalProps) {
 
 export function ErrorModal(props: TextModalProps) {
     return (
-        <Modal closeModal={ props.closeModal } title={ props.title ?? 'Error' }>
+        <Index closeModal={ props.closeModal } title={ props.title ?? 'Error' }>
             <p>{ props.message }</p>
-        </Modal>
+        </Index>
     );
 }
 
@@ -78,13 +75,13 @@ export function FilePreview(props: FilePreviewProps) {
         return () => {
             URL.revokeObjectURL(newUrl);
         };
-    }, []);
+    }, [props.file]);
 
     return (
-        <Modal title={ props.file.name } closeModal={ props.closeModal }>
+        <Index title={ props.file.name } closeModal={ props.closeModal }>
             <div className={ classes.imageContainer }>
                 <img src={ url } alt={ props.file.name } className={ classes.image }/>
             </div>
-        </Modal>
+        </Index>
     );
 }

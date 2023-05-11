@@ -1,4 +1,4 @@
-import LoginOverlay from '@/components/specific/login/overlay';
+import LoginOverlay from '@/components/login/overlay';
 
 export default function Login() {
     return (

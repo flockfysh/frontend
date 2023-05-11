@@ -1,4 +1,4 @@
-import Logo from '@/components/UI/logo/logo';
+import Logo from '@/components/logo/logo';
 import { ReactSVG } from 'react-svg';
 import Link from 'next/link';
 import home from '@/icons/main/home.svg';
@@ -92,7 +92,7 @@ export default function MainSidebar() {
                         return <SidebarLink key={ props.href } { ...props }></SidebarLink>;
                     })}
                 </div>
-                <Profile></Profile>
+                <Profile />
             </div>
         </div>
     );

@@ -120,7 +120,7 @@ body {
     background-color: var(--primary2-950);
     color: var(--white);
 
-    /* font-family: 'Inter', sans-serif; */
+    font-family: 'Inter', sans-serif !important;
 
     overflow-x: hidden;
     overflow-y: auto;

@@ -1,3 +1,5 @@
+import { SERVER_URL } from '@/settings';
+
 export function getBackendUrl(path: string) {
-    return new URL(path, process.env.NEXT_PUBLIC_BACKEND_URL).toString();
+    return new URL(path, SERVER_URL).toString();
 }
