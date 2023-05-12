@@ -97,7 +97,7 @@
     width: 100%;
 }
 
-.separatorText {
+.separator span {
     position: absolute;
     padding: 16px;
     background: var(--primary-background);
