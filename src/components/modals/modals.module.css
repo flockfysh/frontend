@@ -65,7 +65,6 @@
 
 .imageContainer {
     flex: 1;
-    /*background: red;*/
     display: flex;
     justify-content: center;
     align-items: center;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { v4 } from 'uuid';
-import { ErrorModal } from '../components/modal/modal';
+import { ErrorModal } from '../components/modals/modalBase';
 
 interface IErrorContext {
     throwError: (message: string, title?: string) => void;
