@@ -8,7 +8,7 @@ interface ActionPopupProps extends PropsWithChildren {
 
 export default function ActionPopup(props: ActionPopupProps) {
     return (
-        <div className={ classes.overlay + (props.blurBg ? classes.blur : '') }>
+        <div className={ classes.overlay + ' ' + (props.blurBg ? classes.blurBg : '') }>
             <div className={ classes.container }>
                 { props.children }
             </div>
