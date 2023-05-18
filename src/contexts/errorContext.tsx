@@ -1,6 +1,6 @@
 import React from 'react';
 import { v4 } from 'uuid';
-import { ErrorModal } from '../components/modals/modalBase';
+import ErrorModal from '@/components/modals/modalBase';
 
 interface IErrorContext {
     throwError: (message: string, title?: string) => void;
@@ -22,7 +22,7 @@ export function ErrorWrapper(props: React.PropsWithChildren) {
     }>({ errorMessages: new Map() });
 
     function throwError(message: string, title?: string) {
-        if(
+        if (
             Array.from(errorMessages.values()).filter(
                 e => e.message === message
             ).length !== 0
@@ -51,18 +51,17 @@ export function ErrorWrapper(props: React.PropsWithChildren) {
 
     errorMessages.forEach(function createErrorModal({ message, title }, key) {
         errorModals.push(
-            <ErrorModal 
-                message={ message || 'Unspecified error.' } 
-                title={ title } key={ key }
+            <ErrorModal
+                title={ title ?? '' } key={ key }
                 closeModal={ () => closeModal(key) }
-            />
+            >{message || 'Unspecified error.'}</ErrorModal>
         );
     });
 
     return (
         <ErrorContext.Provider value={ { throwError } }>
-            { errorModals }
-            { props.children }
+            {errorModals}
+            {props.children}
         </ErrorContext.Provider>
     );
 }

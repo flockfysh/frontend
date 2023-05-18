@@ -103,7 +103,6 @@
 
 html {
     box-sizing: border-box;
-
     overflow-x: hidden;
 }
 
@@ -156,12 +155,11 @@ button, input {
 
 a {
     text-decoration: none;
-    color: var(--color-white);
     font-weight: 400;
 }
 
-a:hover, a:focus {
-    color: var(--color-white);
+svg {
+    display: block;
 }
 
 ul {
@@ -231,4 +229,5 @@ p {
 @media (prefers-color-scheme: dark) {
 
 }
+
 /* #endregion */

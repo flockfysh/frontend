@@ -4,7 +4,6 @@
     height: 100%;
     top: 0;
     left: 0;
-    
     display: flex;
     position: fixed;
     align-items: center;
@@ -14,12 +13,13 @@
 .container {
     padding: 2rem;
     border-radius: 20px;
-    width: 30%;
-    min-height: 80%;
+    min-width: 30%;
+    max-width: 100%;
+    width: fit-content;
     background: var(--primary1-950);
 }
 
 .blurBg {
-    backdrop-filter: blur(5px);   
+    backdrop-filter: blur(5px);
 }
 

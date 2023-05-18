@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Login from '@/components/login/login';
+import Login from '@/components/specific/login';
 
 import classes from '../styles/index.module.css';
 
@@ -9,7 +9,7 @@ export default function Home() {
         <>
             <h1>Homepage</h1>
 
-            <Login />
+            <Login mode={ 'login' }/>
         </>
     );
 }

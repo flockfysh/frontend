@@ -1,4 +1,5 @@
 import classes from './modals.module.css';
+import React from 'react';
 
 export interface ModalProps {
     closeModal: () => void;
@@ -10,9 +11,9 @@ export default function ModalBase(props: ModalProps) {
     return (
         <div className={ classes.modalContainer }>
             <div className={ classes.modalContent }>
-                <h4 className={ classes.modalTitle }>{ props.title }</h4>
-                
-                { props.children }
+                <h4 className={ classes.modalTitle }>{props.title}</h4>
+
+                {props.children}
 
                 <button onClick={ props.closeModal } className={ classes.closeModal }>Ok</button>
             </div>

@@ -12,3 +12,7 @@
 .opaque {
     background: var(--secondary-background);
 }
+
+.blurBg {
+    backdrop-filter: blur(5px);
+}
