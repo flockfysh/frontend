@@ -9,7 +9,7 @@ export default function Home() {
         <>
             <h1>Homepage</h1>
 
-            <Login mode={ 'login' }/>
+            <Login mode="login" />
         </>
     );
 }

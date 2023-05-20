@@ -2,6 +2,12 @@
 
 :root {
     --white: #fff;
+    --background: #141414;
+    --secondary-background: #0d0c11;
+    --main-grey: #1e1e1e;
+    --grey: #222327;
+    --selection: #49535f;
+    --dark-background: #03060e;
 
     --primary1-100: #d2e1ff;
     --primary1-200: #adc7ff;
@@ -116,7 +122,7 @@ body, html {
 }
 
 body {
-    background: var(--primary2-950);
+    background: var(--background);
     color: var(--white);
 
     font-family: 'Inter', sans-serif !important;

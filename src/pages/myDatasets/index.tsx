@@ -8,7 +8,7 @@ const MyDatasets: NextPageWithLayout = function () {
 MyDatasets.getLayout = function (page) {
     return (
         <MainLayout>
-            {page}
+            { page }
         </MainLayout>
     );
 };

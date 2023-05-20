@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import { useState, useEffect, useRef, useCallback, useContext } from 'react';
 import Link from 'next/link';
 import { ReactSVG } from 'react-svg';
 
 import xMark from '@/icons/xmark.svg';
 import google from '@/icons/providers/google.svg';
 import github from '@/icons/providers/github.svg';
-import ActionPopup from '../../modals/actionPopup/actionPopup';
+import ActionPopup from '../modals/actionPopup/actionPopup';
 import classes from './styles.module.css';
-import LoginForm from '@/components/specific/login/form';
+import LoginForm from './form';
+
 import { UserContext } from '@/contexts/userContext';
 import { useRouter } from 'next/router';
 import { StaticImageData } from 'next/image';
@@ -16,9 +17,9 @@ import { getBackendUrl } from '@/helpers/url';
 function Separator() {
     return (
         <div className={ classes.separatorContainer }>
-            <span className={ classes.sepLine }></span>
+            <span className={ classes.sepLine } />
             <span className={ classes.sepOr }>OR</span>
-            <span className={ classes.sepLine }></span>
+            <span className={ classes.sepLine } />
         </div>
     );
 }
@@ -32,12 +33,17 @@ function OAuthLink(props: {
     const url = getBackendUrl(`/api/auth/${props.provider.toLowerCase()}`);
 
     return (
-        <Link href={ url } onClick={ e => {
-            e.preventDefault();
-            props.onClick?.(url);
-        } } className={ classes.oAuthBtn }>
-            <ReactSVG src={ props.icon.src }></ReactSVG>
-            <span>{props.mode === 'login' ? 'Sign in' : 'Sign up'} with {props.provider}</span>
+        <Link
+            href={ url }
+            onClick={ e => {
+                e.preventDefault();
+                props.onClick?.(url);
+            } }
+            className={ classes.oAuthBtn }
+        >
+            <ReactSVG src={ props.icon.src } />
+
+            <span>{ props.mode === 'login' ? 'Sign in' : 'Sign up' } with { props.provider }</span>
         </Link>
     );
 }
@@ -45,24 +51,21 @@ function OAuthLink(props: {
 export default function Login(props: {
     mode: 'login' | 'signup'
 }) {
-    const [mode, updateMode] = React.useState(props.mode);
+    const [mode, updateMode] = useState(props.mode);
     const isLogin = mode === 'login';
-    const curPopup = React.useRef<Window | null>(null);
+    const curPopup = useRef<Window | null>(null);
     const router = useRouter();
-    const { user, refreshUser } = React.useContext(UserContext);
+    const { user, refreshUser } = useContext(UserContext);
 
 
-    const redirect = React.useCallback(function redirect() {
+    const redirect = useCallback(function redirect() {
         const code = router.query.code;
-        if (code) {
-            router.push(`/authorize?code=${code}`).then();
-        }
- else {
-            router.push('/dashboard').then();
-        }
+
+        if (code) router.push(`/authorize?code=${code}`).then();
+        else router.push('/dashboard').then();
     }, [router]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (user) {
             redirect();
         }
@@ -72,7 +75,9 @@ export default function Login(props: {
     function oAuthLogin(path: string) {
         // Don't open too many auth windows.
         if (curPopup.current) curPopup.current.close();
+
         const popup = window.open(path, '_blank');
+
         if (popup) {
             curPopup.current = popup;
 
@@ -82,7 +87,7 @@ export default function Login(props: {
                     refreshUser();
                     redirect();
                 }
- else if (!e.data.success) {
+                else if (!e.data.success) {
                     popup?.close();
                     throw new Error(e.data.message);
                 }
@@ -111,9 +116,13 @@ export default function Login(props: {
                 {
                     isLogin ? (
                         <p className={ classes.changeType }>
-                            Don&apos;t have an account? <button className={ classes.changeTypeButton }
-                                                                onClick={ () => updateMode('signup') }>Sign
-                            up</button> instead.
+                            Don't have an account? 
+                            <button 
+                                className={ classes.changeTypeButton }
+                                onClick={ () => updateMode('signup') }
+                            >
+                                Sign up
+                            </button> instead.
                         </p>
                     ) : (
                         <p className={ classes.changeType }>
