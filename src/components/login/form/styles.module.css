@@ -7,7 +7,6 @@
 .loginFieldset {
     /*background: var(--primary2-950);*/
     border-radius: 16px;
-    /*padding: 12px 16px 24px;*/
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -16,6 +15,7 @@
 .loginFormHeading {
     font-weight: 700;
     line-height: 1.5em;
+    color: var(--primary1-200);
 }
 
 .field {
@@ -36,6 +36,7 @@
     padding: 16px;
     font-size: 0.875rem;
     line-height: 1rem;
+    outline: none;
     color: var(--white);
     border: 1px solid var(--primary1-300);
 }
@@ -75,6 +76,7 @@
     display: flex;
     gap: 8px;
     align-items: center;
+    color: var(--primary1-200);
 }
 
 .signInUtilities {

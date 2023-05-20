@@ -16,8 +16,8 @@ export default function ActionPopup(props: ActionPopupProps) {
                      props.onOuterClick?.(e);
                  }
              } }>
-            <div className={ `${classes.container} ${props.modalClassName ?? ''}` }>
-                {props.children}
+            <div className={ `${ classes.container } ${ props.modalClassName ?? '' }` }>
+                { props.children }
             </div>
         </div>
     );

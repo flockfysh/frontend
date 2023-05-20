@@ -1,18 +1,21 @@
 import { useState, useEffect, useRef, useCallback, useContext } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { StaticImageData } from 'next/image';
 import { ReactSVG } from 'react-svg';
+
+import ActionPopup from '../modals/actionPopup/actionPopup';
+import LoginForm from './form';
+
+import { UserContext } from '@/contexts/userContext';
+
+import { getBackendUrl } from '@/helpers/url';
 
 import xMark from '@/icons/xmark.svg';
 import google from '@/icons/providers/google.svg';
 import github from '@/icons/providers/github.svg';
-import ActionPopup from '../modals/actionPopup/actionPopup';
-import classes from './styles.module.css';
-import LoginForm from './form';
 
-import { UserContext } from '@/contexts/userContext';
-import { useRouter } from 'next/router';
-import { StaticImageData } from 'next/image';
-import { getBackendUrl } from '@/helpers/url';
+import classes from './styles.module.css';
 
 function Separator() {
     return (
@@ -109,14 +112,14 @@ export default function Login(props: {
                     <OAuthLink icon={ github } provider={ 'GitHub' } mode={ mode } onClick={ oAuthLogin }></OAuthLink>
                 </div>
 
-                <Separator/>
+                <Separator />
 
-                <LoginForm mode={ mode } redirect={ redirect }></LoginForm>
+                <LoginForm mode={ mode } redirect={ redirect } />
 
                 {
                     isLogin ? (
                         <p className={ classes.changeType }>
-                            Don't have an account? 
+                            Don't have an account? &nbsp;
                             <button 
                                 className={ classes.changeTypeButton }
                                 onClick={ () => updateMode('signup') }
@@ -126,9 +129,13 @@ export default function Login(props: {
                         </p>
                     ) : (
                         <p className={ classes.changeType }>
-                            Already have an account? <button className={ classes.changeTypeButton }
-                                                             onClick={ () => updateMode('login') }>Sign
-                            in</button> instead.
+                            Already have an account? &nbsp;
+                            <button
+                                className={ classes.changeTypeButton }
+                                onClick={ () => updateMode('login') }
+                            >
+                                Sign in
+                            </button> instead.
                         </p>
                     )
                 }

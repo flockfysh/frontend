@@ -20,7 +20,7 @@ const LoginField = React.forwardRef<HTMLInputElement, {
                     if (typeof ref === 'function') {
                         ref(e);
                     }
- else if (ref) {
+                    else if (ref) {
                         ref.current = e;
                     }
                 } }
@@ -29,7 +29,7 @@ const LoginField = React.forwardRef<HTMLInputElement, {
                 className={ `${props.errorMessage ? classes.inputInvalid : ''} ${classes.input}` }
                 type={ props.type }
             />
-            {props.errorMessage ? <span className={ classes.error }>{props.errorMessage}</span> : ''}
+            { props.errorMessage ? <span className={ classes.error }>{props.errorMessage}</span> : '' }
         </label>
     )
         ;
@@ -52,6 +52,7 @@ export default function LoginForm(props: {
             password: string,
             confirmPassword?: string,
         };
+
         try {
             z.string({
                 required_error: 'Missing email.',
@@ -59,13 +60,14 @@ export default function LoginForm(props: {
             }).nonempty('Missing email.').email('Email is invalid.').parse(properties.email);
             setEmailError('');
         }
- catch (e) {
+        catch (e) {
             formValid = false;
             if (e instanceof ZodError) {
                 setEmailError(e.issues[0].message);
             }
- else throw e;
+            else throw e;
         }
+
         try {
             z.string({
                 required_error: 'Missing password.',
@@ -75,12 +77,13 @@ export default function LoginForm(props: {
                 .parse(properties.password);
             setPasswordError('');
         }
- catch (e) {
+        catch (e) {
             formValid = false;
             if (e instanceof ZodError) {
                 setPasswordError(e.issues[0].message);
             }
         }
+
         if (props.mode === 'signup') {
             try {
                 z.string({
@@ -89,7 +92,7 @@ export default function LoginForm(props: {
                 }).nonempty('Missing display name.').parse(properties.fullName);
                 setNameError('');
             }
- catch (e) {
+            catch (e) {
                 formValid = false;
                 if (e instanceof z.ZodError) {
                     setNameError(e.issues[0].message);
@@ -99,7 +102,7 @@ export default function LoginForm(props: {
                 formValid = false;
                 setConfirmPasswordError('Passwords do not match.');
             }
- else {
+            else {
                 setConfirmPasswordError('');
             }
         }
@@ -113,7 +116,7 @@ export default function LoginForm(props: {
             refreshUser();
             props.redirect();
         }
- catch (e) {
+        catch (e) {
             if (e instanceof ApiError) {
                 const ERROR_MAPPING: Record<string, () => void> = {
                     'ERROR_USER_EXISTS': () => setEmailError('This email has already been registered.'),
@@ -125,7 +128,7 @@ export default function LoginForm(props: {
                 };
                 ERROR_MAPPING[e.code]?.();
             }
- else {
+            else {
                 throw e;
             }
         }
@@ -141,8 +144,7 @@ export default function LoginForm(props: {
             }
         } }>
             <fieldset className={ classes.loginFieldset }>
-                <h2 className={ classes.loginFormHeading }>Welcome back! Please enter your sign up or login
-                    information.</h2>
+                <h2 className={ classes.loginFormHeading }>Please enter your information</h2>
                 {
                     props.mode === 'signup' ? (
                         <LoginField placeholder={ 'Full name' } type={ 'text' } name={ 'fullName' }
@@ -158,13 +160,16 @@ export default function LoginForm(props: {
                                     errorMessage={ confirmPasswordError }/>
                     ) : <></>
                 }
+                
                 <div className={ classes.signInUtilities }>
                     <label className={ classes.label }>
                         <input type={ 'checkbox' } name={ 'rememberUser' } className={ classes.checkbox }/>
                         <span>Remember Me</span>
                     </label>
+                    
                     <Link href={ '/forgotPassword' } className={ classes.forgotPassword }>Forgot Password?</Link>
                 </div>
+
             </fieldset>
             <button className={ classes.signIn }>{props.mode === 'login' ? 'Sign in' : 'Sign up'}</button>
         </form>
