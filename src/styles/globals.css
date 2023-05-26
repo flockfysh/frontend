@@ -93,6 +93,12 @@
     --elements-800: #09665f;
     --elements-900: #0d544f;
     --elements-950: #003332;
+
+    --main-grey: #1E1E1E;
+    --background: #141414;
+    --secondary-background: #0D0C11;
+    --grey: #222327;
+    --selection: #49535F;
 }
 
 * {
@@ -156,6 +162,7 @@ main {
 
 button, input {
     font: inherit;
+    color: inherit;
     border: none;
 }
 
@@ -203,6 +210,13 @@ p {
     background-color: rgba(239, 247, 255, 0.514);;
 }
 
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+}
+
 /* #region Media Queries */
 
 @media only screen and (min-width: 1800px) {
@@ -237,3 +251,4 @@ p {
 }
 
 /* #endregion */
+

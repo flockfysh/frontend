@@ -12,8 +12,10 @@ interface UserContext {
 export const UserContext = createContext<UserContext>(
     {
         user: null as (User | null),
-        setUser: () => {},
-        refreshUser: () => {},
+        setUser: () => {
+        },
+        refreshUser: () => {
+        },
     }
 );
 
@@ -30,18 +32,17 @@ export function UserWrapper(props: PropsWithChildren) {
 
                     if (userData.curUser) {
                         setCurUser({
-                            name: `${ userData.curUser.firstName ?? '' } ${ userData.curUser.lastName ?? '' }`,
+                            name: `${userData.curUser.firstName ?? ''} ${userData.curUser.lastName ?? ''}`,
                             email: userData.curUser.email,
                             profileImage: userData.curUser.profilePhoto,
-                            monthlyCost: {} as MonthlyCost,
-                            payments: [] as Cost[],
                         });
                     }
-                    else {
+ else {
                         setCurUser(null);
                     }
                 }
-                catch (e) {}
+ catch (e) {
+                }
 
                 updateLoading(false);
             })();

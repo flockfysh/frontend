@@ -5,7 +5,7 @@ import classes from './styles.module.css';
 export default function Logo() {
     return (
         <div className={ classes.logoContainer }>
-            <Image src={ fish } alt="Flockfysh" />
+            <Image className={ classes.logo } src={ fish } alt="Flockfysh"/>
 
             <span className={ classes.name }>flockfysh</span>
         </div>

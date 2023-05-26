@@ -10,7 +10,7 @@ import help from '@/icons/main/help-circle.svg';
 import bell from '@/icons/main/bell.svg';
 import { StaticImageData } from 'next/image';
 import classes from './styles.module.css';
-import Profile from '@/components/UI/profile/profile';
+import Profile from '@/components/profile/profile';
 
 interface SidebarLinkProps {
     icon: StaticImageData,
@@ -76,7 +76,7 @@ const SECTION_2_LINKS: SidebarLinkProps[] = [
 
 export default function MainSidebar() {
     return (
-        <div className={ classes.sidebar }>
+        <nav className={ classes.sidebar }>
             <div className={ classes.segment }>
                 <Logo></Logo>
 
@@ -92,8 +92,8 @@ export default function MainSidebar() {
                         return <SidebarLink key={ props.href } { ...props }></SidebarLink>;
                     })}
                 </div>
-                <Profile />
+                <Profile/>
             </div>
-        </div>
+        </nav>
     );
 }

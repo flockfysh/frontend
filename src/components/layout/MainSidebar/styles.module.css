@@ -4,7 +4,7 @@
     justify-content: space-between;
     height: 100%;
     width: fit-content;
-    background: var(--secondary-background);
+    background: var(--main-grey);
     border-radius: 0 16px 16px 0;
     padding: 40px 18px;
 }
