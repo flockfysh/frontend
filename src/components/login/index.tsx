@@ -99,13 +99,7 @@ export default function Login(props: {
     }
 
     return (
-        <ActionPopup blurBg={ true } modalClassName={ classes.modal }>
-            <div className={ classes.header }>
-                <ReactSVG className={ classes.closeBtn } src={ xMark.src }/>
-
-                <h1 className={ classes.headerText }>{isLogin ? 'Sign in' : 'Sign Up'}</h1>
-            </div>
-
+        <ActionPopup blurBg={ true } modalClassName={ classes.modal } popupTitle={ isLogin ? 'Sign in' : 'Sign Up' }>
             <section className={ classes.modalContent }>
                 <div className={ classes.oAuthContainer }>
                     <OAuthLink icon={ google } provider={ 'Google' } mode={ mode } onClick={ oAuthLogin }></OAuthLink>
@@ -139,6 +133,7 @@ export default function Login(props: {
                         </p>
                     )
                 }
+
                 <p className={ classes.footer }>
                     By signing in you agree to our <Link href="/terms">Terms & Conditions.</Link>
                 </p>

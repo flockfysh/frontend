@@ -1,0 +1,40 @@
+.customUploadContainer {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 16px;
+    gap: 16px;
+
+    height: 104px;
+    cursor: pointer;
+
+    background: var(--primary2-950);
+
+    border: 4px dashed var(--elements-900);
+    border-radius: 16px;
+}
+
+.customUploadContainer h1 {
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.94rem;
+    line-height: 17px;
+
+    text-align: center;
+
+    color: var(--primary1-100);
+}
+
+.customUploadContainer p {
+    font-weight: 500;
+    font-size: 0.75rem;
+    line-height: 15px;
+
+    color: var(--info-100);
+}
+
+.container input {
+    display: none;
+}
