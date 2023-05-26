@@ -4,10 +4,15 @@ declare module '*.jpg';
 declare module '*.png';
 
 // #region Datasets
-declare interface ImageWithoutAnnotation {
+declare interface Asset {
     _id: string;
+    type: string;
+    uploadedAt: Date;
+    dataset: string;
+    size: number;
+    status: string;
     url: string;
-    displayName?: string;
+    displayName: string;
 }
 
 declare interface PartialDataset {

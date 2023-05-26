@@ -1,288 +1,378 @@
 .container {
-  display: flex;
-  flex-direction: column;
-  max-height: 100vh;
-  gap: 1.875rem;
-
-  color: var(--primary1-100);
-
-
-  /* demo */
-  padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    gap: 30px;
+    overflow: auto;
+    color: var(--primary1-100);
+    /* demo */
+    padding: 1rem;
 }
 
 .datasetInfoWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .datasetInfoDataWrapper {
-  width: 100%;
-  padding: 1.875rem 1.438rem;
-  background: var(--main-grey);
-  border-radius: 8px;
+    width: 100%;
+    padding: 1.875rem 1.438rem;
+    background: var(--main-grey);
+    border-radius: 8px;
 
-  display: flex;
-  flex-direction: column;
-  gap: 1.125rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.125rem;
 }
 
 .datasetInfoStatusWrapper {
-  width: 100%;
-  padding: 0.625rem;
-  background: var(--main-grey);
-  border-radius: 8px;
+    width: 100%;
+    padding: 0.625rem;
+    background: var(--main-grey);
+    border-radius: 8px;
 
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
 }
 
 .datasetInfoSpecificData {
-  width: 100%;
-  display: grid;
-  grid-template-rows: repeat(3, 1fr);
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  text-align: center;
+    width: 100%;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    text-align: center;
+    align-items: center;
 }
 
-.datasetInfoSpecificDataItem {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: 0.5rem;
+.datasetName {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 700;
 }
 
 .actionAreaWrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
 
-  width: 100%;
+    width: 100%;
 }
 
 .actionAreaSearchWrapper {
-  width: 100%;
+    width: 100%;
 }
 
 .actionAreaSearchWrapper input {
-  width: 100%;
-  background-color: var(--main-grey);
-  border-radius: 8px;
-  padding: 0.625rem;
+    width: 100%;
+    background-color: var(--main-grey);
+    border-radius: 8px;
+    padding: 0.625rem;
 }
 
 .actionAreaActionButtonsWrapper {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column-reverse;
-  gap: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column-reverse;
+    gap: 1rem;
 
-  align-items: center;
+    align-items: center;
 }
 
 .tableRelatedButtonsWrapper,
 .tableViewButtonsWrapper {
-  display: flex;
+    display: flex;
 }
 
 .tableRelatedButtonsWrapper {
-  gap: 1rem;
+    gap: 1rem;
 }
 
 .tableViewButtonsWrapper {
-  display: flex;
-  gap: 0.625rem;
-  border: 1px solid var(--primary1-100);
-  border-radius: 8px;
-  padding: 0.625rem;
+    display: flex;
+    gap: 0.625rem;
+    border: 1px solid var(--primary1-100);
+    border-radius: 8px;
+    padding: 0.625rem;
 }
+
 .tableViewButtonsWrapper button {
-  background: transparent;
-  color: var(--primary1-100);
+    background: transparent;
+    color: var(--primary1-100);
 }
 
 .separator {
-  height: 80%;
-  width: 1px;
-  background: var(--primary1-100);
+    height: 80%;
+    width: 1px;
+    background: var(--primary1-100);
 }
 
 .actionButtonsWrapper {
-  display: flex;
-  gap: 1rem;
+    display: flex;
+    gap: 1rem;
 }
 
 .actionButtonInitiateTraining {
-  display: flex;
-  align-items: center;
-  background-color: var(--info-700);
-  color: var(--white);
-  border-radius: 20px;
-  gap: 0.375rem;
-  padding: 0.75rem 1.5rem;
+    display: flex;
+    align-items: center;
+    background-color: var(--info-700);
+    color: var(--white);
+    border-radius: 20px;
+    gap: 0.375rem;
+    padding: 0.75rem 1.5rem;
 }
 
 .actionButtonAnnotated {
-  display: flex;
-  align-items: center;
-  background-color: var(--primary2-950);
-  color: var(--white);
-  border-radius: 20px;
-  gap: 0.375rem;
-  padding: 0.75rem 1.5rem;
+    display: flex;
+    align-items: center;
+    background-color: var(--primary2-950);
+    color: var(--white);
+    border-radius: 20px;
+    gap: 0.375rem;
+    padding: 0.75rem 1.5rem;
 }
 
 .outButton {
-  background-color: transparent;
-  color: var(--primary1-100);
-  border-radius: 8px;
-  padding: 0.625rem;
+    background-color: transparent;
+    color: var(--primary1-100);
+    border-radius: 8px;
+    padding: 0.625rem;
 }
 
-.tableWrapper {
-  width: 100%;
-  height: 100%;
-  flex: 1;
-  overflow-y: hidden;
-  overflow-x: auto;
-  display: flex;
-  gap: 1.313rem;
-  flex-direction: column;
+.tableContainer {
+    flex: 1;
+    height: 100%;
+    width: 100%;
+    max-height: 30rem;
+}
+
+.table {
+    height: 100%;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.table :global(.rdt_Table) {
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.table :global(.rdt_TableHead) {
+    color: var(--white);
+    font-weight: 700;
+}
+
+.table :global(.rdt_TableHead)::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    border-radius: 0 0 8px 8px;
+    background: var(--background);
+}
+
+.table :global(.rdt_TableHead)::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    border-radius: 8px;
+    border: 1px solid #333C42;
+}
+
+.table :global(.rdt_TableBody) {
+    border-radius: 8px;
+    width: 100%;
+    border: 1px solid #333C42;
+}
+
+.table :global(.rdt_TableHeadRow) {
+    background: transparent;
+}
+
+.table :global(.rdt_TableRow) {
+    color: var(--white);
+    background: transparent;
+}
+
+.table :global(.rdt_TableRow):not(:last-child) {
+    border-bottom: 1px solid #333C42; /* TODO which color ? */
+}
+
+.deleteButton {
+    background: transparent;
+    cursor: pointer;
+}
+
+.filename {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /*word-break: keep-all;*/
 }
 
 .rowHeader {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-  padding: 1.25rem 0.813rem;
-
-  border: 1px solid #333C42; /* TODO which color ? */
-  border-radius: 8px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    padding: 1.25rem 0.813rem;
+    border: 1px solid #333C42; /* TODO which color ? */
+    border-radius: 8px;
 }
 
 .bodyWrapper {
-  width: 100%;
-  border: 1px solid #333C42; /* TODO which color ? */
-  border-radius: 8px;
-  overflow-y: auto;
+    width: 100%;
+    border: 1px solid #333C42; /* TODO which color ? */
+    border-radius: 8px;
+    overflow-y: auto;
 }
 
 .row {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.25rem 0.813rem;
-  flex-direction: row;
-  border-bottom: 1px solid black;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 0.813rem;
+    flex-direction: row;
+    border-bottom: 1px solid black;
 }
 
-.row:not(:last-child) {
-  border-bottom: 1px solid #333C42; /* TODO which color ? */
-}
 
 .cell {
-  flex-basis: 100%;
-  text-align: center;
-  padding:  0 .5rem;
+    flex-basis: 100%;
+    overflow: hidden;
+    text-align: center;
+    padding: 0 .5rem;
 }
 
 .cellFirstChild {
-  width: 3rem;
-  align-self: flex-start;
-  background-color: green;
+    width: 3rem;
+    align-self: flex-start;
+    background-color: green;
 }
 
 .cellLastChild {
-  width: 3rem;
-  align-self: flex-end;
+    width: 3rem;
+    align-self: flex-end;
 }
 
 .gridWrapper {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
-  gap: 1rem;
-  overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+    overflow-y: auto;
+    flex: 1;
+    align-content: flex-start;
+    min-height: 30rem;
 }
 
 .imageWrapper {
-  position: relative;
+    position: relative;
+    height: fit-content;
 }
 
 .imageButton {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  background: transparent;
-  font-size: 1.5rem;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: transparent;
+    font-size: 1.5rem;
 }
 
 
 .uploadDataWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1rem 0.75rem;
-  justify-content: center;
-  align-items: center;
-  background: var(--main-grey);
-  border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem 32px;
+    padding: 1rem 0.75rem;
+    justify-content: center;
+    align-items: center;
+    background: var(--main-grey);
+    border-radius: 8px;
 }
 
 .uploadDataIcon {
-  height: 2rem;
-  width: 2rem;
+    height: 80px;
+    width: 80px;
+}
+
+.uploadDataIcon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.uploadDataDesc {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.uploadDataSubDesc {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: fit-content;
 }
 
 .uploadDataInfo {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  gap: 0.625rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.625rem;
 }
 
 @media only all and (max-height: 768px) {
-  .container {
-    max-height: 100%;
-  }
+    .container {
+        max-height: 100%;
+    }
 }
 
 @media only all and (max-width: 768px) {
-  .container {
-    max-height: 100%;
-  }
+    .container {
+        max-height: 100%;
+    }
 }
 
 @media only all and (min-width: 768px) {
-  .uploadDataWrapper,
-  .datasetInfoStatusWrapper,
-  .actionAreaActionButtonsWrapper {
-    flex-direction: row;
-  }
+    .uploadDataWrapper,
+    .datasetInfoStatusWrapper,
+    .actionAreaActionButtonsWrapper {
+        flex-direction: row;
+    }
 
-  .datasetInfoSpecificData {
-    grid-template-rows: repeat(2, 1fr);
-    grid-template-columns: repeat(3, 1fr);
-  }
+    .datasetInfoSpecificData {
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
+    }
 
 }
 
 @media only all and (min-width: 1024px) {
-  .datasetInfoWrapper,
-  .actionAreaWrapper,
-  .actionAreaActionButtonsWrapper,
-  .tableRelatedButtonsWrapper,
-  .tableViewButtonsWrapper {
-    flex-direction: row;
-  }
+    .actionAreaWrapper,
+    .actionAreaActionButtonsWrapper,
+    .tableRelatedButtonsWrapper,
+    .tableViewButtonsWrapper {
+        flex-direction: row;
+    }
+}
+
+@media only all and (min-width: 104em) {
+    .datasetInfoWrapper {
+        flex-direction: row;
+    }
 }

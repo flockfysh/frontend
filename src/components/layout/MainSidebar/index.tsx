@@ -1,4 +1,4 @@
-import Logo from '@/components/logo/logo';
+import Logo from './logo/logo';
 import { ReactSVG } from 'react-svg';
 import Link from 'next/link';
 import home from '@/icons/main/home.svg';
@@ -22,7 +22,7 @@ function SidebarLink(props: SidebarLinkProps) {
     return (
         <Link href={ props.href } className={ classes.sidebarLink }>
             <ReactSVG src={ props.icon.src } className={ classes.sidebarLinkSVG }></ReactSVG>
-            <span>{props.text}</span>
+            <span className={ classes.sidebarLinkText }>{props.text}</span>
         </Link>
     );
 }

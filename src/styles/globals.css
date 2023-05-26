@@ -201,13 +201,17 @@ p {
 }
 
 ::-webkit-scrollbar {
-    width: 10px;
-    height: 1px;
+    width: 8px;
+    height: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
     border-radius: 2rem;
     background-color: rgba(239, 247, 255, 0.514);;
+}
+
+::-webkit-scrollbar-corner {
+    background: rgba(0, 0, 0, 0);
 }
 
 input[type="search"]::-webkit-search-decoration,
