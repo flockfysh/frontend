@@ -19,18 +19,17 @@ declare interface PartialDataset {
     name: string;
     id: string;
     description: string;
-    numImages: number;
+    tags: string[];
+    subTags: string[];
+    numAssets: number;
 }
 
-type DatasetState = 'untrained' | 'feedback' | 'completed'
+type DatasetStage = 'untrained' | 'feedback' | 'completed'
 
 declare interface Dataset extends PartialDataset {
-    dateCreated: Date;
-    plan: string;
-    monthlyCost: MonthlyCost;
-    classes: string[];
+    createdAt: Date;
     numTimesHumanFeedback: number,
-    state: DatasetState;
+    stage: DatasetStage;
     entityInfo: {
         itemCount: number;
         uploadedItemCount: number;

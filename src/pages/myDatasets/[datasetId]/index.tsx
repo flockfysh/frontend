@@ -10,7 +10,7 @@ import list from '@/icons/main/list.svg';
 import grid from '@/icons/main/grid.svg';
 import logout from '@/icons/main/log-out.svg';
 import trash from '@/icons/main/trash-2.svg';
-import { CircleProgressBar } from '@/components/CircleProgressBar';
+import { CircleProgressBar } from '@/components/specific/datasets/viewDataset/CircleProgressBar';
 import { useState } from 'react';
 import SpecificProgressData from '@/components/specific/datasets/viewDataset/SpecificProgressData';
 import { v4 } from 'uuid';
@@ -19,6 +19,9 @@ import DataTable, { Media, TableColumn } from 'react-data-table-component';
 import { capitalize } from '@/helpers/strings';
 import { formatFileSize } from '@/helpers/formatting';
 import classes from './styles.module.css';
+import FileUploader from '@/components/specific/datasets/viewDataset/FileUploader';
+import { useRouter } from 'next/router';
+import { z } from 'zod';
 
 
 const datasetId = v4();
@@ -50,6 +53,8 @@ const datasetProgressFakeData = [
 ];
 
 const MyDatasets: NextPageWithLayout = function () {
+    const router = useRouter();
+    const datasetId = z.string().parse(router.query.datasetId);
     const [showList, setShowList] = useState(true);
 
     const toggleViewToList = () => {
@@ -74,14 +79,20 @@ const MyDatasets: NextPageWithLayout = function () {
         },
         {
             name: 'File name',
-            cell: (data) => <span className={ classes.filename }>{data.displayName}</span>,
+            cell: (data) => (
+                <span className={ classes.filename }>
+                    <span className={ classes.filenameText }>{data.displayName}</span>
+                </span>
+            ),
             minWidth: '5rem',
             // width: '3rem',
         },
         {
             name: 'Uploaded at',
             cell: (data) => <span>{dayjs(data.uploadedAt).format('DD/MM/YYYY')}</span>,
+            grow: 0,
             hide: Media.MD,
+            width: '7rem'
         },
         {
             name: 'Type',
@@ -220,15 +231,7 @@ const MyDatasets: NextPageWithLayout = function () {
 
 
             {/* upload content */}
-            <div className={ classes.uploadDataWrapper }>
-                <ReactSVG className={ classes.uploadDataIcon } src={ upload.src }/>
-                <div className={ classes.uploadDataInfo }>
-                    <p className={ classes.uploadDataDesc }>Drag and drop or select file to upload</p>
-                    <small>png, jpg, gif, mp4, mov, webm, pdf</small>
-                    <small className={ classes.uploadDataSubDesc }>Stored on file system <ReactSVG
-                        src={ help.src }/></small>
-                </div>
-            </div>
+            <FileUploader datasetId={ datasetId }></FileUploader>
         </div>
     );
 };

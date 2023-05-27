@@ -15,6 +15,10 @@
 .header {
     display: flex;
     padding: 40px 46px;
+    background: var(--background);
+    justify-content: space-between;
+    border-bottom: 1px solid var(--primary1-400)
+
 }
 
 .searchFilterButton {
@@ -54,4 +58,24 @@
 
 .searchBarIcon {
 
+}
+
+.newDatasetButton {
+    padding: 12px 24px;
+    gap: 6px;
+    display: flex;
+    background: var(--primary2-950);
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.mainContent {
+    padding: 75px;
+    overflow: auto;
+}
+
+.datasetGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 36px;
 }
