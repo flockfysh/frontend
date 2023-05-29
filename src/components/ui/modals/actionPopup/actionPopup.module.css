@@ -23,3 +23,36 @@
     backdrop-filter: blur(5px);
 }
 
+.header {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.headerText {
+    text-align: center;
+    color: var(--primary1-100);
+    font-size: 2rem;
+    font-weight: bold;
+    line-height: 2.5rem;
+    position: absolute;
+    left: 0;
+    width: 100%;
+}
+
+.closeBtn {
+    aspect-ratio: 1/1;
+    width: 48px;
+    padding: 12px;
+    border-radius: 50%;
+    color: var(--white);
+    background: var(--primary2-950);
+    cursor: pointer;
+    z-index: 99;
+    transition: 0.2s;
+}
+
+.closeBtn:hover {
+    color: var(--primary1-200);
+}

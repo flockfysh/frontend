@@ -29,6 +29,8 @@ const TEST_DATASETS: Dataset[] = Array.from({ length: 25 }, () => {
     };
 });
 
+import CreateDatasetModal from '@/components/createDatasetModal';
+
 const MyDatasets: NextPageWithLayout = function () {
     return (
         <>
@@ -54,7 +56,7 @@ const MyDatasets: NextPageWithLayout = function () {
 MyDatasets.getLayout = function (page) {
     return (
         <MainLayout>
-            {page}
+            { page }
         </MainLayout>
     );
 };
