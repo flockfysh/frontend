@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { StaticImageData } from 'next/image';
 import { ReactSVG } from 'react-svg';
 
-import ActionPopup from '../modals/actionPopup/actionPopup';
+import ActionPopup from '../../../ui/modals/actionPopup/actionPopup';
 import LoginForm from './form';
 
 import { UserContext } from '@/contexts/userContext';
@@ -20,9 +20,9 @@ import classes from './styles.module.css';
 function Separator() {
     return (
         <div className={ classes.separatorContainer }>
-            <span className={ classes.sepLine } />
+            <span className={ classes.sepLine }/>
             <span className={ classes.sepOr }>OR</span>
-            <span className={ classes.sepLine } />
+            <span className={ classes.sepLine }/>
         </div>
     );
 }
@@ -44,9 +44,9 @@ function OAuthLink(props: {
             } }
             className={ classes.oAuthBtn }
         >
-            <ReactSVG src={ props.icon.src } />
+            <ReactSVG src={ props.icon.src }/>
 
-            <span>{ props.mode === 'login' ? 'Sign in' : 'Sign up' } with { props.provider }</span>
+            <span>{props.mode === 'login' ? 'Sign in' : 'Sign up'} with {props.provider}</span>
         </Link>
     );
 }
@@ -90,7 +90,7 @@ export default function Login(props: {
                     refreshUser();
                     redirect();
                 }
-                else if (!e.data.success) {
+ else if (!e.data.success) {
                     popup?.close();
                     throw new Error(e.data.message);
                 }
@@ -106,20 +106,21 @@ export default function Login(props: {
                     <OAuthLink icon={ github } provider={ 'GitHub' } mode={ mode } onClick={ oAuthLogin }></OAuthLink>
                 </div>
 
-                <Separator />
+                <Separator/>
 
-                <LoginForm mode={ mode } redirect={ redirect } />
+                <LoginForm mode={ mode } redirect={ redirect }/>
 
                 {
                     isLogin ? (
                         <p className={ classes.changeType }>
                             Don't have an account? &nbsp;
-                            <button 
+                            <button
                                 className={ classes.changeTypeButton }
                                 onClick={ () => updateMode('signup') }
                             >
                                 Sign up
-                            </button> instead.
+                            </button>
+                            instead.
                         </p>
                     ) : (
                         <p className={ classes.changeType }>
@@ -129,7 +130,8 @@ export default function Login(props: {
                                 onClick={ () => updateMode('login') }
                             >
                                 Sign in
-                            </button> instead.
+                            </button>
+                            instead.
                         </p>
                     )
                 }

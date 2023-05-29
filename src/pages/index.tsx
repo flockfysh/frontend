@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Login from '@/components/login';
+import Login from '@/components/specific/datasets/login';
 
 import CreateDatasetModal from '@/components/createDatasetModal';
 

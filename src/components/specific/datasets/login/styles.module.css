@@ -1,5 +1,8 @@
 .modal {
     padding: 0;
+    width: 30rem;
+    max-height: 100%;
+    overflow: auto;
     border-radius: 32px;
 }
 

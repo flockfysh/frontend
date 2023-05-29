@@ -8,7 +8,7 @@
 }
 
 .profileTextInfo {
-    display: flex;
+    display: none;
     flex-direction: column;
     gap: 8px;
     line-height: 1.2em;
@@ -16,6 +16,7 @@
 
 .profileImage {
     height: 40px;
+    width: 40px;
     aspect-ratio: 1/1;
     border-radius: 50%;
 }
@@ -30,10 +31,21 @@
 }
 
 .button {
+    display: none;
     background: none;
     width: 24px;
     aspect-ratio: 1/1;
     border: none;
     color: white;
     cursor: pointer;
+}
+
+@media only all and (min-width: 72em) {
+    .button {
+        display: block;
+    }
+
+    .profileTextInfo {
+        display: flex;
+    }
 }

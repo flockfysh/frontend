@@ -3,5 +3,15 @@
     height: 100%;
     position: fixed;
     overflow: hidden;
-    background: var(--primary-background);
+    background: var(--background);
+    display: flex;
+}
+
+.mainContent {
+    flex: 1;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
 }
