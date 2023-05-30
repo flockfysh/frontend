@@ -7,19 +7,23 @@ import FileUpload from '../fileUpload';
 
 import classes from './styles.module.css';
 
+type CreateDatasetModalProps = {
+    onClose: () => void;
+}
+
 const datasetTypeOptions = [
     { value: 'images', label: 'Images' },
     { value: 'text', label: 'Text' },
     { value: 'video', label: 'Video' },
 ];
 
-export default function CreateDatasetModal() {
+export default function CreateDatasetModal(props: CreateDatasetModalProps) {
     const nameRef = useRef({} as HTMLInputElement);
     const descriptionRef = useRef({} as HTMLTextAreaElement);
     const fileRef = useRef({} as HTMLInputElement);
 
     return (
-        <ActionPopup blurBg={ true } popupTitle="Create New Dataset">
+        <ActionPopup blurBg={ true } popupTitle="Create New Dataset" onClose={ props.onClose }>
             <form className={ classes.createDatasetContainer }>
                 <div className={ classes.formContainer }>
                     <input ref={ nameRef } className={ classes.nameInp } type="text" placeholder="Dataset Name" />
