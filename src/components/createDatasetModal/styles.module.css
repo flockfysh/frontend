@@ -59,19 +59,6 @@
     border-color: var(--primary1-300);
 }
 
-.recipeContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 16px;
-    gap: 16px;
-
-    height: 145px;
-
-    background: var(--primary2-950);
-    border-radius: 16px;
-}
-
 .recipeHeader {
     font-weight: 700;
     font-size: 14px;
@@ -80,12 +67,12 @@
     color: var(--primary1-100);
 }
 
-.selectRecipe {
+.select {
     width: 100%;
 }
 
-.selectRecipe:focus {
-    
+.selectPlaceholderContainer {
+    color: var(--white);
 }
 
 .create {
@@ -100,8 +87,49 @@
 
     box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.5), 0px 8px 16px rgba(255, 255, 255, 0.1);
     border-radius: 9999px;
+    font-weight: bold;
+    color: var(--primary2-950);
 }
 
 .create:hover {
     background: var(--primary1-200);
+}
+
+.recipeContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 16px;
+
+    height: 145px;
+
+    background: var(--primary2-950);
+    border-radius: 16px;
+    width: 100%;
+}
+
+.card p {
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+.bottomContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 16px;
+
+    height: 145px;
+
+    background: var(--primary2-950);
+    border-radius: 16px;
+    width: 50%;
 }
