@@ -1,28 +1,31 @@
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { NextPageWithLayout } from '@/pages/_app';
-import MainLayout from '@/components/layout/MainLayout';
 import { ReactSVG } from 'react-svg';
+import DataTable, { Media, TableColumn } from 'react-data-table-component';
 
+import { v4 } from 'uuid';
+import dayjs from 'dayjs';
+import { z } from 'zod';
+
+import MainLayout from '@/components/layout/MainLayout';
+import { CircleProgressBar } from '@/components/specific/datasets/viewDataset/circleProgressBar';
+import SpecificProgressData from '@/components/specific/datasets/viewDataset/specificProgressData';
+import FileUploader from '@/components/specific/datasets/viewDataset/fileUploader';
+
+import help from '@/icons/main/help-circle.svg';
 import upload from '@/icons/main/upload.svg';
 import cpu from '@/icons/main/cpu.svg';
-import help from '@/icons/main/help-circle.svg';
 import edit from '@/icons/main/edit-3.svg';
 import list from '@/icons/main/list.svg';
 import grid from '@/icons/main/grid.svg';
 import logout from '@/icons/main/log-out.svg';
 import trash from '@/icons/main/trash-2.svg';
-import { CircleProgressBar } from '@/components/specific/datasets/viewDataset/CircleProgressBar';
-import { useState } from 'react';
-import SpecificProgressData from '@/components/specific/datasets/viewDataset/SpecificProgressData';
-import { v4 } from 'uuid';
-import dayjs from 'dayjs';
-import DataTable, { Media, TableColumn } from 'react-data-table-component';
+
 import { capitalize } from '@/helpers/strings';
 import { formatFileSize } from '@/helpers/formatting';
-import classes from './styles.module.css';
-import FileUploader from '@/components/specific/datasets/viewDataset/FileUploader';
-import { useRouter } from 'next/router';
-import { z } from 'zod';
 
+import classes from './styles.module.css';
 
 const datasetId = v4();
 const datasetProgressFakeData = [
@@ -52,7 +55,7 @@ const datasetProgressFakeData = [
     }
 ];
 
-const MyDatasets: NextPageWithLayout = function () {
+const MyDatasets: NextPageWithLayout = function() {
     const router = useRouter();
     const datasetId = z.string().parse(router.query.datasetId);
     const [showList, setShowList] = useState(true);
@@ -69,7 +72,6 @@ const MyDatasets: NextPageWithLayout = function () {
         console.log(id);
     }
 
-
     const columns: TableColumn<Asset>[] = [
         {
             name: <input type={ 'checkbox' }/>,
@@ -85,7 +87,6 @@ const MyDatasets: NextPageWithLayout = function () {
                 </span>
             ),
             minWidth: '5rem',
-            // width: '3rem',
         },
         {
             name: 'Uploaded at',
@@ -119,8 +120,8 @@ const MyDatasets: NextPageWithLayout = function () {
             grow: 0,
             width: '3rem',
         },
-
     ];
+
     const listData: Asset[] = Array.from({ length: 20 }, () => {
         return {
             _id: v4(),
@@ -138,7 +139,6 @@ const MyDatasets: NextPageWithLayout = function () {
         <div className={ classes.container }>
             {/* this dataset info */}
             <div className={ classes.datasetInfoWrapper }>
-
                 {/* dataset data container */}
                 <div className={ classes.datasetInfoDataWrapper }>
                     <h3 className={ classes.datasetName }>DATASET NAME</h3>
@@ -150,19 +150,16 @@ const MyDatasets: NextPageWithLayout = function () {
 
                     {/* current progress */}
                     <div>
-                        <CircleProgressBar value={ 50 } size={ 150 }/>
+                        <CircleProgressBar value={ 50 } size={ 150 } />
                     </div>
 
                     {/* specific progress data */}
                     <div className={ classes.datasetInfoSpecificData }>
                         {datasetProgressFakeData.map((item, index) => (
-                            <SpecificProgressData { ...item } key={ index }></SpecificProgressData>
+                            <SpecificProgressData { ...item } key={ index } />
                         ))}
-
                     </div>
-
                 </div>
-
             </div>
 
             {/* action buttons & searchbar */}
@@ -170,7 +167,7 @@ const MyDatasets: NextPageWithLayout = function () {
 
                 {/* searchbar */}
                 <div className={ classes.actionAreaSearchWrapper }>
-                    <input type="search" placeholder="Search"/>
+                    <input type="search" placeholder="Search" />
                 </div>
 
                 {/* action functions */}
@@ -180,16 +177,18 @@ const MyDatasets: NextPageWithLayout = function () {
                     <div className={ classes.tableRelatedButtonsWrapper }>
                         <div className={ classes.tableViewButtonsWrapper }>
                             <button onClick={ toggleViewToGrid }>
-                                <ReactSVG className={ classes.icon } src={ grid.src }/>
+                                <ReactSVG className={ classes.icon } src={ grid.src } />
                             </button>
-                            <div className={ classes.separator }/>
+
+                            <div className={ classes.separator } />
+
                             <button onClick={ toggleViewToList }>
-                                <ReactSVG className={ classes.icon } src={ list.src }/>
+                                <ReactSVG className={ classes.icon } src={ list.src } />
                             </button>
                         </div>
 
                         <button className={ classes.outButton }>
-                            <ReactSVG className={ classes.icon } src={ logout.src }/>
+                            <ReactSVG className={ classes.icon } src={ logout.src } />
                         </button>
                     </div>
 
@@ -197,41 +196,45 @@ const MyDatasets: NextPageWithLayout = function () {
                     <div className={ classes.actionButtonsWrapper }>
                         <button className={ classes.actionButtonInitiateTraining }>
                             Initiate Training
-                            <ReactSVG className={ classes.icon } src={ cpu.src }/>
+                            <ReactSVG className={ classes.icon } src={ cpu.src } />
                         </button>
 
                         <button className={ classes.actionButtonAnnotated }>
                             Annotated
-                            <ReactSVG className={ classes.icon } src={ edit.src }/>
+                            <ReactSVG className={ classes.icon } src={ edit.src } />
                         </button>
                     </div>
                 </div>
 
             </div>
 
-
             {/* list & grid */}
             {showList ? (
                 <div className={ classes.tableContainer }>
-                    <DataTable data={ listData } columns={ columns } fixedHeader={ true } responsive={ true }
-                               className={ classes.table }></DataTable>
+                    <DataTable
+                        data={ listData }
+                        columns={ columns }
+                        fixedHeader={ true }
+                        responsive={ true }
+                        className={ classes.table }
+                    />
                 </div>
             ) : (
                 <div className={ classes.gridWrapper }>
                     {listData.map((item, index) => (
-                        <div className={ classes.imageWrapper } key={ `${index}-${item.displayName}` }>
-                            <img src={ item.url } alt={ item.displayName }/>
+                        <div className={ classes.imageWrapper } key={ `${ index }-${ item.displayName }` }>
+                            <img src={ item.url } alt={ item.displayName } />
+
                             <button className={ classes.imageButton }>
-                                <ReactSVG className={ classes.icon } src={ trash.src }/>
+                                <ReactSVG className={ classes.icon } src={ trash.src } />
                             </button>
                         </div>
                     ))}
                 </div>
             )}
 
-
             {/* upload content */}
-            <FileUploader datasetId={ datasetId }></FileUploader>
+            <FileUploader datasetId={ datasetId } />
         </div>
     );
 };

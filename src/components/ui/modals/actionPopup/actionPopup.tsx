@@ -17,7 +17,7 @@ interface ActionPopupProps extends PropsWithChildren {
 export default function ActionPopup(props: ActionPopupProps) {
     return (
         <div
-            className={ `${classes.overlay} ${props.blurBg ? classes.blurBg : ''} ${props.className || ''}` }
+            className={ `${ classes.overlay } ${ props.blurBg ? classes.blurBg : '' } ${ props.className || '' }` }
             onClick={ e => {
                 if (e.target === e.currentTarget) {
                     props.onOuterClick?.(e);

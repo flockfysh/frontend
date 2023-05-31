@@ -1,9 +1,5 @@
 .modal {
-    padding: 0;
     width: 30rem;
-    max-height: 100%;
-    overflow: auto;
-    border-radius: 32px;
 }
 
 .separatorContainer {
@@ -98,6 +94,7 @@
     cursor: pointer;
     transition: 0.2s;
     background: none;
+    margin: 0px 5px;
 }
 
 .changeTypeButton:hover {

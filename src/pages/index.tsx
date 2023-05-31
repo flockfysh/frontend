@@ -1,18 +1,11 @@
-import { useState } from 'react';
-import Login from '@/components/specific/datasets/login';
-
-import CreateDatasetModal from '@/components/createDatasetModal';
-
-import classes from '../styles/index.module.css';
+import Login from '@/components/specific/login';
 
 export default function Home() {
-
     return (
         <>
             <h1>Homepage</h1>
 
-            {/* <Login mode="login" /> */}
-            <CreateDatasetModal />
+            <Login mode="login" />
         </>
     );
 }

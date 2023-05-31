@@ -7,13 +7,12 @@ import dayjs from 'dayjs';
 
 import MainLayout from '@/components/layout/MainLayout';
 import DatasetCard from '@/components/specific/datasets/myDatasets/DatasetCard';
-import CreateDatasetModal from '@/components/createDatasetModal';
+import CreateDatasetModal from '@/components/specific/datasets/createDatasetModal';
 
 import search from '@/icons/main/search.svg';
 import sliders from '@/icons/main/sliders.svg';
 
 import classes from './styles.module.css';
-
 
 const TEST_DATASETS: Dataset[] = Array.from({ length: 25 }, () => {
     return {
@@ -46,10 +45,12 @@ const MyDatasets: NextPageWithLayout = function () {
             
             <header className={ classes.header }>
                 <label className={ classes.searchBarContainer }>
-                    <ReactSVG src={ search.src } className={ classes.searchBarIcon }></ReactSVG>
-                    <input type={ 'search' } className={ classes.searchBarInput } placeholder={ 'Search' }/>
+                    <ReactSVG src={ search.src } className={ classes.searchBarIcon } />
+                    
+                    <input type="search" className={ classes.searchBarInput } placeholder="Search" />
+
                     <button className={ classes.searchFilterButton }>
-                        <ReactSVG src={ sliders.src } className={ classes.searchFilterIcon }></ReactSVG>
+                        <ReactSVG src={ sliders.src } className={ classes.searchFilterIcon } />
                     </button>
                 </label>
 
