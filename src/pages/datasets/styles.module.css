@@ -10,6 +10,7 @@
     align-items: center;
     padding: 10px 16px;
     gap: 16px;
+    transition: 0.2s;
 }
 
 .header {
@@ -18,7 +19,6 @@
     background: var(--background);
     justify-content: space-between;
     border-bottom: 1px solid var(--primary1-400)
-
 }
 
 .searchFilterButton {
@@ -29,12 +29,16 @@
     height: 20.5px;
     width: 20.5px;
     aspect-ratio: 1/1;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.searchFilterButton:hover {
+    color: var(--primary1-300);
 }
 
 .searchFilterIcon {
-
     display: block;
-
 }
 
 .searchBarInput {
@@ -46,18 +50,16 @@
     flex: 1;
 }
 
-
 .searchBarInput::placeholder {
     font: inherit;
-    color: inherit;
 }
 
 .searchBarInput:focus {
     outline: none;
 }
 
-.searchBarIcon {
-
+.searchBarInput:focus::placeholder {
+    color: inherit;
 }
 
 .newDatasetButton {

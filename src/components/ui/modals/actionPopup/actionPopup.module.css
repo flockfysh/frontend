@@ -20,6 +20,8 @@
     position: relative;
     background: var(--primary1-950);
     overflow: auto;
+    padding: 16px 16px 22px;
+    z-index: 99;
 }
 
 .blurBg {
@@ -27,10 +29,9 @@
 }
 
 .header {
-    padding: 16px;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
-    position: relative;
 }
 
 .headerText {

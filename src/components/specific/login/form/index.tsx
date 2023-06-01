@@ -1,13 +1,17 @@
-import classes from './styles.module.css';
+import { forwardRef, useContext, useState } from 'react';
 import Link from 'next/link';
-import React from 'react';
+
 import { z, ZodError } from 'zod';
 import { formToJSON } from 'axios';
+
 import { UserContext } from '@/contexts/userContext';
+
 import api from '@/helpers/api';
 import { ApiError } from '@/helpers/errors';
 
-const LoginField = React.forwardRef<HTMLInputElement, {
+import classes from './styles.module.css';
+
+const LoginField = forwardRef<HTMLInputElement, {
     errorMessage?: string,
     type?: string,
     placeholder?: string,
@@ -26,23 +30,22 @@ const LoginField = React.forwardRef<HTMLInputElement, {
                 } }
                 name={ props.name }
                 placeholder={ props.placeholder }
-                className={ `${props.errorMessage ? classes.inputInvalid : ''} ${classes.input}` }
+                className={ `${ props.errorMessage ? classes.inputInvalid : '' } ${ classes.input }` }
                 type={ props.type }
             />
-            { props.errorMessage ? <span className={ classes.error }>{props.errorMessage}</span> : '' }
+            { props.errorMessage ? <span className={ classes.error }>{ props.errorMessage }</span> : '' }
         </label>
-    )
-        ;
+    );
 });
 export default function LoginForm(props: {
     mode: 'signup' | 'login',
     redirect: () => void,
 }) {
-    const { refreshUser } = React.useContext(UserContext);
-    const [nameError, setNameError] = React.useState('');
-    const [passwordError, setPasswordError] = React.useState('');
-    const [emailError, setEmailError] = React.useState('');
-    const [confirmPasswordError, setConfirmPasswordError] = React.useState('');
+    const { refreshUser } = useContext(UserContext);
+    const [nameError, setNameError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
     function handleValid(elem: HTMLFormElement) {
         let formValid = true;
@@ -58,13 +61,14 @@ export default function LoginForm(props: {
                 required_error: 'Missing email.',
                 invalid_type_error: 'Email must be a string.',
             }).nonempty('Missing email.').email('Email is invalid.').parse(properties.email);
+            
             setEmailError('');
         }
         catch (e) {
             formValid = false;
-            if (e instanceof ZodError) {
-                setEmailError(e.issues[0].message);
-            }
+
+            if (e instanceof ZodError) setEmailError(e.issues[0].message);
+
             else throw e;
         }
 
@@ -90,29 +94,31 @@ export default function LoginForm(props: {
                     required_error: 'Missing display name.',
                     invalid_type_error: 'Display name must be a string.',
                 }).nonempty('Missing display name.').parse(properties.fullName);
+
                 setNameError('');
             }
             catch (e) {
                 formValid = false;
-                if (e instanceof z.ZodError) {
-                    setNameError(e.issues[0].message);
-                }
+                
+                if (e instanceof z.ZodError) setNameError(e.issues[0].message);
             }
+
             if (properties.password !== properties.confirmPassword) {
                 formValid = false;
                 setConfirmPasswordError('Passwords do not match.');
             }
-            else {
-                setConfirmPasswordError('');
-            }
+            else setConfirmPasswordError('');
         }
+
         return formValid;
     }
 
     async function auth(form: HTMLFormElement, mode: 'signup' | 'login') {
         try {
             const data = await formToJSON(form);
+
             await api.post(`/api/auth/${mode}`, data);
+            
             refreshUser();
             props.redirect();
         }
@@ -145,32 +151,34 @@ export default function LoginForm(props: {
         } }>
             <fieldset className={ classes.loginFieldset }>
                 <h2 className={ classes.loginFormHeading }>Please enter your information</h2>
+
                 {
                     props.mode === 'signup' ? (
                         <LoginField placeholder={ 'Full name' } type={ 'text' } name={ 'fullName' }
-                                    errorMessage={ nameError }/>
+                                    errorMessage={ nameError } />
                     ) : <></>
                 }
-                <LoginField placeholder={ 'Email' } type={ 'email' } name={ 'email' } errorMessage={ emailError }/>
+
+                <LoginField placeholder={ 'Email' } type={ 'email' } name={ 'email' } errorMessage={ emailError } />
                 <LoginField placeholder={ 'Password' } type={ 'password' } name={ 'password' }
-                            errorMessage={ passwordError }/>
+                            errorMessage={ passwordError } />
                 {
                     props.mode === 'signup' ? (
                         <LoginField placeholder={ 'Confirm password' } type={ 'password' } name={ 'confirmPassword' }
-                                    errorMessage={ confirmPasswordError }/>
+                                    errorMessage={ confirmPasswordError } />
                     ) : <></>
                 }
                 
                 <div className={ classes.signInUtilities }>
                     <label className={ classes.label }>
-                        <input type={ 'checkbox' } name={ 'rememberUser' } className={ classes.checkbox }/>
+                        <input type={ 'checkbox' } name={ 'rememberUser' } className={ classes.checkbox } />
                         <span>Remember Me</span>
                     </label>
                     
                     <Link href={ '/forgotPassword' } className={ classes.forgotPassword }>Forgot Password?</Link>
                 </div>
-
             </fieldset>
+
             <button className={ classes.signIn }>{props.mode === 'login' ? 'Sign in' : 'Sign up'}</button>
         </form>
     );

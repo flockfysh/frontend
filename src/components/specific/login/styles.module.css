@@ -21,10 +21,6 @@
     color: var(--primary1-100);
 }
 
-.modalContent {
-    padding: 16px 16px 22px;
-}
-
 .oAuthContainer {
     width: 100%;
     display: flex;

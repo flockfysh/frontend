@@ -1,9 +1,9 @@
-import classes from './styles.module.css';
 import { ReactSVG } from 'react-svg';
 import upload from '@/icons/main/upload.svg';
 import help from '@/icons/main/help-circle.svg';
 import AsyncArray from '@/helpers/async';
 import api from '@/helpers/api';
+import classes from './styles.module.css';
 
 export interface FileUploaderProps {
     datasetId: string;
@@ -17,7 +17,7 @@ async function uploadAssets(datasetId: string, files: File[]) {
             fd.set('image', file);
             await api.post(`/api/datasets/${datasetId}/assets/upload/image`);
         }
- catch (e) {
+        catch (e) {
             console.error(e);
         }
     }
@@ -39,7 +39,7 @@ export default function FileUploader(props: FileUploaderProps) {
                 <small>png, jpg, gif, mp4, mov, webm, pdf</small>
                 
                 <small className={ classes.uploadDataSubDesc }>
-                    Stored on file system 
+                    Stored on file system
                     <button className={ classes.helpButton }>
                         <ReactSVG src={ help.src } />
                     </button>

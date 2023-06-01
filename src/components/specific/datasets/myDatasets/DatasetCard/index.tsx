@@ -18,32 +18,35 @@ export default function DatasetCard(props: Dataset) {
     return (
         <li className={ classes.card }>
             <div className={ classes.firstRow }>
-                <ReactSVG src={ folder.src }></ReactSVG>
-                <h2>{props.name}</h2>
+                <ReactSVG src={ folder.src } />
+                <h2>{ props.name }</h2>
             </div>
+
             <div className={ classes.cardInfo }>
                 <div className={ classes.firstInfoRow }>
                     <div className={ classes.assetCountText }>
-                        <span className={ classes.assetCount }>{props.numAssets}</span>
+                        <span className={ classes.assetCount }>{ props.numAssets }</span>
                         <span>Assets</span>
                     </div>
                     <div className={ classes.lastUpdated }>
-                        <ReactSVG src={ clock.src }></ReactSVG>
-                        <span>{dateDiff}</span>
+                        <ReactSVG src={ clock.src } />
+                        <span>{ dateDiff }</span>
                     </div>
 
                 </div>
+
                 <div>
                     <p>
-                        {props.description}
+                        { props.description }
                     </p>
                 </div>
+                
                 <ul className={ classes.tagBadges }>
                     {props.tags.map((tag, index) => {
                         return (
                             <li className={ classes.badge } style={ {
                                 background: tagColor[index]
-                            } } key={ index }>{tag}</li>
+                            } } key={ index }>{ tag }</li>
                         );
                     })}
                 </ul>

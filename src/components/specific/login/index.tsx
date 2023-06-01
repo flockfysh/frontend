@@ -106,7 +106,7 @@ export default function Login(props: {
 
                 <Separator />
 
-                <LoginForm mode={ mode } redirect={ redirect }/>
+                <LoginForm mode={ mode } redirect={ redirect } />
 
                 {
                     isLogin ? (

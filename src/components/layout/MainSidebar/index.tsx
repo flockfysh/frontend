@@ -10,7 +10,7 @@ import help from '@/icons/main/help-circle.svg';
 import bell from '@/icons/main/bell.svg';
 import { StaticImageData } from 'next/image';
 import classes from './styles.module.css';
-import Profile from '@/components/layout/MainSidebar/profile/profile';
+import Profile from '@/components/layout/mainSidebar/profile/profile';
 
 interface SidebarLinkProps {
     icon: StaticImageData,

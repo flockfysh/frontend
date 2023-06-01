@@ -8,7 +8,7 @@ import { v4 } from 'uuid';
 import dayjs from 'dayjs';
 import { z } from 'zod';
 
-import MainLayout from '@/components/layout/MainLayout';
+import MainLayout from '@/components/layout/mainLayout';
 import { CircleProgressBar } from '@/components/specific/datasets/viewDataset/circleProgressBar';
 import SpecificProgressData from '@/components/specific/datasets/viewDataset/specificProgressData';
 import FileUploader from '@/components/specific/datasets/viewDataset/fileUploader';
