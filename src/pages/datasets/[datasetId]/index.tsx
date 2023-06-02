@@ -8,10 +8,10 @@ import { v4 } from 'uuid';
 import dayjs from 'dayjs';
 import { z } from 'zod';
 
-import MainLayout from '@/components/layout/mainLayout';
-import { CircleProgressBar } from '@/components/specific/datasets/viewDataset/circleProgressBar';
-import SpecificProgressData from '@/components/specific/datasets/viewDataset/specificProgressData';
-import FileUploader from '@/components/specific/datasets/viewDataset/fileUploader';
+import MainLayout from '@/components/layout/MainLayout';
+import { CircleProgressBar } from '@/components/specific/datasets/viewDataset/CircleProgressBar';
+import SpecificProgressData from '@/components/specific/datasets/viewDataset/SpecificProgressData';
+import FileUploader from '@/components/specific/datasets/viewDataset/FileUploader';
 
 import help from '@/icons/main/help-circle.svg';
 import upload from '@/icons/main/upload.svg';
@@ -55,7 +55,7 @@ const datasetProgressFakeData = [
     }
 ];
 
-const MyDatasets: NextPageWithLayout = function() {
+const MyDatasets: NextPageWithLayout = function () {
     const router = useRouter();
     const datasetId = z.string().parse(router.query.datasetId);
     const [showList, setShowList] = useState(true);
@@ -150,13 +150,13 @@ const MyDatasets: NextPageWithLayout = function() {
 
                     {/* current progress */}
                     <div>
-                        <CircleProgressBar value={ 50 } size={ 150 } />
+                        <CircleProgressBar value={ 50 } size={ 150 }/>
                     </div>
 
                     {/* specific progress data */}
                     <div className={ classes.datasetInfoSpecificData }>
                         {datasetProgressFakeData.map((item, index) => (
-                            <SpecificProgressData { ...item } key={ index } />
+                            <SpecificProgressData { ...item } key={ index }/>
                         ))}
                     </div>
                 </div>
@@ -167,7 +167,7 @@ const MyDatasets: NextPageWithLayout = function() {
 
                 {/* searchbar */}
                 <div className={ classes.actionAreaSearchWrapper }>
-                    <input type="search" placeholder="Search" />
+                    <input type="search" placeholder="Search"/>
                 </div>
 
                 {/* action functions */}
@@ -177,18 +177,18 @@ const MyDatasets: NextPageWithLayout = function() {
                     <div className={ classes.tableRelatedButtonsWrapper }>
                         <div className={ classes.tableViewButtonsWrapper }>
                             <button onClick={ toggleViewToGrid }>
-                                <ReactSVG className={ classes.icon } src={ grid.src } />
+                                <ReactSVG className={ classes.icon } src={ grid.src }/>
                             </button>
 
-                            <div className={ classes.separator } />
+                            <div className={ classes.separator }/>
 
                             <button onClick={ toggleViewToList }>
-                                <ReactSVG className={ classes.icon } src={ list.src } />
+                                <ReactSVG className={ classes.icon } src={ list.src }/>
                             </button>
                         </div>
 
                         <button className={ classes.outButton }>
-                            <ReactSVG className={ classes.icon } src={ logout.src } />
+                            <ReactSVG className={ classes.icon } src={ logout.src }/>
                         </button>
                     </div>
 
@@ -196,12 +196,12 @@ const MyDatasets: NextPageWithLayout = function() {
                     <div className={ classes.actionButtonsWrapper }>
                         <button className={ classes.actionButtonInitiateTraining }>
                             Initiate Training
-                            <ReactSVG className={ classes.icon } src={ cpu.src } />
+                            <ReactSVG className={ classes.icon } src={ cpu.src }/>
                         </button>
 
                         <button className={ classes.actionButtonAnnotated }>
                             Annotated
-                            <ReactSVG className={ classes.icon } src={ edit.src } />
+                            <ReactSVG className={ classes.icon } src={ edit.src }/>
                         </button>
                     </div>
                 </div>
@@ -222,11 +222,11 @@ const MyDatasets: NextPageWithLayout = function() {
             ) : (
                 <div className={ classes.gridWrapper }>
                     {listData.map((item, index) => (
-                        <div className={ classes.imageWrapper } key={ `${ index }-${ item.displayName }` }>
-                            <img src={ item.url } alt={ item.displayName } />
+                        <div className={ classes.imageWrapper } key={ `${index}-${item.displayName}` }>
+                            <img src={ item.url } alt={ item.displayName }/>
 
                             <button className={ classes.imageButton }>
-                                <ReactSVG className={ classes.icon } src={ trash.src } />
+                                <ReactSVG className={ classes.icon } src={ trash.src }/>
                             </button>
                         </div>
                     ))}
@@ -234,7 +234,7 @@ const MyDatasets: NextPageWithLayout = function() {
             )}
 
             {/* upload content */}
-            <FileUploader datasetId={ datasetId } />
+            <FileUploader datasetId={ datasetId }/>
         </div>
     );
 };

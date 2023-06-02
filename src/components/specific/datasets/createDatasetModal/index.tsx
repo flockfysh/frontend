@@ -1,8 +1,8 @@
 import { useRef } from 'react';
 
-import CustomSelect, { CustomCreatableSelect } from '../../../select';
+import CustomSelect, { CustomCreatableSelect } from '../../../ui/input/select';
 
-import ActionPopup from '../../../ui/modals/actionPopup/actionPopup';
+import ActionPopup from '../../../ui/modals/ActionPopup/actionPopup';
 import FileUpload from '../../../fileUpload';
 
 import classes from './styles.module.css';
@@ -26,16 +26,16 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
         <ActionPopup blurBg={ true } popupTitle="Create New Dataset" onClose={ props.onClose }>
             <form className={ classes.createDatasetContainer }>
                 <div className={ classes.formContainer }>
-                    <input ref={ nameRef } className={ classes.nameInp } type="text" placeholder="Dataset Name" />
-                    
-                    <textarea ref={ descriptionRef } placeholder="Dataset Description" />
+                    <input ref={ nameRef } className={ classes.nameInp } type="text" placeholder="Dataset Name"/>
 
-                    <FileUpload ref={ fileRef } />
+                    <textarea ref={ descriptionRef } placeholder="Dataset Description"/>
+
+                    <FileUpload ref={ fileRef }/>
 
                     <div className={ classes.recipeContainer }>
                         <h1 className={ classes.recipeHeader }>Choose a Recipe</h1>
-                        
-                        <CustomSelect className={ classes.select } placeholder="Recipe" options={ [] } />
+
+                        <CustomSelect className={ classes.select } placeholder="Recipe" options={ [] }/>
 
                         <p>Add an existing recipe</p>
                     </div>
@@ -43,16 +43,17 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                     <div className={ classes.bottomContainer }>
                         <div className={ classes.card }>
                             <h1 className={ classes.recipeHeader }>Dataset Type</h1>
-                            
-                            <CustomSelect className={ classes.select } placeholder="Dataset Type" options={ datasetTypeOptions } />
+
+                            <CustomSelect className={ classes.select } placeholder="Dataset Type"
+                                          options={ datasetTypeOptions }/>
 
                             <p>Select the type of data in the dataset</p>
                         </div>
 
                         <div className={ classes.card }>
                             <h1 className={ classes.recipeHeader }>Tags</h1>
-                            
-                            <CustomCreatableSelect isMulti={ true } className={ classes.select } placeholder="Tags" />
+
+                            <CustomCreatableSelect isMulti={ true } className={ classes.select } placeholder="Tags"/>
 
                             <p>Add a new tag or select from an existing one</p>
                         </div>

@@ -21,16 +21,16 @@ const styles: StylesConfig = {
     control: (base) => (
         {
             ...base,
-            background: 'none',
+            background: 'var(--main-grey)',
             border: 'none',
-            borderBottom: '1px solid var(--elements-900)',
-            outline: 'none'
+            outline: 'none',
+            borderRadius: '8px',
         }
     ),
     menu: (base) => (
         {
             ...base,
-            background: 'var(--secondary-background)',
+            background: 'var(--main-grey)',
             borderRadius: '8px',
         }
     ),
@@ -55,7 +55,7 @@ const CustomSelect = forwardRef<any, Props>(function _CustomSelect<Option, IsMul
                 if (typeof ref === 'function') {
                     ref(e);
                 }
-                else if (ref) {
+ else if (ref) {
                     ref.current = e;
                 }
             } }
@@ -76,7 +76,7 @@ export const CustomCreatableSelect = forwardRef<any, Props>(function _CreatableC
                 if (typeof ref === 'function') {
                     ref(e);
                 }
-                else if (ref) {
+ else if (ref) {
                     ref.current = e;
                 }
             } }

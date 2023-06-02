@@ -3,19 +3,33 @@
 }
 
 .headerContainer {
-    background-size: cover;
-    background-image: url(https://s3-alpha-sig.figma.com/img/f047/4a98/8b4d07ab312672f12d10b21fec40327c?Expires=1686528000&Signature=mC0bmHX46slLz7Hu1gYsNNqyvwE7yJQaClmuwLxVfZoUMSlgC-MQlkgGcVrjDs8ErSZdjMEfSCr0bDNMz2-TkhMPaxWixoUkutjCeF0ujva40b-peMvgK8~SCA6Wqru4BmP-32T5AAwQoUvuWzw8524IkyNFb1GanGd2FbKhjUn6JoEP9n4ef5qi8tSeoBXUXrl40jrC5zvcahpQKC9hb4WdFc44UwRNT4LySLt-t8DbCzVFAjM0nR4AV5tusFwRLmkZBjabcphq-gv9V7wbPuBmIrhxXfrpJutMXoBgL6trv4bX43mQdFGkvGzmA5ZCAY6VZjCFucqe-ciYp7SpiQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4);
-    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 2rem 0;
+    gap: 2rem;
+}
+
+.focusedDatasetSection {
+    aspect-ratio: 16/9;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
 
-    margin-top: 40px;
-    height: 630px;
-    border-radius: 16px;
+.focusedDatasetBackground {
+    width: 100%;
+    position: absolute;
+    height: calc(100% + 6rem);
+    background-image: url(https://s3-alpha-sig.figma.com/img/f047/4a98/8b4d07ab312672f12d10b21fec40327c?Expires=1686528000&Signature=mC0bmHX46slLz7Hu1gYsNNqyvwE7yJQaClmuwLxVfZoUMSlgC-MQlkgGcVrjDs8ErSZdjMEfSCr0bDNMz2-TkhMPaxWixoUkutjCeF0ujva40b-peMvgK8~SCA6Wqru4BmP-32T5AAwQoUvuWzw8524IkyNFb1GanGd2FbKhjUn6JoEP9n4ef5qi8tSeoBXUXrl40jrC5zvcahpQKC9hb4WdFc44UwRNT4LySLt-t8DbCzVFAjM0nR4AV5tusFwRLmkZBjabcphq-gv9V7wbPuBmIrhxXfrpJutMXoBgL6trv4bX43mQdFGkvGzmA5ZCAY6VZjCFucqe-ciYp7SpiQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4);
+    background-size: cover;
     box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.2);
-    margin-bottom: 30px;
+    border-radius: 16px;
+    top: 0;
+    left: 0;
+    z-index: -1;
 }
 
 .title {
@@ -23,7 +37,6 @@
     font-size: 4rem;
     line-height: 64px;
     color: var(--primary1-100);
-
     text-align: center;
     width: 100%;
 }
@@ -33,12 +46,12 @@
     justify-content: space-between;
     align-self: flex-end;
     width: 100%;
-    transform: translateY(250%);
+    position: absolute;
+    bottom: 0;
 }
 
 .leftContainer {
     width: fit-content;
-
     display: flex;
     align-self: center;
 }
@@ -50,7 +63,7 @@
 
 .datasetHeaderInfoCard {
     height: fit-content;
-    padding: 20px;
+    padding-inline: 20px;
     border-right: 2px solid rgba(255, 255, 255, 0.167);
 }
 
@@ -115,7 +128,7 @@
 .trendingHeaderContainer {
     display: flex;
     justify-content: space-between;
-    align-items: center;   
+    align-items: center;
 }
 
 .trendingFilterContainer {

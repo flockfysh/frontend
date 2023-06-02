@@ -5,8 +5,8 @@ import { ReactSVG } from 'react-svg';
 import { v4 } from 'uuid';
 import dayjs from 'dayjs';
 
-import MainLayout from '@/components/layout/mainLayout';
-import DatasetCard from '@/components/specific/datasets/myDatasets/datasetCard';
+import MainLayout from '@/components/layout/MainLayout';
+import DatasetCard from '@/components/specific/datasets/myDatasets/DatasetCard';
 import CreateDatasetModal from '@/components/specific/datasets/createDatasetModal';
 
 import search from '@/icons/main/search.svg';
@@ -41,25 +41,26 @@ const MyDatasets: NextPageWithLayout = function () {
 
     return (
         <>
-            { createDataset && <CreateDatasetModal onClose={ () => updateCreateDataset(false) } /> }
-            
+            {createDataset && <CreateDatasetModal onClose={ () => updateCreateDataset(false) }/>}
+
             <header className={ classes.header }>
                 <label className={ classes.searchBarContainer }>
-                    <ReactSVG src={ search.src } className={ classes.searchBarIcon } />
-                    
-                    <input type="search" className={ classes.searchBarInput } placeholder="Search" />
+                    <ReactSVG src={ search.src } className={ classes.searchBarIcon }/>
+
+                    <input type="search" className={ classes.searchBarInput } placeholder="Search"/>
 
                     <button className={ classes.searchFilterButton }>
-                        <ReactSVG src={ sliders.src } className={ classes.searchFilterIcon } />
+                        <ReactSVG src={ sliders.src } className={ classes.searchFilterIcon }/>
                     </button>
                 </label>
 
-                <button className={ classes.newDatasetButton } onClick={ () => updateCreateDataset(true) }>New Dataset</button>
+                <button className={ classes.newDatasetButton } onClick={ () => updateCreateDataset(true) }>New Dataset
+                </button>
             </header>
 
             <div className={ classes.mainContent }>
                 <ul className={ classes.datasetGrid }>
-                    { TEST_DATASETS.map(dataset => <DatasetCard key={ dataset.id } { ...dataset } />) }
+                    {TEST_DATASETS.map(dataset => <DatasetCard key={ dataset.id } { ...dataset } />)}
                 </ul>
             </div>
         </>
@@ -69,7 +70,7 @@ const MyDatasets: NextPageWithLayout = function () {
 MyDatasets.getLayout = function (page) {
     return (
         <MainLayout>
-            { page }
+            {page}
         </MainLayout>
     );
 };

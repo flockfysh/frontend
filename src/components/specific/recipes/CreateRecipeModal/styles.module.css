@@ -1,0 +1,49 @@
+.recipeForm {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.recipeLabelHeader {
+    display: flex;
+    align-items: center;
+    color: var(--primary1-100);
+    font-weight: 700;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.addLabelButton {
+    background: transparent;
+    cursor: pointer;
+}
+
+.recipeLabelDesc {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.labelFieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.labelDataField {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.labelInput {
+    padding: 10px 12px;
+}
+
+.labelContainer {
+    flex: 1;
+}
+
+.labelToolSelectContainer {
+    flex: 1;
+}
