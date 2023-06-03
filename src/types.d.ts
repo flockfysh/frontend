@@ -24,6 +24,10 @@ declare interface PartialDataset {
     numAssets: number;
 }
 
+declare interface HomepageDataset extends Dataset {
+
+}
+
 type DatasetStage = 'untrained' | 'feedback' | 'completed'
 
 declare interface Dataset extends PartialDataset {

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { StaticImageData } from 'next/image';
 import { ReactSVG } from 'react-svg';
 
-import ActionPopup from '../../ui/modals/ActionPopup/actionPopup';
+import ActionPopup from '../../ui/modals/ActionPopup';
 import LoginForm from './form';
 
 import { UserContext } from '@/contexts/userContext';
