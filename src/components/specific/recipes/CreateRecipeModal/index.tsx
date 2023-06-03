@@ -1,16 +1,26 @@
 import ActionPopupWithButton from '@/components/ui/modals/ActionPopupWithButton';
-import React from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 import TextInput from '@/components/ui/input/TextInput';
 import link from '@/icons/main/link.svg';
 import pen from '@/icons/main/feather.svg';
+import trash from '@/icons/main/trash-2.svg';
 import add from '@/icons/main/plus-circle.svg';
 import classes from './styles.module.css';
 import { ReactSVG } from 'react-svg';
 import Select from '@/components/ui/input/select';
 
+const CreateRecipeButton = (buttonsProps: ButtonHTMLAttributes<HTMLButtonElement>) => {
+    return(
+        <button className={ classes.newRecipeButton } { ...buttonsProps }>
+            Create Recipe
+            <ReactSVG src={ add.src }></ReactSVG>
+        </button>
+    );
+};
+
 export default function CreateRecipeModal() {
     return (
-        <ActionPopupWithButton button={ <button>Create recipe</button> } popupTitle={ 'Create recipe' }>
+        <ActionPopupWithButton button={ <CreateRecipeButton/> } popupTitle={ 'Create recipe' }>
             <RecipeForm></RecipeForm>
         </ActionPopupWithButton>
     );
@@ -46,6 +56,22 @@ function RecipeForm(props: RecipeFormProps) {
         ])
     });
 
+    
+    function addLabel() {
+        const newLabels = labels;
+        newLabels.set(`clientSideUuid${ labels.size + 1}`, {
+                _id: undefined,
+                tool: 'boundingBox',
+                color: '#fff',
+                isDeleted: false,
+                isNew: true,
+                name: 'Dog'
+            });
+        setLabels({
+            labels: newLabels
+        });
+    }
+
     function removeLabel(clientSideUuid: string) {
         const label = labels.get(clientSideUuid);
         if (label) {
@@ -64,6 +90,10 @@ function RecipeForm(props: RecipeFormProps) {
         }
     }
 
+    function onSubmit() {
+        // submit data
+    }
+
     return (
         <form className={ classes.recipeForm }>
             <fieldset>
@@ -80,11 +110,11 @@ function RecipeForm(props: RecipeFormProps) {
                             <ReactSVG src={ pen.src }/>
                             <span>Labels</span>
                         </div>
-                        <button className={ classes.addLabelButton } type={ 'button' }>
+                        <button onClick={ addLabel } className={ classes.addLabelButton } type={ 'button' }>
                             <ReactSVG src={ add.src }/>
                         </button>
                     </legend>
-                    <ul>
+                    <ul className={ classes.labelDataFieldWrapper }>
                         {Array.from(labels.entries()).map(function transformEntry([clientSideUuid, label]) {
                             return (
                                 <Label { ...label } key={ clientSideUuid } onDelete={ () => {
@@ -95,6 +125,9 @@ function RecipeForm(props: RecipeFormProps) {
                     </ul>
                 </div>
             </fieldset>
+            <div className={ classes.saveButtonWrapper }>
+                <button type="button" onClick={ onSubmit } className={ classes.saveButton }>Save Recipe</button>
+            </div>
         </form>
     );
 }
@@ -122,7 +155,9 @@ function Label(props: Label & {
             }, {
                 value: 'line', label: 'Line',
             }] } className={ classes.labelToolSelectContainer }/>
-
+            <button onClick={ props.onDelete } className={ classes.deleteLabelButton } type={ 'button' }>
+                <ReactSVG src={ trash.src }/>
+            </button>
         </li>
     );
 }
