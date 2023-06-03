@@ -2,7 +2,7 @@ import { useRef } from 'react';
 
 import CustomSelect, { CustomCreatableSelect } from '../../../ui/input/select';
 
-import ActionPopup from '../../../ui/modals/ActionPopup/actionPopup';
+import ActionPopup from '../../../ui/modals/ActionPopup';
 import FileUpload from '../../../fileUpload';
 
 import classes from './styles.module.css';

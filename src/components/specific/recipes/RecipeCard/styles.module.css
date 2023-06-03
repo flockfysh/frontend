@@ -9,10 +9,10 @@
 }
 
 .headerWrapper {
-  display: flex;
-  flex-wrap: wrap-reverse;
-  gap: 8px;
-  justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap-reverse;
+    gap: 8px;
+    justify-content: space-between;
 }
 
 .headerTitleWrapper {
@@ -96,7 +96,15 @@
 
 .tagsItemIcon {
     color: #005EEA;
+    width: 24px;
+    height: 24px;
 }
+
+.tagsItemIcon svg {
+    width: 100%;
+    height: 100%;
+}
+
 
 .actionEdit {
     color: var(--primary1-100);

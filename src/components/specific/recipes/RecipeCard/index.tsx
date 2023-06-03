@@ -3,22 +3,30 @@ import database from '@/icons/main/database.svg';
 import clock from '@/icons/main/clock.svg';
 import edit from '@/icons/main/edit-3.svg';
 import square from '@/icons/main/square.svg';
+import polygon from '@/icons/main/recipe-icon-2.svg';
+import circle from '@/icons/main/circle.svg';
+import line from '@/icons/main/slash-divider.svg';
 import classes from './styles.module.css';
 import dayjs from 'dayjs';
+import { StaticImageData } from 'next/image';
 
-interface label {
+const iconMapping: Record<Flockfysh.AnnotationTool, StaticImageData> = {
+    line, polygon, ellipse: circle, boundingBox: square,
+};
+
+interface Label {
     _id?: string;
     name: string;
-    tool: string;
+    tool: Flockfysh.AnnotationTool;
     color: string;
     isNew: boolean;
     isDeleted: boolean;
 }
 
-interface TEMP_RecipeCardProps {
+export interface TEMP_RecipeCardProps {
     name: string;
     createdAt: Date;
-    labels: Map<string, label>;
+    labels: Map<string, Label>;
     id: string;
     usedDatasets: number;
     type: string;
@@ -65,7 +73,7 @@ export default function RecipeCard(props: TEMP_RecipeCardProps) {
                         return (
                             <div key={ clientSideUuid } className={ classes.tagsItem }>
                                 {/* switch between icons */}
-                                <ReactSVG src={ square.src } className={ classes.tagsItemIcon }></ReactSVG>
+                                <ReactSVG src={ iconMapping[label.tool].src } className={ classes.tagsItemIcon }></ReactSVG>
                                 <span>{label.name}</span>
                             </div>
                         );

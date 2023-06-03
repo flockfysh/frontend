@@ -6,7 +6,7 @@ import { v4 } from 'uuid';
 import dayjs from 'dayjs';
 
 import MainLayout from '@/components/layout/MainLayout';
-import RecipeCard from '@/components/specific/recipes/RecipeCard';
+import RecipeCard, { TEMP_RecipeCardProps } from '@/components/specific/recipes/RecipeCard';
 
 import search from '@/icons/main/search.svg';
 import sliders from '@/icons/main/sliders.svg';
@@ -17,7 +17,7 @@ import DarkModeButton from '@/components/ui/theming/DarkModeButton';
 import CreateRecipeModal from '@/components/specific/recipes/CreateRecipeModal';
 
 
-const TEST_RECIPES = Array.from({ length: 25 }, () => {
+const TEST_RECIPES: TEMP_RecipeCardProps[] = Array.from({ length: 25 }, () => {
     return {
         name: 'Recipe Name',
         createdAt: dayjs().subtract(15, 'minute').toDate(),
@@ -32,7 +32,7 @@ const TEST_RECIPES = Array.from({ length: 25 }, () => {
             }],
             ['clientSideUuid1', {
                 _id: undefined,
-                tool: 'boundingBox',
+                tool: 'ellipse',
                 color: '#fff',
                 isDeleted: false,
                 isNew: true,
@@ -40,7 +40,7 @@ const TEST_RECIPES = Array.from({ length: 25 }, () => {
             }],
             ['clientSideUuid2', {
                 _id: undefined,
-                tool: 'boundingBox',
+                tool: 'line',
                 color: '#fff',
                 isDeleted: false,
                 isNew: true,
@@ -48,7 +48,7 @@ const TEST_RECIPES = Array.from({ length: 25 }, () => {
             }],
             ['clientSideUuid3', {
                 _id: undefined,
-                tool: 'boundingBox',
+                tool: 'polygon',
                 color: '#fff',
                 isDeleted: false,
                 isNew: true,
