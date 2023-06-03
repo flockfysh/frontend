@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NextPageWithLayout } from '@/pages/_app';
 import { ReactSVG } from 'react-svg';
 
@@ -10,10 +10,8 @@ import RecipeCard from '@/components/specific/recipes/RecipeCard';
 
 import search from '@/icons/main/search.svg';
 import sliders from '@/icons/main/sliders.svg';
-import plusCircle from '@/icons/main/plus-circle.svg';
 
 import classes from './styles.module.css';
-// import CreateRecipeModal from '@/components/createRecipeModal';
 
 import DarkModeButton from '@/components/ui/theming/DarkModeButton';
 import CreateRecipeModal from '@/components/specific/recipes/CreateRecipeModal';
