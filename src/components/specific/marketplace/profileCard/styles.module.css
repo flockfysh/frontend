@@ -1,0 +1,23 @@
+.profileContainer {
+    align-self: center;
+    margin-left: 15px;
+    background: var(--main-grey);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px 8px 8px;
+    gap: 8px;
+    height: 48px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.profileContainer:hover {
+    color: var(--primary1-100);
+}
+
+.profileContainer img {
+    width: 32px;
+    height: 32px;
+    border-radius: 9999px;
+}

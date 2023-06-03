@@ -1,8 +1,6 @@
 import { forwardRef } from 'react';
 import { ReactSVG } from 'react-svg';
 
-// import help from '@icons/main/help.svg';
-
 import classes from './styles.module.css';
 
 const FileUpload = forwardRef<HTMLInputElement>(function() {
@@ -17,8 +15,7 @@ const FileUpload = forwardRef<HTMLInputElement>(function() {
                     </p>
 
                     <p>
-                        Stored on file system 
-                        {/* <ReactSVG src={ help.src } /> */}
+                        Stored on file system
                     </p>
                 </div>
             </label>

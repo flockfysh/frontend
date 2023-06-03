@@ -8,8 +8,8 @@ export interface ProgressDataProps {
 export default function SpecificProgressData(props: ProgressDataProps) {
     return (
         <div className={ classes.dataItem }>
-            <span className={ classes.dataValue }>{props.value}</span>
-            <small className={ classes.dataLabel }>{props.label}</small>
+            <span className={ classes.dataValue }>{ props.value }</span>
+            <small className={ classes.dataLabel }>{ props.label }</small>
         </div>
     );
 }

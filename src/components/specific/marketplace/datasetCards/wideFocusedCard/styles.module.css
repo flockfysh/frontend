@@ -1,0 +1,102 @@
+.cardContainer {
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 2px 5px rgba(0, 0, 0, 0.05), 0px 8px 40px rgba(0, 0, 0, 0.04);
+    border-radius: 16px;
+    width: 423px;
+    height: 242px;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: 0.2s;
+    background-image: url(https://s3-alpha-sig.figma.com/img/efef/125a/480e2d2c1254490a3725b0c0a6c45edb?Expires=1686528000&Signature=AgfEYGXZwk4fKJ03f07hg2Ju2mrDjOv30qZrB~za0-5tvgVea1lN-WzcBdMouigAt6eWY3FUhb8bU~mwAfKLZyItadlOizm08hutx60lQPUsHv2Nxfv6mnqoSaqnuYibbuTn9UK1X0V7C8UT2CWM5EXILs~vsixZ9E2NeuRlIWbz8~xKezY2q~b~YB-a17Og8pRBOBoZNR6tGEsEBlI7CnLxXDlN4fwqIn~JdBUQtPxKtT3O2znDe2-S5W-A0Tpeuv8yHeRTL1lx1hVBKsKw69zumbIaoGEDHJoAk5n1lwUDw4Yi3bMXwY8QQBNWtn~TFxlPVJdZOTAPXR~ivi7pWQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4);
+}
+
+.header {
+    margin-top: 10px;
+    margin-left: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.typeContainer {
+    align-self: flex-start;
+}
+
+.avatar {
+    border-radius: 14px;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 5px;
+}
+
+.avatar img {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+}
+
+.datasetName {
+    font-family: 'Segoe UI';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -0.64px;
+    margin-left: 30px;
+}
+
+.footer {
+    display: flex;
+    margin: 0 30px;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.left {
+    display: flex;
+    gap: 8px;
+}
+
+.left img {
+    align-self: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+}
+
+.left p {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 19px;
+    align-self: center;
+}
+
+.right {
+    align-self: center;
+    display: flex;
+    gap: 32px;
+    align-items: center;
+}
+
+.infoContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.infoContainer p {
+    color: rgba(255, 255, 255, 0.8);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: 19px;
+}
+
+.infoContainer h1 {
+    font-family: 'Segoe UI';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.25rem;
+    line-height: 27px;
+}

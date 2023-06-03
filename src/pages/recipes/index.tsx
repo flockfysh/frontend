@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { NextPageWithLayout } from '@/pages/_app';
 import { ReactSVG } from 'react-svg';
 
@@ -10,11 +10,13 @@ import RecipeCard from '@/components/specific/datasets/recipes/RecipeCard';
 
 import search from '@/icons/main/search.svg';
 import sliders from '@/icons/main/sliders.svg';
-import sun from '@/icons/main/sun.svg';
 import plusCircle from '@/icons/main/plus-circle.svg';
 
 import classes from './styles.module.css';
-import CreateRecipeModal from '@/components/createRecipeModal';
+// import CreateRecipeModal from '@/components/createRecipeModal';
+
+import DarkModeButton from '@/components/ui/theming/DarkModeButton';
+import CreateRecipeModal from '@/components/specific/recipes/CreateRecipeModal';
 
 
 const TEST_RECIPES = Array.from({ length: 25 }, () => {
@@ -29,26 +31,23 @@ const TEST_RECIPES = Array.from({ length: 25 }, () => {
     };
 });
 
+const ButtonSave = ({ onClose }: {onClose: () => void }) => {
+    return(
+        <button onClick={ onClose } className={ classes.save }>Save Recipe</button>
+    );
+};
 
-const MyDatasets: NextPageWithLayout = function () {
-    const [createRecipe, updateCreateRecipe] = useState(false);
 
+const RecipePage: NextPageWithLayout = function () {
     return (
         <>
-            { createRecipe && <CreateRecipeModal onClose={ () => updateCreateRecipe(false) } /> }
-            
             <header className={ classes.header }>
                 <div className={ classes.headerTitleAndCTA }>
                     <h1 className={ classes.headerTitle }>Your Recipies</h1>
                     <div className={ classes.headerCTA }>
-                        <div className={ classes.lightIcon }>
-                            <ReactSVG src={ sun.src }></ReactSVG>
-                        </div>
+                        <DarkModeButton></DarkModeButton>
 
-                        <button className={ classes.newRecipeButton } onClick={ () => updateCreateRecipe(true) }>
-                          Create Recipe
-                          <ReactSVG src={ plusCircle.src }></ReactSVG>
-                        </button>
+                        <CreateRecipeModal />
                     </div>
                 </div>
                 <label className={ classes.searchBarContainer }>
@@ -70,12 +69,12 @@ const MyDatasets: NextPageWithLayout = function () {
     );
 };
 
-MyDatasets.getLayout = function (page) {
+RecipePage.getLayout = function (page) {
     return (
         <MainLayout>
-            { page }
+            {page}
         </MainLayout>
     );
 };
 
-export default MyDatasets;
+export default RecipePage;
