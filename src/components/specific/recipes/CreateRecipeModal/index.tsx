@@ -126,7 +126,7 @@ function RecipeForm(props: RecipeFormProps) {
                 </div>
             </fieldset>
             <div className={ classes.saveButtonWrapper }>
-                <button onClick={ onSubmit } className={ classes.saveButton }>Save Recipe</button>
+                <button type="button" onClick={ onSubmit } className={ classes.saveButton }>Save Recipe</button>
             </div>
         </form>
     );
