@@ -23,11 +23,43 @@ const TEST_RECIPES = Array.from({ length: 25 }, () => {
     return {
         name: 'Recipe Name',
         createdAt: dayjs().subtract(15, 'minute').toDate(),
-        labels: ['Label 1', 'Label 2', 'Label 3', 'Label 4', 'Label 5'],
+        labels: new Map([
+            ['clientSideUuid', {
+                _id: undefined,
+                tool: 'boundingBox',
+                color: '#fff',
+                isDeleted: false,
+                isNew: true,
+                name: 'Dog'
+            }],
+            ['clientSideUuid1', {
+                _id: undefined,
+                tool: 'boundingBox',
+                color: '#fff',
+                isDeleted: false,
+                isNew: true,
+                name: 'Eagle'
+            }],
+            ['clientSideUuid2', {
+                _id: undefined,
+                tool: 'boundingBox',
+                color: '#fff',
+                isDeleted: false,
+                isNew: true,
+                name: 'Dolphin'
+            }],
+            ['clientSideUuid3', {
+                _id: undefined,
+                tool: 'boundingBox',
+                color: '#fff',
+                isDeleted: false,
+                isNew: true,
+                name: 'Cat'
+            }]
+        ]),
         id: v4(),
         usedDatasets: 5,
         type: 'Image Data',
-
     };
 });
 

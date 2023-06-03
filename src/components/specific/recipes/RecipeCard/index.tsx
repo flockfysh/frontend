@@ -6,7 +6,24 @@ import square from '@/icons/main/square.svg';
 import classes from './styles.module.css';
 import dayjs from 'dayjs';
 
-export default function RecipeCard(props) {
+interface label {
+    _id?: string;
+    name: string;
+    tool: string;
+    color: string;
+    isNew: boolean;
+    isDeleted: boolean;
+}
+interface TEMP_RecipeCardProps {
+        name: string;
+        createdAt: string;
+        labels: Map<string, label>;
+        id: string;
+        usedDatasets: string;
+        type: string;
+}
+
+export default function RecipeCard(props: TEMP_RecipeCardProps) {
     const dateCreatedAt = dayjs(props.createdAt).format('YYYY-MM-DD HH:mm');
     return (
         <li className={ classes.cardContainer }>
@@ -43,12 +60,15 @@ export default function RecipeCard(props) {
             <div className={ classes.tagsAndActionsWrapper }>
                 {/* tags */}
                 <div className={ classes.tagsWrapper }>
-                    {props.labels.map((label: string) => (
-                        <div key={ label } className={ classes.tagsItem }>
-                            <ReactSVG src={ square.src } className={ classes.tagsItemIcon }></ReactSVG>
-                            <span>{label}</span>
-                        </div>
-                    ))}
+                    {Array.from(props.labels.entries()).map(function transformEntry([clientSideUuid, label]) {
+                        return (
+                            <div key={ clientSideUuid } className={ classes.tagsItem }>
+                                {/* switch between icons */}
+                                <ReactSVG src={ square.src } className={ classes.tagsItemIcon }></ReactSVG>
+                                <span>{label.name}</span>
+                            </div>
+                        );
+                    })}
                 </div>
 
                 {/* actions */}
