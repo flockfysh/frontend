@@ -152,3 +152,31 @@
     justify-content: space-between;
     gap: 20px;
 }
+
+.howTo {
+    width: 1384px;
+    height: 598px;
+    background: #1e1e1e40;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25);
+    border-radius: 40px;
+    padding: 50px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.howToHeader {
+    text-align: center;
+    font-weight: bold;
+    font-size: 2.5rem;
+    line-height: 40px;
+
+    background: linear-gradient(90deg, #69EACB 0%, #EACCF8 48%, #6654F1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.howToCards {
+    
+}

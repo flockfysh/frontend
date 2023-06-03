@@ -50,8 +50,8 @@
     line-height: 24px;
 }
 
-.clockIcon {
-    /* ! fill: var(--primary1-100);  */
+.clockIcon path {
+    stroke: var(--primary1-100) !important; 
 }
 
 .middleSection {
