@@ -41,6 +41,13 @@
     gap: 0.75rem;
 }
 
+.labelDataFieldWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+}
+
 .labelDataField {
     display: flex;
     gap: 8px;
@@ -57,4 +64,25 @@
 
 .labelToolSelectContainer {
     flex: 1;
+}
+
+.deleteLabelButton {
+    background: transparent;
+    cursor: pointer;
+    color: var(--primary1-100);
+}
+
+.saveButtonWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.saveButton {
+    padding: 8px 16px;
+    cursor: pointer;
+    padding: 12px 24px;
+    gap: 6px;
+    background: var(--primary2-950);
+    border-radius: 20px;
+    width: fit-content;
 }
