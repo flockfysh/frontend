@@ -6,7 +6,7 @@ import { v4 } from 'uuid';
 import dayjs from 'dayjs';
 
 import MainLayout from '@/components/layout/MainLayout';
-import RecipeCard from '@/components/specific/datasets/recipes/RecipeCard';
+import RecipeCard from '@/components/specific/recipes/RecipeCard';
 
 import search from '@/icons/main/search.svg';
 import sliders from '@/icons/main/sliders.svg';
@@ -30,13 +30,6 @@ const TEST_RECIPES = Array.from({ length: 25 }, () => {
 
     };
 });
-
-const ButtonSave = ({ onClose }: {onClose: () => void }) => {
-    return(
-        <button onClick={ onClose } className={ classes.save }>Save Recipe</button>
-    );
-};
-
 
 const RecipePage: NextPageWithLayout = function () {
     return (
