@@ -1,0 +1,135 @@
+.createRecipeContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 20px;
+    align-items: center;
+}
+
+.formContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.recipeNameInputWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nameInputContainer {
+    border-radius: 8px;
+    width: 100%;
+    height: 2.5rem;
+    flex: 1;
+    background: var(--main-grey);
+    color: var(--primary1-100);
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    gap: 16px;
+}
+
+.nameInput {
+    font: inherit;
+    color: inherit;
+    background: none;
+    appearance: none;
+    flex: 1;
+    font-size: 14px;
+    line-height: 24px;
+}
+
+.nameInput::placeholder {
+    font: inherit;
+    color: inherit;
+}
+
+.nameInput:focus {
+    outline: none;
+}
+
+.nameInputIcon {
+
+}
+
+.input {
+    padding: 16px;
+    gap: 16px;
+    
+    background: var(--main-grey);
+    border-radius: 8px;
+    outline: none;
+    color: var(--primary1-100);
+    resize: vertical;
+    transition: 0.15s;
+  outline: none
+}
+
+.input::placeholder {
+    color: var(--selection);
+}
+
+.input:focus {
+    border-color: var(--primary1-300);
+}
+
+.labelsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.labelHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.labelTitleWrapper {
+  display: flex;
+  gap: 8px;
+  color: var(--primary1-100);
+  align-items: center 
+}
+
+.labelAppendColumnButton {
+  color: var(--primary1-100);
+}
+
+.labelColumnsWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.labelColumnItem {
+  display: flex;
+  wrap-flex: wrap;
+  align-items: center;
+  gap: 20px;
+}
+
+.colorInput {
+  width: 32px;
+  height: 32px;
+  background: transparent;
+}
+
+.columnDeleteButton {
+  height: 24px;
+  background: transparent;
+  color: var(--primary1-100);
+}
+
+
+.save {
+    padding: 8px 16px;
+    cursor: pointer;
+    padding: 12px 24px;
+    gap: 6px;
+    background: var(--primary2-950);
+    border-radius: 20px;
+}
+
