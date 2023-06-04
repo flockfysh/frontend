@@ -17,7 +17,7 @@ interface PopupModalContext {
     close: () => void;
 }
 
-const PopupModalContext = React.createContext<PopupModalContext>({
+export const PopupModalContext = React.createContext<PopupModalContext>({
     close: () => {
     },
 });

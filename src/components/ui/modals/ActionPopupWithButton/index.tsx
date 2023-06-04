@@ -5,6 +5,9 @@ interface ActionPopupWithButtonProps {
     button: JSX.Element,
     children: React.ReactNode,
     popupTitle: string,
+    className?: string,
+    modalClassName?: string,
+
     blurBg?: boolean,
 }
 
@@ -21,7 +24,8 @@ export default function ActionPopupWithButton(props: ActionPopupWithButtonProps)
         <>
             {clonedButton}
             {open ? (
-                <ActionPopup popupTitle={ props.popupTitle } onClose={ () => {
+                <ActionPopup className={ props.className || '' } modalClassName={ props.modalClassName || '' }
+                             popupTitle={ props.popupTitle } onClose={ () => {
                     setOpen(false);
                 } } blurBg={ props.blurBg ?? true }>{
                     props.children
