@@ -72,6 +72,7 @@ export default function FeaturedDatasetsSection() {
     const mobileMatch = useMediaQuery('(min-width: 910px)');
     const intermediateMatch = useMediaQuery('(min-width: 1280px)');
     const largeMatch = useMediaQuery('(min-width: 1600px)');
+    // const datasets: Flockfysh.Dataset[] = [{}];
 
     // Force recompute - a REALLY hacky way to refresh the carousel.
     const [_center, _setCenter] = React.useState(true);
@@ -95,12 +96,12 @@ export default function FeaturedDatasetsSection() {
     React.useEffect(() => {
         _setCenter(false);
     }, [mobileMatch, intermediateMatch, largeMatch]);
-    
+
     return (
         <section className={ classes.headerContainer }>
             <FocusedDataset></FocusedDataset>
             <div className={ classes.featuredDatasetsContainer }>
-                <Carousel centerMode={ _center } autoPlay={ true } interval={ 50000 }
+                <Carousel centerMode={ _center } autoPlay={ true } interval={ 3000 }
                           centerSlidePercentage={ largeMatch ? 25 : intermediateMatch ? 33.3 : mobileMatch ? 50 : 100 }
                           showStatus={ false } infiniteLoop={ true } transitionTime={ _transition }
                           showIndicators={ false }

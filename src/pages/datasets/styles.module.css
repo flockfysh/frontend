@@ -16,10 +16,10 @@
 .header {
     display: flex;
     gap: 47px;
-    flex-direction: column;
     padding: 40px 46px;
     background: var(--background);
     justify-content: space-between;
+    align-items: center;
     border-bottom: 1px solid var(--primary1-400)
 }
 
@@ -46,11 +46,11 @@
 }
 
 .lightIcon {
-  width: 38px;
-  height: 38px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .newRecipeButton {

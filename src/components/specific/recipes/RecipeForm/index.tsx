@@ -8,6 +8,7 @@ import pen from '@/icons/main/feather.svg';
 import add from '@/icons/main/plus-circle.svg';
 import Select from '@/components/ui/input/select';
 import trash from '@/icons/main/trash-2.svg';
+import lock from '@/icons/main/lock.svg';
 import { StaticImageData } from 'next/image';
 import line from '@/icons/main/slash-divider.svg';
 import polygon from '@/icons/main/recipe-icon-2.svg';
@@ -230,9 +231,11 @@ export default function RecipeForm(props: RecipeFormProps) {
                             <ReactSVG src={ pen.src }/>
                             <span>Labels</span>
                         </div>
-                        <button onClick={ addLabel } className={ classes.addLabelButton } type={ 'button' }>
-                            <ReactSVG src={ add.src }/>
-                        </button>
+                        {!immutable && (
+                            <button onClick={ addLabel } className={ classes.addLabelButton } type={ 'button' }>
+                                <ReactSVG src={ add.src }/>
+                            </button>
+                        )}
                     </legend>
                     {labels.size > 0 ? (
                         <ul className={ classes.labelDataFieldWrapper }>
@@ -279,12 +282,13 @@ function Label(props: ClientLabel & {
 
     return (
         <li className={ classes.labelDataField }>
-            <input type={ 'color' } className={ classes.labelColorInput } defaultValue={ props.color } onChange={ (e) => {
-                props.onModify({
-                    color: e.currentTarget.value,
-                });
-            } }/>
-            <TextInput placeholder={ 'Label name' } defaultValue={ props.name } classNames={ {
+            <input type={ 'color' } disabled={ unEditable } className={ classes.labelColorInput } defaultValue={ props.color }
+                   onChange={ (e) => {
+                       props.onModify({
+                           color: e.currentTarget.value,
+                       });
+                   } }/>
+            <TextInput placeholder={ 'Label name' } disabled={ unEditable } defaultValue={ props.name } classNames={ {
                 input: classes.labelInput,
                 container: classes.labelContainer
             } } onChange={ (e) => {
@@ -294,7 +298,8 @@ function Label(props: ClientLabel & {
                     });
                 }
             } }/>
-            <Select defaultValue={ ANNOTATION_TOOL_FULL_OPTIONS.find(opt => opt.value === props.tool) }
+            <Select isDisabled={ unEditable }
+                    defaultValue={ ANNOTATION_TOOL_FULL_OPTIONS.find(opt => opt.value === props.tool) }
                     options={ ANNOTATION_TOOL_FULL_OPTIONS } className={ classes.labelToolSelectContainer }
                     classNames={ {
                         control: () => {
@@ -323,7 +328,7 @@ function Label(props: ClientLabel & {
             } }
                     className={ `${classes.deleteLabelButton} ${unEditable ? classes.deleteLabelButtonDisabled : ''}` }
                     type={ 'button' }>
-                <ReactSVG src={ trash.src }/>
+                <ReactSVG src={ unEditable ? lock.src : trash.src }/>
             </button>
         </li>
     );

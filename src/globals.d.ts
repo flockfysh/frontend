@@ -1,6 +1,8 @@
 declare global {
     namespace Flockfysh {
         type AnnotationTool = 'boundingBox' | 'ellipse' | 'polygon' | 'line';
+        type AssetStages = 'uploaded' | 'feedback' | 'completed';
+        type AssetType = 'image' | 'video';
 
         interface Label {
             _id: string;
@@ -20,6 +22,45 @@ declare global {
 
         interface RecipeWithLabels extends Recipe {
             labels: Flockfysh.Label[]
+        }
+
+        interface Dataset {
+            _id: string;
+            name: string;
+            description?: string;
+            tags: string[];
+            subTags: string[];
+            user: string;
+            createdAt: Date;
+        }
+
+        interface DatasetAssetCounts {
+            byStage: Record<Flockfysh.AssetStages, number>;
+            total: number;
+        }
+
+        interface DatasetSize {
+            byStage: Record<Flockfysh.AssetStages, number>;
+            total: {
+                cloud: number,
+                cluster: number,
+                total: number,
+            };
+            byAnnotationStatus: {
+                annotated: number,
+                unannotated: number,
+            }
+        }
+
+        interface Asset {
+            _id: string;
+            type: Flockfysh.AssetType;
+            stage: Flockfysh.AssetStages;
+            uploadedAt: Date;
+            dataset: string;
+            size: number;
+            url: string;
+            displayName: string;
         }
     }
 

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { NextPageWithLayout } from '@/pages/_app';
 import { ReactSVG } from 'react-svg';
 
@@ -13,59 +12,88 @@ import search from '@/icons/main/search.svg';
 import sliders from '@/icons/main/sliders.svg';
 
 import classes from './styles.module.css';
-
-const TEST_DATASETS: Dataset[] = Array.from({ length: 25 }, () => {
-    return {
-        name: 'Dogs',
-        description: 'This is a datset of dogs.',
-        createdAt: dayjs().subtract(15, 'minute').toDate(),
-        tags: ['Dogs', 'Segmentation'],
-        numAssets: 30,
-        id: v4(),
-        stage: 'feedback',
-        entityInfo: {
-            completedItemCount: 0,
-            itemCount: 30,
-            size: 20423450,
-            feedbackItemCount: 5,
-            uploadedItemCount: 25,
-        },
-        subTags: [],
-        numTimesHumanFeedback: 0,
-    };
-});
-
+import React from 'react';
+import api from '@/helpers/api';
+import InfiniteScroll from 'react-infinite-scroller';
 
 const MyDatasets: NextPageWithLayout = function () {
-    const [createDataset, updateCreateDataset] = useState(false);
+    const [curSearchQuery, setCurSearchQuery] = React.useState<string>('');
 
     return (
         <>
-            {createDataset && <CreateDatasetModal onClose={ () => updateCreateDataset(false) }/>}
-
             <header className={ classes.header }>
                 <label className={ classes.searchBarContainer }>
                     <ReactSVG src={ search.src } className={ classes.searchBarIcon }/>
 
-                    <input type="search" className={ classes.searchBarInput } placeholder="Search"/>
+                    <input type="search" className={ classes.searchBarInput } value={ curSearchQuery } onChange={ (e) => {
+                        setCurSearchQuery(e.currentTarget.value);
+                    } } placeholder="Search"/>
 
                     <button className={ classes.searchFilterButton }>
                         <ReactSVG src={ sliders.src } className={ classes.searchFilterIcon }/>
                     </button>
                 </label>
 
-                <button className={ classes.newDatasetButton } onClick={ () => updateCreateDataset(true) }>New Dataset
-                </button>
+                <CreateDatasetModal/>
+
             </header>
 
-            <div className={ classes.mainContent }>
-                <ul className={ classes.datasetGrid }>
-                    {TEST_DATASETS.map(dataset => <DatasetCard key={ dataset.id } { ...dataset } />)}
-                </ul>
-            </div>
+            <DatasetSearchResult name={ curSearchQuery || undefined }></DatasetSearchResult>
         </>
     );
 };
+
+function DatasetSearchResult(props: { name?: string }) {
+    const scrollerContainerRef = React.useRef<HTMLDivElement | null>(null);
+    const initialState = () => {
+        return {
+            hasMore: true,
+            prevId: undefined,
+            datasets: [],
+        };
+    };
+    const [state, setState] = React.useState<{
+        hasMore: boolean,
+        prevId: string | undefined,
+        datasets: (Flockfysh.Dataset & {
+            assetCounts: Flockfysh.DatasetAssetCounts
+        })[],
+    }>(initialState);
+
+    async function load() {
+        const fetched = (await api.get<{
+            success: true,
+            data: (Flockfysh.Dataset & {
+                assetCounts: Flockfysh.DatasetAssetCounts
+            })[]
+        }>('/api/datasets/search', {
+            params: {
+                name: props.name,
+                lessThan: state.prevId,
+                expand: 'assetCounts',
+                limit: 50,
+            }
+        })).data.data;
+        state.datasets.push(...fetched);
+        setState({
+            hasMore: fetched.length > 0,
+            datasets: state.datasets,
+            prevId: fetched[fetched.length - 1]?._id,
+        });
+    }
+
+    return (
+        <div className={ classes.mainContent }>
+            <InfiniteScroll useWindow={ false } loadMore={ load } hasMore={ state.hasMore } getScrollParent={ () => {
+                return scrollerContainerRef.current;
+            } }>
+                <ul className={ classes.datasetGrid }>
+                    {state.datasets.map(dataset => <DatasetCard key={ dataset._id } { ...dataset } />)}
+                </ul>
+            </InfiniteScroll>
+        </div>
+    );
+}
 
 MyDatasets.getLayout = function (page) {
     return (
@@ -74,5 +102,6 @@ MyDatasets.getLayout = function (page) {
         </MainLayout>
     );
 };
+
 
 export default MyDatasets;

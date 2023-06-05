@@ -29,7 +29,7 @@ function SidebarLink(props: SidebarLinkProps) {
 
 const SECTION_1_LINKS: SidebarLinkProps[] = [
     {
-        href: '/myDatasets',
+        href: '/datasets',
         text: 'My Datasets',
         icon: home,
     },

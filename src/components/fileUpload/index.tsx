@@ -1,9 +1,8 @@
 import { forwardRef } from 'react';
-import { ReactSVG } from 'react-svg';
 
 import classes from './styles.module.css';
 
-const FileUpload = forwardRef<HTMLInputElement>(function() {
+const FileUpload = forwardRef<HTMLInputElement, {}>(function FileUpload(props, ref) {
     return (
         <div className={ classes.container }>
             <label htmlFor="file-upload">
@@ -20,7 +19,7 @@ const FileUpload = forwardRef<HTMLInputElement>(function() {
                 </div>
             </label>
 
-            <input id="file-upload" type="file" />
+            <input id="file-upload" type="file"/>
         </div>
     );
 });
