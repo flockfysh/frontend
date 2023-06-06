@@ -3,10 +3,7 @@ import { useRouter } from 'next/router';
 import { NextPageWithLayout } from '@/pages/_app';
 import { ReactSVG } from 'react-svg';
 import DataTable, { Media, TableColumn } from 'react-data-table-component';
-
-import { v4 } from 'uuid';
 import dayjs from 'dayjs';
-
 import MainLayout from '@/components/layout/MainLayout';
 import { CircleProgressBar } from '@/components/specific/datasets/viewDataset/CircleProgressBar';
 import SpecificProgressData from '@/components/specific/datasets/viewDataset/SpecificProgressData';
@@ -24,16 +21,12 @@ import { formatFileSize } from '@/helpers/formatting';
 
 import classes from './styles.module.css';
 import api from '@/helpers/api';
-import InfiniteScroll from 'react-infinite-scroller';
-import { it } from 'node:test';
-import { delay } from '@/helpers/timers';
 
 type PopulatedDataset = Flockfysh.Dataset & {
     size: Flockfysh.DatasetSize,
     assetCounts: Flockfysh.DatasetAssetCounts
 };
 
-const datasetId = v4();
 const datasetProgressFakeData = [
     {
         value: '21,656 / 25000',
@@ -181,26 +174,31 @@ const MyDatasets: NextPageWithLayout = function () {
     );
 };
 
+interface AssetViewerState {
+    currentPage: number;
+    currentRowsPerPage: number;
+    totalExpectedAssets: number;
+    assets: Map<string, Flockfysh.Asset>;
+    lastId: string | undefined;
+}
+
 
 export function AssetViewer(props: {
     datasetId: string;
     showList: boolean;
 }) {
-    interface AssetViewerState {
-        hasMore: boolean;
-        assets: Map<string, Flockfysh.Asset>;
-        lastId: string | undefined;
-    }
-
     const initialState = (): AssetViewerState => {
         return {
             assets: new Map(),
-            hasMore: true,
+            currentRowsPerPage: 10,
+            totalExpectedAssets: Infinity,
+            currentPage: 1,
             lastId: undefined,
         };
     };
 
     const [state, setState] = React.useState<AssetViewerState>(initialState);
+    const [currentLoadController, setCurrentLoadController] = React.useState<AbortController | undefined>();
 
     async function delAsset(id: string) {
     }
@@ -231,6 +229,9 @@ export function AssetViewer(props: {
         {
             name: 'Type',
             cell: (data) => <span>{capitalize(data.type)}</span>,
+            style: {
+                position: 'static',
+            },
             grow: 0,
             width: '5rem',
         },
@@ -255,29 +256,57 @@ export function AssetViewer(props: {
         },
     ];
 
-    async function load() {
+    async function load(numItems: number = 20) {
+        if (currentLoadController) {
+            currentLoadController.abort();
+        }
         const datasetId = props.datasetId;
+        const abortController = new AbortController();
+        setCurrentLoadController(abortController);
         const result = (await api.get<Api.Response<Flockfysh.Asset[]>>(`/api/datasets/${datasetId}/assets`, {
             params: {
                 lessThan: state.lastId,
-                limit: 10,
-            }
+                limit: numItems,
+            },
+            signal: abortController.signal,
         })).data.data;
         for (const item of result) {
             state.assets.set(item._id, item);
         }
-        await delay(1);
-        setState({
-            hasMore: result.length > 0,
-            lastId: result[result.length - 1]?._id,
-            assets: state.assets,
+        setState((prev) => {
+            return {
+                ...prev,
+                lastId: result[result.length - 1]?._id,
+                assets: state.assets,
+            };
         });
+        setCurrentLoadController(undefined);
     }
 
     React.useEffect(() => {
         setState(initialState);
-        load().then();
     }, [props.datasetId]);
+
+    React.useEffect(() => {
+        if (!currentLoadController && slice.length === 0 && state.assets.size > 0) {
+            setState((currentState) => {
+                return {
+                    ...currentState,
+                    currentPage: Math.ceil(currentState.assets.size / currentState.currentRowsPerPage),
+                };
+            });
+        }
+    }, [currentLoadController]);
+
+    React.useEffect(() => {
+        const expectedLengthOfAssets = state.currentPage * state.currentRowsPerPage;
+        if (expectedLengthOfAssets > state.assets.size) {
+            load(expectedLengthOfAssets - state.assets.size).then();
+        }
+    }, [state.assets.size, state.currentPage, state.currentRowsPerPage]);
+
+    const slicePositions = [state.currentPage - 1, state.currentPage].map(pos => pos * state.currentRowsPerPage);
+    const slice = Array.from(state.assets.values()).slice(...slicePositions);
 
     if (!props.showList) {
         return (
@@ -297,23 +326,44 @@ export function AssetViewer(props: {
 
     return (
         <div className={ classes.tableContainer }>
-
             <DataTable
-                data={ Array.from(state.assets.values()) }
+                data={ slice }
                 columns={ columns }
                 fixedHeader={ true }
                 responsive={ true }
                 className={ classes.table }
-                actions={ (
-                    <InfiniteScroll hasMore={ state.hasMore } useWindow={ false } loadMore={ load }
-                                    className={ classes.tableScroller }>
-                    </InfiniteScroll>
-                ) }
-                // subHeader={ true }
-                // subHeaderWrap={ true }
-                // subHeaderComponent={ (
-                //
-                // ) }
+                onChangePage={ (page) => {
+                    setState((prev) => {
+                        return {
+                            ...prev,
+                            currentPage: page,
+                        };
+                    });
+                } }
+                progressComponent={ <div/> }
+                progressPending={ !!currentLoadController }
+                onChangeRowsPerPage={ (currentRowsPerPage, currentPage) => {
+                    setState((prev) => {
+                        return {
+                            ...prev,
+                            currentPage: currentPage,
+                            currentRowsPerPage: currentRowsPerPage,
+                        };
+                    });
+                } }
+                paginationDefaultPage={ state.currentPage }
+                paginationResetDefaultPage={ true }
+                persistTableHead={ true }
+                pagination={ true }
+                paginationTotalRows={ Math.ceil(state.totalExpectedAssets / state.currentRowsPerPage) }
+                paginationPerPage={ state.currentRowsPerPage }
+                paginationServer={ true }
+
+                paginationServerOptions={ {
+                    persistSelectedOnPageChange: true,
+                    persistSelectedOnSort: true,
+                } }
+
             />
         </div>
     );
