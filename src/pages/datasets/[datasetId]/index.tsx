@@ -94,8 +94,8 @@ const MyDatasets: NextPageWithLayout = function () {
             <div className={ classes.datasetInfoWrapper }>
                 {/* dataset data container */}
                 <div className={ classes.datasetInfoDataWrapper }>
-                    <h3 className={ classes.datasetName }>DATASET NAME</h3>
-                    <h4>This is a dataset containing images of street</h4>
+                    <h3 className={ classes.datasetName }>{dataset.name}</h3>
+                    <h4>{dataset.description}</h4>
                 </div>
 
                 {/* dataset status container */}
