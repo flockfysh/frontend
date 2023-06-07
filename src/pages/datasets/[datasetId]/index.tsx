@@ -14,43 +14,17 @@ import logout from '@/icons/main/log-out.svg';
 import classes from './styles.module.css';
 import api from '@/helpers/api';
 import AssetViewer from '@/components/specific/datasets/viewDataset/AssetViewer';
+import { formatFileSize } from '@/helpers/formatting';
+import { dayjs } from '@/helpers/date';
 
 type PopulatedDataset = Flockfysh.Dataset & {
     size: Flockfysh.DatasetSize,
-    assetCounts: Flockfysh.DatasetAssetCounts
+    assetCounts: Flockfysh.DatasetAssetCounts,
+    annotationCounts: Flockfysh.DatasetAnnotationCounts,
 };
 
 
-const datasetProgressFakeData = [
-    {
-        value: '21,656 / 25000',
-        label: 'Image Annotated'
-    },
-    {
-        value: '6 hours ago',
-        label: 'Latest Updated'
-    },
-    {
-        value: '600',
-        label: 'Awaiting Feedback'
-    },
-    {
-        value: '25 GB',
-        label: 'Dataset Size'
-    },
-    {
-        value: '350K',
-        label: 'Annotations'
-    },
-    {
-        value: '2000',
-        label: 'Training Completed'
-    }
-];
-
 const MyDatasets: NextPageWithLayout = function () {
-
-
     const router = useRouter();
     const [showList, setShowList] = useState(true);
     const [dataset, setDataset] = React.useState<PopulatedDataset | undefined>();
@@ -64,7 +38,7 @@ const MyDatasets: NextPageWithLayout = function () {
             }
             const result = (await api.get<Api.Response<PopulatedDataset>>(`/api/datasets/${datasetId}`, {
                 params: {
-                    expand: 'size,assetCounts'
+                    expand: 'size,assetCounts,annotationCounts'
                 }
             })).data.data;
             setDataset(result);
@@ -86,7 +60,35 @@ const MyDatasets: NextPageWithLayout = function () {
         return <></>;
     }
 
+    const datasetProgressFakeData = [
+        {
+            value: `${dataset.assetCounts.byAnnotationStatus.annotated} / ${dataset.assetCounts.total}`,
+            label: 'Image Annotated'
+        },
+        {
+            value: `${dayjs(dataset.updatedAt).fromNow()}`,
+            label: 'Latest Updated'
+        },
+        {
+            value: `${dataset.assetCounts.byStage.feedback}`,
+            label: 'Awaiting Feedback'
+        },
+        {
+            value: `${formatFileSize(dataset.size.total.total)}`,
+            label: 'Dataset Size'
+        },
+        {
+            value: `${dataset.annotationCounts.total}`,
+            label: 'Annotations'
+        },
+        {
+            value: `${dataset.assetCounts.byStage.completed}`,
+            label: 'Training Completed'
+        }
+    ];
+
     return (
+
         <div className={ classes.container }>
             {/* this dataset info */}
             <div className={ classes.datasetInfoWrapper }>

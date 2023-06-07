@@ -32,10 +32,19 @@ declare global {
             subTags: string[];
             user: string;
             createdAt: Date;
+            updatedAt: Date;
         }
 
         interface DatasetAssetCounts {
             byStage: Record<Flockfysh.AssetStages, number>;
+            total: number;
+            byAnnotationStatus: {
+                annotated: number,
+                unannotated: number,
+            };
+        }
+
+        interface DatasetAnnotationCounts {
             total: number;
         }
 
@@ -46,10 +55,6 @@ declare global {
                 cluster: number,
                 total: number,
             };
-            byAnnotationStatus: {
-                annotated: number,
-                unannotated: number,
-            }
         }
 
         interface Asset {
