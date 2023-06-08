@@ -11,7 +11,7 @@ export default function Loading() {
     );
 }
 
-export async function LoadingScreen() {
+export function LoadingScreen() {
     return (
         <div className={ classes.loadingScreen }>
             <div className={ classes.loading }>

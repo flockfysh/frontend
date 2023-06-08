@@ -13,10 +13,11 @@ import api from '@/helpers/api';
 import classes from './styles.module.css';
 import { ReactSVG } from 'react-svg';
 import trash from '@/icons/main/trash-2.svg';
-import { ScrollerProps, TableVirtuoso } from 'react-virtuoso';
+import { GridItemProps, ScrollerProps, TableVirtuoso, VirtuosoGrid, VirtuosoGridProps } from 'react-virtuoso';
 import dayjs from 'dayjs';
 import { capitalize } from '@/helpers/strings';
 import { formatFileSize } from '@/helpers/formatting';
+import Image from 'next/image';
 
 const TableComponents = {
     Scroller: React.forwardRef<HTMLDivElement, ScrollerProps>(function _Scroller(props, ref) {
@@ -54,7 +55,8 @@ interface AssetViewerState {
     assets: Map<string, Flockfysh.Asset & {
         selected: boolean;
     }>;
-    lastId: string | undefined;
+    initialLoad: boolean;
+    next: string | undefined;
 }
 
 function CustomTableCell(props: TableCellProps) {
@@ -71,13 +73,15 @@ function CustomTableCell(props: TableCellProps) {
 
 export default function AssetViewer(props: {
     datasetId: string;
+    searchQuery: { displayName?: string };
     showList: boolean;
 }) {
     const initialState = (): AssetViewerState => {
         return {
             assets: new Map(),
             hasMore: true,
-            lastId: undefined,
+            initialLoad: true,
+            next: undefined,
         };
     };
 
@@ -134,47 +138,73 @@ export default function AssetViewer(props: {
     async function load(numItems: number = 20) {
         if (state.hasMore) {
             const datasetId = props.datasetId;
-            const result = (await api.get<Api.Response<Flockfysh.Asset[]>>(`/api/datasets/${datasetId}/assets`, {
-                params: {
-                    lessThan: state.lastId,
-                    limit: numItems,
-                },
-            })).data.data;
-            for (const item of result) {
-                state.assets.set(item._id, {
-                    ...item,
-                    selected: false,
+            try {
+                const result = (await api.get<Api.PaginatedResponse<Flockfysh.Asset[]>>(`/api/datasets/${datasetId}/assets`, {
+                    params: {
+                        next: state.next,
+                        displayName: props.searchQuery.displayName,
+                        limit: numItems,
+                    },
+                })).data;
+                for (const item of result.data) {
+                    state.assets.set(item._id, {
+                        ...item,
+                        selected: false,
+                    });
+                }
+                setState((prev) => {
+                    return {
+                        ...prev,
+                        next: result.meta.next,
+                        hasMore: result.meta.hasNext,
+                        assets: state.assets,
+                    };
                 });
             }
-            setState((prev) => {
-                return {
-                    ...prev,
-                    lastId: result[result.length - 1]?._id,
-                    hasMore: result[result.length - 1]?._id !== undefined,
-                    assets: state.assets,
-                };
-            });
+ catch (e) {
+                return;
+            }
         }
     }
 
     React.useEffect(() => {
         setState(initialState);
-        load(20).then();
-    }, [props.datasetId]);
+    }, [props.datasetId, props.searchQuery.displayName]);
+
+    React.useEffect(() => {
+        if (state.initialLoad) {
+            setState(prev => {
+                return {
+                    ...prev,
+                    initialLoad: false,
+                };
+            });
+            load(20).then();
+        }
+    }, [state]);
 
     if (!props.showList) {
         return (
-            <div className={ classes.gridWrapper }>
-                {Array.from(state.assets.values()).map((item, index) => (
-                    <div className={ classes.imageWrapper } key={ `${index}-${item.displayName}` }>
-                        <img src={ item.url } alt={ item.displayName }/>
+            <VirtuosoGrid
+                data={ assetArray }
+                listClassName={ classes.gridWrapper }
+                itemClassName={ classes.imageWrapper }
+                endReached={ () => load().then() }
+                itemContent={ (index, item) => {
+                    return (
+                        <>
+                            <Image fill={ true } className={ classes.image } src={ item.url }
+                                   alt={ item.displayName }/>
 
-                        <button className={ classes.imageButton }>
-                            <ReactSVG className={ classes.icon } src={ trash.src }/>
-                        </button>
-                    </div>
-                ))}
-            </div>
+                            <button className={ classes.imageButton } onClick={ () => {
+                                delAsset(item._id).then();
+                            } }>
+                                <ReactSVG className={ classes.icon } src={ trash.src }/>
+                            </button>
+                        </>
+                    );
+                } }>
+            </VirtuosoGrid>
         );
     }
 

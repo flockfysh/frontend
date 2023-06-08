@@ -48,37 +48,34 @@ function DatasetSearchResult(props: { name?: string }) {
     const initialState = () => {
         return {
             hasMore: true,
-            prevId: undefined,
+            next: undefined,
             datasets: [],
         };
     };
     const [state, setState] = React.useState<{
         hasMore: boolean,
-        prevId: string | undefined,
+        next: string | undefined,
         datasets: (Flockfysh.Dataset & {
             assetCounts: Flockfysh.DatasetAssetCounts
         })[],
     }>(initialState);
 
     async function load() {
-        const fetched = (await api.get<{
-            success: true,
-            data: (Flockfysh.Dataset & {
-                assetCounts: Flockfysh.DatasetAssetCounts
-            })[]
-        }>('/api/datasets/search', {
+        const fetched = (await api.get<Api.PaginatedResponse<(Flockfysh.Dataset & {
+            assetCounts: Flockfysh.DatasetAssetCounts
+        })[]>>('/api/datasets/search', {
             params: {
                 name: props.name,
-                lessThan: state.prevId,
+                next: state.next,
                 expand: 'assetCounts',
                 limit: 50,
             }
-        })).data.data;
-        state.datasets.push(...fetched);
+        })).data;
+        state.datasets.push(...fetched.data);
         setState({
-            hasMore: fetched.length > 0,
+            hasMore: fetched.meta.hasNext,
             datasets: state.datasets,
-            prevId: fetched[fetched.length - 1]?._id,
+            next: fetched.meta.next,
         });
     }
 

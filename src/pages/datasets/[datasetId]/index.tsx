@@ -28,6 +28,7 @@ const MyDatasets: NextPageWithLayout = function () {
     const router = useRouter();
     const [showList, setShowList] = useState(true);
     const [dataset, setDataset] = React.useState<PopulatedDataset | undefined>();
+    const [currentNameQuery, setCurrentNameQuery] = React.useState('');
 
     React.useEffect(() => {
         async function load() {
@@ -120,7 +121,9 @@ const MyDatasets: NextPageWithLayout = function () {
 
                 {/* searchbar */}
                 <div className={ classes.actionAreaSearchWrapper }>
-                    <input type="search" placeholder="Search"/>
+                    <input type="search" placeholder="Search assets by regex" value={ currentNameQuery } onChange={ e => {
+                        setCurrentNameQuery(e.currentTarget.value);
+                    } }/>
                 </div>
 
                 {/* action functions */}
@@ -162,7 +165,10 @@ const MyDatasets: NextPageWithLayout = function () {
             </div>
 
             {/* list & grid */}
-            {<AssetViewer showList={ showList } datasetId={ router.query.datasetId }></AssetViewer>}
+            {<AssetViewer showList={ showList } searchQuery={ {
+                displayName: currentNameQuery || undefined,
+            } }
+                          datasetId={ router.query.datasetId }></AssetViewer>}
 
             {/* upload content */}
             <FileUploader datasetId={ router.query.datasetId }/>

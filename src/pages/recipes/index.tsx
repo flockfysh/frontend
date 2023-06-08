@@ -21,33 +21,30 @@ function RecipeSearchResult(props: {
     const initialState = () => {
         return {
             hasMore: true,
-            prevId: undefined,
+            next: undefined,
             recipes: [],
         };
     };
     const [state, setState] = React.useState<{
         hasMore: boolean,
-        prevId: string | undefined,
+        next: string | undefined,
         recipes: Flockfysh.RecipeWithLabels[],
     }>(initialState);
 
     async function load() {
-        const fetched = (await api.get<{
-            success: true,
-            data: Flockfysh.RecipeWithLabels[]
-        }>('/api/recipes/search', {
+        const fetched = (await api.get<Api.PaginatedResponse<Flockfysh.RecipeWithLabels[]>>('/api/recipes/search', {
             params: {
                 name: props.name,
-                lessThan: state.prevId,
+                next: state.next,
                 expand: 'labels',
                 limit: 50,
             }
-        })).data.data;
-        state.recipes.push(...fetched);
+        })).data;
+        state.recipes.push(...fetched.data);
         setState({
-            hasMore: fetched.length > 0,
+            hasMore: fetched.meta.hasNext,
             recipes: state.recipes,
-            prevId: fetched[fetched.length - 1]?._id,
+            next: fetched.meta.next,
         });
     }
 

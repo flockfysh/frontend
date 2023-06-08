@@ -148,30 +148,6 @@
 }
 
 
-.gridWrapper {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1rem;
-    overflow-y: auto;
-    flex: 1;
-    align-content: flex-start;
-    min-height: 30rem;
-}
-
-.imageWrapper {
-    position: relative;
-    height: fit-content;
-}
-
-.imageButton {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    background: transparent;
-    font-size: 1.5rem;
-}
-
-
 @media only all and (max-height: 768px) {
     .container {
         max-height: 100%;

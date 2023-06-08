@@ -114,7 +114,7 @@
     color: inherit;
     font: inherit;
     border: none;
-
+    vertical-align: middle;
 }
 
 .viewerTableBody .viewerTableCell {
@@ -143,6 +143,46 @@
     overflow: hidden;
     word-break: keep-all;
 }
+
+.gridWrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    /*grid-template-columns: repeat(6, 1fr);*/
+    gap: 1rem;
+    overflow-y: auto;
+    flex: 1;
+    align-content: flex-start;
+    min-height: 30rem;
+}
+
+.imageWrapper {
+    position: relative;
+    aspect-ratio: 1/1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image {
+    position: absolute;
+    object-position: center;
+    object-fit: contain;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--main-grey);
+}
+
+.imageButton {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: transparent;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
 
 @media only all and (min-width: 768px) {
     .uploadDate {

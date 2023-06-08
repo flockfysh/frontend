@@ -74,6 +74,17 @@ declare global {
             success: true,
             data: T,
         }
+
+        interface PaginatedResponse<T> {
+            success: true,
+            data: T,
+            meta: {
+                previous?: string,
+                next?: string,
+                hasPrevious: boolean,
+                hasNext: boolean,
+            }
+        }
     }
 }
 

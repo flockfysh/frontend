@@ -2,7 +2,9 @@
 const nextConfig = {
     // reactStrictMode: true,
     images: {
-        domains: ['*', '**', '*.*']
+        remotePatterns: [
+            { hostname: '*.digitaloceanspaces.com' }
+        ]
     }
 };
 
