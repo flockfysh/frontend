@@ -31,7 +31,10 @@ declare global {
             tags: string[];
             subTags: string[];
             user: string;
+            type: string;
             createdAt: Date;
+            price: number;
+            public: boolean;
             updatedAt: Date;
         }
 
