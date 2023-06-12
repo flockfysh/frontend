@@ -1,5 +1,5 @@
 import * as settings from '../settings';
-import path from 'path-browserify';
+import path from 'path';
 
 class AbstractWebSocket extends WebSocket {
     addMessageListener<T>(type: string, listener: (this: WebSocket, data: T) => any): void {
@@ -11,7 +11,6 @@ class AbstractWebSocket extends WebSocket {
         });
     }
 }
-
 
 export function createWebSocket(url: string): AbstractWebSocket {
     return new AbstractWebSocket(path.join(settings.socketIOServerURL, url));

@@ -1,23 +1,26 @@
 import { PropsWithChildren, useEffect, useState, createContext } from 'react';
-import Loading from '../components/loading/loading';
+import Loading from '../components/ui/loading/loading';
+
 import api from '../helpers/api';
 
 interface UserContext {
-    curUser: User | null,
+    user: User | null;
     setUser: (data: User | null) => void;
-    refresh: () => void;
+    refreshUser: () => void; // this will try to fetch the user again
 }
 
-export const UserContext = createContext<UserContext>({
-    curUser: null as (User | null),
-    setUser: () => {
-    },
-    refresh: () => {
-    },
-});
+export const UserContext = createContext<UserContext>(
+    {
+        user: null as (User | null),
+        setUser: () => {
+        },
+        refreshUser: () => {
+        },
+    }
+);
 
 export function UserWrapper(props: PropsWithChildren) {
-    const [curUser, setCurUser] = useState<User | null>(null);
+    const [user, setCurUser] = useState<User | null>(null);
     const [isLoading, updateLoading] = useState(true);
 
     useEffect(() => {
@@ -32,16 +35,13 @@ export function UserWrapper(props: PropsWithChildren) {
                             name: `${userData.curUser.firstName ?? ''} ${userData.curUser.lastName ?? ''}`,
                             email: userData.curUser.email,
                             profileImage: userData.curUser.profilePhoto,
-                            monthlyCost: {} as MonthlyCost,
-                            payments: [] as Cost[],
                         });
                     }
-                    else {
+ else {
                         setCurUser(null);
                     }
                 }
  catch (e) {
-
                 }
 
                 updateLoading(false);
@@ -55,11 +55,11 @@ export function UserWrapper(props: PropsWithChildren) {
         setCurUser(user);
     }
 
-    function refresh() {
+    function refreshUser() {
         updateLoading(true);
     }
 
-    const curState = { curUser, setUser, refresh };
+    const curState = { user, setUser, refreshUser };
     return (
         <UserContext.Provider value={ curState }>
             {props.children}

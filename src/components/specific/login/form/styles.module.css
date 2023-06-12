@@ -1,0 +1,116 @@
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.loginFieldset {
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.loginFormHeading {
+    font-weight: 700;
+    line-height: 1.5em;
+    color: var(--primary1-200);
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.error {
+    color: var(--error-500);
+    padding-left: 16px;
+}
+
+.input {
+    border-radius: 9999px;
+    background: transparent;
+    padding: 16px;
+    font-size: 0.875rem;
+    line-height: 1rem;
+    outline: none;
+    color: var(--white);
+    border: 1px solid var(--primary1-300);
+}
+
+.inputInvalid {
+    border-color: var(--error-500);
+}
+
+.input::placeholder {
+    color: var(--primary1-100);
+}
+
+.input:-webkit-autofill {
+    background: transparent;
+}
+
+.checkbox {
+    width: 24px;
+    height: 24px;
+    appearance: none;
+    transition: 0.15s;
+    position: relative;
+    border-radius: 6px;
+    border: 1.5px solid var(--primary1-200);
+}
+
+.checkbox:checked {
+    background-color: var(--primary1-200);
+}
+
+.checkbox:hover {
+    border-color: var(--primary1-300);
+}
+
+.label {
+    user-select: none;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    color: var(--primary1-200);
+}
+
+.signInUtilities {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.forgotPassword {
+    transition: 0.2s;
+    color: var(--error-500)
+}
+
+.forgotPassword:hover {
+    color: var(--error-600)
+}
+
+.signIn {
+    background: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary2-950);
+    font-size: 1rem;
+    line-height: 1.25rem;
+    gap: 8px;
+    border-radius: 9999px;
+    padding: 14px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.15s;
+    box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.5), 0px 8px 16px rgba(255, 255, 255, 0.1);
+}
+
+.signIn:hover {
+    background: var(--primary2-100);
+
+}

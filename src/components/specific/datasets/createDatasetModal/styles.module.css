@@ -1,0 +1,135 @@
+.createDatasetContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 20px;
+    align-items: center;
+}
+
+.formContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.nameInp {
+    padding: 16px;
+    gap: 16px;
+    
+    background: var(--primary2-950);
+    border-radius: 16px;
+    outline: none;
+    border: 1px solid var(--primary2-950);
+    color: var(--white);
+    resize: vertical;
+    transition: 0.15s;
+}
+
+.nameInp::placeholder {
+    color: var(--white);
+}
+
+.nameInp:focus {
+    border-color: var(--primary1-300);
+}
+
+.formContainer textarea {
+    padding: 16px;
+    gap: 16px;
+    font-size: 1rem;
+    height: 84px;
+    
+    background: var(--primary2-950);
+    border-radius: 16px;
+    outline: none;
+    border: 1px solid var(--primary2-950);
+    color: var(--white);
+    resize: vertical;
+    max-height: 120px;
+    font-family: 'Inter', sans-serif !important;
+    transition: 0.15s;
+}
+
+.formContainer textarea::placeholder {
+    color: var(--white);
+}
+
+.formContainer textarea:focus {
+    border-color: var(--primary1-300);
+}
+
+.recipeHeader {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17px;
+
+    color: var(--primary1-100);
+}
+
+.select {
+    width: 100%;
+}
+
+.selectPlaceholderContainer {
+    color: var(--white);
+}
+
+.create {
+    padding: 8px 16px;
+
+    width: 100%;
+    height: 48px;
+    cursor: pointer;
+    transition: 0.2s;
+
+    background: var(--primary1-100);
+
+    box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.5), 0px 8px 16px rgba(255, 255, 255, 0.1);
+    border-radius: 9999px;
+    font-weight: bold;
+    color: var(--primary2-950);
+}
+
+.create:hover {
+    background: var(--primary1-200);
+}
+
+.recipeContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 16px;
+
+    height: 145px;
+
+    background: var(--primary2-950);
+    border-radius: 16px;
+    width: 100%;
+}
+
+.card p {
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+.bottomContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 16px;
+
+    height: 145px;
+
+    background: var(--primary2-950);
+    border-radius: 16px;
+    width: 50%;
+}

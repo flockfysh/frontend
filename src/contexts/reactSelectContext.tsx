@@ -17,7 +17,7 @@ export function EmotionCacheProvider(props: PropsWithChildren) {
     const cache = useMemo(() => {
         return createCache({
             key: 'css-module',
-            insertionPoint: document.querySelector('title')!,
+            // insertionPoint: document.querySelector('title')!,
         });
     }, []);
 

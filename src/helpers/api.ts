@@ -1,12 +1,16 @@
 import axios, { AxiosError } from 'axios';
-import { serverURL } from '../settings';
-import { PrivateBetaError } from './errors';
 
-const api = axios.create({
-    baseURL: serverURL,
-    withCredentials: true,
-    responseType: 'json',
-});
+import { ApiError, PrivateBetaError } from './errors';
+import { SERVER_URL } from '../settings';
+
+const api = axios.create(
+    {
+        baseURL: SERVER_URL,
+        withCredentials: true,
+        responseType: 'json',
+    }
+);
+
 
 api.interceptors.response.use(undefined, function (error: AxiosError<{
     success: false,
@@ -19,12 +23,8 @@ api.interceptors.response.use(undefined, function (error: AxiosError<{
     const message = rawError?.message;
     const code = rawError?.code;
 
-    if (code === 'ERROR_PRIVATE_BETA') {
-        return Promise.reject(new PrivateBetaError(message));
-    }
-    else {
-        return Promise.reject(new Error(message));
-    }
+    if (code === 'ERROR_PRIVATE_BETA') return Promise.reject(new PrivateBetaError(message ?? '', code));
+    else return Promise.reject(new ApiError(message ?? '', code ?? ''));
 });
 
 export default api;

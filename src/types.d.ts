@@ -4,28 +4,32 @@ declare module '*.jpg';
 declare module '*.png';
 
 // #region Datasets
-declare interface ImageWithoutAnnotation {
+declare interface Asset {
     _id: string;
+    type: string;
+    uploadedAt: Date;
+    dataset: string;
+    size: number;
+    status: string;
     url: string;
-    displayName?: string;
+    displayName: string;
 }
 
 declare interface PartialDataset {
     name: string;
     id: string;
     description: string;
-    numImages: number;
+    tags: string[];
+    subTags: string[];
+    numAssets: number;
 }
 
-type DatasetState = 'untrained' | 'feedback' | 'completed'
+type DatasetStage = 'untrained' | 'feedback' | 'completed'
 
 declare interface Dataset extends PartialDataset {
-    dateCreated: Date;
-    plan: string;
-    monthlyCost: MonthlyCost;
-    classes: string[];
+    createdAt: Date;
     numTimesHumanFeedback: number,
-    state: DatasetState;
+    stage: DatasetStage;
     entityInfo: {
         itemCount: number;
         uploadedItemCount: number;
@@ -77,13 +81,8 @@ declare interface BaseUser {
     name: string;
     email: string;
     profileImage?: string;
-    role?: string;
-    phoneNumber?: number;
-    dateOfBirth?: Date;
 }
 
 declare interface User extends BaseUser {
-    monthlyCost: MonthlyCost;
-    payments: Cost[];
-    datasetIds?: number[];
+
 }

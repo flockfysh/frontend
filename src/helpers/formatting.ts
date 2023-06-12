@@ -6,6 +6,6 @@ export function formatFileSize(size: number) {
         size /= 1024;
         exponent++;
     }
-    
+
     return `${size.toFixed(2)}${prefixes[exponent]}B`;
 }
