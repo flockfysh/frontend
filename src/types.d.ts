@@ -78,9 +78,12 @@ declare interface MonthlyCost {
 }
 
 declare interface BaseUser {
-    name: string;
+    fullName: string;
+    firstName: string;
+    lastName: string;
+    username: string;
     email: string;
-    profileImage?: string;
+    profilePhoto?: string;
 }
 
 declare interface User extends BaseUser {

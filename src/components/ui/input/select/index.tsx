@@ -1,6 +1,6 @@
-import { forwardRef } from 'react';
-
-import Select, { Props, StylesConfig, GroupBase, SelectInstance, ClassNamesConfig } from 'react-select';
+import React, { forwardRef } from 'react';
+import classes from './styles.module.css';
+import Select, { Props, StylesConfig, GroupBase, SelectInstance } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 
 const theme = (theme: any) => (
@@ -21,16 +21,16 @@ const styles: StylesConfig = {
     control: (base) => (
         {
             ...base,
-            background: 'none',
+            background: 'var(--main-grey)',
             border: 'none',
-            borderBottom: '1px solid var(--elements-900)',
-            outline: 'none'
+            outline: 'none',
+            borderRadius: '8px',
         }
     ),
     menu: (base) => (
         {
             ...base,
-            background: 'var(--secondary-background)',
+            background: 'var(--main-grey)',
             borderRadius: '8px',
         }
     ),
@@ -45,19 +45,25 @@ const styles: StylesConfig = {
 const CustomSelect = forwardRef<any, Props>(function _CustomSelect<Option, IsMulti extends boolean = false, Group extends GroupBase<Option> = GroupBase<Option>>(
     props: Props<Option, IsMulti, Group>,
     ref: React.ForwardedRef<SelectInstance<Option, IsMulti, Group>>) {
+    const selectRef = React.useRef<SelectInstance<Option, IsMulti, Group> | null>(null);
+
     return (
         <Select
             { ...props }
             styles={ styles as unknown as StylesConfig<Option, IsMulti, Group> }
             theme={ theme }
             className={ props.className }
+            classNames={ {
+                ...props.classNames,
+            } }
             ref={ e => {
                 if (typeof ref === 'function') {
                     ref(e);
                 }
-                else if (ref) {
+ else if (ref) {
                     ref.current = e;
                 }
+                selectRef.current = e;
             } }
         />
     );
@@ -76,7 +82,7 @@ export const CustomCreatableSelect = forwardRef<any, Props>(function _CreatableC
                 if (typeof ref === 'function') {
                     ref(e);
                 }
-                else if (ref) {
+ else if (ref) {
                     ref.current = e;
                 }
             } }

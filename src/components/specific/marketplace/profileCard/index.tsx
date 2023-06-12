@@ -8,9 +8,9 @@ type ProfileCardProps = {
 export default function ProfileCard(props: ProfileCardProps) {
     return (
         <div className={ classes.profileContainer }>
-            <img src={ props.profilePicture } alt="Profile Picture" />
-            
-            <p>@{ props.username }</p>
+            <img src={ props.profilePicture } alt="Profile Picture"/>
+
+            <p>@{props.username}</p>
         </div>
     );
 }

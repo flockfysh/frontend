@@ -8,10 +8,19 @@
     gap: 13.5px;
     cursor: pointer;
     transition: 0.2s;
+    position: relative;
 }
 
 .card:hover {
     background: var(--primary2-200);
+}
+
+.linkOverlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
 }
 
 .firstRow {

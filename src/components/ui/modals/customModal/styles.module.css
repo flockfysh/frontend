@@ -11,17 +11,12 @@
 }
 
 .container {
+    padding: 2rem;
     border-radius: 20px;
     min-width: 30%;
     max-width: 100%;
-    max-height: 90%;
-    min-height: 30%;
     width: fit-content;
-    position: relative;
-    background: var(--primary1-950);
-    overflow: auto;
-    padding: 16px 16px 22px;
-    z-index: 99;
+    background: var(--background);
 }
 
 .blurBg {
@@ -29,9 +24,10 @@
 }
 
 .header {
-    margin-bottom: 20px;
+    padding: 16px;
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .headerText {

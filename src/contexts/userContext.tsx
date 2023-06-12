@@ -27,15 +27,11 @@ export function UserWrapper(props: PropsWithChildren) {
         if (isLoading) {
             (async function getUserState() {
                 try {
-                    const data = (await api.get('/api/auth/currentUser')).data;
+                    const data = (await api.get<Api.Response<{ curUser: User }>>('/api/auth/currentUser')).data;
                     const userData = data.data;
 
                     if (userData.curUser) {
-                        setCurUser({
-                            name: `${userData.curUser.firstName ?? ''} ${userData.curUser.lastName ?? ''}`,
-                            email: userData.curUser.email,
-                            profileImage: userData.curUser.profilePhoto,
-                        });
+                        setCurUser(userData.curUser);
                     }
  else {
                         setCurUser(null);

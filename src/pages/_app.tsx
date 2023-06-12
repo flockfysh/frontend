@@ -8,10 +8,10 @@ import { NextPage } from 'next';
 import React from 'react';
 
 import NotificationWrapper from '../contexts/notificationContext';
-import { UserWrapper } from '../contexts/userContext';
-import { ErrorWrapper } from '../contexts/errorContext';
-import { ScreenWrapper } from '../contexts/screenContext';
-import { EmotionCacheProvider } from '../contexts/reactSelectContext';
+import { UserWrapper } from '@/contexts/userContext';
+import { ErrorWrapper } from '@/contexts/errorContext';
+import { ScreenWrapper } from '@/contexts/screenContext';
+import { EmotionCacheProvider } from '@/contexts/reactSelectContext';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
     getLayout?: (page: React.ReactElement) => React.ReactNode

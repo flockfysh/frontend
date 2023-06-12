@@ -1,0 +1,10 @@
+.button {
+    padding: 16px;
+    cursor: pointer;
+    background: transparent;
+}
+
+.buttonIcon {
+    width: 24px;
+    height: 24px;
+}

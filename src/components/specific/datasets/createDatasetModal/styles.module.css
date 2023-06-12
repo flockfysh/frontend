@@ -16,7 +16,7 @@
 .nameInp {
     padding: 16px;
     gap: 16px;
-    
+
     background: var(--primary2-950);
     border-radius: 16px;
     outline: none;
@@ -24,6 +24,24 @@
     color: var(--white);
     resize: vertical;
     transition: 0.15s;
+}
+
+.newDatasetButton {
+    padding: 12px 24px;
+    gap: 6px;
+    background: var(--primary2-950);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nameInp:invalid {
+    border-color: var(--error-500)
+}
+
+.descInput:invalid {
+    border-color: var(--error-500)
 }
 
 .nameInp::placeholder {
@@ -39,7 +57,7 @@
     gap: 16px;
     font-size: 1rem;
     height: 84px;
-    
+
     background: var(--primary2-950);
     border-radius: 16px;
     outline: none;
@@ -133,3 +151,4 @@
     border-radius: 16px;
     width: 50%;
 }
+
