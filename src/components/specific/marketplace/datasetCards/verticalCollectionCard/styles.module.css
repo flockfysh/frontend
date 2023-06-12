@@ -19,25 +19,27 @@
 .contentContainer {
     display: flex;
     flex-direction: column;
-    margin: 20px;
+    margin: 10px;
     align-content: space-between;
+    gap: 32px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
 }
 
 .header img {
-    width: 152px;
-    height: 152px;
+    width: 72px;
+    height: 72px;
     background: rgba(0, 0, 0, 0.05);
-    border-radius: 36px;
-}
-
-.middleSection {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+    border-radius: 14px;
+    align-self: center;
 }
 
 .typeCard {
     width: fit-content;
+    height: fit-content;
 }
 
 .middleSection h1 {
@@ -48,19 +50,36 @@
     line-height: 32px;
 }
 
-.footer {
-
-}
-
-.footer p {
-    font-family: 'Segoe UI';
-    font-style: normal;
-    font-weight: 600;
-    line-height: 21px;
-}
-
 .profileCardContainer {
     width: fit-content;
     margin-top: 10px;
-    align-self: flex-start;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    justify-self: flex-end;
+}
+
+.infoHeader {
+    font-family: 'Segoe UI';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: 19px;
+    
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.info {
+    font-family: 'Segoe UI';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 27px;
+    margin-top: 10px;
+}
+
+.infoRight {
+    text-align: right;
 }
