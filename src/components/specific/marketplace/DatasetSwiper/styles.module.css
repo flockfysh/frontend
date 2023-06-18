@@ -17,6 +17,10 @@
     width: fit-content;
 }
 
+.wideSlide {
+    width: 25rem;
+}
+
 .slide:not(:last-child) {
     padding-right: 12px;
 }

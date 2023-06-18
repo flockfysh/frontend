@@ -16,6 +16,7 @@ import FeaturedDatasetsSection from '@/components/specific/marketplace/FeaturedD
 import DatasetSwiper from '@/components/specific/marketplace/DatasetSwiper';
 import { randomUUID } from 'crypto';
 import { v4 } from 'uuid';
+import { fakerEN } from '@faker-js/faker';
 
 const Marketplace: NextPageWithLayout = function () {
 
@@ -46,12 +47,65 @@ const Marketplace: NextPageWithLayout = function () {
                 completed: 500 * 1024 ** 2,
             },
         },
+        user: {
+            username: 'praks',
+            _id: '24159335',
+            fullName: 'Prakriti Bista',
+            firstName: 'Prakriti',
+            email: 'praks@gmail.com',
+            lastName: 'Bista',
+        },
         createdAt: new Date(),
         _id: v4(),
         name: 'Dataset name',
         subTags: [],
         tags: [],
-        user: '3254235252',
+        updatedAt: new Date(),
+        public: true,
+        price: 2.84448,
+        description: 'This is a random test dataset',
+    }));
+
+    const featuredDatasets: HomepageDataset[] = Array.from({ length: 8 }, () => ({
+        type: 'image',
+        likes: 50,
+        assetCounts: {
+            total: 450,
+            byStage: {
+                feedback: 0,
+                completed: 400,
+                uploaded: 50,
+            },
+            byAnnotationStatus: {
+                annotated: 450,
+                unannotated: 0,
+            }
+        },
+        size: {
+            total: {
+                total: Math.random() * 5 * 1024 ** 3,
+                cloud: 1024 ** 3,
+                cluster: 1024 ** 3,
+            },
+            byStage: {
+                uploaded: 0.5 * 1024 ** 2,
+                feedback: 0,
+                completed: 4 * 1024 ** 2,
+            },
+        },
+        user: {
+            username: 'praks',
+            _id: '24159335',
+            fullName: 'Prakriti Bista',
+            firstName: 'Prakriti',
+            email: 'praks@gmail.com',
+            lastName: 'Bista',
+        },
+        createdAt: new Date(),
+        _id: v4(),
+        name: fakerEN.animal.type(),
+        subTags: [],
+        tags: [],
         updatedAt: new Date(),
         public: true,
         price: 2.84448,
@@ -62,7 +116,7 @@ const Marketplace: NextPageWithLayout = function () {
         <div className={ classes.container }>
             <MarketplaceNavbar/>
 
-            <FeaturedDatasetsSection></FeaturedDatasetsSection>
+            <FeaturedDatasetsSection datasets={ featuredDatasets }></FeaturedDatasetsSection>
 
             <section className={ classes.sectionContainer }>
                 <div className={ classes.headerContainer }>
@@ -87,7 +141,7 @@ const Marketplace: NextPageWithLayout = function () {
                     </div>
                 </div>
 
-                <DatasetSwiper datasets={ datasets }></DatasetSwiper>
+                <DatasetSwiper cardType={ 'vertical' } datasets={ datasets }></DatasetSwiper>
 
             </section>
 
@@ -95,7 +149,7 @@ const Marketplace: NextPageWithLayout = function () {
                 <div className={ classes.headerContainer }>
                     <h1 className={ classes.header }>Premium Datasets</h1>
                 </div>
-                <DatasetSwiper datasets={ datasets }></DatasetSwiper>
+                <DatasetSwiper cardType={ 'vertical' } datasets={ datasets }></DatasetSwiper>
             </section>
 
             <section className={ classes.sectionContainer }>
@@ -142,8 +196,10 @@ const Marketplace: NextPageWithLayout = function () {
             </section>
 
             <section className={ classes.sectionContainer }>
-                <h1 className={ classes.header }>Other Collection</h1>
-            
+                <div className={ classes.headerContainer }>
+                    <h1 className={ classes.header }>Other Collection</h1>
+                </div>
+
                 <div className={ classes.cardContainer }>
                     <VerticalCollectionCard
                         avatar="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
@@ -184,7 +240,7 @@ const Marketplace: NextPageWithLayout = function () {
             </section>
 
             <section className={ classes.sectionContainer }>
-                <div className={ classes.trendingHeaderContainer }>
+                <div className={ classes.headerContainer }>
                     <h1 className={ classes.header }>Trending in Segmentations</h1>
                 </div>
 
@@ -192,6 +248,7 @@ const Marketplace: NextPageWithLayout = function () {
                     <VerticalCard
                         coverImg="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
                         name="Dataset Name"
+                        updatedAt={ new Date() }
                         owner="praks"
                         numItems={ 12000 }
                         size={ 25 }
@@ -202,6 +259,7 @@ const Marketplace: NextPageWithLayout = function () {
                         coverImg="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
                         name="Dataset Name"
                         owner="praks"
+                        updatedAt={ new Date() }
                         numItems={ 12000 }
                         size={ 25 }
                         type="images"
@@ -211,6 +269,7 @@ const Marketplace: NextPageWithLayout = function () {
                         coverImg="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
                         name="Dataset Name"
                         owner="praks"
+                        updatedAt={ new Date() }
                         numItems={ 12000 }
                         size={ 25 }
                         type="images"
@@ -220,6 +279,7 @@ const Marketplace: NextPageWithLayout = function () {
                         coverImg="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
                         name="Dataset Name"
                         owner="praks"
+                        updatedAt={ new Date() }
                         numItems={ 12000 }
                         size={ 25 }
                         type="images"
@@ -231,7 +291,7 @@ const Marketplace: NextPageWithLayout = function () {
                 <h1 className={ classes.howToHeader }>Upload, Request, and Share your Datasets</h1>
 
                 <div className={ classes.howToCards }>
-                    <HowToCards />
+                    <HowToCards/>
                 </div>
             </section>
         </div>

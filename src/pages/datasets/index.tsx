@@ -1,9 +1,6 @@
 import { NextPageWithLayout } from '@/pages/_app';
 import { ReactSVG } from 'react-svg';
 
-import { v4 } from 'uuid';
-import dayjs from 'dayjs';
-
 import MainLayout from '@/components/layout/MainLayout';
 import DatasetCard from '@/components/specific/datasets/myDatasets/DatasetCard';
 import CreateDatasetModal from '@/components/specific/datasets/createDatasetModal';
@@ -44,6 +41,7 @@ const MyDatasets: NextPageWithLayout = function () {
 };
 
 function DatasetSearchResult(props: { name?: string }) {
+
     const scrollerContainerRef = React.useRef<HTMLDivElement | null>(null);
     const initialState = () => {
         return {
@@ -52,6 +50,7 @@ function DatasetSearchResult(props: { name?: string }) {
             datasets: [],
         };
     };
+
     const [state, setState] = React.useState<{
         hasMore: boolean,
         next: string | undefined,
@@ -60,6 +59,10 @@ function DatasetSearchResult(props: { name?: string }) {
         })[],
     }>(initialState);
 
+    React.useEffect(() => {
+        setState(initialState);
+    }, [props.name]);
+
     async function load() {
         const fetched = (await api.get<Api.PaginatedResponse<(Flockfysh.Dataset & {
             assetCounts: Flockfysh.DatasetAssetCounts
@@ -67,7 +70,7 @@ function DatasetSearchResult(props: { name?: string }) {
             params: {
                 name: props.name,
                 next: state.next,
-                expand: 'assetCounts',
+                expand: 'assetCounts,user',
                 limit: 50,
             }
         })).data;

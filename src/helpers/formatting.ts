@@ -7,5 +7,5 @@ export function formatFileSize(size: number) {
         exponent++;
     }
 
-    return `${size.toPrecision(2)}${prefixes[exponent]}B`;
+    return `${size.toFixed(2)}${prefixes[exponent]}B`;
 }

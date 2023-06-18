@@ -62,9 +62,10 @@
 .datasetName {
     font-style: normal;
     font-weight: 600;
-    font-size: 32px;
-    line-height: 40px;
+    font-size: 2rem;
+    line-height: 2.5rem;
     letter-spacing: -0.64px;
+    text-align: center;
 }
 
 .footer {
@@ -105,9 +106,10 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
+    align-items: center;
 }
 
-.infoContainer p {
+.infoContainerLabel {
     color: rgba(255, 255, 255, 0.8);
     font-style: normal;
     font-weight: 600;
@@ -115,9 +117,9 @@
     line-height: 19px;
 }
 
-.infoContainer h1 {
+.infoContainerValue {
     font-style: normal;
     font-weight: 600;
     font-size: 1.25rem;
-    line-height: 27px;
+    line-height: 1.75rem;
 }

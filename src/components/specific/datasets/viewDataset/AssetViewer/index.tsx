@@ -13,7 +13,7 @@ import api from '@/helpers/api';
 import classes from './styles.module.css';
 import { ReactSVG } from 'react-svg';
 import trash from '@/icons/main/trash-2.svg';
-import { GridItemProps, ScrollerProps, TableVirtuoso, VirtuosoGrid, VirtuosoGridProps } from 'react-virtuoso';
+import { ScrollerProps, TableVirtuoso, VirtuosoGrid } from 'react-virtuoso';
 import dayjs from 'dayjs';
 import { capitalize } from '@/helpers/strings';
 import { formatFileSize } from '@/helpers/formatting';
@@ -187,12 +187,12 @@ export default function AssetViewer(props: {
         return (
             <VirtuosoGrid
                 data={ assetArray }
+                className={ classes.gridContainer }
                 listClassName={ classes.gridWrapper }
-                itemClassName={ classes.imageWrapper }
                 endReached={ () => load().then() }
                 itemContent={ (index, item) => {
                     return (
-                        <>
+                        <div className={ classes.imageWrapper }>
                             <Image fill={ true } className={ classes.image } src={ item.url }
                                    alt={ item.displayName }/>
 
@@ -201,7 +201,7 @@ export default function AssetViewer(props: {
                             } }>
                                 <ReactSVG className={ classes.icon } src={ trash.src }/>
                             </button>
-                        </>
+                        </div>
                     );
                 } }>
             </VirtuosoGrid>

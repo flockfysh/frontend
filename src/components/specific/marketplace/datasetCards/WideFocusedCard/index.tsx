@@ -1,6 +1,7 @@
 import DatasetTypeCard from '../../datasetTypeCard';
 
 import classes from './styles.module.css';
+import { formatFileSize } from '@/helpers/formatting';
 
 type WideFocusedCardProps = {
     name: string;
@@ -11,7 +12,7 @@ type WideFocusedCardProps = {
     type: string;
 }
 
-const TEST_URL = 'https://s3-alpha-sig.figma.com/img/efef/125a/480e2d2c1254490a3725b0c0a6c45edb?Expires=1686528000&Signature=AgfEYGXZwk4fKJ03f07hg2Ju2mrDjOv30qZrB~za0-5tvgVea1lN-WzcBdMouigAt6eWY3FUhb8bU~mwAfKLZyItadlOizm08hutx60lQPUsHv2Nxfv6mnqoSaqnuYibbuTn9UK1X0V7C8UT2CWM5EXILs~vsixZ9E2NeuRlIWbz8~xKezY2q~b~YB-a17Og8pRBOBoZNR6tGEsEBlI7CnLxXDlN4fwqIn~JdBUQtPxKtT3O2znDe2-S5W-A0Tpeuv8yHeRTL1lx1hVBKsKw69zumbIaoGEDHJoAk5n1lwUDw4Yi3bMXwY8QQBNWtn~TFxlPVJdZOTAPXR~ivi7pWQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4';
+const TEST_URL = 'https://s3-alpha-sig.figma.com/img/f047/4a98/8b4d07ab312672f12d10b21fec40327c?Expires=1687737600&Signature=qHIX10Eb9MJf3iZOWiJZ8vsQ003vAaoSmRJQ3Uc49mHCZ5ZpDqHbyMDucJo0KG7afWq2El18GuwiyojHjfaExSHMybwUNqksO~YO2C5FCZoVdzt9j0Lyak4-zA840nJDyWsdh21O85b9PTMSVq2vTcR9rGcO22Ogb-w0Iy3JIbdGm3cVbwOo5JScjvLWwwdBaLJ9qyrSvQ60ldOM9DhBcia9Te1eQX7iS7jJIdF6fTV96XIbOCqp6pNQJzvNWVETibnvYJbP4jXon-C0fdWHsjhrrQw3mcUu59s38W7Kcbe1QJyFqwg-1w8Riro7K3Z1TiKEi3D4~ZcTgdhsQNwhKQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4';
 
 export default function WideFocusedCard(props: WideFocusedCardProps) {
     return (
@@ -38,15 +39,15 @@ export default function WideFocusedCard(props: WideFocusedCardProps) {
 
                 <div className={ classes.right }>
                     <div className={ classes.infoContainer }>
-                        <p>Items</p>
+                        <span className={ classes.infoContainerLabel }>Items</span>
 
-                        <h1>{props.numItems}</h1>
+                        <span className={ classes.infoContainerValue }>{props.numItems}</span>
                     </div>
 
                     <div className={ classes.infoContainer }>
-                        <p>Size</p>
+                        <span className={ classes.infoContainerLabel }>Size</span>
 
-                        <h1>{props.size} GB</h1>
+                        <span className={ classes.infoContainerValue }>{formatFileSize(props.size)}</span>
                     </div>
                 </div>
             </div>

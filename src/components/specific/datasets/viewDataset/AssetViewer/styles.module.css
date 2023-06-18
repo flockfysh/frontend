@@ -152,6 +152,10 @@
     overflow-y: auto;
     flex: 1;
     align-content: flex-start;
+}
+
+.gridContainer {
+    width: 100%;
     min-height: 30rem;
 }
 
