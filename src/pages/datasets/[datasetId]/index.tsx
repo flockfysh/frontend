@@ -17,17 +17,10 @@ import AssetViewer from '@/components/specific/datasets/viewDataset/AssetViewer'
 import { formatFileSize } from '@/helpers/formatting';
 import { dayjs } from '@/helpers/date';
 
-type PopulatedDataset = Flockfysh.Dataset & {
-    size: Flockfysh.DatasetSize,
-    assetCounts: Flockfysh.DatasetAssetCounts,
-    annotationCounts: Flockfysh.DatasetAnnotationCounts,
-};
-
-
 const MyDatasets: NextPageWithLayout = function () {
     const router = useRouter();
     const [showList, setShowList] = useState(true);
-    const [dataset, setDataset] = React.useState<PopulatedDataset | undefined>();
+    const [dataset, setDataset] = React.useState<Flockfysh.PopulatedDataset | undefined>();
     const [currentNameQuery, setCurrentNameQuery] = React.useState('');
 
     React.useEffect(() => {
@@ -37,7 +30,7 @@ const MyDatasets: NextPageWithLayout = function () {
             if (typeof datasetId !== 'string') {
                 return;
             }
-            const result = (await api.get<Api.Response<PopulatedDataset>>(`/api/datasets/${datasetId}`, {
+            const result = (await api.get<Api.Response<Flockfysh.PopulatedDataset>>(`/api/datasets/${datasetId}`, {
                 params: {
                     expand: 'size,assetCounts,annotationCounts'
                 }
@@ -150,7 +143,7 @@ const MyDatasets: NextPageWithLayout = function () {
 
                     {/* action button */}
                     <div className={ classes.actionButtonsWrapper }>
-                        <button className={ classes.actionButtonInitiateTraining }>
+                        <button onClick = { () => { router.push("../training/"+router.query.datasetId) }} className={ classes.actionButtonInitiateTraining }>
                             Initiate Training
                             <ReactSVG className={ classes.icon } src={ cpu.src }/>
                         </button>

@@ -39,6 +39,12 @@ declare global {
             stage: string;
         }
 
+        interface PopulatedDataset extends Dataset{
+            size: Flockfysh.DatasetSize,
+            assetCounts: Flockfysh.DatasetAssetCounts,
+            annotationCounts: Flockfysh.DatasetAnnotationCounts,
+        };
+
         interface DatasetAssetCounts {
             byStage: Record<Flockfysh.AssetStages, number>;
             total: number;

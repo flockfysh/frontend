@@ -1,19 +1,19 @@
-import classes from '../common.module.css';
-import trainingClasses from './train.module.css';
+import classes from './styles.module.css';
 import { RxArrowRight } from 'react-icons/rx';
-import Button from '../../../UI/button/button';
+import Button  from '@/components/ui/theming/Button';
 import { CustomCreatableSelect } from '@/components/ui/input/select';
-import React from 'react';
-import { LABEL_COLORS } from '../../../../settings';
-import api from '../../../../helpers/api';
+import React, { useState } from 'react';
+import { LABEL_COLORS } from '@/settings';
+import api from '@/helpers/api';
 import { AxiosError } from 'axios';
-import { ErrorContext } from '../../../../contexts/errorContext';
+import { ErrorContext } from '@/contexts/errorContext';
 import dayjs from 'dayjs';
 import Duration from 'dayjs/plugin/duration';
 import RelativeTime from 'dayjs/plugin/relativeTime';
 import { v4 } from 'uuid';
-import { ProgressScreenProps } from '../progressScreen/progressScreen';
 import { useRouter } from 'next/router';
+import { NextPageWithLayout } from '@/pages/_app';
+import MainLayout from '@/components/layout/MainLayout';
 
 dayjs.extend(Duration);
 dayjs.extend(RelativeTime);
@@ -27,8 +27,8 @@ function TrainingLabels(props: React.ComponentPropsWithRef<'label'> & { labelCol
     const { labelColor, ...smallProps } = props;
 
     return (
-        <label { ...smallProps } className={ `${trainingClasses.label} ${props.className || ''}` }>
-            <div className={ trainingClasses.labelDot } style={ {
+        <label { ...smallProps } className={ `${classes.label} ${props.className || ''}` }>
+            <div className={ classes.labelDot } style={ {
                 backgroundColor: labelColor ?? LABEL_COLORS[0],
             } }></div>
             {props.children}
@@ -36,29 +36,45 @@ function TrainingLabels(props: React.ComponentPropsWithRef<'label'> & { labelCol
     );
 }
 
-export default function Train(props: {
-    dataset: Flockfysh.Dataset,
-    setTaskInProgress: React.Dispatch<React.SetStateAction<boolean>>
-    setProgressScreenProps: React.Dispatch<React.SetStateAction<ProgressScreenProps|undefined>>
-}) {
+const Train : NextPageWithLayout = function(props: {}) {
     const { throwError } = React.useContext(ErrorContext);
+    const [dataset, setDataset] = useState<Flockfysh.PopulatedDataset | null>(null);
     const router = useRouter();
 
-    if (props.dataset.stage === 'completed') {
+    React.useEffect(() => {
+        async function load() {
+            const datasetId = router.query.trainId;
+
+            if (typeof datasetId !== 'string') {
+                return;
+            }
+            const result = (await api.get<Api.Response<Flockfysh.PopulatedDataset>>(`/api/datasets/${datasetId}`, {
+                params: {
+                    expand: 'size,assetCounts,annotationCounts'
+                }
+            })).data.data;
+            setDataset(result);
+        }
+
+        load().then();
+
+    }, [router.query.datasetId]);
+
+    if (dataset && dataset!.stage === 'completed') {
         router.push('/datasets/'+router.query.datasetId);
     }
 
     async function initiateSubmission(e: React.FormEvent<HTMLFormElement>) {
         try {
             e.preventDefault();
-            if (props.dataset.stage === 'untrained') {
+            if (dataset!.stage === 'untrained') {
                 const submissionForm = e.currentTarget;
                 const fd = new FormData(submissionForm);
                 const classSearchQueries: Record<string, string[]> = {};
                 for (const key of fd.keys()) {
                     if (/^searchQuery/.test(key)) {
                         const labelIndex = +key.split('_')[1];
-                        const label = props.dataset.tags[labelIndex];
+                        const label = dataset!.tags[labelIndex];
                         classSearchQueries[label] = fd.getAll(key) as string[];
                     }
                 }
@@ -68,17 +84,11 @@ export default function Train(props: {
                     // eslint-disable-next-line camelcase
                     class_search_queries: classSearchQueries,
                 };
-                await api.post(`/api/dataset/${props.dataset._id}/initializeTraining`, requestBody);
+                await api.post(`/api/datasets/${dataset!._id}/initializeTraining`, requestBody);
             }
-            else if (props.dataset.stage === 'feedback') {
-                await api.post(`/api/dataset/${props.dataset._id}/continueTraining`);
+            else if (dataset!.stage === 'feedback') {
+                await api.post(`/api/datasets/${dataset!._id}/continueTraining`);
             }
-            props.setTaskInProgress(true);
-            props.setProgressScreenProps({
-                current: 0,
-                total: 100,
-                description: 'Starting Flockfysh training...',
-            });
         }
  catch (error) {
             if (error instanceof AxiosError) {
@@ -93,22 +103,22 @@ export default function Train(props: {
         'completed': null,
     };
 
-    return (
+    return dataset ? (
         <div className={ classes.container }>
             <form className={ classes.contentContainer } onSubmit={ initiateSubmission }>
                 <div className={ classes.titleBar }>
                     <h1>Dataset training</h1>
                     <Button type={ 'submit' } className={ classes.utilityButton } gradient={ true }>
-                        {buttonLabel[props.dataset.stage]}
+                        {buttonLabel[dataset!.stage]}
                         <RxArrowRight className={ classes.icon }></RxArrowRight>
                     </Button>
                 </div>
-                {props.dataset.stage === 'untrained' ? (
+                {dataset!.stage === 'untrained' ? (
                     <div className={ classes.formInputs }>
                         <div className={ classes.labelledInputContainer }>
                             <span className={ classes.labelledInputContainer__label }>Search Queries</span>
-                            <ul className={ trainingClasses.trainingQueriesInputs }>
-                                {props.dataset.tags.map(function generateSearchQueryInput(classString, index) {
+                            <ul className={ classes.trainingQueriesInputs }>
+                                {dataset!.tags.map(function generateSearchQueryInput(classString, index) {
                                     const id = v4();
                                     return (
                                         <React.Fragment key={ index }>
@@ -116,7 +126,7 @@ export default function Train(props: {
                                                             labelColor={ LABEL_COLORS[index] }>{classString}</TrainingLabels>
                                             <CustomCreatableSelect name={ `searchQuery_${index}` } instanceId={ id }
                                                                    isMulti={ true }
-                                                                   className={ trainingClasses.querySelect }></CustomCreatableSelect>
+                                                                   className={ classes.querySelect }></CustomCreatableSelect>
                                         </React.Fragment>
                                     );
                                 })}
@@ -134,5 +144,15 @@ export default function Train(props: {
                 ) : <></>}
             </form>
         </div>
-    );
+    ) : <></>;
 }
+
+Train.getLayout = function (page) {
+    return (
+        <MainLayout>
+            {page}
+        </MainLayout>
+    );
+};
+
+export default Train;
