@@ -201,10 +201,12 @@ export default function RecipeForm(props: RecipeFormProps) {
 
     async function onSubmit() {
         if (!props.id) {
+            console.log("HI");
             await createRecipe({
                 name: name,
                 labels: Array.from(labels.values())
             });
+            console.log("BYE");
         }
  else {
             await editRecipe(props.id, {

@@ -36,6 +36,7 @@ declare global {
             price: number;
             public: boolean;
             updatedAt: Date;
+            stage: string;
         }
 
         interface DatasetAssetCounts {

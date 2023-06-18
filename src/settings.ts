@@ -9,7 +9,7 @@ export const LABEL_COLORS = [
     '#00CCFF',
 ];
 
-export const DEBUG = process.env.NODE_ENV === 'development';
+export const DEBUG = true;//process.env.NODE_ENV === 'development';
 
 /* The CRA framework will automatically set process.env.NODE_ENV to development, which corresponds to debug mode. */
 export const FRONTEND_URL =
