@@ -51,7 +51,7 @@ export const data = function() {
             {
                 yAxesId: 'y',
                 type: 'line' as const,
-                label: 'Dataset 1',
+                label: 'Num Datasets',
                 borderWidth: 2,
                 fill: false,
                 data: labels.map(() => Math.random() * 1000),
@@ -73,7 +73,7 @@ export const data = function() {
             {
                 yAxesId: 'y1',
                 type: 'bar' as const,
-                label: 'Dataset 2',
+                label: 'Num Files',
                 backgroundColor: 'white',
                 borderColor: 'white',
                 data: labels.map(() => Math.random() * 1000),
@@ -94,9 +94,23 @@ const options = {
     stacked: false,
     plugins: {
         title: {
-            display: true,
-            text: 'Chart.js Line Chart - Multi Axis',
+            display: true
         },
+        tooltip: {
+            backgroundColor: '#1E1E1E',
+            titleColor: '#D2E1FF',
+            titleFont: {
+                weight: '700',
+                size: 16
+            },
+            titleAlign: 'center',
+            bodyColor: '#D2E1FF',
+            // bodyAlign: 'center',
+            displayColors: false,
+            caretSize: 0,
+            borderColor: '#222327',
+            borderWidth: 1
+        }
     },
     scales: {
         yAxes: {
@@ -107,8 +121,7 @@ const options = {
             ticks: {
                 display: false,
                 color: '#D2E1FF',
-            },
-            labelString: 'sad'
+            }
         },
         y: {
             type: 'linear' as const,
@@ -165,7 +178,13 @@ export default function ActivityGraph() {
     return (
         <div className={ classes.container }>
             <div className={ classes.headerContainer }>
-                <h1 className={ classes.header }>Latest Activity</h1>
+                <div className={ classes.topHeaderContainer }>
+                    <h1 className={ classes.header }>Latest Activity</h1>
+                
+                    <div>
+
+                    </div>
+                </div>
 
                 <div className={ classes.headerContent }>
                     <div className={ classes.activityTimeline }>
