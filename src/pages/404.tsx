@@ -12,7 +12,7 @@ export default function PageNotFound() {
             </div>
 
             <p>
-                We fyshed long and hard but couldn't find the page you were
+                We fyshed long and hard but couldn&apos;t find the page you were
                 looking for!
             </p>
 
