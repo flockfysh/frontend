@@ -1,0 +1,142 @@
+.mainDiv{
+    border: 1px solid var(--white);
+    border-radius: 20px;
+    padding: 2rem 1rem;
+    height: 53rem;
+    overflow-y: scroll;
+    margin-top: 3rem;
+    
+}
+
+.mainDiv::-webkit-scrollbar-track {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.headDiv{
+    display: flex;
+    justify-content: space-between;
+    justify-self: stretch;
+    /* width: 100%; */
+    grid-column: 1/-1;
+}
+
+.logoContainer {
+    display: flex;
+    color: var(--primary1-100);
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 32px;
+    margin-right: 20px;
+}
+
+.logoContainer p {
+    margin-left: 10px;
+}
+
+.mobileSearch {
+    display: none;
+    cursor: pointer;
+    align-self: center;
+    color: var(--primary1-100);
+}
+
+.searchContainer {
+    border-radius: 8px;
+    width: 36%;
+
+    height: 2.7rem;
+    align-items: center;
+
+    background: var(--main-grey);
+    color: var(--primary1-100);
+    display: flex;
+    padding: 10px 16px;
+    gap: 16px;
+    transition: 0.2s;
+}
+
+.search {
+    font: inherit;
+    color: inherit;
+    font-weight: 700;
+    background: none;
+    appearance: none;
+    flex: 1;
+}
+
+.search::placeholder {
+    font: inherit;
+}
+
+.search:focus {
+    outline: none;
+    color: inherit;
+}
+
+.search:focus::placeholder {
+    color: inherit;
+}
+
+.leftIcon {
+    align-self: center;
+    margin: 0px 15px;
+    color: var(--primary1-100);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.leftIcon:hover {
+    color: var(--primary1-300);
+}
+
+.navButton{
+    background-color: transparent;
+    font-size: 1rem;
+    font-weight: 700;
+}
+.navButton:nth-child(2){
+    border-left: 1px solid;
+    border-right: 1px solid;
+    padding: 0.7rem 0.85rem;
+}
+.navButton:nth-child(1){
+    padding: 0 0.85rem;
+    border-radius: 20px 0 0 20px;
+}
+.navButton:nth-child(3){
+    padding: 0 0.85rem;
+    border-radius: 0 20px 20px 0;
+}
+.navButton:hover{
+    background-color: var(--white-transparent);
+}
+.navButton:focus{
+    background-color: var(--white-transparent);
+}
+
+.navDiv{
+    display: flex;
+    border: 1px solid;
+    border-radius: 20px;
+    width: fit-content;
+}
+
+.cardDiv{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    row-gap: 2rem;
+    column-gap: 1rem;
+    justify-items: center;
+}
+
+@media (max-width: 660px) {
+    .searchContainer {
+        display: none;
+    }
+
+    .mobileSearch {
+        display: block;
+    }
+}
