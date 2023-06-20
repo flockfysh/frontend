@@ -1,22 +1,22 @@
-import 'swiper/css';
-import 'swiper/css/navigation';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper';
 import { NextPageWithLayout } from '@/pages/_app';
+
+import { v4 } from 'uuid';
+import { fakerEN } from '@faker-js/faker';
+
 import MarketplaceNavbar from '@/components/specific/marketplace/navbar';
 import VerticalCard from '@/components/specific/marketplace/datasetCards/verticalCard';
 import VerticalFocusedCard from '@/components/specific/marketplace/datasetCards/verticalFocusedCard';
-
 import VerticalCollectionCard from '@/components/specific/marketplace/datasetCards/verticalCollectionCard';
 
 import HowToCards from '@/components/specific/marketplace/datasetCards/howToCards';
 
+import FeaturedDatasetsSection from '@/components/specific/marketplace/featuredDatasetsSection';
+import DatasetSwiper from '@/components/specific/marketplace/datasetSwiper';
+
+import 'swiper/css';
+import 'swiper/css/navigation';
+
 import classes from './styles.module.css';
-import FeaturedDatasetsSection from '@/components/specific/marketplace/FeaturedDatasetsSection';
-import DatasetSwiper from '@/components/specific/marketplace/DatasetSwiper';
-import { randomUUID } from 'crypto';
-import { v4 } from 'uuid';
-import { fakerEN } from '@faker-js/faker';
 
 const Marketplace: NextPageWithLayout = function () {
     const datasets: HomepageDataset[] = Array.from({ length: 8 }, () => ({

@@ -21,7 +21,7 @@ export function useMediaQuery(
         window.addEventListener('resize', update);
 
         return () => window.removeEventListener('resize', update);
-    }, [mediaQuery]);
+    }, [mediaQuery, callback]);
 }
 
 export const ScreenContext = createContext(

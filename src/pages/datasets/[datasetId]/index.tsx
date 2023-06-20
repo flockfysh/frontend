@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { NextPageWithLayout } from '@/pages/_app';
 import { ReactSVG } from 'react-svg';
-import MainLayout from '@/components/layout/MainLayout';
+import MainLayout from '@/components/layout/mainLayout';
 import { CircleProgressBar } from '@/components/specific/datasets/viewDataset/CircleProgressBar';
 import SpecificProgressData from '@/components/specific/datasets/viewDataset/SpecificProgressData';
 import FileUploader from '@/components/specific/datasets/viewDataset/FileUploader';

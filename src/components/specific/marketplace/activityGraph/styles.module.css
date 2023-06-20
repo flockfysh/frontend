@@ -6,6 +6,7 @@
     border-radius: 16px;
     border: 2px solid rgba(255, 255, 255, 0.11);
     padding: 2rem;
+    margin: 20px;
 }
 
 .headerContainer {
@@ -43,10 +44,10 @@
     
 }
 
-.chart {
+.history {
 
 }
 
-.history {
-
+.activityTableContainer {
+    
 }

@@ -1,5 +1,3 @@
-// import GradientLink from '../../components/UI/gradientLink/gradientLink';
-
 import classes from '../styles/custom404.module.css';
 
 export default function PageNotFound() {
@@ -12,12 +10,11 @@ export default function PageNotFound() {
             </div>
 
             <p>
-                We fyshed long and hard but couldn't find the page you were
-                looking for!
+                We fyshed long and hard but couldn&apos;t find the page you were looking for!
             </p>
 
             <div className={ classes.pnfButtonContainer }>
-                {/* <GradientLink to="/" children="Home" /> */}
+                
             </div>
         </div>
     );
