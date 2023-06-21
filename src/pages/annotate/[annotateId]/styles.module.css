@@ -1,0 +1,150 @@
+.annotateContainer {
+    margin-block: 6.5rem;
+    margin-inline: 3rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto 1fr auto;
+    align-items: center;
+    justify-items: stretch;
+    grid-gap: 2rem 2rem;
+    overflow: hidden;
+    width: 90%;
+}
+
+.initiateTrainingButton {
+    border-radius: 1rem;
+}
+
+.annotateContainer::after {
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+
+    position: absolute;
+    background: radial-gradient(
+            circle at top left,
+            var(--color-blue-gradients),
+            rgba(0, 0, 0, 0) 30%
+    ) top left;
+
+    content: "";
+    top: 0;
+    left: 0;
+    min-width: 30rem;
+}
+
+.headingContainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.heading {
+    font-size: 2.8rem;
+    text-align: left;
+
+}
+
+.contentContainer {
+    display: flex;
+    align-items: center;
+}
+
+.labelContainer {
+    padding: 0 4rem;
+    width: 100%;
+    display: flex;
+    border-radius: 2rem;
+    gap: 4rem;
+    background-color: var(--color-black-secondary);
+    overflow: hidden;
+}
+
+.labelList {
+    display: flex;
+    padding: 2rem 0;
+    gap: 2rem;
+    flex: 1;
+    overflow: auto;
+}
+
+.addLabelButton {
+    align-self: center;
+    flex: none;
+    height: 4rem;
+    padding: 0.75rem;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    transition: 0.2s;
+    background-color: var(--color-blue-tertiary);
+}
+
+.addLabelButton * {
+    width: 100%;
+    height: 100%;
+}
+
+.addLabelButton:hover {
+    color: var(--color-blue-secondary);
+}
+
+.leftContainer {
+    width: 100%;
+    height: 100%;
+    border-radius: 2rem;
+    overflow: hidden;
+    grid-column-start: span 2;
+}
+
+.rightContainer {
+}
+
+.switchImageContainer {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.switchImageButton {
+    border-radius: 1rem;
+    background: var(--color-blue-tertiary);
+    height: 4rem;
+    border: none;
+    aspect-ratio: 1/1;
+    cursor: pointer;
+    transition: 0.2s;
+    padding: 0.75rem;
+}
+
+.switchImageIcon {
+    width: 100%;
+    height: 100%;
+    color: white;
+}
+
+.switchImageButton:hover .svg {
+    stroke: var(--color-blue-secondary);
+}
+
+.submitButtonContainer * {
+    margin: auto;
+}
+
+.rightContainer {
+    height: 100%;
+}
+
+.box {
+    margin: auto;
+    height: 100%;
+    width: 6rem;
+    border-radius: 25px;
+    background-color: var(--color-black-secondary);
+}
+
+.utilityButtons {
+    display: flex;
+    padding: 2rem 0;
+}

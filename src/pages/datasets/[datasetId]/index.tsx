@@ -143,7 +143,7 @@ const MyDatasets: NextPageWithLayout = function () {
 
                     {/* action button */}
                     <div className={ classes.actionButtonsWrapper }>
-                        <button onClick = { () => { router.push("../training/"+router.query.datasetId) }} className={ classes.actionButtonInitiateTraining }>
+                        <button onClick = { () => { router.push("../annotate/"+router.query.datasetId) }} className={ classes.actionButtonInitiateTraining }>
                             Initiate Training
                             <ReactSVG className={ classes.icon } src={ cpu.src }/>
                         </button>
