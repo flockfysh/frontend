@@ -17,6 +17,7 @@ type VerticalCardProps = {
     type: string;
     isPaid?: boolean;
     price?: number;
+    key?: string;
 }
 
 export default function VerticalCard(props: VerticalCardProps) {

@@ -8,6 +8,8 @@
     --grey: #222327;
     --selection: #49535f;
     --dark-background: #03060e;
+    --white-transparent: #ffffff10;
+    --primary1-100-transparent: #d2e1ff3e;
 
     --primary1-100: #d2e1ff;
     --primary1-200: #adc7ff;
@@ -93,12 +95,6 @@
     --elements-800: #09665f;
     --elements-900: #0d544f;
     --elements-950: #003332;
-
-    --main-grey: #1E1E1E;
-    --background: #141414;
-    --secondary-background: #0D0C11;
-    --grey: #222327;
-    --selection: #49535F;
 }
 
 * {
