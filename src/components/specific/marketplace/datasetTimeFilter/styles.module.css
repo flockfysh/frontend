@@ -25,3 +25,7 @@
 .trendingFilterGrid:hover {
     background: var(--main-grey);
 }
+
+.selected {
+    background: var(--main-grey);
+}

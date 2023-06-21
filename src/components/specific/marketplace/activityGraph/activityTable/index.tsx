@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useState } from 'react';
-import { ScrollerProps, TableVirtuoso, VirtuosoGrid } from 'react-virtuoso';
+import { ScrollerProps, TableVirtuoso } from 'react-virtuoso';
 
 import {
     Table,
@@ -35,7 +35,6 @@ const TableComponents = {
         return (
             <TableContainer
                 { ...props }
-                className={ classes.viewerTableScroller }
                 ref={ ref }
             />
         );
@@ -53,7 +52,7 @@ const TableComponents = {
         return (
             <TableHead
                 { ...props }
-                className={ `${classes.viewerTableHead} ${props.className || ''}` }
+                className={ `${ classes.viewerTableHead } ${ props.className || '' }` }
                 ref={ ref }
             />
         );
@@ -62,7 +61,7 @@ const TableComponents = {
         return (
             <TableRow
                 { ...props }
-                className={ `${classes.viewerTableRow} ${props.className || ''}` }
+                className={ `${ classes.viewerTableRow } ${ props.className || '' }` }
                 ref={ ref }
             />
         );
@@ -96,24 +95,28 @@ function Header() {
     return (
         <>
             <TableRow>
-                <CustomTableCell>
-                    File name
+                <CustomTableCell >
+                    Date & Time
                 </CustomTableCell>
                 
-                <CustomTableCell >
-                    Uploaded at
+                <CustomTableCell>
+                    Username
                 </CustomTableCell>
 
                 <CustomTableCell>
-                    Type
+                    Action
                 </CustomTableCell>
                 
                 <CustomTableCell>
-                    Status
+                    Number of Files
                 </CustomTableCell>
 
                 <CustomTableCell>
                     Size
+                </CustomTableCell>
+
+                <CustomTableCell>
+                    Type
                 </CustomTableCell>
             </TableRow>
         </>
@@ -121,17 +124,17 @@ function Header() {
 }
 
 export default function ActivityTable(props: { datasetId?: string, userId?: string }) {
-    const fakeData = [
+    const fakeData = new Array(200).fill(
         {
             id: '1',
             date: new Date(),
-            action: ['added', 'removed', 'uploaded', 'initiated'][Math.floor(Math.random() * 4)] as ("added" | "removed" | "uploaded" | "initiated"),
+            action: ['added', 'removed', 'uploaded', 'initiated'][Math.floor(Math.random() * 4)] as ('added' | 'removed' | 'uploaded' | 'initiated'),
             numFiles: Math.floor(Math.random() * 20),
             size: Math.random() * 2.5e+10,
             type: 'image' as Flockfysh.AssetType,
             userName: 'praks',
         }
-    ];
+    );
     
     const initialState = (): ActivityViewerState => {
         return {
@@ -143,7 +146,9 @@ export default function ActivityTable(props: { datasetId?: string, userId?: stri
     };
 
     const [state, setState] = useState<ActivityViewerState>(initialState);
-    const dataArray = Array.from(state.data.values());
+    const dataArray = state.data;
+
+    console.log(dataArray);
 
     async function load(numItems: number=20) {
         // TODO: connect w/ backend
@@ -210,10 +215,6 @@ export default function ActivityTable(props: { datasetId?: string, userId?: stri
     }
 
     useEffect(() => {
-        setState(initialState);
-    }, [props.datasetId]);
-
-    useEffect(() => {
         if (state.initialLoad) {
             setState(prev => {
                 return {
@@ -237,6 +238,10 @@ export default function ActivityTable(props: { datasetId?: string, userId?: stri
                     console.log(data);
                     return (
                         <>   
+                            <CustomTableCell className={ classes.uploadDate }>
+                                <span>{ dayjs(data.date).format('DD/MM/YYYY') }</span>
+                            </CustomTableCell>
+
                             <CustomTableCell>
                                 <span className={ classes.filename }>
                                     <span className={ classes.filenameText }>
@@ -245,20 +250,20 @@ export default function ActivityTable(props: { datasetId?: string, userId?: stri
                                 </span>
                             </CustomTableCell>
 
-                            <CustomTableCell className={ classes.uploadDate }>
-                                <span>{ dayjs(data.date).format('DD/MM/YYYY') }</span>
-                            </CustomTableCell>
-                            
-                            <CustomTableCell>
-                                <span>{ capitalize(data.type) }</span>
-                            </CustomTableCell>
-
                             <CustomTableCell>
                                 <span>{ capitalize(data.action) }</span>
                             </CustomTableCell>
 
                             <CustomTableCell>
+                                <span>{ data.numFiles }</span>
+                            </CustomTableCell>
+
+                            <CustomTableCell>
                                 <span>{ formatFileSize(data.size) }</span>
+                            </CustomTableCell>
+
+                            <CustomTableCell>
+                                <span>{ capitalize(data.type) }s</span>
                             </CustomTableCell>
                         </>
                     );

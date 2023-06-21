@@ -49,7 +49,7 @@ export default function ActivityGraph(props: { type: 'user' | 'dataset' }) {
     ];
 
     // 0 = 1 week, 1 = 1 month, 2 = 6 months, 3 = 1 year
-    const [selectedTime, updateSelectedTime] = useState(0); 
+    const [selectedTime, updateSelectedTime] = useState(2); 
 
     return (
         <div className={ classes.container }>
@@ -57,7 +57,11 @@ export default function ActivityGraph(props: { type: 'user' | 'dataset' }) {
                 <div className={ classes.topHeaderContainer }>
                     <h1 className={ classes.header }>Latest Activity</h1>
 
-                    <DatasetTimeFilter callback={ () => {} } options={ ['7d', '1m', '6m', '1yr'] } />
+                    <DatasetTimeFilter
+                        callback={ (time) => updateSelectedTime(time) }
+                        options={ ['7d', '1m', '6m', '1yr'] }
+                        selected={ selectedTime }
+                    />
                 </div>
 
                 <div className={ classes.headerContent }>
@@ -82,7 +86,7 @@ export default function ActivityGraph(props: { type: 'user' | 'dataset' }) {
                 <h1 className={ classes.header }>Activity History</h1>
 
                 <div className={ classes.activityTableContainer }>
-                    {/* <ActivityTable /> */}
+                    <ActivityTable />
                 </div>
             </div>
         </div>

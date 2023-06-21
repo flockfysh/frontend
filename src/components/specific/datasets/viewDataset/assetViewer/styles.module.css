@@ -10,7 +10,6 @@
     display: none;
 }
 
-
 .viewerTable {
     min-height: 30rem;
 }
@@ -18,9 +17,7 @@
 .viewerTableScroller {
     overflow-x: auto;
     border-bottom: 1px solid transparent;
-
 }
-
 
 .viewerTableHead {
     position: relative;
