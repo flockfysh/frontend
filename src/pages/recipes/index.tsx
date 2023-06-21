@@ -2,7 +2,7 @@ import React from 'react';
 import { NextPageWithLayout } from '@/pages/_app';
 import { ReactSVG } from 'react-svg';
 
-import MainLayout from '@/components/layout/MainLayout';
+import MainLayout from '@/components/layout/mainLayout';
 import RecipeCard from '@/components/specific/recipes/RecipeCard';
 
 import search from '@/icons/main/search.svg';

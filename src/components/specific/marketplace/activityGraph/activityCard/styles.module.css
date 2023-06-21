@@ -1,0 +1,38 @@
+.container {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 16px;
+}
+
+.progressLineContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.progressCircle {
+    background: var(--primary1-100);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.progressLine {
+    background: var(--primary1-100);
+    width: 1px;
+    height: 60px;
+}
+
+.rightSideContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: var(--primary1-100);
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 24px;
+}
+
+.bolded {
+    font-weight: bold;
+}

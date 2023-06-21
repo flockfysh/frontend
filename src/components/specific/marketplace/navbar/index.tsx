@@ -1,14 +1,12 @@
 import { ReactSVG } from 'react-svg';
 
-import ProfileCard from '../profileCard';
-
 import fish from '@/icons/branding/fish.svg';
 import search from '@/icons/main/search.svg';
 import bell from '@/icons/main/bell.svg';
 import plusCircle from '@/icons/main/plus-circle.svg';
 
 import classes from './styles.module.css';
-import CurrentUserProfile from '@/components/specific/marketplace/CurrentUserProfile';
+import CurrentUserProfile from '@/components/specific/marketplace/currentUserProfile';
 
 export default function MarketplaceNavbar() {
     return (
@@ -36,7 +34,7 @@ export default function MarketplaceNavbar() {
             <div className={ classes.subContainer }>
                 <ReactSVG src={ plusCircle.src } className={ classes.leftIcon }/>
                 <ReactSVG src={ bell.src } className={ classes.leftIcon }/>
-                <CurrentUserProfile></CurrentUserProfile>
+                <CurrentUserProfile />
             </div>
         </nav>
     );

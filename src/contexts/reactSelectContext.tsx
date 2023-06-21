@@ -1,4 +1,5 @@
-import React, { PropsWithChildren, useMemo } from 'react';
+import { PropsWithChildren, useState, useEffect } from 'react';
+
 import createCache, { EmotionCache } from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
 
@@ -14,13 +15,13 @@ import { CacheProvider } from '@emotion/react';
  * @constructor
  */
 export function EmotionCacheProvider(props: PropsWithChildren) {
-    const [cache, setCache] = React.useState<EmotionCache>(() => {
+    const [cache, setCache] = useState<EmotionCache>(() => {
         return createCache({
             key: 'css-module',
         });
     });
 
-    React.useEffect(() => {
+    useEffect(() => {
         setCache(createCache({
             key: 'css-module',
             insertionPoint: document.querySelector('title')!,
@@ -30,8 +31,8 @@ export function EmotionCacheProvider(props: PropsWithChildren) {
     return (
         cache ? (
             <CacheProvider value={ cache }>
-                {props.children}
+                { props.children }
             </CacheProvider>
-        ) : <>{props.children}</>
+        ) : <>{ props.children }</>
     );
 }

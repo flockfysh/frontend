@@ -1,7 +1,4 @@
 import { PropsWithChildren } from 'react';
-import { ReactSVG } from 'react-svg';
-
-import xMark from '@/icons/xmark.svg';
 
 import classes from './styles.module.css';
 

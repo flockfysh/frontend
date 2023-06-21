@@ -1,25 +1,26 @@
-import 'swiper/css';
-import 'swiper/css/navigation';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper';
 import { NextPageWithLayout } from '@/pages/_app';
+
+import { v4 } from 'uuid';
+import { fakerEN } from '@faker-js/faker';
+
 import MarketplaceNavbar from '@/components/specific/marketplace/navbar';
 import VerticalCard from '@/components/specific/marketplace/datasetCards/verticalCard';
 import VerticalFocusedCard from '@/components/specific/marketplace/datasetCards/verticalFocusedCard';
-
 import VerticalCollectionCard from '@/components/specific/marketplace/datasetCards/verticalCollectionCard';
 
 import HowToCards from '@/components/specific/marketplace/datasetCards/howToCards';
 
+import FeaturedDatasetsSection from '@/components/specific/marketplace/featuredDatasetsSection';
+import DatasetSwiper from '@/components/specific/marketplace/datasetSwiper';
+
+import DatasetTimeFilter from '@/components/specific/marketplace/datasetTimeFilter';
+
+import 'swiper/css';
+import 'swiper/css/navigation';
+
 import classes from './styles.module.css';
-import FeaturedDatasetsSection from '@/components/specific/marketplace/FeaturedDatasetsSection';
-import DatasetSwiper from '@/components/specific/marketplace/DatasetSwiper';
-import { randomUUID } from 'crypto';
-import { v4 } from 'uuid';
-import { fakerEN } from '@faker-js/faker';
 
 const Marketplace: NextPageWithLayout = function () {
-
     const datasets: HomepageDataset[] = Array.from({ length: 8 }, () => ({
         type: 'image',
         likes: 50,
@@ -114,31 +115,15 @@ const Marketplace: NextPageWithLayout = function () {
 
     return (
         <div className={ classes.container }>
-            <MarketplaceNavbar/>
+            <MarketplaceNavbar />
 
-            <FeaturedDatasetsSection datasets={ featuredDatasets }></FeaturedDatasetsSection>
+            <FeaturedDatasetsSection datasets={ featuredDatasets } />
 
             <section className={ classes.sectionContainer }>
                 <div className={ classes.headerContainer }>
                     <h1 className={ classes.header }>Trending Datasets</h1>
 
-                    <div className={ classes.trendingFilterContainer }>
-                        <div className={ classes.trendingFilterGrid }>
-                            <div>1h</div>
-                        </div>
-
-                        <div className={ classes.trendingFilterGrid }>
-                            <div>6h</div>
-                        </div>
-
-                        <div className={ classes.trendingFilterGrid }>
-                            <div>24h</div>
-                        </div>
-
-                        <div className={ classes.trendingFilterGrid }>
-                            <div>7d</div>
-                        </div>
-                    </div>
+                    <DatasetTimeFilter callback={ () => {} } options={ ['1h', '1d', '7d', '1m'] } />
                 </div>
 
                 <DatasetSwiper cardType={ 'vertical' } datasets={ datasets }></DatasetSwiper>
@@ -158,22 +143,22 @@ const Marketplace: NextPageWithLayout = function () {
                 </div>
 
                 <div className={ classes.cardContainer }>
-                    {/*<VerticalFocusedCard*/}
-                    {/*    avatar="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"*/}
-                    {/*    name="Dataset Name"*/}
-                    {/*    owner="praks"*/}
-                    {/*    numDatasets={ 25 }*/}
-                    {/*    type="images"*/}
-                    {/*/>*/}
+                    <VerticalFocusedCard
+                       avatar="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
+                       name="Dataset Name"
+                       owner="praks"
+                       numDatasets={ 25 }
+                       type="images"
+                    />
 
-                    {/*<VerticalCard*/}
-                    {/*    coverImg="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"*/}
-                    {/*    name="Dataset Name"*/}
-                    {/*    owner="praks"*/}
-                    {/*    numItems={ 12000 }*/}
-                    {/*    size={ 25 }*/}
-                    {/*    type="images"*/}
-                    {/*/>*/}
+                    {/* <VerticalCard
+                       coverImg="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
+                       name="Dataset Name"
+                       owner="praks"
+                       numItems={ 12000 }
+                       size={ 25 }
+                       type="images"
+                    /> */}
 
                     {/*<VerticalCard*/}
                     {/*    coverImg="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"*/}
