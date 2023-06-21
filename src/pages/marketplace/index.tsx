@@ -13,6 +13,8 @@ import HowToCards from '@/components/specific/marketplace/datasetCards/howToCard
 import FeaturedDatasetsSection from '@/components/specific/marketplace/featuredDatasetsSection';
 import DatasetSwiper from '@/components/specific/marketplace/datasetSwiper';
 
+import DatasetTimeFilter from '@/components/specific/marketplace/datasetTimeFilter';
+
 import 'swiper/css';
 import 'swiper/css/navigation';
 
@@ -115,29 +117,13 @@ const Marketplace: NextPageWithLayout = function () {
         <div className={ classes.container }>
             <MarketplaceNavbar />
 
-            <FeaturedDatasetsSection datasets={ featuredDatasets }></FeaturedDatasetsSection>
+            <FeaturedDatasetsSection datasets={ featuredDatasets } />
 
             <section className={ classes.sectionContainer }>
                 <div className={ classes.headerContainer }>
                     <h1 className={ classes.header }>Trending Datasets</h1>
 
-                    <div className={ classes.trendingFilterContainer }>
-                        <div className={ classes.trendingFilterGrid }>
-                            <div>1h</div>
-                        </div>
-
-                        <div className={ classes.trendingFilterGrid }>
-                            <div>6h</div>
-                        </div>
-
-                        <div className={ classes.trendingFilterGrid }>
-                            <div>24h</div>
-                        </div>
-
-                        <div className={ classes.trendingFilterGrid }>
-                            <div>7d</div>
-                        </div>
-                    </div>
+                    <DatasetTimeFilter callback={ () => {} } options={ ['1h', '1d', '7d', '1m'] } />
                 </div>
 
                 <DatasetSwiper cardType={ 'vertical' } datasets={ datasets }></DatasetSwiper>

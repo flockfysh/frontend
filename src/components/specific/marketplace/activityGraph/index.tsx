@@ -4,6 +4,8 @@ import ActivityCard from './activityCard';
 import ActivityTable from './activityTable';
 import Graph from './graph';
 
+import DatasetTimeFilter from '../datasetTimeFilter';
+
 import classes from './styles.module.css';
 
 export default function ActivityGraph(props: { type: 'user' | 'dataset' }) {
@@ -55,7 +57,7 @@ export default function ActivityGraph(props: { type: 'user' | 'dataset' }) {
                 <div className={ classes.topHeaderContainer }>
                     <h1 className={ classes.header }>Latest Activity</h1>
 
-                    <div></div>
+                    <DatasetTimeFilter callback={ () => {} } options={ ['7d', '1m', '6m', '1yr'] } />
                 </div>
 
                 <div className={ classes.headerContent }>

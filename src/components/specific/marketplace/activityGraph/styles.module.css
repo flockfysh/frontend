@@ -13,6 +13,11 @@
 
 }
 
+.topHeaderContainer {
+    display: flex;
+    align-items: center;
+}
+
 .header {
     font-style: normal;
     font-weight: 700;

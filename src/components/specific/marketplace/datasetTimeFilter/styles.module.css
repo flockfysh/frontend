@@ -1,0 +1,27 @@
+.trendingFilterContainer {
+    display: flex;
+    border: 1px solid #1E1E1E;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+}
+
+.trendingFilterGrid {
+    width: 48px;
+    height: 48px;
+    color: var(--primary1-100);
+    text-align: center;
+    letter-spacing: 0.16px;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 22px;
+    cursor: pointer;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.trendingFilterGrid:hover {
+    background: var(--main-grey);
+}
