@@ -1,11 +1,6 @@
 import classes from './styles.module.css';
 
-type ActivityCardProps = {
-    dateAdded: Date;
-    activityDesc: string;
-}
-
-export default function ActivityCard(props: ActivityCardProps) {
+export default function ActivityCard(props: { activity: UserActivity | DatasetActivity }) {
     return (
         <div className={ classes.container }>
             <div className={ classes.progressLineContainer }>
@@ -16,7 +11,7 @@ export default function ActivityCard(props: ActivityCardProps) {
             <div className={ classes.rightSideContainer }>
                 <p>p</p>
 
-                <p>{ props.activityDesc }</p>
+                {/* <p>{ props.activityDesc }</p> */}
             </div>
         </div>
     );

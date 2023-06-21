@@ -9,7 +9,7 @@ export default function Home() {
 
             {/* <Login mode="login" /> */}
 
-            <ActivityGraph></ActivityGraph>
+            <ActivityGraph type="dataset" />
         </>
     );
 }
