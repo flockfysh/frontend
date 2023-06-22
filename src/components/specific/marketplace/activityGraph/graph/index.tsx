@@ -121,7 +121,7 @@ export default function Graph() {
                     display: true,
                     color: '#D2E1FF',
                     callback: function (tick: number | string, index: number, ticks: Tick[]) {
-                        return Math.floor(tick as number)
+                        return Math.floor(tick as number);
                     },
                     padding: 20
                 },
