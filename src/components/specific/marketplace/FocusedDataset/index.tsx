@@ -1,8 +1,8 @@
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import ProfileCard from '@/components/specific/marketplace/profileCard';
+import ProfileCard from '@/components/specific/marketplace/ProfileCard';
 import classes from './styles.module.css';
 import { Carousel } from 'react-responsive-carousel';
-import WideFocusedCard from '@/components/specific/marketplace/datasetCards/wideFocusedCard';
+import WideFocusedCard from '@/components/specific/marketplace/datasetCards/WideFocusedCard';
 import { useMediaQuery } from '@/helpers/mediaQuery';
 import React from 'react';
 import { formatFileSize } from '@/helpers/formatting';

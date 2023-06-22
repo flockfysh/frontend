@@ -3,5 +3,17 @@
 }
 
 .menu {
-    
+    background: var(--main-grey);
+    border-radius: 8px;
+}
+
+.control {
+    background: var(--main-grey);
+    border: none;
+    outline: none;
+    border-radius: 8px;
+}
+
+.placeholder {
+    color: inherit;
 }

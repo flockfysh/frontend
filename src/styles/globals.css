@@ -149,6 +149,10 @@ body {
     min-height: 100%;
 }
 
+a:visited {
+    color: inherit;
+}
+
 ::selection {
     background-color: var(--primary1-200);
 }

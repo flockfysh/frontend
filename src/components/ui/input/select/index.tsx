@@ -2,6 +2,8 @@ import React, { forwardRef } from 'react';
 import classes from './styles.module.css';
 import Select, { Props, StylesConfig, GroupBase, SelectInstance } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
+import { ar } from '@faker-js/faker';
+import { prop } from 'react-data-table-component/dist/src/DataTable/util';
 
 const theme = (theme: any) => (
     {
@@ -17,44 +19,26 @@ const theme = (theme: any) => (
     }
 );
 
-const styles: StylesConfig = {
-    control: (base) => (
-        {
-            ...base,
-            background: 'var(--main-grey)',
-            border: 'none',
-            outline: 'none',
-            borderRadius: '8px',
-        }
-    ),
-    menu: (base) => (
-        {
-            ...base,
-            background: 'var(--main-grey)',
-            borderRadius: '8px',
-        }
-    ),
-    placeholder: (base) => (
-        {
-            ...base,
-            color: 'var(--white)',
-        }
-    )
-};
-
 const CustomSelect = forwardRef<any, Props>(function _CustomSelect<Option, IsMulti extends boolean = false, Group extends GroupBase<Option> = GroupBase<Option>>(
     props: Props<Option, IsMulti, Group>,
     ref: React.ForwardedRef<SelectInstance<Option, IsMulti, Group>>) {
     const selectRef = React.useRef<SelectInstance<Option, IsMulti, Group> | null>(null);
-
     return (
         <Select
             { ...props }
-            styles={ styles as unknown as StylesConfig<Option, IsMulti, Group> }
             theme={ theme }
             className={ props.className }
             classNames={ {
                 ...props.classNames,
+                control(...args) {
+                    return `${classes.control} ${props.classNames?.control?.(...args) || ''}`;
+                },
+                placeholder(...args) {
+                    return `${classes.placeholder} ${props.classNames?.placeholder?.(...args) || ''}`;
+                },
+                menu(...args) {
+                    return `${classes.menu} ${props.classNames?.menu?.(...args) || ''}`;
+                }
             } }
             ref={ e => {
                 if (typeof ref === 'function') {
@@ -75,9 +59,23 @@ export const CustomCreatableSelect = forwardRef<any, Props>(function _CreatableC
     return (
         <CreatableSelect
             { ...props }
-            styles={ styles as unknown as StylesConfig<Option, IsMulti, Group> }
+            onChange={ (...args) => {
+                props.onChange?.(...args);
+            } }
             theme={ theme }
             className={ props.className }
+            classNames={ {
+                ...props.classNames,
+                control(...args) {
+                    return `${classes.control} ${props.classNames?.control?.(...args) || ''}`;
+                },
+                placeholder(...args) {
+                    return `${classes.placeholder} ${props.classNames?.placeholder?.(...args) || ''}`;
+                },
+                menu(...args) {
+                    return `${classes.menu} ${props.classNames?.menu?.(...args) || ''}`;
+                }
+            } }
             ref={ e => {
                 if (typeof ref === 'function') {
                     ref(e);

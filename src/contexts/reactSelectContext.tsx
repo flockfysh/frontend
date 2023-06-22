@@ -4,8 +4,8 @@ import createCache, { EmotionCache } from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
 
 /**
- * React-Select will load its styling after all CSS modules, which causes low-specificity styles to not function.
- * This component forces all Emotion styles, which is used by React Select, to the top of the head element,
+ * React-CreatableSelect will load its styling after all CSS modules, which causes low-specificity styles to not function.
+ * This component forces all Emotion styles, which is used by React CreatableSelect, to the top of the head element,
  * before the title element, therefore allowing styles in CSS modules to be used.
  * Component to be invoked in App.tsx.
  *
@@ -31,8 +31,8 @@ export function EmotionCacheProvider(props: PropsWithChildren) {
     return (
         cache ? (
             <CacheProvider value={ cache }>
-                { props.children }
+                {props.children}
             </CacheProvider>
-        ) : <>{ props.children }</>
+        ) : <>{props.children}</>
     );
 }

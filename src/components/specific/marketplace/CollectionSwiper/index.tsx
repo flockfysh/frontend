@@ -1,12 +1,11 @@
 import { Navigation } from 'swiper';
 import classes from './styles.module.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import VerticalCard from '@/components/specific/marketplace/datasetCards/VerticalCard';
 import React from 'react';
 import prev from '@/icons/main/arrow-left.svg';
 import next from '@/icons/main/arrow-right.svg';
 import { ReactSVG } from 'react-svg';
-import WideFocusedCard from '@/components/specific/marketplace/datasetCards/WideFocusedCard';
+import VerticalCollectionCard from '@/components/specific/marketplace/datasetCards/VerticalCollectionCard';
 
 
 function useForceUpdate() {
@@ -14,11 +13,9 @@ function useForceUpdate() {
     return () => setValue(value => value + 1);
 }
 
-export default function DatasetSwiper(props: {
-    datasets: HomepageDataset[],
-    cardType: 'wide' | 'vertical',
-    centeredSlides?: boolean,
-    onSlideChange?: (selected: HomepageDataset) => void,
+export default function CollectionSwiper(props: {
+    collections: HomepageCollection[],
+    onSlideChange?: (selected: HomepageCollection) => void,
 }) {
     const previousRef = React.useRef<HTMLButtonElement | null>(null);
     const nextRef = React.useRef<HTMLButtonElement | null>(null);
@@ -37,22 +34,15 @@ export default function DatasetSwiper(props: {
             </div>
             <Swiper slidesPerView={ 'auto' } modules={ [Navigation] }
                     navigation={ { enabled: true, prevEl: previousRef.current, nextEl: nextRef.current } }
-                    className={ classes.swiper } centeredSlides={ props.centeredSlides }
+                    className={ classes.swiper }
                     onSlideChange={ swiper => {
-                        props.onSlideChange?.(props.datasets[swiper.realIndex]);
+                        props.onSlideChange?.(props.collections[swiper.realIndex]);
                     } }>
-                {props.datasets.map(dataset => {
-                    if (props.cardType === 'wide') {
-                        return (
-                            <SwiperSlide className={ `${classes.slide} ${classes.wideSlide}` } key={ dataset._id }>
-                                <WideFocusedCard { ...dataset }/>
-                            </SwiperSlide>
-                        );
-                    }
+                {props.collections.map(collection => {
                     return (
-                        <SwiperSlide className={ classes.slide } key={ dataset._id }>
-                            <VerticalCard { ...dataset }/>
-                        </SwiperSlide>
+                        <SwiperSlide className={ classes.slide } key={ collection._id }>
+                            <VerticalCollectionCard
+                                { ...collection }></VerticalCollectionCard></SwiperSlide>
                     );
                 })}
                 <div className={ classes.swiperOverlay }></div>

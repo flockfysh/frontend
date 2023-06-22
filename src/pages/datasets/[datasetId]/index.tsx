@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { NextPageWithLayout } from '@/pages/_app';
 import { ReactSVG } from 'react-svg';
-import MainLayout from '@/components/layout/mainLayout';
+import MainLayout from '@/components/layout/MainLayout';
 import { CircleProgressBar } from '@/components/specific/datasets/viewDataset/CircleProgressBar';
 import SpecificProgressData from '@/components/specific/datasets/viewDataset/SpecificProgressData';
 import FileUploader from '@/components/specific/datasets/viewDataset/FileUploader';
@@ -43,6 +43,12 @@ const MyDatasets: NextPageWithLayout = function () {
                 }
             })).data.data;
             setDataset(result);
+            await api.post(
+                `/api/datasets/${datasetId}/metrics`,
+                {
+                    type: 'view',
+                }
+            );
         }
 
         load().then();
@@ -171,7 +177,7 @@ const MyDatasets: NextPageWithLayout = function () {
                           datasetId={ router.query.datasetId }></AssetViewer>}
 
             {/* upload content */}
-            <FileUploader datasetId={ router.query.datasetId }/>
+            <FileUploader datasetId={ router.query.datasetId } datasetType={ dataset.type }/>
         </div>
     );
 };

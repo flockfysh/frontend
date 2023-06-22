@@ -1,0 +1,94 @@
+.container {
+    min-width: 20rem;
+    width: fit-content;
+    height: fit-content;
+    overflow: hidden;
+    position: relative;
+    background-size: cover;
+    box-shadow: 0px 4px 49px rgba(0, 7, 72, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    cursor: pointer;
+    padding: 20px;
+    transition: 0.2s;
+}
+
+.thumbnail {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    object-fit: cover;
+    object-position: center;
+    filter: blur(4px) brightness(0.7);
+}
+
+.contentContainer {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    gap: 32px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.header img {
+    width: 72px;
+    height: 72px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 14px;
+    align-self: center;
+}
+
+.typeCard {
+    width: fit-content;
+    height: fit-content;
+}
+
+.middleSection h1 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 2rem;
+    line-height: 32px;
+}
+
+.profileCardContainer {
+    width: fit-content;
+    margin-top: 10px;
+}
+
+.profileCard {
+    margin-left: 0;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    justify-self: flex-end;
+}
+
+.infoHeader {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: 19px;
+
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.info {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.infoRight {
+    text-align: right;
+}

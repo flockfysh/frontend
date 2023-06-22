@@ -1,24 +1,19 @@
 .viewerTableContainer {
     height: 100%;
     width: 100%;
-    flex-direction: column;
     min-height: 30rem;
     z-index: 0;
+    position: relative;
+    display: flex;
 }
 
 .uploadDate {
     display: none;
 }
 
-
-.viewerTable {
-    min-height: 30rem;
-}
-
 .viewerTableScroller {
     overflow-x: auto;
     border-bottom: 1px solid transparent;
-
 }
 
 

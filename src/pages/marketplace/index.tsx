@@ -1,22 +1,14 @@
-import { NextPageWithLayout } from '@/pages/_app';
-
-import { v4 } from 'uuid';
-import { fakerEN } from '@faker-js/faker';
-
-import MarketplaceNavbar from '@/components/specific/marketplace/navbar';
-import VerticalCard from '@/components/specific/marketplace/datasetCards/verticalCard';
-import VerticalFocusedCard from '@/components/specific/marketplace/datasetCards/verticalFocusedCard';
-import VerticalCollectionCard from '@/components/specific/marketplace/datasetCards/verticalCollectionCard';
-
-import HowToCards from '@/components/specific/marketplace/datasetCards/howToCards';
-
-import FeaturedDatasetsSection from '@/components/specific/marketplace/featuredDatasetsSection';
-import DatasetSwiper from '@/components/specific/marketplace/datasetSwiper';
-
 import 'swiper/css';
 import 'swiper/css/navigation';
-
+import { NextPageWithLayout } from '@/pages/_app';
+import MarketplaceNavbar from '@/components/specific/marketplace/Navbar';
+import HowToCards from '@/components/specific/marketplace/datasetCards/HowToCards';
 import classes from './styles.module.css';
+import FeaturedDatasetsSection from '@/components/specific/marketplace/FeaturedDatasetsSection';
+import DatasetSwiper from '@/components/specific/marketplace/DatasetSwiper';
+import { v4 } from 'uuid';
+import { fakerEN } from '@faker-js/faker';
+import CollectionSwiper from '@/components/specific/marketplace/CollectionSwiper';
 
 const Marketplace: NextPageWithLayout = function () {
     const datasets: HomepageDataset[] = Array.from({ length: 8 }, () => ({
@@ -32,7 +24,8 @@ const Marketplace: NextPageWithLayout = function () {
             byAnnotationStatus: {
                 annotated: 20000,
                 unannotated: 0,
-            }
+            },
+            byMimetype: {}
         },
         size: {
             total: {
@@ -45,6 +38,11 @@ const Marketplace: NextPageWithLayout = function () {
                 feedback: 500 * 1024 ** 2,
                 completed: 500 * 1024 ** 2,
             },
+            byMimetype: {}
+        },
+        metrics: {
+            downloads: 0,
+            views: 0,
         },
         user: {
             username: 'praks',
@@ -78,7 +76,12 @@ const Marketplace: NextPageWithLayout = function () {
             byAnnotationStatus: {
                 annotated: 450,
                 unannotated: 0,
-            }
+            },
+            byMimetype: {}
+        },
+        metrics: {
+            downloads: 0,
+            views: 0,
         },
         size: {
             total: {
@@ -111,9 +114,30 @@ const Marketplace: NextPageWithLayout = function () {
         description: 'This is a random test dataset',
     }));
 
+    const collections: HomepageCollection[] = Array.from({ length: 8 }, () => {
+        return {
+            _id: v4(),
+            name: fakerEN.animal.type(),
+            user: {
+                username: 'praks',
+                _id: '24159335',
+                fullName: 'Prakriti Bista',
+                firstName: 'Prakriti',
+                email: 'praks@gmail.com',
+                lastName: 'Bista',
+            },
+            itemCount: 20,
+            type: 'image',
+            thumbnail: {
+                assetId: v4(),
+                url: 'https://s3-alpha-sig.figma.com/img/49ee/d081/4307a875ed2dabf708582228964d3985?Expires=1687737600&Signature=kNAl46fRLyUSGUSIVv7qu5BiKptidiRojEkUy7YkIstv9E28TmP1rOHcXxemh9CBjcUrn9dlLoyE4hixT1q~mHfnLqPWh1DZRPfZS5GBnZdnQMcXf~8cJ42RrhE3ZtfNAj9a97mf~maOqZ2tG7~NTMPsKtoGBqm8ZM02xlqPHVraEdWY39KcZhi5qS4DGL~6ZXnucPBTSa1wd-ZpHfMhFUI6b-IBCKPyGkXpy03oOD00X13R-3aQUJNoLnjHdD31OLXO~EGJI4XOynNhaJk2-91ca5ZvT3qcbTJy2pAivz3s2-wCtLQY8suZcPhTGFSqnI~k8sJQ-6Zde6DTFrXVzw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
+            }
+        };
+    });
+
     return (
         <div className={ classes.container }>
-            <MarketplaceNavbar />
+            <MarketplaceNavbar/>
 
             <FeaturedDatasetsSection datasets={ featuredDatasets }></FeaturedDatasetsSection>
 
@@ -153,89 +177,10 @@ const Marketplace: NextPageWithLayout = function () {
 
             <section className={ classes.sectionContainer }>
                 <div className={ classes.headerContainer }>
-                    <h1 className={ classes.header }>Featured Collection</h1>
+                    <h1 className={ classes.header }>Trending Collections</h1>
                 </div>
 
-                <div className={ classes.cardContainer }>
-                    <VerticalFocusedCard
-                       avatar="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
-                       name="Dataset Name"
-                       owner="praks"
-                       numDatasets={ 25 }
-                       type="images"
-                    />
-
-                    {/* <VerticalCard
-                       coverImg="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
-                       name="Dataset Name"
-                       owner="praks"
-                       numItems={ 12000 }
-                       size={ 25 }
-                       type="images"
-                    /> */}
-
-                    {/*<VerticalCard*/}
-                    {/*    coverImg="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"*/}
-                    {/*    name="Dataset Name"*/}
-                    {/*    owner="praks"*/}
-                    {/*    numItems={ 12000 }*/}
-                    {/*    size={ 25 }*/}
-                    {/*    type="images"*/}
-                    {/*/>*/}
-
-                    {/*<VerticalCard*/}
-                    {/*    coverImg="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"*/}
-                    {/*    name="Dataset Name"*/}
-                    {/*    owner="praks"*/}
-                    {/*    numItems={ 12000 }*/}
-                    {/*    size={ 25 }*/}
-                    {/*    type="images"*/}
-                    {/*/>*/}
-                </div>
-            </section>
-
-            <section className={ classes.sectionContainer }>
-                <div className={ classes.headerContainer }>
-                    <h1 className={ classes.header }>Other Collection</h1>
-                </div>
-
-                <div className={ classes.cardContainer }>
-                    <VerticalCollectionCard
-                        avatar="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
-                        name="Dataset Name"
-                        owner="praks"
-                        numDatasets={ 25 }
-                        type="images"
-                        numContributors={ 20 }
-                    />
-
-                    <VerticalCollectionCard
-                        avatar="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
-                        name="Dataset Name"
-                        owner="praks"
-                        numDatasets={ 25 }
-                        type="images"
-                        numContributors={ 20 }
-                    />
-
-                    <VerticalCollectionCard
-                        avatar="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
-                        name="Dataset Name"
-                        owner="praks"
-                        numDatasets={ 25 }
-                        type="images"
-                        numContributors={ 20 }
-                    />
-
-                    <VerticalCollectionCard
-                        avatar="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
-                        name="Dataset Name"
-                        owner="praks"
-                        numDatasets={ 25 }
-                        type="images"
-                        numContributors={ 20 }
-                    />
-                </div>
+                <CollectionSwiper collections={ collections }></CollectionSwiper>
             </section>
 
             <section className={ classes.sectionContainer }>
@@ -243,47 +188,8 @@ const Marketplace: NextPageWithLayout = function () {
                     <h1 className={ classes.header }>Trending in Segmentations</h1>
                 </div>
 
-                <div className={ classes.cardContainer }>
-                    <VerticalCard
-                        coverImg="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
-                        name="Dataset Name"
-                        updatedAt={ new Date() }
-                        owner="praks"
-                        numItems={ 12000 }
-                        size={ 25 }
-                        type="images"
-                    />
+                <DatasetSwiper cardType={ 'vertical' } datasets={ datasets }></DatasetSwiper>
 
-                    <VerticalCard
-                        coverImg="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
-                        name="Dataset Name"
-                        owner="praks"
-                        updatedAt={ new Date() }
-                        numItems={ 12000 }
-                        size={ 25 }
-                        type="images"
-                    />
-
-                    <VerticalCard
-                        coverImg="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
-                        name="Dataset Name"
-                        owner="praks"
-                        updatedAt={ new Date() }
-                        numItems={ 12000 }
-                        size={ 25 }
-                        type="images"
-                    />
-
-                    <VerticalCard
-                        coverImg="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
-                        name="Dataset Name"
-                        owner="praks"
-                        updatedAt={ new Date() }
-                        numItems={ 12000 }
-                        size={ 25 }
-                        type="images"
-                    />
-                </div>
             </section>
 
             <section className={ classes.sectionContainer + ' ' + classes.howTo }>

@@ -36,6 +36,29 @@ declare global {
             price: number;
             public: boolean;
             updatedAt: Date;
+            thumbnail?: {
+                assetId: string;
+            };
+            icon?: {
+                assetId: string;
+            };
+            metrics: {
+                views: number;
+                downloads: number;
+            }
+        }
+
+        interface Collection {
+            _id: string;
+            type: string;
+            name: string;
+            user: string;
+            thumbnail?: {
+                assetId: string;
+            };
+            icon?: {
+                assetId: string;
+            }
         }
 
         interface DatasetAssetCounts {
@@ -45,6 +68,7 @@ declare global {
                 annotated: number,
                 unannotated: number,
             };
+            byMimetype: Record<string, number>
         }
 
         interface DatasetAnnotationCounts {

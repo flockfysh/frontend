@@ -1,9 +1,9 @@
 import { NextPageWithLayout } from '@/pages/_app';
 import { ReactSVG } from 'react-svg';
 
-import MainLayout from '@/components/layout/mainLayout';
+import MainLayout from '@/components/layout/MainLayout';
 import DatasetCard from '@/components/specific/datasets/myDatasets/DatasetCard';
-import CreateDatasetModal from '@/components/specific/datasets/createDatasetModal';
+import CreateDatasetModal from '@/components/specific/datasets/CreateDatasetModal';
 
 import search from '@/icons/main/search.svg';
 import sliders from '@/icons/main/sliders.svg';

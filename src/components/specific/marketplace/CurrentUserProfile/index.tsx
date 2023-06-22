@@ -1,6 +1,6 @@
 import { UserContext } from '@/contexts/userContext';
 import React from 'react';
-import ProfileCard from '@/components/specific/marketplace/profileCard';
+import ProfileCard from '@/components/specific/marketplace/ProfileCard';
 
 export default function CurrentUserProfile() {
     const { user } = React.useContext(UserContext);

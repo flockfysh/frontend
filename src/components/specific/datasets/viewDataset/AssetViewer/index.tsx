@@ -22,7 +22,10 @@ import Image from 'next/image';
 const TableComponents = {
     Scroller: React.forwardRef<HTMLDivElement, ScrollerProps>(function _Scroller(props, ref) {
         return (
-            <TableContainer { ...props } className={ classes.viewerTableScroller } ref={ ref }/>
+            <TableContainer { ...props } style={ {
+                ...props.style,
+                height: 'unset'
+            } } className={ classes.viewerTableScroller } ref={ ref }/>
         );
     }),
     Table: React.forwardRef<HTMLTableElement, TableProps>(function _Table(props, ref) {
@@ -213,7 +216,6 @@ export default function AssetViewer(props: {
             <TableVirtuoso
                 data={ assetArray }
                 fixedHeaderContent={ Header }
-                className={ classes.viewerTable }
                 components={ TableComponents }
                 endReached={ () => load() }
                 itemContent={ function genRow(index, data) {
