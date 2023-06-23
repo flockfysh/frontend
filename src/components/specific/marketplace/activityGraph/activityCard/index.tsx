@@ -5,16 +5,24 @@ import { formatFileSize } from '@/helpers/formatting';
 import classes from './styles.module.css';
 
 function formatActivityToDescription(activity: UserActivity | DatasetActivity) {
-    if('dataset' in activity) return <p>{ activity.action.toUpperCase() } { activity.numFiles } { activity.type }s to <span className={ classes.bolded }>{ activity.dataset }</span> totalling { formatFileSize(activity.size) }</p>;
-    else return <p>User <span className={ classes.bolded }>{ activity.userName }</span> { activity.action } { activity.numFiles } { activity.type }s totalling { formatFileSize(activity.size) }</p>;
+    if('dataset' in activity) return (
+        <p>
+            { activity.action.toUpperCase() } { activity.numFiles } { activity.type }s to <span className={ classes.bolded }>{ activity.dataset }</span> totalling { formatFileSize(activity.size) }
+        </p>
+    );
+    else return (
+        <p>
+            User <span className={ classes.bolded }>{ activity.userName }</span> { activity.action } { activity.numFiles } { activity.type }s totalling { formatFileSize(activity.size) }\
+        </p>
+    );
 }
 
 export default function ActivityCard(props: { activity: UserActivity | DatasetActivity }) {
     return (
         <div className={ classes.container }>
             <div className={ classes.progressLineContainer }>
-                <span className={ classes.progressCircle }></span>
-                <span className={ classes.progressLine }></span>
+                <span className={ classes.progressCircle } />
+                <span className={ classes.progressLine } />
             </div>
 
             <div className={ classes.rightSideContainer }>

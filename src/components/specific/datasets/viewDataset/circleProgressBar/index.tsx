@@ -23,6 +23,7 @@ export const CircleProgressBar: React.FC<IProps> = (props) => {
                 stroke="#404040"
                 strokeWidth={ strokeWidth }
             />
+
             <circle
                 cx={ center }
                 cy={ center }
@@ -32,8 +33,9 @@ export const CircleProgressBar: React.FC<IProps> = (props) => {
                 strokeWidth={ strokeWidth }
                 strokeDasharray={ dashArray }
                 strokeDashoffset={ dashOffset }
-                transform={ `rotate(-90 ${center} ${center})` }
+                transform={ `rotate(-90 ${ center } ${ center })` }
             />
+
             <text
                 x={ center }
                 y={ center - 7.5 }
@@ -42,8 +44,9 @@ export const CircleProgressBar: React.FC<IProps> = (props) => {
                 className={ classes.percentage }
                 fill="var(--primary1-100)"
             >
-                {`${props.value}%`}
+                { `${ props.value }%` }
             </text>
+
             <text
                 x={ center }
                 y={ center + 12.5 }

@@ -5,10 +5,10 @@
 
     background-size: cover;
     background-image: url(https://s3-alpha-sig.figma.com/img/f047/4a98/8b4d07ab312672f12d10b21fec40327c?Expires=1686528000&Signature=mC0bmHX46slLz7Hu1gYsNNqyvwE7yJQaClmuwLxVfZoUMSlgC-MQlkgGcVrjDs8ErSZdjMEfSCr0bDNMz2-TkhMPaxWixoUkutjCeF0ujva40b-peMvgK8~SCA6Wqru4BmP-32T5AAwQoUvuWzw8524IkyNFb1GanGd2FbKhjUn6JoEP9n4ef5qi8tSeoBXUXrl40jrC5zvcahpQKC9hb4WdFc44UwRNT4LySLt-t8DbCzVFAjM0nR4AV5tusFwRLmkZBjabcphq-gv9V7wbPuBmIrhxXfrpJutMXoBgL6trv4bX43mQdFGkvGzmA5ZCAY6VZjCFucqe-ciYp7SpiQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4);
-    
+
     box-shadow: 0px 4px 49px rgba(0, 7, 72, 0.12);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    
+
     backdrop-filter: blur(7.5px);
 
     border-radius: 20px;
@@ -67,7 +67,7 @@
     font-weight: 600;
     font-size: 0.875rem;
     line-height: 19px;
-    
+
     color: rgba(255, 255, 255, 0.8);
 }
 

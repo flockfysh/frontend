@@ -2,7 +2,7 @@ import { useEffect, createContext, useState } from 'react';
 import { MIN_WIDTH } from '../settings';
 
 export function useMediaQuery(
-    callback: (matches: boolean) => void, 
+    callback: (matches: boolean) => void,
     mediaQuery: string
 ) {
     useEffect(() => {
@@ -24,11 +24,9 @@ export function useMediaQuery(
     }, [mediaQuery, callback]);
 }
 
-export const ScreenContext = createContext(
-    {
-        windowTooSmall: false
-    }
-);
+export const ScreenContext = createContext({
+    windowTooSmall: false,
+});
 
 export function ScreenWrapper(props: React.PropsWithChildren) {
     const [windowTooSmall, updateWindowTooSmall] = useState(false);
@@ -38,7 +36,7 @@ export function ScreenWrapper(props: React.PropsWithChildren) {
     }, `(min-width: ${MIN_WIDTH}px)`);
 
     return (
-        <ScreenContext.Provider value={ { windowTooSmall } }>
+        <ScreenContext.Provider value={{ windowTooSmall }}>
             { props.children }
         </ScreenContext.Provider>
     );

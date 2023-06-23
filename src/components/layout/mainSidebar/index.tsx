@@ -1,6 +1,10 @@
-import Logo from './logo/logo';
 import { ReactSVG } from 'react-svg';
 import Link from 'next/link';
+import { StaticImageData } from 'next/image';
+
+import Profile from '@/components/layout/mainSidebar/profile';
+import Logo from './logo/logo';
+
 import home from '@/icons/main/home.svg';
 import document from '@/icons/main/file-text.svg';
 import layers from '@/icons/main/3-layers.svg';
@@ -8,9 +12,8 @@ import analytics from '@/icons/main/sliders.svg';
 import settings from '@/icons/main/settings.svg';
 import help from '@/icons/main/help-circle.svg';
 import bell from '@/icons/main/bell.svg';
-import { StaticImageData } from 'next/image';
+
 import classes from './styles.module.css';
-import Profile from '@/components/layout/mainSidebar/profile';
 
 interface SidebarLinkProps {
     icon: StaticImageData,
@@ -21,8 +24,8 @@ interface SidebarLinkProps {
 function SidebarLink(props: SidebarLinkProps) {
     return (
         <Link href={ props.href } className={ classes.sidebarLink }>
-            <ReactSVG src={ props.icon.src } className={ classes.sidebarLinkSVG }></ReactSVG>
-            <span className={ classes.sidebarLinkText }>{props.text}</span>
+            <ReactSVG src={ props.icon.src } className={ classes.sidebarLinkSVG } />
+            <span className={ classes.sidebarLinkText }>{ props.text }</span>
         </Link>
     );
 }
@@ -78,21 +81,23 @@ export default function MainSidebar() {
     return (
         <nav className={ classes.sidebar }>
             <div className={ classes.segment }>
-                <Logo></Logo>
+                <Logo />
 
                 <div>
                     {SECTION_1_LINKS.map(props => {
-                        return <SidebarLink key={ props.href } { ...props }></SidebarLink>;
+                        return <SidebarLink key={ props.href } { ...props } />;
                     })}
                 </div>
             </div>
+
             <div className={ classes.segment }>
                 <div>
                     {SECTION_2_LINKS.map(props => {
-                        return <SidebarLink key={ props.href } { ...props }></SidebarLink>;
+                        return <SidebarLink key={ props.href } { ...props } />;
                     })}
                 </div>
-                <Profile/>
+
+                <Profile />
             </div>
         </nav>
     );

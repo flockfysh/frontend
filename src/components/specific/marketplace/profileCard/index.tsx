@@ -14,7 +14,7 @@ export default function ProfileCard(props: ProfileCardProps) {
         <div className={ classes.profileContainer } onClick={ () => push('/profile') }>
             <img src={ props.profilePicture } alt="Profile Picture"/>
 
-            <p>@{props.username}</p>
+            <p>@{ props.username }</p>
         </div>
     );
 }

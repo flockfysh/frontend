@@ -1,15 +1,15 @@
-import React from 'react';
+import { useMemo, useState, useEffect } from 'react';
 
 export function useMediaQuery(mediaQuery: string) {
-    const query = React.useMemo(() => {
+    const query = useMemo(() => {
         return window.matchMedia(mediaQuery);
     }, [mediaQuery]);
 
-    const [match, setMatch] = React.useState(() => {
+    const [match, setMatch] = useState(() => {
         return query.matches;
     });
 
-    React.useEffect(() => {
+    useEffect(() => {
         function resize() {
             setMatch(query.matches);
         }

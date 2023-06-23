@@ -7,5 +7,4 @@ export class ApiError extends Error {
     }
 }
 
-export class PrivateBetaError extends ApiError {
-}
+export class PrivateBetaError extends ApiError {}

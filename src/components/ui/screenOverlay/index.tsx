@@ -10,15 +10,15 @@ export default function FullScreenOverlayWithCenteredItem(props: PropsWithChildr
 }>) {
     const opaqueBackdrop = props.opaqueBackdrop ?? true;
     const blurBg = props.blurBg ?? false;
+
     return (
         <div
-            className={ `${classes.overlay} ${blurBg ? classes.blurBg : ''} ${opaqueBackdrop ? classes.opaque : ''} ${props.className || ''}` }
+            className={ `${ classes.overlay } ${ blurBg ? classes.blurBg : '' } ${ opaqueBackdrop ? classes.opaque : '' } ${ props.className || '' }` }
             onClick={ e => {
-                if (e.target === e.currentTarget) {
-                    props.onOuterClick?.(e);
-                }
-            } }>
-            {props.children}
+                if (e.target === e.currentTarget) props.onOuterClick?.(e);
+            } }
+        >
+            { props.children }
         </div>
     );
 }

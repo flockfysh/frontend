@@ -52,11 +52,10 @@
 }
 
 .clockIcon path {
-    stroke: var(--primary1-100) !important; 
+    stroke: var(--primary1-100) !important;
 }
 
 .middleSection {
-
 }
 
 .middleSection h1 {
@@ -79,7 +78,6 @@
 }
 
 .footerCardContainer {
-
 }
 
 .footerCardContainer h1 {

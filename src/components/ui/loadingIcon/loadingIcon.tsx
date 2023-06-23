@@ -1,3 +1,5 @@
+// TODO: Do we need this component?
+
 // import loadingIcon from '../../../images/icons/loading.svg';
 import classes from './loadingIcon.module.css';
 

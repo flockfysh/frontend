@@ -1,18 +1,20 @@
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import ProfileCard from '@/components/specific/marketplace/profileCard';
-import classes from './styles.module.css';
-import { Carousel } from 'react-responsive-carousel';
-import WideFocusedCard from '@/components/specific/marketplace/datasetCards/wideFocusedCard';
-import { useMediaQuery } from '@/helpers/mediaQuery';
-import React from 'react';
+
 import { formatFileSize } from '@/helpers/formatting';
+
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import classes from './styles.module.css';
 
 export default function FocusedDataset(props: HomepageDataset) {
     return (
         <div className={ classes.focusedDatasetSection }>
-            <img className={ classes.focusedDatasetBackground }
-                 src={ 'https://s3-alpha-sig.figma.com/img/f047/4a98/8b4d07ab312672f12d10b21fec40327c?Expires=1687737600&Signature=qHIX10Eb9MJf3iZOWiJZ8vsQ003vAaoSmRJQ3Uc49mHCZ5ZpDqHbyMDucJo0KG7afWq2El18GuwiyojHjfaExSHMybwUNqksO~YO2C5FCZoVdzt9j0Lyak4-zA840nJDyWsdh21O85b9PTMSVq2vTcR9rGcO22Ogb-w0Iy3JIbdGm3cVbwOo5JScjvLWwwdBaLJ9qyrSvQ60ldOM9DhBcia9Te1eQX7iS7jJIdF6fTV96XIbOCqp6pNQJzvNWVETibnvYJbP4jXon-C0fdWHsjhrrQw3mcUu59s38W7Kcbe1QJyFqwg-1w8Riro7K3Z1TiKEi3D4~ZcTgdhsQNwhKQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4' }></img>
+            <img
+                className={ classes.focusedDatasetBackground }
+                src={ 'https://s3-alpha-sig.figma.com/img/f047/4a98/8b4d07ab312672f12d10b21fec40327c?Expires=1687737600&Signature=qHIX10Eb9MJf3iZOWiJZ8vsQ003vAaoSmRJQ3Uc49mHCZ5ZpDqHbyMDucJo0KG7afWq2El18GuwiyojHjfaExSHMybwUNqksO~YO2C5FCZoVdzt9j0Lyak4-zA840nJDyWsdh21O85b9PTMSVq2vTcR9rGcO22Ogb-w0Iy3JIbdGm3cVbwOo5JScjvLWwwdBaLJ9qyrSvQ60ldOM9DhBcia9Te1eQX7iS7jJIdF6fTV96XIbOCqp6pNQJzvNWVETibnvYJbP4jXon-C0fdWHsjhrrQw3mcUu59s38W7Kcbe1QJyFqwg-1w8Riro7K3Z1TiKEi3D4~ZcTgdhsQNwhKQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4' }
+            />
+
             <h1 className={ classes.title }>{props.name}</h1>
+
             <div className={ classes.footer }>
                 <div className={ classes.leftContainer }>
                     {/*<div className={ classes.datasetHeaderInfoCard }>*/}
@@ -55,7 +57,7 @@ export default function FocusedDataset(props: HomepageDataset) {
                         <h2>Dataset Size</h2>
 
                         <div className={ classes.infoCardBottomContainer }>
-                            <p>{formatFileSize(props.size.total.total)}</p>
+                            <p>{ formatFileSize(props.size.total.total) }</p>
                         </div>
                     </div>
                 </div>
@@ -63,7 +65,8 @@ export default function FocusedDataset(props: HomepageDataset) {
                 <div className={ classes.rightContainer }>
                     <ProfileCard
                         profilePicture={ props.user.profilePhoto ?? '' }
-                        username={ props.user.username }/>
+                        username={ props.user.username }
+                    />
                 </div>
             </div>
         </div>

@@ -235,7 +235,6 @@ export default function ActivityTable(props: { datasetId?: string, userId?: stri
                 components={ TableComponents }
                 endReached={ () => load() }
                 itemContent={ function genRow(index, data) {
-                    console.log(data);
                     return (
                         <>   
                             <CustomTableCell className={ classes.uploadDate }>

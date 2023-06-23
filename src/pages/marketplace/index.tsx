@@ -123,18 +123,18 @@ const Marketplace: NextPageWithLayout = function () {
                 <div className={ classes.headerContainer }>
                     <h1 className={ classes.header }>Trending Datasets</h1>
 
-                    <DatasetTimeFilter callback={ () => {} } options={ ['1h', '1d', '7d', '1m'] } />
+                    <DatasetTimeFilter callback={ () => {} } options={ ['1h', '1d', '7d', '1m'] } selected={ 0 } />
                 </div>
 
-                <DatasetSwiper cardType={ 'vertical' } datasets={ datasets }></DatasetSwiper>
-
+                <DatasetSwiper cardType="vertical" datasets={ datasets } />
             </section>
 
             <section className={ classes.sectionContainer }>
                 <div className={ classes.headerContainer }>
                     <h1 className={ classes.header }>Premium Datasets</h1>
                 </div>
-                <DatasetSwiper cardType={ 'vertical' } datasets={ datasets }></DatasetSwiper>
+
+                <DatasetSwiper cardType="vertical" datasets={ datasets } />
             </section>
 
             <section className={ classes.sectionContainer }>
@@ -150,6 +150,10 @@ const Marketplace: NextPageWithLayout = function () {
                        numDatasets={ 25 }
                        type="images"
                     />
+
+                    {
+                        // TODO: Fix props on VerticalCard
+                    }
 
                     {/* <VerticalCard
                        coverImg="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
@@ -276,7 +280,7 @@ const Marketplace: NextPageWithLayout = function () {
                 <h1 className={ classes.howToHeader }>Upload, Request, and Share your Datasets</h1>
 
                 <div className={ classes.howToCards }>
-                    <HowToCards/>
+                    <HowToCards />
                 </div>
             </section>
         </div>
@@ -286,7 +290,7 @@ const Marketplace: NextPageWithLayout = function () {
 Marketplace.getLayout = function (page) {
     return (
         <>
-            {page}
+            { page }
         </>
     );
 };

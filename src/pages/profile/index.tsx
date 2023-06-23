@@ -1,9 +1,9 @@
-import { useContext, useState } from 'react';
+// TODO: Add user context to file
 
-import { UserContext } from '@/contexts/userContext';
+import { useState } from 'react';
 
-import UserInfo from '@/components/specific/profile/userInfo/userInfo';
-import DatasetsOwned from '@/components/specific/profile/datasetsOwned/datasetsOwned';
+import UserInfo from '@/components/specific/profile/userInfo';
+import DatasetsOwned from '@/components/specific/profile/datasetsOwned';
 import MarketplaceNavbar from '@/components/specific/marketplace/navbar';
 
 import ActivityGraph from '@/components/specific/marketplace/activityGraph';
@@ -19,8 +19,8 @@ export default function Profile() {
             <MarketplaceNavbar />
 
             <UserInfo
-                followers={2000}
-                following={232}
+                followers={ 2000 }
+                following={ 232 }
                 name="User One"
                 userName="userOne"
                 description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."

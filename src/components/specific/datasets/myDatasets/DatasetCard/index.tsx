@@ -21,7 +21,8 @@ export default function DatasetCard(props: Flockfysh.Dataset & { assetCounts: Fl
 
     return (
         <li className={ classes.card }>
-            <Link href={ `/datasets/${ props._id }` } className={ classes.linkOverlay }></Link>
+            <Link href={ `/datasets/${ props._id }` } className={ classes.linkOverlay } />
+
             <div className={ classes.firstRow }>
                 <ReactSVG src={ folder.src } />
                 <h2>{ props.name }</h2>
@@ -38,7 +39,6 @@ export default function DatasetCard(props: Flockfysh.Dataset & { assetCounts: Fl
                         <ReactSVG src={ clock.src } />
                         <span>{ dateDiff }</span>
                     </div>
-
                 </div>
 
                 <div>

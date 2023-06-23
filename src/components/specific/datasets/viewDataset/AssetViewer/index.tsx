@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useEffect } from 'react';
+import { forwardRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 
 import { ScrollerProps, TableVirtuoso, VirtuosoGrid } from 'react-virtuoso';
@@ -117,8 +117,10 @@ export default function AssetViewer(props: {
     const assetArray = Array.from(state.assets.values());
 
     async function delAsset(id: string) {
-        await api.delete(`/api/assets/${id}`);
+        await api.delete(`/api/assets/${ id }`);
+
         state.assets.delete(id);
+
         setState((prev) => {
             return { ...prev };
         });
@@ -135,12 +137,12 @@ export default function AssetViewer(props: {
                             onChange={
                                 (e) => {
                                     const checked = e.currentTarget.checked;
+                                    
                                     assetArray.forEach(asset => {
                                         asset.selected = checked;
                                     });
-                                    setState(prev => {
-                                        return { ...prev };
-                                    });
+
+                                    setState(prev => ({ ...prev }) );
                                 }
                             }
                         />
@@ -175,19 +177,21 @@ export default function AssetViewer(props: {
             const datasetId = props.datasetId;
 
             try {
-                const result = (await api.get<Api.PaginatedResponse<Flockfysh.Asset[]>>(`/api/datasets/${datasetId}/assets`, {
+                const result = (await api.get<Api.PaginatedResponse<Flockfysh.Asset[]>>(`/api/datasets/${ datasetId }/assets`, {
                     params: {
                         next: state.next,
                         displayName: props.searchQuery.displayName,
                         limit: numItems,
                     },
                 })).data;
+
                 for (const item of result.data) {
                     state.assets.set(item._id, {
                         ...item,
                         selected: false,
                     });
                 }
+
                 setState((prev) => {
                     return {
                         ...prev,
@@ -215,6 +219,7 @@ export default function AssetViewer(props: {
                     initialLoad: false,
                 };
             });
+
             load(20).then();
         }
     }, [state]);
@@ -229,13 +234,18 @@ export default function AssetViewer(props: {
                 itemContent={ (index, item) => {
                     return (
                         <div className={ classes.imageWrapper }>
-                            <Image fill={ true } className={ classes.image } src={ item.url }
-                                   alt={ item.displayName }/>
+                            <Image
+                                fill={ true }
+                                className={ classes.image }
+                                src={ item.url }
+                                alt={ item.displayName }
+                            />
 
-                            <button className={ classes.imageButton } onClick={ () => {
-                                delAsset(item._id).then();
-                            } }>
-                                <ReactSVG className={ classes.icon } src={ trash.src }/>
+                            <button
+                                className={ classes.imageButton }
+                                onClick={ () => delAsset(item._id).then() }
+                            >
+                                <ReactSVG className={ classes.icon } src={ trash.src } />
                             </button>
                         </div>
                     );
@@ -261,12 +271,9 @@ export default function AssetViewer(props: {
                                     checked={ data.selected }
                                     onChange={ e => {
                                         const item = state.assets.get(data._id);
-                                        if (item) {
-                                            item.selected = e.currentTarget.checked;
-                                        }
-                                        setState((prev) => {
-                                            return { ...prev };
-                                        });
+                                        if (item) item.selected = e.currentTarget.checked;
+                                        
+                                        setState((prev) => ({ ...prev }) );
                                     } }
                                 />
                             </CustomTableCell>
@@ -274,7 +281,7 @@ export default function AssetViewer(props: {
                             <CustomTableCell>
                                 <span className={ classes.filename }>
                                     <span className={ classes.filenameText }>
-                                        {data.displayName}
+                                        { data.displayName }
                                     </span>
                                 </span>
                             </CustomTableCell>
@@ -297,7 +304,7 @@ export default function AssetViewer(props: {
 
                             <CustomTableCell>
                                 <button onClick={ () => delAsset(data._id) } className={ classes.deleteButton }>
-                                    <ReactSVG className={ classes.icon } src={ trash.src }/>
+                                    <ReactSVG className={ classes.icon } src={ trash.src } />
                                 </button>
                             </CustomTableCell>
                         </>

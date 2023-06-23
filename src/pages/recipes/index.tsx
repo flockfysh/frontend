@@ -1,23 +1,26 @@
-import React from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { NextPageWithLayout } from '@/pages/_app';
+
 import { ReactSVG } from 'react-svg';
+import InfiniteScroll from 'react-infinite-scroller';
 
 import MainLayout from '@/components/layout/mainLayout';
-import RecipeCard from '@/components/specific/recipes/RecipeCard';
+import RecipeCard from '@/components/specific/recipes/recipeCard';
+import DarkModeButton from '@/components/ui/theming/darkModeButton';
+import CreateRecipeModal from '@/components/specific/recipes/createRecipeModal';
+
+import api from '@/helpers/api';
 
 import search from '@/icons/main/search.svg';
 import sliders from '@/icons/main/sliders.svg';
-import InfiniteScroll from 'react-infinite-scroller';
 
-import DarkModeButton from '@/components/ui/theming/DarkModeButton';
-import CreateRecipeModal from '@/components/specific/recipes/CreateRecipeModal';
 import classes from './styles.module.css';
-import api from '@/helpers/api';
 
 function RecipeSearchResult(props: {
     name?: string
 }) {
-    const scrollerContainerRef = React.useRef<HTMLDivElement | null>(null);
+    const scrollerContainerRef = useRef<HTMLDivElement | null>(null);
+    
     const initialState = () => {
         return {
             hasMore: true,
@@ -25,7 +28,8 @@ function RecipeSearchResult(props: {
             recipes: [],
         };
     };
-    const [state, setState] = React.useState<{
+
+    const [state, setState] = useState<{
         hasMore: boolean,
         next: string | undefined,
         recipes: Flockfysh.RecipeWithLabels[],
@@ -40,7 +44,9 @@ function RecipeSearchResult(props: {
                 limit: 50,
             }
         })).data;
+
         state.recipes.push(...fetched.data);
+
         setState({
             hasMore: fetched.meta.hasNext,
             recipes: state.recipes,
@@ -48,17 +54,22 @@ function RecipeSearchResult(props: {
         });
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
         setState(initialState);
     }, [props.name]);
 
     return (
         <div className={ classes.mainContent } ref={ scrollerContainerRef }>
-            <InfiniteScroll useWindow={ false } loadMore={ load } hasMore={ state.hasMore } getScrollParent={ () => {
-                return scrollerContainerRef.current;
-            } }>
+            <InfiniteScroll
+                useWindow={ false }
+                loadMore={ load }
+                hasMore={ state.hasMore }
+                getScrollParent={ () => {
+                    return scrollerContainerRef.current;
+                } }
+            >
                 <ul className={ classes.datasetGrid }>
-                    {state.recipes.map(recipe => <RecipeCard key={ recipe._id } { ...recipe } />)}
+                    { state.recipes.map(recipe => <RecipeCard key={ recipe._id } { ...recipe } />) }
                 </ul>
             </InfiniteScroll>
         </div>
@@ -66,38 +77,49 @@ function RecipeSearchResult(props: {
 }
 
 const RecipePage: NextPageWithLayout = function () {
-    const [curSearchQuery, setCurSearchQuery] = React.useState<string>('');
+    const [curSearchQuery, setCurSearchQuery] = useState<string>('');
 
     return (
         <>
             <header className={ classes.header }>
                 <div className={ classes.headerTitleAndCTA }>
                     <h1 className={ classes.headerTitle }>Your Recipes</h1>
+
                     <div className={ classes.headerCTA }>
-                        <DarkModeButton></DarkModeButton>
-                        <CreateRecipeModal/>
+                        <DarkModeButton />
+
+                        <CreateRecipeModal />
                     </div>
                 </div>
+
                 <label className={ classes.searchBarContainer }>
-                    <ReactSVG src={ search.src } className={ classes.searchBarIcon }></ReactSVG>
-                    <input type={ 'search' } className={ classes.searchBarInput } value={ curSearchQuery } onChange={ (e) => {
-                        setCurSearchQuery(e.currentTarget.value);
-                    } } placeholder={ 'Search' }/>
+                    <ReactSVG src={ search.src } className={ classes.searchBarIcon } />
+
+                    <input
+                        type="search"
+                        className={ classes.searchBarInput }
+                        value={ curSearchQuery }
+                        onChange={ (e) => {
+                            setCurSearchQuery(e.currentTarget.value);
+                        } }
+                        placeholder="Search"
+                    />
+
                     <button className={ classes.searchFilterButton }>
-                        <ReactSVG src={ sliders.src } className={ classes.searchFilterIcon }></ReactSVG>
+                        <ReactSVG src={ sliders.src } className={ classes.searchFilterIcon } />
                     </button>
                 </label>
-
             </header>
-            <RecipeSearchResult name={ curSearchQuery || undefined }></RecipeSearchResult>
+
+            <RecipeSearchResult name={ curSearchQuery || undefined } />
         </>
     );
 };
 
-RecipePage.getLayout = function (page) {
+RecipePage.getLayout = function(page) {
     return (
         <MainLayout>
-            {page}
+            { page }
         </MainLayout>
     );
 };

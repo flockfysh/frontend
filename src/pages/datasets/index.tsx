@@ -1,3 +1,5 @@
+import { useState, useRef, useEffect } from 'react';
+
 import { NextPageWithLayout } from '@/pages/_app';
 import { ReactSVG } from 'react-svg';
 
@@ -5,16 +7,16 @@ import MainLayout from '@/components/layout/mainLayout';
 import DatasetCard from '@/components/specific/datasets/myDatasets/datasetCard';
 import CreateDatasetModal from '@/components/specific/datasets/createDatasetModal';
 
+import api from '@/helpers/api';
+import InfiniteScroll from 'react-infinite-scroller';
+
 import search from '@/icons/main/search.svg';
 import sliders from '@/icons/main/sliders.svg';
 
 import classes from './styles.module.css';
-import React from 'react';
-import api from '@/helpers/api';
-import InfiniteScroll from 'react-infinite-scroller';
 
 const MyDatasets: NextPageWithLayout = function () {
-    const [curSearchQuery, setCurSearchQuery] = React.useState<string>('');
+    const [curSearchQuery, setCurSearchQuery] = useState<string>('');
 
     return (
         <>
@@ -42,7 +44,7 @@ const MyDatasets: NextPageWithLayout = function () {
 
 function DatasetSearchResult(props: { name?: string }) {
 
-    const scrollerContainerRef = React.useRef<HTMLDivElement | null>(null);
+    const scrollerContainerRef = useRef<HTMLDivElement | null>(null);
     const initialState = () => {
         return {
             hasMore: true,
@@ -51,7 +53,7 @@ function DatasetSearchResult(props: { name?: string }) {
         };
     };
 
-    const [state, setState] = React.useState<{
+    const [state, setState] = useState<{
         hasMore: boolean,
         next: string | undefined,
         datasets: (Flockfysh.Dataset & {
@@ -59,7 +61,7 @@ function DatasetSearchResult(props: { name?: string }) {
         })[],
     }>(initialState);
 
-    React.useEffect(() => {
+    useEffect(() => {
         setState(initialState);
     }, [props.name]);
 

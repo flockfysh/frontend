@@ -1,4 +1,4 @@
-import React from 'react';
+import { useContext } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import { UserContext } from '@/contexts/userContext';
@@ -8,7 +8,7 @@ import more from '@/icons/main/more-vertical.svg';
 import classes from './styles.module.css';
 
 export default function Profile() {
-    const { user } = React.useContext(UserContext);
+    const { user } = useContext(UserContext);
 
     if (!user) return <></>;
 
@@ -17,8 +17,8 @@ export default function Profile() {
             <img className={ classes.profileImage } src={ user.profilePhoto } alt={ user.fullName }/>
 
             <div className={ classes.profileTextInfo }>
-                <span className={ classes.displayName }>{user.fullName}</span>
-                <span className={ classes.email }>{user.email}</span>
+                <span className={ classes.displayName }>{ user.fullName }</span>
+                <span className={ classes.email }>{ user.email }</span>
             </div>
 
             <button className={ classes.button }>

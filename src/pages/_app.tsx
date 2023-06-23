@@ -1,17 +1,16 @@
-import '../styles/globals.css';
-import '@/styles/reset.css';
-import '@/styles/globals.css';
-
+import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { NextPage } from 'next';
-import React from 'react';
 
-import NotificationWrapper from '../contexts/notificationContext';
 import { UserWrapper } from '@/contexts/userContext';
 import { ErrorWrapper } from '@/contexts/errorContext';
 import { ScreenWrapper } from '@/contexts/screenContext';
 import { EmotionCacheProvider } from '@/contexts/reactSelectContext';
+import NotificationWrapper from '@/contexts/notificationContext';
+
+import '@/styles/reset.css';
+import '@/styles/globals.css';
+import '../styles/globals.css';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
     getLayout?: (page: React.ReactElement) => React.ReactNode
@@ -39,19 +38,17 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
                     content="width=device-width, initial-scale=1"
                 />
 
-                <link rel="icon" href="/favicon.ico"/>
+                <link rel="icon" href="/favicon.ico" />
             </Head>
 
             <EmotionCacheProvider>
                 <ScreenWrapper>
                     <UserWrapper>
-                        {/* <TopLevelErrorBoundary> */}
                         <ErrorWrapper>
-                            <NotificationWrapper/>
+                            <NotificationWrapper />
 
-                            {getLayout(<Component { ...pageProps } />)}
+                            { getLayout(<Component { ...pageProps } />) }
                         </ErrorWrapper>
-                        {/* </TopLevelErrorBoundary> */}
                     </UserWrapper>
                 </ScreenWrapper>
             </EmotionCacheProvider>

@@ -1,4 +1,4 @@
-import React from 'react';
+import { createContext, useState } from 'react';
 import { v4 } from 'uuid';
 import ErrorModal from '@/components/ui/modals/modalBase';
 
@@ -7,24 +7,23 @@ interface IErrorContext {
 }
 
 interface ErrorMessage {
-    message?: string,
-    title?: string,
+    message?: string;
+    title?: string;
 }
 
-export const ErrorContext = React.createContext<IErrorContext>({
-    throwError: () => {
-    },
+export const ErrorContext = createContext<IErrorContext>({
+    throwError: () => {},
 });
 
 export function ErrorWrapper(props: React.PropsWithChildren) {
-    const [{ errorMessages }, setErrorMessages] = React.useState<{
-        errorMessages: Map<string, ErrorMessage>
+    const [{ errorMessages }, setErrorMessages] = useState<{
+        errorMessages: Map<string, ErrorMessage>;
     }>({ errorMessages: new Map() });
 
     function throwError(message: string, title?: string) {
         if (
             Array.from(errorMessages.values()).filter(
-                e => e.message === message
+                (e) => e.message === message
             ).length !== 0
         ) return;
 
@@ -52,16 +51,19 @@ export function ErrorWrapper(props: React.PropsWithChildren) {
     errorMessages.forEach(function createErrorModal({ message, title }, key) {
         errorModals.push(
             <ErrorModal
-                title={ title ?? '' } key={ key }
-                closeModal={ () => closeModal(key) }
-            >{message || 'Unspecified error.'}</ErrorModal>
+                title={ title ?? '' }
+                key={key}
+                closeModal={() => closeModal(key)}
+            >
+                { message || 'Unspecified error.' }
+            </ErrorModal>
         );
     });
 
     return (
-        <ErrorContext.Provider value={ { throwError } }>
-            {errorModals}
-            {props.children}
+        <ErrorContext.Provider value={{ throwError }}>
+            { errorModals }
+            { props.children }
         </ErrorContext.Provider>
     );
 }

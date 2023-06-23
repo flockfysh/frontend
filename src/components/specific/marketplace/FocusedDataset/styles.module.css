@@ -27,7 +27,7 @@
 }
 
 .focusedDatasetBackground::after {
-    content: "";
+    content: '';
     display: block;
     width: 100%;
     background: red;
@@ -131,7 +131,8 @@
     overflow: visible;
 }
 
-.carousel :global(.carousel) :global(.slide):first-child, .carousel :global(.carousel) :global(.slide):last-child {
+.carousel :global(.carousel) :global(.slide):first-child,
+.carousel :global(.carousel) :global(.slide):last-child {
     opacity: 0;
     pointer-events: none;
     cursor: default;

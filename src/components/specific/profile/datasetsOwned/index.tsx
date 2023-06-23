@@ -1,11 +1,13 @@
+import { useState } from 'react';
 import { ReactSVG } from 'react-svg';
 
-import classes from './datasetsOwned.module.css';
-import { useState } from 'react';
-import search from '@/icons/main/search.svg';
 import VerticalCard from '@/components/specific/marketplace/datasetCards/verticalCard';
 
-const DatasetsOwned = () => {
+import search from '@/icons/main/search.svg';
+
+import classes from './styles.module.css';
+
+function DatasetsOwned() {
     const recievedData = [
         {
             coverImg:
@@ -167,12 +169,11 @@ const DatasetsOwned = () => {
                     <div className={ classes.navDiv }>
                         <button
                             className={ classes.navButton }
-                            onClick={ () => {
-                                setfinalData(recievedData);
-                            } }
+                            onClick={ () => setfinalData(recievedData) }
                         >
                             All
                         </button>
+
                         <button
                             className={ classes.navButton }
                             onClick={ () => {
@@ -185,6 +186,7 @@ const DatasetsOwned = () => {
                         >
                             Owned
                         </button>
+
                         <button
                             className={ classes.navButton }
                             onClick={ () => {
@@ -201,7 +203,6 @@ const DatasetsOwned = () => {
                 </div>
 
                 {finalData.map((value, index) => {
-                    console.log(finalData);
                     return (
                         <VerticalCard
                             key={ index.toString() }

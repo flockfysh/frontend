@@ -1,13 +1,13 @@
 import { PropsWithChildren } from 'react';
-
 import { ReactSVG } from 'react-svg';
 
-import classes from './userInfo.module.css';
 import svg from '@/icons/main/plus-circle.svg';
 import github from '@/icons/main/github.svg';
 import linkedIn from '@/icons/main/linkedin.svg';
 import twitter from '@/icons/main/twitter.svg';
 import link from '@/icons/main/link.svg';
+
+import classes from './styles.module.css';
 
 type userInfo = {
     name: string;
@@ -54,13 +54,14 @@ const userInfo = (props: userInfo) => {
                 </div>
             </div>
 
-            <h4 className={ classes.name }>{props.name}</h4>
+            <h4 className={ classes.name }>{ props.name }</h4>
 
-            <h5 className={ classes.username }>@{props.userName}</h5>
+            <h5 className={ classes.username }>@{ props.userName }</h5>
 
             <div className={ classes.contentDiv }>
                 <div className={ classes.socioContentDiv }>
-                    <h6 className={ classes.description }>{props.description}</h6>
+                    <h6 className={ classes.description }>{ props.description }</h6>
+
                     <div className={ classes.socialsDiv }>
                         <a className={ classes.link } href="#">
                             <ReactSVG
@@ -69,6 +70,7 @@ const userInfo = (props: userInfo) => {
                             />{' '}
                             user.com
                         </a>
+                    
                         <a
                             className={ classes.link }
                             href="https://www.github.com"
@@ -78,6 +80,7 @@ const userInfo = (props: userInfo) => {
                                 className={ classes.icons }
                             />
                         </a>
+                    
                         <a
                             className={ classes.link }
                             href="https://www.linkedin.com"
@@ -87,6 +90,7 @@ const userInfo = (props: userInfo) => {
                                 className={ classes.icons }
                             />
                         </a>
+                    
                         <a
                             className={ classes.link }
                             href="https://www.twitter.com"

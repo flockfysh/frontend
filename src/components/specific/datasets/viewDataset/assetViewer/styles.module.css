@@ -30,7 +30,7 @@
 }
 
 .viewerTableHead::before {
-    content: "";
+    content: '';
     position: absolute;
     width: 100%;
     height: 100%;
@@ -40,14 +40,14 @@
 }
 
 .viewerTableHead::after {
-    content: "";
+    content: '';
     position: absolute;
     width: 100%;
     height: 100%;
     z-index: -1;
     top: 0;
     border-radius: 8px;
-    border: 1px solid #333C42;
+    border: 1px solid #333c42;
 }
 
 .viewerTableBody {
@@ -65,10 +65,9 @@
     border-radius: 8px;
     height: 100%;
     width: 100%;
-    border: 1px solid #333C42;
+    border: 1px solid #333c42;
     top: 0;
 }
-
 
 .deleteButton {
     background: transparent;
@@ -82,13 +81,13 @@
     align-items: center;
     flex-direction: row;
     padding: 1.25rem 0.813rem;
-    border: 1px solid #333C42; /* TODO which color ? */
+    border: 1px solid #333c42; /* TODO which color ? */
     border-radius: 8px;
 }
 
 .bodyWrapper {
     width: 100%;
-    border: 1px solid #333C42; /* TODO which color ? */
+    border: 1px solid #333c42; /* TODO which color ? */
     border-radius: 8px;
     overflow-y: auto;
 }
@@ -115,7 +114,7 @@
 }
 
 .viewerTableBody .viewerTableCell {
-    box-shadow: inset 0 -1px #333C42;
+    box-shadow: inset 0 -1px #333c42;
 }
 
 .viewerTableCellInner {
@@ -124,9 +123,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
-
 
 .filename {
     width: 100%;
@@ -183,7 +180,6 @@
     padding: 0.5rem;
     cursor: pointer;
 }
-
 
 @media only all and (min-width: 768px) {
     .uploadDate {
