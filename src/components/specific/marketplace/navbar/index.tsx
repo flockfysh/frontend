@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { ReactSVG } from 'react-svg';
 
 import fish from '@/icons/branding/fish.svg';
@@ -9,11 +10,13 @@ import classes from './styles.module.css';
 import CurrentUserProfile from '@/components/specific/marketplace/currentUserProfile';
 
 export default function MarketplaceNavbar() {
+    const { push } = useRouter();
+
     return (
         <nav className={ classes.nav }>
             <div className={ classes.subContainer + ' ' + classes.leftContainer }>
-                <div className={ classes.logoContainer }>
-                    <ReactSVG src={ fish.src }/>
+                <div className={ classes.logoContainer } onClick={ () => push('/marketplace') }>
+                    <ReactSVG src={ fish.src } />
 
                     <p>fDE</p>
                 </div>
@@ -28,12 +31,13 @@ export default function MarketplaceNavbar() {
                     />
                 </label>
 
-                <ReactSVG src={ search.src } className={ classes.mobileSearch }/>
+                <ReactSVG src={ search.src } className={ classes.mobileSearch } />
             </div>
 
             <div className={ classes.subContainer }>
-                <ReactSVG src={ plusCircle.src } className={ classes.leftIcon }/>
-                <ReactSVG src={ bell.src } className={ classes.leftIcon }/>
+                <ReactSVG src={ plusCircle.src } className={ classes.leftIcon } />
+                <ReactSVG src={ bell.src } className={ classes.leftIcon } />
+
                 <CurrentUserProfile />
             </div>
         </nav>
