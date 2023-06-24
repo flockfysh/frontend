@@ -3,7 +3,7 @@ import { useState, useContext, useEffect } from 'react';
 import { UserContext } from './userContext';
 
 import api from '../helpers/api';
-import { delay } from '../helpers/timers';
+import { delay } from '@/helpers/timers';
 
 export default function NotificationWrapper() {
     const { user } = useContext(UserContext);
@@ -48,7 +48,7 @@ export default function NotificationWrapper() {
 
                     break;
                 }
-                catch (e) {
+ catch (e) {
                     await delay(5);
                 }
             }
@@ -60,7 +60,7 @@ export default function NotificationWrapper() {
 
         if (worker.pushManager)
             curSubscription = await worker.pushManager.getSubscription();
-            
+
         if (!curSubscription) curSubscription = await newSubscription();
 
         const appServerKey = curSubscription.options.applicationServerKey!;
