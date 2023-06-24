@@ -18,6 +18,8 @@ import dayjs from 'dayjs';
 import { capitalize } from '@/helpers/strings';
 import { formatFileSize } from '@/helpers/formatting';
 import Image from 'next/image';
+import typeIs from 'type-is';
+import axios from 'axios';
 
 const TableComponents = {
     Scroller: React.forwardRef<HTMLDivElement, ScrollerProps>(function _Scroller(props, ref) {
@@ -52,6 +54,65 @@ const TableComponents = {
         );
     }),
 };
+
+function TextComponent(props: {
+    url: string;
+}) {
+    const [text, setText] = React.useState('');
+
+    React.useEffect(() => {
+        async function fetchThis() {
+            const textData = await axios.get<string>(props.url, {
+                responseType: 'text',
+            }).then(res => res.data);
+            setText(textData);
+        }
+
+        fetchThis().then();
+    }, [props.url]);
+
+    return (
+        <code className={ classes.textViewer }>
+            {text}
+        </code>
+    );
+}
+
+function AssetTile(props: {
+    item: Flockfysh.Asset & {
+        selected: boolean;
+    };
+    delAsset: (id: string) => void;
+}) {
+    let component;
+
+    if (typeIs.is(props.item.mimetype, ['image/*'])) {
+        component = (
+            <Image fill={ true } className={ classes.image } src={ props.item.url }
+                   alt={ props.item.displayName }/>
+        );
+    }
+ else if (typeIs.is(props.item.mimetype, ['text/*', 'application/json'])) {
+        component = (
+            <TextComponent url={ props.item.url }></TextComponent>
+        );
+    }
+ else {
+        component = <div></div>;
+    }
+
+    return (
+        <div className={ classes.imageWrapper }>
+            {component}
+
+            <button className={ classes.imageButton } onClick={ () => {
+                props.delAsset(props.item._id);
+            } }>
+                <ReactSVG className={ classes.icon } src={ trash.src }/>
+            </button>
+        </div>
+    );
+}
 
 interface AssetViewerState {
     hasMore: boolean;
@@ -194,18 +255,7 @@ export default function AssetViewer(props: {
                 listClassName={ classes.gridWrapper }
                 endReached={ () => load().then() }
                 itemContent={ (index, item) => {
-                    return (
-                        <div className={ classes.imageWrapper }>
-                            <Image fill={ true } className={ classes.image } src={ item.url }
-                                   alt={ item.displayName }/>
-
-                            <button className={ classes.imageButton } onClick={ () => {
-                                delAsset(item._id).then();
-                            } }>
-                                <ReactSVG className={ classes.icon } src={ trash.src }/>
-                            </button>
-                        </div>
-                    );
+                    return <AssetTile item={ item } key={ item._id } delAsset={ () => delAsset(item._id) }></AssetTile>;
                 } }>
             </VirtuosoGrid>
         );

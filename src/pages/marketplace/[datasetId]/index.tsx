@@ -23,6 +23,7 @@ import ItemViewer from '@/components/specific/marketplace/ItemViewer';
 import Link from 'next/link';
 import DatasetSettings from '@/components/specific/marketplace/DatasetSettings';
 import ActivityGraph from '@/components/specific/marketplace/ActivityGraph';
+import { DownloaderContext } from '@/contexts/downloaderContext';
 
 const VIEW_STATES = {
     items: 'items',
@@ -35,6 +36,7 @@ const Marketplace: NextPageWithLayout = function () {
     const router = useRouter();
     const [dataset, setDataset] = React.useState<PreviewDataset | undefined>();
     const [contentView, setContentView] = useState(VIEW_STATES.items);
+    const { downloadDataset } = React.useContext(DownloaderContext);
 
     React.useEffect(() => {
         async function load() {
@@ -117,7 +119,7 @@ const Marketplace: NextPageWithLayout = function () {
 
                             <Link className={ classes.contributeButton }
                                   href={ `/datasets/${dataset._id}` }>Contribute</Link>
-                            <button className={ classes.downloadButton }>
+                            <button className={ classes.downloadButton } onClick={ () => downloadDataset(dataset._id) }>
                                 <ReactSVG className={ classes.imageTagIcon } src={ download.src }/>
                                 <span>Download ({formatFileSize(dataset.size.total.total)})</span>
                             </button>

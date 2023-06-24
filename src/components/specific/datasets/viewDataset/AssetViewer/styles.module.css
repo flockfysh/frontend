@@ -73,6 +73,15 @@
     cursor: pointer;
 }
 
+.textViewer {
+    width: 100%;
+    height: 100%;
+    word-wrap: break-word;
+    border-radius: 16px;
+    padding: 16px;
+    background: var(--main-grey)
+}
+
 .rowHeader {
     width: 100%;
     display: flex;

@@ -3,7 +3,7 @@ import { ReactSVG } from 'react-svg';
 import DatasetTypeCard from '../../DatasetTypeCard';
 
 import clock from '@/icons/main/clock.svg';
-import classes from './style.module.css';
+import classes from './styles.module.css';
 import { formatFileSize } from '@/helpers/formatting';
 import { dayjs } from '@/helpers/date';
 

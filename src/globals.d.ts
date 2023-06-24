@@ -92,6 +92,7 @@ declare global {
             dataset: string;
             size: number;
             url: string;
+            mimetype: string;
             displayName: string;
         }
     }
