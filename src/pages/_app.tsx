@@ -40,21 +40,21 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
                     content="width=device-width, initial-scale=1"
                 />
 
-                <link rel="icon" href="/favicon.ico" />
+                <link rel="icon" href="/favicon.ico"/>
             </Head>
 
             <EmotionCacheProvider>
                 <ScreenWrapper>
                     <UserWrapper>
-                        <DownloaderWrapper>
-                            {/* <TopLevelErrorBoundary> */}
-                            <ErrorWrapper>
-                                <NotificationWrapper/>
+                        {/*<DownloaderWrapper>*/}
+                        {/* <TopLevelErrorBoundary> */}
+                        <ErrorWrapper>
+                            <NotificationWrapper/>
 
-                                {getLayout(<Component { ...pageProps } />)}
-                            </ErrorWrapper>
-                            {/* </TopLevelErrorBoundary> */}
-                        </DownloaderWrapper>
+                            {getLayout(<Component { ...pageProps } />)}
+                        </ErrorWrapper>
+                        {/* </TopLevelErrorBoundary> */}
+                        {/*</DownloaderWrapper>*/}
                     </UserWrapper>
                 </ScreenWrapper>
             </EmotionCacheProvider>
