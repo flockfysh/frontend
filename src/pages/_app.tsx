@@ -12,6 +12,7 @@ import { UserWrapper } from '@/contexts/userContext';
 import { ErrorWrapper } from '@/contexts/errorContext';
 import { ScreenWrapper } from '@/contexts/screenContext';
 import { EmotionCacheProvider } from '@/contexts/reactSelectContext';
+import { DownloaderWrapper } from '@/contexts/downloaderContext';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
     getLayout?: (page: React.ReactElement) => React.ReactNode
@@ -45,15 +46,15 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
             <EmotionCacheProvider>
                 <ScreenWrapper>
                     <UserWrapper>
-                        {/*<DownloaderWrapper>*/}
-                        {/* <TopLevelErrorBoundary> */}
-                        <ErrorWrapper>
-                            <NotificationWrapper/>
+                        <DownloaderWrapper>
+                            {/* <TopLevelErrorBoundary> */}
+                            <ErrorWrapper>
+                                <NotificationWrapper/>
 
-                            {getLayout(<Component { ...pageProps } />)}
-                        </ErrorWrapper>
-                        {/* </TopLevelErrorBoundary> */}
-                        {/*</DownloaderWrapper>*/}
+                                {getLayout(<Component { ...pageProps } />)}
+                            </ErrorWrapper>
+                            {/* </TopLevelErrorBoundary> */}
+                        </DownloaderWrapper>
                     </UserWrapper>
                 </ScreenWrapper>
             </EmotionCacheProvider>
