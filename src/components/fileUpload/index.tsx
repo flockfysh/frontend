@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 
 import classes from './styles.module.css';
 
-const FileUpload = forwardRef<HTMLInputElement, {}>(function FileUpload(props, ref) {
+const FileUpload = forwardRef<HTMLInputElement, {}>(function FileUpload(_props, _ref) {
     return (
         <div className={ classes.container }>
             <label htmlFor="file-upload">

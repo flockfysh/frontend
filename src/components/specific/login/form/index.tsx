@@ -56,7 +56,9 @@ export default function LoginForm(props: {
 
         try {
             z.string({
+                // eslint-disable-next-line camelcase
                 required_error: 'Missing email.',
+                // eslint-disable-next-line camelcase
                 invalid_type_error: 'Email must be a string.',
             }).nonempty('Missing email.').email('Email is invalid.').parse(properties.email);
             
@@ -71,7 +73,9 @@ export default function LoginForm(props: {
 
         try {
             z.string({
+                // eslint-disable-next-line camelcase
                 required_error: 'Missing password.',
+                // eslint-disable-next-line camelcase
                 invalid_type_error: 'Password must be a string.',
             })
                 .min(8, 'The password must be at least 8 characters long.')
@@ -88,7 +92,9 @@ export default function LoginForm(props: {
         if (props.mode === 'signup') {
             try {
                 z.string({
+                    // eslint-disable-next-line camelcase
                     required_error: 'Missing display name.',
+                    // eslint-disable-next-line camelcase
                     invalid_type_error: 'Display name must be a string.',
                 }).nonempty('Missing display name.').parse(properties.fullName);
 

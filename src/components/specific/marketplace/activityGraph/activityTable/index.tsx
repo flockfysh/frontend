@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useState } from 'react';
+import { forwardRef, useEffect, useState, useCallback } from 'react';
 import { ScrollerProps, TableVirtuoso } from 'react-virtuoso';
 
 import {
@@ -148,71 +148,71 @@ export default function ActivityTable(props: { datasetId?: string, userId?: stri
     const [state, setState] = useState<ActivityViewerState>(initialState);
     const dataArray = state.data;
 
-    console.log(dataArray);
-
-    async function load(numItems: number=20) {
-        // TODO: connect w/ backend
-        if (state.hasMore) {
-            if(props.datasetId) {
-                const datasetId = props.datasetId;
+    const load = useCallback(
+        async function(numItems: number=20) {
+            // TODO: connect w/ backend
+            if (state.hasMore) {
+                if(props.datasetId) {
+                    const datasetId = props.datasetId;
+        
+                    try {
+                        const result = (await api.get<Api.PaginatedResponse<DatasetActivity[]>>(`/api/`, {
+                            params: {
+                                next: state.next,
+                                datasetId: datasetId,
+                                limit: numItems,
+                            },
+                        })).data;
     
-                try {
-                    const result = (await api.get<Api.PaginatedResponse<DatasetActivity[]>>(`/api/`, {
-                        params: {
-                            next: state.next,
-                            datasetId: datasetId,
-                            limit: numItems,
-                        },
-                    })).data;
-
-                    for (const item of result.data) {
-                        state.data.push(item);
+                        for (const item of result.data) {
+                            state.data.push(item);
+                        }
+    
+                        setState((prev) => {
+                            return {
+                                ...prev,
+                                next: result.meta.next,
+                                hasMore: result.meta.hasNext,
+                                data: state.data,
+                            };
+                        });
                     }
-
-                    setState((prev) => {
-                        return {
-                            ...prev,
-                            next: result.meta.next,
-                            hasMore: result.meta.hasNext,
-                            data: state.data,
-                        };
-                    });
-                }
-                catch (e) {
-                    return;
-                }
-            }
-            else {
-                const userId = props.userId;
-                
-                try {
-                    const result = (await api.get<Api.PaginatedResponse<UserActivity[]>>(`/api/`, {
-                        params: {
-                            next: state.next,
-                            userId: userId,
-                            limit: numItems,
-                        },
-                    })).data;
-
-                    for (const item of result.data) {
-                        state.data.push(item);
+                    catch (e) {
+                        return;
                     }
-
-                    setState((prev) => {
-                        return {
-                            ...prev,
-                            next: result.meta.next,
-                            hasMore: result.meta.hasNext,
-                            data: state.data,
-                        };
-                    });
                 }
-                catch (e) {
-                    return;
+                else {
+                    const userId = props.userId;
+                    
+                    try {
+                        const result = (await api.get<Api.PaginatedResponse<UserActivity[]>>(`/api/`, {
+                            params: {
+                                next: state.next,
+                                userId: userId,
+                                limit: numItems,
+                            },
+                        })).data;
+    
+                        for (const item of result.data) {
+                            state.data.push(item);
+                        }
+    
+                        setState((prev) => {
+                            return {
+                                ...prev,
+                                next: result.meta.next,
+                                hasMore: result.meta.hasNext,
+                                data: state.data,
+                            };
+                        });
+                    }
+                    catch (e) {
+                        return;
+                    }
                 }
             }
         }
-    }
+    , [props.datasetId, props.userId, state.data, state.hasMore, state.next]);
 
     useEffect(() => {
         if (state.initialLoad) {
@@ -224,7 +224,7 @@ export default function ActivityTable(props: { datasetId?: string, userId?: stri
             });
             load(20).then();
         }
-    }, [state]);
+    }, [state, load]);
     
     return (
         <div className={ classes.dataCardContainer }>

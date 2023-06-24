@@ -8,7 +8,7 @@ import DatasetTimeFilter from '../datasetTimeFilter';
 
 import classes from './styles.module.css';
 
-export default function ActivityGraph(props: { type: 'user' | 'dataset' }) {
+export default function ActivityGraph() {
     const activity: DatasetActivity[] = [
         {
             id: 'abc123',

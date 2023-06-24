@@ -179,7 +179,7 @@ const MyDatasets: NextPageWithLayout = function () {
                 showList={ showList }
                 searchQuery={ {
                     displayName: currentNameQuery || undefined,
-                }}
+                } }
                 datasetId={ router.query.datasetId }
             />
             

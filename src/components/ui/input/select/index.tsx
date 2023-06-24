@@ -3,7 +3,7 @@ import { forwardRef, useRef } from 'react';
 import Select, { Props, StylesConfig, GroupBase, SelectInstance } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 
-import classes from './styles.module.css';
+// import classes from './styles.module.css';
 
 const theme = (theme: any) => (
     {

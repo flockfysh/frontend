@@ -111,7 +111,7 @@ export default function Login(props: {
                 {
                     isLogin ? (
                         <p className={ classes.changeType }>
-                            Don't have an account?
+                            Don&apos;t have an account?
                             <button
                                 className={ classes.changeTypeButton }
                                 onClick={ () => updateMode('signup') }

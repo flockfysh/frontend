@@ -26,7 +26,7 @@ export default function DatasetSwiper(props: {
 
     useEffect(() => {
         forceUpdate();
-    }, [previousRef.current, nextRef.current]);
+    }, [forceUpdate]);
 
     return (
         <div className={ classes.swiperContainer }>

@@ -33,7 +33,8 @@ export function UserWrapper(props: PropsWithChildren) {
 
                     if (userData.curUser) setCurUser(userData.curUser);
                     else setCurUser(null);
-                } catch (e) {}
+                }
+ catch (e) {}
 
                 updateLoading(false);
             })();

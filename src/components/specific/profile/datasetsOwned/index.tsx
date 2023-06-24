@@ -219,6 +219,6 @@ function DatasetsOwned() {
             </div>
         </div>
     );
-};
+}
 
 export default DatasetsOwned;

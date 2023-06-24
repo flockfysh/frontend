@@ -1,4 +1,4 @@
-import { forwardRef, useState, useEffect } from 'react';
+import { forwardRef, useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 
 import { ScrollerProps, TableVirtuoso, VirtuosoGrid } from 'react-virtuoso';
@@ -172,44 +172,46 @@ export default function AssetViewer(props: {
         );
     }
 
-    async function load(numItems: number=20) {
-        if (state.hasMore) {
-            const datasetId = props.datasetId;
-
-            try {
-                const result = (await api.get<Api.PaginatedResponse<Flockfysh.Asset[]>>(`/api/datasets/${ datasetId }/assets`, {
-                    params: {
-                        next: state.next,
-                        displayName: props.searchQuery.displayName,
-                        limit: numItems,
-                    },
-                })).data;
-
-                for (const item of result.data) {
-                    state.assets.set(item._id, {
-                        ...item,
-                        selected: false,
+    const load = useCallback(
+        async function(numItems: number=20) {
+            if (state.hasMore) {
+                const datasetId = props.datasetId;
+    
+                try {
+                    const result = (await api.get<Api.PaginatedResponse<Flockfysh.Asset[]>>(`/api/datasets/${ datasetId }/assets`, {
+                        params: {
+                            next: state.next,
+                            displayName: props.searchQuery.displayName,
+                            limit: numItems,
+                        },
+                    })).data;
+    
+                    for (const item of result.data) {
+                        state.assets.set(item._id, {
+                            ...item,
+                            selected: false,
+                        });
+                    }
+    
+                    setState((prev) => {
+                        return {
+                            ...prev,
+                            next: result.meta.next,
+                            hasMore: result.meta.hasNext,
+                            assets: state.assets,
+                        };
                     });
                 }
-
-                setState((prev) => {
-                    return {
-                        ...prev,
-                        next: result.meta.next,
-                        hasMore: result.meta.hasNext,
-                        assets: state.assets,
-                    };
-                });
-            }
-            catch (e) {
-                return;
+                catch (e) {
+                    return;
+                }
             }
         }
-    }
+    , [props.datasetId, props.searchQuery.displayName, state.assets, state.hasMore, state.next]);
 
     useEffect(() => {
         setState(initialState);
-    }, [props.datasetId, props.searchQuery.displayName]);
+    }, [props.datasetId, props.searchQuery.displayName, load]);
 
     useEffect(() => {
         if (state.initialLoad) {
@@ -222,7 +224,7 @@ export default function AssetViewer(props: {
 
             load(20).then();
         }
-    }, [state]);
+    }, [state, load]);
 
     if (!props.showList) {
         return (

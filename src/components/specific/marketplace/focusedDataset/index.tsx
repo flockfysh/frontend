@@ -9,6 +9,7 @@ export default function FocusedDataset(props: HomepageDataset) {
     return (
         <div className={ classes.focusedDatasetSection }>
             <img
+                alt="dataset"
                 className={ classes.focusedDatasetBackground }
                 src={ 'https://s3-alpha-sig.figma.com/img/f047/4a98/8b4d07ab312672f12d10b21fec40327c?Expires=1687737600&Signature=qHIX10Eb9MJf3iZOWiJZ8vsQ003vAaoSmRJQ3Uc49mHCZ5ZpDqHbyMDucJo0KG7afWq2El18GuwiyojHjfaExSHMybwUNqksO~YO2C5FCZoVdzt9j0Lyak4-zA840nJDyWsdh21O85b9PTMSVq2vTcR9rGcO22Ogb-w0Iy3JIbdGm3cVbwOo5JScjvLWwwdBaLJ9qyrSvQ60ldOM9DhBcia9Te1eQX7iS7jJIdF6fTV96XIbOCqp6pNQJzvNWVETibnvYJbP4jXon-C0fdWHsjhrrQw3mcUu59s38W7Kcbe1QJyFqwg-1w8Riro7K3Z1TiKEi3D4~ZcTgdhsQNwhKQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4' }
             />

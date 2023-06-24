@@ -14,6 +14,7 @@ import FeaturedDatasetsSection from '@/components/specific/marketplace/featuredD
 import DatasetSwiper from '@/components/specific/marketplace/datasetSwiper';
 
 import DatasetTimeFilter from '@/components/specific/marketplace/datasetTimeFilter';
+import Footer from '@/components/specific/marketplace/footer';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -283,6 +284,8 @@ const Marketplace: NextPageWithLayout = function () {
                     <HowToCards />
                 </div>
             </section>
+
+            <Footer />
         </div>
     );
 };

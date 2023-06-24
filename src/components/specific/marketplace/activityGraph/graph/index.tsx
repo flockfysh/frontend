@@ -9,8 +9,7 @@ import {
     Tooltip,
     LineController,
     BarController,
-    ScriptableContext,
-    Tick
+    ScriptableContext
 } from 'chart.js';
 import { Chart } from 'react-chartjs-2';
 
@@ -120,7 +119,7 @@ export default function Graph() {
                 ticks: {
                     display: true,
                     color: '#D2E1FF',
-                    callback: function (tick: number | string, index: number, ticks: Tick[]) {
+                    callback: function (tick: number | string) {
                         return Math.floor(tick as number);
                     },
                     padding: 20

@@ -25,7 +25,7 @@ export default function WideFocusedCard(props: WideFocusedCardProps) {
                 <DatasetTypeCard className={ classes.typeContainer } type={ props.type } />
             </div>
 
-            <img className={ classes.image } src={ TEST_URL } />
+            <img alt="dataset" className={ classes.image } src={ TEST_URL } />
             <div className={ classes.overlay } />
             <div className={ classes.datasetName }>{ props.name }</div>
 

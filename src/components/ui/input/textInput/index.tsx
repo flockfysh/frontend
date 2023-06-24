@@ -13,7 +13,7 @@ interface TextInputProps extends ComponentPropsWithoutRef<'input'> {
     }
 }
 
-const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function TextInput(props, ref) {
+const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function TextInput(props, _) {
     return (
         <label
             className={ `${ props.classNames?.container || '' } ${ classes.labelContainer }` }

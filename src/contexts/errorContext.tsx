@@ -52,8 +52,8 @@ export function ErrorWrapper(props: React.PropsWithChildren) {
         errorModals.push(
             <ErrorModal
                 title={ title ?? '' }
-                key={key}
-                closeModal={() => closeModal(key)}
+                key={ key }
+                closeModal={ () => closeModal(key) }
             >
                 { message || 'Unspecified error.' }
             </ErrorModal>
@@ -61,7 +61,7 @@ export function ErrorWrapper(props: React.PropsWithChildren) {
     });
 
     return (
-        <ErrorContext.Provider value={{ throwError }}>
+        <ErrorContext.Provider value={ { throwError } }>
             { errorModals }
             { props.children }
         </ErrorContext.Provider>

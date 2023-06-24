@@ -7,6 +7,7 @@ import DatasetsOwned from '@/components/specific/profile/datasetsOwned';
 import MarketplaceNavbar from '@/components/specific/marketplace/navbar';
 
 import ActivityGraph from '@/components/specific/marketplace/activityGraph';
+import Footer from '@/components/specific/marketplace/footer';
 
 import classes from './profile.module.css';
 
@@ -15,7 +16,7 @@ export default function Profile() {
     const [curTab, updateCurTab] = useState(0);
 
     return (
-        <div className={classes.container}>
+        <div className={ classes.container }>
             <MarketplaceNavbar />
 
             <UserInfo
@@ -28,7 +29,9 @@ export default function Profile() {
             />
 
             { curTab === 0 && <DatasetsOwned /> }
-            { curTab === 1 && <ActivityGraph type="user" /> }
+            { curTab === 1 && <ActivityGraph /> }
+
+            <Footer />
         </div>
     );
 }

@@ -1,0 +1,22 @@
+.footer {
+    display: flex;
+    justify-content: space-between;
+
+    color: var(--primary1-100);
+}
+
+.socials {
+
+}
+
+.socialIconContainer {
+    display: flex;
+}
+
+.logoContainer {
+
+}
+
+.tos {
+
+}
