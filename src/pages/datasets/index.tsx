@@ -70,8 +70,9 @@ function DatasetSearchResult(props: { name?: string }) {
             params: {
                 name: props.name,
                 next: state.next,
-                expand: 'assetCounts,user',
+                expand: 'assetCounts,user,views',
                 limit: 50,
+                sort: 'updatedAt',
             }
         })).data;
         state.datasets.push(...fetched.data);

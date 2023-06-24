@@ -17,33 +17,33 @@ const tagColor: string[] = [
 ];
 
 export default function DatasetCard(props: Flockfysh.Dataset & { assetCounts: Flockfysh.DatasetAssetCounts }) {
-    const dateDiff = dayjs(props.createdAt).fromNow();
+    const dateDiff = dayjs(props.updatedAt).fromNow();
 
     return (
         <li className={ classes.card }>
-            <Link href={ `/datasets/${ props._id }` } className={ classes.linkOverlay } />
+            <Link href={ `/datasets/${props._id}` } className={ classes.linkOverlay }/>
 
             <div className={ classes.firstRow }>
-                <ReactSVG src={ folder.src } />
-                <h2>{ props.name }</h2>
+                <ReactSVG src={ folder.src }/>
+                <h2>{props.name}</h2>
             </div>
 
             <div className={ classes.cardInfo }>
                 <div className={ classes.firstInfoRow }>
                     <div className={ classes.assetCountText }>
-                        <span className={ classes.assetCount }>{ props.assetCounts.total }</span>
+                        <span className={ classes.assetCount }>{props.assetCounts.total}</span>
                         <span>Assets</span>
                     </div>
 
                     <div className={ classes.lastUpdated }>
-                        <ReactSVG src={ clock.src } />
-                        <span>{ dateDiff }</span>
+                        <ReactSVG src={ clock.src }/>
+                        <span>{dateDiff}</span>
                     </div>
                 </div>
 
                 <div>
                     <p>
-                        { props.description }
+                        {props.description}
                     </p>
                 </div>
 
@@ -57,7 +57,7 @@ export default function DatasetCard(props: Flockfysh.Dataset & { assetCounts: Fl
                                 } }
                                 key={ index }
                             >
-                                { tag }
+                                {tag}
                             </li>
                         );
                     })}
