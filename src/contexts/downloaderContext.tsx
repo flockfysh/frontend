@@ -63,6 +63,9 @@ export function DownloaderWrapper(props: React.PropsWithChildren) {
         link.download = `Dataset ${datasetId}.zip`;
         link.click();
         link.remove();
+        await api.post(`/api/datasets/${datasetId}/metrics`, {
+            type: 'download'
+        });
     }, []);
 
     return (
