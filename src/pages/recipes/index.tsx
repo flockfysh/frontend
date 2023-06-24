@@ -3,14 +3,14 @@ import { NextPageWithLayout } from '@/pages/_app';
 import { ReactSVG } from 'react-svg';
 
 import MainLayout from '@/components/layout/MainLayout';
-import RecipeCard from '@/components/specific/recipes/RecipeCard';
+import RecipeCard from '@/components/specific/recipes/recipeCard';
 
 import search from '@/icons/main/search.svg';
 import sliders from '@/icons/main/sliders.svg';
 import InfiniteScroll from 'react-infinite-scroller';
 
-import DarkModeButton from '@/components/ui/theming/DarkModeButton';
-import CreateRecipeModal from '@/components/specific/recipes/CreateRecipeModal';
+import DarkModeButton from '@/components/ui/theming/darkModeButton';
+import CreateRecipeModal from '@/components/specific/recipes/createRecipeModal';
 import classes from './styles.module.css';
 import api from '@/helpers/api';
 

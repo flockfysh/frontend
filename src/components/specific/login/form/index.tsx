@@ -21,12 +21,8 @@ const LoginField = forwardRef<HTMLInputElement, {
         <label className={ classes.field }>
             <input
                 ref={ (e) => {
-                    if (typeof ref === 'function') {
-                        ref(e);
-                    }
-                    else if (ref) {
-                        ref.current = e;
-                    }
+                    if (typeof ref === 'function') ref(e);
+                    else if (ref) ref.current = e;
                 } }
                 name={ props.name }
                 placeholder={ props.placeholder }
@@ -42,6 +38,7 @@ export default function LoginForm(props: {
     redirect: () => void,
 }) {
     const { refreshUser } = useContext(UserContext);
+
     const [nameError, setNameError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [emailError, setEmailError] = useState('');
@@ -49,6 +46,7 @@ export default function LoginForm(props: {
 
     function handleValid(elem: HTMLFormElement) {
         let formValid = true;
+
         const properties = formToJSON(elem) as {
             fullName?: string,
             email: string,
@@ -58,7 +56,9 @@ export default function LoginForm(props: {
 
         try {
             z.string({
+                // eslint-disable-next-line camelcase
                 required_error: 'Missing email.',
+                // eslint-disable-next-line camelcase
                 invalid_type_error: 'Email must be a string.',
             }).nonempty('Missing email.').email('Email is invalid.').parse(properties.email);
             
@@ -68,30 +68,33 @@ export default function LoginForm(props: {
             formValid = false;
 
             if (e instanceof ZodError) setEmailError(e.issues[0].message);
-
             else throw e;
         }
 
         try {
             z.string({
+                // eslint-disable-next-line camelcase
                 required_error: 'Missing password.',
+                // eslint-disable-next-line camelcase
                 invalid_type_error: 'Password must be a string.',
             })
                 .min(8, 'The password must be at least 8 characters long.')
                 .parse(properties.password);
+
             setPasswordError('');
         }
         catch (e) {
             formValid = false;
-            if (e instanceof ZodError) {
-                setPasswordError(e.issues[0].message);
-            }
+
+            if (e instanceof ZodError) setPasswordError(e.issues[0].message);
         }
 
         if (props.mode === 'signup') {
             try {
                 z.string({
+                    // eslint-disable-next-line camelcase
                     required_error: 'Missing display name.',
+                    // eslint-disable-next-line camelcase
                     invalid_type_error: 'Display name must be a string.',
                 }).nonempty('Missing display name.').parse(properties.fullName);
 
@@ -132,40 +135,54 @@ export default function LoginForm(props: {
                     'ERROR_OAUTH_ACCOUNT_WITHOUT_PASSWORD': () => setPasswordError('Please try logging in with Google or GitHub.'),
                     'ERROR_INVALID_CREDENTIALS': () => setPasswordError('Username or password is not correct.'),
                 };
+
                 ERROR_MAPPING[e.code]?.();
             }
-            else {
-                throw e;
-            }
+            else throw e;
         }
     }
 
     return (
-        <form className={ classes.loginForm } onChange={ e => {
-            handleValid(e.currentTarget);
-        } } onSubmit={ e => {
-            e.preventDefault();
-            if (handleValid(e.currentTarget)) {
-                auth(e.currentTarget, props.mode).then();
-            }
-        } }>
+        <form
+            className={ classes.loginForm }
+            onChange={ e => {
+                handleValid(e.currentTarget);
+            } }
+            onSubmit={ e => {
+                e.preventDefault();
+                if (handleValid(e.currentTarget)) auth(e.currentTarget, props.mode).then();
+            } }
+        >
             <fieldset className={ classes.loginFieldset }>
                 <h2 className={ classes.loginFormHeading }>Please enter your information</h2>
 
                 {
                     props.mode === 'signup' ? (
-                        <LoginField placeholder={ 'Full name' } type={ 'text' } name={ 'fullName' }
-                                    errorMessage={ nameError } />
+                        <LoginField
+                            placeholder="Full name"
+                            type="text"
+                            name="fullName"
+                            errorMessage={ nameError } 
+                        />
                     ) : <></>
                 }
 
-                <LoginField placeholder={ 'Email' } type={ 'email' } name={ 'email' } errorMessage={ emailError } />
-                <LoginField placeholder={ 'Password' } type={ 'password' } name={ 'password' }
-                            errorMessage={ passwordError } />
+                <LoginField placeholder="Email" type="email" name="email" errorMessage={ emailError } />
+                <LoginField
+                    placeholder="Password"
+                    type="password"
+                    name="password"
+                    errorMessage={ passwordError }
+                />
+
                 {
                     props.mode === 'signup' ? (
-                        <LoginField placeholder={ 'Confirm password' } type={ 'password' } name={ 'confirmPassword' }
-                                    errorMessage={ confirmPasswordError } />
+                        <LoginField
+                            placeholder="Confirm password"
+                            type="password"
+                            name="confirmPassword"
+                            errorMessage={ confirmPasswordError }
+                        />
                     ) : <></>
                 }
                 

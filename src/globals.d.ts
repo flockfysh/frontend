@@ -9,7 +9,7 @@ declare global {
             name: string;
             tag: string;
             color: string;
-            tool: Flockfysh.AnnotationTool,
+            tool: Flockfysh.AnnotationTool;
         }
 
         interface Recipe {
@@ -21,7 +21,7 @@ declare global {
         }
 
         interface RecipeWithLabels extends Recipe {
-            labels: Flockfysh.Label[]
+            labels: Flockfysh.Label[];
         }
 
         interface Dataset {
@@ -65,8 +65,8 @@ declare global {
             byStage: Record<Flockfysh.AssetStages, number>;
             total: number;
             byAnnotationStatus: {
-                annotated: number,
-                unannotated: number,
+                annotated: number;
+                unannotated: number;
             };
             byMimetype: Record<string, number>
         }
@@ -78,9 +78,9 @@ declare global {
         interface DatasetSize {
             byStage: Record<Flockfysh.AssetStages, number>;
             total: {
-                cloud: number,
-                cluster: number,
-                total: number,
+                cloud: number;
+                cluster: number;
+                total: number;
             };
         }
 
@@ -99,19 +99,19 @@ declare global {
 
     namespace Api {
         interface Response<T> {
-            success: true,
-            data: T,
+            success: true;
+            data: T;
         }
 
         interface PaginatedResponse<T> {
-            success: true,
-            data: T,
+            success: true;
+            data: T;
             meta: {
-                previous?: string,
-                next?: string,
-                hasPrevious: boolean,
-                hasNext: boolean,
-            }
+                previous?: string;
+                next?: string;
+                hasPrevious: boolean;
+                hasNext: boolean;
+            };
         }
     }
 }

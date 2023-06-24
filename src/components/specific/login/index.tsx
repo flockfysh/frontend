@@ -2,9 +2,10 @@ import { useState, useEffect, useRef, useCallback, useContext } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { StaticImageData } from 'next/image';
+
 import { ReactSVG } from 'react-svg';
 
-import ActionPopup from '../../ui/modals/ActionPopup';
+import ActionPopup from '../../ui/modals/actionPopup';
 import LoginForm from './form';
 
 import { UserContext } from '@/contexts/userContext';
@@ -19,9 +20,9 @@ import classes from './styles.module.css';
 function Separator() {
     return (
         <div className={ classes.separatorContainer }>
-            <span className={ classes.sepLine }/>
+            <span className={ classes.sepLine } />
             <span className={ classes.sepOr }>OR</span>
-            <span className={ classes.sepLine }/>
+            <span className={ classes.sepLine } />
         </div>
     );
 }
@@ -32,7 +33,7 @@ function OAuthLink(props: {
     mode: 'signup' | 'login';
     onClick?: (url: string) => void;
 }) {
-    const url = getBackendUrl(`/api/auth/${props.provider.toLowerCase()}`);
+    const url = getBackendUrl(`/api/auth/${ props.provider.toLowerCase() }`);
 
     return (
         <Link
@@ -43,9 +44,9 @@ function OAuthLink(props: {
             } }
             className={ classes.oAuthBtn }
         >
-            <ReactSVG src={ props.icon.src }/>
+            <ReactSVG src={ props.icon.src } />
 
-            <span>{props.mode === 'login' ? 'Sign in' : 'Sign up'} with {props.provider}</span>
+            <span>{ props.mode === 'login' ? 'Sign in' : 'Sign up' } with { props.provider }</span>
         </Link>
     );
 }
@@ -72,7 +73,6 @@ export default function Login(props: {
         }
     }, [redirect, user]);
 
-
     function oAuthLogin(path: string) {
         // Don't open too many auth windows.
         if (curPopup.current) curPopup.current.close();
@@ -88,7 +88,7 @@ export default function Login(props: {
                     refreshUser();
                     redirect();
                 }
- else if (!e.data.success) {
+                else if (!e.data.success) {
                     popup?.close();
                     throw new Error(e.data.message);
                 }
@@ -100,18 +100,18 @@ export default function Login(props: {
         <ActionPopup blurBg={ true } modalClassName={ classes.modal } popupTitle={ isLogin ? 'Sign in' : 'Sign Up' }>
             <section className={ classes.modalContent }>
                 <div className={ classes.oAuthContainer }>
-                    <OAuthLink icon={ google } provider={ 'Google' } mode={ mode } onClick={ oAuthLogin }/>
-                    <OAuthLink icon={ github } provider={ 'GitHub' } mode={ mode } onClick={ oAuthLogin }/>
+                    <OAuthLink icon={ google } provider={ 'Google' } mode={ mode } onClick={ oAuthLogin } />
+                    <OAuthLink icon={ github } provider={ 'GitHub' } mode={ mode } onClick={ oAuthLogin } />
                 </div>
 
                 <Separator/>
 
-                <LoginForm mode={ mode } redirect={ redirect }/>
+                <LoginForm mode={ mode } redirect={ redirect } />
 
                 {
                     isLogin ? (
                         <p className={ classes.changeType }>
-                            Don't have an account?
+                            Don&apos;t have an account?
                             <button
                                 className={ classes.changeTypeButton }
                                 onClick={ () => updateMode('signup') }

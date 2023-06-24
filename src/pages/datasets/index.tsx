@@ -2,7 +2,7 @@ import { NextPageWithLayout } from '@/pages/_app';
 import { ReactSVG } from 'react-svg';
 
 import MainLayout from '@/components/layout/MainLayout';
-import DatasetCard from '@/components/specific/datasets/myDatasets/DatasetCard';
+import DatasetCard from '@/components/specific/datasets/myDatasets/datasetCard';
 import CreateDatasetModal from '@/components/specific/datasets/CreateDatasetModal';
 
 import search from '@/icons/main/search.svg';

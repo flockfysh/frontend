@@ -23,9 +23,9 @@
     padding: 10px 50px;
     border-radius: 5px;
     background: linear-gradient(
-            to bottom right,
-            var(--color-blue-secondary),
-            var(--color-blue-primary)
+        to bottom right,
+        var(--color-blue-secondary),
+        var(--color-blue-primary)
     );
     cursor: pointer;
     color: var(--color-white);

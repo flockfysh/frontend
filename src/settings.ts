@@ -12,11 +12,13 @@ export const LABEL_COLORS = [
 export const DEBUG = process.env.NODE_ENV === 'development';
 
 /* The CRA framework will automatically set process.env.NODE_ENV to development, which corresponds to debug mode. */
-export const FRONTEND_URL =
-    DEBUG ? 'http://localhost:3000' : 'https://flockfysh.tech';
+export const FRONTEND_URL = DEBUG
+    ? 'http://localhost:3000'
+    : 'https://flockfysh.tech';
 
-export const SERVER_URL =
-    DEBUG ? 'http://localhost:8000' : 'https://api.flockfysh.tech';
+export const SERVER_URL = DEBUG
+    ? 'http://localhost:8000'
+    : 'https://api.flockfysh.tech';
 
 export const serverURL = SERVER_URL; //process.env.NEXT_PUBLIC_BACKEND_URL;
 

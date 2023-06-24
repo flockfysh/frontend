@@ -4,19 +4,13 @@ import { useRouter } from 'next/router';
 
 import classes from './styles.module.css';
 import cpu from '@/icons/main/cpu.svg';
-import search from '@/icons/main/search.svg';
 import flag from '@/icons/main/flag.svg';
 import download from '@/icons/main/download.svg';
 import bookmark from '@/icons/main/bookmark.svg';
-import list from '@/icons/main/list.svg';
-import grid from '@/icons/main/grid.svg';
-import database from '@/icons/main/database.svg';
 
-import mime from 'mime-types';
 import { NextPageWithLayout } from '@/pages/_app';
 import MarketplaceNavbar from '@/components/specific/marketplace/Navbar';
 import api from '@/helpers/api';
-import AssetViewer from '@/components/specific/datasets/viewDataset/AssetViewer';
 import { dayjs } from '@/helpers/date';
 import { formatFileSize } from '@/helpers/formatting';
 import ItemViewer from '@/components/specific/marketplace/ItemViewer';

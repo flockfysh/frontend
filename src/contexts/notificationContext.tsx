@@ -17,7 +17,7 @@ export default function NotificationWrapper() {
         );
 
         await serviceWorker.update();
- 
+
         return serviceWorker;
     }
 
@@ -34,12 +34,10 @@ export default function NotificationWrapper() {
         const serverKey: string = response.data;
 
         async function newSubscription() {
-            const workerSubscription = await worker.pushManager.subscribe(
-                {
-                    userVisibleOnly: true,
-                    applicationServerKey: serverKey,
-                }
-            );
+            const workerSubscription = await worker.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: serverKey,
+            });
 
             // eslint-disable-next-line no-constant-condition
             while (true) {
@@ -59,13 +57,16 @@ export default function NotificationWrapper() {
         }
 
         let curSubscription: PushSubscription | null = null;
-        
-        if (worker.pushManager) curSubscription = await worker.pushManager.getSubscription();
+
+        if (worker.pushManager)
+            curSubscription = await worker.pushManager.getSubscription();
+            
         if (!curSubscription) curSubscription = await newSubscription();
-        
+
         const appServerKey = curSubscription.options.applicationServerKey!;
-        
-        const decoded = btoa( //! only used in legacy browsers?
+
+        const decoded = btoa(
+            //! only used in legacy browsers?
             String.fromCodePoint.apply(
                 null,
                 Array.from(new Uint8Array(appServerKey))
@@ -88,7 +89,7 @@ export default function NotificationWrapper() {
 
         const currentSubscription = await worker.pushManager.getSubscription();
         if (!currentSubscription) return;
-        
+
         await currentSubscription.unsubscribe();
     }
 
@@ -96,10 +97,8 @@ export default function NotificationWrapper() {
         if (navigator.serviceWorker) {
             (async function () {
                 if (worker) {
-                    if (!user)
-                        await unsubscribeFromNotifications(worker);
-                    else
-                        await subscribeToNotifications(worker);
+                    if (!user) await unsubscribeFromNotifications(worker);
+                    else await subscribeToNotifications(worker);
                 }
             })();
         }

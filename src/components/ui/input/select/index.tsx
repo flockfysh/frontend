@@ -1,9 +1,7 @@
-import React, { forwardRef } from 'react';
+import { forwardRef, useRef, ForwardedRef } from 'react';
 import classes from './styles.module.css';
-import Select, { Props, StylesConfig, GroupBase, SelectInstance } from 'react-select';
+import Select, { Props, GroupBase, SelectInstance } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
-import { ar } from '@faker-js/faker';
-import { prop } from 'react-data-table-component/dist/src/DataTable/util';
 
 const theme = (theme: any) => (
     {
@@ -21,8 +19,9 @@ const theme = (theme: any) => (
 
 const CustomSelect = forwardRef<any, Props>(function _CustomSelect<Option, IsMulti extends boolean = false, Group extends GroupBase<Option> = GroupBase<Option>>(
     props: Props<Option, IsMulti, Group>,
-    ref: React.ForwardedRef<SelectInstance<Option, IsMulti, Group>>) {
-    const selectRef = React.useRef<SelectInstance<Option, IsMulti, Group> | null>(null);
+    ref: ForwardedRef<SelectInstance<Option, IsMulti, Group>>
+) {
+    const selectRef = useRef<SelectInstance<Option, IsMulti, Group> | null>(null);
     return (
         <Select
             { ...props }
@@ -41,21 +40,21 @@ const CustomSelect = forwardRef<any, Props>(function _CustomSelect<Option, IsMul
                 }
             } }
             ref={ e => {
-                if (typeof ref === 'function') {
-                    ref(e);
-                }
- else if (ref) {
-                    ref.current = e;
-                }
+                if (typeof ref === 'function') ref(e);
+                else if (ref) ref.current = e;
+
                 selectRef.current = e;
             } }
         />
     );
 });
 
-export const CustomCreatableSelect = forwardRef<any, Props>(function _CreatableCustomSelect<Option, IsMulti extends boolean = false, Group extends GroupBase<Option> = GroupBase<Option>>(
+export const CustomCreatableSelect = forwardRef<any, Props>(
+    function _CreatableCustomSelect<Option, IsMulti extends boolean = false, Group extends GroupBase<Option> = GroupBase<Option>>
+(
     props: Props<Option, IsMulti, Group>,
-    ref: React.ForwardedRef<SelectInstance<Option, IsMulti, Group>>) {
+    ref: React.ForwardedRef<SelectInstance<Option, IsMulti, Group>>
+) {
     return (
         <CreatableSelect
             { ...props }
@@ -77,12 +76,8 @@ export const CustomCreatableSelect = forwardRef<any, Props>(function _CreatableC
                 }
             } }
             ref={ e => {
-                if (typeof ref === 'function') {
-                    ref(e);
-                }
- else if (ref) {
-                    ref.current = e;
-                }
+                if (typeof ref === 'function') ref(e);
+                else if (ref) ref.current = e;
             } }
         />
     );
