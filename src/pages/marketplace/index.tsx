@@ -10,11 +10,19 @@ import { v4 } from 'uuid';
 import { fakerEN } from '@faker-js/faker';
 import CollectionSwiper from '@/components/specific/marketplace/CollectionSwiper';
 import DatasetTimeFilter from '@/components/specific/marketplace/datasetTimeFilter';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import api from '@/helpers/api';
 import { dayjs } from '@/helpers/date';
+import { ManipulateType } from 'dayjs';
 
 const Marketplace: NextPageWithLayout = function () {
+    const timeFilterOptions: [number, ManipulateType][] = [
+        [1, 'day'],
+        [1, 'week'],
+        [1, 'month'],
+    ];
+    const [timeFilter, setTimeFilter] = React.useState(0);
+
     const [featuredDatasets, setFeaturedDatasets] = useState<HomepageDataset[]>([]);
     useEffect(() => {
         async function fetch() {
@@ -43,14 +51,14 @@ const Marketplace: NextPageWithLayout = function () {
                     expand: 'assetCounts,size,likes,user,thumbnail,url',
                     ascending: false,
                     limit: 8,
-                    relevancePeriod: dayjs().subtract(20, 'days').toString(),
+                    relevancePeriod: dayjs().subtract(...timeFilterOptions[timeFilter]).toString(),
                 }
             })).data.data;
             setTrendingDatasets(result);
         }
 
         fetch().then();
-    }, []);
+    }, [timeFilter]);
 
     const [popularDatasets, setPopularDatasets] = useState<HomepageDataset[]>([]);
     useEffect(() => {
@@ -87,7 +95,7 @@ const Marketplace: NextPageWithLayout = function () {
         }
 
         fetch().then();
-    }, []);
+    }, [timeFilter]);
 
     const collections: HomepageCollection[] = Array.from({ length: 8 }, () => {
         return {
@@ -124,10 +132,11 @@ const Marketplace: NextPageWithLayout = function () {
                         <h1 className={ classes.header }>Trending Datasets</h1>
 
                         <DatasetTimeFilter
-                            callback={ () => {
+                            callback={ (index) => {
+                                setTimeFilter(index);
                             } }
-                            options={ ['1d', '7d', '1m'] }
-                            selected={ 0 }/>
+                            options={ timeFilterOptions }
+                            selected={ timeFilter }/>
                     </div>
 
                     <DatasetSwiper cardType={ 'vertical' } datasets={ trendingDatasets }></DatasetSwiper>

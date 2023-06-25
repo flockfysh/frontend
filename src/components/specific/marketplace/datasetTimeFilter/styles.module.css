@@ -17,6 +17,7 @@
     line-height: 22px;
     cursor: pointer;
     transition: 0.2s;
+    background: none;
     display: flex;
     align-items: center;
     justify-content: center;
