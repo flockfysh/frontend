@@ -6,6 +6,10 @@ import clock from '@/icons/main/clock.svg';
 import classes from './styles.module.css';
 import { formatFileSize } from '@/helpers/formatting';
 import { dayjs } from '@/helpers/date';
+import { getDefaultDatasetThumbnail } from '@/helpers/defaults';
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
 
 
 export default function VerticalCard(props: HomepageDataset) {
@@ -15,7 +19,12 @@ export default function VerticalCard(props: HomepageDataset) {
                 <div className={ classes.header }>
                     <DatasetTypeCard type={ props.type } className={ classes.typeCard }/>
 
-                    <img src={ props.thumbnail?.url } alt="cover"/>
+                    <div className={ classes.imageContainer }>
+                        <Image fill={ true } className={ classes.image }
+                               src={ props.thumbnail?.url ?? getDefaultDatasetThumbnail(props.type).src }
+                               alt="cover"/>
+
+                    </div>
 
                     <div className={ classes.timeContainer }>
                         <ReactSVG src={ clock.src } className={ classes.clockIcon }/>
@@ -25,8 +34,10 @@ export default function VerticalCard(props: HomepageDataset) {
 
                 <div className={ classes.middleSection }>
                     <h1>{props.name}</h1>
-                    <p>@{props.user.username}</p>
+                    <p>@{props.user.username.slice(0, 15)}</p>
                 </div>
+                <Link className={ classes.linkOverlay } href={ `/marketplace/${props._id}` }></Link>
+
 
                 {
                     props.price > 0 && (

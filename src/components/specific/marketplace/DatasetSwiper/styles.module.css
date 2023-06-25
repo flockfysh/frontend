@@ -18,7 +18,7 @@
 }
 
 .wideSlide {
-    width: 25rem;
+    width: 30rem;
 }
 
 .slide:not(:last-child) {
@@ -53,17 +53,17 @@
     content: '';
     display: block;
     height: 100%;
-    width: 250px;
+    width: 150px;
     position: absolute;
-    background: red;
+    /*background: #f004;*/
 }
 
 .fadeOverlay.previous::before {
     background: linear-gradient(90deg, var(--background), transparent);
-    right: 0;
+    right: 100%;
 }
 
 .fadeOverlay.next::before {
     background: linear-gradient(-90deg, var(--background), transparent);
-    left: 0;
+    left: 100%;
 }

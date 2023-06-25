@@ -24,9 +24,25 @@
     padding: 0;
 }
 
-.container img {
+.imageContainer {
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 15px;
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+}
+
+.image {
+    object-fit: cover;
+}
+
+.linkOverlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    
 }
 
 .typeCard {

@@ -9,110 +9,85 @@ import DatasetSwiper from '@/components/specific/marketplace/DatasetSwiper';
 import { v4 } from 'uuid';
 import { fakerEN } from '@faker-js/faker';
 import CollectionSwiper from '@/components/specific/marketplace/CollectionSwiper';
+import DatasetTimeFilter from '@/components/specific/marketplace/datasetTimeFilter';
+import { useEffect, useState } from 'react';
+import api from '@/helpers/api';
+import { dayjs } from '@/helpers/date';
 
 const Marketplace: NextPageWithLayout = function () {
-    const datasets: HomepageDataset[] = Array.from({ length: 8 }, () => ({
-        type: 'image',
-        likes: 50,
-        assetCounts: {
-            total: 12000,
-            byStage: {
-                feedback: 0,
-                completed: 19950,
-                uploaded: 50,
-            },
-            byAnnotationStatus: {
-                annotated: 20000,
-                unannotated: 0,
-            },
-            byMimetype: {}
-        },
-        size: {
-            total: {
-                total: 2 * 1024 ** 3,
-                cloud: 1024 ** 3,
-                cluster: 1024 ** 3,
-            },
-            byStage: {
-                uploaded: 500 * 1024 ** 2,
-                feedback: 500 * 1024 ** 2,
-                completed: 500 * 1024 ** 2,
-            },
-            byMimetype: {}
-        },
-        metrics: {
-            downloads: 0,
-            views: 0,
-        },
-        user: {
-            username: 'praks',
-            _id: '24159335',
-            fullName: 'Prakriti Bista',
-            firstName: 'Prakriti',
-            email: 'praks@gmail.com',
-            lastName: 'Bista',
-        },
-        createdAt: new Date(),
-        _id: v4(),
-        name: 'Dataset name',
-        subTags: [],
-        tags: [],
-        updatedAt: new Date(),
-        public: true,
-        price: 2.84448,
-        description: 'This is a random test dataset',
-    }));
+    const [featuredDatasets, setFeaturedDatasets] = useState<HomepageDataset[]>([]);
+    useEffect(() => {
+        async function fetch() {
+            const result = (await api.get<Api.PaginatedResponse<HomepageDataset[]>>('/api/datasets/search', {
+                params: {
+                    public: true,
+                    sort: 'metrics.views',
+                    expand: 'assetCounts,size,likes,user,thumbnail,url',
+                    ascending: false,
+                    limit: 8,
+                }
+            })).data.data;
+            setFeaturedDatasets(result);
+        }
 
-    const featuredDatasets: HomepageDataset[] = Array.from({ length: 8 }, () => ({
-        type: 'image',
-        likes: 50,
-        assetCounts: {
-            total: 450,
-            byStage: {
-                feedback: 0,
-                completed: 400,
-                uploaded: 50,
-            },
-            byAnnotationStatus: {
-                annotated: 450,
-                unannotated: 0,
-            },
-            byMimetype: {}
-        },
-        metrics: {
-            downloads: 0,
-            views: 0,
-        },
-        size: {
-            total: {
-                total: Math.random() * 5 * 1024 ** 3,
-                cloud: 1024 ** 3,
-                cluster: 1024 ** 3,
-            },
-            byStage: {
-                uploaded: 0.5 * 1024 ** 2,
-                feedback: 0,
-                completed: 4 * 1024 ** 2,
-            },
-        },
-        user: {
-            username: 'praks',
-            _id: '24159335',
-            fullName: 'Prakriti Bista',
-            firstName: 'Prakriti',
-            email: 'praks@gmail.com',
-            lastName: 'Bista',
-        },
-        createdAt: new Date(),
-        _id: v4(),
-        name: fakerEN.animal.type(),
-        subTags: [],
-        tags: [],
-        updatedAt: new Date(),
-        public: true,
-        price: 2.84448,
-        description: 'This is a random test dataset',
-    }));
+        fetch().then();
+    }, []);
+
+    const [trendingDatasets, setTrendingDatasets] = useState<HomepageDataset[]>([]);
+    useEffect(() => {
+        async function fetch() {
+            const result = (await api.get<Api.PaginatedResponse<HomepageDataset[]>>('/api/datasets/search', {
+                params: {
+                    public: true,
+                    sort: 'relevance',
+                    expand: 'assetCounts,size,likes,user,thumbnail,url',
+                    ascending: false,
+                    limit: 8,
+                    relevancePeriod: dayjs().subtract(20, 'days').toString(),
+                }
+            })).data.data;
+            setTrendingDatasets(result);
+        }
+
+        fetch().then();
+    }, []);
+
+    const [popularDatasets, setPopularDatasets] = useState<HomepageDataset[]>([]);
+    useEffect(() => {
+        async function fetch() {
+            const result = (await api.get<Api.PaginatedResponse<HomepageDataset[]>>('/api/datasets/search', {
+                params: {
+                    public: true,
+                    sort: 'likes',
+                    expand: 'assetCounts,size,likes,user,thumbnail,url',
+                    ascending: false,
+                    limit: 8,
+                }
+            })).data.data;
+            setPopularDatasets(result);
+        }
+
+        fetch().then();
+    }, []);
+
+    const [paidDatasets, setPaidDatasets] = useState<HomepageDataset[]>([]);
+    useEffect(() => {
+        async function fetch() {
+            const result = (await api.get<Api.PaginatedResponse<HomepageDataset[]>>('/api/datasets/search', {
+                params: {
+                    public: true,
+                    sort: 'metrics.views',
+                    expand: 'assetCounts,size,likes,user,thumbnail,url',
+                    ascending: false,
+                    paid: true,
+                    limit: 8,
+                }
+            })).data.data;
+            setPaidDatasets(result);
+        }
+
+        fetch().then();
+    }, []);
 
     const collections: HomepageCollection[] = Array.from({ length: 8 }, () => {
         return {
@@ -139,41 +114,44 @@ const Marketplace: NextPageWithLayout = function () {
         <div className={ classes.container }>
             <MarketplaceNavbar/>
 
-            <FeaturedDatasetsSection datasets={ featuredDatasets }></FeaturedDatasetsSection>
+            {!!featuredDatasets.length &&
+                <FeaturedDatasetsSection datasets={ featuredDatasets }></FeaturedDatasetsSection>
+            }
 
-            <section className={ classes.sectionContainer }>
-                <div className={ classes.headerContainer }>
-                    <h1 className={ classes.header }>Trending Datasets</h1>
+            {!!trendingDatasets.length && (
+                <section className={ classes.sectionContainer }>
+                    <div className={ classes.headerContainer }>
+                        <h1 className={ classes.header }>Trending Datasets</h1>
 
-                    <div className={ classes.trendingFilterContainer }>
-                        <div className={ classes.trendingFilterGrid }>
-                            <div>1h</div>
-                        </div>
-
-                        <div className={ classes.trendingFilterGrid }>
-                            <div>6h</div>
-                        </div>
-
-                        <div className={ classes.trendingFilterGrid }>
-                            <div>24h</div>
-                        </div>
-
-                        <div className={ classes.trendingFilterGrid }>
-                            <div>7d</div>
-                        </div>
+                        <DatasetTimeFilter
+                            callback={ () => {
+                            } }
+                            options={ ['1d', '7d', '1m'] }
+                            selected={ 0 }/>
                     </div>
-                </div>
 
-                <DatasetSwiper cardType={ 'vertical' } datasets={ datasets }></DatasetSwiper>
+                    <DatasetSwiper cardType={ 'vertical' } datasets={ trendingDatasets }></DatasetSwiper>
+                </section>
+            )}
 
-            </section>
+            {!!popularDatasets.length && (
+                <section className={ classes.sectionContainer }>
+                    <div className={ classes.headerContainer }>
+                        <h1 className={ classes.header }>Most Popular Datasets</h1>
+                    </div>
 
-            <section className={ classes.sectionContainer }>
-                <div className={ classes.headerContainer }>
-                    <h1 className={ classes.header }>Premium Datasets</h1>
-                </div>
-                <DatasetSwiper cardType={ 'vertical' } datasets={ datasets }></DatasetSwiper>
-            </section>
+                    <DatasetSwiper cardType={ 'vertical' } datasets={ popularDatasets }></DatasetSwiper>
+                </section>
+            )}
+
+            {!!paidDatasets.length && (
+                <section className={ classes.sectionContainer }>
+                    <div className={ classes.headerContainer }>
+                        <h1 className={ classes.header }>Premium Datasets</h1>
+                    </div>
+                    <DatasetSwiper cardType={ 'vertical' } datasets={ paidDatasets }></DatasetSwiper>
+                </section>
+            )}
 
             <section className={ classes.sectionContainer }>
                 <div className={ classes.headerContainer }>
@@ -181,15 +159,6 @@ const Marketplace: NextPageWithLayout = function () {
                 </div>
 
                 <CollectionSwiper collections={ collections }></CollectionSwiper>
-            </section>
-
-            <section className={ classes.sectionContainer }>
-                <div className={ classes.headerContainer }>
-                    <h1 className={ classes.header }>Trending in Segmentations</h1>
-                </div>
-
-                <DatasetSwiper cardType={ 'vertical' } datasets={ datasets }></DatasetSwiper>
-
             </section>
 
             <section className={ classes.sectionContainer + ' ' + classes.howTo }>

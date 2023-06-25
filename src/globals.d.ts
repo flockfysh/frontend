@@ -2,7 +2,7 @@ declare global {
     namespace Flockfysh {
         type AnnotationTool = 'boundingBox' | 'ellipse' | 'polygon' | 'line';
         type AssetStages = 'uploaded' | 'feedback' | 'completed';
-        type AssetType = 'image' | 'video';
+        type AssetType = 'image' | 'video' | 'text' | 'other';
 
         interface Label {
             _id: string;
@@ -31,7 +31,7 @@ declare global {
             tags: string[];
             subTags: string[];
             user: string;
-            type: string;
+            type: Flockfysh.AssetType;
             createdAt: Date;
             price: number;
             public: boolean;
