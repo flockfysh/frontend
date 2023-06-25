@@ -134,7 +134,7 @@ function DatasetsOwned() {
     const [finalData, setfinalData] = useState(recievedData);
 
     return (
-        <div className={ classes.mainDiv }>
+        <section className={ classes.mainDiv }>
             <div className={ classes.cardDiv }>
                 <div className={ classes.headDiv }>
                     <label className={ classes.searchContainer }>
@@ -217,7 +217,7 @@ function DatasetsOwned() {
                     );
                 })}
             </div>
-        </div>
+        </section>
     );
 }
 
