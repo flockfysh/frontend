@@ -58,7 +58,20 @@ export default function ActivityGraph(dataset: PreviewDataset) {
 
                     <DatasetTimeFilter
                         callback={ (time) => updateSelectedTime(time) }
-                        options={ ['7d', '1m', '6m', '1yr'] }
+                        options={ [
+                            [
+                                7, 'days',
+                            ],
+                            [
+                                1, 'month',
+                            ],
+                            [
+                                6, 'months',
+                            ],
+                            [
+                                1, 'year',
+                            ]
+                        ] }
                         selected={ selectedTime }
                     />
                 </div>
