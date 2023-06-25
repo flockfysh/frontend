@@ -1,0 +1,127 @@
+.cardContainer {
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15), 0px 2px 5px rgba(0, 0, 0, 0.05),
+        0px 8px 40px rgba(0, 0, 0, 0.04);
+    border-radius: 16px;
+    width: 100%;
+    aspect-ratio: 16/9;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: 0.2s;
+    z-index: 0;
+    background: var(--main-grey);
+    overflow: hidden;
+    position: relative;
+}
+
+.image,
+.overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.image {
+    z-index: -2;
+}
+
+.overlay {
+    z-index: -1;
+    background: #0008;
+}
+
+.header {
+    margin-top: 10px;
+    margin-left: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.typeContainer {
+    align-self: flex-start;
+    margin-right: 15px;
+    margin-top: 5px;
+}
+
+:global(.carousel) .thumbnail {
+    border-radius: 14px;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 5px;
+    aspect-ratio: 1/1;
+    width: 48px;
+}
+
+:global(.carousel) .thumbnail img {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+}
+
+.datasetName {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 2rem;
+    line-height: 2.5rem;
+    letter-spacing: -0.64px;
+    text-align: center;
+}
+
+.footer {
+    display: flex;
+    margin: 0 30px;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.left {
+    display: flex;
+    gap: 8px;
+}
+
+.left img {
+    align-self: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+}
+
+.left p {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 19px;
+    align-self: center;
+}
+
+.right {
+    align-self: center;
+    display: flex;
+    gap: 32px;
+    align-items: center;
+}
+
+.infoContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+}
+
+.infoContainerLabel {
+    color: rgba(255, 255, 255, 0.8);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: 19px;
+}
+
+.infoContainerValue {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+}
