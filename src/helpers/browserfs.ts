@@ -1,5 +1,6 @@
+import { useState, useLayoutEffect } from 'react';
+
 import * as BrowserFS from 'browserfs';
-import React from 'react';
 import { Stats } from 'fs';
 
 let _window: Window | null = null;
@@ -10,10 +11,11 @@ try {
     _window = null;
 }
 
-
 // Make sure this function is used client-side.
 export default function useBrowserFS() {
-    const [state, setState] = React.useState<Awaited<ReturnType<typeof module>> | null>(null);
+    const [state, setState] = useState<Awaited<
+        ReturnType<typeof module>
+    > | null>(null);
 
     async function module() {
         const fs = BrowserFS.BFSRequire('fs');
@@ -22,13 +24,34 @@ export default function useBrowserFS() {
             readdir(path: string): Promise<string[]>;
             unlink(path: string): Promise<void>;
             writeFile(filename: string, data: any): Promise<void>;
-            writeFile(filename: string, data: any, encoding?: string): Promise<void>;
-            writeFile(filename: string, data: any, options?: { encoding?: string; mode?: string | number; flag?: string; }): Promise<void>;
+            writeFile(
+                filename: string,
+                data: any,
+                encoding?: string
+            ): Promise<void>;
+            writeFile(
+                filename: string,
+                data: any,
+                options?: {
+                    encoding?: string;
+                    mode?: string | number;
+                    flag?: string;
+                }
+            ): Promise<void>;
             readFile(filename: string): Promise<Buffer>;
-            readFile(filename: string, options: { flag?: string; }): Promise<Buffer>;
-            readFile(filename: string, options: { encoding: string; flag?: string; }): Promise<string>;
+            readFile(
+                filename: string,
+                options: { flag?: string }
+            ): Promise<Buffer>;
+            readFile(
+                filename: string,
+                options: { encoding: string; flag?: string }
+            ): Promise<string>;
             readFile(filename: string, encoding: string): Promise<string>;
-            rmdir(path: string, options?: { recursive?: boolean }): Promise<void>;
+            rmdir(
+                path: string,
+                options?: { recursive?: boolean }
+            ): Promise<void>;
             purgeDir(path: string): Promise<void>;
             stat(path: string): Promise<Stats>;
             mkdir(path: string, mode?: any): Promise<void>;
@@ -78,7 +101,7 @@ export default function useBrowserFS() {
                         });
                     });
                 }
- else {
+                else {
                     await promisesLib.purgeDir(pathName);
                     await promisesLib.rmdir(pathName, {
                         recursive: false,
@@ -92,11 +115,13 @@ export default function useBrowserFS() {
                     const childPath = path.join(pathName, child);
                     const stat = await promisesLib.stat(childPath);
                     if (stat.isDirectory()) {
-                        promises.push(promisesLib.rmdir(childPath, {
-                            recursive: true,
-                        }));
+                        promises.push(
+                            promisesLib.rmdir(childPath, {
+                                recursive: true,
+                            })
+                        );
                     }
- else {
+                    else {
                         promises.push(promisesLib.unlink(childPath));
                     }
                 }
@@ -122,10 +147,8 @@ export default function useBrowserFS() {
                 try {
                     return await promise;
                 }
- catch (e) {
-
-                }
-            }
+                catch (e) {}
+            },
         };
         await promisesLib.purgeDir('/tmp');
         await promisesLib.skipError(promisesLib.mkdir('/tmp'));
@@ -138,17 +161,20 @@ export default function useBrowserFS() {
         };
     }
 
-    React.useLayoutEffect(() => {
+    useLayoutEffect(() => {
         if (_window) {
             BrowserFS.install(_window);
-            BrowserFS.configure({
-                fs: 'IndexedDB',
-                options: {}
-            }, async (e) => {
-                setState(await module());
-            });
+            BrowserFS.configure(
+                {
+                    fs: 'IndexedDB',
+                    options: {},
+                },
+                async (_) => {
+                    setState(await module());
+                }
+            );
         }
-    }, [_window]);
+    }, []);
 
     return state;
 }

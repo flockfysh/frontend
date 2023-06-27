@@ -1,4 +1,7 @@
-import React from 'react';
+import { forwardRef, useState, useEffect, useCallback } from 'react';
+import { ReactSVG } from 'react-svg';
+import { ScrollerProps, TableVirtuoso, VirtuosoGrid } from 'react-virtuoso';
+
 import {
     Table,
     TableBody,
@@ -9,48 +12,68 @@ import {
     TableRow,
     TableRowProps
 } from '@mui/material';
-import api from '@/helpers/api';
-import classes from './styles.module.css';
-import { ReactSVG } from 'react-svg';
-import trash from '@/icons/main/trash-2.svg';
-import { ScrollerProps, TableVirtuoso, VirtuosoGrid } from 'react-virtuoso';
-import dayjs from 'dayjs';
-import { capitalize } from '@/helpers/strings';
-import { formatFileSize } from '@/helpers/formatting';
+
+import axios from 'axios';
 import Image from 'next/image';
 import typeIs from 'type-is';
-import axios from 'axios';
+import dayjs from 'dayjs';
+
+import { capitalize } from '@/helpers/strings';
+import { formatFileSize } from '@/helpers/formatting';
+import api from '@/helpers/api';
+
+import trash from '@/icons/main/trash-2.svg';
+
+import classes from './styles.module.css';
 
 const TableComponents = {
-    Scroller: React.forwardRef<HTMLDivElement, ScrollerProps>(function _Scroller(props, ref) {
+    Scroller: forwardRef<HTMLDivElement, ScrollerProps>(function _Scroller(props, ref) {
         return (
-            <TableContainer { ...props } style={ {
-                ...props.style,
-                height: 'unset'
-            } } className={ classes.viewerTableScroller } ref={ ref }/>
+            <TableContainer
+                { ...props }
+                style={ {
+                    ...props.style,
+                    height: 'unset'
+                } }
+                className={ classes.viewerTableScroller }
+                ref={ ref }
+            />
         );
     }),
-    Table: React.forwardRef<HTMLTableElement, TableProps>(function _Table(props, ref) {
+    Table: forwardRef<HTMLTableElement, TableProps>(function _Table(props, ref) {
         return (
-            <Table { ...props } className={ classes.viewerTableInner } ref={ ref }/>
+            <Table
+                { ...props }
+                className={ classes.viewerTableInner }
+                ref={ ref }
+            />
         );
     }),
-    TableHead: React.forwardRef<HTMLTableSectionElement, TableHeadProps>(function _TableHead(props: TableHeadProps, ref) {
+    TableHead: forwardRef<HTMLTableSectionElement, TableHeadProps>(function _TableHead(props: TableHeadProps, ref) {
         return (
-            <TableHead { ...props }
-                       className={ `${classes.viewerTableHead} ${props.className || ''}` } ref={ ref }></TableHead>
+            <TableHead
+                { ...props }
+                className={ `${ classes.viewerTableHead } ${ props.className || '' }` }
+                ref={ ref }
+            />
         );
     }),
-    TableRow: React.forwardRef<HTMLTableRowElement, TableRowProps>(function _TableRow(props: TableRowProps, ref) {
+    TableRow: forwardRef<HTMLTableRowElement, TableRowProps>(function _TableRow(props: TableRowProps, ref) {
         return (
-            <TableRow { ...props }
-                      className={ `${classes.viewerTableRow} ${props.className || ''}` } ref={ ref }></TableRow>
+            <TableRow
+                { ...props }
+                className={ `${ classes.viewerTableRow } ${ props.className || '' }` }
+                ref={ ref }
+            />
         );
     }),
-    TableBody: React.forwardRef<HTMLTableSectionElement, TableBodyProps>(function _TableBody(props: TableBodyProps, ref) {
+    TableBody: forwardRef<HTMLTableSectionElement, TableBodyProps>(function _TableBody(props: TableBodyProps, ref) {
         return (
-            <TableBody { ...props }
-                       className={ `${classes.viewerTableBody} ${props.className || ''}` } ref={ ref }></TableBody>
+            <TableBody
+                { ...props }
+                className={ `${classes.viewerTableBody} ${props.className || ''}` }
+                ref={ ref }
+            />
         );
     }),
 };
@@ -58,9 +81,9 @@ const TableComponents = {
 function TextComponent(props: {
     url: string;
 }) {
-    const [text, setText] = React.useState('');
+    const [text, setText] = useState('');
 
-    React.useEffect(() => {
+    useEffect(() => {
         async function fetchThis() {
             const textData = await axios.get<string>(props.url, {
                 responseType: 'text',
@@ -73,7 +96,7 @@ function TextComponent(props: {
 
     return (
         <code className={ classes.textViewer }>
-            {text}
+            { text }
         </code>
     );
 }
@@ -86,29 +109,29 @@ function AssetTile(props: {
 }) {
     let component;
 
-    if (typeIs.is(props.item.mimetype, ['image/*'])) {
+    if (typeIs.is(props.item.mimetype, ['image/*']))
         component = (
-            <Image fill={ true } className={ classes.image } src={ props.item.url }
-                   alt={ props.item.displayName }/>
+            <Image
+                fill={ true }
+                className={ classes.image }
+                src={ props.item.url }
+                alt={ props.item.displayName }
+            />
         );
-    }
- else if (typeIs.is(props.item.mimetype, ['text/*', 'application/json'])) {
+    else if (typeIs.is(props.item.mimetype, ['text/*', 'application/json']))
         component = (
-            <TextComponent url={ props.item.url }></TextComponent>
+            <TextComponent url={ props.item.url } />
         );
-    }
- else {
-        component = <div></div>;
-    }
+    else component = <div />;
 
     return (
         <div className={ classes.imageWrapper }>
-            {component}
+            { component }
 
             <button className={ classes.imageButton } onClick={ () => {
                 props.delAsset(props.item._id);
             } }>
-                <ReactSVG className={ classes.icon } src={ trash.src }/>
+                <ReactSVG className={ classes.icon } src={ trash.src } />
             </button>
         </div>
     );
@@ -125,10 +148,13 @@ interface AssetViewerState {
 
 function CustomTableCell(props: TableCellProps) {
     return (
-        <TableCell { ...props } ref={ props.ref }
-                   className={ `${props.className || ''} ${classes.viewerTableCell}` }>
+        <TableCell
+            { ...props }
+            ref={ props.ref }
+            className={ `${ props.className || '' } ${ classes.viewerTableCell }` }
+        >
             <div className={ classes.viewerTableCellInner }>
-                {props.children}
+                { props.children }
             </div>
         </TableCell>
     );
@@ -149,7 +175,7 @@ export default function AssetViewer(props: {
         };
     };
 
-    const [state, setState] = React.useState<AssetViewerState>(initialState);
+    const [state, setState] = useState<AssetViewerState>(initialState);
     const assetArray = Array.from(state.assets.values());
 
     async function delAsset(id: string) {
@@ -165,77 +191,89 @@ export default function AssetViewer(props: {
             <>
                 <TableRow>
                     <CustomTableCell>
-                        <input type={ 'checkbox' } checked={ assetArray.every(asset => asset.selected) }
-                               onChange={ (e) => {
-                                   const checked = e.currentTarget.checked;
-                                   assetArray.forEach(asset => {
-                                       asset.selected = checked;
-                                   });
-                                   setState(prev => {
-                                       return { ...prev };
-                                   });
-                               } }/>
+                        <input
+                            type="checkbox"
+                            checked={ assetArray.every(asset => asset.selected) }
+                            onChange={ (e) => {
+                                const checked = e.currentTarget.checked;
+                                
+                                assetArray.forEach(asset => {
+                                    asset.selected = checked;
+                                });
+
+                                setState(prev => ({ ...prev }));
+                            } }
+                        />
                     </CustomTableCell>
+
                     <CustomTableCell>
                         File name
                     </CustomTableCell>
+                    
                     <CustomTableCell className={ classes.uploadDate }>
                         Uploaded at
                     </CustomTableCell>
+                    
                     <CustomTableCell>
                         Type
                     </CustomTableCell>
+                    
                     <CustomTableCell>
                         Status
                     </CustomTableCell>
+                    
                     <CustomTableCell>
                         Size
                     </CustomTableCell>
-                    <CustomTableCell>
-
-                    </CustomTableCell>
+                    
+                    <CustomTableCell />
                 </TableRow>
             </>
         );
     }
 
-    async function load(numItems: number = 20) {
-        if (state.hasMore) {
-            const datasetId = props.datasetId;
-            try {
-                const result = (await api.get<Api.PaginatedResponse<Flockfysh.Asset[]>>(`/api/datasets/${datasetId}/assets`, {
-                    params: {
-                        next: state.next,
-                        displayName: props.searchQuery.displayName,
-                        limit: numItems,
-                    },
-                })).data;
-                for (const item of result.data) {
-                    state.assets.set(item._id, {
-                        ...item,
-                        selected: false,
+    const load = useCallback(
+        async function(numItems: number = 20) {
+            if (state.hasMore) {
+                const datasetId = props.datasetId;
+
+                try {
+                    const result = (await api.get<Api.PaginatedResponse<Flockfysh.Asset[]>>(`/api/datasets/${datasetId}/assets`, {
+                        params: {
+                            next: state.next,
+                            displayName: props.searchQuery.displayName,
+                            limit: numItems,
+                        },
+                    })).data;
+
+                    for (const item of result.data) {
+                        state.assets.set(item._id, {
+                            ...item,
+                            selected: false,
+                        });
+                    }
+
+                    setState((prev) => {
+                        return {
+                            ...prev,
+                            next: result.meta.next,
+                            hasMore: result.meta.hasNext,
+                            assets: state.assets,
+                        };
                     });
                 }
-                setState((prev) => {
-                    return {
-                        ...prev,
-                        next: result.meta.next,
-                        hasMore: result.meta.hasNext,
-                        assets: state.assets,
-                    };
-                });
-            }
- catch (e) {
-                return;
+                catch (e) {
+                    return;
+                }
             }
         }
-    }
+    , [props.datasetId, props.searchQuery.displayName, state.assets, state.hasMore, state.next]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         setState(initialState);
     }, [props.datasetId, props.searchQuery.displayName]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (state.initialLoad) {
             setState(prev => {
                 return {
@@ -243,9 +281,10 @@ export default function AssetViewer(props: {
                     initialLoad: false,
                 };
             });
+
             load(20).then();
         }
-    }, [state]);
+    }, [state, load]);
 
     if (!props.showList) {
         return (
@@ -254,10 +293,10 @@ export default function AssetViewer(props: {
                 className={ classes.gridContainer }
                 listClassName={ classes.gridWrapper }
                 endReached={ () => load().then() }
-                itemContent={ (index, item) => {
-                    return <AssetTile item={ item } key={ item._id } delAsset={ () => delAsset(item._id) }></AssetTile>;
-                } }>
-            </VirtuosoGrid>
+                itemContent={ (index, item) => (
+                    <AssetTile item={ item } key={ item._id } delAsset={ () => delAsset(item._id) } />
+                ) }
+            />
         );
     }
 
@@ -271,36 +310,45 @@ export default function AssetViewer(props: {
                 itemContent={ function genRow(index, data) {
                     return (
                         <>
-                            <CustomTableCell><input type={ 'checkbox' } checked={ data.selected }
-                                                    onChange={ e => {
-                                                        const item = state.assets.get(data._id);
-                                                        if (item) {
-                                                            item.selected = e.currentTarget.checked;
-                                                        }
-                                                        setState((prev) => {
-                                                            return { ...prev };
-                                                        });
-                                                    } }/></CustomTableCell>
+                            <CustomTableCell>
+                                <input
+                                    type="checkbox"
+                                    checked={ data.selected }
+                                    onChange={ e => {
+                                        const item = state.assets.get(data._id);
+
+                                        if (item) item.selected = e.currentTarget.checked;
+                                        
+                                        setState((prev) => ({ ...prev }));
+                                    } }
+                                />
+                            </CustomTableCell>
+
                             <CustomTableCell>
                                 <span className={ classes.filename }>
-                                    <span className={ classes.filenameText }>{data.displayName}</span>
+                                    <span className={ classes.filenameText }>{ data.displayName }</span>
                                 </span>
                             </CustomTableCell>
+
                             <CustomTableCell className={ classes.uploadDate }>
-                                <span>{dayjs(data.uploadedAt).format('DD/MM/YYYY')}</span>
+                                <span>{ dayjs(data.uploadedAt).format('DD/MM/YYYY') }</span>
                             </CustomTableCell>
+
                             <CustomTableCell>
-                                <span>{capitalize(data.type)}</span>
+                                <span>{ capitalize(data.type) }</span>
                             </CustomTableCell>
+
                             <CustomTableCell>
-                                <span>{capitalize(data.stage)}</span>
+                                <span>{ capitalize(data.stage) }</span>
                             </CustomTableCell>
+
                             <CustomTableCell>
-                                <span>{formatFileSize(data.size)}</span>
+                                <span>{ formatFileSize(data.size) }</span>
                             </CustomTableCell>
+
                             <CustomTableCell>
                                 <button onClick={ () => delAsset(data._id) } className={ classes.deleteButton }>
-                                    <ReactSVG className={ classes.icon } src={ trash.src }/>
+                                    <ReactSVG className={ classes.icon } src={ trash.src } />
                                 </button>
                             </CustomTableCell>
                         </>

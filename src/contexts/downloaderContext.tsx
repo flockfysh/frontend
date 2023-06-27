@@ -1,4 +1,4 @@
-import React from 'react';
+import { createContext, useState, useCallback } from 'react';
 import api from '@/helpers/api';
 import mime from 'mime-types';
 import { downloadZip } from 'client-zip';
@@ -10,7 +10,7 @@ interface DownloadJob {
     eta?: number;
 }
 
-export const DownloaderContext = React.createContext<{
+export const DownloaderContext = createContext<{
     downloadDataset: (id: string) => void,
 }>({
     downloadDataset: () => {
@@ -19,15 +19,16 @@ export const DownloaderContext = React.createContext<{
 });
 
 export function DownloaderWrapper(props: React.PropsWithChildren) {
-    const [state, setState] = React.useState<{
+    const [_state, _setState] = useState<{
         jobs: Map<string, DownloadJob>
     }>({
         jobs: new Map()
     });
 
-    const downloadDataset = React.useCallback(async (datasetId: string) => {
+    const downloadDataset = useCallback(async (datasetId: string) => {
         const paginationState: { next?: string } = {};
         const promises = [];
+
         do {
             const result = (await api.get<Api.PaginatedResponse<Flockfysh.Asset[]>>(`/api/datasets/${datasetId}/assets`, {
                 params: {

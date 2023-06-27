@@ -1,29 +1,36 @@
-import 'swiper/css';
-import 'swiper/css/navigation';
+import { useEffect, useState } from 'react';
 import { NextPageWithLayout } from '@/pages/_app';
-import MarketplaceNavbar from '@/components/specific/marketplace/Navbar';
-import HowToCards from '@/components/specific/marketplace/datasetCards/HowToCards';
-import classes from './styles.module.css';
-import FeaturedDatasetsSection from '@/components/specific/marketplace/FeaturedDatasetsSection';
-import DatasetSwiper from '@/components/specific/marketplace/DatasetSwiper';
+
 import { v4 } from 'uuid';
+import { ManipulateType } from 'dayjs';
 import { fakerEN } from '@faker-js/faker';
-import CollectionSwiper from '@/components/specific/marketplace/CollectionSwiper';
+
+import MarketplaceNavbar from '@/components/specific/marketplace/navbar';
+import HowToCards from '@/components/specific/marketplace/datasetCards/howToCards';
+import FeaturedDatasetsSection from '@/components/specific/marketplace/featuredDatasetsSection';
+import DatasetSwiper from '@/components/specific/marketplace/datasetSwiper';
+import CollectionSwiper from '@/components/specific/marketplace/collectionSwiper';
 import DatasetTimeFilter from '@/components/specific/marketplace/datasetTimeFilter';
-import React, { useEffect, useState } from 'react';
+
 import api from '@/helpers/api';
 import { dayjs } from '@/helpers/date';
-import { ManipulateType } from 'dayjs';
+
+import 'swiper/css';
+import 'swiper/css/navigation';
+
+import classes from './styles.module.css';
+
+const timeFilterOptions: [number, ManipulateType][] = [
+    [1, 'day'],
+    [1, 'week'],
+    [1, 'month'],
+];
 
 const Marketplace: NextPageWithLayout = function () {
-    const timeFilterOptions: [number, ManipulateType][] = [
-        [1, 'day'],
-        [1, 'week'],
-        [1, 'month'],
-    ];
-    const [timeFilter, setTimeFilter] = React.useState(0);
+    const [timeFilter, setTimeFilter] = useState(0);
 
     const [featuredDatasets, setFeaturedDatasets] = useState<HomepageDataset[]>([]);
+
     useEffect(() => {
         async function fetch() {
             const result = (await api.get<Api.PaginatedResponse<HomepageDataset[]>>('/api/datasets/search', {
@@ -35,6 +42,7 @@ const Marketplace: NextPageWithLayout = function () {
                     limit: 8,
                 }
             })).data.data;
+
             setFeaturedDatasets(result);
         }
 
@@ -42,6 +50,7 @@ const Marketplace: NextPageWithLayout = function () {
     }, []);
 
     const [trendingDatasets, setTrendingDatasets] = useState<HomepageDataset[]>([]);
+
     useEffect(() => {
         async function fetch() {
             const result = (await api.get<Api.PaginatedResponse<HomepageDataset[]>>('/api/datasets/search', {
@@ -54,6 +63,7 @@ const Marketplace: NextPageWithLayout = function () {
                     relevancePeriod: dayjs().subtract(...timeFilterOptions[timeFilter]).toString(),
                 }
             })).data.data;
+
             setTrendingDatasets(result);
         }
 
@@ -61,6 +71,7 @@ const Marketplace: NextPageWithLayout = function () {
     }, [timeFilter]);
 
     const [popularDatasets, setPopularDatasets] = useState<HomepageDataset[]>([]);
+
     useEffect(() => {
         async function fetch() {
             const result = (await api.get<Api.PaginatedResponse<HomepageDataset[]>>('/api/datasets/search', {

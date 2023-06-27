@@ -1,7 +1,10 @@
-import React from 'react';
-import help from '@/icons/main/help-circle.svg';
+import { useState, useEffect, useId } from 'react';
 import { ReactSVG } from 'react-svg';
+
 import { CustomCreatableSelect } from '@/components/ui/input/select';
+
+import help from '@/icons/main/help-circle.svg';
+
 import classes from './styles.module.css';
 
 export default function CreatableSelect(props: {
@@ -13,40 +16,45 @@ export default function CreatableSelect(props: {
     initialValue?: string[];
     onChange?: (data: string[]) => void;
 }) {
-    const [value, setValue] = React.useState(() => {
+    const [value, setValue] = useState(() => {
         return props.value ?? props.initialValue;
     });
-    const [inProgress, setInProgress] = React.useState(() => {
+
+    const [_, setInProgress] = useState(() => {
         return false;
     });
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (props.value !== undefined) setValue(props.value);
     }, [props.value]);
 
-    const id = React.useId();
+    const id = useId();
 
     return (
         <div className={ classes.container }>
             {props.label ? (
                 <div className={ classes.labelContainer }>
-                    <label className={ classes.label } htmlFor={ id }>{props.label}</label>
+                    <label className={ classes.label } htmlFor={ id }>{ props.label }</label>
+                    
                     {props.tooltip ? (
                         <button className={ classes.helpIcon }>
-                            <ReactSVG src={ help.src }>
-                            </ReactSVG>
-                            <p className={ classes.helpIconTooltip }>{props.tooltip}</p>
+                            <ReactSVG src={ help.src } />
+
+                            <p className={ classes.helpIconTooltip }>{ props.tooltip }</p>
                         </button>
                     ) : <></>}
                 </div>
             ) : <></>}
+
             <CustomCreatableSelect
                 isMulti={ true } id={ id }
                 placeholder={ props.placeholder }
                 onChange={ async event => {
                     setInProgress(true);
                     const raw = (event as { value: string, label: string }[]).map(i => i.value);
+                    
                     setValue(raw);
+                    
                     await props.onChange?.(raw);
                     setInProgress(false);
                 } }
@@ -56,7 +64,7 @@ export default function CreatableSelect(props: {
                         label: i,
                     };
                 }) }
-                className={ `${classes.input}` }
+                className={ `${ classes.input }` }
                 classNames={ {
                     control: () => {
                         return classes.inputControl;
@@ -73,7 +81,7 @@ export default function CreatableSelect(props: {
                     multiValueRemove: () => {
                         return classes.multiValueRemove;
                     }
-                } }></CustomCreatableSelect>
+                } } />
         </div>
     );
 }
