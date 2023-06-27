@@ -1,6 +1,11 @@
-import Logo from './Logo';
 import { ReactSVG } from 'react-svg';
+
+import { StaticImageData } from 'next/image';
 import Link from 'next/link';
+
+import Logo from './logo';
+import Profile from '@/components/layout/MainSidebar/profile';
+
 import home from '@/icons/main/home.svg';
 import document from '@/icons/main/file-text.svg';
 import layers from '@/icons/main/3-layers.svg';
@@ -8,9 +13,8 @@ import analytics from '@/icons/main/sliders.svg';
 import settings from '@/icons/main/settings.svg';
 import help from '@/icons/main/help-circle.svg';
 import bell from '@/icons/main/bell.svg';
-import { StaticImageData } from 'next/image';
+
 import classes from './styles.module.css';
-import Profile from '@/components/layout/MainSidebar/Profile';
 
 interface SidebarLinkProps {
     icon: StaticImageData,
@@ -21,8 +25,8 @@ interface SidebarLinkProps {
 function SidebarLink(props: SidebarLinkProps) {
     return (
         <Link href={ props.href } className={ classes.sidebarLink }>
-            <ReactSVG src={ props.icon.src } className={ classes.sidebarLinkSVG }></ReactSVG>
-            <span className={ classes.sidebarLinkText }>{props.text}</span>
+            <ReactSVG src={ props.icon.src } className={ classes.sidebarLinkSVG } />
+            <span className={ classes.sidebarLinkText }>{ props.text }</span>
         </Link>
     );
 }
