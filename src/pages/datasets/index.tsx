@@ -89,7 +89,7 @@ function DatasetSearchResult(props: { name?: string }) {
                 return scrollerContainerRef.current;
             } }>
                 <ul className={ classes.datasetGrid }>
-                    {state.datasets.map(dataset => <DatasetCard key={ dataset._id } { ...dataset } />)}
+                    { state.datasets.map(dataset => <DatasetCard key={ dataset._id } { ...dataset } />) }
                 </ul>
             </InfiniteScroll>
         </div>
@@ -99,7 +99,7 @@ function DatasetSearchResult(props: { name?: string }) {
 MyDatasets.getLayout = function (page) {
     return (
         <MainLayout>
-            {page}
+            { page }
         </MainLayout>
     );
 };

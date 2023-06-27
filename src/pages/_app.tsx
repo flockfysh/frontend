@@ -47,13 +47,13 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
                 <ScreenWrapper>
                     <UserWrapper>
                         <DownloaderWrapper>
-                            {/* <TopLevelErrorBoundary> */}
+                            { /* <TopLevelErrorBoundary> */ }
                             <ErrorWrapper>
                                 <NotificationWrapper/>
 
-                                {getLayout(<Component { ...pageProps } />)}
+                                { getLayout(<Component { ...pageProps } />) }
                             </ErrorWrapper>
-                            {/* </TopLevelErrorBoundary> */}
+                            { /* </TopLevelErrorBoundary> */ }
                         </DownloaderWrapper>
                     </UserWrapper>
                 </ScreenWrapper>

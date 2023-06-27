@@ -46,7 +46,7 @@ export default function DatasetSwiper(props: {
                     props.onSlideChange?.(props.datasets[swiper.realIndex]);
                 } }
             >
-                {props.datasets.map(dataset => {
+                { props.datasets.map(dataset => {
                     if (props.cardType === 'wide') {
                         return (
                             <SwiperSlide className={ `${ classes.slide } ${ classes.wideSlide }` } key={ dataset._id }>
@@ -60,7 +60,7 @@ export default function DatasetSwiper(props: {
                             <VerticalCard { ...dataset } />
                         </SwiperSlide>
                     );
-                })}
+                }) }
 
                 <div className={ classes.swiperOverlay }></div>
             </Swiper>

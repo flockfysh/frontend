@@ -133,11 +133,11 @@ const Marketplace: NextPageWithLayout = function () {
         <div className={ classes.container }>
             <MarketplaceNavbar/>
 
-            {!!featuredDatasets.length &&
+            { !!featuredDatasets.length &&
                 <FeaturedDatasetsSection datasets={ featuredDatasets }></FeaturedDatasetsSection>
             }
 
-            {!!trendingDatasets.length && (
+            { !!trendingDatasets.length && (
                 <section className={ classes.sectionContainer }>
                     <div className={ classes.headerContainer }>
                         <h1 className={ classes.header }>Trending Datasets</h1>
@@ -152,9 +152,9 @@ const Marketplace: NextPageWithLayout = function () {
 
                     <DatasetSwiper cardType={ 'vertical' } datasets={ trendingDatasets }></DatasetSwiper>
                 </section>
-            )}
+            ) }
 
-            {!!popularDatasets.length && (
+            { !!popularDatasets.length && (
                 <section className={ classes.sectionContainer }>
                     <div className={ classes.headerContainer }>
                         <h1 className={ classes.header }>Most Popular Datasets</h1>
@@ -162,16 +162,16 @@ const Marketplace: NextPageWithLayout = function () {
 
                     <DatasetSwiper cardType={ 'vertical' } datasets={ popularDatasets }></DatasetSwiper>
                 </section>
-            )}
+            ) }
 
-            {!!paidDatasets.length && (
+            { !!paidDatasets.length && (
                 <section className={ classes.sectionContainer }>
                     <div className={ classes.headerContainer }>
                         <h1 className={ classes.header }>Premium Datasets</h1>
                     </div>
                     <DatasetSwiper cardType={ 'vertical' } datasets={ paidDatasets }></DatasetSwiper>
                 </section>
-            )}
+            ) }
 
             <section className={ classes.sectionContainer }>
                 <div className={ classes.headerContainer }>
@@ -195,7 +195,7 @@ const Marketplace: NextPageWithLayout = function () {
 Marketplace.getLayout = function (page) {
     return (
         <>
-            {page}
+            { page }
         </>
     );
 };

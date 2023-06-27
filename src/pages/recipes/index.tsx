@@ -58,7 +58,7 @@ function RecipeSearchResult(props: {
                 return scrollerContainerRef.current;
             } }>
                 <ul className={ classes.datasetGrid }>
-                    {state.recipes.map(recipe => <RecipeCard key={ recipe._id } { ...recipe } />)}
+                    { state.recipes.map(recipe => <RecipeCard key={ recipe._id } { ...recipe } />) }
                 </ul>
             </InfiniteScroll>
         </div>
@@ -97,7 +97,7 @@ const RecipePage: NextPageWithLayout = function () {
 RecipePage.getLayout = function (page) {
     return (
         <MainLayout>
-            {page}
+            { page }
         </MainLayout>
     );
 };

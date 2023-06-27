@@ -31,8 +31,8 @@ export function EmotionCacheProvider(props: PropsWithChildren) {
     return (
         cache ? (
             <CacheProvider value={ cache }>
-                {props.children}
+                { props.children }
             </CacheProvider>
-        ) : <>{props.children}</>
+        ) : <>{ props.children }</>
     );
 }

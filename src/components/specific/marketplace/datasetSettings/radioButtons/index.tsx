@@ -22,30 +22,30 @@ export default function RadioButtons<T>(props: {
 
     return (
         <div className={ classes.container }>
-            {props.label ? (
+            { props.label ? (
                 <div className={ classes.labelContainer }>
-                    <label className={ classes.label }>{props.label}</label>
-                    {props.tooltip ? (
+                    <label className={ classes.label }>{ props.label }</label>
+                    { props.tooltip ? (
                         <button className={ classes.helpIcon }>
                             <ReactSVG src={ help.src }>
                             </ReactSVG>
-                            <p className={ classes.helpIconTooltip }>{props.tooltip}</p>
+                            <p className={ classes.helpIconTooltip }>{ props.tooltip }</p>
                         </button>
-                    ) : <></>}
+                    ) : <></> }
                 </div>
-            ) : <></>}
+            ) : <></> }
             <div className={ classes.buttons }>
-                {props.options.map(function generate(option, index) {
+                { props.options.map(function generate(option, index) {
                     return (
                         <button onClick={ () => {
                             setValue(option.value);
                             props.onChange?.(option.value);
                         } } className={ `${classes.button} ${option.value === value ? classes.selected : ''}` }
                                 key={ option.value?.toString() ?? index.toString() }>
-                            {option.label}
+                            { option.label }
                         </button>
                     );
-                })}
+                }) }
             </div>
             <input type={ 'hidden' } value={ JSON.stringify(props.value) }></input>
         </div>

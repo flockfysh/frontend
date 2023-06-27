@@ -29,10 +29,10 @@ export default function Profile() {
                 updateTab={ updateCurTab }
             />
 
-            {curTab === 0 && <DatasetsOwned />}
-            {/* {curTab === 1 && <ActivityGraph />} */}
+            { curTab === 0 && <DatasetsOwned /> }
+            { /* {curTab === 1 && <ActivityGraph />} */ }
 
-            {curTab === 2 && (
+            { curTab === 2 && (
                 <UserSettings
                     name="user"
                     email="trial@email.com"
@@ -42,7 +42,7 @@ export default function Profile() {
                     downloads={ 7 }
                     apiCalls={ 7898 }
                 />
-            )}
+            ) }
 
             <Footer/>
         </div>

@@ -42,13 +42,13 @@ export default function CollectionSwiper(props: {
                     props.onSlideChange?.(props.collections[swiper.realIndex]);
                 } }
             >
-                {props.collections.map(collection => {
+                { props.collections.map(collection => {
                     return (
                         <SwiperSlide className={ classes.slide } key={ collection._id }>
                             <VerticalCollectionCard { ...collection } />
                         </SwiperSlide>
                     );
-                })}
+                }) }
 
                 <div className={ classes.swiperOverlay } />
             </Swiper>

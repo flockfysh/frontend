@@ -196,7 +196,7 @@ export default function LoginForm(props: {
                 </div>
             </fieldset>
 
-            <button className={ classes.signIn }>{props.mode === 'login' ? 'Sign in' : 'Sign up'}</button>
+            <button className={ classes.signIn }>{ props.mode === 'login' ? 'Sign in' : 'Sign up' }</button>
         </form>
     );
 }

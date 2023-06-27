@@ -68,7 +68,7 @@ export default function FileUploader(props: FileUploaderProps) {
             <div className={ classes.uploadDataInfo }>
                 <p className={ classes.uploadDataDesc }>Drag and drop or select file to upload</p>
 
-                <small>{typeData.extHints.join(', ')}</small>
+                <small>{ typeData.extHints.join(', ') }</small>
 
                 <small className={ classes.uploadDataSubDesc }>
                     Stored on file system

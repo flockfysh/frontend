@@ -21,11 +21,11 @@ export default function VerticalFocusedCard(props: VerticalFocusedCardProps) {
 
                 <div className={ classes.middleSection }>
                     <DatasetTypeCard type={ props.type } className={ classes.typeCard }/>
-                    <h1>{props.name}</h1>
+                    <h1>{ props.name }</h1>
                 </div>
 
                 <div className={ classes.footer }>
-                    <p>{props.numDatasets} Datasets</p>
+                    <p>{ props.numDatasets } Datasets</p>
 
                     <div className={ classes.profileCardContainer }>
                         <ProfileCard username={ props.owner }

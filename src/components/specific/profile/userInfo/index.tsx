@@ -36,10 +36,10 @@ const userInfo = (props: userInfo) => {
 
                 <div className={ classes.followDiv }>
                     <p className={ classes.followers }>
-                        <span className={ classes.span }>{props.following}</span> following
+                        <span className={ classes.span }>{ props.following }</span> following
                     </p>
                     <p className={ classes.followers }>
-                        <span className={ classes.span }>{props.followers}</span> followers
+                        <span className={ classes.span }>{ props.followers }</span> followers
                     </p>
 
                     <button className={ classes.followButton }>
@@ -48,13 +48,13 @@ const userInfo = (props: userInfo) => {
                 </div>
             </div>
 
-            <h4 className={ classes.name }>{props.name}</h4>
+            <h4 className={ classes.name }>{ props.name }</h4>
 
-            <h5 className={ classes.username }>@{props.userName}</h5>
+            <h5 className={ classes.username }>@{ props.userName }</h5>
 
             <div className={ classes.contentDiv }>
                 <div className={ classes.socioContentDiv }>
-                    <h6 className={ classes.description }>{props.description}</h6>
+                    <h6 className={ classes.description }>{ props.description }</h6>
 
                     <div className={ classes.socialsDiv }>
                         <a className={ classes.link } href="#">

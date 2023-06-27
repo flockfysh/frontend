@@ -31,7 +31,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
 
     return (
         <div className={ classes.itemsContainer }>
-            {/* header */}
+            { /* header */ }
             <div className={ classes.mainContentHeader }>
                 <label className={ classes.searchContainer }>
                     <ReactSVG src={ search.src } className={ classes.searchIcon }/>
@@ -113,16 +113,16 @@ export default function ItemViewer(dataset: PreviewDataset) {
                 </div>
             </div>
 
-            {/* content */}
+            { /* content */ }
             <div className={ classes.contentContainer }>
-                {/* info column */}
+                { /* info column */ }
                 <div className={ classes.contentInfoContainer }>
-                    {/* title */}
+                    { /* title */ }
                     <div className={ classes.infoTitleContainer }>
                         <h2 className={ classes.infoTitle }>DATASET explorer</h2>
                     </div>
 
-                    {/* summary */}
+                    { /* summary */ }
                     <div className={ classes.infoBox }>
                         <div className={ classes.infoBoxTitleContainer }>
                             <h3 className={ classes.infoBoxTitle }>Summary</h3>
@@ -133,20 +133,20 @@ export default function ItemViewer(dataset: PreviewDataset) {
                                     className={ classes.infoBoxSubtitleIcon }
                                     src={ database.src }
                                 />
-                                {dataset.assetCounts.total} Files
+                                { dataset.assetCounts.total } Files
                             </p>
-                            {Object.entries(dataset.assetCounts.byMimetype).map(([mimetype, count]) => {
+                            { Object.entries(dataset.assetCounts.byMimetype).map(([mimetype, count]) => {
                                 return (
                                     <div className={ classes.infoBoxSummaryItem } key={ mimetype }>
-                                        <span>├─ .{mime.extension(mimetype)}</span>
-                                        <span>{count}</span>
+                                        <span>├─ .{ mime.extension(mimetype) }</span>
+                                        <span>{ count }</span>
                                     </div>
                                 );
-                            })}
+                            }) }
                         </div>
                     </div>
 
-                    {/* file details */}
+                    { /* file details */ }
                     <div className={ classes.infoBox }>
                         <div className={ classes.infoBoxTitleContainer }>
                             <h3 className={ classes.infoBoxTitle }>File Details</h3>
@@ -204,9 +204,9 @@ export default function ItemViewer(dataset: PreviewDataset) {
                     </div>
                 </div>
 
-                {/* grid/list */}
+                { /* grid/list */ }
                 <div className={ classes.contentListContainer }>
-                    {/* list & grid */}
+                    { /* list & grid */ }
                     {
                         <AssetViewer
                             showList={ showList }

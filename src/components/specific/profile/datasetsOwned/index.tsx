@@ -131,12 +131,12 @@ function DatasetsOwned() {
                     </div>
                 </div>
 
-                {finalData.map((value) => {
+                { finalData.map((value) => {
                     return (
                         <VerticalCard { ...value } key={ value._id }
                         />
                     );
-                })}
+                }) }
             </div>
         </section>
     );

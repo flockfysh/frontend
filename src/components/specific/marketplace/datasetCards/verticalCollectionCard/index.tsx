@@ -16,7 +16,7 @@ export default function VerticalCollectionCard(props: HomepageCollection) {
                 </div>
 
                 <div className={ classes.middleSection }>
-                    <h1>{props.name}</h1>
+                    <h1>{ props.name }</h1>
 
                     <div className={ classes.profileCardContainer }>
                         <ProfileCard className={ classes.profileCard } username={ props.user.username }
@@ -27,7 +27,7 @@ export default function VerticalCollectionCard(props: HomepageCollection) {
                 <div className={ classes.footer }>
                     <div className={ classes.infoContainer }>
                         <p className={ classes.infoHeader }>Datasets</p>
-                        <p className={ classes.info }>{props.itemCount}</p>
+                        <p className={ classes.info }>{ props.itemCount }</p>
                     </div>
                 </div>
             </div>

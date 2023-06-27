@@ -28,13 +28,13 @@ export default function VerticalCard(props: HomepageDataset) {
 
                     <div className={ classes.timeContainer }>
                         <ReactSVG src={ clock.src } className={ classes.clockIcon }/>
-                        <p>{dayjs(props.updatedAt).fromNow()}</p>
+                        <p>{ dayjs(props.updatedAt).fromNow() }</p>
                     </div>
                 </div>
 
                 <div className={ classes.middleSection }>
-                    <h1>{props.name}</h1>
-                    <p>@{props.user.username.slice(0, 15)}</p>
+                    <h1>{ props.name }</h1>
+                    <p>@{ props.user.username.slice(0, 15) }</p>
                 </div>
                 <Link className={ classes.linkOverlay } href={ `/marketplace/${props._id}` }></Link>
 
@@ -42,19 +42,19 @@ export default function VerticalCard(props: HomepageDataset) {
                 {
                     props.price > 0 && (
                         <div className={ classes.priceContainer }>
-                            <p>${props.price?.toFixed(2)}</p>
+                            <p>${ props.price?.toFixed(2) }</p>
                         </div>
                     )
                 }
 
                 <div className={ classes.footer }>
                     <div className={ classes.footerCardContainer + (props.price > 0 ? ' ' + classes.paidShrink : '') }>
-                        <h1>{props.assetCounts.total}</h1>
+                        <h1>{ props.assetCounts.total }</h1>
                         <p>Items</p>
                     </div>
 
                     <div className={ classes.footerCardContainer + (props.price > 0 ? ' ' + classes.paidShrink : '') }>
-                        <h1>{formatFileSize(props.size.total.total)}</h1>
+                        <h1>{ formatFileSize(props.size.total.total) }</h1>
                         <p className={ classes.size }>Size</p>
                     </div>
                 </div>

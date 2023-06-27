@@ -34,21 +34,21 @@ export default function Input<T extends string | number>(props: {
 
     return (
         <div className={ classes.container }>
-            {props.label ? (
+            { props.label ? (
                 <div className={ classes.labelContainer }>
-                    <label className={ classes.label } htmlFor={ id }>{props.label}</label>
-                    {props.tooltip ? (
+                    <label className={ classes.label } htmlFor={ id }>{ props.label }</label>
+                    { props.tooltip ? (
                         <button className={ classes.helpIcon }>
                             <ReactSVG src={ help.src }>
                             </ReactSVG>
-                            <p className={ classes.helpIconTooltip }>{props.tooltip}</p>
+                            <p className={ classes.helpIconTooltip }>{ props.tooltip }</p>
                         </button>
-                    ) : <></>}
+                    ) : <></> }
                 </div>
-            ) : <></>}
+            ) : <></> }
             <label
                 className={ `${classes.inputContainer} ${focus ? classes.focusedInput : ''} ${inProgress ? classes.inProgress : ''}` }>
-                {props.icon ? <ReactSVG src={ props.icon }></ReactSVG> : <></>}
+                { props.icon ? <ReactSVG src={ props.icon }></ReactSVG> : <></> }
                 <input id={ id } disabled={ inProgress } max={ props.max } min={ props.min } type={ props.type }
                        placeholder={ props.placeholder }
                        onChange={ event => {
@@ -64,7 +64,7 @@ export default function Input<T extends string | number>(props: {
                     }
                     setInProgress(false);
                 } }>
-                    {props.saveLabel ?? 'Update'}
+                    { props.saveLabel ?? 'Update' }
                 </button>
             </label>
         </div>

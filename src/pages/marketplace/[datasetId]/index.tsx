@@ -71,7 +71,7 @@ const Marketplace: NextPageWithLayout = function () {
             <MarketplaceNavbar/>
 
             <header className={ classes.headerWrapper }>
-                {/* image */}
+                { /* image */ }
                 <div className={ classes.imageWrapper }>
                     <img
                         className={ classes.headerImage }
@@ -81,13 +81,13 @@ const Marketplace: NextPageWithLayout = function () {
                     <div className={ classes.imageTag }>
                         <ReactSVG className={ classes.imageTagIcon } src={ cpu.src }/>
                         <div className={ classes.imageTagSeparator }/>
-                        <span className={ classes.imageTagText }>{dataset.type.toUpperCase()}</span>
+                        <span className={ classes.imageTagText }>{ dataset.type.toUpperCase() }</span>
                     </div>
                 </div>
 
-                {/* basic info */}
+                { /* basic info */ }
                 <div className={ classes.dataContainer }>
-                    {/* first row */}
+                    { /* first row */ }
                     <div className={ classes.actionButtonsAndImageWrapper }>
                         <div className={ classes.datasetImageWrapper }>
                             <div className={ classes.datasetImageContainer }>
@@ -115,42 +115,42 @@ const Marketplace: NextPageWithLayout = function () {
                                   href={ `/datasets/${dataset._id}` }>Contribute</Link>
                             <button className={ classes.downloadButton } onClick={ () => downloadDataset(dataset._id) }>
                                 <ReactSVG className={ classes.imageTagIcon } src={ download.src }/>
-                                <span>Download ({formatFileSize(dataset.size.total.total)})</span>
+                                <span>Download ({ formatFileSize(dataset.size.total.total) })</span>
                             </button>
                         </div>
                     </div>
-                    {/* second row: description */}
+                    { /* second row: description */ }
                     <div className={ classes.descriptionContainer }>
-                        {/* title */}
+                        { /* title */ }
                         <div className={ classes.titleWrapper }>
                             <div className={ classes.titleContainer }>
-                                <h2 className={ classes.datasetTitle }>{dataset.name}</h2>
+                                <h2 className={ classes.datasetTitle }>{ dataset.name }</h2>
                                 <div className={ classes.tagsContainer }>
-                                    {dataset.tags.map(tag => {
-                                        return <span className={ classes.datasetTag } key={ tag }>{tag}</span>;
-                                    })}
+                                    { dataset.tags.map(tag => {
+                                        return <span className={ classes.datasetTag } key={ tag }>{ tag }</span>;
+                                    }) }
                                 </div>
                             </div>
 
-                            <span className={ classes.datasetNick }>@{dataset.user.username}</span>
+                            <span className={ classes.datasetNick }>@{ dataset.user.username }</span>
 
                         </div>
-                        {/* description */}
+                        { /* description */ }
                         <div className={ classes.descriptionWrapper }>
                             <p>
-                                {dataset.description}
+                                { dataset.description }
                             </p>
                         </div>
-                        {/* licence */}
+                        { /* licence */ }
                         <div className={ classes.licenceWrapper }>
                             <ReactSVG className={ classes.imageTagIcon } src={ cpu.src }/>
                             Creative Commons
                         </div>
                     </div>
                 </div>
-                {/* action menu */}
+                { /* action menu */ }
                 <div className={ classes.actionMenuContainer }>
-                    {/* button group */}
+                    { /* button group */ }
                     <div className={ classes.actionMenuButtonsWrapper }>
                         <button
                             className={ `${classes.actionMenuButton} ${
@@ -182,8 +182,8 @@ const Marketplace: NextPageWithLayout = function () {
                         >
                             Settings
                         </button>
-                        {/* TODO */}
-                        {/* <button
+                        { /* TODO */ }
+                        { /* <button
               className={`${classes.actionMenuButton} ${
                 contentView === VIEW_STATES.discussions &&
                 classes.actionMenuButtonActive
@@ -192,38 +192,38 @@ const Marketplace: NextPageWithLayout = function () {
               disabled={contentView === VIEW_STATES.discussions}
             >
               Discussions
-            </button> */}
+            </button> */ }
                     </div>
 
-                    {/* specification */}
+                    { /* specification */ }
                     <div className={ classes.specificationWrapper }>
                         <div className={ classes.specificationContainer }>
                             <div className={ classes.specificationItem }>
-                                <span className={ classes.specificationItemTitle }>{dataset.assetCounts.total}</span>
+                                <span className={ classes.specificationItemTitle }>{ dataset.assetCounts.total }</span>
                                 <small>Files</small>
                             </div>
                             <div className={ classes.specificationSeparator }/>
                             <div className={ classes.specificationItem }>
-                                <span className={ classes.specificationItemTitle }>{dataset.metrics.downloads}</span>
+                                <span className={ classes.specificationItemTitle }>{ dataset.metrics.downloads }</span>
                                 <small>Downloads</small>
                             </div>
                             <div className={ classes.specificationSeparator }/>
                             <div className={ classes.specificationItem }>
                 <span className={ classes.specificationItemTitle }>
-                  {dayjs(dataset.createdAt).fromNow()}
+                  { dayjs(dataset.createdAt).fromNow() }
                 </span>
                                 <small>Created at</small>
                             </div>
                             <div className={ classes.specificationSeparator }/>
                             <div className={ classes.specificationItem }>
                 <span className={ classes.specificationItemTitle }>
-                  {dayjs(dataset.updatedAt).fromNow()}
+                  { dayjs(dataset.updatedAt).fromNow() }
                 </span>
                                 <small>Last Updated</small>
                             </div>
                             <div className={ classes.specificationSeparator }/>
                             <div className={ classes.specificationItem }>
-                                <span className={ classes.specificationItemTitle }>{dataset.contributors}</span>
+                                <span className={ classes.specificationItemTitle }>{ dataset.contributors }</span>
                                 <small>Contributors</small>
                             </div>
                         </div>
@@ -232,17 +232,17 @@ const Marketplace: NextPageWithLayout = function () {
             </header>
 
             <main className={ classes.mainContent }>
-                {contentView === VIEW_STATES.items && <ItemViewer { ...dataset }/>}
-                {contentView === VIEW_STATES.activity && <ActivityGraph { ...dataset }/>}
-                {contentView === VIEW_STATES.discussions && <></>}
-                {contentView === VIEW_STATES.settings && <DatasetSettings { ...dataset }/>}
+                { contentView === VIEW_STATES.items && <ItemViewer { ...dataset }/> }
+                { contentView === VIEW_STATES.activity && <ActivityGraph { ...dataset }/> }
+                { contentView === VIEW_STATES.discussions && <></> }
+                { contentView === VIEW_STATES.settings && <DatasetSettings { ...dataset }/> }
             </main>
         </div>
     );
 };
 
 Marketplace.getLayout = function (page) {
-    return <>{page}</>;
+    return <>{ page }</>;
 };
 
 export default Marketplace;

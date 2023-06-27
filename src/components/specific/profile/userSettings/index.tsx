@@ -76,7 +76,7 @@ export default function UserSettings(props: UserSettings) {
 
                         <div className={ classes.api }>
                             <p className={ classes.apiKey }>
-                                {apiKey}
+                                { apiKey }
                                 <button
                                     className={ classes.iconButton }
                                     onClick={ () => {

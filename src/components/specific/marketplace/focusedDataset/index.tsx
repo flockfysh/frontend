@@ -17,14 +17,14 @@ export default function FocusedDataset(props: HomepageDataset) {
             </div>
             <div className={ classes.overlay }></div>
             <Link className={ classes.linkOverlay } href={ `/marketplace/${props._id}` }></Link>
-            <h1 className={ classes.title }>{props.name}</h1>
+            <h1 className={ classes.title }>{ props.name }</h1>
             <div className={ classes.footer }>
                 <div className={ classes.leftContainer }>
                     <div className={ classes.datasetHeaderInfoCard }>
                         <h2>Total Images</h2>
 
                         <div className={ classes.infoCardBottomContainer }>
-                            <p>{props.assetCounts.total}</p>
+                            <p>{ props.assetCounts.total }</p>
                         </div>
                     </div>
 
@@ -32,7 +32,7 @@ export default function FocusedDataset(props: HomepageDataset) {
                         <h2>Dataset Size</h2>
 
                         <div className={ classes.infoCardBottomContainer }>
-                            <p>{formatFileSize(props.size.total.total)}</p>
+                            <p>{ formatFileSize(props.size.total.total) }</p>
                         </div>
                     </div>
                 </div>

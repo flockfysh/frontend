@@ -85,16 +85,16 @@ export default function MainSidebar() {
                 <Logo></Logo>
 
                 <div>
-                    {SECTION_1_LINKS.map(props => {
+                    { SECTION_1_LINKS.map(props => {
                         return <SidebarLink key={ props.href } { ...props }></SidebarLink>;
-                    })}
+                    }) }
                 </div>
             </div>
             <div className={ classes.segment }>
                 <div>
-                    {SECTION_2_LINKS.map(props => {
+                    { SECTION_2_LINKS.map(props => {
                         return <SidebarLink key={ props.href } { ...props }></SidebarLink>;
-                    })}
+                    }) }
                 </div>
                 <Profile/>
             </div>

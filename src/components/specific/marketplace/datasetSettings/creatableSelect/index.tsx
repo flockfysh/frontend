@@ -32,19 +32,19 @@ export default function CreatableSelect(props: {
 
     return (
         <div className={ classes.container }>
-            {props.label ? (
+            { props.label ? (
                 <div className={ classes.labelContainer }>
                     <label className={ classes.label } htmlFor={ id }>{ props.label }</label>
                     
-                    {props.tooltip ? (
+                    { props.tooltip ? (
                         <button className={ classes.helpIcon }>
                             <ReactSVG src={ help.src } />
 
                             <p className={ classes.helpIconTooltip }>{ props.tooltip }</p>
                         </button>
-                    ) : <></>}
+                    ) : <></> }
                 </div>
-            ) : <></>}
+            ) : <></> }
 
             <CustomCreatableSelect
                 isMulti={ true } id={ id }

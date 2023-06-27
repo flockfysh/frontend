@@ -73,7 +73,7 @@ export function DownloaderWrapper(props: React.PropsWithChildren) {
         <DownloaderContext.Provider value={ {
             downloadDataset
         } }>
-            {props.children}
+            { props.children }
         </DownloaderContext.Provider>
     );
 }
