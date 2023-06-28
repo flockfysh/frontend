@@ -105,6 +105,25 @@
                 "prop": "parens-new-line"
             }
         ],
-        "object-curly-spacing": ["error", "always"]
+        "object-curly-spacing": ["error", "always"],
+        "@typescript-eslint/naming-convention": [
+            "error",
+            {
+                "selector": "default",
+                "format": ["camelCase"],
+                "leadingUnderscore": "allow",
+                "trailingUnderscore": "allow"
+            },
+            {
+                "selector": "variable",
+                "format": ["camelCase", "UPPER_CASE"],
+                "leadingUnderscore": "allow",
+                "trailingUnderscore": "allow"
+            },
+            {
+                "selector": "typeLike",
+                "format": ["PascalCase"]
+            }
+        ]
     }
 }
