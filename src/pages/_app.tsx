@@ -32,7 +32,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
                 <meta
                     name="description"
-                    content="lightining fast large scale ML datasets"
+                    content="lightning fast large scale ML datasets"
                 />
 
                 <meta
