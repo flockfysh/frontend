@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { NextPageWithLayout } from '@/pages/_app';
 import { ReactSVG } from 'react-svg';
-import MainLayout from '@/components/layout/MainLayout';
-import { CircleProgressBar } from '@/components/specific/datasets/viewDataset/CircleProgressBar';
-import SpecificProgressData from '@/components/specific/datasets/viewDataset/SpecificProgressData';
-import FileUploader from '@/components/specific/datasets/viewDataset/FileUploader';
+import MainLayout from '@/components/layout/mainLayout';
+import { CircleProgressBar } from '@/components/specific/datasets/viewDataset/circleProgressBar';
+import SpecificProgressData from '@/components/specific/datasets/viewDataset/specificProgressData';
+import FileUploader from '@/components/specific/datasets/viewDataset/fileUploader';
 import cpu from '@/icons/main/cpu.svg';
 import edit from '@/icons/main/edit-3.svg';
 import list from '@/icons/main/list.svg';
@@ -36,6 +36,12 @@ const MyDatasets: NextPageWithLayout = function () {
                 }
             })).data.data;
             setDataset(result);
+            await api.post(
+                `/api/datasets/${datasetId}/metrics`,
+                {
+                    type: 'view',
+                }
+            );
         }
 
         load().then();
@@ -84,45 +90,45 @@ const MyDatasets: NextPageWithLayout = function () {
     return (
 
         <div className={ classes.container }>
-            {/* this dataset info */}
+            { /* this dataset info */ }
             <div className={ classes.datasetInfoWrapper }>
-                {/* dataset data container */}
+                { /* dataset data container */ }
                 <div className={ classes.datasetInfoDataWrapper }>
-                    <h3 className={ classes.datasetName }>{dataset.name}</h3>
-                    <h4>{dataset.description}</h4>
+                    <h3 className={ classes.datasetName }>{ dataset.name }</h3>
+                    <h4>{ dataset.description }</h4>
                 </div>
 
-                {/* dataset status container */}
+                { /* dataset status container */ }
                 <div className={ classes.datasetInfoStatusWrapper }>
 
-                    {/* current progress */}
+                    { /* current progress */ }
                     <div>
                         <CircleProgressBar value={ 50 } size={ 150 }/>
                     </div>
 
-                    {/* specific progress data */}
+                    { /* specific progress data */ }
                     <div className={ classes.datasetInfoSpecificData }>
-                        {datasetProgressFakeData.map((item, index) => (
+                        { datasetProgressFakeData.map((item, index) => (
                             <SpecificProgressData { ...item } key={ index }/>
-                        ))}
+                        )) }
                     </div>
                 </div>
             </div>
 
-            {/* action buttons & searchbar */}
+            { /* action buttons & searchbar */ }
             <div className={ classes.actionAreaWrapper }>
 
-                {/* searchbar */}
+                { /* searchbar */ }
                 <div className={ classes.actionAreaSearchWrapper }>
                     <input type="search" placeholder="Search assets by regex" value={ currentNameQuery } onChange={ e => {
                         setCurrentNameQuery(e.currentTarget.value);
                     } }/>
                 </div>
 
-                {/* action functions */}
+                { /* action functions */ }
                 <div className={ classes.actionAreaActionButtonsWrapper }>
 
-                    {/* switch table style */}
+                    { /* switch table style */ }
                     <div className={ classes.tableRelatedButtonsWrapper }>
                         <div className={ classes.tableViewButtonsWrapper }>
                             <button onClick={ toggleViewToGrid }>
@@ -141,7 +147,7 @@ const MyDatasets: NextPageWithLayout = function () {
                         </button>
                     </div>
 
-                    {/* action button */}
+                    { /* action button */ }
                     <div className={ classes.actionButtonsWrapper }>
                         <button onClick = { () => { router.push("../annotate/"+router.query.datasetId) }} className={ classes.actionButtonInitiateTraining }>
                             Initiate Training
@@ -157,14 +163,14 @@ const MyDatasets: NextPageWithLayout = function () {
 
             </div>
 
-            {/* list & grid */}
-            {<AssetViewer showList={ showList } searchQuery={ {
+            { /* list & grid */ }
+            { <AssetViewer showList={ showList } searchQuery={ {
                 displayName: currentNameQuery || undefined,
             } }
-                          datasetId={ router.query.datasetId }></AssetViewer>}
+                          datasetId={ router.query.datasetId }></AssetViewer> }
 
-            {/* upload content */}
-            <FileUploader datasetId={ router.query.datasetId }/>
+            { /* upload content */ }
+            <FileUploader datasetId={ router.query.datasetId } datasetType={ dataset.type }/>
         </div>
     );
 };
@@ -173,7 +179,7 @@ const MyDatasets: NextPageWithLayout = function () {
 MyDatasets.getLayout = function (page) {
     return (
         <MainLayout>
-            {page}
+            { page }
         </MainLayout>
     );
 };

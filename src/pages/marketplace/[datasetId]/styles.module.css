@@ -1,0 +1,326 @@
+.container {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.headerWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 38px;
+}
+
+.imageWrapper {
+    position: relative;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.headerImage {
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 16px;
+}
+
+.imageTag {
+    position: absolute;
+    top: 34px;
+    right: 23px;
+    z-index: 1;
+
+    display: flex;
+    align-items: center;
+    padding: 9px;
+    gap: 5px;
+    background: #141414;
+    border-radius: 16px;
+}
+
+.imageTagIcon {
+}
+
+.imageTagSeparator {
+    width: 1px;
+    height: 10px;
+    background: #ffffff;
+    opacity: 0.2;
+}
+
+.imageTagText {
+}
+
+.dataContainer {
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    gap: 16px;
+}
+
+.actionButtonsAndImageWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.datasetImageWrapper {
+    position: relative;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+}
+
+.datasetImageContainer {
+    bottom: 0;
+    left: 1.825rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 21px;
+    padding: 6px;
+    max-width: 180px;
+    width: 100%;
+}
+
+.datasetImage {
+    object-fit: cover;
+    object-position: center;
+    aspect-ratio: 1/1;
+    border-radius: 21px;
+}
+
+.dataActionButtons {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex: 1;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.basicActionsWrapper {
+    display: flex;
+    gap: 18px;
+}
+
+.basicButton {
+    color: #d2e1ff;
+    background: transparent;
+}
+
+.contributeButton {
+    padding: 12px 24px;
+    background: #1e1e1e;
+    border-radius: 20px;
+
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.downloadButton {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 24px;
+    background: #08066c;
+    border-radius: 20px;
+
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.descriptionContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.titleWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.titleContainer {
+    display: flex;
+    gap: 16px;
+    margin: auto;
+    align-items: center;
+    text-align: center;
+}
+
+.datasetTitle {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 40px;
+    width: fit-content;
+    /* Primary 1/100 */
+    color: #d2e1ff;
+}
+
+.datasetNick {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    /* Primary 1/100 */
+    color: #d2e1ff;
+}
+
+.tagsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.datasetTag {
+    height: fit-content;
+    padding: 4px;
+    /* Main Grey */
+    background: #1e1e1e;
+    border-radius: 8px;
+
+    /* Primary 1/100 */
+    color: #d2e1ff;
+}
+
+.descriptionWrapper {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    /* or 150% */
+
+    /* Primary 1/100 */
+    color: #d2e1ff;
+}
+
+.licenceWrapper {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    /* or 150% */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    /* Primary 1/100 */
+    color: #d2e1ff;
+}
+
+.actionMenuContainer {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 12px;
+}
+
+.actionMenuButtonsWrapper {
+    display: flex;
+    justify-content: center;
+    alignn-items: center;
+    /* BackDrop Style */
+    filter: drop-shadow(0px 4px 49px rgba(0, 7, 72, 0.12));
+    backdrop-filter: blur(7.5px);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 16px;
+}
+
+.actionMenuButton {
+    background: transparent;
+    padding: 12px 23px;
+    border: 0.5px solid #595959;
+    /* BackDrop Style */
+    filter: drop-shadow(0px 4px 49px rgba(0, 7, 72, 0.12));
+    backdrop-filter: blur(7.5px);
+    /* Primary 1/100 */
+    color: #d2e1ff;
+    font-weight: 700;
+    height: fit-content;
+}
+
+.actionMenuButton:first-child {
+    border-radius: 12px 0 0 12px;
+}
+
+.actionMenuButton:last-child {
+    border-radius: 0 12px 12px 0;
+}
+
+.actionMenuButton:hover {
+    /* Main Grey */
+    background: #1e1e1e;
+}
+
+.actionMenuButtonActive {
+    /* Main Grey */
+    background: #1e1e1e;
+}
+
+.specificationWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.specificationContainer {
+    display: flex;
+    justify-content: center;
+    border: 1px solid #595959;
+    border-radius: 16px;
+    padding: 0 7px;
+    gap: 4px;
+    align-items: center;
+    width: fit-content;
+}
+
+.specificationItem {
+    display: flex;
+    flex-direction: column;
+    padding: 11px;
+    gap: 8px;
+    text-align: center;
+
+    /* Primary 1/100 */
+    color: #d2e1ff;
+}
+
+.specificationItemTitle {
+    font-weight: 700;
+}
+
+.specificationSeparator {
+    height: 6px;
+    width: 6px;
+    background: #d2e1ff;
+    border-radius: 6px;
+}
+
+@media only all and (min-width: 768px) {
+    .actionButtonsAndImageWrapper {
+        flex-direction: row;
+    }
+
+    .datasetImageContainer {
+        position: absolute;
+    }
+
+    .dataActionButtons {
+        flex: inherit;
+    }
+
+    .titleContainer {
+        margin: 0;
+        flex-direction: row;
+    }
+
+    .tagsContainer {
+        justify-content: start;
+    }
+}
+
+@media only all and (min-width: 912px) {
+    .actionMenuContainer {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}

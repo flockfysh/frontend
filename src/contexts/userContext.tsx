@@ -9,15 +9,11 @@ interface UserContext {
     refreshUser: () => void; // this will try to fetch the user again
 }
 
-export const UserContext = createContext<UserContext>(
-    {
-        user: null as (User | null),
-        setUser: () => {
-        },
-        refreshUser: () => {
-        },
-    }
-);
+export const UserContext = createContext<UserContext>({
+    user: null as User | null,
+    setUser: () => {},
+    refreshUser: () => {},
+});
 
 export function UserWrapper(props: PropsWithChildren) {
     const [user, setCurUser] = useState<User | null>(null);
@@ -27,25 +23,25 @@ export function UserWrapper(props: PropsWithChildren) {
         if (isLoading) {
             (async function getUserState() {
                 try {
-                    const data = (await api.get<Api.Response<{ curUser: User }>>('/api/auth/currentUser')).data;
+                    const data = (
+                        await api.get<Api.Response<{ curUser: User }>>(
+                            '/api/auth/currentUser'
+                        )
+                    ).data;
+
                     const userData = data.data;
 
-                    if (userData.curUser) {
-                        setCurUser(userData.curUser);
-                    }
- else {
-                        setCurUser(null);
-                    }
+                    if (userData.curUser) setCurUser(userData.curUser);
+                    else setCurUser(null);
                 }
- catch (e) {
-                }
+ catch (e) {}
 
                 updateLoading(false);
             })();
         }
     }, [isLoading]);
 
-    if (isLoading) return <Loading/>;
+    if (isLoading) return <Loading />;
 
     function setUser(user: User | null) {
         setCurUser(user);
@@ -58,7 +54,7 @@ export function UserWrapper(props: PropsWithChildren) {
     const curState = { user, setUser, refreshUser };
     return (
         <UserContext.Provider value={ curState }>
-            {props.children}
+            { props.children }
         </UserContext.Provider>
     );
 }

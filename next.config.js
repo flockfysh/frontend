@@ -3,7 +3,8 @@ const nextConfig = {
     // reactStrictMode: true,
     images: {
         remotePatterns: [
-            { hostname: '*.digitaloceanspaces.com' }
+            { hostname: '*.digitaloceanspaces.com' },
+            { hostname: '*.figma.com' }
         ]
     }
 };

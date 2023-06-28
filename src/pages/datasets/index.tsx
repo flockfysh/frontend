@@ -1,12 +1,9 @@
 import { NextPageWithLayout } from '@/pages/_app';
 import { ReactSVG } from 'react-svg';
 
-import { v4 } from 'uuid';
-import dayjs from 'dayjs';
-
-import MainLayout from '@/components/layout/MainLayout';
-import DatasetCard from '@/components/specific/datasets/myDatasets/DatasetCard';
-import CreateDatasetModal from '@/components/specific/datasets/createDatasetModal';
+import MainLayout from '@/components/layout/mainLayout';
+import DatasetCard from '@/components/specific/datasets/myDatasets/datasetCard';
+import CreateDatasetModal from '@/components/specific/datasets/CreateDatasetModal';
 
 import search from '@/icons/main/search.svg';
 import sliders from '@/icons/main/sliders.svg';
@@ -44,6 +41,7 @@ const MyDatasets: NextPageWithLayout = function () {
 };
 
 function DatasetSearchResult(props: { name?: string }) {
+
     const scrollerContainerRef = React.useRef<HTMLDivElement | null>(null);
     const initialState = () => {
         return {
@@ -52,6 +50,7 @@ function DatasetSearchResult(props: { name?: string }) {
             datasets: [],
         };
     };
+
     const [state, setState] = React.useState<{
         hasMore: boolean,
         next: string | undefined,
@@ -60,6 +59,10 @@ function DatasetSearchResult(props: { name?: string }) {
         })[],
     }>(initialState);
 
+    React.useEffect(() => {
+        setState(initialState);
+    }, [props.name]);
+
     async function load() {
         const fetched = (await api.get<Api.PaginatedResponse<(Flockfysh.Dataset & {
             assetCounts: Flockfysh.DatasetAssetCounts
@@ -67,8 +70,9 @@ function DatasetSearchResult(props: { name?: string }) {
             params: {
                 name: props.name,
                 next: state.next,
-                expand: 'assetCounts',
+                expand: 'assetCounts,user,views',
                 limit: 50,
+                sort: 'updatedAt',
             }
         })).data;
         state.datasets.push(...fetched.data);
@@ -85,7 +89,7 @@ function DatasetSearchResult(props: { name?: string }) {
                 return scrollerContainerRef.current;
             } }>
                 <ul className={ classes.datasetGrid }>
-                    {state.datasets.map(dataset => <DatasetCard key={ dataset._id } { ...dataset } />)}
+                    { state.datasets.map(dataset => <DatasetCard key={ dataset._id } { ...dataset } />) }
                 </ul>
             </InfiniteScroll>
         </div>
@@ -95,7 +99,7 @@ function DatasetSearchResult(props: { name?: string }) {
 MyDatasets.getLayout = function (page) {
     return (
         <MainLayout>
-            {page}
+            { page }
         </MainLayout>
     );
 };

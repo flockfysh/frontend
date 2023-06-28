@@ -1,9 +1,9 @@
 // import logoIcon from '../images/icons/logo.svg';
 
 export interface NotificationData {
-    title: string,
-    body: string,
-    url?: string,
+    title: string;
+    body: string;
+    url?: string;
 }
 
 if (!(self instanceof ServiceWorkerGlobalScope)) throw new Error();
@@ -24,10 +24,13 @@ export async function sendNotification(data: NotificationData) {
 
 worker.addEventListener('push', async function (evt) {
     const rawData = evt.data?.json();
+    
     if (!rawData) return;
 
-    evt.waitUntil(sendNotification({
-        body: rawData.body,
-        title: rawData.title,
-    }));
+    evt.waitUntil(
+        sendNotification({
+            body: rawData.body,
+            title: rawData.title,
+        })
+    );
 });

@@ -1,0 +1,123 @@
+.container {
+    width: 20rem;
+    height: fit-content;
+    /*aspect-ratio: 1/2;*/
+    overflow: auto;
+
+    background: var(--main-grey);
+    box-shadow: 0px 4px 49px rgba(0, 7, 72, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+
+    backdrop-filter: blur(7.5px);
+
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.contentContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    margin: 20px;
+    padding: 0;
+}
+
+.imageContainer {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+}
+
+.image {
+    object-fit: cover;
+}
+
+.linkOverlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    
+}
+
+.typeCard {
+    position: absolute;
+    margin: 10px;
+    font-size: 0.875rem;
+}
+
+.timeContainer {
+    display: flex;
+    gap: 5px;
+    color: var(--primary1-100);
+    font-size: 0.75rem;
+    align-items: center;
+    position: absolute;
+    transform: translateY(-125%) translateX(-35%);
+    right: 0;
+}
+
+.timeContainer p {
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.clockIcon path {
+    stroke: var(--primary1-100) !important;
+}
+
+.middleSection {
+}
+
+.middleSection h1 {
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 32px;
+    margin-bottom: -5px;
+}
+
+.middleSection p {
+    opacity: 0.7;
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 24px;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footerCardContainer {
+}
+
+.footerCardContainer h1 {
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 32px;
+}
+
+.footerCardContainer p {
+    color: var(--primary1-100);
+    font-weight: 500;
+    line-height: 24px;
+}
+
+.size {
+    text-align: right;
+}
+
+.priceContainer {
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 32px;
+}
+
+.paidShrink h1 {
+    font-size: 1rem !important;
+}

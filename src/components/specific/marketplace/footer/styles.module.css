@@ -1,0 +1,88 @@
+.footer {
+    display: flex;
+    justify-content: space-between;
+
+    color: var(--primary1-100);
+    padding: 0 20px;
+}
+
+.socials {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.socials p {
+    font-size: 0.75rem;
+}
+
+.socialIconContainer {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.socialIcon path {
+    stroke: var(--primary1-100);
+}
+
+.github path {
+    fill: var(--primary1-100); 
+}
+
+.logoContainer {
+    text-align: center;
+    display: flex;
+}
+
+.logoContainer h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--white);
+}
+
+.gradientO {
+    background: linear-gradient(180deg, #53F8DD 0%, #0089FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.blueFysh {
+    color: #0089FF !important;
+}
+
+.tos {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.backed {
+    display: flex;
+    align-items: center;
+}
+
+.backed p {
+    width: 100%;
+    font-size: 0.875rem;
+    font-weight: bold;
+}
+
+.tosContent {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.circleDivider {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--main-grey);
+}
+
+.link {
+    color: var(--primary1-100);
+    font-weight: 400;
+    font-size: 0.75rem;
+}

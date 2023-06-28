@@ -1,11 +1,12 @@
-import Login from '@/components/specific/login';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 export default function Home() {
-    return (
-        <>
-            <h1>Homepage</h1>
+    const { push } = useRouter();
 
-            <Login mode="login" />
-        </>
-    );
+    useEffect(() => {
+        push('/marketplace');
+    }, [push]);
+
+    return <></>;
 }

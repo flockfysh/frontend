@@ -7,7 +7,6 @@
     align-items: center;
     padding: 8px 16px 8px 8px;
     gap: 8px;
-    height: 48px;
     cursor: pointer;
     transition: 0.2s;
 }

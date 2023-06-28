@@ -1,237 +1,191 @@
+import { useEffect, useState } from 'react';
+import { NextPageWithLayout } from '@/pages/_app';
+
+import { v4 } from 'uuid';
+import { ManipulateType } from 'dayjs';
+import { fakerEN } from '@faker-js/faker';
+
+import MarketplaceNavbar from '@/components/specific/marketplace/navbar';
+import HowToCards from '@/components/specific/marketplace/datasetCards/howToCards';
+import FeaturedDatasetsSection from '@/components/specific/marketplace/featuredDatasetsSection';
+import DatasetSwiper from '@/components/specific/marketplace/datasetSwiper';
+import CollectionSwiper from '@/components/specific/marketplace/collectionSwiper';
+import DatasetTimeFilter from '@/components/specific/marketplace/datasetTimeFilter';
+
+import api from '@/helpers/api';
+import { dayjs } from '@/helpers/date';
+
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper';
-import { NextPageWithLayout } from '@/pages/_app';
-import MarketplaceNavbar from '@/components/specific/marketplace/navbar';
-import VerticalCard from '@/components/specific/marketplace/datasetCards/verticalCard';
-import VerticalFocusedCard from '@/components/specific/marketplace/datasetCards/verticalFocusedCard';
-
-import VerticalCollectionCard from '@/components/specific/marketplace/datasetCards/verticalCollectionCard';
-
-import HowToCards from '@/components/specific/marketplace/datasetCards/howToCards';
 
 import classes from './styles.module.css';
-import FeaturedDatasetsSection from '@/components/specific/marketplace/FeaturedDatasetsSection';
-import DatasetSwiper from '@/components/specific/marketplace/DatasetSwiper';
-import { randomUUID } from 'crypto';
-import { v4 } from 'uuid';
+
+const timeFilterOptions: [number, ManipulateType][] = [
+    [1, 'day'],
+    [1, 'week'],
+    [1, 'month'],
+];
 
 const Marketplace: NextPageWithLayout = function () {
+    const [timeFilter, setTimeFilter] = useState(0);
 
-    const datasets: HomepageDataset[] = Array.from({ length: 8 }, () => ({
-        type: 'image',
-        likes: 50,
-        assetCounts: {
-            total: 12000,
-            byStage: {
-                feedback: 0,
-                completed: 19950,
-                uploaded: 50,
+    const [featuredDatasets, setFeaturedDatasets] = useState<HomepageDataset[]>([]);
+
+    useEffect(() => {
+        async function fetch() {
+            const result = (await api.get<Api.PaginatedResponse<HomepageDataset[]>>('/api/datasets/search', {
+                params: {
+                    public: true,
+                    sort: 'metrics.views',
+                    expand: 'assetCounts,size,likes,user,thumbnail,url',
+                    ascending: false,
+                    limit: 8,
+                }
+            })).data.data;
+
+            setFeaturedDatasets(result);
+        }
+
+        fetch().then();
+    }, []);
+
+    const [trendingDatasets, setTrendingDatasets] = useState<HomepageDataset[]>([]);
+
+    useEffect(() => {
+        async function fetch() {
+            const result = (await api.get<Api.PaginatedResponse<HomepageDataset[]>>('/api/datasets/search', {
+                params: {
+                    public: true,
+                    sort: 'relevance',
+                    expand: 'assetCounts,size,likes,user,thumbnail,url',
+                    ascending: false,
+                    limit: 8,
+                    relevancePeriod: dayjs().subtract(...timeFilterOptions[timeFilter]).toString(),
+                }
+            })).data.data;
+
+            setTrendingDatasets(result);
+        }
+
+        fetch().then();
+    }, [timeFilter]);
+
+    const [popularDatasets, setPopularDatasets] = useState<HomepageDataset[]>([]);
+
+    useEffect(() => {
+        async function fetch() {
+            const result = (await api.get<Api.PaginatedResponse<HomepageDataset[]>>('/api/datasets/search', {
+                params: {
+                    public: true,
+                    sort: 'likes',
+                    expand: 'assetCounts,size,likes,user,thumbnail,url',
+                    ascending: false,
+                    limit: 8,
+                }
+            })).data.data;
+            setPopularDatasets(result);
+        }
+
+        fetch().then();
+    }, []);
+
+    const [paidDatasets, setPaidDatasets] = useState<HomepageDataset[]>([]);
+    useEffect(() => {
+        async function fetch() {
+            const result = (await api.get<Api.PaginatedResponse<HomepageDataset[]>>('/api/datasets/search', {
+                params: {
+                    public: true,
+                    sort: 'metrics.views',
+                    expand: 'assetCounts,size,likes,user,thumbnail,url',
+                    ascending: false,
+                    paid: true,
+                    limit: 8,
+                }
+            })).data.data;
+            setPaidDatasets(result);
+        }
+
+        fetch().then();
+    }, [timeFilter]);
+
+    const collections: HomepageCollection[] = Array.from({ length: 8 }, () => {
+        return {
+            _id: v4(),
+            name: fakerEN.animal.type(),
+            user: {
+                username: 'praks',
+                _id: '24159335',
+                fullName: 'Prakriti Bista',
+                firstName: 'Prakriti',
+                email: 'praks@gmail.com',
+                lastName: 'Bista',
             },
-            byAnnotationStatus: {
-                annotated: 20000,
-                unannotated: 0,
+            itemCount: 20,
+            type: 'image',
+            thumbnail: {
+                assetId: v4(),
+                url: 'https://s3-alpha-sig.figma.com/img/49ee/d081/4307a875ed2dabf708582228964d3985?Expires=1687737600&Signature=kNAl46fRLyUSGUSIVv7qu5BiKptidiRojEkUy7YkIstv9E28TmP1rOHcXxemh9CBjcUrn9dlLoyE4hixT1q~mHfnLqPWh1DZRPfZS5GBnZdnQMcXf~8cJ42RrhE3ZtfNAj9a97mf~maOqZ2tG7~NTMPsKtoGBqm8ZM02xlqPHVraEdWY39KcZhi5qS4DGL~6ZXnucPBTSa1wd-ZpHfMhFUI6b-IBCKPyGkXpy03oOD00X13R-3aQUJNoLnjHdD31OLXO~EGJI4XOynNhaJk2-91ca5ZvT3qcbTJy2pAivz3s2-wCtLQY8suZcPhTGFSqnI~k8sJQ-6Zde6DTFrXVzw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
             }
-        },
-        size: {
-            total: {
-                total: 2 * 1024 ** 3,
-                cloud: 1024 ** 3,
-                cluster: 1024 ** 3,
-            },
-            byStage: {
-                uploaded: 500 * 1024 ** 2,
-                feedback: 500 * 1024 ** 2,
-                completed: 500 * 1024 ** 2,
-            },
-        },
-        createdAt: new Date(),
-        _id: v4(),
-        name: 'Dataset name',
-        subTags: [],
-        tags: [],
-        user: '3254235252',
-        updatedAt: new Date(),
-        public: true,
-        price: 2.84448,
-        description: 'This is a random test dataset',
-    }));
+        };
+    });
 
     return (
         <div className={ classes.container }>
             <MarketplaceNavbar/>
 
-            <FeaturedDatasetsSection></FeaturedDatasetsSection>
+            { !!featuredDatasets.length &&
+                <FeaturedDatasetsSection datasets={ featuredDatasets }></FeaturedDatasetsSection>
+            }
 
-            <section className={ classes.sectionContainer }>
-                <div className={ classes.headerContainer }>
-                    <h1 className={ classes.header }>Trending Datasets</h1>
+            { !!trendingDatasets.length && (
+                <section className={ classes.sectionContainer }>
+                    <div className={ classes.headerContainer }>
+                        <h1 className={ classes.header }>Trending Datasets</h1>
 
-                    <div className={ classes.trendingFilterContainer }>
-                        <div className={ classes.trendingFilterGrid }>
-                            <div>1h</div>
-                        </div>
-
-                        <div className={ classes.trendingFilterGrid }>
-                            <div>6h</div>
-                        </div>
-
-                        <div className={ classes.trendingFilterGrid }>
-                            <div>24h</div>
-                        </div>
-
-                        <div className={ classes.trendingFilterGrid }>
-                            <div>7d</div>
-                        </div>
+                        <DatasetTimeFilter
+                            callback={ (index) => {
+                                setTimeFilter(index);
+                            } }
+                            options={ timeFilterOptions }
+                            selected={ timeFilter }/>
                     </div>
-                </div>
 
-                <DatasetSwiper datasets={ datasets }></DatasetSwiper>
+                    <DatasetSwiper cardType={ 'vertical' } datasets={ trendingDatasets }></DatasetSwiper>
+                </section>
+            ) }
 
-            </section>
+            { !!popularDatasets.length && (
+                <section className={ classes.sectionContainer }>
+                    <div className={ classes.headerContainer }>
+                        <h1 className={ classes.header }>Most Popular Datasets</h1>
+                    </div>
+
+                    <DatasetSwiper cardType={ 'vertical' } datasets={ popularDatasets }></DatasetSwiper>
+                </section>
+            ) }
+
+            { !!paidDatasets.length && (
+                <section className={ classes.sectionContainer }>
+                    <div className={ classes.headerContainer }>
+                        <h1 className={ classes.header }>Premium Datasets</h1>
+                    </div>
+                    <DatasetSwiper cardType={ 'vertical' } datasets={ paidDatasets }></DatasetSwiper>
+                </section>
+            ) }
 
             <section className={ classes.sectionContainer }>
                 <div className={ classes.headerContainer }>
-                    <h1 className={ classes.header }>Premium Datasets</h1>
-                </div>
-                <DatasetSwiper datasets={ datasets }></DatasetSwiper>
-            </section>
-
-            <section className={ classes.sectionContainer }>
-                <div className={ classes.headerContainer }>
-                    <h1 className={ classes.header }>Featured Collection</h1>
+                    <h1 className={ classes.header }>Trending Collections</h1>
                 </div>
 
-                <div className={ classes.cardContainer }>
-                    {/*<VerticalFocusedCard*/}
-                    {/*    avatar="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"*/}
-                    {/*    name="Dataset Name"*/}
-                    {/*    owner="praks"*/}
-                    {/*    numDatasets={ 25 }*/}
-                    {/*    type="images"*/}
-                    {/*/>*/}
-
-                    {/*<VerticalCard*/}
-                    {/*    coverImg="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"*/}
-                    {/*    name="Dataset Name"*/}
-                    {/*    owner="praks"*/}
-                    {/*    numItems={ 12000 }*/}
-                    {/*    size={ 25 }*/}
-                    {/*    type="images"*/}
-                    {/*/>*/}
-
-                    {/*<VerticalCard*/}
-                    {/*    coverImg="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"*/}
-                    {/*    name="Dataset Name"*/}
-                    {/*    owner="praks"*/}
-                    {/*    numItems={ 12000 }*/}
-                    {/*    size={ 25 }*/}
-                    {/*    type="images"*/}
-                    {/*/>*/}
-
-                    {/*<VerticalCard*/}
-                    {/*    coverImg="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"*/}
-                    {/*    name="Dataset Name"*/}
-                    {/*    owner="praks"*/}
-                    {/*    numItems={ 12000 }*/}
-                    {/*    size={ 25 }*/}
-                    {/*    type="images"*/}
-                    {/*/>*/}
-                </div>
-            </section>
-
-            <section className={ classes.sectionContainer }>
-                <h1 className={ classes.header }>Other Collection</h1>
-            
-                <div className={ classes.cardContainer }>
-                    <VerticalCollectionCard
-                        avatar="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
-                        name="Dataset Name"
-                        owner="praks"
-                        numDatasets={ 25 }
-                        type="images"
-                        numContributors={ 20 }
-                    />
-
-                    <VerticalCollectionCard
-                        avatar="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
-                        name="Dataset Name"
-                        owner="praks"
-                        numDatasets={ 25 }
-                        type="images"
-                        numContributors={ 20 }
-                    />
-
-                    <VerticalCollectionCard
-                        avatar="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
-                        name="Dataset Name"
-                        owner="praks"
-                        numDatasets={ 25 }
-                        type="images"
-                        numContributors={ 20 }
-                    />
-
-                    <VerticalCollectionCard
-                        avatar="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
-                        name="Dataset Name"
-                        owner="praks"
-                        numDatasets={ 25 }
-                        type="images"
-                        numContributors={ 20 }
-                    />
-                </div>
-            </section>
-
-            <section className={ classes.sectionContainer }>
-                <div className={ classes.trendingHeaderContainer }>
-                    <h1 className={ classes.header }>Trending in Segmentations</h1>
-                </div>
-
-                <div className={ classes.cardContainer }>
-                    <VerticalCard
-                        coverImg="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
-                        name="Dataset Name"
-                        owner="praks"
-                        numItems={ 12000 }
-                        size={ 25 }
-                        type="images"
-                    />
-
-                    <VerticalCard
-                        coverImg="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
-                        name="Dataset Name"
-                        owner="praks"
-                        numItems={ 12000 }
-                        size={ 25 }
-                        type="images"
-                    />
-
-                    <VerticalCard
-                        coverImg="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
-                        name="Dataset Name"
-                        owner="praks"
-                        numItems={ 12000 }
-                        size={ 25 }
-                        type="images"
-                    />
-
-                    <VerticalCard
-                        coverImg="https://s3-alpha-sig.figma.com/img/36d3/317f/582a6d12a1ac0a8500a57849890709e4?Expires=1686528000&Signature=mo5GbNolcXaqpR5ZMmzGlil-0ZtkdrCumHKZGKrkq05AvARym-bbdtv720fbDLvK2LIGdCbdBu~Ym8hi~Ll3rR8x43~c78cU5N9U0QvZSzVtdDoEZZEYNw8FOaPebHvt8qnPKudLnm1rzysRrZxYdeW~PbajEGKy-sZ5u89cIOj-0cFUqtJAr~2V-6PgoLo3KoA1GM7mYuLzhW5MJrH9nHLmBPhyMw9J6fMVEti5WxdDPGdS7T2e9sM7HVQFILd-IJ131uMHmqMsNw~POWdZkYmK7bBailScn92Pc4WGPrYcuc1w1rhnqYqtgBcPq3G-QOdAMO9BOSQ64Gj2hNDtSQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
-                        name="Dataset Name"
-                        owner="praks"
-                        numItems={ 12000 }
-                        size={ 25 }
-                        type="images"
-                    />
-                </div>
+                <CollectionSwiper collections={ collections }></CollectionSwiper>
             </section>
 
             <section className={ classes.sectionContainer + ' ' + classes.howTo }>
                 <h1 className={ classes.howToHeader }>Upload, Request, and Share your Datasets</h1>
 
                 <div className={ classes.howToCards }>
-                    <HowToCards />
+                    <HowToCards/>
                 </div>
             </section>
         </div>
@@ -241,7 +195,7 @@ const Marketplace: NextPageWithLayout = function () {
 Marketplace.getLayout = function (page) {
     return (
         <>
-            {page}
+            { page }
         </>
     );
 };

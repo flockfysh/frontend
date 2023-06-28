@@ -20,7 +20,7 @@
     background: var(--background);
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--primary1-400)
+    border-bottom: 1px solid var(--primary1-400);
 }
 
 .headerTitleAndCTA {
@@ -42,7 +42,6 @@
     align-items: center;
     gap: 45px;
     color: white;
-
 }
 
 .lightIcon {

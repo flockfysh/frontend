@@ -1,60 +1,60 @@
 import { ReactSVG } from 'react-svg';
 
-import DatasetTypeCard from '../../datasetTypeCard';
+import DatasetTypeCard from '../../DatasetTypeCard';
 
 import clock from '@/icons/main/clock.svg';
-import classes from './style.module.css';
+import classes from './styles.module.css';
 import { formatFileSize } from '@/helpers/formatting';
 import { dayjs } from '@/helpers/date';
+import { getDefaultDatasetThumbnail } from '@/helpers/defaults';
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
 
-type VerticalCardProps = {
-    coverImg: string;
-    name: string;
-    owner: string; // TODO: change to user obj and dataset obj
-    numItems: number;
-    updatedAt: Date;
-    size: number;
-    type: string;
-    isPaid?: boolean;
-    price?: number;
-}
 
-export default function VerticalCard(props: VerticalCardProps) {
+export default function VerticalCard(props: HomepageDataset) {
     return (
         <div className={ classes.container }>
             <div className={ classes.contentContainer }>
                 <div className={ classes.header }>
                     <DatasetTypeCard type={ props.type } className={ classes.typeCard }/>
 
-                    <img src={ props.coverImg } alt="cover"/>
+                    <div className={ classes.imageContainer }>
+                        <Image fill={ true } className={ classes.image }
+                               src={ props.thumbnail?.url ?? getDefaultDatasetThumbnail(props.type).src }
+                               alt="cover"/>
+
+                    </div>
 
                     <div className={ classes.timeContainer }>
                         <ReactSVG src={ clock.src } className={ classes.clockIcon }/>
-                        <p>{dayjs(props.updatedAt).fromNow()}</p>
+                        <p>{ dayjs(props.updatedAt).fromNow() }</p>
                     </div>
                 </div>
 
                 <div className={ classes.middleSection }>
-                    <h1>{props.name}</h1>
-                    <p>@{props.owner}</p>
+                    <h1>{ props.name }</h1>
+                    <p>@{ props.user.username.slice(0, 15) }</p>
                 </div>
+                <Link className={ classes.linkOverlay } href={ `/marketplace/${props._id}` }></Link>
+
 
                 {
-                    props.isPaid && (
+                    props.price > 0 && (
                         <div className={ classes.priceContainer }>
-                            <p>${props.price?.toFixed(2)}</p>
+                            <p>${ props.price?.toFixed(2) }</p>
                         </div>
                     )
                 }
 
                 <div className={ classes.footer }>
-                    <div className={ classes.footerCardContainer + (props.isPaid ? ' ' + classes.paidShrink : '') }>
-                        <h1>{props.numItems}</h1>
+                    <div className={ classes.footerCardContainer + (props.price > 0 ? ' ' + classes.paidShrink : '') }>
+                        <h1>{ props.assetCounts.total }</h1>
                         <p>Items</p>
                     </div>
 
-                    <div className={ classes.footerCardContainer + (props.isPaid ? ' ' + classes.paidShrink : '') }>
-                        <h1>{formatFileSize(props.size)}</h1>
+                    <div className={ classes.footerCardContainer + (props.price > 0 ? ' ' + classes.paidShrink : '') }>
+                        <h1>{ formatFileSize(props.size.total.total) }</h1>
                         <p className={ classes.size }>Size</p>
                     </div>
                 </div>

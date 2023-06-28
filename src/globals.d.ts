@@ -2,14 +2,14 @@ declare global {
     namespace Flockfysh {
         type AnnotationTool = 'boundingBox' | 'ellipse' | 'polygon' | 'line';
         type AssetStages = 'uploaded' | 'feedback' | 'completed';
-        type AssetType = 'image' | 'video';
+        type AssetType = 'image' | 'video' | 'text' | 'other';
 
         interface Label {
             _id: string;
             name: string;
             tag: string;
             color: string;
-            tool: Flockfysh.AnnotationTool,
+            tool: Flockfysh.AnnotationTool;
         }
 
         interface Recipe {
@@ -21,7 +21,7 @@ declare global {
         }
 
         interface RecipeWithLabels extends Recipe {
-            labels: Flockfysh.Label[]
+            labels: Flockfysh.Label[];
         }
 
         interface Dataset {
@@ -31,12 +31,38 @@ declare global {
             tags: string[];
             subTags: string[];
             user: string;
-            type: string;
+            type: Flockfysh.AssetType;
             createdAt: Date;
             price: number;
             public: boolean;
             updatedAt: Date;
+<<<<<<< HEAD
             stage: string;
+=======
+            thumbnail?: {
+                assetId: string;
+            };
+            icon?: {
+                assetId: string;
+            };
+            metrics: {
+                views: number;
+                downloads: number;
+            }
+        }
+
+        interface Collection {
+            _id: string;
+            type: string;
+            name: string;
+            user: string;
+            thumbnail?: {
+                assetId: string;
+            };
+            icon?: {
+                assetId: string;
+            }
+>>>>>>> 58dd22181893cc715462bb1fba904d0c34d2a4d5
         }
 
         interface PopulatedDataset extends Dataset{
@@ -49,9 +75,10 @@ declare global {
             byStage: Record<Flockfysh.AssetStages, number>;
             total: number;
             byAnnotationStatus: {
-                annotated: number,
-                unannotated: number,
+                annotated: number;
+                unannotated: number;
             };
+            byMimetype: Record<string, number>
         }
 
         interface DatasetAnnotationCounts {
@@ -61,9 +88,9 @@ declare global {
         interface DatasetSize {
             byStage: Record<Flockfysh.AssetStages, number>;
             total: {
-                cloud: number,
-                cluster: number,
-                total: number,
+                cloud: number;
+                cluster: number;
+                total: number;
             };
         }
 
@@ -75,25 +102,26 @@ declare global {
             dataset: string;
             size: number;
             url: string;
+            mimetype: string;
             displayName: string;
         }
     }
 
     namespace Api {
         interface Response<T> {
-            success: true,
-            data: T,
+            success: true;
+            data: T;
         }
 
         interface PaginatedResponse<T> {
-            success: true,
-            data: T,
+            success: true;
+            data: T;
             meta: {
-                previous?: string,
-                next?: string,
-                hasPrevious: boolean,
-                hasNext: boolean,
-            }
+                previous?: string;
+                next?: string;
+                hasPrevious: boolean;
+                hasNext: boolean;
+            };
         }
     }
 }

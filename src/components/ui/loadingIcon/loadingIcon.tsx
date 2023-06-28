@@ -1,7 +1,9 @@
-// import loadingIcon from '../../../images/icons/loading.svg';
-import classes from './loadingIcon.module.css';
+// TODO: Do we need this component?
 
-export default function LoadingIcon(props: React.ComponentPropsWithRef<'img'>) {
+// import loadingIcon from '../../../images/icons/loading.svg';
+// import classes from './loadingIcon.module.css';
+
+export default function LoadingIcon(_: React.ComponentPropsWithRef<'img'>) {
     return (
         <></>
         // <img

@@ -2,15 +2,15 @@ import React from 'react';
 import { NextPageWithLayout } from '@/pages/_app';
 import { ReactSVG } from 'react-svg';
 
-import MainLayout from '@/components/layout/MainLayout';
-import RecipeCard from '@/components/specific/recipes/RecipeCard';
+import MainLayout from '@/components/layout/mainLayout';
+import RecipeCard from '@/components/specific/recipes/recipeCard';
 
 import search from '@/icons/main/search.svg';
 import sliders from '@/icons/main/sliders.svg';
 import InfiniteScroll from 'react-infinite-scroller';
 
-import DarkModeButton from '@/components/ui/theming/DarkModeButton';
-import CreateRecipeModal from '@/components/specific/recipes/CreateRecipeModal';
+import DarkModeButton from '@/components/ui/theming/darkModeButton';
+import CreateRecipeModal from '@/components/specific/recipes/createRecipeModal';
 import classes from './styles.module.css';
 import api from '@/helpers/api';
 
@@ -58,7 +58,7 @@ function RecipeSearchResult(props: {
                 return scrollerContainerRef.current;
             } }>
                 <ul className={ classes.datasetGrid }>
-                    {state.recipes.map(recipe => <RecipeCard key={ recipe._id } { ...recipe } />)}
+                    { state.recipes.map(recipe => <RecipeCard key={ recipe._id } { ...recipe } />) }
                 </ul>
             </InfiniteScroll>
         </div>
@@ -97,7 +97,7 @@ const RecipePage: NextPageWithLayout = function () {
 RecipePage.getLayout = function (page) {
     return (
         <MainLayout>
-            {page}
+            { page }
         </MainLayout>
     );
 };

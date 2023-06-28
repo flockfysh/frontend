@@ -6,7 +6,8 @@
     gap: 30px;
     overflow: auto;
     color: var(--primary1-100);
-    /* demo */
+
+    /* ! demo */
     padding: 1rem;
 }
 
@@ -32,7 +33,6 @@
     padding: 0.625rem;
     background: var(--main-grey);
     border-radius: 8px;
-
 
     display: flex;
     flex-direction: column;
@@ -147,7 +147,6 @@
     padding: 0.625rem;
 }
 
-
 @media only all and (max-height: 768px) {
     .container {
         max-height: 100%;
@@ -170,7 +169,6 @@
         grid-template-rows: repeat(2, 1fr);
         grid-template-columns: repeat(3, 1fr);
     }
-
 }
 
 @media only all and (min-width: 1024px) {

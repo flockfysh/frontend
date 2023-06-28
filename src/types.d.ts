@@ -1,83 +1,22 @@
-declare module '*.css';
-declare module '*.svg';
-declare module '*.jpg';
-declare module '*.png';
-
-// #region Datasets
-declare interface Asset {
-    _id: string;
-    type: string;
-    uploadedAt: Date;
-    dataset: string;
+declare interface BaseActivity {
+    id: string;
+    date: Date;
+    action: 'added' | 'removed' | 'uploaded' | 'initiated';
+    numFiles: number;
     size: number;
-    status: string;
-    url: string;
-    displayName: string;
+    type: Flockfysh.AssetType;
 }
 
-declare interface PartialDataset {
-    name: string;
-    id: string;
-    description: string;
-    tags: string[];
-    subTags: string[];
-    numAssets: number;
-}
-
-type DatasetStage = 'untrained' | 'feedback' | 'completed'
-
-declare interface Dataset extends PartialDataset {
-    createdAt: Date;
-    numTimesHumanFeedback: number,
-    stage: DatasetStage;
-    entityInfo: {
-        itemCount: number;
-        uploadedItemCount: number;
-        feedbackItemCount: number;
-        completedItemCount: number;
-        size: number;
-    }
-}
-
-declare interface AnnotationBox {
-    x: number,
-    y: number,
-    width: number,
-    height: number,
-}
-
-declare interface RemoteAnnotationObject {
-    id: string,
-    class: number,
-    boundingBox: [number, number, number, number]
-}
-
-declare interface UploadedImage {
-    id: string;
-    url: string;
-    uploaded: string;
-    annotationData: RemoteAnnotationObject[];
+declare interface UserActivity extends BaseActivity {
     dataset: string;
-    size: string;
-    displayName: string;
 }
 
-// #endregion
-declare interface Cost {
-    timestamp: Date;
-    description: string;
-    amount: number;
-    paid: boolean;
-}
-
-declare interface MonthlyCost {
-    storage: number;
-    creation: number;
-    total: number;
-    costs: Cost[];
+declare interface DatasetActivity extends BaseActivity {
+    userName: string; // TODO: change to user type
 }
 
 declare interface BaseUser {
+    _id: string;
     fullName: string;
     firstName: string;
     lastName: string;
@@ -87,5 +26,7 @@ declare interface BaseUser {
 }
 
 declare interface User extends BaseUser {
+}
 
+declare interface RedactedUser extends BaseUser {
 }
