@@ -21,13 +21,13 @@ export default function CreateDatasetModal() {
             button={ (
                 <button className={ classes.newDatasetButton }>
                     <span>New Dataset</span>
-                    <ReactSVG src={ plus.src }/>
+                    <ReactSVG src={ plus.src } />
                 </button>
             ) }
             blurBg={ true }
             popupTitle="Create New Dataset"
         >
-            <CreateDatasetForm/>
+            <CreateDatasetForm />
         </ActionPopupWithButton>
     );
 }
@@ -59,9 +59,9 @@ function CreateDatasetForm() {
             recipe: string;
             type: string;
         };
-        if (typeof fd.tags === 'string') {
-            fd.tags = [fd.tags];
-        }
+
+        if (typeof fd.tags === 'string') fd.tags = [fd.tags];
+        
         await api.post('/api/datasets', fd);
     }
 
