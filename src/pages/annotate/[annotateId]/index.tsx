@@ -1,31 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import GradientLink from '@/components/ui/gradientLink';
-import Label from '@/components/annotate/label';
-import Button from '@/components/ui/theming/Button';
-import Loading from '@/components/ui/loading/loading';
-import { LABEL_COLORS } from '@/settings';
+import { useState, useEffect, useContext } from 'react';
 import { RxArrowLeft, RxArrowRight } from 'react-icons/rx';
-import api from '@/helpers/api';
-import classes from './styles.module.css';
-import AnnotationObject from '@/components/annotate/wrapper/annotationObject';
+import UploadedImage from 'konva';
+
 import { v4 } from 'uuid';
-import { AnnotationPageContext } from '@/contexts/annotationContext';
 import { useRouter } from 'next/router';
-import dynamic from "next/dynamic";
-import MainLayout from '@/components/layout/MainLayout';
+import dynamic from 'next/dynamic';
+
 import { NextPageWithLayout } from '@/pages/_app';
 
-const Annotate: NextPageWithLayout = function() {
+import GradientLink from '@/components/ui/gradientLink';
+import Label from '@/components/annotate/label';
+import Button from '@/components/ui/theming/button';
+import Loading from '@/components/ui/loading';
+import AnnotationObject from '@/components/annotate/wrapper/annotationObject';
+import MainLayout from '@/components/layout/mainLayout';
+
+import { AnnotationPageContext } from '@/contexts/annotationContext';
+
+import api from '@/helpers/api';
+
+import classes from './styles.module.css';
+
+const Annotate: NextPageWithLayout = function () {
     const router = useRouter();
     const [labels, setLabels] = useState<Flockfysh.Label[]>([]);
     const [imageIds, setImageIds] = useState<string[]>([]);
     const [curImage, setCurImage] = useState<UploadedImage | null>(null);
     const [imageIndex, setImageIndex] = useState(0);
+
     const [{ curAnnotationData }, setCurAnnotationData] = useState<{
-        curAnnotationData: Map<string, AnnotationObject>,
+        curAnnotationData: Map<string, AnnotationObject>;
     }>({
         curAnnotationData: new Map(),
     });
+
     const [curLabel, setCurLabel] = useState<Flockfysh.Label | null>(null);
     const [curBox, setCurBox] = useState<string>('');
     const [isEditing, setIsEditing] = useState(false);
@@ -35,74 +43,117 @@ const Annotate: NextPageWithLayout = function() {
         if (router.query.annotateId) {
             (async function getCurrentDataset() {
                 try {
-                    const datasetState = (await api.get(`/api/datasets/${router.query.annotateId}/stage`)).data.data;
+                    const datasetState = (
+                        await api.get(
+                            `/api/datasets/${router.query.annotateId}/stage`
+                        )
+                    ).data.data;
+
                     let images = [];
+
                     if (datasetState === 'feedback') {
-                        images = (await api.get(`/api/datasets/${router.query.annotateId}/assets/ids`, { params: { stage: 'feedback' } })).data.data;
+                        images = (
+                            await api.get(
+                                `/api/datasets/${router.query.annotateId}/assets/ids`,
+                                { params: { stage: 'feedback' } }
+                            )
+                        ).data.data;
                     }
                     else if (datasetState === 'untrained') {
-                        images = (await api.get(`/api/datasets/${router.query.annotateId}/assets/ids`, { params: { stage: 'uploaded' } })).data.data;
+                        images = (
+                            await api.get(
+                                `/api/datasets/${router.query.annotateId}/assets/ids`,
+                                { params: { stage: 'uploaded' } }
+                            )
+                        ).data.data;
                     }
-                    const datasetLabels: Flockfysh.Label[] = (await api.get(`/api/datasets/${router.query.annotateId}/labels`)).data.data;
-                    console.log(datasetLabels);
+
+                    const datasetLabels: Flockfysh.Label[] = (
+                        await api.get(
+                            `/api/datasets/${router.query.annotateId}/labels`
+                        )
+                    ).data.data;
+                    
                     setImageIndex(0);
                     setImageIds(images);
                     setNumImages(images.length);
                     setLabels(datasetLabels);
                 }
                 catch (e) {
-                    console.log(e);
-                    console.log("HI");
                     router.push('/404');
                 }
             })();
         }
-        else {
-            router.push('/404');
-        }
-    }, [router.query.annotateId]);
+        else router.push('/404');
+    }, [router.query.annotateId, router]);
+
     useEffect(() => {
         if (imageIds.length) {
             (async function getCurrentImageInfo() {
                 try {
                     // Step 1: Get the image.
-                    const fetchedImage = (await api.get<{ success: boolean, data: UploadedImage }>(`/api/assets/${imageIds[imageIndex]}`)).data.data;
+                    const fetchedImage = (
+                        await api.get<{
+                            success: boolean;
+                            data: UploadedImage;
+                        }>(`/api/assets/${imageIds[imageIndex]}`)
+                    ).data.data;
+
                     setCurImage(fetchedImage);
 
                     // Step 2: Get the image's annotation data.
-                    const remoteAnnotationData = (await api.get<{ success: boolean, data: any[] }>(`/api/assets/${imageIds[imageIndex]}/annotations`)).data.data;
+                    const remoteAnnotationData = (
+                        await api.get<{ success: boolean; data: any[] }>(
+                            `/api/assets/${imageIds[imageIndex]}/annotations`
+                        )
+                    ).data.data;
 
-                    const localAnnotationData = new Map<string, AnnotationObject>();
+                    const localAnnotationData = new Map<
+                        string,
+                        AnnotationObject
+                    >();
+
                     for (const remoteObject of remoteAnnotationData) {
                         const [x, y, width, height] = remoteObject.boundingBox;
-                        localAnnotationData.set(v4(), new AnnotationObject(remoteObject.label, remoteObject.frame, remoteObject._id, {
-                            x, y, width, height,
-                        }));
+                        localAnnotationData.set(
+                            v4(),
+                            new AnnotationObject(
+                                remoteObject.label,
+                                remoteObject.frame,
+                                remoteObject._id,
+                                {
+                                    x,
+                                    y,
+                                    width,
+                                    height,
+                                }
+                            )
+                        );
                     }
-                    setCurAnnotationData({ curAnnotationData: localAnnotationData });
+
+                    setCurAnnotationData({
+                        curAnnotationData: localAnnotationData,
+                    });
                 }
- catch (e) {
-                }
+ catch (e) {}
             })();
         }
     }, [imageIds, imageIndex]);
-    React.useEffect(() => {
+
+    useEffect(() => {
         setCurBox('');
     }, [curLabel]);
-    React.useEffect(() => {
+
+    useEffect(() => {
         setCurBox('');
     }, [isEditing]);
 
     function nextImage() {
-        if (imageIndex + 1 < imageIds.length) {
-            setImageIndex(imageIndex + 1);
-        }
+        if (imageIndex + 1 < imageIds.length) setImageIndex(imageIndex + 1);
     }
 
     function prevImage() {
-        if (imageIndex - 1 >= 0) {
-            setImageIndex(imageIndex - 1);
-        }
+        if (imageIndex - 1 >= 0) setImageIndex(imageIndex - 1);
     }
 
     function refresh() {
@@ -110,32 +161,52 @@ const Annotate: NextPageWithLayout = function() {
     }
 
     async function addAnnotationObject(params?: AnnotationBox) {
-        if (curLabel === null) {
-            throw new Error('No label selected.');
-        }
-        if (!curImage) {
-            throw new Error('No image selected.');
-        }
+        if (curLabel === null) throw new Error('No label selected.');
+        
+        if (!curImage) throw new Error('No image selected.');
+        
         let newId: string;
         do {
             newId = v4();
         } while (curAnnotationData.has(newId));
-        const annotationObj = new AnnotationObject(curLabel, 0,undefined, params);
+        
+        const annotationObj = new AnnotationObject(
+            curLabel,
+            0,
+            undefined,
+            params
+        );
+
         curAnnotationData.set(newId, annotationObj);
         refresh();
+        
         await annotationObj.saveTo(curImage.id);
     }
 
     return (
-        <AnnotationPageContext.Provider value={ {
-            curImage, labels, nextImage, prevImage, imageIndex,
-            curAnnotationData, refresh, curLabel, setCurLabel, curBox,
-            setCurBox, addAnnotationObject, isEditing, setIsEditing, numImages
-        } }>
-            <AnnotateInner></AnnotateInner>
+        <AnnotationPageContext.Provider
+            value={ {
+                curImage,
+                labels,
+                nextImage,
+                prevImage,
+                imageIndex,
+                curAnnotationData,
+                refresh,
+                curLabel,
+                setCurLabel,
+                curBox,
+                setCurBox,
+                addAnnotationObject,
+                isEditing,
+                setIsEditing,
+                numImages,
+            } }
+        >
+            <AnnotateInner />
         </AnnotationPageContext.Provider>
     );
-}
+};
 
 function AnnotateInner() {
     const {
@@ -150,65 +221,84 @@ function AnnotateInner() {
         setIsEditing,
         setCurBox,
         numImages,
-    } = React.useContext(AnnotationPageContext);
+    } = useContext(AnnotationPageContext);
+
     const router = useRouter();
     setCurBox;
-    const NoSSRComponent = dynamic(() => import("@/components/annotate/wrapper"), {
-        ssr: false,
-    });
     
-    if (!curImage) {
-        return <Loading/>;
-    }
+    const NoSSRComponent = dynamic(
+        () => import('@/components/annotate/wrapper'),
+        {
+            ssr: false,
+        }
+    );
 
+    if (!curImage) return <Loading />;
+    
     return (
         <div className={ classes.annotateContainer }>
             <div className={ classes.headingContainer }>
-                <h1 className={ classes.heading }>Image - {imageIndex + 1}/{numImages}</h1>
+                <h1 className={ classes.heading }>
+                    Image - { imageIndex + 1 }/{ numImages }
+                </h1>
             </div>
+
             <div className={ classes.submitButtonContainer }>
-                <GradientLink to={ `./training/${router.query.annotateId}` } children="Initiate training"
-                              gradientDirection="rightToLeft"
-                              className={ classes.initiateTrainingButton }/>
+                <GradientLink
+                    to={ `./training/${ router.query.annotateId }` }
+                    gradientDirection="rightToLeft"
+                    className={ classes.initiateTrainingButton }
+                >
+                    Initiate training
+                </GradientLink>
             </div>
+
             <div className={ classes.leftContainer }>
-                <NoSSRComponent/>
+                <NoSSRComponent />
             </div>
+            
             <div className={ classes.labelContainer }>
                 <div className={ classes.labelList }>
-                    {
-                        labels.map((label: Flockfysh.Label, index: number) => {
-                            return (
-                                <Label
-                                    key={ index }
-                                    dotColor={ label.color }
-                                    selected={ label === curLabel }
-                                    onClick={ () => {
-                                        if (curLabel === label) {
-                                            setCurLabel(null);
-                                        }
-                                        else {
-                                            setCurLabel(label);
-                                        }
-                                    } }
-                                >{label.name}</Label>
-                            );
-                        })
-                    }
-                </div>
-                <div className={ classes.utilityButtons }>
-                    <Button className={ classes.addLabelButton }
-                            onClick={ () => setIsEditing(!isEditing) }>{isEditing ? 'Currently Editing' : 'Edit Bounding Box'}</Button>
+                    { labels.map((label: Flockfysh.Label, index: number) => {
+                        return (
+                            <Label
+                                key={ index }
+                                dotColor={ label.color }
+                                selected={ label === curLabel }
+                                onClick={ () => {
+                                    if (curLabel === label) setCurLabel(null);
+                                    else setCurLabel(label);
+                                } }
+                            >
+                                { label.name }
+                            </Label>
+                        );
+                    }) }
                 </div>
 
+                <div className={ classes.utilityButtons }>
+                    <Button
+                        className={ classes.addLabelButton }
+                        onClick={ () => setIsEditing(!isEditing) }
+                    >
+                        { isEditing ? 'Currently Editing' : 'Edit Bounding Box' }
+                    </Button>
+                </div>
             </div>
+            
             <div className={ classes.switchImageContainer }>
-                <button className={ classes.switchImageButton } onClick={ prevImage }>
-                    <RxArrowLeft className={ classes.switchImageIcon }/>
+                <button
+                    className={ classes.switchImageButton }
+                    onClick={ prevImage }
+                >
+                    <RxArrowLeft className={ classes.switchImageIcon } />
                 </button>
 
-                <button className={ classes.switchImageButton } onClick={ nextImage }>
-                    <RxArrowRight className={ classes.switchImageIcon }/>
+                <button
+                    className={ classes.switchImageButton }
+                    onClick={ nextImage }
+                >
+                    <RxArrowRight className={ classes.switchImageIcon } />
                 </button>
             </div>
         </div>
@@ -216,11 +306,7 @@ function AnnotateInner() {
 }
 
 Annotate.getLayout = function (page) {
-    return (
-        <MainLayout>
-            {page}
-        </MainLayout>
-    );
+    return <MainLayout>{ page }</MainLayout>;
 };
 
 export default Annotate;

@@ -1,12 +1,16 @@
-import classes from './styles.module.css';
+import { useState } from 'react';
 import { ReactSVG } from 'react-svg';
+
+import mime from 'mime-types';
+
+import AssetViewer from '@/components/specific/datasets/viewDataset/AssetViewer';
+
 import search from '@/icons/main/search.svg';
 import grid from '@/icons/main/grid.svg';
 import list from '@/icons/main/list.svg';
 import database from '@/icons/main/database.svg';
-import mime from 'mime-types';
-import AssetViewer from '@/components/specific/datasets/viewDataset/AssetViewer';
-import React, { useState } from 'react';
+
+import classes from './styles.module.css';
 
 const TIME_STATES = {
     oneHour: '1h',
@@ -15,11 +19,10 @@ const TIME_STATES = {
     sevenDays: '7d',
 };
 
-
 export default function ItemViewer(dataset: PreviewDataset) {
     const [showList, setShowList] = useState(true);
     const [timeFilter, setTimeFilter] = useState(TIME_STATES.sixHours);
-    const [currentNameQuery, setCurrentNameQuery] = React.useState('');
+    const [currentNameQuery, setCurrentNameQuery] = useState('');
 
     const toggleViewToList = () => {
         setShowList(true);
@@ -34,7 +37,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
             { /* header */ }
             <div className={ classes.mainContentHeader }>
                 <label className={ classes.searchContainer }>
-                    <ReactSVG src={ search.src } className={ classes.searchIcon }/>
+                    <ReactSVG src={ search.src } className={ classes.searchIcon } />
 
                     <input
                         type="search"
@@ -55,7 +58,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
                             }` }
                             onClick={ toggleViewToGrid }
                         >
-                            <ReactSVG className={ classes.icon } src={ grid.src }/>
+                            <ReactSVG className={ classes.icon } src={ grid.src } />
                         </button>
 
                         <button
@@ -64,7 +67,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
                             }` }
                             onClick={ toggleViewToList }
                         >
-                            <ReactSVG className={ classes.icon } src={ list.src }/>
+                            <ReactSVG className={ classes.icon } src={ list.src } />
                         </button>
                     </div>
 
@@ -79,6 +82,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
                         >
                             1h
                         </button>
+
                         <button
                             className={ `${classes.tableViewButton} ${
                                 timeFilter === TIME_STATES.sixHours
@@ -89,6 +93,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
                         >
                             6h
                         </button>
+
                         <button
                             className={ `${classes.tableViewButton} ${
                                 timeFilter === TIME_STATES.oneDay
@@ -99,6 +104,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
                         >
                             24h
                         </button>
+
                         <button
                             className={ `${classes.tableViewButton} ${
                                 timeFilter === TIME_STATES.sevenDays
@@ -127,6 +133,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
                         <div className={ classes.infoBoxTitleContainer }>
                             <h3 className={ classes.infoBoxTitle }>Summary</h3>
                         </div>
+
                         <div>
                             <p className={ classes.infoBoxSubtitle }>
                                 <ReactSVG
@@ -135,6 +142,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
                                 />
                                 { dataset.assetCounts.total } Files
                             </p>
+
                             { Object.entries(dataset.assetCounts.byMimetype).map(([mimetype, count]) => {
                                 return (
                                     <div className={ classes.infoBoxSummaryItem } key={ mimetype }>
@@ -151,51 +159,63 @@ export default function ItemViewer(dataset: PreviewDataset) {
                         <div className={ classes.infoBoxTitleContainer }>
                             <h3 className={ classes.infoBoxTitle }>File Details</h3>
                         </div>
+
                         <div className={ classes.infoBoxFileDetailsInnerBox }>
                             <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
                                 <div>
                                     <span>Resolution</span>
                                 </div>
+
                                 <div>
                                     <span>5760 x 3840</span>
                                 </div>
                             </div>
+                            
                             <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
                                 <div>
                                     <span>Filename</span>
                                 </div>
+
                                 <div>
                                     <span>ABCDELKLJK.jpeg</span>
                                 </div>
                             </div>
+
                             <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
                                 <div>
                                     <span>Mime type</span>
                                 </div>
+
                                 <div>
                                     <span>image/jpeg</span>
                                 </div>
                             </div>
+                            
                             <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
                                 <div>
                                     <span>Uploaded By</span>
                                 </div>
+
                                 <div>
                                     <span>@user</span>
                                 </div>
                             </div>
+
                             <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
                                 <div>
                                     <span>Encoding</span>
                                 </div>
+
                                 <div>
                                     <span>8 Bit</span>
                                 </div>
                             </div>
+
                             <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
                                 <div>
                                     <span>File Size</span>
                                 </div>
+                            
                                 <div>
                                     <span>2.63 MB</span>
                                 </div>
@@ -207,6 +227,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
                 { /* grid/list */ }
                 <div className={ classes.contentListContainer }>
                     { /* list & grid */ }
+
                     {
                         <AssetViewer
                             showList={ showList }
@@ -220,5 +241,4 @@ export default function ItemViewer(dataset: PreviewDataset) {
             </div>
         </div>
     );
-
 }

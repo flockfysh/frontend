@@ -1,8 +1,8 @@
 declare interface HomepageDataset extends Flockfysh.Dataset {
-    assetCounts: Flockfysh.DatasetAssetCounts,
-    size: Flockfysh.DatasetSize,
-    likes: number,
-    user: RedactedUser,
+    assetCounts: Flockfysh.DatasetAssetCounts;
+    size: Flockfysh.DatasetSize;
+    likes: number;
+    user: RedactedUser;
     thumbnail?: {
         assetId: string;
         url: string;
@@ -10,7 +10,7 @@ declare interface HomepageDataset extends Flockfysh.Dataset {
     icon?: {
         assetId: string;
         url: string;
-    }
+    };
 }
 
 declare interface PreviewDataset extends Flockfysh.Dataset {

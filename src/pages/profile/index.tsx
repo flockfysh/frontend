@@ -18,7 +18,7 @@ export default function Profile() {
 
     return (
         <div className={ classes.container }>
-            <MarketplaceNavbar/>
+            <MarketplaceNavbar />
 
             <UserInfo
                 followers={ 2000 }
@@ -44,7 +44,7 @@ export default function Profile() {
                 />
             ) }
 
-            <Footer/>
+            <Footer />
         </div>
     );
 }

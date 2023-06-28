@@ -1,8 +1,8 @@
-import  Link  from 'next/link';
-
-import classes from './styles.module.css';
 import React from 'react';
 import { RxArrowRight } from 'react-icons/rx';
+import Link from 'next/link';
+
+import classes from './styles.module.css';
 
 type GradientLinkProps = {
     gradientDirection?: string;
@@ -37,7 +37,7 @@ export default function GradientLink(props: GradientLinkProps) {
             { props.children }
 
             {
-                hasArrow ? <RxArrowRight className={ classes.svg }/> : <></>
+                hasArrow ? <RxArrowRight className={ classes.svg } /> : <></>
             }
         </a>
     );
@@ -47,7 +47,7 @@ export default function GradientLink(props: GradientLinkProps) {
             { props.children }
 
             {
-                hasArrow ? <RxArrowRight className={ classes.svg }/> : <></>
+                hasArrow ? <RxArrowRight className={ classes.svg } /> : <></>
             }
         </Link>
     );

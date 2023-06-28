@@ -1,10 +1,13 @@
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
+import { RxCross1, RxEyeNone } from 'react-icons/rx';
+
 import Konva from 'konva';
 import { Layer, Rect, Transformer } from 'react-konva';
 import { Html } from 'react-konva-utils';
+
+import Button from '@/components/ui/theming/button';
+
 import classes from './styles.module.css';
-import Button from '@/components/ui/theming/Button';
-import { RxCross1, RxEyeNone } from 'react-icons/rx';
 
 export interface RectangleProps {
     shapeProps: Konva.NodeConfig & AnnotationBox,
@@ -17,17 +20,19 @@ export interface RectangleProps {
     containerHeight: number
 }
 
+// TODO: change these to existing icons
+
 function Buttons(props: {
     onDelete?: () => void;
     onDeselect?: () => void;
 }) {
     return (
         <nav className={ classes.rectangleUtilityButtons }>
-            <Button className={ `${classes.button}` } onClick={ props.onDeselect }>
-                <RxEyeNone></RxEyeNone>
+            <Button className={ `${ classes.button }` } onClick={ props.onDeselect }>
+                <RxEyeNone />
             </Button>
-            <Button className={ `${classes.button} ${classes.deleteButton}` } onClick={ props.onDelete }>
-                <RxCross1></RxCross1>
+            <Button className={ `${ classes.button } ${ classes.deleteButton }` } onClick={ props.onDelete }>
+                <RxCross1 />
             </Button>
         </nav>
     );
@@ -37,13 +42,13 @@ export default function Rectangle(props: RectangleProps) {
     const shapeRef = useRef({} as Konva.Rect);
     const trRef = useRef({} as Konva.Transformer);
 
-    const [isDragging, setIsDragging] = React.useState(false);
+    const [isDragging, setIsDragging] = useState(false);
 
     useEffect(() => {
         if (props.isSelected) {
             const handler = function(e: KeyboardEvent): void {
                 if (e.key === 'Delete') props.onDelete?.();
-            }
+            };
 
             trRef.current.nodes([shapeRef.current]);
             trRef.current.getLayer()!.batchDraw();
@@ -52,7 +57,7 @@ export default function Rectangle(props: RectangleProps) {
 
             return () => window.removeEventListener('keyup', handler);
         }
-    }, [props.isSelected]);
+    }, [props.isSelected, props]);
 
     const konvaRectWidth = props.shapeProps.width * props.containerWidth;
     const konvaRectHeight = props.shapeProps.height * props.containerHeight;
@@ -61,6 +66,7 @@ export default function Rectangle(props: RectangleProps) {
     const konvaRectY = (props.shapeProps.y - props.shapeProps.height / 2) * props.containerHeight;
 
     let transformer, htmlUtilityButtons;
+
     if (props.isSelected) {
         transformer = (
             <Transformer
@@ -86,6 +92,7 @@ export default function Rectangle(props: RectangleProps) {
 
             />
         );
+
         htmlUtilityButtons = (
             <Html divProps={ {
                 style: {
@@ -95,7 +102,7 @@ export default function Rectangle(props: RectangleProps) {
                     display: isDragging ? 'none' : 'block',
                 },
             } }>
-                <Buttons onDelete={ props.onDelete } onDeselect={ props.onDeselect }></Buttons>
+                <Buttons onDelete={ props.onDelete } onDeselect={ props.onDeselect } />
             </Html>
         );
     }
@@ -106,13 +113,17 @@ export default function Rectangle(props: RectangleProps) {
 
     function transformEnd() {
         setIsDragging(false);
+
         const curr = shapeRef.current;
         const scaleX = curr.scaleX();
         const scaleY = curr.scaleY();
+
         curr.scaleX(1);
         curr.scaleY(1);
+        
         const newWidth = Math.max(10, curr.width() * scaleX);
         const newHeight = Math.max(10, curr.height() * scaleY);
+        
         props.onChange(
             {
                 x: (curr.x() + newWidth / 2) / props.containerWidth,
@@ -140,6 +151,7 @@ export default function Rectangle(props: RectangleProps) {
 
     function dragEnd(e: Konva.KonvaEventObject<DragEvent>) {
         setIsDragging(false);
+
         props.onChange({
             width: konvaRectWidth / props.containerWidth,
             height: konvaRectHeight / props.containerHeight,
@@ -151,10 +163,10 @@ export default function Rectangle(props: RectangleProps) {
     return (
         <Layer>
             <Rect
+                { ...props.shapeProps }
                 onClick={ props.onSelect }
                 onTap={ props.onSelect }
                 ref={ shapeRef }
-                { ...props.shapeProps }
                 x={ konvaRectX }
                 y={ konvaRectY }
                 width={ konvaRectWidth }
@@ -169,8 +181,8 @@ export default function Rectangle(props: RectangleProps) {
                 onTransformEnd={ transformEnd }
             />
 
-            {transformer}
-            {htmlUtilityButtons}
+            { transformer }
+            { htmlUtilityButtons }
         </Layer>
     );
 }

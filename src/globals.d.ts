@@ -36,9 +36,6 @@ declare global {
             price: number;
             public: boolean;
             updatedAt: Date;
-<<<<<<< HEAD
-            stage: string;
-=======
             thumbnail?: {
                 assetId: string;
             };
@@ -48,7 +45,7 @@ declare global {
             metrics: {
                 views: number;
                 downloads: number;
-            }
+            };
         }
 
         interface Collection {
@@ -61,15 +58,14 @@ declare global {
             };
             icon?: {
                 assetId: string;
-            }
->>>>>>> 58dd22181893cc715462bb1fba904d0c34d2a4d5
+            };
         }
 
-        interface PopulatedDataset extends Dataset{
-            size: Flockfysh.DatasetSize,
-            assetCounts: Flockfysh.DatasetAssetCounts,
-            annotationCounts: Flockfysh.DatasetAnnotationCounts,
-        };
+        interface PopulatedDataset extends Dataset {
+            size: Flockfysh.DatasetSize;
+            assetCounts: Flockfysh.DatasetAssetCounts;
+            annotationCounts: Flockfysh.DatasetAnnotationCounts;
+        }
 
         interface DatasetAssetCounts {
             byStage: Record<Flockfysh.AssetStages, number>;
@@ -78,7 +74,7 @@ declare global {
                 annotated: number;
                 unannotated: number;
             };
-            byMimetype: Record<string, number>
+            byMimetype: Record<string, number>;
         }
 
         interface DatasetAnnotationCounts {

@@ -1,13 +1,16 @@
 import { useState, useContext, useEffect } from 'react';
-import CustomSelect, { CustomCreatableSelect } from '../../../ui/input/select';
-import api from '@/helpers/api';
-import { formToJSON } from 'axios';
-import ActionPopupWithButton from '@/components/ui/modals/actionPopupWithButton';
-import { PopupModalContext } from '@/components/ui/modals/actionPopup';
-import plus from '@/icons/main/plus-circle.svg';
-import classes from './styles.module.css';
 import { ReactSVG } from 'react-svg';
 
+import { formToJSON } from 'axios';
+
+import CustomSelect, { CustomCreatableSelect } from '../../../ui/input/select';
+import ActionPopupWithButton from '@/components/ui/modals/actionPopupWithButton';
+import { PopupModalContext } from '@/components/ui/modals/actionPopup';
+
+import api from '@/helpers/api';
+import plus from '@/icons/main/plus-circle.svg';
+
+import classes from './styles.module.css';
 
 const datasetTypeOptions = [
     { value: 'image', label: 'Images' },
@@ -21,6 +24,7 @@ export default function CreateDatasetModal() {
             button={ (
                 <button className={ classes.newDatasetButton }>
                     <span>New Dataset</span>
+
                     <ReactSVG src={ plus.src } />
                 </button>
             ) }
@@ -45,6 +49,7 @@ function CreateDatasetForm() {
                     expand: 'labels',
                 }
             })).data.data;
+            
             setRecipes(recipes);
         }
 

@@ -1,7 +1,6 @@
 .container {
     width: 20rem;
     height: fit-content;
-    /*aspect-ratio: 1/2;*/
     overflow: auto;
 
     background: var(--main-grey);
@@ -42,7 +41,6 @@
     height: 100%;
     top: 0;
     left: 0;
-    
 }
 
 .typeCard {

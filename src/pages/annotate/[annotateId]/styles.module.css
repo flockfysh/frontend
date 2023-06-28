@@ -25,9 +25,10 @@
             circle at top left,
             var(--color-blue-gradients),
             rgba(0, 0, 0, 0) 30%
-    ) top left;
+        )
+        top left;
 
-    content: "";
+    content: '';
     top: 0;
     left: 0;
     min-width: 30rem;
@@ -42,7 +43,6 @@
 .heading {
     font-size: 2.8rem;
     text-align: left;
-
 }
 
 .contentContainer {

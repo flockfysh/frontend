@@ -1,5 +1,4 @@
 import { useState } from 'react';
-
 import { ReactSVG } from 'react-svg';
 
 import edit from '@/icons/main/edit-3.svg';
@@ -151,6 +150,7 @@ export default function UserSettings(props: UserSettings) {
                         <div className={ classes.limitObject }>
                             <h5 className={ classes.limit }>
                                 <span>Transfer Limit</span>
+                                
                                 { props.transferLimit.toString() } / 25GB
                             </h5>
 

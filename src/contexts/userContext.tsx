@@ -1,5 +1,5 @@
 import { PropsWithChildren, useEffect, useState, createContext } from 'react';
-import Loading from '../components/ui/loading/loading';
+import Loading from '../components/ui/loading';
 
 import api from '../helpers/api';
 

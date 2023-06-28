@@ -35,7 +35,7 @@ export default class AnnotationObject {
         await api.put(`/api/annotations/${this.serverId}`, {
             label: this.label?._id,
             frame: this.frame,
-            data: {center: [x+width/2, y+height/2], dimensions:[width, height], rotation: 0},
+            data: { center: [x+width/2, y+height/2], dimensions:[width, height], rotation: 0 },
         });
     }
 
@@ -59,6 +59,7 @@ export default class AnnotationObject {
         this.label = label;
         this.frame = frame;
         this.serverId = serverId;
+
         if (boundingBox) this.boundingBox = boundingBox;
     }
 
@@ -76,7 +77,7 @@ export default class AnnotationObject {
         const response = await api.post(`/api/assets/${imageId}/annotations`, {
             label: this.label?._id,
             frame: this.frame,
-            data: {center: [x+width/2, y+height/2], dimensions:[width, height], rotation: 0},
+            data: { center: [x+width/2, y+height/2], dimensions:[width, height], rotation: 0 },
             assetId: imageId
         });
 

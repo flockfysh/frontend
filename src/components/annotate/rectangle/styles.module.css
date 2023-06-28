@@ -2,12 +2,11 @@
     display: flex;
     border-radius: 1rem;
     transform: translate(-50%, calc(-100% - 1rem));
-    background: var(--color-black-secondary)
+    background: var(--color-black-secondary);
 }
 
 .deleteButton {
     background: var(--color-red-primary);
-
 }
 
 .button {

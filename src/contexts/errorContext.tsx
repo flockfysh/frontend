@@ -1,5 +1,6 @@
 import { createContext, useState } from 'react';
 import { v4 } from 'uuid';
+
 import ErrorModal from '@/components/ui/modals/modalBase';
 
 interface IErrorContext {
@@ -25,7 +26,8 @@ export function ErrorWrapper(props: React.PropsWithChildren) {
             Array.from(errorMessages.values()).filter(
                 (e) => e.message === message
             ).length !== 0
-        ) return;
+        )
+            return;
 
         let newId: string;
 

@@ -58,7 +58,7 @@ export default function AddAnnotationBoxLayer(props: {
 
     return (
         <Layer>
-            <Rect ref={ internalRectRef } stroke="red" strokeWidth={ 4 } opacity={ isDragging ? 1 : 0 }/>
+            <Rect ref={ internalRectRef } stroke="red" strokeWidth={ 4 } opacity={ isDragging ? 1 : 0 } />
 
             <Rect
                 draggable
@@ -78,16 +78,16 @@ export default function AddAnnotationBoxLayer(props: {
                     updateRectangle();
                 } }
                 onDragMove={ e => {
-                    const stage = e.currentTarget.getStage()!;
-                    let { x, y } = stage.getRelativePointerPosition();
+                        const stage = e.currentTarget.getStage()!;
+                        let { x, y } = stage.getRelativePointerPosition();
 
-                    x = boundCoordinates(x, 0, stage.width());
-                    y = boundCoordinates(y, 0, stage.height());
-                    end.current.eX = x;
-                    end.current.eY = y;
+                        x = boundCoordinates(x, 0, stage.width());
+                        y = boundCoordinates(y, 0, stage.height());
+                        end.current.eX = x;
+                        end.current.eY = y;
 
-                    updateRectangle();
-                }
+                        updateRectangle();
+                    }
                 }
                 onDragEnd={ e => {
                     const rectangle = e.currentTarget;
@@ -120,9 +120,8 @@ export default function AddAnnotationBoxLayer(props: {
                     };
 
                     props.onAdd?.(coords);
-                }
-                }>
-            </Rect>
+                } }
+            />
         </Layer>
     );
 }

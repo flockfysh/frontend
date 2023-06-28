@@ -1,10 +1,11 @@
-import AnnotationObject from "@/components/annotate/wrapper/annotationObject";
-import React from "react";
+import { createContext } from 'react';
+
+import AnnotationObject from '@/components/annotate/wrapper/annotationObject';
 
 export interface IAnnotationPageContext {
-    curImage: UploadedImage | null,
-    labels: Flockfysh.Label[],
-    imageIndex: number,
+    curImage: UploadedImage | null;
+    labels: Flockfysh.Label[];
+    imageIndex: number;
     nextImage: () => void;
     prevImage: () => void;
     curAnnotationData: Map<string, AnnotationObject>;
@@ -19,27 +20,21 @@ export interface IAnnotationPageContext {
     numImages: number;
 }
 
-export const AnnotationPageContext = React.createContext<IAnnotationPageContext>({
-    curImage: null,
-    labels: [],
-    imageIndex: 0,
-    curAnnotationData: new Map(),
-    numImages: 0,
-    nextImage: () => {
-    },
-    prevImage: () => {
-    },
-    refresh: () => {
-    },
-    curLabel: null,
-    setCurLabel: () => {
-    },
-    curBox: '',
-    setCurBox: () => {
-    },
-    addAnnotationObject: async () => {
-    },
-    isEditing: false,
-    setIsEditing: () => {
-    },
-});
+export const AnnotationPageContext =
+    createContext<IAnnotationPageContext>({
+        curImage: null,
+        labels: [],
+        imageIndex: 0,
+        curAnnotationData: new Map(),
+        numImages: 0,
+        nextImage: () => {},
+        prevImage: () => {},
+        refresh: () => {},
+        curLabel: null,
+        setCurLabel: () => {},
+        curBox: '',
+        setCurBox: () => {},
+        addAnnotationObject: async () => {},
+        isEditing: false,
+        setIsEditing: () => {},
+    });

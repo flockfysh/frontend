@@ -1,4 +1,4 @@
-import LoadingIcon from '../loadingIcon/loadingIcon';
+import LoadingIcon from '../loadingIcon';
 
 import classes from './loading.module.css';
 

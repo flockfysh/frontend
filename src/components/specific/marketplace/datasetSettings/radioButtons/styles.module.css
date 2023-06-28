@@ -38,8 +38,8 @@
     transition: 0.15s;
 }
 
-
-.helpIcon:hover .helpIconTooltip, .helpIcon:focus .helpIconTooltip {
+.helpIcon:hover .helpIconTooltip,
+.helpIcon:focus .helpIconTooltip {
     opacity: 1;
 }
 
@@ -62,7 +62,8 @@
     font-weight: 700;
 }
 
-.button:hover, .selected {
+.button:hover,
+.selected {
     background: #1e1e1e;
 }
 

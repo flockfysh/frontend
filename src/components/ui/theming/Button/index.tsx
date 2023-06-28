@@ -1,8 +1,8 @@
-import React from 'react';
+import { ComponentPropsWithRef } from 'react';
 
 import classes from './styles.module.css';
 
-interface ButtonProps extends React.ComponentPropsWithRef<'button'> {
+interface ButtonProps extends ComponentPropsWithRef<'button'> {
     gradient?: boolean;
     gradientDirection?: string;
 }
@@ -31,9 +31,12 @@ export default function Button(props: ButtonProps) {
     }
 
     return (
-        <button type="button" { ...buttonProps }
-                className={ `${classes.button} ${gradientClass} ${props.className || ''}` }>
-            {props.children}
+        <button
+            type="button"
+            { ...buttonProps }
+            className={ `${classes.button} ${gradientClass} ${props.className || ''}` }
+        >
+            { props.children }
         </button>
     );
 }

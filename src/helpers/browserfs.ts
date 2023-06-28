@@ -101,7 +101,7 @@ export default function useBrowserFS() {
                         });
                     });
                 }
-                else {
+ else {
                     await promisesLib.purgeDir(pathName);
                     await promisesLib.rmdir(pathName, {
                         recursive: false,
@@ -121,7 +121,7 @@ export default function useBrowserFS() {
                             })
                         );
                     }
-                    else {
+ else {
                         promises.push(promisesLib.unlink(childPath));
                     }
                 }
@@ -147,7 +147,7 @@ export default function useBrowserFS() {
                 try {
                     return await promise;
                 }
-                catch (e) {}
+ catch (e) {}
             },
         };
         await promisesLib.purgeDir('/tmp');

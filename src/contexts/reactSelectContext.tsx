@@ -22,17 +22,17 @@ export function EmotionCacheProvider(props: PropsWithChildren) {
     });
 
     useEffect(() => {
-        setCache(createCache({
-            key: 'css-module',
-            insertionPoint: document.querySelector('title')!,
-        }));
+        setCache(
+            createCache({
+                key: 'css-module',
+                insertionPoint: document.querySelector('title')!,
+            })
+        );
     }, []);
 
-    return (
-        cache ? (
-            <CacheProvider value={ cache }>
-                { props.children }
-            </CacheProvider>
-        ) : <>{ props.children }</>
+    return cache ? (
+        <CacheProvider value={ cache }>{ props.children }</CacheProvider>
+    ) : (
+        <>{ props.children }</>
     );
 }

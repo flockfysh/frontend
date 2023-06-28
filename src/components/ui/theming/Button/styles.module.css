@@ -14,28 +14,27 @@
     gap: 1rem;
 }
 
-
 .gradientBottomRight {
     background: linear-gradient(
-            to bottom right,
-            var(--color-blue-secondary),
-            var(--color-blue-primary)
+        to bottom right,
+        var(--color-blue-secondary),
+        var(--color-blue-primary)
     );
 }
 
 .gradientRightLeft {
     background: linear-gradient(
-            to left,
-            var(--color-blue-secondary),
-            var(--color-blue-primary)
+        to left,
+        var(--color-blue-secondary),
+        var(--color-blue-primary)
     );
 }
 
 .gradientLeftRight {
     background: linear-gradient(
-            to right,
-            var(--color-blue-secondary),
-            var(--color-blue-primary)
+        to right,
+        var(--color-blue-secondary),
+        var(--color-blue-primary)
     );
 }
 

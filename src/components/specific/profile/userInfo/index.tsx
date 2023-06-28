@@ -38,6 +38,7 @@ const userInfo = (props: userInfo) => {
                     <p className={ classes.followers }>
                         <span className={ classes.span }>{ props.following }</span> following
                     </p>
+
                     <p className={ classes.followers }>
                         <span className={ classes.span }>{ props.followers }</span> followers
                     </p>
@@ -104,9 +105,11 @@ const userInfo = (props: userInfo) => {
                         <button className={ classes.navButton } onClick={ () => props.updateTab(0) }>
                             Datasets
                         </button>
+
                         <button className={ classes.navButton } onClick={ () => props.updateTab(1) }>
                             Activity
                         </button>
+                        
                         <button className={ classes.navButton } onClick={ () => props.updateTab(2) }>
                             Settings
                         </button>

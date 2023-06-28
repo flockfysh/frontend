@@ -1,8 +1,8 @@
-import React from 'react';
+import { ComponentPropsWithRef } from 'react';
 
 import classes from './styles.module.css';
 
-interface LabelProps extends React.ComponentPropsWithRef<'button'> {
+interface LabelProps extends ComponentPropsWithRef<'button'> {
     dotColor?: string;
     selected?: boolean;
 }

@@ -81,7 +81,8 @@ export default function CreatableSelect(props: {
                     multiValueRemove: () => {
                         return classes.multiValueRemove;
                     }
-                } } />
+                } }
+            />
         </div>
     );
 }

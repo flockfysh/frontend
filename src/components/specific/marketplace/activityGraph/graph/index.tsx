@@ -57,6 +57,7 @@ export default function Graph(dataset: PreviewDataset) {
         view: {},
         download: {},
     };
+    
     for (const rawMetric of rawActivityMetrics) {
         const date = dayjs().startOf('day').toString();
         metricHashmap[rawMetric.type][date] = rawMetric.count;

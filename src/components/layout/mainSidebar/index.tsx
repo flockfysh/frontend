@@ -82,21 +82,22 @@ export default function MainSidebar() {
     return (
         <nav className={ classes.sidebar }>
             <div className={ classes.segment }>
-                <Logo></Logo>
+                <Logo />
 
                 <div>
                     { SECTION_1_LINKS.map(props => {
-                        return <SidebarLink key={ props.href } { ...props }></SidebarLink>;
+                        return <SidebarLink key={ props.href } { ...props } />;
                     }) }
                 </div>
             </div>
             <div className={ classes.segment }>
                 <div>
                     { SECTION_2_LINKS.map(props => {
-                        return <SidebarLink key={ props.href } { ...props }></SidebarLink>;
+                        return <SidebarLink key={ props.href } { ...props } />;
                     }) }
                 </div>
-                <Profile/>
+
+                <Profile />
             </div>
         </nav>
     );

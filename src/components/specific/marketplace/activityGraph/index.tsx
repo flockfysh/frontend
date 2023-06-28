@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-import ActivityCard from './activityCard';
-
 import DatasetTimeFilter from '../datasetTimeFilter';
 import Graph from './graph';
+import ActivityCard from './activityCard';
+import ActivityTable from '@/components/specific/marketplace/activityGraph/activityTable';
+
 import classes from './styles.module.css';
-import ActivityTable from '@/components/specific/marketplace/ActivityGraph/activityTable';
 
 export default function ActivityGraph(dataset: PreviewDataset) {
     const activity: DatasetActivity[] = [
@@ -89,7 +89,7 @@ export default function ActivityGraph(dataset: PreviewDataset) {
                     </div>
 
                     <div className={ classes.chartContainer }>
-                        <Graph { ...dataset }/>
+                        <Graph { ...dataset } />
                     </div>
                 </div>
             </div>
@@ -98,7 +98,7 @@ export default function ActivityGraph(dataset: PreviewDataset) {
                 <h1 className={ classes.header }>Activity History</h1>
 
                 <div className={ classes.activityTableContainer }>
-                    <ActivityTable/>
+                    <ActivityTable />
                 </div>
             </div>
         </div>

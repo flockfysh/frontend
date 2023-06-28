@@ -62,11 +62,11 @@ export default function DatasetSwiper(props: {
                     );
                 }) }
 
-                <div className={ classes.swiperOverlay }></div>
+                <div className={ classes.swiperOverlay } />
             </Swiper>
 
             <div className={ `${ classes.fadeOverlay } ${ classes.next }` }>
-                <button className={ `${classes.navButton}` } ref={ nextRef }>
+                <button className={ `${ classes.navButton }` } ref={ nextRef }>
                     <ReactSVG src={ next.src } />
                 </button>
             </div>

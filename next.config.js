@@ -4,9 +4,9 @@ const nextConfig = {
     images: {
         remotePatterns: [
             { hostname: '*.digitaloceanspaces.com' },
-            { hostname: '*.figma.com' }
-        ]
-    }
+            { hostname: '*.figma.com' },
+        ],
+    },
 };
 
 module.exports = nextConfig;

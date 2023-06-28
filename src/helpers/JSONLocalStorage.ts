@@ -3,15 +3,15 @@ class JSONLocalStorage {
 
     get<T>(item: string): T | null {
         const result = this.localStorage.getItem(item);
-        
+
         if (result === null) return null;
-        
+
         return JSON.parse(result) as T;
     }
 
     getDefault<T>(item: string, defaultValue: T): T {
         const result = this.localStorage.getItem(item);
-        
+
         if (result === null) {
             this.localStorage.setItem(item, JSON.stringify(defaultValue));
             return defaultValue;

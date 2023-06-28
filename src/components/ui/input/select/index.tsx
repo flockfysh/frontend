@@ -1,7 +1,8 @@
 import { forwardRef, useRef, ForwardedRef } from 'react';
-import classes from './styles.module.css';
 import Select, { Props, GroupBase, SelectInstance } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
+
+import classes from './styles.module.css';
 
 const theme = (theme: any) => (
     {

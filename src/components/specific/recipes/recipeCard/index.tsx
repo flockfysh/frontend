@@ -28,6 +28,7 @@ export default function RecipeCard(props: Flockfysh.RecipeWithLabels) {
                 { /* title */ }
                 <div className={ classes.headerTitleWrapper }>
                     <h2 className={ classes.headerTitle }>{ props.name }</h2>
+
                     <small className={ classes.headerSubtitle }>ID: { props._id }</small>
                 </div>
 
@@ -36,6 +37,7 @@ export default function RecipeCard(props: Flockfysh.RecipeWithLabels) {
                     { /* datasets data */ }
                     <div className={ classes.headerBaseDataContent }>
                         <ReactSVG src={ database.src } />
+
                         <small>Used in: <strong>{ 0 }</strong> Datasets</small>
                     </div>
 
@@ -47,6 +49,7 @@ export default function RecipeCard(props: Flockfysh.RecipeWithLabels) {
                     { /* created at */ }
                     <div className={ classes.headerBaseDataContent }>
                         <ReactSVG src={ clock.src } />
+
                         <small>Created At: { dateCreatedAt } UTC</small>
                     </div>
                 </div>
@@ -62,6 +65,7 @@ export default function RecipeCard(props: Flockfysh.RecipeWithLabels) {
                                 <div key={ clientSideUuid } className={ classes.tagsItem }>
                                     { /* switch between icons */ }
                                     <ReactSVG src={ iconMapping[label.tool].src } className={ classes.tagsItemIcon } />
+                                    
                                     <span>{ label.name }</span>
                                 </div>
                             );

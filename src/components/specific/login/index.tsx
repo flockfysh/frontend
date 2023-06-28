@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef, useCallback, useContext } from 'react';
+import { ReactSVG } from 'react-svg';
+
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { StaticImageData } from 'next/image';
-
-import { ReactSVG } from 'react-svg';
 
 import ActionPopup from '../../ui/modals/actionPopup';
 import LoginForm from './form';

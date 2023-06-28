@@ -17,7 +17,6 @@
     display: flex;
     justify-content: space-between;
     justify-self: stretch;
-    /* width: 100%; */
     grid-column: 1/-1;
 }
 

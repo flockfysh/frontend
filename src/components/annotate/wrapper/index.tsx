@@ -52,9 +52,10 @@ export default function AnnotationWrapper() {
                     width: Math.ceil(imageElem.width),
                     height: Math.ceil(imageElem.height),
                 });
-            }
+            };
 
             updateWrapperSize();
+
             imageElem.addEventListener('load', updateWrapperSize);
             window.addEventListener('resize', updateWrapperSize);
 
@@ -121,8 +122,10 @@ export default function AnnotationWrapper() {
                     e.evt.preventDefault();
                     setCurBox('');
                 } }
-                className={ `${classes.annotationCanvasStage} ${!isEditing ? classes.canvasCrosshair : ''}` }>
-                {rectangles}
+                className={ `${ classes.annotationCanvasStage } ${ !isEditing ? classes.canvasCrosshair : '' }` }
+            >
+                { rectangles }
+                
                 {
                     !isEditing && (
                         <AddAnnotationBoxLayer

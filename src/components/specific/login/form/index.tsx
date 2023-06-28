@@ -33,6 +33,7 @@ const LoginField = forwardRef<HTMLInputElement, {
         </label>
     );
 });
+
 export default function LoginForm(props: {
     mode: 'signup' | 'login',
     redirect: () => void,
@@ -168,6 +169,7 @@ export default function LoginForm(props: {
                 }
 
                 <LoginField placeholder="Email" type="email" name="email" errorMessage={ emailError } />
+                
                 <LoginField
                     placeholder="Password"
                     type="password"

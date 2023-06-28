@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { ReactSVG } from 'react-svg';
 
-import VerticalCard from '@/components/specific/marketplace/datasetCards/VerticalCard';
+import { v4 } from 'uuid';
+import { fakerEN } from '@faker-js/faker';
+
+import VerticalCard from '@/components/specific/marketplace/datasetCards/verticalCard';
 
 import search from '@/icons/main/search.svg';
 
 import classes from './styles.module.css';
-import { v4 } from 'uuid';
-import { fakerEN } from '@faker-js/faker';
 
 function DatasetsOwned() {
     const recievedData: HomepageDataset[] = Array.from({ length: 8 }, () => ({
@@ -60,6 +61,7 @@ function DatasetsOwned() {
         price: 2.84448,
         description: 'This is a random test dataset',
     }));
+
     const [finalData, setfinalData] = useState(recievedData);
 
     return (
@@ -133,8 +135,7 @@ function DatasetsOwned() {
 
                 { finalData.map((value) => {
                     return (
-                        <VerticalCard { ...value } key={ value._id }
-                        />
+                        <VerticalCard { ...value } key={ value._id } />
                     );
                 }) }
             </div>

@@ -27,7 +27,7 @@
 }
 
 .github path {
-    fill: var(--primary1-100); 
+    fill: var(--primary1-100);
 }
 
 .logoContainer {
@@ -42,13 +42,13 @@
 }
 
 .gradientO {
-    background: linear-gradient(180deg, #53F8DD 0%, #0089FF 100%);
+    background: linear-gradient(180deg, #53f8dd 0%, #0089ff 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .blueFysh {
-    color: #0089FF !important;
+    color: #0089ff !important;
 }
 
 .tos {

@@ -1,5 +1,5 @@
-import DatasetTypeCard from '../../DatasetTypeCard';
-import ProfileCard from '../../ProfileCard';
+import DatasetTypeCard from '../../datasetTypeCard';
+import ProfileCard from '../../profileCard';
 
 import classes from './styles.module.css';
 import Image from 'next/image';
@@ -7,20 +7,29 @@ import Image from 'next/image';
 export default function VerticalCollectionCard(props: HomepageCollection) {
     return (
         <div className={ classes.container }>
-            <Image fill={ true } src={ props.thumbnail?.url ?? '' } alt={ 'Thumbnail' }
-                   className={ classes.thumbnail }></Image>
+            <Image
+                fill={ true }
+                src={ props.thumbnail?.url ?? '' }
+                alt="Thumbnail"
+                className={ classes.thumbnail }
+            />
+            
             <div className={ classes.contentContainer }>
                 <div className={ classes.header }>
-                    <img src={ props.icon?.url } alt="Avatar"/>
-                    <DatasetTypeCard type={ props.type } className={ classes.typeCard }/>
+                    <img src={ props.icon?.url } alt="Avatar" />
+
+                    <DatasetTypeCard type={ props.type } className={ classes.typeCard } />
                 </div>
 
                 <div className={ classes.middleSection }>
                     <h1>{ props.name }</h1>
 
                     <div className={ classes.profileCardContainer }>
-                        <ProfileCard className={ classes.profileCard } username={ props.user.username }
-                                     profilePicture={ props.user.profilePhoto ?? '' }/>
+                        <ProfileCard
+                            className={ classes.profileCard }
+                            username={ props.user.username }
+                            profilePicture={ props.user.profilePhoto ?? '' }
+                        />
                     </div>
                 </div>
 
