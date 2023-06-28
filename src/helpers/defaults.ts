@@ -1,4 +1,5 @@
 import { StaticImageData } from 'next/image';
+
 import textDataset from '@/assets/defaults/datasets/textDataset.png';
 import imageDataset from '@/assets/defaults/datasets/imageDataset.png';
 import videoDataset from '@/assets/defaults/datasets/videoDataset.png';

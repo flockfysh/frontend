@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
 import { RxArrowLeft, RxArrowRight } from 'react-icons/rx';
-import UploadedImage from 'konva';
 
 import { v4 } from 'uuid';
 import { useRouter } from 'next/router';

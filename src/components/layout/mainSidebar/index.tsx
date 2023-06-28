@@ -4,7 +4,7 @@ import { StaticImageData } from 'next/image';
 import Link from 'next/link';
 
 import Logo from './logo';
-import Profile from '@/components/layout/MainSidebar/profile';
+import Profile from '@/components/layout/mainSidebar/profile';
 
 import home from '@/icons/main/home.svg';
 import document from '@/icons/main/file-text.svg';

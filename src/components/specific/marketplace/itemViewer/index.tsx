@@ -3,7 +3,7 @@ import { ReactSVG } from 'react-svg';
 
 import mime from 'mime-types';
 
-import AssetViewer from '@/components/specific/datasets/viewDataset/AssetViewer';
+import AssetViewer from '@/components/specific/datasets/viewDataset/assetViewer';
 
 import search from '@/icons/main/search.svg';
 import grid from '@/icons/main/grid.svg';

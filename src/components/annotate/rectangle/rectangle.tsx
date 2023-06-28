@@ -31,6 +31,7 @@ function Buttons(props: {
             <Button className={ `${ classes.button }` } onClick={ props.onDeselect }>
                 <RxEyeNone />
             </Button>
+            
             <Button className={ `${ classes.button } ${ classes.deleteButton }` } onClick={ props.onDelete }>
                 <RxCross1 />
             </Button>

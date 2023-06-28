@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 
-import Input from '@/components/specific/marketplace/DatasetSettings/Input';
+import Input from '@/components/specific/marketplace/datasetSettings/input';
 import CreatableSelect from '@/components/specific/marketplace/datasetSettings/creatableSelect';
 import RadioButtons from '@/components/specific/marketplace/datasetSettings/radioButtons';
 
