@@ -222,12 +222,23 @@ export default function RecipeForm(props: RecipeFormProps) {
     }
 
     async function onSubmit() {
+<<<<<<< HEAD:src/components/specific/recipes/RecipeForm/index.tsx
+        if (!props.id) {
+            console.log("HI");
+=======
         if (!props.id)
+>>>>>>> 58dd22181893cc715462bb1fba904d0c34d2a4d5:src/components/specific/recipes/recipeForm/index.tsx
             await createRecipe({
                 name: name,
                 labels: Array.from(labels.values())
             });
+<<<<<<< HEAD:src/components/specific/recipes/RecipeForm/index.tsx
+            console.log("BYE");
+        }
+ else {
+=======
         else
+>>>>>>> 58dd22181893cc715462bb1fba904d0c34d2a4d5:src/components/specific/recipes/recipeForm/index.tsx
             await editRecipe(props.id, {
                 name: name,
                 labels: Array.from(labels.values())

@@ -28,11 +28,11 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     return (
         <>
             <Head>
-                <title>flockfysh | lightining fast large scale ML datasets</title>
+                <title>flockfysh | lightning fast large scale ML datasets</title>
 
                 <meta
                     name="description"
-                    content="lightining fast large scale ML datasets"
+                    content="lightning fast large scale ML datasets"
                 />
 
                 <meta
