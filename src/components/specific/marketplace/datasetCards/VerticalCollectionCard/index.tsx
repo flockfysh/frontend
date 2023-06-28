@@ -20,7 +20,7 @@ export default function VerticalCollectionCard(props: HomepageCollection) {
 
                     <div className={ classes.profileCardContainer }>
                         <ProfileCard className={ classes.profileCard } username={ props.user.username }
-                                     profilePicture={ props.user.profilePhoto ?? '' }/>
+                                     profilePicture={ props.user.profilePhoto?.url ?? '' }/>
                     </div>
                 </div>
 

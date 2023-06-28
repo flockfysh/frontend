@@ -1,66 +1,59 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { ReactSVG } from 'react-svg';
-
 import VerticalCard from '@/components/specific/marketplace/datasetCards/VerticalCard';
-
 import search from '@/icons/main/search.svg';
-
 import classes from './styles.module.css';
-import { v4 } from 'uuid';
-import { fakerEN } from '@faker-js/faker';
+import api from '@/helpers/api';
+import RadioButtons from '@/components/specific/marketplace/DatasetSettings/RadioButtons';
+import InfiniteScroll from 'react-infinite-scroller';
 
-function DatasetsOwned() {
-    const recievedData: HomepageDataset[] = Array.from({ length: 8 }, () => ({
-        type: 'image',
-        likes: 50,
-        assetCounts: {
-            total: 450,
-            byStage: {
-                feedback: 0,
-                completed: 400,
-                uploaded: 50,
-            },
-            byAnnotationStatus: {
-                annotated: 450,
-                unannotated: 0,
-            },
-            byMimetype: {}
-        },
-        metrics: {
-            downloads: 0,
-            views: 0,
-        },
-        size: {
-            total: {
-                total: Math.random() * 5 * 1024 ** 3,
-                cloud: 1024 ** 3,
-                cluster: 1024 ** 3,
-            },
-            byStage: {
-                uploaded: 0.5 * 1024 ** 2,
-                feedback: 0,
-                completed: 4 * 1024 ** 2,
-            },
-        },
-        user: {
-            username: 'praks',
-            _id: '24159335',
-            fullName: 'Prakriti Bista',
-            firstName: 'Prakriti',
-            email: 'praks@gmail.com',
-            lastName: 'Bista',
-        },
-        createdAt: new Date(),
-        _id: v4(),
-        name: fakerEN.animal.type(),
-        subTags: [],
-        tags: [],
-        updatedAt: new Date(),
-        public: true,
-        price: 2.84448,
-        description: 'This is a random test dataset',
-    }));
-    const [finalData, setfinalData] = useState(recievedData);
+function DatasetsOwned(props: {
+    user: BaseUser
+}) {
+    type FilterType = 'all' | 'owned' | 'shared';
+
+    const [query, setQuery] = useState('');
+    const [filterType, setFilterType] = useState<FilterType>('all');
+
+    const initialState = () => {
+        return {
+            hasMore: true,
+            next: undefined,
+            datasets: [],
+        };
+    };
+
+    const [state, setState] = React.useState<{
+        hasMore: boolean,
+        next: string | undefined,
+        datasets: HomepageDataset[],
+    }>(initialState);
+
+    async function load() {
+        const fetched = (await api.get<Api.PaginatedResponse<HomepageDataset[]>>('/api/datasets/search', {
+            params: {
+                name: query,
+                next: state.next,
+                expand: 'assetCounts,size,likes,user',
+                limit: 50,
+                sort: 'updatedAt',
+            }
+        })).data;
+        state.datasets.push(...fetched.data);
+        setState({
+            hasMore: fetched.meta.hasNext,
+            datasets: state.datasets,
+            next: fetched.meta.next,
+        });
+    }
+
+    React.useEffect(() => {
+        setState(initialState);
+    }, [query, filterType, props.user._id]);
+
+    React.useEffect(() => {
+        setFilterType('all');
+    }, [props.user._id]);
 
     return (
         <section className={ classes.mainDiv }>
@@ -74,15 +67,7 @@ function DatasetsOwned() {
 
                         <input
                             onChange={ (event) => {
-                                setfinalData(
-                                    recievedData.filter((data) =>
-                                        data.name
-                                            .toLowerCase()
-                                            .includes(
-                                                event.target.value.toLowerCase()
-                                            )
-                                    )
-                                );
+                                setQuery(event.currentTarget.value);
                             } }
                             type="search"
                             className={ classes.search }
@@ -95,48 +80,25 @@ function DatasetsOwned() {
                         className={ classes.mobileSearch }
                     />
 
-                    <div className={ classes.navDiv }>
-                        <button
-                            className={ classes.navButton }
-                            onClick={ () => setfinalData(recievedData) }
-                        >
-                            All
-                        </button>
-
-                        <button
-                            className={ classes.navButton }
-                            onClick={ () => {
-                                // setfinalData(
-                                //     recievedData.filter(
-                                //         (data) => data.owner === 'praks'
-                                //     )
-                                // );
-                            } }
-                        >
-                            Owned
-                        </button>
-
-                        <button
-                            className={ classes.navButton }
-                            onClick={ () => {
-                                // setfinalData(
-                                //     recievedData.filter(
-                                //     (data) => data.owner !== 'praks'
-                                //     )
-                                // );
-                            } }
-                        >
-                            Bought
-                        </button>
-                    </div>
+                    <RadioButtons
+                        options={ [
+                            { value: 'all', label: 'All' },
+                            { value: 'owned', label: 'Owned' },
+                            { value: 'shared', label: 'Shared' }
+                        ] }
+                        value={ filterType }
+                        onChange={ (currentValue) => setFilterType(currentValue as FilterType) }
+                    />
                 </div>
 
-                {finalData.map((value) => {
-                    return (
-                        <VerticalCard { ...value } key={ value._id }
-                        />
-                    );
-                })}
+                <InfiniteScroll useWindow={ false } loadMore={ load } hasMore={ state.hasMore }>
+                    {state.datasets.map((value) => {
+                        return (
+                            <VerticalCard { ...value } key={ value._id }
+                            />
+                        );
+                    })}
+                </InfiniteScroll>
             </div>
         </section>
     );

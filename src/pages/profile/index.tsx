@@ -1,50 +1,26 @@
-// TODO: Add user context to file
-
-import { useState } from 'react';
-
-import UserInfo from '@/components/specific/profile/userInfo';
-import DatasetsOwned from '@/components/specific/profile/datasetsOwned';
+import { NextPageWithLayout } from '@/pages/_app';
+import React, { useContext, useEffect, useState } from 'react';
+import { UserContext } from '@/contexts/userContext';
+import Profile from '@/components/specific/profile/profile';
+import classes from '@/pages/profile/profile.module.css';
 import MarketplaceNavbar from '@/components/specific/marketplace/Navbar';
-import UserSettings from '@/components/specific/profile/userSettings/userSettings';
 
-import ActivityGraph from '@/components/specific/marketplace/ActivityGraph';
-import Footer from '@/components/specific/marketplace/footer';
+const ProfilePage: NextPageWithLayout = function () {
+    const { user } = useContext(UserContext);
+    if (!user) {
+        return <></>;
+    }
 
-import classes from './profile.module.css';
+    return <Profile userId={ user._id }></Profile>;
+};
 
-export default function Profile() {
-    // 0=datasets, 1=activity, 2=settings
-    const [curTab, updateCurTab] = useState(0);
+export default ProfilePage;
 
+ProfilePage.getLayout = function (page) {
     return (
         <div className={ classes.container }>
             <MarketplaceNavbar/>
-
-            <UserInfo
-                followers={2000}
-                following={232}
-                name="User One"
-                userName="userOne"
-                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-                updateTab={updateCurTab}
-            />
-
-            {curTab === 0 && <DatasetsOwned />}
-            {/*{curTab === 1 && <ActivityGraph />}*/}
-
-            {curTab === 2 && (
-                <UserSettings
-                    name="user"
-                    email="trial@email.com"
-                    apiKey="Sf3$dqq34Fa4gD43@F$&S"
-                    mailingList={true}
-                    transferLimit={1.9}
-                    downloads={7}
-                    apiCalls={7898}
-                />
-            )}
-
-            <Footer/>
+            {page}
         </div>
     );
-}
+};

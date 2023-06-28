@@ -4,11 +4,11 @@ declare interface HomepageDataset extends Flockfysh.Dataset {
     likes: number,
     user: RedactedUser,
     thumbnail?: {
-        assetId: string;
+        assetKey: string;
         url: string;
     };
     icon?: {
-        assetId: string;
+        assetKey: string;
         url: string;
     }
 }

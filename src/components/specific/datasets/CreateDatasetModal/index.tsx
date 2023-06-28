@@ -82,7 +82,6 @@ function CreateDatasetForm() {
                     className={ classes.nameInp }
                     type="text"
                     placeholder="Dataset Name"
-                    onChange={ (e) => setCurQuery(e.currentTarget.value) }
                 />
 
                 <textarea
@@ -99,6 +98,7 @@ function CreateDatasetForm() {
                         className={ classes.select }
                         name={ 'recipe' }
                         placeholder="Recipe"
+                        onInputChange={ (e) => setCurQuery(e) }
                         options={ recipes.map(recipe => (
                             {
                                 value: recipe._id,

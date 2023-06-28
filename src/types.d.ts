@@ -22,7 +22,14 @@ declare interface BaseUser {
     lastName: string;
     username: string;
     email: string;
-    profilePhoto?: string;
+    profilePhoto?: {
+        url: string;
+        assetKey: string;
+    };
+    headerPhoto?: {
+        url: string;
+        assetKey: string;
+    };
 }
 
 declare interface User extends BaseUser {

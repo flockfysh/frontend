@@ -40,7 +40,7 @@ export default function FocusedDataset(props: HomepageDataset) {
                 <div className={ classes.rightContainer }>
                     <ProfileCard
                         className={ classes.profileCard }
-                        profilePicture={ props.user.profilePhoto ?? '' }
+                        profilePicture={ props.user.profilePhoto?.url ?? '' }
                         username={ props.user.username }/>
                 </div>
             </div>

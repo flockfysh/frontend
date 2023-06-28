@@ -28,7 +28,7 @@ type userSettings = {
     apiCalls: number;
 };
 
-const userSettings = (props: userSettings) => {
+const UserSettings = (props: userSettings) => {
     const [twitter, setTwitter] = useState('twitter.com');
     const [github, setGithub] = useState('github.com');
     const [linkedin, setLinkedin] = useState('linkedin.com');
@@ -38,51 +38,51 @@ const userSettings = (props: userSettings) => {
     const [apiKey, setApiKey] = useState(props.apiKey);
 
     return (
-        <section className={classes.containDiv}>
-            <div className={classes.headingDiv}>
-                <h3 className={classes.heading}>General Settings</h3>
-                <div className={classes.navDiv}>
-                    <button className={classes.navButton}>General</button>
-                    <button className={classes.navButton}>Billing</button>
-                    <button className={classes.navButton}>Connections</button>
+        <section className={ classes.containDiv }>
+            <div className={ classes.headingDiv }>
+                <h3 className={ classes.heading }>General Settings</h3>
+                <div className={ classes.navDiv }>
+                    <button className={ classes.navButton }>General</button>
+                    <button className={ classes.navButton }>Billing</button>
+                    <button className={ classes.navButton }>Connections</button>
                 </div>
             </div>
-            <div className={classes.credentialsDiv}>
-                <div className={classes.contentDiv}>
-                    <div className={classes.infoContainerDiv}>
-                        <h4 className={classes.subheading}>Your email address</h4>
-                        <div className={classes.inputDiv}>
-                            <ReactSVG src={mail.src} className={classes.icons} />
+            <div className={ classes.credentialsDiv }>
+                <div className={ classes.contentDiv }>
+                    <div className={ classes.infoContainerDiv }>
+                        <h4 className={ classes.subheading }>Your email address</h4>
+                        <div className={ classes.inputDiv }>
+                            <ReactSVG src={ mail.src } className={ classes.icons }/>
                             <input
                                 type="text"
-                                className={classes.input}
-                                value={email}
-                                onChange={event => {
+                                className={ classes.input }
+                                value={ email }
+                                onChange={ event => {
                                     setEmail(event.target.value);
-                                }}
+                                } }
                             />
-                            <button className={classes.button}>
-                                Change <ReactSVG src={edit.src} className={classes.icons} />
+                            <button className={ classes.button }>
+                                Change <ReactSVG src={ edit.src } className={ classes.icons }/>
                             </button>
                         </div>
                     </div>
-                    <div className={classes.infoContainerDiv}>
-                        <h4 className={classes.subheading}>Your API key</h4>
-                        <div className={classes.api}>
-                            <p className={classes.apiKey}>
+                    <div className={ classes.infoContainerDiv }>
+                        <h4 className={ classes.subheading }>Your API key</h4>
+                        <div className={ classes.api }>
+                            <p className={ classes.apiKey }>
                                 {apiKey}
                                 <button
-                                    className={classes.iconButton}
-                                    onClick={() => {
+                                    className={ classes.iconButton }
+                                    onClick={ () => {
                                         navigator.clipboard.writeText(apiKey);
-                                    }}
+                                    } }
                                 >
-                                    <ReactSVG src={copy.src} className={classes.icons} />
+                                    <ReactSVG src={ copy.src } className={ classes.icons }/>
                                 </button>
                             </p>
                             <button
-                                className={classes.iconButton}
-                                onClick={() => {
+                                className={ classes.iconButton }
+                                onClick={ () => {
                                     let finalKey = '';
                                     for (let index = 1; index < 21; index++) {
                                         finalKey =
@@ -94,162 +94,162 @@ const userSettings = (props: userSettings) => {
                                     console.log(finalKey);
 
                                     setApiKey(finalKey);
-                                }}
+                                } }
                             >
-                                <ReactSVG src={generate.src} className={classes.icons} />
+                                <ReactSVG src={ generate.src } className={ classes.icons }/>
                             </button>
-                            <button className={classes.iconButton}>
-                                <ReactSVG src={trash.src} className={classes.icons} />
+                            <button className={ classes.iconButton }>
+                                <ReactSVG src={ trash.src } className={ classes.icons }/>
                             </button>
                         </div>
                     </div>
                 </div>
-                <div className={classes.contentDiv}>
-                    <div className={classes.infoContainerDiv}>
-                        <h4 className={classes.subheading}>Change password</h4>
-                        <div className={classes.inputDiv}>
-                            <ReactSVG src={key.src} className={classes.icons} />
+                <div className={ classes.contentDiv }>
+                    <div className={ classes.infoContainerDiv }>
+                        <h4 className={ classes.subheading }>Change password</h4>
+                        <div className={ classes.inputDiv }>
+                            <ReactSVG src={ key.src } className={ classes.icons }/>
 
                             <input
                                 type="password"
-                                className={classes.input}
-                                value={password}
-                                onChange={event => {
+                                className={ classes.input }
+                                value={ password }
+                                onChange={ event => {
                                     setPassword(event.target.value);
-                                }}
+                                } }
                             />
-                            <button className={classes.button}>
-                                Save <ReactSVG src={save.src} className={classes.icons} />
+                            <button className={ classes.button }>
+                                Save <ReactSVG src={ save.src } className={ classes.icons }/>
                             </button>
                         </div>
                     </div>
-                    <div className={classes.infoContainerDiv}>
-                        <h4 className={classes.subheading}>Your email address</h4>
-                        <div className={classes.navDiv}>
-                            <button className={classes.navButton}>Yes</button>
-                            <button className={classes.navButton}>No</button>
+                    <div className={ classes.infoContainerDiv }>
+                        <h4 className={ classes.subheading }>Your email address</h4>
+                        <div className={ classes.navDiv }>
+                            <button className={ classes.navButton }>Yes</button>
+                            <button className={ classes.navButton }>No</button>
                         </div>
                     </div>
                 </div>
-                <div className={classes.limitsDiv}>
-                    <h4 className={classes.subheading + ' ' + classes.limitsHeading}>Limits</h4>
-                    <div className={classes.limitsContentDiv}>
-                        <div className={classes.limitObject}>
-                            <h5 className={classes.limit}>
+                <div className={ classes.limitsDiv }>
+                    <h4 className={ classes.subheading + ' ' + classes.limitsHeading }>Limits</h4>
+                    <div className={ classes.limitsContentDiv }>
+                        <div className={ classes.limitObject }>
+                            <h5 className={ classes.limit }>
                                 <span>Transfer Limit</span>
                                 {props.transferLimit.toString()} / 25GB
                             </h5>
-                            <div className={classes.graphBody}>
+                            <div className={ classes.graphBody }>
                                 <div
-                                    className={classes.graphContent}
-                                    style={{
+                                    className={ classes.graphContent }
+                                    style={ {
                                         width: ((props.transferLimit / 25) * 100).toString() + '%',
-                                    }}
+                                    } }
                                 ></div>
                             </div>
                             <ReactSVG
-                                src={info.src}
-                                className={classes.icons + ' ' + classes.infoIcon}
+                                src={ info.src }
+                                className={ classes.icons + ' ' + classes.infoIcon }
                             />
                         </div>
-                        <div className={classes.limitObject}>
-                            <h5 className={classes.limit}>
+                        <div className={ classes.limitObject }>
+                            <h5 className={ classes.limit }>
                                 <span>Downloads</span>
                                 {props.downloads.toString()} / 10 datasets
                             </h5>
-                            <div className={classes.graphBody}>
+                            <div className={ classes.graphBody }>
                                 <div
-                                    className={classes.graphContent}
-                                    style={{
+                                    className={ classes.graphContent }
+                                    style={ {
                                         width: ((props.downloads / 10) * 100).toString() + '%',
-                                    }}
+                                    } }
                                 ></div>
                             </div>
                             <ReactSVG
-                                src={info.src}
-                                className={classes.icons + ' ' + classes.infoIcon}
+                                src={ info.src }
+                                className={ classes.icons + ' ' + classes.infoIcon }
                             />
                         </div>
-                        <div className={classes.limitObject}>
-                            <h5 className={classes.limit}>
+                        <div className={ classes.limitObject }>
+                            <h5 className={ classes.limit }>
                                 <span>API Calls</span>
                                 {props.apiCalls.toString()} / 10,000
                             </h5>
-                            <div className={classes.graphBody}>
+                            <div className={ classes.graphBody }>
                                 <div
-                                    className={classes.graphContent}
-                                    style={{
+                                    className={ classes.graphContent }
+                                    style={ {
                                         width: ((props.apiCalls / 10000) * 100).toString() + '%',
-                                    }}
+                                    } }
                                 ></div>
                             </div>
                             <ReactSVG
-                                src={info.src}
-                                className={classes.icons + ' ' + classes.infoIcon}
+                                src={ info.src }
+                                className={ classes.icons + ' ' + classes.infoIcon }
                             />
                         </div>
                     </div>
                 </div>
             </div>
-            <div className={classes.linksDiv}>
-                <div className={classes.linkHeadingDiv}>
-                    <h4 className={classes.subheading + ' ' + classes.linkSubheading}>Links</h4>
-                    <button className={classes.button}>
-                        Save <ReactSVG src={save.src} className={classes.icons} />
+            <div className={ classes.linksDiv }>
+                <div className={ classes.linkHeadingDiv }>
+                    <h4 className={ classes.subheading + ' ' + classes.linkSubheading }>Links</h4>
+                    <button className={ classes.button }>
+                        Save <ReactSVG src={ save.src } className={ classes.icons }/>
                     </button>
                 </div>
                 <div>
-                    <div className={classes.eachLinkDiv}>
+                    <div className={ classes.eachLinkDiv }>
                         <ReactSVG
-                            src={githubIcon.src}
-                            className={classes.icons + ' ' + classes.inputIcons}
+                            src={ githubIcon.src }
+                            className={ classes.icons + ' ' + classes.inputIcons }
                         />
                         <input
-                            className={classes.linkInput}
-                            value={github}
-                            onChange={event => setGithub(event.target.value)}
+                            className={ classes.linkInput }
+                            value={ github }
+                            onChange={ event => setGithub(event.target.value) }
                         />
                     </div>
-                    <div className={classes.eachLinkDiv}>
+                    <div className={ classes.eachLinkDiv }>
                         <ReactSVG
-                            src={linkedInIcon.src}
-                            className={classes.icons + ' ' + classes.inputIcons}
+                            src={ linkedInIcon.src }
+                            className={ classes.icons + ' ' + classes.inputIcons }
                         />
                         <input
-                            className={classes.linkInput}
-                            value={linkedin}
-                            onChange={event => setLinkedin(event.target.value)}
+                            className={ classes.linkInput }
+                            value={ linkedin }
+                            onChange={ event => setLinkedin(event.target.value) }
                         />
                     </div>
-                    <div className={classes.eachLinkDiv}>
+                    <div className={ classes.eachLinkDiv }>
                         <ReactSVG
-                            src={twitterIcon.src}
-                            className={classes.icons + ' ' + classes.inputIcons}
+                            src={ twitterIcon.src }
+                            className={ classes.icons + ' ' + classes.inputIcons }
                         />
                         <input
-                            className={classes.linkInput}
-                            value={twitter}
-                            onChange={event => setTwitter(event.target.value)}
+                            className={ classes.linkInput }
+                            value={ twitter }
+                            onChange={ event => setTwitter(event.target.value) }
                         />
                     </div>
-                    <div className={classes.eachLinkDiv}>
+                    <div className={ classes.eachLinkDiv }>
                         <ReactSVG
-                            src={link.src}
-                            className={classes.icons + ' ' + classes.inputIcons}
+                            src={ link.src }
+                            className={ classes.icons + ' ' + classes.inputIcons }
                         />
                         <input
-                            className={classes.linkInput}
-                            value={website}
-                            onChange={event => setWebsite(event.target.value)}
+                            className={ classes.linkInput }
+                            value={ website }
+                            onChange={ event => setWebsite(event.target.value) }
                         />
                     </div>
                 </div>
-                <button className={classes.deactivateButton}>
-                    Deactivate Account <ReactSVG src={trash.src} className={classes.icons} />
+                <button className={ classes.deactivateButton }>
+                    Deactivate Account <ReactSVG src={ trash.src } className={ classes.icons }/>
                 </button>
             </div>
         </section>
     );
 };
 
-export default userSettings;
+export default UserSettings;
