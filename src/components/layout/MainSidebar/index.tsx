@@ -6,6 +6,7 @@ import document from '@/icons/main/file-text.svg';
 import layers from '@/icons/main/3-layers.svg';
 import analytics from '@/icons/main/sliders.svg';
 import settings from '@/icons/main/settings.svg';
+import marketplace from '@/icons/main/shopping-cart.svg';
 import help from '@/icons/main/help-circle.svg';
 import bell from '@/icons/main/bell.svg';
 import { StaticImageData } from 'next/image';
@@ -38,15 +39,20 @@ const SECTION_1_LINKS: SidebarLinkProps[] = [
         text: 'Recipes',
         icon: document,
     },
+    // {
+    //     href: '/training',
+    //     text: 'Training',
+    //     icon: layers,
+    // },
+    // {
+    //     href: '/analytics',
+    //     text: 'Analytics',
+    //     icon: analytics,
+    // },
     {
-        href: '/training',
-        text: 'Training',
-        icon: layers,
-    },
-    {
-        href: '/analytics',
-        text: 'Analytics',
-        icon: analytics,
+        href: '/marketplace',
+        text: 'Marketplace',
+        icon: marketplace,
     },
 ];
 
