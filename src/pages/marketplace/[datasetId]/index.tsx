@@ -33,6 +33,7 @@ const VIEW_STATES = {
 
 const Marketplace: NextPageWithLayout = function () {
     const router = useRouter();
+    
     const [dataset, setDataset] = useState<PreviewDataset | undefined>();
     const [contentView, setContentView] = useState(VIEW_STATES.items);
     const { downloadDataset } = useContext(DownloaderContext);

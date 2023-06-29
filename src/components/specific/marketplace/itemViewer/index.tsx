@@ -135,13 +135,14 @@ export default function ItemViewer(dataset: PreviewDataset) {
                         </div>
 
                         <div>
-                            <p className={ classes.infoBoxSubtitle }>
+                            <div className={ classes.infoBoxSubtitle }>
                                 <ReactSVG
                                     className={ classes.infoBoxSubtitleIcon }
                                     src={ database.src }
                                 />
+
                                 { dataset.assetCounts.total } Files
-                            </p>
+                            </div>
 
                             { Object.entries(dataset.assetCounts.byMimetype).map(([mimetype, count]) => {
                                 return (
