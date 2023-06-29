@@ -24,10 +24,12 @@ import download from '@/icons/main/download.svg';
 import bookmark from '@/icons/main/bookmark.svg';
 
 import classes from './styles.module.css';
+import Contributions from '@/components/specific/marketplace/contributions';
 
 const VIEW_STATES = {
     items: 'items',
     activity: 'activity',
+    contributions: 'contributions',
     discussions: 'discussions',
     settings: 'settings',
 };
@@ -254,14 +256,26 @@ const Marketplace: NextPageWithLayout = function () {
                             </div>
                         </div>
                     </div>
-                </header>
-                <main className={classes.mainContent}>
-                    {contentView === VIEW_STATES.items && <ItemViewer {...dataset} />}
-                    {contentView === VIEW_STATES.activity && <ActivityGraph {...dataset} />}
-                    {contentView === VIEW_STATES.discussions && <></>}
-                    {contentView === VIEW_STATES.settings && <DatasetSettings {...dataset} />}
-                </main>
-            </div>
+                </div>
+            </header>
+
+            <main className={ classes.mainContent }>
+                { contentView === VIEW_STATES.items && (
+                    <ItemViewer { ...dataset } />
+                ) }
+
+                { contentView === VIEW_STATES.activity && (
+                    <ActivityGraph { ...dataset } />
+                ) }
+
+                { contentView === VIEW_STATES.contributions && (
+                    <Contributions { ...dataset } />
+                ) }
+                
+                { contentView === VIEW_STATES.settings && (
+                    <DatasetSettings { ...dataset } />
+                ) }
+            </main>
         </div>
     );
 };

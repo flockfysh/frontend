@@ -34,7 +34,7 @@ export default function WideFocusedCard(props: HomepageDataset) {
             <div className={ classes.footer }>
                 <div className={ classes.left }>
                     <img
-                        src={ props.user.profilePhoto }
+                        src={ props.user.profilePhoto?.url }
                         alt="pfp"/>
 
                     <p>@{ props.user.username.slice(0, 15) }</p>

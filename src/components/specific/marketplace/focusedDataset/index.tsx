@@ -1,12 +1,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
-
 import ProfileCard from '@/components/specific/marketplace/profileCard';
-
 import { formatFileSize } from '@/helpers/formatting';
 import { getDefaultDatasetThumbnail } from '@/helpers/defaults';
-
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import classes from './styles.module.css';
 
 export default function FocusedDataset(props: HomepageDataset) {
@@ -49,7 +45,7 @@ export default function FocusedDataset(props: HomepageDataset) {
                 <div className={ classes.rightContainer }>
                     <ProfileCard
                         className={ classes.profileCard }
-                        profilePicture={ props.user.profilePhoto ?? '' }
+                        profilePicture={ props.user.profilePhoto?.url ?? '' }
                         username={ props.user.username }
                     />
                 </div>

@@ -25,7 +25,7 @@ export default function DatasetCard(props: Flockfysh.Dataset & { assetCounts: Fl
 
             <div className={ classes.firstRow }>
                 <ReactSVG src={ folder.src }/>
-                <h2>{ props.name }</h2>
+                <h2 className={ classes.datasetName }>{ props.name }</h2>
             </div>
 
             <div className={ classes.cardInfo }>
@@ -53,7 +53,7 @@ export default function DatasetCard(props: Flockfysh.Dataset & { assetCounts: Fl
                             <li
                                 className={ classes.badge }
                                 style={ {
-                                    background: tagColor[index]
+                                    background: tagColor[index],
                                 } }
                                 key={ index }
                             >

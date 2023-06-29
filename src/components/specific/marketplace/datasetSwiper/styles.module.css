@@ -29,6 +29,7 @@
     position: relative;
     background: var(--main-grey);
     width: 64px;
+    margin-inline: 16px;
     flex: none;
     display: flex;
     justify-content: center;
@@ -44,8 +45,8 @@
 .fadeOverlay {
     position: relative;
     z-index: 2;
-    padding-inline: 16px;
     display: flex;
+    width: fit-content;
     align-items: center;
 }
 
@@ -66,4 +67,8 @@
 .fadeOverlay.next::before {
     background: linear-gradient(-90deg, var(--background), transparent);
     left: 100%;
+}
+
+.fadeOverlay .navDisabled {
+    opacity: 0.5;
 }

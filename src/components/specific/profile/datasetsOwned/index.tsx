@@ -1,48 +1,95 @@
 import { useState, useEffect, useContext } from 'react';
 import { ReactSVG } from 'react-svg';
-
+import VerticalCard from '@/components/specific/marketplace/datasetCards/verticalCard';
+import search from '@/icons/main/search.svg';
+import classes from './styles.module.css';
+import api from '@/helpers/api';
+import RadioButtons from '@/components/ui/input/radioButtons';
+import InfiniteScroll from 'react-infinite-scroller';
 import { UserContext } from '@/contexts/userContext';
 
-import VerticalCard from '@/components/specific/marketplace/datasetCards/verticalCard';
+function DatasetsOwned(props: {
+    user: BaseUser
+}) {
+    type FilterType = 'owned' | 'shared';
 
-import api from '@/helpers/api';
-
-import search from '@/icons/main/search.svg';
-
-import classes from './styles.module.css';
-
-// TODO: update with backend
-
-function DatasetsOwned() {
     const { user } = useContext(UserContext);
-    user;
+    const [query, setQuery] = useState('');
+    const [filterType, setFilterType] = useState<FilterType>('owned');
+    const isCurrentUser = user?._id === props.user._id;
 
-    const [datasets, updateDatasets] = useState([] as HomepageDataset[]);
+    const initialState = () => {
+        return {
+            hasMore: true,
+            next: undefined,
+            datasets: [],
+        };
+    };
 
-    useEffect(
-        () => {
-            (async function() {
-                const res = await api.get('/api/datasets/search',
-                    {
-                        params: {
-                            public: true,
-                            sort: 'metrics.views',
-                            expand: 'assetCounts,size,likes,user,thumbnail,url',
-                            ascending: false,
-                            limit: 8,
-                        },
-                    }
-                );
+    const [state, setState] = useState<{
+        hasMore: boolean,
+        next: string | undefined,
+        datasets: HomepageDataset[],
+    }>(initialState);
 
-                updateDatasets(
-                    res.data.data
-                );
-            })();
+    async function load() {
+        let fetched;
+
+        // Public datasets only.
+        if (!isCurrentUser) {
+            fetched = (await api.get<Api.PaginatedResponse<HomepageDataset[]>>('/api/datasets/search', {
+                params: {
+                    public: true,
+                    user: props.user._id,
+                    name: query,
+                    next: state.next,
+                    expand: 'assetCounts,size,likes,user',
+                    limit: 50,
+                    sort: 'updatedAt',
+                },
+            })).data;
         }
-    , []);
+        // Includes private datasets.
+        else {
+            if (filterType === 'owned') {
+                fetched = (await api.get<Api.PaginatedResponse<HomepageDataset[]>>('/api/datasets/search', {
+                    params: {
+                        name: query,
+                        next: state.next,
+                        expand: 'assetCounts,size,likes,user',
+                        limit: 50,
+                        sort: 'updatedAt',
+                    },
+                })).data;
+            }
+            else {
+                fetched = (await api.get<Api.PaginatedResponse<HomepageDataset[]>>('/api/datasets/search/shared', {
+                    params: {
+                        name: query,
+                        next: state.next,
+                        expand: 'assetCounts,size,likes,user',
+                        limit: 50,
+                        sort: 'updatedAt',
+                    },
+                })).data;
+            }
+        }
 
-    // 0=all, 1=owned, 2=bought
-    const [selectedFilter, updateSelectedFilter] = useState(0);
+        state.datasets.push(...fetched.data);
+        setState({
+            hasMore: fetched.meta.hasNext,
+            datasets: state.datasets,
+            next: fetched.meta.next,
+        });
+    }
+
+    useEffect(() => {
+        setState(initialState);
+    }, [query, filterType, props.user._id]);
+
+    useEffect(() => {
+        setFilterType('owned');
+    }, [props.user._id]);
 
     return (
         <section className={ classes.mainDiv }>
@@ -56,15 +103,7 @@ function DatasetsOwned() {
 
                         <input
                             onChange={ (event) => {
-                                updateDatasets(
-                                    datasets.filter((data) =>
-                                        data.name
-                                            .toLowerCase()
-                                            .includes(
-                                                event.target.value.toLowerCase()
-                                            )
-                                    )
-                                );
+                                setQuery(event.currentTarget.value);
                             } }
                             type="search"
                             className={ classes.search }
@@ -77,56 +116,25 @@ function DatasetsOwned() {
                         className={ classes.mobileSearch }
                     />
 
-                    <div className={ classes.navDiv }>
-                        <div
-                            className={ `${ classes.navButton } ${ selectedFilter === 0 && classes.active } ${ classes.firstButton }` }
-                            onClick={ () => {
-                                    updateDatasets(datasets);
-
-                                    updateSelectedFilter(0);
-                                } 
-                            }
-                        >
-                            All
-                        </div>
-
-                        <div
-                            className={ `${ classes.navButton } ${ selectedFilter === 1 && classes.active }` }
-                            onClick={ () => {
-                                // updateDatasets(
-                                //     datasets.filter(
-                                //         (data) => user!.username === data.user.username
-                                //     )
-                                // );
-
-                                updateSelectedFilter(1);
-                            } }
-                        >
-                            Owned
-                        </div>
-
-                        <div
-                            className={ `${ classes.navButton } ${ selectedFilter === 2 && classes.active } ${ classes.lastButton }` }
-                            onClick={ () => {
-                                // setFinalData(
-                                //     recievedData.filter(
-                                //     (data) => data.owner !== 'praks'
-                                //     )
-                                // );
-
-                                updateSelectedFilter(2);
-                            } }
-                        >
-                            Bought
-                        </div>
-                    </div>
+                    <RadioButtons
+                        options={ [
+                            { value: 'owned', label: 'Owned' },
+                            { value: 'shared', label: 'Shared', shown: isCurrentUser },
+                        ] }
+                        value={ filterType }
+                        onChange={ (currentValue) => setFilterType(currentValue as FilterType) }
+                    />
                 </div>
 
-                { datasets.map((value) => {
-                    return (
-                        <VerticalCard { ...value } key={ value._id } />
-                    );
-                }) }
+                <InfiniteScroll useWindow={ false } loadMore={ load } hasMore={ state.hasMore }
+                                className={ classes.datasetGrid }>
+                    { state.datasets.map((value) => {
+                        return (
+                            <VerticalCard { ...value } key={ value._id } className={ classes.verticalCard }
+                            />
+                        );
+                    }) }
+                </InfiniteScroll>
             </div>
         </section>
     );

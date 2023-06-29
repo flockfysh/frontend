@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NextPageWithLayout } from '@/pages/_app';
 
 import { v4 } from 'uuid';
@@ -21,6 +21,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 
 import classes from './styles.module.css';
+import { UserContext } from '@/contexts/userContext';
 
 const timeFilterOptions: [number, ManipulateType][] = [
     [1, 'day'],
@@ -31,7 +32,10 @@ const timeFilterOptions: [number, ManipulateType][] = [
 const Marketplace: NextPageWithLayout = function () {
     const [timeFilter, setTimeFilter] = useState(0);
 
-    const [featuredDatasets, setFeaturedDatasets] = useState<HomepageDataset[]>([]);
+
+    const [featuredDatasets, setFeaturedDatasets] = useState<HomepageDataset[]>(
+        [],
+    );
 
     useEffect(() => {
         async function fetch() {
@@ -45,6 +49,7 @@ const Marketplace: NextPageWithLayout = function () {
                         limit: 8,
                     },
                 })
+
             ).data.data;
 
             setFeaturedDatasets(result);
@@ -53,23 +58,29 @@ const Marketplace: NextPageWithLayout = function () {
         fetch().then();
     }, []);
 
-    const [trendingDatasets, setTrendingDatasets] = useState<HomepageDataset[]>([]);
+    const [trendingDatasets, setTrendingDatasets] = useState<HomepageDataset[]>(
+        [],
+    );
 
     useEffect(() => {
         async function fetch() {
             const result = (
-                await api.get<Api.PaginatedResponse<HomepageDataset[]>>('/api/datasets/search', {
-                    params: {
-                        public: true,
-                        sort: 'relevance',
-                        expand: 'assetCounts,size,likes,user,thumbnail,url',
-                        ascending: false,
-                        limit: 8,
-                        relevancePeriod: dayjs()
-                            .subtract(...timeFilterOptions[timeFilter])
-                            .toString(),
+
+                await api.get<Api.PaginatedResponse<HomepageDataset[]>>(
+                    '/api/datasets/search',
+                    {
+                        params: {
+                            public: true,
+                            sort: 'relevance',
+                            expand: 'assetCounts,size,likes,user,thumbnail,url',
+                            ascending: false,
+                            limit: 8,
+                            relevancePeriod: dayjs()
+                                .subtract(...timeFilterOptions[timeFilter])
+                                .toString(),
+                        },
                     },
-                })
+                )
             ).data.data;
 
             setTrendingDatasets(result);
@@ -78,20 +89,26 @@ const Marketplace: NextPageWithLayout = function () {
         fetch().then();
     }, [timeFilter]);
 
-    const [popularDatasets, setPopularDatasets] = useState<HomepageDataset[]>([]);
+    const [popularDatasets, setPopularDatasets] = useState<HomepageDataset[]>(
+        [],
+    );
 
     useEffect(() => {
         async function fetch() {
             const result = (
-                await api.get<Api.PaginatedResponse<HomepageDataset[]>>('/api/datasets/search', {
-                    params: {
-                        public: true,
-                        sort: 'likes',
-                        expand: 'assetCounts,size,likes,user,thumbnail,url',
-                        ascending: false,
-                        limit: 8,
+
+                await api.get<Api.PaginatedResponse<HomepageDataset[]>>(
+                    '/api/datasets/search',
+                    {
+                        params: {
+                            public: true,
+                            sort: 'likes',
+                            expand: 'assetCounts,size,likes,user,thumbnail,url',
+                            ascending: false,
+                            limit: 8,
+                        },
                     },
-                })
+                )
             ).data.data;
             setPopularDatasets(result);
         }
@@ -103,16 +120,20 @@ const Marketplace: NextPageWithLayout = function () {
     useEffect(() => {
         async function fetch() {
             const result = (
-                await api.get<Api.PaginatedResponse<HomepageDataset[]>>('/api/datasets/search', {
-                    params: {
-                        public: true,
-                        sort: 'metrics.views',
-                        expand: 'assetCounts,size,likes,user,thumbnail,url',
-                        ascending: false,
-                        paid: true,
-                        limit: 8,
+
+                await api.get<Api.PaginatedResponse<HomepageDataset[]>>(
+                    '/api/datasets/search',
+                    {
+                        params: {
+                            public: true,
+                            sort: 'metrics.views',
+                            expand: 'assetCounts,size,likes,user,thumbnail,url',
+                            ascending: false,
+                            paid: true,
+                            limit: 8,
+                        },
                     },
-                })
+                )
             ).data.data;
             setPaidDatasets(result);
         }
@@ -142,8 +163,9 @@ const Marketplace: NextPageWithLayout = function () {
     });
 
     return (
-        <div className={classes.container}>
-            <MarketplaceNavbar />
+
+        <div className={ classes.container }>
+            <MarketplaceNavbar/>
 
             {!!featuredDatasets.length && <FeaturedDatasetsSection datasets={featuredDatasets} />}
 
@@ -190,18 +212,20 @@ const Marketplace: NextPageWithLayout = function () {
                     <h1 className={classes.header}>Trending Collections</h1>
                 </div>
 
-                <CollectionSwiper collections={collections} />
+                <CollectionSwiper collections={ collections }/>
+
             </section>
 
             <section className={classes.sectionContainer + ' ' + classes.howTo}>
                 <h1 className={classes.howToHeader}>Upload, Request, and Share your Datasets</h1>
 
-                <div className={classes.howToCards}>
-                    <HowToCards />
+
+                <div className={ classes.howToCards }>
+                    <HowToCards/>
                 </div>
             </section>
 
-            <Footer />
+            <Footer/>
         </div>
     );
 };
