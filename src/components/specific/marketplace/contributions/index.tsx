@@ -14,13 +14,13 @@ export default function Contributions(dataset: PreviewDataset){
         { value: 'draft', label: 'Draft' },
         { value: 'reject', label: 'Reject' },
         { value: 'merge', label: 'Merge' },
-        { value: 'publish', label: 'Publish'}
+        { value: 'publish', label: 'Publish' }
     ];
-    useEffect(() =>{
+    useEffect(() => {
         const getContributions = async() => {
             const temp =  ( await api.get(`/api/datasets/${router.query.datasetId}/pullRequests`)).data.data;
             setContributions(temp);
-        }
+        };
         getContributions();
     }, []);
 
@@ -29,18 +29,18 @@ export default function Contributions(dataset: PreviewDataset){
             status: string;
             comment: string;
         };
-        await api.patch('/api/pullRequests/'+curContribution!._id+'/status', {status: fd.status});
-        await api.post('/api/pullRequests/'+curContribution!._id+'/messages', {message: fd.comment});
+        await api.patch('/api/pullRequests/'+curContribution!._id+'/status', { status: fd.status });
+        await api.post('/api/pullRequests/'+curContribution!._id+'/messages', { message: fd.comment });
         return;
     }
     return (
         <>
             <div className={ classes.card }>
-                <form onSubmit={(e) => {
+                <form onSubmit={ (e) => {
                     e.preventDefault();
                     submitMessage(e.currentTarget);
-                }}>
-                    <div className={classes.cardTop}>
+                } }>
+                    <div className={ classes.cardTop }>
                         <h1 className={ classes.headerText }>Comment</h1>
                         <CustomSelect
                             required={ true }
@@ -51,14 +51,14 @@ export default function Contributions(dataset: PreviewDataset){
                         />
                     </div>
                     <textarea
-                        className={classes.commentField}
+                        className={ classes.commentField }
                         required={ true }
                         name="comment"
                         placeholder="Add comment here..."
                     />
-                    <button className={classes.submitButton}>Comment</button>
+                    <button className={ classes.submitButton }>Comment</button>
                 </form>
             </div>
         </>
-    )
+    );
 }
