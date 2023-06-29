@@ -23,11 +23,13 @@ import download from '@/icons/main/download.svg';
 import bookmark from '@/icons/main/bookmark.svg';
 
 import classes from './styles.module.css';
+import ContributionList from '@/components/specific/marketplace/contributionList';
 
 const VIEW_STATES = {
     items: 'items',
     activity: 'activity',
     discussions: 'discussions',
+    contributions: 'contributions',
     settings: 'settings',
 };
 
@@ -322,6 +324,8 @@ const Marketplace: NextPageWithLayout = function () {
                 ) }
 
                 { contentView === VIEW_STATES.discussions && <></> }
+
+                { contentView === VIEW_STATES.contributions && <ContributionList { ...dataset } /> }
                 
                 { contentView === VIEW_STATES.settings && (
                     <DatasetSettings { ...dataset } />
