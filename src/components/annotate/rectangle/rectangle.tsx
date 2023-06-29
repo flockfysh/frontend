@@ -5,7 +5,7 @@ import Konva from 'konva';
 import { Layer, Rect, Transformer } from 'react-konva';
 import { Html } from 'react-konva-utils';
 
-import Button from '@/components/ui/theming/buttons';
+import Button from '@/components/ui/theming/button';
 
 import classes from './styles.module.css';
 
