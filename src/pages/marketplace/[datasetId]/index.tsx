@@ -229,9 +229,9 @@ const Marketplace: NextPageWithLayout = function () {
                             className={ `${classes.actionMenuButton} ${
                                 contentView === VIEW_STATES.contributions && 
                                 classes.actionMenuButtonActive
-                            }`}
-                            onClick={() => setContentView(VIEW_STATES.contributions)}
-                            disabled={ contentView === VIEW_STATES.contributions}
+                            }` }
+                            onClick={ () => setContentView(VIEW_STATES.contributions) }
+                            disabled={ contentView === VIEW_STATES.contributions }
                         >
                             Contributions
                         </button>
@@ -334,8 +334,8 @@ const Marketplace: NextPageWithLayout = function () {
                 ) }
 
                 { contentView === VIEW_STATES.contributions && (
-                    <Contributions {...dataset} />
-                )}
+                    <Contributions { ...dataset } />
+                ) }
                 
                 { contentView === VIEW_STATES.settings && (
                     <DatasetSettings { ...dataset } />
