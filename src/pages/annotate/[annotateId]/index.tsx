@@ -9,7 +9,7 @@ import { NextPageWithLayout } from '@/pages/_app';
 
 import GradientLink from '@/components/ui/gradientLink';
 import Label from '@/components/annotate/label';
-import Button from '@/components/ui/theming/button';
+import Button from '@/components/ui/theming/Button';
 import Loading from '@/components/ui/loading';
 import AnnotationObject from '@/components/annotate/wrapper/annotationObject';
 import MainLayout from '@/components/layout/mainLayout';
@@ -24,7 +24,7 @@ const Annotate: NextPageWithLayout = function () {
     const router = useRouter();
     const [labels, setLabels] = useState<Flockfysh.Label[]>([]);
     const [imageIds, setImageIds] = useState<string[]>([]);
-    const [curImage, setCurImage] = useState<UploadedImage | null>(null);
+    const [curImage, setCurImage] = useState<Flockfysh.Asset | null>(null);
     const [imageIndex, setImageIndex] = useState(0);
 
     const [{ curAnnotationData }, setCurAnnotationData] = useState<{
@@ -44,7 +44,7 @@ const Annotate: NextPageWithLayout = function () {
                 try {
                     const datasetState = (
                         await api.get(
-                            `/api/datasets/${router.query.annotateId}/stage`
+                            `/api/datasets/${router.query.annotateId}/stage`,
                         )
                     ).data.data;
 
@@ -54,7 +54,7 @@ const Annotate: NextPageWithLayout = function () {
                         images = (
                             await api.get(
                                 `/api/datasets/${router.query.annotateId}/assets/ids`,
-                                { params: { stage: 'feedback' } }
+                                { params: { stage: 'feedback' } },
                             )
                         ).data.data;
                     }
@@ -62,23 +62,23 @@ const Annotate: NextPageWithLayout = function () {
                         images = (
                             await api.get(
                                 `/api/datasets/${router.query.annotateId}/assets/ids`,
-                                { params: { stage: 'uploaded' } }
+                                { params: { stage: 'uploaded' } },
                             )
                         ).data.data;
                     }
 
                     const datasetLabels: Flockfysh.Label[] = (
                         await api.get(
-                            `/api/datasets/${router.query.annotateId}/labels`
+                            `/api/datasets/${router.query.annotateId}/labels`,
                         )
                     ).data.data;
-                    
+
                     setImageIndex(0);
                     setImageIds(images);
                     setNumImages(images.length);
                     setLabels(datasetLabels);
                 }
-                catch (e) {
+ catch (e) {
                     router.push('/404');
                 }
             })();
@@ -94,7 +94,7 @@ const Annotate: NextPageWithLayout = function () {
                     const fetchedImage = (
                         await api.get<{
                             success: boolean;
-                            data: UploadedImage;
+                            data: Flockfysh.Asset;
                         }>(`/api/assets/${imageIds[imageIndex]}`)
                     ).data.data;
 
@@ -103,7 +103,7 @@ const Annotate: NextPageWithLayout = function () {
                     // Step 2: Get the image's annotation data.
                     const remoteAnnotationData = (
                         await api.get<{ success: boolean; data: any[] }>(
-                            `/api/assets/${imageIds[imageIndex]}/annotations`
+                            `/api/assets/${imageIds[imageIndex]}/annotations`,
                         )
                     ).data.data;
 
@@ -125,8 +125,8 @@ const Annotate: NextPageWithLayout = function () {
                                     y,
                                     width,
                                     height,
-                                }
-                            )
+                                },
+                            ),
                         );
                     }
 
@@ -134,7 +134,8 @@ const Annotate: NextPageWithLayout = function () {
                         curAnnotationData: localAnnotationData,
                     });
                 }
- catch (e) {}
+ catch (e) {
+                }
             })();
         }
     }, [imageIds, imageIndex]);
@@ -161,25 +162,25 @@ const Annotate: NextPageWithLayout = function () {
 
     async function addAnnotationObject(params?: AnnotationBox) {
         if (curLabel === null) throw new Error('No label selected.');
-        
+
         if (!curImage) throw new Error('No image selected.');
-        
+
         let newId: string;
         do {
             newId = v4();
         } while (curAnnotationData.has(newId));
-        
+
         const annotationObj = new AnnotationObject(
             curLabel,
             0,
             undefined,
-            params
+            params,
         );
 
         curAnnotationData.set(newId, annotationObj);
         refresh();
-        
-        await annotationObj.saveTo(curImage.id);
+
+        await annotationObj.saveTo(curImage._id);
     }
 
     return (
@@ -202,7 +203,7 @@ const Annotate: NextPageWithLayout = function () {
                 numImages,
             } }
         >
-            <AnnotateInner />
+            <AnnotateInner/>
         </AnnotationPageContext.Provider>
     );
 };
@@ -224,16 +225,16 @@ function AnnotateInner() {
 
     const router = useRouter();
     setCurBox;
-    
+
     const NoSSRComponent = dynamic(
         () => import('@/components/annotate/wrapper'),
         {
             ssr: false,
-        }
+        },
     );
 
-    if (!curImage) return <Loading />;
-    
+    if (!curImage) return <Loading/>;
+
     return (
         <div className={ classes.annotateContainer }>
             <div className={ classes.headingContainer }>
@@ -244,7 +245,7 @@ function AnnotateInner() {
 
             <div className={ classes.submitButtonContainer }>
                 <GradientLink
-                    to={ `./training/${ router.query.annotateId }` }
+                    to={ `./training/${router.query.annotateId}` }
                     gradientDirection="rightToLeft"
                     className={ classes.initiateTrainingButton }
                 >
@@ -253,9 +254,9 @@ function AnnotateInner() {
             </div>
 
             <div className={ classes.leftContainer }>
-                <NoSSRComponent />
+                <NoSSRComponent/>
             </div>
-            
+
             <div className={ classes.labelContainer }>
                 <div className={ classes.labelList }>
                     { labels.map((label: Flockfysh.Label, index: number) => {
@@ -284,20 +285,20 @@ function AnnotateInner() {
                     </Button>
                 </div>
             </div>
-            
+
             <div className={ classes.switchImageContainer }>
                 <button
                     className={ classes.switchImageButton }
                     onClick={ prevImage }
                 >
-                    <RxArrowLeft className={ classes.switchImageIcon } />
+                    <RxArrowLeft className={ classes.switchImageIcon }/>
                 </button>
 
                 <button
                     className={ classes.switchImageButton }
                     onClick={ nextImage }
                 >
-                    <RxArrowRight className={ classes.switchImageIcon } />
+                    <RxArrowRight className={ classes.switchImageIcon }/>
                 </button>
             </div>
         </div>

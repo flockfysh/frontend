@@ -92,15 +92,15 @@
     border-right: 2px solid rgba(255, 255, 255, 0.167);
 }
 
-.datasetHeaderInfoCard h2 {
-    font-weight: 600;
-    font-size: 0.75rem;
-    line-height: 19px;
-}
-
 .infoCardBottomContainer {
     display: flex;
     justify-content: space-between;
+}
+
+.datasetHeaderInfoCard h2 {
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.25rem;
 }
 
 .infoCardBottomContainer p {

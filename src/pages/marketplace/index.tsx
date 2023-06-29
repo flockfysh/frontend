@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NextPageWithLayout } from '@/pages/_app';
 
 import { v4 } from 'uuid';
@@ -21,6 +21,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 
 import classes from './styles.module.css';
+import { UserContext } from '@/contexts/userContext';
 
 const timeFilterOptions: [number, ManipulateType][] = [
     [1, 'day'],
@@ -32,7 +33,7 @@ const Marketplace: NextPageWithLayout = function () {
     const [timeFilter, setTimeFilter] = useState(0);
 
     const [featuredDatasets, setFeaturedDatasets] = useState<HomepageDataset[]>(
-        []
+        [],
     );
 
     useEffect(() => {
@@ -48,7 +49,7 @@ const Marketplace: NextPageWithLayout = function () {
                             ascending: false,
                             limit: 8,
                         },
-                    }
+                    },
                 )
             ).data.data;
 
@@ -59,7 +60,7 @@ const Marketplace: NextPageWithLayout = function () {
     }, []);
 
     const [trendingDatasets, setTrendingDatasets] = useState<HomepageDataset[]>(
-        []
+        [],
     );
 
     useEffect(() => {
@@ -78,7 +79,7 @@ const Marketplace: NextPageWithLayout = function () {
                                 .subtract(...timeFilterOptions[timeFilter])
                                 .toString(),
                         },
-                    }
+                    },
                 )
             ).data.data;
 
@@ -89,7 +90,7 @@ const Marketplace: NextPageWithLayout = function () {
     }, [timeFilter]);
 
     const [popularDatasets, setPopularDatasets] = useState<HomepageDataset[]>(
-        []
+        [],
     );
 
     useEffect(() => {
@@ -105,7 +106,7 @@ const Marketplace: NextPageWithLayout = function () {
                             ascending: false,
                             limit: 8,
                         },
-                    }
+                    },
                 )
             ).data.data;
             setPopularDatasets(result);
@@ -129,7 +130,7 @@ const Marketplace: NextPageWithLayout = function () {
                             paid: true,
                             limit: 8,
                         },
-                    }
+                    },
                 )
             ).data.data;
             setPaidDatasets(result);
@@ -161,7 +162,7 @@ const Marketplace: NextPageWithLayout = function () {
 
     return (
         <div className={ classes.container }>
-            <MarketplaceNavbar />
+            <MarketplaceNavbar/>
 
             { !!featuredDatasets.length && (
                 <FeaturedDatasetsSection
@@ -223,7 +224,7 @@ const Marketplace: NextPageWithLayout = function () {
                     <h1 className={ classes.header }>Trending Collections</h1>
                 </div>
 
-                <CollectionSwiper collections={ collections } />
+                <CollectionSwiper collections={ collections }/>
             </section>
 
             <section className={ classes.sectionContainer + ' ' + classes.howTo }>
@@ -232,11 +233,11 @@ const Marketplace: NextPageWithLayout = function () {
                 </h1>
 
                 <div className={ classes.howToCards }>
-                    <HowToCards />
+                    <HowToCards/>
                 </div>
             </section>
 
-            <Footer />
+            <Footer/>
         </div>
     );
 };

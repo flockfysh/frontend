@@ -12,7 +12,7 @@ import RelativeTime from 'dayjs/plugin/relativeTime';
 import { NextPageWithLayout } from '@/pages/_app';
 
 import MainLayout from '@/components/layout/mainLayout';
-import Button from '@/components/ui/theming/button';
+import Button from '@/components/ui/theming/Button';
 import { CustomCreatableSelect } from '@/components/ui/input/select';
 
 import { ErrorContext } from '@/contexts/errorContext';
@@ -31,7 +31,7 @@ interface InitiateTrainingRequest {
 }
 
 function TrainingLabels(
-    props: React.ComponentPropsWithRef<'label'> & { labelColor?: string }
+    props: React.ComponentPropsWithRef<'label'> & { labelColor?: string },
 ) {
     const { labelColor, ...smallProps } = props;
 
@@ -54,7 +54,7 @@ function TrainingLabels(
 const Train: NextPageWithLayout = function (_props: {}) {
     const { throwError } = useContext(ErrorContext);
     const [dataset, setDataset] = useState<Flockfysh.PopulatedDataset | null>(
-        null
+        null,
     );
     const router = useRouter();
 
@@ -72,7 +72,7 @@ const Train: NextPageWithLayout = function (_props: {}) {
                         params: {
                             expand: 'size,assetCounts,annotationCounts',
                         },
-                    }
+                    },
                 )
             ).data.data;
             setDataset(result);
@@ -94,7 +94,7 @@ const Train: NextPageWithLayout = function (_props: {}) {
                 const submissionForm = e.currentTarget;
                 const fd = new FormData(submissionForm);
                 const classSearchQueries: Record<string, string[]> = {};
-            
+
                 for (const key of fd.keys()) {
                     if (/^searchQuery/.test(key)) {
                         const labelIndex = +key.split('_')[1];
@@ -102,30 +102,30 @@ const Train: NextPageWithLayout = function (_props: {}) {
                         classSearchQueries[label] = fd.getAll(key) as string[];
                     }
                 }
-            
+
                 const requestBody: InitiateTrainingRequest = {
                     // eslint-disable-next-line camelcase
                     desired_data: +(fd.get('desired_data') as string),
                     // eslint-disable-next-line camelcase
                     class_search_queries: classSearchQueries,
                 };
-            
+
                 await api.post(
                     `/api/datasets/${dataset!._id}/initializeTraining`,
-                    requestBody
+                    requestBody,
                 );
             }
             else if (dataset!.stage === 'feedback') {
                 await api.post(
-                    `/api/datasets/${dataset!._id}/continueTraining`
+                    `/api/datasets/${dataset!._id}/continueTraining`,
                 );
             }
         }
-        catch (error) {
+ catch (error) {
             if (error instanceof AxiosError)
                 throwError(
                     error.response?.data.error.message,
-                    'Training error'
+                    'Training error',
                 );
         }
     }
@@ -152,7 +152,7 @@ const Train: NextPageWithLayout = function (_props: {}) {
                     >
                         { buttonLabel[dataset!.stage] }
 
-                        <RxArrowRight className={ classes.icon } />
+                        <RxArrowRight className={ classes.icon }/>
                     </Button>
                 </div>
 
@@ -166,12 +166,12 @@ const Train: NextPageWithLayout = function (_props: {}) {
                             >
                                 Search Queries
                             </span>
-                            
+
                             <ul className={ classes.trainingQueriesInputs }>
                                 { dataset!.tags.map(
                                     function generateSearchQueryInput(
                                         classString,
-                                        index
+                                        index,
                                     ) {
                                         const id = v4();
 
@@ -196,7 +196,7 @@ const Train: NextPageWithLayout = function (_props: {}) {
                                                 />
                                             </React.Fragment>
                                         );
-                                    }
+                                    },
                                 ) }
                             </ul>
                         </div>

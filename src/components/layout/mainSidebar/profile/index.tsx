@@ -13,16 +13,16 @@ export default function Profile() {
     if (!user) return <></>;
 
     return (
-        <div className={ classes.profileContainer }>
-            <img className={ classes.profileImage } src={ user.profilePhoto } alt={ user.fullName } />
+        <div className={classes.profileContainer}>
+            <img className={classes.profileImage} src={user.profilePhoto?.url} alt={user.fullName}/>
 
-            <div className={ classes.profileTextInfo }>
-                <span className={ classes.displayName }>{ user.fullName }</span>
-                <span className={ classes.email }>{ user.email }</span>
+            <div className={classes.profileTextInfo}>
+                <span className={classes.displayName}>{user.fullName}</span>
+                <span className={classes.email}>{user.email}</span>
             </div>
 
-            <button className={ classes.button }>
-                <ReactSVG className={ classes.icon } src={ more.src } />
+            <button className={classes.button}>
+                <ReactSVG className={classes.icon} src={more.src}/>
             </button>
         </div>
     );

@@ -1,7 +1,8 @@
 declare global {
     namespace Flockfysh {
         type AnnotationTool = 'boundingBox' | 'ellipse' | 'polygon' | 'line';
-        type AssetStages = 'uploaded' | 'feedback' | 'completed';
+        type AssetStage = 'uploaded' | 'feedback' | 'completed';
+        type DatasetStage = 'untrained' | 'feedback' | 'completed';
         type AssetType = 'image' | 'video' | 'text' | 'other';
 
         interface Label {
@@ -32,6 +33,7 @@ declare global {
             subTags: string[];
             user: string;
             type: Flockfysh.AssetType;
+            stage: Flockfysh.DatasetStage;
             createdAt: Date;
             price: number;
             public: boolean;
@@ -60,6 +62,23 @@ declare global {
                 assetId: string;
             };
         }
+        interface PullRequest{
+            _id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+            user: string;
+            dataset: string;
+            status: string;
+        }
+
+        interface PullRequestMessage{
+            message: string;
+            createdAt: string;
+            updatedAt: string;
+            user: string;
+            pullRequest: string;
+        }
 
         interface PopulatedDataset extends Dataset {
             size: Flockfysh.DatasetSize;
@@ -68,7 +87,7 @@ declare global {
         }
 
         interface DatasetAssetCounts {
-            byStage: Record<Flockfysh.AssetStages, number>;
+            byStage: Record<Flockfysh.AssetStage, number>;
             total: number;
             byAnnotationStatus: {
                 annotated: number;
@@ -82,7 +101,7 @@ declare global {
         }
 
         interface DatasetSize {
-            byStage: Record<Flockfysh.AssetStages, number>;
+            byStage: Record<Flockfysh.AssetStage, number>;
             total: {
                 cloud: number;
                 cluster: number;
@@ -93,7 +112,7 @@ declare global {
         interface Asset {
             _id: string;
             type: Flockfysh.AssetType;
-            stage: Flockfysh.AssetStages;
+            stage: Flockfysh.AssetStage;
             uploadedAt: Date;
             dataset: string;
             size: number;
