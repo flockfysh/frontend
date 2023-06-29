@@ -12,7 +12,7 @@ import RelativeTime from 'dayjs/plugin/relativeTime';
 import { NextPageWithLayout } from '@/pages/_app';
 
 import MainLayout from '@/components/layout/mainLayout';
-import Button from '@/components/ui/theming/Button';
+import Button from '@/components/ui/theming/buttons';
 import { CustomCreatableSelect } from '@/components/ui/input/select';
 
 import { ErrorContext } from '@/contexts/errorContext';

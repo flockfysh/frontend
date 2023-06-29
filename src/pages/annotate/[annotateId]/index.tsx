@@ -9,7 +9,7 @@ import { NextPageWithLayout } from '@/pages/_app';
 
 import GradientLink from '@/components/ui/gradientLink';
 import Label from '@/components/annotate/label';
-import Button from '@/components/ui/theming/Button';
+import Button from '@/components/ui/theming/buttons';
 import Loading from '@/components/ui/loading';
 import AnnotationObject from '@/components/annotate/wrapper/annotationObject';
 import MainLayout from '@/components/layout/mainLayout';
