@@ -1,32 +1,33 @@
-import React from 'react';
+import { createContext, useState } from 'react';
 import { v4 } from 'uuid';
-import { ErrorModal } from '../components/UI/modal/modal';
+
+import ErrorModal from '@/components/ui/modals/modalBase';
 
 interface IErrorContext {
     throwError: (message: string, title?: string) => void;
 }
 
 interface ErrorMessage {
-    message?: string,
-    title?: string,
+    message?: string;
+    title?: string;
 }
 
-export const ErrorContext = React.createContext<IErrorContext>({
-    throwError: () => {
-    },
+export const ErrorContext = createContext<IErrorContext>({
+    throwError: () => {},
 });
 
 export function ErrorWrapper(props: React.PropsWithChildren) {
-    const [{ errorMessages }, setErrorMessages] = React.useState<{
-        errorMessages: Map<string, ErrorMessage>
+    const [{ errorMessages }, setErrorMessages] = useState<{
+        errorMessages: Map<string, ErrorMessage>;
     }>({ errorMessages: new Map() });
 
     function throwError(message: string, title?: string) {
-        if(
+        if (
             Array.from(errorMessages.values()).filter(
-                e => e.message === message
+                (e) => e.message === message
             ).length !== 0
-        ) return;
+        )
+            return;
 
         let newId: string;
 
@@ -51,11 +52,13 @@ export function ErrorWrapper(props: React.PropsWithChildren) {
 
     errorMessages.forEach(function createErrorModal({ message, title }, key) {
         errorModals.push(
-            <ErrorModal 
-                message={ message || 'Unspecified error.' } 
-                title={ title } key={ key }
+            <ErrorModal
+                title={ title ?? '' }
+                key={ key }
                 closeModal={ () => closeModal(key) }
-            />
+            >
+                { message || 'Unspecified error.' }
+            </ErrorModal>
         );
     });
 

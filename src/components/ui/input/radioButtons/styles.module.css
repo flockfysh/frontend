@@ -1,0 +1,80 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.labelContainer {
+    display: flex;
+    gap: 8px;
+}
+
+.buttons {
+    display: flex;
+    color: var(--primary1-100);
+    --border-radius: 10px;
+    --border-width: 1px;
+}
+
+.helpIcon {
+    cursor: pointer;
+    width: fit-content;
+    background: none;
+    position: relative;
+}
+
+.helpIconTooltip {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    background: var(--main-grey);
+    bottom: calc(100% + 8px);
+    line-height: 1.25rem;
+    padding: 12px 16px;
+    min-width: 12rem;
+    width: max-content;
+    max-width: 30rem;
+    border-radius: 16px;
+    text-align: left;
+    transition: 0.15s;
+}
+
+.helpIcon:hover .helpIconTooltip,
+.helpIcon:focus .helpIconTooltip {
+    opacity: 1;
+}
+
+.label {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+}
+
+.button {
+    border-style: solid;
+    border-color: var(--grey);
+    border-width: var(--border-width) var(--border-width) var(--border-width) 0;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    min-width: 76px;
+    font-weight: 700;
+}
+
+.button:hover,
+.selected {
+    background: #1e1e1e;
+}
+
+.button:first-child {
+    border-left-width: var(--border-width);
+    border-bottom-left-radius: var(--border-radius);
+    border-top-left-radius: var(--border-radius);
+}
+
+.button:last-child {
+    border-top-right-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+}

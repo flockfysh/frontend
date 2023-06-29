@@ -1,0 +1,16 @@
+.loadingIcon {
+    width: 30%;
+    aspect-ratio: 1/1;
+    max-width: 15rem;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: none;
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

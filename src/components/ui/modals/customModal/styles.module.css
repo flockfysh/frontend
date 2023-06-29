@@ -1,0 +1,58 @@
+.overlay {
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    padding: 2rem;
+    border-radius: 20px;
+    min-width: 30%;
+    max-width: 100%;
+    width: fit-content;
+    background: var(--background);
+}
+
+.blurBg {
+    backdrop-filter: blur(5px);
+}
+
+.header {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.headerText {
+    text-align: center;
+    color: var(--primary1-100);
+    font-size: 2rem;
+    font-weight: bold;
+    line-height: 2.5rem;
+    position: absolute;
+    left: 0;
+    width: 100%;
+}
+
+.closeBtn {
+    aspect-ratio: 1/1;
+    width: 48px;
+    padding: 12px;
+    border-radius: 50%;
+    color: var(--white);
+    background: var(--primary2-950);
+    cursor: pointer;
+    z-index: 99;
+    transition: 0.2s;
+}
+
+.closeBtn:hover {
+    color: var(--primary1-200);
+}

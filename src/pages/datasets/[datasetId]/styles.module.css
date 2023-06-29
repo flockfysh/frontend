@@ -1,0 +1,187 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    gap: 30px;
+    overflow: auto;
+    color: var(--primary1-100);
+
+    /* ! demo */
+    padding: 1rem;
+}
+
+.datasetInfoWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.datasetInfoDataWrapper {
+    width: 100%;
+    padding: 1.875rem 1.438rem;
+    background: var(--main-grey);
+    border-radius: 8px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.125rem;
+}
+
+.datasetInfoStatusWrapper {
+    width: 100%;
+    padding: 0.625rem;
+    background: var(--main-grey);
+    border-radius: 8px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.datasetInfoSpecificData {
+    width: 100%;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    text-align: center;
+    align-items: center;
+}
+
+.datasetName {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 700;
+}
+
+.actionAreaWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    width: 100%;
+}
+
+.actionAreaSearchWrapper {
+    width: 100%;
+}
+
+.actionAreaSearchWrapper input {
+    width: 100%;
+    background-color: var(--main-grey);
+    border-radius: 8px;
+    padding: 0.625rem;
+}
+
+.actionAreaActionButtonsWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column-reverse;
+    gap: 1rem;
+
+    align-items: center;
+}
+
+.tableRelatedButtonsWrapper,
+.tableViewButtonsWrapper {
+    display: flex;
+}
+
+.tableRelatedButtonsWrapper {
+    gap: 1rem;
+}
+
+.tableViewButtonsWrapper {
+    display: flex;
+    gap: 0.625rem;
+    border: 1px solid var(--primary1-100);
+    border-radius: 8px;
+    padding: 0.625rem;
+}
+
+.tableViewButtonsWrapper button {
+    background: transparent;
+    color: var(--primary1-100);
+}
+
+.separator {
+    height: 80%;
+    width: 1px;
+    background: var(--primary1-100);
+}
+
+.actionButtonsWrapper {
+    display: flex;
+    gap: 1rem;
+}
+
+.actionButtonInitiateTraining {
+    display: flex;
+    align-items: center;
+    background-color: var(--info-700);
+    color: var(--white);
+    border-radius: 20px;
+    gap: 0.375rem;
+    padding: 0.75rem 1.5rem;
+}
+
+.actionButtonAnnotated {
+    display: flex;
+    align-items: center;
+    background-color: var(--primary2-950);
+    color: var(--white);
+    border-radius: 20px;
+    gap: 0.375rem;
+    padding: 0.75rem 1.5rem;
+}
+
+.outButton {
+    background-color: transparent;
+    color: var(--primary1-100);
+    border-radius: 8px;
+    padding: 0.625rem;
+}
+
+@media only all and (max-height: 768px) {
+    .container {
+        max-height: 100%;
+    }
+}
+
+@media only all and (max-width: 768px) {
+    .container {
+        max-height: 100%;
+    }
+}
+
+@media only all and (min-width: 768px) {
+    .datasetInfoStatusWrapper,
+    .actionAreaActionButtonsWrapper {
+        flex-direction: row;
+    }
+
+    .datasetInfoSpecificData {
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media only all and (min-width: 1024px) {
+    .actionAreaWrapper,
+    .actionAreaActionButtonsWrapper,
+    .tableRelatedButtonsWrapper,
+    .tableViewButtonsWrapper {
+        flex-direction: row;
+    }
+}
+
+@media only all and (min-width: 104em) {
+    .datasetInfoWrapper {
+        flex-direction: row;
+    }
+}

@@ -1,0 +1,116 @@
+.searchBarContainer {
+    border-radius: 8px;
+    max-width: 30rem;
+    width: 100%;
+    height: 2.5rem;
+    flex: 1;
+    background: var(--main-grey);
+    color: var(--primary1-100);
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    gap: 16px;
+    transition: 0.2s;
+}
+
+.header {
+    display: flex;
+    gap: 47px;
+    padding: 40px 46px;
+    background: var(--background);
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--primary1-400);
+}
+
+.headerTitleAndCTA {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.headerTitle {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 40px;
+    color: var(--primary1-100);
+}
+
+.headerCTA {
+    display: flex;
+    align-items: center;
+    gap: 45px;
+    color: white;
+}
+
+.lightIcon {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.newRecipeButton {
+    padding: 12px 24px;
+    gap: 8px;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    background: var(--primary2-950);
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.searchFilterButton {
+    background: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20.5px;
+    width: 20.5px;
+    aspect-ratio: 1/1;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.searchFilterButton:hover {
+    color: var(--primary1-300);
+}
+
+.searchFilterIcon {
+    display: block;
+}
+
+.searchBarInput {
+    font: inherit;
+    color: inherit;
+    font-weight: 700;
+    background: none;
+    appearance: none;
+    flex: 1;
+}
+
+.searchBarInput::placeholder {
+    font: inherit;
+}
+
+.searchBarInput:focus {
+    outline: none;
+}
+
+.searchBarInput:focus::placeholder {
+    color: inherit;
+}
+
+.mainContent {
+    padding: 75px 46px;
+    overflow: auto;
+}
+
+.datasetGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+}

@@ -1,0 +1,146 @@
+.mainDiv {
+    border: 2px solid var(--white-transparent);
+    border-radius: 20px;
+    padding: 2rem 20px;
+    height: 53rem;
+    overflow-y: scroll;
+}
+
+.mainDiv::-webkit-scrollbar-track {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.headDiv {
+    display: flex;
+    justify-content: space-between;
+    justify-self: stretch;
+    align-items: center;
+}
+
+.logoContainer {
+    display: flex;
+    color: var(--primary1-100);
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 32px;
+    margin-right: 20px;
+}
+
+.logoContainer p {
+    margin-left: 10px;
+}
+
+.mobileSearch {
+    display: none;
+    cursor: pointer;
+    align-self: center;
+    color: var(--primary1-100);
+}
+
+.searchContainer {
+    border-radius: 8px;
+    width: 36%;
+
+    height: 2.7rem;
+    align-items: center;
+
+    background: var(--main-grey);
+    color: var(--primary1-100);
+    display: flex;
+    padding: 10px 16px;
+    gap: 16px;
+    transition: 0.2s;
+}
+
+.search {
+    font: inherit;
+    color: inherit;
+    font-weight: 700;
+    background: none;
+    appearance: none;
+    flex: 1;
+}
+
+.search::placeholder {
+    font: inherit;
+}
+
+.search:focus {
+    outline: none;
+    color: inherit;
+}
+
+.search:focus::placeholder {
+    color: inherit;
+}
+
+.leftIcon {
+    align-self: center;
+    margin: 0px 15px;
+    color: var(--primary1-100);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.leftIcon:hover {
+    color: var(--primary1-300);
+}
+
+.navDiv {
+    display: flex;
+    width: fit-content;
+    align-items: center;
+}
+
+.navButton {
+    background-color: transparent;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 15px 20px;
+
+    transition: 0.2s;
+    color: var(--white);
+    background: none;
+    border: 2px solid var(--grey);
+}
+
+
+.navButton:hover {
+    background-color: var(--white-transparent);
+}
+
+.active {
+    background: var(--grey);
+}
+
+
+.cardDiv {
+    width: 100%;
+    display: grid;
+    row-gap: 2rem;
+    column-gap: 1rem;
+    justify-items: center;
+}
+
+.datasetGrid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 10px;
+}
+
+.verticalCard {
+    width: 100%;
+}
+
+@media (max-width: 660px) {
+    .searchContainer {
+        display: none;
+    }
+
+    .mobileSearch {
+        display: block;
+    }
+}

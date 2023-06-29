@@ -11,7 +11,7 @@
     // "disableReferencedProjectLoad": true,             /* Reduce the number of projects loaded automatically by TypeScript. */
 
     /* Language and Environment */
-    "target": "ESNext",
+    "target": "es5",
     /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     "lib": [
       "DOM.Iterable",
@@ -23,7 +23,13 @@
       "WebWorker.ImportScripts"
     ],
     /* Specify a set of bundled library declaration files that describe the target runtime environment. */
-    "jsx": "react-jsx",
+    "allowJs": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "downlevelIteration": true,
+    "jsx": "preserve",
+    "incremental": true,
     /* Specify what JSX code is generated. */
     // "experimentalDecorators": true,                   /* Enable experimental support for TC39 stage 2 draft decorators. */
     // "emitDecoratorMetadata": true,                    /* Emit design-type metadata for decorated declarations in source files. */
@@ -46,6 +52,9 @@
     "paths": {
       "*": [
         "./src/*.d.ts"
+      ],
+      "@/*": [
+        "./src/*"
       ]
     },
     /* Specify a set of entries that re-map imports to additional lookup locations. */
@@ -124,5 +133,7 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true
     /* Skip type checking all .d.ts files. */
-  }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }
