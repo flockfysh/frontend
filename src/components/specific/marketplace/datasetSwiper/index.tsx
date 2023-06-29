@@ -1,17 +1,13 @@
-import { useRef, useEffect } from 'react';
-import { ReactSVG } from 'react-svg';
-
+import 'swiper/swiper.min.css';
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
+import { useRef, useEffect } from 'react';
+import { ReactSVG } from 'react-svg';
 import VerticalCard from '@/components/specific/marketplace/datasetCards/verticalCard';
 import WideFocusedCard from '@/components/specific/marketplace/datasetCards/wideFocusedCard';
-
 import useForceUpdate from '@/helpers/useForceUpdate';
-
 import prev from '@/icons/main/arrow-left.svg';
 import next from '@/icons/main/arrow-right.svg';
-
 import classes from './styles.module.css';
 
 export default function DatasetSwiper(props: {
@@ -30,16 +26,22 @@ export default function DatasetSwiper(props: {
 
     return (
         <div className={ classes.swiperContainer }>
-            <div className={ `${ classes.fadeOverlay }  ${ classes.previous }` }>
-                <button className={ `${ classes.navButton }` } ref={ previousRef }>
-                    <ReactSVG src={ prev.src } />
+            <div className={ `${classes.fadeOverlay}  ${classes.previous}` }>
+                <button className={ `${classes.navButton}` } ref={ previousRef }>
+                    <ReactSVG src={ prev.src }/>
                 </button>
             </div>
 
             <Swiper
                 slidesPerView="auto"
                 modules={ [Navigation] }
-                navigation={ { enabled: true, prevEl: previousRef.current, nextEl: nextRef.current } }
+                navigation={ {
+                    enabled: true,
+                    prevEl: previousRef.current,
+                    nextEl: nextRef.current,
+                    disabledClass: classes.navDisabled,
+                    lockClass: classes.navLocked,
+                } }
                 className={ classes.swiper }
                 centeredSlides={ props.centeredSlides }
                 onSlideChange={ swiper => {
@@ -49,7 +51,7 @@ export default function DatasetSwiper(props: {
                 { props.datasets.map(dataset => {
                     if (props.cardType === 'wide') {
                         return (
-                            <SwiperSlide className={ `${ classes.slide } ${ classes.wideSlide }` } key={ dataset._id }>
+                            <SwiperSlide className={ `${classes.slide} ${classes.wideSlide}` } key={ dataset._id }>
                                 <WideFocusedCard { ...dataset } />
                             </SwiperSlide>
                         );
@@ -62,12 +64,12 @@ export default function DatasetSwiper(props: {
                     );
                 }) }
 
-                <div className={ classes.swiperOverlay } />
+                <div className={ classes.swiperOverlay }/>
             </Swiper>
 
-            <div className={ `${ classes.fadeOverlay } ${ classes.next }` }>
-                <button className={ `${ classes.navButton }` } ref={ nextRef }>
-                    <ReactSVG src={ next.src } />
+            <div className={ `${classes.fadeOverlay} ${classes.next}` }>
+                <button className={ `${classes.navButton}` } ref={ nextRef }>
+                    <ReactSVG src={ next.src }/>
                 </button>
             </div>
         </div>

@@ -11,12 +11,12 @@ export default function ProfileCard(props: ProfileCardProps) {
     // TODO: fix link
     return (
         <Link
-            href={ `/profile/${ props.username }` }
-            className={ `${ classes.profileContainer } ${ props.className || '' }` }
+            href={ `/profile/${props.username}` }
+            className={ `${classes.profileContainer} ${props.className || ''}` }
         >
-            <img src={ props.profilePicture } alt="Profile Picture" />
+            <img src={ props.profilePicture } alt="Profile Picture"/>
 
-            <p>@{ props.username }</p>
+            <p>@{ props.username.slice(0, 16) }</p>
         </Link>
     );
 }

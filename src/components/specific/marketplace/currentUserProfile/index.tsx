@@ -6,7 +6,7 @@ export default function CurrentUserProfile() {
     const { user } = React.useContext(UserContext);
 
     if (user) {
-        return <ProfileCard profilePicture={user.profilePhoto?.url ?? ''} username={user.username.slice(0, 16)}/>;
+        return <ProfileCard profilePicture={ user.profilePhoto?.url ?? '' } username={ user.username }/>;
     }
     return <></>;
 }

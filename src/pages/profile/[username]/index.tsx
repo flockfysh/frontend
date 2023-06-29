@@ -6,11 +6,16 @@ import MarketplaceNavbar from '@/components/specific/marketplace/navbar';
 import classes from './profile.module.css';
 import { NextPageWithLayout } from '@/pages/_app';
 import Profile from '@/components/specific/profile/profile';
+import Footer from '@/components/specific/marketplace/footer';
+import React from 'react';
 
 const ProfilePage: NextPageWithLayout = function () {
     const router = useRouter();
-    const userId = router.query.userId as string;
-    return <Profile userId={ userId }></Profile>;
+    const username = router.query.username;
+    if (typeof username === 'string') {
+        return <Profile username={ username }></Profile>;
+    }
+    return <></>;
 };
 
 export default ProfilePage;
@@ -20,6 +25,7 @@ ProfilePage.getLayout = function (page) {
         <div className={ classes.container }>
             <MarketplaceNavbar/>
             { page }
+            <Footer/>
         </div>
     );
 };

@@ -66,6 +66,15 @@
     cursor: pointer;
 }
 
+.disablePointerEvents {
+    pointer-events: none;
+}
+
+.disablePointerEvents * {
+    pointer-events: visible;
+}
+
+
 .changeTypeBtn:hover {
     background: var(--main-grey);
 }
@@ -188,6 +197,7 @@
 .rowContainer {
     width: 100%;
     display: flex;
+    gap: 4rem;
     justify-content: space-between;
     align-items: center;
 }
@@ -232,6 +242,9 @@
     display: flex;
     gap: 16px;
     transition: 0.2s;
+    flex: none;
+    width: max-content;
+    align-items: center;
 }
 
 .submit:hover {

@@ -1,15 +1,21 @@
 .headPic {
-    margin-top: 1.25rem;
-    border-radius: 30px;
+    width: calc(100% + 3rem);
+    position: absolute;
+    border-radius: 16px;
     object-fit: cover;
     z-index: -1;
-    position: relative;
 }
 
 .headerPictureContainer {
     width: 100%;
     aspect-ratio: 16/9;
     position: relative;
+}
+
+.headerPictureSubContainer {
+    width: 100%;
+    height: calc(100% + 3rem);
+    position: absolute;
 }
 
 .profilePictureContainer {

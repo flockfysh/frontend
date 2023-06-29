@@ -11,6 +11,9 @@ import save from '@/icons/main/save.svg';
 import coinStack from '@/icons/main/coin-stack.svg';
 
 import classes from './styles.module.css';
+import { capitalize } from '@/helpers/strings';
+import RadioButtons from '@/components/ui/input/radioButtons';
+import api from '@/helpers/api';
 
 type CreateDatasetModalProps = {
     onClose: () => void;
@@ -20,6 +23,7 @@ const datasetTypeOptions = [
     { value: 'image', label: 'Images' },
     { value: 'text', label: 'Text' },
     { value: 'video', label: 'Video' },
+    { value: 'other', label: 'Other' },
 ];
 
 // ! Look at this
@@ -29,19 +33,32 @@ const licenseOptions = [
     { value: 'video', label: 'Video' },
 ];
 
+async function uploadDataset(formData: FormData) {
+    const createData = {
+        name: formData.get('name'),
+        type: formData.get('type'),
+        tags: formData.getAll('tags'),
+        description: formData.get('description'),
+        price: +(formData.get('price') ?? 0),
+        public: JSON.parse(formData.get('public') as string),
+    };
+    // console.log(formData.getAll('files'));
+    const newDataset = await api.post<Api.Response<Flockfysh.Dataset>>('/api/datasets', createData).then(res => res.data);
+    // const id = newDataset.data._id;
+}
+
 export default function CreateDatasetModal(props: CreateDatasetModalProps) {
     const [isUpload, updateIsUpload] = useState(true);
-    const [newDatasetOptions, updateOptions] = useState(
-        {
-            private: false,
-            contributions: true,
-            annotations: true
-        }
-    );
+    const [newDatasetOptions, updateOptions] = useState({
+        private: false,
+        contributions: true,
+        annotations: true,
+    });
+    const [datasetType, setDatasetType] = useState<Flockfysh.AssetType | undefined>(undefined);
 
     return (
         <div
-            className={ `${ classes.overlay } ${ classes.blurBg }` }
+            className={ `${classes.overlay} ${classes.blurBg}` }
             onClick={ e => {
                 if (e.target === e.currentTarget) props.onClose();
             } }
@@ -49,26 +66,33 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
             <div className={ classes.container }>
                 <div className={ classes.header }>
                     <h1 className={ classes.headerText }>{ isUpload ? 'Upload Datasets' : 'Request Datasets' }</h1>
-                
-                    <ReactSVG src={ xmark.src } onClick={ props.onClose } className={ classes.closeBtn } />
+
+                    <ReactSVG src={ xmark.src } onClick={ props.onClose } className={ classes.closeBtn }/>
                 </div>
 
                 <div className={ classes.changeType }>
-                    <div onClick={ () => updateIsUpload(true) } className={ classes.leftBtn + ' ' + classes.changeTypeBtn + ' ' + (isUpload ? classes.selected : '') }>
+                    <div onClick={ () => updateIsUpload(true) }
+                         className={ classes.leftBtn + ' ' + classes.changeTypeBtn + ' ' + (isUpload ? classes.selected : '') }>
                         Upload
                     </div>
 
-                    <div onClick={ () => updateIsUpload(false) } className={ classes.rightBtn + ' ' + classes.changeTypeBtn + ' ' + (!isUpload ? classes.selected : '') }>
+                    <div onClick={ () => updateIsUpload(false) }
+                         className={ classes.rightBtn + ' ' + classes.changeTypeBtn + ' ' + (!isUpload ? classes.selected : '') }>
                         Request
                     </div>
                 </div>
 
-                <form className={ classes.form }>
+                <form className={ classes.form } onSubmit={ async e => {
+                    e.preventDefault();
+                    const formData = new FormData(e.currentTarget);
+                    await uploadDataset(formData);
+                } }>
                     <div className={ classes.rowContainer }>
                         <label>
                             <p>Enter the name for your Dataset</p>
 
-                            <input type="text" placeholder="XYZ Dataset..." className={ classes.nameContainer } />
+                            <input name={ 'name' } type="text" placeholder="XYZ Dataset..."
+                                   className={ classes.nameContainer }/>
                         </label>
 
                         <div className={ classes.firstRowSecondHalfContainer }>
@@ -78,7 +102,14 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
 
                                     <CustomSelect
                                         required={ true }
-                                        name="type"
+                                        name={ 'type' }
+                                        value={ datasetType ? {
+                                            label: capitalize(datasetType),
+                                            value: datasetType,
+                                        } : undefined }
+                                        onChange={ (newValue) => {
+                                            setDatasetType((newValue as { value: Flockfysh.AssetType }).value);
+                                        } }
                                         classNames={
                                             {
                                                 control: () => {
@@ -86,7 +117,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                                 },
                                                 option: () => {
                                                     return classes.selectOption;
-                                                }
+                                                },
                                             }
                                         }
                                         placeholder="Dataset Type"
@@ -102,13 +133,13 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                             <p>Tags</p>
 
                                             <CustomCreatableSelect
-                                                name="tags"
+                                                name={ 'tags' }
                                                 isMulti={ true }
                                                 classNames={
                                                     {
                                                         control: () => {
                                                             return classes.createableSelectControl + ' ' + classes.inputControl;
-                                                        }
+                                                        },
                                                     }
                                                 }
                                                 placeholder="Tags"
@@ -119,7 +150,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                             <p>Minimum Number of Items</p>
 
                                             { /* TODO: need to change the scroll. React select */ }
-                                            <input type="number" />
+                                            <input type="number"/>
                                         </>
                                     )
                                 }
@@ -135,6 +166,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                         <p>Short description of your dataset</p>
 
                                         <textarea
+                                            name={ 'description' }
                                             placeholder="What it contains, what it can be used for, where did the data come from ...."
                                         />
                                     </>
@@ -143,6 +175,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                         <p>Instruction for dataset</p>
 
                                         <textarea
+                                            name={ 'description' }
                                             placeholder="Explain your use case, what kind of data you use. Please try to be specific as possible to ensure the highest quality of data."
                                         />
                                     </>
@@ -160,7 +193,9 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                             }
 
                             <FileUpload
-                                uploadContainerClassName={ `${ classes.uploadContainer }` }
+                                name={ 'files' }
+                                datasetType={ datasetType }
+                                uploadContainerClassName={ `${classes.uploadContainer}` }
                             />
                         </label>
                     </div>
@@ -175,53 +210,35 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                 )
                             }
 
-                            <input type="number" placeholder="Amount.." />
+                            <input type="number" placeholder="Amount.." name={ 'price' }/>
                         </label>
 
-                        <label>
+                        <label className={ classes.disablePointerEvents }>
                             { /* TODO: Add info tooltip */ }
                             <p>Visibility</p>
-                        
-                            <div className={ classes.changeType + ' ' + classes.labelChangeType }>
-                                <div
-                                    className={ classes.leftBtn + ' ' + classes.changeTypeBtn + ' ' + (!newDatasetOptions.private ? classes.selected : '') }
-                                    onClick={
-                                        () => {
-                                            updateOptions(
-                                                {
-                                                    ...newDatasetOptions,
-                                                    private: false
-                                                }
-                                            );
-                                        }
-                                    }
-                                >
-                                    Public
-                                </div>
 
-                                <div
-                                    className={ classes.rightBtn + ' ' + classes.changeTypeBtn + ' ' + (newDatasetOptions.private ? classes.selected : '') }
-                                    onClick={
-                                        () => {
-                                            updateOptions(
-                                                {
-                                                    ...newDatasetOptions,
-                                                    private: true
-                                                }
-                                            );
-                                        }
-                                    }
-                                >
-                                    Private
-                                </div>
-                            </div>
+                            <RadioButtons
+                                options={ [
+                                    {
+                                        label: 'Private',
+                                        value: false,
+                                    },
+                                    {
+                                        label: 'Public',
+                                        value: true,
+                                    },
+                                ] }
+                                name={ 'public' }
+                                initialValue={ false }
+                            />
+
                         </label>
 
                         <label>
                             {
                                 isUpload ? <p>Contributions?</p> : <p>Annotations</p>
                             }
-                        
+
                             <div className={ classes.changeType + ' ' + classes.labelChangeType }>
                                 <div
                                     className={ classes.leftBtn + ' ' + classes.changeTypeBtn + ' ' + ((isUpload ? newDatasetOptions.contributions : newDatasetOptions.annotations) ? classes.selected : '') }
@@ -230,13 +247,13 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                             isUpload ? updateOptions(
                                                 {
                                                     ...newDatasetOptions,
-                                                    contributions: true
-                                                }
+                                                    contributions: true,
+                                                },
                                             ) : updateOptions(
                                                 {
                                                     ...newDatasetOptions,
-                                                    annotations: true
-                                                }
+                                                    annotations: true,
+                                                },
                                             )
                                         )
                                     }
@@ -251,13 +268,13 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                             isUpload ? updateOptions(
                                                 {
                                                     ...newDatasetOptions,
-                                                    contributions: false
-                                                }
+                                                    contributions: false,
+                                                },
                                             ) : updateOptions(
                                                 {
                                                     ...newDatasetOptions,
-                                                    annotations: false
-                                                }
+                                                    annotations: false,
+                                                },
                                             )
                                         )
                                     }
@@ -283,7 +300,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                                     },
                                                     option: () => {
                                                         return classes.selectOption;
-                                                    }
+                                                    },
                                                 }
                                             }
                                             placeholder="Item"
@@ -295,7 +312,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                         <p>Deadline</p>
 
                                         { /* TODO: need to change the icon color */ }
-                                        <input type="date" />
+                                        <input type="date"/>
                                     </>
                                 )
                             }
@@ -304,11 +321,12 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
 
                     <div className={ classes.rowContainer }>
                         <div className={ classes.checkBox }>
-                            <input type="checkbox" />
+                            <input type="checkbox"/>
 
                             {
                                 isUpload ? (
-                                    <p>I have the rights to publish this media, and understand it will be shared in the data exchange.</p>
+                                    <p>I have the rights to publish this media, and understand it will be shared in the
+                                        data exchange.</p>
                                 ) : (
                                     <p className={ classes.pLinkContainer }>
                                         I agree to the flockfysh`&apos;s
@@ -326,13 +344,13 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                     <>
                                         <p>Save Dataset</p>
 
-                                        <ReactSVG src={ save.src } />
+                                        <ReactSVG src={ save.src }/>
                                     </>
                                 ) : (
                                     <>
                                         <p>Request Dataset</p>
 
-                                        <ReactSVG src={ coinStack.src } />
+                                        <ReactSVG src={ coinStack.src }/>
                                     </>
                                 )
                             }

@@ -1,8 +1,6 @@
 .containDiv {
     padding: 2rem;
     border: 2px solid var(--white-transparent);
-    margin-top: 3rem;
-    margin-bottom: 5rem;
     border-radius: 20px;
     display: flex;
     flex-wrap: wrap;
@@ -46,7 +44,7 @@
 }
 
 .firstButton {
-    border-radius: 10px 0 0 10px;    
+    border-radius: 10px 0 0 10px;
 }
 
 .lastButton {
@@ -231,6 +229,7 @@
     background-color: transparent;
     margin-left: 1.3rem;
 }
+
 .apiKey .iconButton {
     margin-left: 0;
 }

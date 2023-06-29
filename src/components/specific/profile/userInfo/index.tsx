@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import Link from 'next/link';
@@ -9,22 +9,44 @@ import twitter from '@/icons/main/twitter.svg';
 import link from '@/icons/main/link.svg';
 import pen from '@/icons/main/pen-tool.svg';
 
+import Image from 'next/image';
 import classes from './styles.module.css';
 import { UserContext } from '@/contexts/userContext';
+import api from '@/helpers/api';
 
 const Header = (props: {
     url: string,
     editable: boolean,
 }) => {
+    const inputRef = useRef<HTMLInputElement>(null);
+
     return (
         <div className={ classes.headerPictureContainer }>
-            className={ classes.headPic }
-            src={ props.url }
+            <div className={ classes.headerPictureSubContainer }>
+                <Image alt={ 'Image' } className={ classes.headPic }
+                       src={ props.url } fill={ true }>
+                </Image>
+            </div>
             {
-                props.editable ? (
+                props.editable ?
+                    (
                         <>
-                            <input type={ 'file' } className={ classes.hiddenPhotoChange }/>
-                            <button className={ classes.photoChangeButton }>
+                            <input type={ 'file' }
+                                   ref={ inputRef } className={ classes.hiddenPhotoChange }
+                                   onChange={ async e => {
+                                       if (e.currentTarget.files) {
+                                           const fd = new FormData();
+                                           fd.append('image', e.currentTarget.files[0]);
+                                           e.currentTarget.value = '';
+                                           await api.put('/api/users/headerPhoto', fd);
+                                       }
+                                   } }
+                            />
+                            <button
+                                className={ classes.photoChangeButton }
+                                onClick={ () => {
+                                    inputRef.current?.click();
+                                } }>
                                 <ReactSVG src={ pen.src }></ReactSVG>
                             </button>
                         </>
@@ -39,6 +61,9 @@ const ProfilePhoto = (props: {
     url: string,
     editable: boolean,
 }) => {
+    const inputRef = useRef<HTMLInputElement>(null);
+
+
     return (
         <div className={ classes.profilePictureContainer }>
             <img
@@ -49,10 +74,15 @@ const ProfilePhoto = (props: {
             {
                 props.editable ? (
                         <>
-                            <input type={ 'file' } className={ classes.hiddenPhotoChange } onChange={ (e) => {
-
-                            } }/>
-                            <button className={ classes.photoChangeButton }>
+                            <input type={ 'file' } className={ classes.hiddenPhotoChange } onChange={ async e => {
+                                if (e.currentTarget.files) {
+                                    const fd = new FormData();
+                                    fd.append('image', e.currentTarget.files[0]);
+                                    e.currentTarget.value = '';
+                                    await api.put('/api/users/profilePhoto', fd);
+                                }
+                            } } ref={ inputRef }/>
+                            <button className={ classes.photoChangeButton } onClick={ () => inputRef.current?.click() }>
                                 <ReactSVG src={ pen.src }></ReactSVG>
                             </button>
                         </>

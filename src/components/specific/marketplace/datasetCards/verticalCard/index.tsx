@@ -15,12 +15,14 @@ import clock from '@/icons/main/clock.svg';
 import classes from './styles.module.css';
 
 
-export default function VerticalCard(props: HomepageDataset) {
+export default function VerticalCard(props: HomepageDataset & {
+    className?: string;
+}) {
     return (
-        <div className={ classes.container }>
+        <div className={ `${classes.container} ${props.className || ''}` }>
             <div className={ classes.contentContainer }>
                 <div className={ classes.header }>
-                    <DatasetTypeCard type={ props.type } className={ classes.typeCard } />
+                    <DatasetTypeCard type={ props.type } className={ classes.typeCard }/>
 
                     <div className={ classes.imageContainer }>
                         <Image
@@ -32,7 +34,7 @@ export default function VerticalCard(props: HomepageDataset) {
                     </div>
 
                     <div className={ classes.timeContainer }>
-                        <ReactSVG src={ clock.src } className={ classes.clockIcon } />
+                        <ReactSVG src={ clock.src } className={ classes.clockIcon }/>
                         <p>{ dayjs(props.updatedAt).fromNow() }</p>
                     </div>
                 </div>
@@ -42,7 +44,7 @@ export default function VerticalCard(props: HomepageDataset) {
                     <p>@{ props.user.username.slice(0, 15) }</p>
                 </div>
 
-                <Link className={ classes.linkOverlay } href={ `/marketplace/${ props._id }` } />
+                <Link className={ classes.linkOverlay } href={ `/marketplace/${props._id}` }/>
 
                 {
                     props.price > 0 && (

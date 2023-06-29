@@ -6,19 +6,19 @@ import UserSettings from '@/components/specific/profile/userSettings/';
 import Footer from '@/components/specific/marketplace/footer';
 
 export default function Profile(props: {
-    userId: string;
+    username: string;
 }) {
     const [curTab, updateCurTab] = useState(0);
     const [user, setUser] = useState<RedactedUser | null>(null);
 
     useEffect(() => {
         async function fetch() {
-            const user = await api.get<Api.Response<RedactedUser>>(`/api/users/${props.userId}`).then(res => res.data.data);
+            const user = await api.get<Api.Response<RedactedUser>>(`/api/users/byUsername/${props.username}`).then(res => res.data.data);
             setUser(user);
         }
 
         fetch().then();
-    }, [props.userId]);
+    }, [props.username]);
 
     if (!user) {
         return <></>;
@@ -46,7 +46,6 @@ export default function Profile(props: {
                     apiCalls={ 7898 }
                 />
             ) }
-            <Footer/>
         </>
     );
 }

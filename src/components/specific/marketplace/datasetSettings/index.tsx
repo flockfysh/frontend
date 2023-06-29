@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 
 import Input from '@/components/specific/marketplace/datasetSettings/input';
 import CreatableSelect from '@/components/specific/marketplace/datasetSettings/creatableSelect';
-import RadioButtons from '@/components/specific/marketplace/datasetSettings/radioButtons';
+import RadioButtons from '@/components/ui/input/radioButtons';
 
 import cash from '@/icons/main/dollar-sign.svg';
 import link from '@/icons/main/link.svg';
