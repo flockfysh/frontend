@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import { Navigation } from 'swiper';
@@ -6,8 +6,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import VerticalCard from '@/components/specific/marketplace/datasetCards/verticalCard';
 import WideFocusedCard from '@/components/specific/marketplace/datasetCards/wideFocusedCard';
-
-import useForceUpdate from '@/helpers/useForceUpdate';
 
 import prev from '@/icons/main/arrow-left.svg';
 import next from '@/icons/main/arrow-right.svg';
@@ -22,11 +20,6 @@ export default function DatasetSwiper(props: {
 }) {
     const previousRef = useRef<HTMLButtonElement | null>(null);
     const nextRef = useRef<HTMLButtonElement | null>(null);
-    const forceUpdate = useForceUpdate();
-
-    useEffect(() => {
-        forceUpdate();
-    }, [forceUpdate]);
 
     return (
         <div className={ classes.swiperContainer }>

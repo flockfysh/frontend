@@ -21,7 +21,7 @@ async function uploadAssets(datasetId: string, files: File[], config: {
         try {
             const fd = new FormData();
             fd.set(config.fieldName, file);
-            await api.post(`/api/datasets/${datasetId}/assets/upload/${config.endpoint}`, fd);
+            await api.post(`/api/datasets/${ datasetId }/assets/upload/${ config.endpoint }`, fd);
         }
         catch (e) {}
     }

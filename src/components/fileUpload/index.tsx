@@ -26,7 +26,7 @@ const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>(function FileUp
                 </div>
             </label>
 
-            <input id="file-upload" type="file" />
+            <input id="file-upload" type="file" multiple={ true } />
         </div>
     );
 });

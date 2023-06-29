@@ -12,6 +12,8 @@ import DatasetSwiper from '@/components/specific/marketplace/datasetSwiper';
 import CollectionSwiper from '@/components/specific/marketplace/collectionSwiper';
 import DatasetTimeFilter from '@/components/specific/marketplace/datasetTimeFilter';
 
+import Footer from '@/components/specific/marketplace/footer';
+
 import api from '@/helpers/api';
 import { dayjs } from '@/helpers/date';
 
@@ -233,6 +235,8 @@ const Marketplace: NextPageWithLayout = function () {
                     <HowToCards />
                 </div>
             </section>
+
+            <Footer />
         </div>
     );
 };

@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { useState, useRef, useContext, useEffect } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import Link from 'next/link';
 
 import CustomSelect, { CustomCreatableSelect } from '@/components/ui/input/select';
 import FileUpload from '@/components/fileUpload';
+
+import { ErrorContext } from '@/contexts/errorContext';
+
+import api from '@/helpers/api';
 
 import xmark from '@/icons/xmark.svg';
 import save from '@/icons/main/save.svg';
@@ -30,6 +34,25 @@ const licenseOptions = [
 ];
 
 export default function CreateDatasetModal(props: CreateDatasetModalProps) {
+    const { throwError } = useContext(ErrorContext);
+
+    const [recipes, setRecipes] = useState<Flockfysh.RecipeWithLabels[]>([]);
+
+    useEffect(() => {
+        async function load() {
+            const recipes = (await api.get<Api.Response<Flockfysh.RecipeWithLabels[]>>('/api/recipes/search', {
+                params: {
+                    name: undefined,
+                    expand: 'labels',
+                }
+            })).data.data;
+            
+            setRecipes(recipes);
+        }
+
+        load().then();
+    }, []);
+
     const [isUpload, updateIsUpload] = useState(true);
     const [newDatasetOptions, updateOptions] = useState(
         {
@@ -38,6 +61,63 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
             annotations: true
         }
     );
+
+    const datasetName = useRef({} as HTMLInputElement);
+    
+    const datasetType = useRef();
+    const datasetTags = useRef();
+    const recipe = useRef();
+
+    const numDatasetImgs = useRef({} as HTMLInputElement);
+
+    const datasetDescriptionOrInstructions = useRef({} as HTMLTextAreaElement);
+    const fileExamplesOrImgs = useRef({} as HTMLInputElement);
+    const datasetCostOrReward = useRef({} as HTMLInputElement);
+
+    const license = useRef();
+    const datasetDeadline = useRef({} as HTMLInputElement);
+
+    const [isAgreed, updateAgreed] = useState(false);
+
+    // TODO: recipe select
+
+    async function uploadDataset() {
+        const type = (datasetType.current! as any).state.ariaSelection.value.value;
+        const recipeV = (recipe.current! as any).state.ariaSelection.value.value;
+
+        if(!type) return throwError('Please select a dataset type');
+
+        const data = {
+            recipe: recipeV,
+            type: type,
+            name: datasetName.current.value,
+            description: datasetDescriptionOrInstructions.current.value,
+            tags: (datasetTags.current! as any).state.ariaSelection.value.map(
+                (v: {label: string, value: string}) => v.value
+            ),
+            visibility: newDatasetOptions.private ? true : false,
+            price: Number(datasetCostOrReward.current.value)
+        }
+
+        const res = await api.post('/api/datasets', data);
+
+        if(res.status === 200) props.onClose();
+        else throwError(res.data.message);
+    }
+
+    // TODO: Is this implemented?
+    async function requestDataset() {
+
+    }
+
+    // TODO: need to fix modal w/ file uplaods
+
+    function submit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+
+        if(isUpload) uploadDataset();
+        else requestDataset();
+    }
 
     return (
         <div
@@ -63,22 +143,87 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                     </div>
                 </div>
 
-                <form className={ classes.form }>
-                    <div className={ classes.rowContainer }>
+                <form className={ classes.form } onSubmit={ submit }>
+                    <div className={ classes.firstRowContainer }>
                         <label>
                             <p>Enter the name for your Dataset</p>
 
-                            <input type="text" placeholder="XYZ Dataset..." className={ classes.nameContainer } />
+                            <input
+                                type="text"
+                                placeholder="XYZ Dataset..."
+                                className={ classes.nameContainer }
+                                ref={ datasetName }
+                                required={ true }
+                            />
                         </label>
 
-                        <div className={ classes.firstRowSecondHalfContainer }>
-                            <label>
-                                <>
-                                    <p>Datatype</p>
+                        <label>
+                            <>
+                                <p>Datatype</p>
 
+                                <CustomSelect
+                                    name="type"
+                                    classNames={
+                                        {
+                                            control: () => {
+                                                return classes.inputControl;
+                                            },
+                                            option: () => {
+                                                return classes.selectOption;
+                                            },
+                                            menu: () => {
+                                                return classes.selectMenu;
+                                            }
+                                        }
+                                    }
+                                    placeholder="Dataset Type"
+                                    options={ datasetTypeOptions }
+                                    ref={ datasetType }
+                                />
+                            </>
+                        </label>
+
+                        <label>
+                            {
+                                isUpload ? (
+                                    <>
+                                        <p>Tags</p>
+
+                                        <CustomCreatableSelect
+                                            name="tags"
+                                            isMulti={ true }
+                                            classNames={
+                                                {
+                                                    control: () => {
+                                                        return classes.createableSelectControl + ' ' + classes.inputControl;
+                                                    },
+                                                    menu: () => {
+                                                        return classes.selectMenu;
+                                                    }
+                                                }
+                                            }
+                                            placeholder="Tags"
+                                            ref={ datasetTags }
+                                        />
+                                    </>
+                                ) : (
+                                    <>
+                                        <p>Minimum Number of Items</p>
+
+                                        { /* TODO: need to change the scroll. React select */ }
+                                        <input type="number" ref={ numDatasetImgs } required={ true } />
+                                    </>
+                                )
+                            }
+                        </label>
+
+                        {
+                            isUpload && (
+                                <label>
+                                    <p>Recipe</p>
+    
                                     <CustomSelect
-                                        required={ true }
-                                        name="type"
+                                        name="recipe"
                                         classNames={
                                             {
                                                 control: () => {
@@ -86,45 +231,28 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                                 },
                                                 option: () => {
                                                     return classes.selectOption;
+                                                },
+                                                menu: () => {
+                                                    return classes.selectMenu;
                                                 }
                                             }
                                         }
-                                        placeholder="Dataset Type"
-                                        options={ datasetTypeOptions }
-                                    />
-                                </>
-                            </label>
-
-                            <label>
-                                {
-                                    isUpload ? (
-                                        <>
-                                            <p>Tags</p>
-
-                                            <CustomCreatableSelect
-                                                name="tags"
-                                                isMulti={ true }
-                                                classNames={
+                                        placeholder="Recipe"
+                                        ref={ recipe }
+                                        options={
+                                            recipes.map(
+                                                recipe => (
                                                     {
-                                                        control: () => {
-                                                            return classes.createableSelectControl + ' ' + classes.inputControl;
-                                                        }
+                                                        value: recipe._id,
+                                                        label: `${ recipe.name } - ${ recipe.labels.length } labels`
                                                     }
-                                                }
-                                                placeholder="Tags"
-                                            />
-                                        </>
-                                    ) : (
-                                        <>
-                                            <p>Minimum Number of Items</p>
-
-                                            { /* TODO: need to change the scroll. React select */ }
-                                            <input type="number" />
-                                        </>
-                                    )
-                                }
-                            </label>
-                        </div>
+                                                )
+                                            )
+                                        }
+                                    />
+                                </label>
+                            )
+                        }
                     </div>
 
                     <div className={ classes.rowContainer }>
@@ -136,6 +264,8 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
 
                                         <textarea
                                             placeholder="What it contains, what it can be used for, where did the data come from ...."
+                                            ref={ datasetDescriptionOrInstructions }
+                                            required={ true }
                                         />
                                     </>
                                 ) : (
@@ -144,6 +274,8 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
 
                                         <textarea
                                             placeholder="Explain your use case, what kind of data you use. Please try to be specific as possible to ensure the highest quality of data."
+                                            ref={ datasetDescriptionOrInstructions }
+                                            required={ true }
                                         />
                                     </>
                                 )
@@ -161,6 +293,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
 
                             <FileUpload
                                 uploadContainerClassName={ `${ classes.uploadContainer }` }
+                                ref={ fileExamplesOrImgs }
                             />
                         </label>
                     </div>
@@ -175,7 +308,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                 )
                             }
 
-                            <input type="number" placeholder="Amount.." />
+                            <input type="number" placeholder="Amount.." ref={ datasetCostOrReward } required={ true } />
                         </label>
 
                         <label>
@@ -274,8 +407,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                         <p>License</p>
 
                                         <CustomSelect
-                                            required={ true }
-                                            name="type"
+                                            name="item"
                                             classNames={
                                                 {
                                                     control: () => {
@@ -283,11 +415,15 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                                     },
                                                     option: () => {
                                                         return classes.selectOption;
+                                                    },
+                                                    menu: () => {
+                                                        return classes.selectMenu;
                                                     }
                                                 }
                                             }
                                             placeholder="Item"
                                             options={ licenseOptions }
+                                            ref={ license }
                                         />
                                     </>
                                 ) : (
@@ -295,7 +431,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                         <p>Deadline</p>
 
                                         { /* TODO: need to change the icon color */ }
-                                        <input type="date" />
+                                        <input type="date" ref={ datasetDeadline } required={ true } />
                                     </>
                                 )
                             }
@@ -304,7 +440,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
 
                     <div className={ classes.rowContainer }>
                         <div className={ classes.checkBox }>
-                            <input type="checkbox" />
+                            <input checked={ isAgreed } required={ true } type="checkbox" onChange={ (e) => updateAgreed(e.target.checked) } />
 
                             {
                                 isUpload ? (
@@ -320,7 +456,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                             }
                         </div>
 
-                        <button className={ classes.submit }>
+                        <button type="submit" className={ classes.submit } disabled={ !isAgreed }>
                             {
                                 isUpload ? (
                                     <>

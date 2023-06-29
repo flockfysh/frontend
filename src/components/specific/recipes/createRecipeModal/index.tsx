@@ -8,7 +8,7 @@ import add from '@/icons/main/plus-circle.svg';
 
 import classes from './styles.module.css';
 
-const CreateRecipeButton = (buttonsProps: ButtonHTMLAttributes<HTMLButtonElement>) => {
+function CreateRecipeButton(buttonsProps: ButtonHTMLAttributes<HTMLButtonElement>) {
     return (
         <button
             className={ classes.newRecipeButton }

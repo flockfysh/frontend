@@ -152,8 +152,14 @@
 }
 
 .inputControl {
+    background: var(--main-grey) !important;
+    border: 1px solid var(--main-grey);
     color: var(--primary1-100);
     padding: 7px 10px;
+}
+
+.selectMenu {
+    background: var(--grey) !important;
 }
 
 .selectOption {
@@ -162,7 +168,7 @@
 }
 
 .selectOption:hover {
-    background: var(--grey);
+    background: var(--elements-950);
 }
 
 .createableSelectControl {
@@ -176,13 +182,15 @@
     width: 400px;
 }
 
-.firstRowSecondHalfContainer {
-    display: flex;
-    gap: 3rem;
-}
-
 .nameContainer {
     width: 400px;
+}
+
+.firstRowContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .rowContainer {
@@ -198,8 +206,11 @@
 
 .checkBox {
     display: flex;
+}
+
+.checkBox p {
     font-size: 0.75rem;
-    color: var(--primary1-100);
+    color: var(--light-grey);
 }
 
 .checkBox input {
@@ -225,15 +236,32 @@
 
 .submit {
     justify-content: space-between;
-    border-radius: 15px;
+    border-radius: 10px;
     padding: 15px 20px;
-    color: var(--primary1-100);
-    background: var(--primary2-950);
+    color: var(--white);
+    border: 2px solid var(--grey);
+    background: var(--main-grey);
     display: flex;
     gap: 16px;
     transition: 0.2s;
 }
 
+.submit p {
+    font-size: 1rem;
+}
+
 .submit:hover {
-    color: var(--primary1-200);
+    background: var(--grey);
+    color: var(--primary1-100);
+}
+
+.submit:disabled {
+    cursor: initial;
+    transition: 0;
+    opacity: 0.6;
+    background: var(--background);
+}
+
+.submit:disabled:hover {
+    color: var(--white);
 }
