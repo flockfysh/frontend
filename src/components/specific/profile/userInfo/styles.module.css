@@ -1,0 +1,258 @@
+.headPic {
+    width: calc(100% + 3rem);
+    position: absolute;
+    border-radius: 16px;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.headerPictureContainer {
+    width: 100%;
+    aspect-ratio: 16/9;
+    position: relative;
+}
+
+.headerPictureSubContainer {
+    width: 100%;
+    height: calc(100% + 3rem);
+    position: absolute;
+}
+
+.profilePictureContainer {
+    position: relative;
+}
+
+.hiddenPhotoChange {
+    display: none;
+}
+
+.photoChangeButton {
+    background: none;
+    cursor: pointer;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    padding: 12px;
+    background: var(--main-grey);
+    border-radius: 16px;
+}
+
+.profilePic {
+    width: 12rem;
+    height: 12rem;
+    object-fit: cover;
+    /*margin-top: -5%;*/
+    margin-left: 2rem;
+    border: 10px solid var(--white-transparent);
+    border-radius: 20px;
+}
+
+.profileDiv {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.followDiv {
+    display: flex;
+    gap: 1.7rem;
+    align-items: center;
+}
+
+.followers {
+    font-size: 1rem;
+}
+
+.followButton {
+    background-color: var(--main-grey);
+    color: var(--white);
+    padding: 0.9em 1.8em;
+    border-radius: 10px;
+    font-size: 1rem;
+    margin-left: 0.5rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.2s;
+    border: 2px solid var(--grey);
+}
+
+.followButton:hover {
+    background: var(--grey);
+}
+
+
+.followIcon {
+    width: 1.3rem;
+    color: var(--primary1-100);
+    display: inline-block;
+    margin-left: 1rem;
+}
+
+.name,
+.username,
+.description,
+.userStats,
+.followerText,
+.followers,
+.link {
+    color: var(--white);
+}
+
+.name {
+    font-size: 2.3rem;
+    font-weight: 700;
+    margin-top: 1.25rem;
+    color: var(--primary1-100);
+}
+
+.username {
+    font-size: 0.875rem;
+    font-weight: 500;
+    opacity: 0.7;
+}
+
+.span {
+    font-weight: 600;
+    color: var(--primary1-100);
+}
+
+.description {
+    width: 60ch;
+    font-size: 0.9rem;
+    margin: 0.7rem 0 1.6rem 0;
+}
+
+.socialsDiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: fit-content;
+    gap: 1.2rem;
+}
+
+.link {
+    display: flex;
+    gap: 0.2rem;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: 0.2s;
+}
+
+.link:hover {
+    color: var(--primary1-200);
+}
+
+.icons svg {
+    width: 1.35rem;
+}
+
+.socioContentDiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.followerText {
+    color: var(--light-grey);
+    font-size: 0.8rem;
+    margin-right: 1.3rem;
+}
+
+.followingLink {
+    font-weight: bold;
+    color: var(--primary1-100);
+    margin-left: 3px;
+    transition: 0.2s;
+}
+
+.followerImage {
+    width: 1.4rem;
+    height: 1.4rem;
+    object-fit: cover;
+    border-radius: 100px;
+    border: 2px solid var(--white);
+}
+
+.followingLink:hover {
+    color: var(--primary1-200);
+}
+
+.seeAllFollowersSpan {
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.seeAllFollowersSpan:hover {
+    color: var(--primary1-200);
+}
+
+.followerImage:not(:nth-child(1)) {
+    margin-left: -0.5rem;
+}
+
+.followerDiv {
+    display: flex;
+    margin-bottom: 3rem;
+}
+
+.finalDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navDiv {
+    display: flex;
+    align-items: center;
+}
+
+.navButton {
+    background-color: transparent;
+    font-size: 1rem;
+    font-weight: 700;
+    border: 2px solid var(--grey);
+    padding: 15px 20px;
+    transition: 0.2s;
+}
+
+.firstButton {
+    border-radius: 10px 0 0 10px;
+}
+
+.lastButton {
+    border-radius: 0 10px 10px 0;
+}
+
+.navButton:hover {
+    background-color: var(--grey);
+}
+
+.active {
+    background: var(--grey);
+}
+
+.userStats {
+    font-size: 0.9rem;
+    color: var(--light-grey);
+}
+
+.dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: var(--primary1-100-transparent);
+    border-radius: 20px;
+}
+
+.statsDiv {
+    display: flex;
+    border: 2px solid var(--grey);
+    border-radius: 20px;
+    gap: 1.5rem;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    width: fit-content;
+    align-items: center;
+}

@@ -1,0 +1,473 @@
+import { useState, useRef, useContext, useEffect } from 'react';
+import { ReactSVG } from 'react-svg';
+import Link from 'next/link';
+import CustomSelect, { CustomCreatableSelect } from '@/components/ui/input/select';
+import FileUpload from '@/components/fileUpload';
+import { ErrorContext } from '@/contexts/errorContext';
+import api from '@/helpers/api';
+import xmark from '@/icons/xmark.svg';
+import save from '@/icons/main/save.svg';
+import coinStack from '@/icons/main/coin-stack.svg';
+import classes from './styles.module.css';
+import { capitalize } from '@/helpers/strings';
+import RadioButtons from '@/components/ui/input/radioButtons';
+import AsyncArray from '@/helpers/async';
+import { typeMapping } from '@/helpers/assets/upload';
+
+type CreateDatasetModalProps = {
+    onClose: () => void;
+}
+
+const datasetTypeOptions = [
+    { value: 'image', label: 'Images' },
+    { value: 'text', label: 'Text' },
+    { value: 'video', label: 'Video' },
+    { value: 'other', label: 'Other' },
+];
+
+// ! Look at this
+const licenseOptions = [
+    { value: 'image', label: 'Images' },
+    { value: 'text', label: 'Text' },
+    { value: 'video', label: 'Video' },
+];
+
+async function uploadDataset(formData: FormData) {
+    const name = formData.get('name');
+    let recipe = formData.get('recipe');
+    const type = formData.get('type');
+    if (!recipe) {
+        const newRecipe = await api.post<Api.Response<Flockfysh.Recipe>>('/api/recipes', {
+            name: name,
+        }).then(res => res.data);
+        recipe = newRecipe.data._id;
+    }
+    const createData = {
+        name: name,
+        recipe: recipe,
+        type: type,
+        tags: formData.getAll('tags'),
+        description: formData.get('description'),
+        price: +(formData.get('price') ?? 0),
+        public: JSON.parse(formData.get('public') as string),
+    };
+    const newDataset = await api.post<Api.Response<Flockfysh.Dataset>>('/api/datasets', createData).then(res => res.data.data);
+    const files = (formData.getAll('files').filter(file => {
+        if (file instanceof File && file.size > 0) {
+            return true;
+        }
+    })) as File[];
+
+    const config = typeMapping[formData.get('type') as Flockfysh.AssetType];
+
+    async function upload(file: File) {
+        try {
+            const fd = new FormData();
+            fd.set(config.fieldName, file);
+            await api.post(`/api/datasets/${newDataset._id}/assets/upload/${config.endpoint}`, fd);
+        }
+ catch (e) {
+        }
+    }
+
+    await new AsyncArray(files).chunkMap(file => upload(file), undefined, {
+        maxThreads: 20,
+    });
+    // const id = newDataset.data._id;
+}
+
+export default function CreateDatasetModal(props: CreateDatasetModalProps) {
+    const [datasetType, setDatasetType] = useState<Flockfysh.AssetType | undefined>(undefined);
+    const [recipes, setRecipes] = useState<Flockfysh.RecipeWithLabels[]>([]);
+    const [isAgreed, updateAgreed] = useState(false);
+
+    useEffect(() => {
+        async function load() {
+            const recipes = (await api.get<Api.Response<Flockfysh.RecipeWithLabels[]>>('/api/recipes/search', {
+                params: {
+                    name: undefined,
+                    expand: 'labels',
+                },
+            })).data.data;
+
+            setRecipes(recipes);
+        }
+
+        load().then();
+    }, []);
+
+    const [isUpload, updateIsUpload] = useState(true);
+    const [newDatasetOptions, updateOptions] = useState({
+        private: false,
+        contributions: true,
+        annotations: true,
+    });
+    // TODO: recipe select
+
+    // TODO: Is this implemented?
+    async function requestDataset() {
+
+    }
+
+    // TODO: need to fix modal w/ file uplaods
+    return (
+        <div
+            className={ `${classes.overlay} ${classes.blurBg}` }
+            onClick={ e => {
+                if (e.target === e.currentTarget) props.onClose();
+            } }
+        >
+            <div className={ classes.container }>
+                <div className={ classes.header }>
+                    <h1 className={ classes.headerText }>{ isUpload ? 'Upload Datasets' : 'Request Datasets' }</h1>
+
+                    <ReactSVG src={ xmark.src } onClick={ props.onClose } className={ classes.closeBtn }/>
+                </div>
+
+                <div className={ classes.changeType }>
+                    <div onClick={ () => updateIsUpload(true) }
+                         className={ classes.leftBtn + ' ' + classes.changeTypeBtn + ' ' + (isUpload ? classes.selected : '') }>
+                        Upload
+                    </div>
+
+                    <div onClick={ () => updateIsUpload(false) }
+                         className={ classes.rightBtn + ' ' + classes.changeTypeBtn + ' ' + (!isUpload ? classes.selected : '') }>
+                        Request
+                    </div>
+                </div>
+
+                <form className={ classes.form } onSubmit={ async e => {
+                    e.preventDefault();
+                    const formData = new FormData(e.currentTarget);
+                    await uploadDataset(formData);
+                } }>
+                    <div className={ classes.rowContainer }>
+                        <label>
+                            <p>Enter the name for your Dataset</p>
+
+                            <input
+                                name={ 'name' }
+                                type="text"
+                                placeholder="XYZ Dataset..."
+                                className={ classes.nameContainer }
+                                required={ true }
+                            />
+                        </label>
+
+                        <label>
+                            <>
+                                <p>Datatype</p>
+
+                                <CustomSelect
+                                    required={ true }
+                                    name={ 'type' }
+                                    value={ datasetType ? {
+                                        label: capitalize(datasetType),
+                                        value: datasetType,
+                                    } : undefined }
+                                    onChange={ (newValue) => {
+                                        setDatasetType((newValue as { value: Flockfysh.AssetType }).value);
+                                    } }
+                                    classNames={
+                                        {
+                                            control: () => {
+                                                return classes.inputControl;
+                                            },
+                                            option: () => {
+                                                return classes.selectOption;
+                                            },
+                                            menu: () => {
+                                                return classes.selectMenu;
+                                            },
+                                        }
+                                    }
+                                    placeholder="Dataset Type"
+                                    options={ datasetTypeOptions }
+                                />
+                            </>
+                        </label>
+
+                        <label>
+                            {
+                                isUpload ? (
+                                    <>
+                                        <p>Tags</p>
+
+                                        <CustomCreatableSelect
+                                            name={ 'tags' }
+                                            isMulti={ true }
+                                            classNames={
+                                                {
+                                                    control: () => {
+                                                        return classes.createableSelectControl + ' ' + classes.inputControl;
+                                                    },
+                                                    menu: () => {
+                                                        return classes.selectMenu;
+                                                    },
+                                                }
+                                            }
+                                            placeholder="Tags"
+                                        />
+                                    </>
+                                ) : (
+                                    <>
+                                        <p>Minimum Number of Items</p>
+
+                                        { /* TODO: need to change the scroll. React select */ }
+                                        <input type="number" required={ true }/>
+                                    </>
+                                )
+                            }
+                        </label>
+
+                        {
+                            isUpload && (
+                                <label>
+                                    <p>Recipe</p>
+
+                                    <CustomSelect
+                                        name="recipe"
+                                        classNames={
+                                            {
+                                                control: () => {
+                                                    return classes.inputControl;
+                                                },
+                                                option: () => {
+                                                    return classes.selectOption;
+                                                },
+                                                menu: () => {
+                                                    return classes.selectMenu;
+                                                },
+                                            }
+                                        }
+                                        placeholder="Recipe"
+                                        options={
+                                            [{
+                                                value: null,
+                                                label: `Create recipe on the fly`,
+                                            }, ...recipes.map(
+                                                recipe => (
+                                                    {
+                                                        value: recipe._id,
+                                                        label: `${recipe.name} - ${recipe.labels.length} labels`,
+                                                    }
+                                                ),
+                                            )]
+                                        }
+                                    />
+                                </label>
+                            )
+                        }
+                    </div>
+
+                    <div className={ classes.rowContainer }>
+                        <label>
+                            {
+                                isUpload ? (
+                                    <>
+                                        <p>Short description of your dataset</p>
+
+                                        <textarea
+                                            name={ 'description' }
+                                            placeholder="What it contains, what it can be used for, where did the data come from ...."
+                                            required={ true }
+                                        />
+                                    </>
+                                ) : (
+                                    <>
+                                        <p>Instruction for dataset</p>
+
+                                        <textarea
+                                            name={ 'description' }
+                                            placeholder="Explain your use case, what kind of data you use. Please try to be specific as possible to ensure the highest quality of data."
+                                            required={ true }
+                                        />
+                                    </>
+                                )
+                            }
+                        </label>
+
+                        <label>
+                            {
+                                isUpload ? (
+                                    <p>Upload Dataset</p>
+                                ) : (
+                                    <p>Samples (Optional)</p>
+                                )
+                            }
+
+                            <FileUpload
+                                name={ 'files' }
+                                datasetType={ datasetType }
+                                uploadContainerClassName={ `${classes.uploadContainer}` }
+                            />
+                        </label>
+                    </div>
+
+                    <div className={ classes.rowContainer }>
+                        <label>
+                            {
+                                isUpload ? (
+                                    <p>Premium Dataset? (Optional)</p>
+                                ) : (
+                                    <p>Reward</p>
+                                )
+                            }
+
+                            <input required={ true } type="number" placeholder="Amount.."
+                                   name={ 'price' }/>
+                        </label>
+
+                        <label className={ classes.disablePointerEvents }>
+                            { /* TODO: Add info tooltip */ }
+                            <p>Visibility</p>
+
+                            <RadioButtons
+                                options={ [
+                                    {
+                                        label: 'Private',
+                                        value: false,
+                                    },
+                                    {
+                                        label: 'Public',
+                                        value: true,
+                                    },
+                                ] }
+                                name={ 'public' }
+                                initialValue={ false }
+                            />
+
+                        </label>
+
+                        { /*<label>*/ }
+                        { /*    {*/ }
+                        { /*        isUpload ? <p>Contributions?</p> : <p>Annotations</p>*/ }
+                        { /*    }*/ }
+
+                        { /*    <div className={ classes.changeType + ' ' + classes.labelChangeType }>*/ }
+
+                        { /*        <div*/ }
+                        { /*            className={ classes.leftBtn + ' ' + classes.changeTypeBtn + ' ' + ((isUpload ? newDatasetOptions.contributions : newDatasetOptions.annotations) ? classes.selected : '') }*/ }
+                        { /*            onClick={*/ }
+                        { /*                () => (*/ }
+                        { /*                    isUpload ? updateOptions(*/ }
+                        { /*                        {*/ }
+                        { /*                            ...newDatasetOptions,*/ }
+                        { /*                            contributions: true,*/ }
+                        { /*                        },*/ }
+                        { /*                    ) : updateOptions(*/ }
+                        { /*                        {*/ }
+                        { /*                            ...newDatasetOptions,*/ }
+                        { /*                            annotations: true,*/ }
+                        { /*                        },*/ }
+                        { /*                    )*/ }
+                        { /*                )*/ }
+                        { /*            }*/ }
+                        { /*        >*/ }
+                        { /*            Yes*/ }
+                        { /*        </div>*/ }
+
+                        { /*        <div*/ }
+                        { /*            className={ classes.rightBtn + ' ' + classes.changeTypeBtn + ' ' + (!(isUpload ? newDatasetOptions.contributions : newDatasetOptions.annotations) ? classes.selected : '') }*/ }
+                        { /*            onClick={*/ }
+                        { /*                () => (*/ }
+                        { /*                    isUpload ? updateOptions(*/ }
+                        { /*                        {*/ }
+                        { /*                            ...newDatasetOptions,*/ }
+                        { /*                            contributions: false,*/ }
+                        { /*                        },*/ }
+                        { /*                    ) : updateOptions(*/ }
+                        { /*                        {*/ }
+                        { /*                            ...newDatasetOptions,*/ }
+                        { /*                            annotations: false,*/ }
+                        { /*                        },*/ }
+                        { /*                    )*/ }
+                        { /*                )*/ }
+                        { /*            }*/ }
+                        { /*        >*/ }
+                        { /*            No*/ }
+                        { /*        </div>*/ }
+                        { /*    </div>*/ }
+                        { /*</label>*/ }
+
+                        <label>
+                            {
+                                isUpload ? (
+                                    <>
+                                        <p>License</p>
+
+                                        <CustomSelect
+                                            name="license"
+                                            classNames={
+                                                {
+                                                    control: () => {
+                                                        return classes.inputControl;
+                                                    },
+                                                    option: () => {
+                                                        return classes.selectOption;
+                                                    },
+                                                    menu: () => {
+                                                        return classes.selectMenu;
+                                                    },
+                                                }
+                                            }
+                                            placeholder="Item"
+                                            options={ licenseOptions }
+                                        />
+                                    </>
+                                ) : (
+                                    <>
+                                        <p>Deadline</p>
+
+                                        { /* TODO: need to change the icon color */ }
+                                        <input type="date" required={ true }/>
+                                    </>
+                                )
+                            }
+                        </label>
+                    </div>
+
+                    <div className={ classes.rowContainer }>
+                        <div className={ classes.checkBox }>
+                            <input checked={ isAgreed } required={ true } type="checkbox"
+                                   onChange={ (e) => updateAgreed(e.target.checked) }/>
+
+                            {
+                                isUpload ? (
+                                    <p>I have the rights to publish this media, and understand it will be shared in
+                                        the
+                                        data exchange.</p>
+                                ) : (
+                                    <p className={ classes.pLinkContainer }>
+                                        I agree to the flockfysh`&apos;s
+                                        <Link className={ classes.link } href="">Terms of Service</Link>
+                                        and
+                                        <Link className={ classes.link } href="">Privacy Policy</Link>
+                                    </p>
+                                )
+                            }
+                        </div>
+
+                        <button type="submit" className={ classes.submit } disabled={ !isAgreed }>
+                            {
+                                isUpload ? (
+                                    <>
+                                        <p>Save Dataset</p>
+
+                                        <ReactSVG src={ save.src }/>
+                                    </>
+                                ) : (
+                                    <>
+                                        <p>Request Dataset</p>
+
+                                        <ReactSVG src={ coinStack.src }/>
+                                    </>
+                                )
+                            }
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
+}

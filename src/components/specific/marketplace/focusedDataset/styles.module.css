@@ -1,0 +1,179 @@
+.headerContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    max-width: 1600px;
+    margin: 2rem auto;
+}
+
+.focusedDatasetSection {
+    aspect-ratio: 16/7;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.focusedDatasetBackground {
+    width: 100%;
+    position: absolute;
+    height: calc(100% + 6rem);
+    border-radius: 16px;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.focusedDatasetBackgroundImage {
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+.focusedDatasetBackground::after {
+    content: '';
+    display: block;
+    width: 100%;
+    position: absolute;
+    background: #0005;
+    height: 100%;
+    border-radius: 16px;
+    top: 0;
+    box-shadow: 0px 0px 0px 1px rgba(255, 255, 255, 0.2);
+    left: 0;
+}
+
+.profileCard {
+    position: relative;
+    z-index: 3;
+}
+
+.overlay {
+    width: 100%;
+    top: 0;
+    border-radius: 16px;
+    height: calc(100% + 6rem);
+    position: absolute;
+    z-index: 2;
+}
+
+.title {
+    font-weight: 600;
+    font-size: 4rem;
+    line-height: 4rem;
+    text-align: center;
+    width: 100%;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-self: flex-end;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+.leftContainer {
+    width: fit-content;
+    display: flex;
+    align-self: center;
+}
+
+.rightContainer {
+    align-self: center;
+    margin-right: 30px;
+}
+
+.datasetHeaderInfoCard {
+    height: fit-content;
+    padding-inline: 20px;
+    border-right: 2px solid rgba(255, 255, 255, 0.167);
+}
+
+.infoCardBottomContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.datasetHeaderInfoCard h2 {
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.25rem;
+}
+
+.infoCardBottomContainer p {
+    font-size: 1.5rem;
+    line-height: 32px;
+    font-weight: 600;
+}
+
+.profilePicContainer {
+    display: flex;
+    margin-left: 20px;
+}
+
+.profilePicContainer div {
+    align-self: center;
+    margin-right: -10px;
+    padding: 2px;
+    border-radius: 99px;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.profilePicContainer img {
+    width: 24px;
+    height: 24px;
+    border-radius: 9999px;
+}
+
+.featuredDatasetsContainer {
+    margin: 0 30px;
+    display: flex;
+    gap: 32px;
+    flex-direction: column;
+}
+
+.carousel :global(.slider-wrapper) {
+    overflow: visible;
+}
+
+.carousel :global(.carousel-slider) {
+    display: flex;
+    align-items: center;
+}
+
+.carousel :global(.carousel) {
+    overflow: visible;
+}
+
+.carousel :global(.carousel) :global(.slide):first-child,
+.carousel :global(.carousel) :global(.slide):last-child {
+    opacity: 0;
+    pointer-events: none;
+    cursor: default;
+}
+
+.wideCardContainer {
+    padding-inline: 16px;
+}
+
+.carousel :global(.carousel-slider) :global(.control-arrow) {
+    width: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    aspect-ratio: 1/1;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background: var(--main-grey);
+    opacity: 1;
+}
+
+.carousel :global(.carousel-slider) :global(.control-arrow):hover {
+    background: var(--secondary-background);
+}

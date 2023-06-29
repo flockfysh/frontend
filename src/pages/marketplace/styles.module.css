@@ -1,0 +1,56 @@
+.container {
+    margin: 20px;
+}
+
+.sectionContainer {
+    margin: 40px auto;
+    max-width: 1600px;
+}
+
+.header {
+    color: var(--primary1-100);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 40px;
+    align-self: center;
+}
+
+.headerContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.cardContainer {
+    margin: 0 80px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.howTo {
+    width: 1384px;
+    height: 598px;
+    background: #1e1e1e40;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25);
+    border-radius: 40px;
+    padding: 50px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.howToHeader {
+    text-align: center;
+    font-weight: bold;
+    font-size: 2.5rem;
+    line-height: 40px;
+
+    background: linear-gradient(90deg, #69eacb 0%, #eaccf8 48%, #6654f1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}

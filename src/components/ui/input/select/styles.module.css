@@ -1,0 +1,20 @@
+.menuList {
+    position: fixed;
+}
+
+.menu {
+    background: var(--main-grey);
+    border-radius: 8px;
+}
+
+.control {
+    background: var(--main-grey);
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    background-color: #141414;
+}
+
+.placeholder {
+    color: inherit;
+}
