@@ -33,7 +33,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--primary2-950);
+    color: var(--primary2-950) !important;
     font-size: 1rem;
     line-height: 1.25rem;
     gap: 8px;

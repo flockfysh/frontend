@@ -13,14 +13,14 @@ import plusCircle from '@/icons/main/plus-circle.svg';
 import classes from './styles.module.css';
 
 export default function MarketplaceNavbar() {
-    const [isModalOpen, updateModalOpen] = useState(true);
+    const [isModalOpen, updateModalOpen] = useState(false);
 
     return (
         <nav className={ classes.nav }>
             { isModalOpen && <CreateDatasetModal onClose={ () => updateModalOpen(false) } /> }
 
             <div className={ classes.subContainer + ' ' + classes.leftContainer }>
-                <Link className={ classes.logoContainer } href={ '/marketplace' }>
+                <Link className={ classes.logoContainer } href="/marketplace">
                     <ReactSVG src={ fish.src } />
 
                     <p>fDE</p>

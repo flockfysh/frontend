@@ -1,5 +1,9 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useContext } from 'react';
 import { ReactSVG } from 'react-svg';
+
+import Link from 'next/link';
+
+import { UserContext } from '@/contexts/userContext';
 
 import svg from '@/icons/main/plus-circle.svg';
 import github from '@/icons/main/github.svg';
@@ -11,14 +15,18 @@ import classes from './styles.module.css';
 
 type userInfo = {
     name: string;
-    userName: string;
+    username: string;
     description: string;
     followers: number;
     following: number;
     updateTab: (_: number) => void;
+    curTab: number;
+    profilePic: string;
 } & PropsWithChildren;
 
-const userInfo = (props: userInfo) => {
+export default function UserInfo(props: userInfo) {
+    const { user } = useContext(UserContext);
+
     return (
         <section>
             <img
@@ -30,7 +38,7 @@ const userInfo = (props: userInfo) => {
             <div className={ classes.profileDiv }>
                 <img
                     className={ classes.profilePic }
-                    src="https://images.unsplash.com/photo-1577565177023-d0f29c354b69?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGZhY2UlMjBzaG90fGVufDB8MXwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                    src={ props.profilePic }
                     alt="profile pic"
                 />
 
@@ -43,15 +51,19 @@ const userInfo = (props: userInfo) => {
                         <span className={ classes.span }>{ props.followers }</span> followers
                     </p>
 
-                    <button className={ classes.followButton }>
-                        Edit profile <ReactSVG className={ classes.followIcon } src={ svg.src } />
-                    </button>
+                    {
+                        user!.username === props.username && (
+                            <button className={ classes.followButton }>
+                                Edit profile <ReactSVG className={ classes.followIcon } src={ svg.src } />
+                            </button>
+                        )
+                    }
                 </div>
             </div>
 
             <h4 className={ classes.name }>{ props.name }</h4>
 
-            <h5 className={ classes.username }>@{ props.userName }</h5>
+            <h5 className={ classes.username }>@{ props.username }</h5>
 
             <div className={ classes.contentDiv }>
                 <div className={ classes.socioContentDiv }>
@@ -77,8 +89,12 @@ const userInfo = (props: userInfo) => {
                 </div>
 
                 <div className={ classes.followerDiv }>
+                    { /* TODO: When you click the span, show all followers you know */ }
                     <p className={ classes.followerText }>
-                        Followed by @ansh,@ray and 12 others you follow
+                        Followed by
+                        <Link className={ classes.followingLink } href="/profile/ansh">@ansh</Link>,
+                        <Link className={ classes.followingLink } href="/profile/ray">@ray</Link>
+                        , and <span className={ classes.span + ' ' + classes.seeAllFollowersSpan }>12</span> others you follow
                     </p>
 
                     <img
@@ -102,17 +118,35 @@ const userInfo = (props: userInfo) => {
 
                 <div className={ classes.finalDiv }>
                     <div className={ classes.navDiv }>
-                        <button className={ classes.navButton } onClick={ () => props.updateTab(0) }>
+                        <div
+                            className={
+                                `${ classes.navButton } ${ classes.firstButton } ${ props.curTab === 0 ? classes.active : '' }`
+                            }
+                            onClick={ () => props.updateTab(0) }
+                        >
                             Datasets
-                        </button>
+                        </div>
 
-                        <button className={ classes.navButton } onClick={ () => props.updateTab(1) }>
+                        <div
+                            className={
+                                `${ classes.navButton } ${ (user!.username === props.username ? '' : classes.lastButton) } ${ props.curTab === 1 ? classes.active : '' }`
+                            }
+                            onClick={ () => props.updateTab(1) }
+                        >
                             Activity
-                        </button>
-                        
-                        <button className={ classes.navButton } onClick={ () => props.updateTab(2) }>
-                            Settings
-                        </button>
+                        </div>
+
+                        {
+                            user!.username === props.username && (
+                            <div
+                                className={ 
+                                    `${ classes.navButton } ${ classes.lastButton } ${ props.curTab === 2 ? classes.active : '' }`
+                                }
+                                onClick={ () => props.updateTab(2) }
+                            >
+                                Settings
+                            </div>
+                          ) }
                     </div>
 
                     <div className={ classes.statsDiv }>
@@ -153,6 +187,4 @@ const userInfo = (props: userInfo) => {
             </div>
         </section>
     );
-};
-
-export default userInfo;
+}

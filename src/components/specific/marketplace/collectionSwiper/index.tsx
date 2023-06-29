@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import { Navigation } from 'swiper';
@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import VerticalCollectionCard from '@/components/specific/marketplace/datasetCards/verticalCollectionCard';
 
-import useForceUpdate from '@/helpers/useForceUpdate';
+// import useForceUpdate from '@/helpers/useForceUpdate';
 
 import prev from '@/icons/main/arrow-left.svg';
 import next from '@/icons/main/arrow-right.svg';
@@ -19,11 +19,11 @@ export default function CollectionSwiper(props: {
 }) {
     const previousRef = useRef<HTMLButtonElement | null>(null);
     const nextRef = useRef<HTMLButtonElement | null>(null);
-    const forceUpdate = useForceUpdate();
-
-    useEffect(() => {
-        forceUpdate();
-    }, [forceUpdate]);
+    // const forceUpdate = useForceUpdate();
+    
+    // useEffect(() => {
+    //     forceUpdate();
+    // }, []);
 
     return (
         <div className={ classes.swiperContainer }>

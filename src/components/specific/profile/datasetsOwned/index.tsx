@@ -10,6 +10,8 @@ import search from '@/icons/main/search.svg';
 
 import classes from './styles.module.css';
 
+// TODO: update with backend
+
 function DatasetsOwned() {
     const recievedData: HomepageDataset[] = Array.from({ length: 8 }, () => ({
         type: 'image',
@@ -62,7 +64,9 @@ function DatasetsOwned() {
         description: 'This is a random test dataset',
     }));
 
-    const [finalData, setfinalData] = useState(recievedData);
+    const [finalData, setFinalData] = useState(recievedData);
+    // 0=all, 1=owned, 2=bought
+    const [selectedFilter, updateSelectedFilter] = useState(0);
 
     return (
         <section className={ classes.mainDiv }>
@@ -76,7 +80,7 @@ function DatasetsOwned() {
 
                         <input
                             onChange={ (event) => {
-                                setfinalData(
+                                setFinalData(
                                     recievedData.filter((data) =>
                                         data.name
                                             .toLowerCase()
@@ -98,38 +102,46 @@ function DatasetsOwned() {
                     />
 
                     <div className={ classes.navDiv }>
-                        <button
-                            className={ classes.navButton }
-                            onClick={ () => setfinalData(recievedData) }
+                        <div
+                            className={ `${ classes.navButton } ${ selectedFilter === 0 && classes.active } ${ classes.firstButton }` }
+                            onClick={ () => {
+                                    setFinalData(recievedData);
+
+                                    updateSelectedFilter(0);
+                                } 
+                            }
                         >
                             All
-                        </button>
+                        </div>
 
-                        <button
-                            className={ classes.navButton }
+                        <div
+                            className={ `${ classes.navButton } ${ selectedFilter === 1 && classes.active }` }
                             onClick={ () => {
-                                // setfinalData(
+                                // setFinalData(
                                 //     recievedData.filter(
                                 //         (data) => data.owner === 'praks'
                                 //     )
                                 // );
+                                updateSelectedFilter(1);
                             } }
                         >
                             Owned
-                        </button>
+                        </div>
 
-                        <button
-                            className={ classes.navButton }
+                        <div
+                            className={ `${ classes.navButton } ${ selectedFilter === 2 && classes.active } ${ classes.lastButton }` }
                             onClick={ () => {
-                                // setfinalData(
+                                // setFinalData(
                                 //     recievedData.filter(
                                 //     (data) => data.owner !== 'praks'
                                 //     )
                                 // );
+
+                                updateSelectedFilter(2);
                             } }
                         >
                             Bought
-                        </button>
+                        </div>
                     </div>
                 </div>
 

@@ -31,9 +31,12 @@ export default function UserSettings(props: UserSettings) {
     const [github, setGithub] = useState('github.com');
     const [linkedin, setLinkedin] = useState('linkedin.com');
     const [website, setWebsite] = useState('test.com');
-    const [email, setEmail] = useState('trial@test.com');
+    const [email, setEmail] = useState(props.email);
     const [password, setPassword] = useState('');
     const [apiKey, setApiKey] = useState(props.apiKey);
+
+    // 0=general, 1=billing, 2=connections
+    const [filter, updateFilter] = useState(0);
 
     return (
         <section className={ classes.containDiv }>
@@ -41,9 +44,26 @@ export default function UserSettings(props: UserSettings) {
                 <h3 className={ classes.heading }>General Settings</h3>
 
                 <div className={ classes.navDiv }>
-                    <button className={ classes.navButton }>General</button>
-                    <button className={ classes.navButton }>Billing</button>
-                    <button className={ classes.navButton }>Connections</button>
+                    <div
+                        className={ `${ classes.navButton } ${ (filter === 0 && classes.active) } ${ classes.firstButton }` }
+                        onClick={ () => updateFilter(0) }
+                    >
+                        General
+                    </div>
+                    
+                    <div
+                        className={ `${ classes.navButton } ${ (filter === 1 && classes.active) }` }
+                        onClick={ () => updateFilter(1) }
+                    >
+                        Billing
+                    </div>
+                    
+                    <div
+                        className={ `${ classes.navButton } ${ (filter === 2 && classes.active) } ${ classes.lastButton }` }
+                        onClick={ () => updateFilter(2) }
+                    >
+                        Connections
+                    </div>
                 </div>
             </div>
 
@@ -76,6 +96,7 @@ export default function UserSettings(props: UserSettings) {
                         <div className={ classes.api }>
                             <p className={ classes.apiKey }>
                                 { apiKey }
+
                                 <button
                                     className={ classes.iconButton }
                                     onClick={ () => {
@@ -130,15 +151,6 @@ export default function UserSettings(props: UserSettings) {
                             <button className={ classes.button }>
                                 Save <ReactSVG src={ save.src } className={ classes.icons } />
                             </button>
-                        </div>
-                    </div>
-
-                    <div className={ classes.infoContainerDiv }>
-                        <h4 className={ classes.subheading }>Your email address</h4>
-
-                        <div className={ classes.navDiv }>
-                            <button className={ classes.navButton }>Yes</button>
-                            <button className={ classes.navButton }>No</button>
                         </div>
                     </div>
                 </div>

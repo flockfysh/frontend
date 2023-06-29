@@ -41,6 +41,7 @@
 }
 
 .searchContainer {
+    cursor: text;
     border-radius: 8px;
     max-width: 30rem;
     width: 100%;
@@ -79,6 +80,7 @@
 
 .search:focus::placeholder {
     color: inherit;
+    opacity: 0.8;
 }
 
 .leftIcon {

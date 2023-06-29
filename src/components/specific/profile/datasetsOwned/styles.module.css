@@ -90,36 +90,36 @@
     color: var(--primary1-300);
 }
 
+.navDiv {
+    display: flex;
+    width: fit-content;
+    align-items: center;
+}
+
 .navButton {
-    background-color: transparent;
     font-size: 1rem;
     font-weight: 700;
+    padding: 15px 20px;
+    transition: 0.2s;
+    color: var(--white);
+    background: none;
+    border: 2px solid var(--grey);
 }
-.navButton:nth-child(2) {
-    border-left: 1px solid;
-    border-right: 1px solid;
-    padding: 0.7rem 0.85rem;
-}
-.navButton:nth-child(1) {
-    padding: 0 0.85rem;
-    border-radius: 20px 0 0 20px;
-}
-.navButton:nth-child(3) {
-    padding: 0 0.85rem;
-    border-radius: 0 20px 20px 0;
-}
+
 .navButton:hover {
     background-color: var(--white-transparent);
 }
-.navButton:focus {
-    background-color: var(--white-transparent);
+
+.active {
+    background: var(--grey);
 }
 
-.navDiv {
-    display: flex;
-    border: 1px solid;
-    border-radius: 20px;
-    width: fit-content;
+.firstButton {
+    border-radius: 10px 0 0 10px;    
+}
+
+.lastButton {
+    border-radius: 0 10px 10px 0;
 }
 
 .cardDiv {

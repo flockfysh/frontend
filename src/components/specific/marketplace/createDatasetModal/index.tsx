@@ -22,7 +22,6 @@ const datasetTypeOptions = [
     { value: 'video', label: 'Video' },
 ];
 
-
 // ! Look at this
 const licenseOptions = [
     { value: 'image', label: 'Images' },

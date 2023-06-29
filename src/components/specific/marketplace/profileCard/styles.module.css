@@ -9,6 +9,11 @@
     gap: 8px;
     cursor: pointer;
     transition: 0.2s;
+    color: var(--white);
+}
+
+.profileContainer p {
+    font-size: 1rem;
 }
 
 .profileContainer:hover {
