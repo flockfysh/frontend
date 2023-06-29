@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import classes from './styles.module.css';
 
-export default function Contributions(dataset: PreviewDataset){
+export default function ContributionDetails(dataset: PreviewDataset){
 
     const router = useRouter();
     const [contributions, setContributions] = useState<Flockfysh.PullRequest[] | null>(null);
