@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { ReactSVG } from 'react-svg';
 
-import { v4 } from 'uuid';
-import { fakerEN } from '@faker-js/faker';
+import { UserContext } from '@/contexts/userContext';
 
 import VerticalCard from '@/components/specific/marketplace/datasetCards/verticalCard';
+
+import api from '@/helpers/api';
 
 import search from '@/icons/main/search.svg';
 
@@ -13,58 +14,32 @@ import classes from './styles.module.css';
 // TODO: update with backend
 
 function DatasetsOwned() {
-    const recievedData: HomepageDataset[] = Array.from({ length: 8 }, () => ({
-        type: 'image',
-        likes: 50,
-        assetCounts: {
-            total: 450,
-            byStage: {
-                feedback: 0,
-                completed: 400,
-                uploaded: 50,
-            },
-            byAnnotationStatus: {
-                annotated: 450,
-                unannotated: 0,
-            },
-            byMimetype: {}
-        },
-        metrics: {
-            downloads: 0,
-            views: 0,
-        },
-        size: {
-            total: {
-                total: Math.random() * 5 * 1024 ** 3,
-                cloud: 1024 ** 3,
-                cluster: 1024 ** 3,
-            },
-            byStage: {
-                uploaded: 0.5 * 1024 ** 2,
-                feedback: 0,
-                completed: 4 * 1024 ** 2,
-            },
-        },
-        user: {
-            username: 'praks',
-            _id: '24159335',
-            fullName: 'Prakriti Bista',
-            firstName: 'Prakriti',
-            email: 'praks@gmail.com',
-            lastName: 'Bista',
-        },
-        createdAt: new Date(),
-        _id: v4(),
-        name: fakerEN.animal.type(),
-        subTags: [],
-        tags: [],
-        updatedAt: new Date(),
-        public: true,
-        price: 2.84448,
-        description: 'This is a random test dataset',
-    }));
+    const { user } = useContext(UserContext);
 
-    const [finalData, setFinalData] = useState(recievedData);
+    const [datasets, updateDatasets] = useState([] as HomepageDataset[]);
+
+    useEffect(
+        () => {
+            (async function() {
+                const res = await api.get('/api/datasets/search',
+                    {
+                        params: {
+                            public: true,
+                            sort: 'metrics.views',
+                            expand: 'assetCounts,size,likes,user,thumbnail,url',
+                            ascending: false,
+                            limit: 8,
+                        },
+                    }
+                );
+
+                updateDatasets(
+                    res.data.data
+                );
+            })();
+        }
+    , []);
+
     // 0=all, 1=owned, 2=bought
     const [selectedFilter, updateSelectedFilter] = useState(0);
 
@@ -80,8 +55,8 @@ function DatasetsOwned() {
 
                         <input
                             onChange={ (event) => {
-                                setFinalData(
-                                    recievedData.filter((data) =>
+                                updateDatasets(
+                                    datasets.filter((data) =>
                                         data.name
                                             .toLowerCase()
                                             .includes(
@@ -105,7 +80,7 @@ function DatasetsOwned() {
                         <div
                             className={ `${ classes.navButton } ${ selectedFilter === 0 && classes.active } ${ classes.firstButton }` }
                             onClick={ () => {
-                                    setFinalData(recievedData);
+                                    updateDatasets(datasets);
 
                                     updateSelectedFilter(0);
                                 } 
@@ -117,11 +92,12 @@ function DatasetsOwned() {
                         <div
                             className={ `${ classes.navButton } ${ selectedFilter === 1 && classes.active }` }
                             onClick={ () => {
-                                // setFinalData(
-                                //     recievedData.filter(
-                                //         (data) => data.owner === 'praks'
+                                // updateDatasets(
+                                //     datasets.filter(
+                                //         (data) => user!.username === data.user.username
                                 //     )
                                 // );
+
                                 updateSelectedFilter(1);
                             } }
                         >
@@ -145,7 +121,7 @@ function DatasetsOwned() {
                     </div>
                 </div>
 
-                { finalData.map((value) => {
+                { datasets.map((value) => {
                     return (
                         <VerticalCard { ...value } key={ value._id } />
                     );

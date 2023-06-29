@@ -14,7 +14,6 @@ import clock from '@/icons/main/clock.svg';
 
 import classes from './styles.module.css';
 
-
 export default function VerticalCard(props: HomepageDataset) {
     return (
         <div className={ classes.container }>
