@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { ReactSVG } from 'react-svg';
 import VerticalCard from '@/components/specific/marketplace/datasetCards/verticalCard';
 import search from '@/icons/main/search.svg';
@@ -13,7 +13,7 @@ function DatasetsOwned(props: {
 }) {
     type FilterType = 'owned' | 'shared';
 
-    const { user } = React.useContext(UserContext);
+    const { user } = useContext(UserContext);
     const [query, setQuery] = useState('');
     const [filterType, setFilterType] = useState<FilterType>('owned');
     const isCurrentUser = user?._id === props.user._id;

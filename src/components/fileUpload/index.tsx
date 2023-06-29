@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react';
+import { forwardRef, useState, useId, useRef, useEffect } from 'react';
 
 import classes from './styles.module.css';
 import { typeMapping } from '@/helpers/assets/upload';
@@ -11,12 +11,12 @@ type FileUploadProps = {
 }
 
 const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>(function FileUpload(props: FileUploadProps, _ref) {
-    const id = React.useId();
+    const id = useId();
     const mapping = props.datasetType ? typeMapping[props.datasetType] : undefined;
-    const internalRef = React.useRef<HTMLInputElement | null>(null);
+    const internalRef = useRef<HTMLInputElement | null>(null);
     const [fileCount, setFileCount] = useState(0);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (internalRef.current) {
             internalRef.current.value = '';
             setFileCount(internalRef.current?.files?.length ?? 0);

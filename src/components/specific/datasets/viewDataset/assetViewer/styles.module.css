@@ -87,13 +87,13 @@
     align-items: center;
     flex-direction: row;
     padding: 1.25rem 0.813rem;
-    border: 1px solid #333c42; /* TODO which color ? */
+    border: 1px solid #333c42;
     border-radius: 8px;
 }
 
 .bodyWrapper {
     width: 100%;
-    border: 1px solid #333c42; /* TODO which color ? */
+    border: 1px solid #333c42;
     border-radius: 8px;
     overflow-y: auto;
 }

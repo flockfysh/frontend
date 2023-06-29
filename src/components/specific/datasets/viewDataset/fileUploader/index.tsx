@@ -6,7 +6,7 @@ import { typeMapping, uploadAssets } from '@/helpers/assets/upload';
 
 export interface FileUploaderProps {
     datasetId: string;
-    datasetType: string;
+    datasetType: Flockfysh.AssetType;
 }
 
 export default function FileUploader(props: FileUploaderProps) {

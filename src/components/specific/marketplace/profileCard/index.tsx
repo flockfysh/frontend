@@ -8,7 +8,6 @@ type ProfileCardProps = {
 }
 
 export default function ProfileCard(props: ProfileCardProps) {
-    // TODO: fix link
     return (
         <Link
             href={ `/profile/${props.username}` }

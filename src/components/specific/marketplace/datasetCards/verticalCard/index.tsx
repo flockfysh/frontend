@@ -14,7 +14,6 @@ import clock from '@/icons/main/clock.svg';
 
 import classes from './styles.module.css';
 
-
 export default function VerticalCard(props: HomepageDataset & {
     className?: string;
 }) {
@@ -56,14 +55,14 @@ export default function VerticalCard(props: HomepageDataset & {
 
                 <div className={ classes.footer }>
                     <div className={ classes.footerCardContainer + (props.price > 0 ? ' ' + classes.paidShrink : '') }>
-                        <h1>{ props.assetCounts.total }</h1>
-
                         <p>Items</p>
+
+                        <h1>{ props.assetCounts.total }</h1>
                     </div>
 
                     <div className={ classes.footerCardContainer + (props.price > 0 ? ' ' + classes.paidShrink : '') }>
-                        <h1>{ formatFileSize(props.size.total.total) }</h1>
                         <p className={ classes.size }>Size</p>
+                        <h1>{ formatFileSize(props.size.total.total) }</h1>
                     </div>
                 </div>
             </div>

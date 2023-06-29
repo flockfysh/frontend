@@ -23,7 +23,7 @@ export default function HowToCards() {
                 <ReactSVG className={ classes.headerIcon + ' ' + classes.noBorder } src={ upload.src } />
             
                 <div className={ classes.cardBase }>
-                    <h1>Create an account</h1>
+                    <h1>Upload & Request Datasets</h1>
 
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,molestiae quas vel sint commodi repudiandae consequuntur .</p>
                 </div>
@@ -34,7 +34,7 @@ export default function HowToCards() {
                 <ReactSVG className={ classes.headerIcon + ' ' + classes.noBorder } src={ users.src } />
             
                 <div className={ classes.cardBase }>
-                    <h1>Create an account</h1>
+                    <h1>Collaborate</h1>
 
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,molestiae quas vel sint commodi repudiandae consequuntur .</p>
                 </div>

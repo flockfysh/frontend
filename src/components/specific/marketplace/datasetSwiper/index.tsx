@@ -5,10 +5,10 @@ import { useRef, useEffect } from 'react';
 import { ReactSVG } from 'react-svg';
 import VerticalCard from '@/components/specific/marketplace/datasetCards/verticalCard';
 import WideFocusedCard from '@/components/specific/marketplace/datasetCards/wideFocusedCard';
-import useForceUpdate from '@/helpers/useForceUpdate';
 import prev from '@/icons/main/arrow-left.svg';
 import next from '@/icons/main/arrow-right.svg';
 import classes from './styles.module.css';
+import useForceUpdate from '@/helpers/useForceUpdate';
 
 export default function DatasetSwiper(props: {
     datasets: HomepageDataset[],

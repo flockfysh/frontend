@@ -62,6 +62,23 @@ declare global {
                 assetId: string;
             };
         }
+        interface PullRequest{
+            _id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+            user: string;
+            dataset: string;
+            status: string;
+        }
+
+        interface PullRequestMessage{
+            message: string;
+            createdAt: string;
+            updatedAt: string;
+            user: string;
+            pullRequest: string;
+        }
 
         interface PopulatedDataset extends Dataset {
             size: Flockfysh.DatasetSize;

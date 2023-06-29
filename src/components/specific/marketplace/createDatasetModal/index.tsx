@@ -1,19 +1,18 @@
-import { useState } from 'react';
+import { useState, useRef, useContext, useEffect } from 'react';
 import { ReactSVG } from 'react-svg';
-
 import Link from 'next/link';
-
 import CustomSelect, { CustomCreatableSelect } from '@/components/ui/input/select';
 import FileUpload from '@/components/fileUpload';
-
+import { ErrorContext } from '@/contexts/errorContext';
+import api from '@/helpers/api';
 import xmark from '@/icons/xmark.svg';
 import save from '@/icons/main/save.svg';
 import coinStack from '@/icons/main/coin-stack.svg';
-
 import classes from './styles.module.css';
 import { capitalize } from '@/helpers/strings';
 import RadioButtons from '@/components/ui/input/radioButtons';
-import api from '@/helpers/api';
+import AsyncArray from '@/helpers/async';
+import { typeMapping } from '@/helpers/assets/upload';
 
 type CreateDatasetModalProps = {
     onClose: () => void;
@@ -34,28 +33,83 @@ const licenseOptions = [
 ];
 
 async function uploadDataset(formData: FormData) {
+    const name = formData.get('name');
+    let recipe = formData.get('recipe');
+    const type = formData.get('type');
+    if (!recipe) {
+        const newRecipe = await api.post<Api.Response<Flockfysh.Recipe>>('/api/recipes', {
+            name: name,
+        }).then(res => res.data);
+        recipe = newRecipe.data._id;
+    }
     const createData = {
-        name: formData.get('name'),
-        type: formData.get('type'),
+        name: name,
+        recipe: recipe,
+        type: type,
         tags: formData.getAll('tags'),
         description: formData.get('description'),
         price: +(formData.get('price') ?? 0),
         public: JSON.parse(formData.get('public') as string),
     };
-    // console.log(formData.getAll('files'));
-    const newDataset = await api.post<Api.Response<Flockfysh.Dataset>>('/api/datasets', createData).then(res => res.data);
+    const newDataset = await api.post<Api.Response<Flockfysh.Dataset>>('/api/datasets', createData).then(res => res.data.data);
+    const files = (formData.getAll('files').filter(file => {
+        if (file instanceof File && file.size > 0) {
+            return true;
+        }
+    })) as File[];
+
+    const config = typeMapping[formData.get('type') as Flockfysh.AssetType];
+
+    async function upload(file: File) {
+        try {
+            const fd = new FormData();
+            fd.set(config.fieldName, file);
+            await api.post(`/api/datasets/${newDataset._id}/assets/upload/${config.endpoint}`, fd);
+        }
+ catch (e) {
+        }
+    }
+
+    await new AsyncArray(files).chunkMap(file => upload(file), undefined, {
+        maxThreads: 20,
+    });
     // const id = newDataset.data._id;
 }
 
 export default function CreateDatasetModal(props: CreateDatasetModalProps) {
+    const [datasetType, setDatasetType] = useState<Flockfysh.AssetType | undefined>(undefined);
+    const [recipes, setRecipes] = useState<Flockfysh.RecipeWithLabels[]>([]);
+    const [isAgreed, updateAgreed] = useState(false);
+
+    useEffect(() => {
+        async function load() {
+            const recipes = (await api.get<Api.Response<Flockfysh.RecipeWithLabels[]>>('/api/recipes/search', {
+                params: {
+                    name: undefined,
+                    expand: 'labels',
+                },
+            })).data.data;
+
+            setRecipes(recipes);
+        }
+
+        load().then();
+    }, []);
+
     const [isUpload, updateIsUpload] = useState(true);
     const [newDatasetOptions, updateOptions] = useState({
         private: false,
         contributions: true,
         annotations: true,
     });
-    const [datasetType, setDatasetType] = useState<Flockfysh.AssetType | undefined>(undefined);
+    // TODO: recipe select
 
+    // TODO: Is this implemented?
+    async function requestDataset() {
+
+    }
+
+    // TODO: need to fix modal w/ file uplaods
     return (
         <div
             className={ `${classes.overlay} ${classes.blurBg}` }
@@ -91,25 +145,88 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                         <label>
                             <p>Enter the name for your Dataset</p>
 
-                            <input name={ 'name' } type="text" placeholder="XYZ Dataset..."
-                                   className={ classes.nameContainer }/>
+                            <input
+                                name={ 'name' }
+                                type="text"
+                                placeholder="XYZ Dataset..."
+                                className={ classes.nameContainer }
+                                required={ true }
+                            />
                         </label>
 
-                        <div className={ classes.firstRowSecondHalfContainer }>
-                            <label>
-                                <>
-                                    <p>Datatype</p>
+                        <label>
+                            <>
+                                <p>Datatype</p>
+
+                                <CustomSelect
+                                    required={ true }
+                                    name={ 'type' }
+                                    value={ datasetType ? {
+                                        label: capitalize(datasetType),
+                                        value: datasetType,
+                                    } : undefined }
+                                    onChange={ (newValue) => {
+                                        setDatasetType((newValue as { value: Flockfysh.AssetType }).value);
+                                    } }
+                                    classNames={
+                                        {
+                                            control: () => {
+                                                return classes.inputControl;
+                                            },
+                                            option: () => {
+                                                return classes.selectOption;
+                                            },
+                                            menu: () => {
+                                                return classes.selectMenu;
+                                            },
+                                        }
+                                    }
+                                    placeholder="Dataset Type"
+                                    options={ datasetTypeOptions }
+                                />
+                            </>
+                        </label>
+
+                        <label>
+                            {
+                                isUpload ? (
+                                    <>
+                                        <p>Tags</p>
+
+                                        <CustomCreatableSelect
+                                            name={ 'tags' }
+                                            isMulti={ true }
+                                            classNames={
+                                                {
+                                                    control: () => {
+                                                        return classes.createableSelectControl + ' ' + classes.inputControl;
+                                                    },
+                                                    menu: () => {
+                                                        return classes.selectMenu;
+                                                    },
+                                                }
+                                            }
+                                            placeholder="Tags"
+                                        />
+                                    </>
+                                ) : (
+                                    <>
+                                        <p>Minimum Number of Items</p>
+
+                                        { /* TODO: need to change the scroll. React select */ }
+                                        <input type="number" required={ true }/>
+                                    </>
+                                )
+                            }
+                        </label>
+
+                        {
+                            isUpload && (
+                                <label>
+                                    <p>Recipe</p>
 
                                     <CustomSelect
-                                        required={ true }
-                                        name={ 'type' }
-                                        value={ datasetType ? {
-                                            label: capitalize(datasetType),
-                                            value: datasetType,
-                                        } : undefined }
-                                        onChange={ (newValue) => {
-                                            setDatasetType((newValue as { value: Flockfysh.AssetType }).value);
-                                        } }
+                                        name="recipe"
                                         classNames={
                                             {
                                                 control: () => {
@@ -118,44 +235,29 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                                 option: () => {
                                                     return classes.selectOption;
                                                 },
+                                                menu: () => {
+                                                    return classes.selectMenu;
+                                                },
                                             }
                                         }
-                                        placeholder="Dataset Type"
-                                        options={ datasetTypeOptions }
-                                    />
-                                </>
-                            </label>
-
-                            <label>
-                                {
-                                    isUpload ? (
-                                        <>
-                                            <p>Tags</p>
-
-                                            <CustomCreatableSelect
-                                                name={ 'tags' }
-                                                isMulti={ true }
-                                                classNames={
+                                        placeholder="Recipe"
+                                        options={
+                                            [{
+                                                value: null,
+                                                label: `Create recipe on the fly`,
+                                            }, ...recipes.map(
+                                                recipe => (
                                                     {
-                                                        control: () => {
-                                                            return classes.createableSelectControl + ' ' + classes.inputControl;
-                                                        },
+                                                        value: recipe._id,
+                                                        label: `${recipe.name} - ${recipe.labels.length} labels`,
                                                     }
-                                                }
-                                                placeholder="Tags"
-                                            />
-                                        </>
-                                    ) : (
-                                        <>
-                                            <p>Minimum Number of Items</p>
-
-                                            { /* TODO: need to change the scroll. React select */ }
-                                            <input type="number"/>
-                                        </>
-                                    )
-                                }
-                            </label>
-                        </div>
+                                                ),
+                                            )]
+                                        }
+                                    />
+                                </label>
+                            )
+                        }
                     </div>
 
                     <div className={ classes.rowContainer }>
@@ -168,6 +270,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                         <textarea
                                             name={ 'description' }
                                             placeholder="What it contains, what it can be used for, where did the data come from ...."
+                                            required={ true }
                                         />
                                     </>
                                 ) : (
@@ -177,6 +280,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                         <textarea
                                             name={ 'description' }
                                             placeholder="Explain your use case, what kind of data you use. Please try to be specific as possible to ensure the highest quality of data."
+                                            required={ true }
                                         />
                                     </>
                                 )
@@ -210,7 +314,8 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                 )
                             }
 
-                            <input type="number" placeholder="Amount.." name={ 'price' }/>
+                            <input required={ true } type="number" placeholder="Amount.."
+                                   name={ 'price' }/>
                         </label>
 
                         <label className={ classes.disablePointerEvents }>
@@ -234,55 +339,56 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
 
                         </label>
 
-                        <label>
-                            {
-                                isUpload ? <p>Contributions?</p> : <p>Annotations</p>
-                            }
+                        { /*<label>*/ }
+                        { /*    {*/ }
+                        { /*        isUpload ? <p>Contributions?</p> : <p>Annotations</p>*/ }
+                        { /*    }*/ }
 
-                            <div className={ classes.changeType + ' ' + classes.labelChangeType }>
-                                <div
-                                    className={ classes.leftBtn + ' ' + classes.changeTypeBtn + ' ' + ((isUpload ? newDatasetOptions.contributions : newDatasetOptions.annotations) ? classes.selected : '') }
-                                    onClick={
-                                        () => (
-                                            isUpload ? updateOptions(
-                                                {
-                                                    ...newDatasetOptions,
-                                                    contributions: true,
-                                                },
-                                            ) : updateOptions(
-                                                {
-                                                    ...newDatasetOptions,
-                                                    annotations: true,
-                                                },
-                                            )
-                                        )
-                                    }
-                                >
-                                    Yes
-                                </div>
+                        { /*    <div className={ classes.changeType + ' ' + classes.labelChangeType }>*/ }
 
-                                <div
-                                    className={ classes.rightBtn + ' ' + classes.changeTypeBtn + ' ' + (!(isUpload ? newDatasetOptions.contributions : newDatasetOptions.annotations) ? classes.selected : '') }
-                                    onClick={
-                                        () => (
-                                            isUpload ? updateOptions(
-                                                {
-                                                    ...newDatasetOptions,
-                                                    contributions: false,
-                                                },
-                                            ) : updateOptions(
-                                                {
-                                                    ...newDatasetOptions,
-                                                    annotations: false,
-                                                },
-                                            )
-                                        )
-                                    }
-                                >
-                                    No
-                                </div>
-                            </div>
-                        </label>
+                        { /*        <div*/ }
+                        { /*            className={ classes.leftBtn + ' ' + classes.changeTypeBtn + ' ' + ((isUpload ? newDatasetOptions.contributions : newDatasetOptions.annotations) ? classes.selected : '') }*/ }
+                        { /*            onClick={*/ }
+                        { /*                () => (*/ }
+                        { /*                    isUpload ? updateOptions(*/ }
+                        { /*                        {*/ }
+                        { /*                            ...newDatasetOptions,*/ }
+                        { /*                            contributions: true,*/ }
+                        { /*                        },*/ }
+                        { /*                    ) : updateOptions(*/ }
+                        { /*                        {*/ }
+                        { /*                            ...newDatasetOptions,*/ }
+                        { /*                            annotations: true,*/ }
+                        { /*                        },*/ }
+                        { /*                    )*/ }
+                        { /*                )*/ }
+                        { /*            }*/ }
+                        { /*        >*/ }
+                        { /*            Yes*/ }
+                        { /*        </div>*/ }
+
+                        { /*        <div*/ }
+                        { /*            className={ classes.rightBtn + ' ' + classes.changeTypeBtn + ' ' + (!(isUpload ? newDatasetOptions.contributions : newDatasetOptions.annotations) ? classes.selected : '') }*/ }
+                        { /*            onClick={*/ }
+                        { /*                () => (*/ }
+                        { /*                    isUpload ? updateOptions(*/ }
+                        { /*                        {*/ }
+                        { /*                            ...newDatasetOptions,*/ }
+                        { /*                            contributions: false,*/ }
+                        { /*                        },*/ }
+                        { /*                    ) : updateOptions(*/ }
+                        { /*                        {*/ }
+                        { /*                            ...newDatasetOptions,*/ }
+                        { /*                            annotations: false,*/ }
+                        { /*                        },*/ }
+                        { /*                    )*/ }
+                        { /*                )*/ }
+                        { /*            }*/ }
+                        { /*        >*/ }
+                        { /*            No*/ }
+                        { /*        </div>*/ }
+                        { /*    </div>*/ }
+                        { /*</label>*/ }
 
                         <label>
                             {
@@ -291,8 +397,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                         <p>License</p>
 
                                         <CustomSelect
-                                            required={ true }
-                                            name="type"
+                                            name="license"
                                             classNames={
                                                 {
                                                     control: () => {
@@ -300,6 +405,9 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                                     },
                                                     option: () => {
                                                         return classes.selectOption;
+                                                    },
+                                                    menu: () => {
+                                                        return classes.selectMenu;
                                                     },
                                                 }
                                             }
@@ -312,7 +420,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                         <p>Deadline</p>
 
                                         { /* TODO: need to change the icon color */ }
-                                        <input type="date"/>
+                                        <input type="date" required={ true }/>
                                     </>
                                 )
                             }
@@ -321,11 +429,13 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
 
                     <div className={ classes.rowContainer }>
                         <div className={ classes.checkBox }>
-                            <input type="checkbox"/>
+                            <input checked={ isAgreed } required={ true } type="checkbox"
+                                   onChange={ (e) => updateAgreed(e.target.checked) }/>
 
                             {
                                 isUpload ? (
-                                    <p>I have the rights to publish this media, and understand it will be shared in the
+                                    <p>I have the rights to publish this media, and understand it will be shared in
+                                        the
                                         data exchange.</p>
                                 ) : (
                                     <p className={ classes.pLinkContainer }>
@@ -338,7 +448,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                             }
                         </div>
 
-                        <button className={ classes.submit }>
+                        <button type="submit" className={ classes.submit } disabled={ !isAgreed }>
                             {
                                 isUpload ? (
                                     <>
