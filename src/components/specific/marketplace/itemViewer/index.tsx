@@ -135,13 +135,14 @@ export default function ItemViewer(dataset: PreviewDataset) {
                         </div>
 
                         <div>
-                            <p className={ classes.infoBoxSubtitle }>
+                            <div className={ classes.infoBoxSubtitle }>
                                 <ReactSVG
                                     className={ classes.infoBoxSubtitleIcon }
                                     src={ database.src }
                                 />
+
                                 { dataset.assetCounts.total } Files
-                            </p>
+                            </div>
 
                             { Object.entries(dataset.assetCounts.byMimetype).map(([mimetype, count]) => {
                                 return (
@@ -167,7 +168,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
                                 </div>
 
                                 <div>
-                                    <span>5760 x 3840</span>
+                                    <span className={ classes.infoWhite }>5760 x 3840</span>
                                 </div>
                             </div>
                             
@@ -177,7 +178,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
                                 </div>
 
                                 <div>
-                                    <span>ABCDELKLJK.jpeg</span>
+                                    <span className={ classes.infoWhite }>ABCDELKLJK.jpeg</span>
                                 </div>
                             </div>
 
@@ -187,7 +188,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
                                 </div>
 
                                 <div>
-                                    <span>image/jpeg</span>
+                                    <span className={ classes.infoWhite }>image/jpeg</span>
                                 </div>
                             </div>
                             
@@ -197,7 +198,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
                                 </div>
 
                                 <div>
-                                    <span>@user</span>
+                                    <span className={ classes.infoWhite }>@user</span>
                                 </div>
                             </div>
 
@@ -207,7 +208,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
                                 </div>
 
                                 <div>
-                                    <span>8 Bit</span>
+                                    <span className={ classes.infoWhite }>8 Bit</span>
                                 </div>
                             </div>
 
@@ -217,7 +218,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
                                 </div>
                             
                                 <div>
-                                    <span>2.63 MB</span>
+                                    <span className={ classes.infoWhite }>2.63 MB</span>
                                 </div>
                             </div>
                         </div>

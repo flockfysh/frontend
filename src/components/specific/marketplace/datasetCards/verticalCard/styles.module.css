@@ -14,6 +14,10 @@
     transition: 0.2s;
 }
 
+.container:hover {
+    opacity: 0.8;
+}
+
 .contentContainer {
     display: flex;
     flex-direction: column;
@@ -52,8 +56,7 @@
 .timeContainer {
     display: flex;
     gap: 5px;
-    color: var(--primary1-100);
-    font-size: 0.75rem;
+    color: var(--background);
     align-items: center;
     position: absolute;
     transform: translateY(-125%) translateX(-35%);
@@ -61,12 +64,13 @@
 }
 
 .timeContainer p {
+    font-size: 0.75rem;
     font-weight: 400;
     line-height: 24px;
 }
 
 .clockIcon path {
-    stroke: var(--primary1-100) !important;
+    stroke: var(--background) !important;
 }
 
 .middleSection {

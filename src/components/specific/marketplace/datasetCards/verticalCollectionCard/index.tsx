@@ -13,7 +13,7 @@ export default function VerticalCollectionCard(props: HomepageCollection) {
                 alt="Thumbnail"
                 className={ classes.thumbnail }
             />
-            
+
             <div className={ classes.contentContainer }>
                 <div className={ classes.header }>
                     <img src={ props.icon?.url } alt="Avatar" />
@@ -28,7 +28,7 @@ export default function VerticalCollectionCard(props: HomepageCollection) {
                         <ProfileCard
                             className={ classes.profileCard }
                             username={ props.user.username }
-                            profilePicture={ props.user.profilePhoto ?? '' }
+                            profilePicture={ props.user.profilePhoto?.url ?? '' }
                         />
                     </div>
                 </div>

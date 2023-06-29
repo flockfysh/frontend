@@ -28,13 +28,14 @@ import ContributionList from '@/components/specific/marketplace/contributionList
 const VIEW_STATES = {
     items: 'items',
     activity: 'activity',
-    discussions: 'discussions',
     contributions: 'contributions',
+    discussions: 'discussions',
     settings: 'settings',
 };
 
 const Marketplace: NextPageWithLayout = function () {
     const router = useRouter();
+    
     const [dataset, setDataset] = useState<PreviewDataset | undefined>();
     const [contentView, setContentView] = useState(VIEW_STATES.items);
     const { downloadDataset } = useContext(DownloaderContext);
@@ -224,7 +225,16 @@ const Marketplace: NextPageWithLayout = function () {
                         >
                             Activity
                         </button>
-
+                        <button
+                            className={ `${classes.actionMenuButton} ${
+                                contentView === VIEW_STATES.contributions && 
+                                classes.actionMenuButtonActive
+                            }` }
+                            onClick={ () => setContentView(VIEW_STATES.contributions) }
+                            disabled={ contentView === VIEW_STATES.contributions }
+                        >
+                            Contributions
+                        </button>
                         <button
                             className={ `${classes.actionMenuButton} ${
                                 contentView === VIEW_STATES.settings &&

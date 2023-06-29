@@ -1,24 +1,55 @@
 .headPic {
-    width: 100%;
-    height: 70vh;
-    margin-top: 1.25rem;
-    border-radius: 30px;
+    width: calc(100% + 3rem);
+    position: absolute;
+    border-radius: 16px;
     object-fit: cover;
     z-index: -1;
+}
+
+.headerPictureContainer {
+    width: 100%;
+    aspect-ratio: 16/9;
     position: relative;
+}
+
+.headerPictureSubContainer {
+    width: 100%;
+    height: calc(100% + 3rem);
+    position: absolute;
+}
+
+.profilePictureContainer {
+    position: relative;
+}
+
+.hiddenPhotoChange {
+    display: none;
+}
+
+.photoChangeButton {
+    background: none;
+    cursor: pointer;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    padding: 12px;
+    background: var(--main-grey);
+    border-radius: 16px;
 }
 
 .profilePic {
     width: 12rem;
     height: 12rem;
     object-fit: cover;
-    margin-top: -5%;
+    /*margin-top: -5%;*/
     margin-left: 2rem;
     border: 10px solid var(--white-transparent);
     border-radius: 20px;
 }
+
 .profileDiv {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
 }
 
@@ -49,6 +80,7 @@
 .followButton:hover {
     background: var(--grey);
 }
+
 
 .followIcon {
     width: 1.3rem;
@@ -178,6 +210,7 @@
 }
 
 .navButton {
+    background-color: transparent;
     font-size: 1rem;
     font-weight: 700;
     border: 2px solid var(--grey);

@@ -188,7 +188,7 @@ export default function Graph(dataset: PreviewDataset) {
 
             },
         },
-        maintainAspectRatio: false,
+        maintainAspectRatio: true,
     };
 
     return (

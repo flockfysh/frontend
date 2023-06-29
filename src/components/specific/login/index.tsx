@@ -64,7 +64,7 @@ export default function Login(props: {
         const code = router.query.code;
 
         if (code) router.push(`/authorize?code=${code}`).then();
-        else router.push('/dashboard').then();
+        else router.push('/datasets').then();
     }, [router]);
 
     useEffect(() => {

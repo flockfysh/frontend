@@ -1,10 +1,8 @@
 import { useState } from 'react';
-
 import DatasetTimeFilter from '../datasetTimeFilter';
 import Graph from './graph';
 import ActivityCard from './activityCard';
 import ActivityTable from '@/components/specific/marketplace/activityGraph/activityTable';
-
 import classes from './styles.module.css';
 
 export default function ActivityGraph(dataset: PreviewDataset) {
@@ -77,16 +75,16 @@ export default function ActivityGraph(dataset: PreviewDataset) {
                 </div>
 
                 <div className={ classes.headerContent }>
-                    <div className={ classes.activityTimeline }>
-                        {
-                            activity.map((activity, i) => (
-                                <ActivityCard
-                                    key={ i }
-                                    activity={ activity }
-                                />
-                            ))
-                        }
-                    </div>
+                    { /*<div className={ classes.activityTimeline }>*/ }
+                    { /*    {*/ }
+                    { /*        activity.map((activity, i) => (*/ }
+                    { /*            <ActivityCard*/ }
+                    { /*                key={ i }*/ }
+                    { /*                activity={ activity }*/ }
+                    { /*            />*/ }
+                    { /*        ))*/ }
+                    { /*    }*/ }
+                    { /*</div>*/ }
 
                     <div className={ classes.chartContainer }>
                         <Graph { ...dataset } />
@@ -94,13 +92,13 @@ export default function ActivityGraph(dataset: PreviewDataset) {
                 </div>
             </div>
 
-            <div className={ classes.history }>
-                <h1 className={ classes.header }>Activity History</h1>
+            { /*<div className={ classes.history }>*/ }
+            { /*    <h1 className={ classes.header }>Activity History</h1>*/ }
 
-                <div className={ classes.activityTableContainer }>
-                    <ActivityTable />
-                </div>
-            </div>
+            { /*    <div className={ classes.activityTableContainer }>*/ }
+            { /*        <ActivityTable />*/ }
+            { /*    </div>*/ }
+            { /*</div>*/ }
         </div>
     );
 }

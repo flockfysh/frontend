@@ -14,7 +14,7 @@ export default function Profile() {
 
     return (
         <div className={ classes.profileContainer }>
-            <img className={ classes.profileImage } src={ user.profilePhoto } alt={ user.fullName } />
+            <img className={ classes.profileImage } src={ user.profilePhoto?.url } alt={ user.fullName }/>
 
             <div className={ classes.profileTextInfo }>
                 <span className={ classes.displayName }>{ user.fullName }</span>
@@ -22,7 +22,7 @@ export default function Profile() {
             </div>
 
             <button className={ classes.button }>
-                <ReactSVG className={ classes.icon } src={ more.src } />
+                <ReactSVG className={ classes.icon } src={ more.src }/>
             </button>
         </div>
     );
