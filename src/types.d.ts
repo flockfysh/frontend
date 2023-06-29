@@ -1,5 +1,4 @@
 // TODO: Fix this
-
 declare type AnnotationBox = any;
 declare type UploadedImage = any;
 
