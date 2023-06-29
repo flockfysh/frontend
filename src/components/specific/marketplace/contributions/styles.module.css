@@ -1,0 +1,60 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 16px;
+    height: 145px;
+
+    background: var(--primary2-950);
+    border-radius: 16px;
+    width: 50%;
+    background-color: #1E1E1E;    
+}
+
+.card:has(.commentField:focus){
+    outline-style: solid;
+}
+.cardTop{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.headerText {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17px;
+
+    color: var(--primary1-100);
+}
+
+.select {
+    width: 40%;
+}
+
+.commentField{
+    width: 100%;
+    min-height: 50%;
+    color: inherit;
+    border: 0;
+    margin: 0;
+    background-color: #1E1E1E;    
+    outline: none;
+    resize: none;
+}
+
+.commentField::-webkit-scrollbar{
+    display: none;
+}
+
+.submitButton{
+    display: block;
+    margin-left: auto;
+    height: 42px;
+    width: 102px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 14px;
+    background: var(--primary-2950, #08066C);
+}

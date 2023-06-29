@@ -23,10 +23,12 @@ import download from '@/icons/main/download.svg';
 import bookmark from '@/icons/main/bookmark.svg';
 
 import classes from './styles.module.css';
+import Contributions from '@/components/specific/marketplace/contributions';
 
 const VIEW_STATES = {
     items: 'items',
     activity: 'activity',
+    contributions: 'contributions',
     discussions: 'discussions',
     settings: 'settings',
 };
@@ -223,7 +225,16 @@ const Marketplace: NextPageWithLayout = function () {
                         >
                             Activity
                         </button>
-
+                        <button
+                            className={ `${classes.actionMenuButton} ${
+                                contentView === VIEW_STATES.contributions && 
+                                classes.actionMenuButtonActive
+                            }`}
+                            onClick={() => setContentView(VIEW_STATES.contributions)}
+                            disabled={ contentView === VIEW_STATES.contributions}
+                        >
+                            Contributions
+                        </button>
                         <button
                             className={ `${classes.actionMenuButton} ${
                                 contentView === VIEW_STATES.settings &&
@@ -322,7 +333,9 @@ const Marketplace: NextPageWithLayout = function () {
                     <ActivityGraph { ...dataset } />
                 ) }
 
-                { contentView === VIEW_STATES.discussions && <></> }
+                { contentView === VIEW_STATES.contributions && (
+                    <Contributions {...dataset} />
+                )}
                 
                 { contentView === VIEW_STATES.settings && (
                     <DatasetSettings { ...dataset } />
