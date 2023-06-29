@@ -18,7 +18,7 @@ function CreateRecipeButton(buttonsProps: ButtonHTMLAttributes<HTMLButtonElement
             <ReactSVG src={ add.src } />
         </button>
     );
-};
+}
 
 export default function CreateRecipeModal() {
     return (
