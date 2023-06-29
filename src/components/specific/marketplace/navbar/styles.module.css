@@ -1,0 +1,106 @@
+.nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+.subContainer {
+    display: flex;
+}
+
+.leftContainer {
+    width: 50%;
+}
+
+.logoContainer {
+    display: flex;
+    color: var(--primary1-100);
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 32px;
+    margin-right: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+    padding: 0 10px;
+    border-radius: 10px;
+}
+
+.logoContainer:hover {
+    background: var(--grey);
+}
+
+.logoContainer p {
+    margin-left: 10px;
+}
+
+.mobileSearch {
+    display: none;
+    cursor: pointer;
+    align-self: center;
+    color: var(--primary1-100);
+}
+
+.searchContainer {
+    cursor: text;
+    border-radius: 8px;
+    max-width: 30rem;
+    width: 100%;
+
+    height: 2.5rem;
+    align-items: center;
+    align-self: center;
+
+    flex: auto;
+
+    background: var(--main-grey);
+    color: var(--primary1-100);
+    display: flex;
+    padding: 10px 16px;
+    gap: 16px;
+    transition: 0.2s;
+}
+
+.search {
+    font: inherit;
+    color: inherit;
+    font-weight: 700;
+    background: none;
+    appearance: none;
+    flex: 1;
+}
+
+.search::placeholder {
+    font: inherit;
+}
+
+.search:focus {
+    outline: none;
+    color: inherit;
+}
+
+.search:focus::placeholder {
+    color: inherit;
+    opacity: 0.8;
+}
+
+.leftIcon {
+    align-self: center;
+    margin: 0px 15px;
+    color: var(--primary1-100);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.leftIcon:hover {
+    color: var(--primary1-300);
+}
+
+@media (max-width: 660px) {
+    .searchContainer {
+        display: none;
+    }
+
+    .mobileSearch {
+        display: block;
+    }
+}

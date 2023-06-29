@@ -23,8 +23,7 @@ async function uploadAssets(datasetId: string, files: File[], config: {
             fd.set(config.fieldName, file);
             await api.post(`/api/datasets/${datasetId}/assets/upload/${config.endpoint}`, fd);
         }
- catch (e) {
-        }
+        catch (e) {}
     }
 
     await new AsyncArray(files).chunkMap(file => upload(file), undefined, {
@@ -68,7 +67,7 @@ export default function FileUploader(props: FileUploaderProps) {
             <div className={ classes.uploadDataInfo }>
                 <p className={ classes.uploadDataDesc }>Drag and drop or select file to upload</p>
 
-                <small>{typeData.extHints.join(', ')}</small>
+                <small>{ typeData.extHints.join(', ') }</small>
 
                 <small className={ classes.uploadDataSubDesc }>
                     Stored on file system
@@ -78,17 +77,24 @@ export default function FileUploader(props: FileUploaderProps) {
                 </small>
             </div>
 
-            <input type="file" accept={ typeData.accept } multiple={ true } className={ classes.fileInput }
-                   onChange={ function (e) {
-                       const files = e.currentTarget.files ?? [];
-                       if (files.length > 0) {
-                           uploadAssets(props.datasetId, Array.from(files), {
-                               endpoint: typeData.endpoint,
-                               fieldName: typeData.fieldName,
-                           }).then();
-                       }
-                       e.currentTarget.value = '';
-                   } }/>
+            <input
+                type="file"
+                accept={ typeData.accept }
+                multiple={ true }
+                className={ classes.fileInput }
+                onChange={ function (e) {
+                    const files = e.currentTarget.files ?? [];
+                    
+                    if (files.length > 0) {
+                        uploadAssets(props.datasetId, Array.from(files), {
+                            endpoint: typeData.endpoint,
+                            fieldName: typeData.fieldName,
+                        }).then();
+                    }
+
+                    e.currentTarget.value = '';
+                } }
+            />
         </div>
     );
 }

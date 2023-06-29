@@ -1,0 +1,39 @@
+.contentInfoContainer {
+    /* Main Grey */
+    border: 1px solid #1e1e1e;
+    border-radius: 16px;
+    padding: 20px 18px;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    color: var(--primary1-100);
+}
+
+.heading {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.sectionContent {
+    display: grid;
+    gap: 50px;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.dangerButton {
+    background: var(--error-500);
+    padding: 14px 14px;
+    font-weight: 700;
+    border-radius: 16px;
+    width: fit-content;
+    cursor: pointer;
+}

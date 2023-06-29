@@ -89,7 +89,8 @@
         "react/jsx-curly-spacing": [
             "error",
             {
-                "when": "always"
+                "when": "always",
+                "children": true
             }
         ],
         "react/jsx-wrap-multilines": [

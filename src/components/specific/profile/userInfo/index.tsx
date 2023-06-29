@@ -1,5 +1,7 @@
+import { useContext } from 'react';
 import { ReactSVG } from 'react-svg';
 
+import Link from 'next/link';
 import svg from '@/icons/main/plus-circle.svg';
 import github from '@/icons/main/github.svg';
 import linkedIn from '@/icons/main/linkedin.svg';
@@ -8,7 +10,6 @@ import link from '@/icons/main/link.svg';
 import pen from '@/icons/main/pen-tool.svg';
 
 import classes from './styles.module.css';
-import { useContext } from 'react';
 import { UserContext } from '@/contexts/userContext';
 
 const Header = (props: {
@@ -17,11 +18,8 @@ const Header = (props: {
 }) => {
     return (
         <div className={ classes.headerPictureContainer }>
-            <img
-                className={ classes.headPic }
-                src={ props.url }
-                alt="Banner Image"
-            />
+            className={ classes.headPic }
+            src={ props.url }
             {
                 props.editable ? (
                         <>
@@ -52,7 +50,7 @@ const ProfilePhoto = (props: {
                 props.editable ? (
                         <>
                             <input type={ 'file' } className={ classes.hiddenPhotoChange } onChange={ (e) => {
-                                
+
                             } }/>
                             <button className={ classes.photoChangeButton }>
                                 <ReactSVG src={ pen.src }></ReactSVG>
@@ -67,7 +65,8 @@ const ProfilePhoto = (props: {
 
 
 const UserInfo = (props: ProfilePageUser & {
-    updateTab: (index: number) => void
+    updateTab: (index: number) => void,
+    curTab: number,
 }) => {
     const { user } = useContext(UserContext);
     const editable = user?._id === props._id;
@@ -80,25 +79,28 @@ const UserInfo = (props: ProfilePageUser & {
 
                 <div className={ classes.followDiv }>
                     <p className={ classes.followers }>
-                        <span className={ classes.span }>{20}</span> following
+                        <span className={ classes.span }>{ 20 }</span> following
                     </p>
                     <p className={ classes.followers }>
-                        <span className={ classes.span }>{3}</span> followers
+                        <span className={ classes.span }>{ 3 }</span> followers
                     </p>
 
-                    <button className={ classes.followButton }>
-                        Edit profile <ReactSVG className={ classes.followIcon } src={ svg.src }/>
-                    </button>
+                    {
+                        editable && (
+                            <button className={ classes.followButton }>
+                                Edit profile <ReactSVG className={ classes.followIcon } src={ svg.src }/>
+                            </button>
+                        )
+                    }
                 </div>
             </div>
 
-            <h4 className={ classes.name }>{props.fullName}</h4>
-
-            <h5 className={ classes.username }>@{props.username}</h5>
+            <h4 className={ classes.name }>{ props.fullName }</h4>
+            <h5 className={ classes.username }>@{ props.username }</h5>
 
             <div className={ classes.contentDiv }>
                 <div className={ classes.socioContentDiv }>
-                    <h6 className={ classes.description }>{''}</h6>
+                    <h6 className={ classes.description }>{ '' }</h6>
 
                     <div className={ classes.socialsDiv }>
                         <a className={ classes.link } href="#">
@@ -120,8 +122,13 @@ const UserInfo = (props: ProfilePageUser & {
                 </div>
 
                 <div className={ classes.followerDiv }>
+                    { /* TODO: When you click the span, show all followers you know */ }
                     <p className={ classes.followerText }>
-                        Followed by @ansh,@ray and 12 others you follow
+                        Followed by
+                        <Link className={ classes.followingLink } href="/profile/ansh">@ansh</Link>,
+                        <Link className={ classes.followingLink } href="/profile/ray">@ray</Link>
+                        , and <span className={ classes.span + ' ' + classes.seeAllFollowersSpan }>12</span> others you
+                        follow
                     </p>
 
                     <img
@@ -145,15 +152,35 @@ const UserInfo = (props: ProfilePageUser & {
 
                 <div className={ classes.finalDiv }>
                     <div className={ classes.navDiv }>
-                        <button className={ classes.navButton } onClick={ () => props.updateTab(0) }>
+                        <div
+                            className={
+                                `${classes.navButton} ${classes.firstButton} ${props.curTab === 0 ? classes.active : ''}`
+                            }
+                            onClick={ () => props.updateTab(0) }
+                        >
                             Datasets
-                        </button>
-                        <button className={ classes.navButton } onClick={ () => props.updateTab(1) }>
+                        </div>
+
+                        <div
+                            className={
+                                `${classes.navButton} ${(user!.username === props.username ? '' : classes.lastButton)} ${props.curTab === 1 ? classes.active : ''}`
+                            }
+                            onClick={ () => props.updateTab(1) }
+                        >
                             Activity
-                        </button>
-                        <button className={ classes.navButton } onClick={ () => props.updateTab(2) }>
-                            Settings
-                        </button>
+                        </div>
+
+                        {
+                            user!.username === props.username && (
+                                <div
+                                    className={
+                                        `${classes.navButton} ${classes.lastButton} ${props.curTab === 2 ? classes.active : ''}`
+                                    }
+                                    onClick={ () => props.updateTab(2) }
+                                >
+                                    Settings
+                                </div>
+                            ) }
                     </div>
 
                     <div className={ classes.statsDiv }>

@@ -1,7 +1,8 @@
 declare global {
     namespace Flockfysh {
         type AnnotationTool = 'boundingBox' | 'ellipse' | 'polygon' | 'line';
-        type AssetStages = 'uploaded' | 'feedback' | 'completed';
+        type AssetStage = 'uploaded' | 'feedback' | 'completed';
+        type DatasetStage = 'untrained' | 'feedback' | 'completed';
         type AssetType = 'image' | 'video' | 'text' | 'other';
 
         interface Label {
@@ -32,6 +33,7 @@ declare global {
             subTags: string[];
             user: string;
             type: Flockfysh.AssetType;
+            stage: Flockfysh.DatasetStage;
             createdAt: Date;
             price: number;
             public: boolean;
@@ -45,7 +47,7 @@ declare global {
             metrics: {
                 views: number;
                 downloads: number;
-            }
+            };
         }
 
         interface Collection {
@@ -58,17 +60,23 @@ declare global {
             };
             icon?: {
                 assetId: string;
-            }
+            };
+        }
+
+        interface PopulatedDataset extends Dataset {
+            size: Flockfysh.DatasetSize;
+            assetCounts: Flockfysh.DatasetAssetCounts;
+            annotationCounts: Flockfysh.DatasetAnnotationCounts;
         }
 
         interface DatasetAssetCounts {
-            byStage: Record<Flockfysh.AssetStages, number>;
+            byStage: Record<Flockfysh.AssetStage, number>;
             total: number;
             byAnnotationStatus: {
                 annotated: number;
                 unannotated: number;
             };
-            byMimetype: Record<string, number>
+            byMimetype: Record<string, number>;
         }
 
         interface DatasetAnnotationCounts {
@@ -76,7 +84,7 @@ declare global {
         }
 
         interface DatasetSize {
-            byStage: Record<Flockfysh.AssetStages, number>;
+            byStage: Record<Flockfysh.AssetStage, number>;
             total: {
                 cloud: number;
                 cluster: number;
@@ -87,7 +95,7 @@ declare global {
         interface Asset {
             _id: string;
             type: Flockfysh.AssetType;
-            stage: Flockfysh.AssetStages;
+            stage: Flockfysh.AssetStage;
             uploadedAt: Date;
             dataset: string;
             size: number;

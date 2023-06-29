@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ReactSVG } from 'react-svg';
-import VerticalCard from '@/components/specific/marketplace/datasetCards/VerticalCard';
+import VerticalCard from '@/components/specific/marketplace/datasetCards/verticalCard';
 import search from '@/icons/main/search.svg';
 import classes from './styles.module.css';
 import api from '@/helpers/api';
-import RadioButtons from '@/components/specific/marketplace/DatasetSettings/RadioButtons';
+import RadioButtons from '@/components/specific/marketplace/datasetSettings/radioButtons';
 import InfiniteScroll from 'react-infinite-scroller';
 
 function DatasetsOwned(props: {
@@ -23,7 +23,7 @@ function DatasetsOwned(props: {
         };
     };
 
-    const [state, setState] = React.useState<{
+    const [state, setState] = useState<{
         hasMore: boolean,
         next: string | undefined,
         datasets: HomepageDataset[],
@@ -37,7 +37,7 @@ function DatasetsOwned(props: {
                 expand: 'assetCounts,size,likes,user',
                 limit: 50,
                 sort: 'updatedAt',
-            }
+            },
         })).data;
         state.datasets.push(...fetched.data);
         setState({
@@ -47,54 +47,54 @@ function DatasetsOwned(props: {
         });
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
         setState(initialState);
     }, [query, filterType, props.user._id]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         setFilterType('all');
     }, [props.user._id]);
 
     return (
-        <section className={ classes.mainDiv }>
-            <div className={ classes.cardDiv }>
-                <div className={ classes.headDiv }>
-                    <label className={ classes.searchContainer }>
+        <section className={classes.mainDiv}>
+            <div className={classes.cardDiv}>
+                <div className={classes.headDiv}>
+                    <label className={classes.searchContainer}>
                         <ReactSVG
-                            src={ search.src }
-                            className={ classes.searchIcon }
+                            src={search.src}
+                            className={classes.searchIcon}
                         />
 
                         <input
-                            onChange={ (event) => {
+                            onChange={(event) => {
                                 setQuery(event.currentTarget.value);
-                            } }
+                            }}
                             type="search"
-                            className={ classes.search }
+                            className={classes.search}
                             placeholder="Search datasets"
                         />
                     </label>
 
                     <ReactSVG
-                        src={ search.src }
-                        className={ classes.mobileSearch }
+                        src={search.src}
+                        className={classes.mobileSearch}
                     />
 
                     <RadioButtons
-                        options={ [
+                        options={[
                             { value: 'all', label: 'All' },
                             { value: 'owned', label: 'Owned' },
-                            { value: 'shared', label: 'Shared' }
-                        ] }
-                        value={ filterType }
-                        onChange={ (currentValue) => setFilterType(currentValue as FilterType) }
+                            { value: 'shared', label: 'Shared' },
+                        ]}
+                        value={filterType}
+                        onChange={(currentValue) => setFilterType(currentValue as FilterType)}
                     />
                 </div>
 
-                <InfiniteScroll useWindow={ false } loadMore={ load } hasMore={ state.hasMore }>
+                <InfiniteScroll useWindow={false} loadMore={load} hasMore={state.hasMore}>
                     {state.datasets.map((value) => {
                         return (
-                            <VerticalCard { ...value } key={ value._id }
+                            <VerticalCard {...value} key={value._id}
                             />
                         );
                     })}

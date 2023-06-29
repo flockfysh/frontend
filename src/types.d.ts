@@ -32,8 +32,6 @@ declare interface BaseUser {
     };
 }
 
-declare interface User extends BaseUser {
-}
+declare interface User extends BaseUser {}
 
-declare interface RedactedUser extends BaseUser {
-}
+declare interface RedactedUser extends BaseUser {}

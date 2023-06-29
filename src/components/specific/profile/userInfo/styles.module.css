@@ -58,16 +58,23 @@
 }
 
 .followButton {
-    background-color: var(--primary2-950);
+    background-color: var(--main-grey);
     color: var(--white);
-    padding: .9em 1.8em;
-    border-radius: 20px;
+    padding: 0.9em 1.8em;
+    border-radius: 10px;
     font-size: 1rem;
     margin-left: 0.5rem;
     display: flex;
     align-items: center;
-
+    cursor: pointer;
+    transition: 0.2s;
+    border: 2px solid var(--grey);
 }
+
+.followButton:hover {
+    background: var(--grey);
+}
+
 
 .followIcon {
     width: 1.3rem;
@@ -76,28 +83,37 @@
     margin-left: 1rem;
 }
 
-.name, .username, .description, .userStats, .followerText, .followers, .link {
-    color: var(--primary1-100);
+.name,
+.username,
+.description,
+.userStats,
+.followerText,
+.followers,
+.link {
+    color: var(--white);
 }
 
 .name {
     font-size: 2.3rem;
     font-weight: 700;
     margin-top: 1.25rem;
+    color: var(--primary1-100);
 }
 
 .username {
-    font-size: 1rem;
+    font-size: 0.875rem;
     font-weight: 500;
+    opacity: 0.7;
 }
 
 .span {
     font-weight: 600;
+    color: var(--primary1-100);
 }
 
 .description {
     width: 60ch;
-    font-size: .9rem;
+    font-size: 0.9rem;
     margin: 0.7rem 0 1.6rem 0;
 }
 
@@ -116,6 +132,11 @@
     justify-content: space-between;
     text-decoration: none;
     font-size: 0.8rem;
+    transition: 0.2s;
+}
+
+.link:hover {
+    color: var(--primary1-200);
 }
 
 .icons svg {
@@ -129,8 +150,16 @@
 }
 
 .followerText {
-    font-size: .8rem;
+    color: var(--light-grey);
+    font-size: 0.8rem;
     margin-right: 1.3rem;
+}
+
+.followingLink {
+    font-weight: bold;
+    color: var(--primary1-100);
+    margin-left: 3px;
+    transition: 0.2s;
 }
 
 .followerImage {
@@ -139,6 +168,19 @@
     object-fit: cover;
     border-radius: 100px;
     border: 2px solid var(--white);
+}
+
+.followingLink:hover {
+    color: var(--primary1-200);
+}
+
+.seeAllFollowersSpan {
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.seeAllFollowersSpan:hover {
+    color: var(--primary1-200);
 }
 
 .followerImage:not(:nth-child(1)) {
@@ -156,45 +198,39 @@
     align-items: center;
 }
 
+.navDiv {
+    display: flex;
+    align-items: center;
+}
+
 .navButton {
     background-color: transparent;
     font-size: 1rem;
     font-weight: 700;
+    border: 2px solid var(--grey);
+    padding: 15px 20px;
+    transition: 0.2s;
 }
 
-.navButton:nth-child(2) {
-    border-left: 1px solid;
-    border-right: 1px solid;
-    padding: 0.7rem 0.85rem;
+.firstButton {
+    border-radius: 10px 0 0 10px;
 }
 
-.navButton:nth-child(1) {
-    padding: 0 0.85rem;
-    border-radius: 20px 0 0 20px;
-}
-
-.navButton:nth-child(3) {
-    padding: 0 0.85rem;
-    border-radius: 0 20px 20px 0;
+.lastButton {
+    border-radius: 0 10px 10px 0;
 }
 
 .navButton:hover {
-    background-color: var(--white-transparent)
+    background-color: var(--grey);
 }
 
-.navButton:focus {
-    background-color: var(--white-transparent);
-}
-
-.navDiv {
-    display: flex;
-    border: 1px solid;
-    border-radius: 20px;
-    width: fit-content;
+.active {
+    background: var(--grey);
 }
 
 .userStats {
-    font-size: .9rem;
+    font-size: 0.9rem;
+    color: var(--light-grey);
 }
 
 .dot {
@@ -206,7 +242,7 @@
 
 .statsDiv {
     display: flex;
-    border: 1px solid;
+    border: 2px solid var(--grey);
     border-radius: 20px;
     gap: 1.5rem;
     text-align: center;

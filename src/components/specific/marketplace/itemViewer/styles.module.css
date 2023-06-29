@@ -1,0 +1,239 @@
+.mainContent {
+    border-radius: 16px;
+    border: 0.5px solid #595959;
+    padding: 20px 24px;
+}
+
+.itemsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.mainContentHeader {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.searchContainer {
+    border-radius: 8px;
+    max-width: 30rem;
+    width: 100%;
+
+    height: 2.5rem;
+    align-items: center;
+    align-self: center;
+
+    flex: auto;
+
+    background: var(--main-grey);
+    color: var(--primary1-100);
+    display: flex;
+    padding: 10px 16px;
+    gap: 16px;
+    transition: 0.2s;
+}
+
+.search {
+    font: inherit;
+    color: inherit;
+    font-weight: 700;
+    background: none;
+    appearance: none;
+    flex: 1;
+}
+
+.search::placeholder {
+    font: inherit;
+}
+
+.search:focus {
+    outline: none;
+    color: inherit;
+}
+
+.search:focus::placeholder {
+    color: inherit;
+}
+
+.headerButtonsWrapper {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+}
+
+.tableViewButtonsWrapper {
+    display: flex;
+    width: fit-content;
+}
+
+.tableViewButton {
+    background: transparent;
+    color: var(--primary1-100);
+    padding: 0.625rem;
+    /* Main Grey */
+    border: 0.5px solid #1e1e1e;
+}
+
+.tableViewButton:first-child {
+    border-radius: 8px 0 0 8px;
+}
+
+.tableViewButton:last-child {
+    border-radius: 0 8px 8px 0;
+}
+
+.tableViewButton:hover {
+    /* Main Grey */
+    background: #1e1e1e;
+}
+
+.tableViewButtonActive {
+    /* Main Grey */
+    background: #1e1e1e;
+}
+
+.contentContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.contentInfoContainer {
+    /* Main Grey */
+    border: 1px solid #1e1e1e;
+    border-radius: 16px;
+    padding: 20px 18px;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    color: var(--primary1-100);
+}
+
+.infoTitleContainer {
+    width: 100%;
+}
+
+.infoTitle {
+    text-align: center;
+    font-weight: 700;
+}
+
+.contentListContainer {
+    /* Main Grey */
+    border: 1px solid #1e1e1e;
+    border-radius: 16px;
+    padding: 20px 40px;
+    height: 100%;
+}
+
+.infoBox {
+    /* Main Grey */
+    border: 1px solid #1e1e1e;
+    border-radius: 16px;
+    padding: 11px 13px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+.infoBoxTitleContainer {
+    width: 100%;
+}
+
+.infoBoxTitle {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 24px;
+}
+
+.infoBoxSubtitle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.infoBoxSubtitleIcon {
+    transform: scale(0.7);
+}
+
+.infoBoxSummaryItem {
+    display: flex;
+    justify-content: space-between;
+}
+
+.infoBoxFileDetailsInnerBox {
+}
+
+.infoBoxFileDetailsInnerBoxRow {
+    display: flex;
+    /* Main Grey */
+    background: #1e1e1e;
+    /* Selection */
+    border: 1px solid #49535f;
+}
+
+.infoBoxFileDetailsInnerBoxRow:first-child {
+    border-radius: 4px 4px 0 0;
+}
+
+.infoBoxFileDetailsInnerBoxRow:last-child {
+    border-radius: 0 0 4px 4px;
+}
+
+.infoBoxFileDetailsInnerBoxRow div {
+    width: 100%;
+    padding: 8px;
+    white-space: nowrap;
+}
+
+@media only all and (min-width: 912px) {
+    .mainContentHeader {
+        flex-direction: row;
+    }
+
+    .actionMenuContainer {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .contentContainer {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+    }
+
+    .contentInfoContainer {
+        grid-column: auto/span 4;
+    }
+
+    .contentListContainer {
+        grid-column: auto/span 8;
+    }
+}
+
+@media only all and (min-width: 1440px) {
+    .contentInfoContainer {
+        grid-column: auto/span 3;
+    }
+
+    .contentListContainer {
+        grid-column: auto/span 9;
+    }
+}
+
+@media only all and (min-width: 1684px) {
+    .contentInfoContainer {
+        grid-column: auto/span 2;
+    }
+
+    .contentListContainer {
+        grid-column: auto/span 10;
+    }
+}

@@ -1,0 +1,122 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.labelContainer {
+    display: flex;
+    gap: 8px;
+}
+
+.helpIcon {
+    cursor: pointer;
+    width: fit-content;
+    background: none;
+    position: relative;
+}
+
+.helpIconTooltip {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    background: var(--main-grey);
+    bottom: calc(100% + 8px);
+    line-height: 1.25rem;
+    padding: 12px 16px;
+    min-width: 12rem;
+    width: max-content;
+    max-width: 30rem;
+    border-radius: 16px;
+    text-align: left;
+    transition: 0.15s;
+}
+
+.helpIcon:hover .helpIconTooltip,
+.helpIcon:focus .helpIconTooltip {
+    opacity: 1;
+}
+
+.inputContainer {
+    display: flex;
+    gap: 8px;
+    padding: 8px 12px;
+    align-items: center;
+    width: fit-content;
+    border-radius: 16px;
+    background: var(--main-grey);
+}
+
+.input {
+    background: none;
+    font-weight: 500;
+}
+
+.focusedInput {
+    outline: 1px solid var(--primary1-100);
+}
+
+.input::placeholder {
+    color: inherit;
+}
+
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input:focus {
+    outline: none;
+}
+
+.label {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+}
+
+.button {
+    background: var(--primary2-950);
+    padding: 10px 16px;
+    border-radius: 16px;
+    cursor: pointer;
+}
+
+.inProgress {
+    cursor: progress;
+}
+
+.inProgress .input,
+.inProgress .button {
+    cursor: progress;
+}
+
+.inputControl {
+    padding: 8px 12px;
+    border-radius: 16px;
+}
+
+.valueContainer {
+    padding: 0;
+}
+
+.inputMultiValue {
+    border-radius: 16px;
+    padding: 6px 16px;
+    display: flex;
+    gap: 8px;
+    background: var(--background);
+    margin: 0 8px 0 0;
+}
+
+.multiValueLabel {
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.multiValueRemove {
+    aspect-ratio: 1/1;
+    padding: 4px;
+}

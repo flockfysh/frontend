@@ -24,7 +24,7 @@ export async function sendNotification(data: NotificationData) {
 
 worker.addEventListener('push', async function (evt) {
     const rawData = evt.data?.json();
-    
+
     if (!rawData) return;
 
     evt.waitUntil(

@@ -25,30 +25,30 @@ export default function DatasetCard(props: Flockfysh.Dataset & { assetCounts: Fl
 
             <div className={ classes.firstRow }>
                 <ReactSVG src={ folder.src }/>
-                <h2>{props.name}</h2>
+                <h2>{ props.name }</h2>
             </div>
 
             <div className={ classes.cardInfo }>
                 <div className={ classes.firstInfoRow }>
                     <div className={ classes.assetCountText }>
-                        <span className={ classes.assetCount }>{props.assetCounts.total}</span>
+                        <span className={ classes.assetCount }>{ props.assetCounts.total }</span>
                         <span>Assets</span>
                     </div>
 
                     <div className={ classes.lastUpdated }>
                         <ReactSVG src={ clock.src }/>
-                        <span>{dateDiff}</span>
+                        <span>{ dateDiff }</span>
                     </div>
                 </div>
 
                 <div>
                     <p>
-                        {props.description}
+                        { props.description }
                     </p>
                 </div>
 
                 <ul className={ classes.tagBadges }>
-                    {props.tags.map((tag, index) => {
+                    { props.tags.map((tag, index) => {
                         return (
                             <li
                                 className={ classes.badge }
@@ -57,10 +57,10 @@ export default function DatasetCard(props: Flockfysh.Dataset & { assetCounts: Fl
                                 } }
                                 key={ index }
                             >
-                                {tag}
+                                { tag }
                             </li>
                         );
-                    })}
+                    }) }
                 </ul>
             </div>
         </li>

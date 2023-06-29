@@ -36,9 +36,9 @@ export default class AsyncArray<T> extends Array {
                         resultArr[curIndex] = result;
                         pool.delete(promise);
                         finishedTasks++;
-                        
+
                         if (finishedTasks >= this.length) finish(undefined);
-                        
+
                         resolve(result);
                     }).then(() => fillPool());
 

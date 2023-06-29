@@ -2,11 +2,18 @@ import { forwardRef } from 'react';
 
 import classes from './styles.module.css';
 
-const FileUpload = forwardRef<HTMLInputElement, {}>(function FileUpload(_props, _ref) {
+// ! Add types
+type FileUploadProps = {
+    containerClassName?: string;
+    uploadContainerClassName?: string;
+}
+
+// TODO: add loading graphic to upload
+const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>(function FileUpload(props: FileUploadProps, _ref) {
     return (
-        <div className={ classes.container }>
+        <div className={ classes.container + ' ' + (props.containerClassName ? props.containerClassName : '') }>
             <label htmlFor="file-upload">
-                <div className={ classes.customUploadContainer }>
+                <div className={ classes.customUploadContainer  + ' ' + (props.uploadContainerClassName ? props.uploadContainerClassName : '') }>
                     <h1>Drag and drop or select file to upload</h1>
 
                     <p>

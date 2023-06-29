@@ -1,26 +1,26 @@
-import '../styles/globals.css';
-import '@/styles/reset.css';
-import '@/styles/globals.css';
+import React from 'react';
 
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { NextPage } from 'next';
-import React from 'react';
 
-import NotificationWrapper from '../contexts/notificationContext';
+import NotificationWrapper from '@/contexts/notificationContext';
 import { UserWrapper } from '@/contexts/userContext';
 import { ErrorWrapper } from '@/contexts/errorContext';
 import { ScreenWrapper } from '@/contexts/screenContext';
 import { EmotionCacheProvider } from '@/contexts/reactSelectContext';
 import { DownloaderWrapper } from '@/contexts/downloaderContext';
 
+import '@/styles/reset.css';
+import '@/styles/globals.css';
+
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
-    getLayout?: (page: React.ReactElement) => React.ReactNode
-}
+    getLayout?: (page: React.ReactElement) => React.ReactNode;
+};
 
 type AppPropsWithLayout = AppProps & {
-    Component: NextPageWithLayout
-}
+    Component: NextPageWithLayout;
+};
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
     const getLayout = Component.getLayout ?? ((page) => page);
@@ -28,11 +28,13 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     return (
         <>
             <Head>
-                <title>flockfysh | lightining fast large scale ML datasets</title>
+                <title>
+                    flockfysh | lightning fast large scale ML datasets
+                </title>
 
                 <meta
                     name="description"
-                    content="lightining fast large scale ML datasets"
+                    content="lightning fast large scale ML datasets"
                 />
 
                 <meta
@@ -40,20 +42,20 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
                     content="width=device-width, initial-scale=1"
                 />
 
-                <link rel="icon" href="/favicon.ico"/>
+                <link rel="icon" href="/favicon.ico" />
             </Head>
 
             <EmotionCacheProvider>
                 <ScreenWrapper>
                     <UserWrapper>
                         <DownloaderWrapper>
-                            {/* <TopLevelErrorBoundary> */}
+                            { /* <TopLevelErrorBoundary> */ }
                             <ErrorWrapper>
-                                <NotificationWrapper/>
+                                <NotificationWrapper />
 
-                                {getLayout(<Component { ...pageProps } />)}
+                                { getLayout(<Component { ...pageProps } />) }
                             </ErrorWrapper>
-                            {/* </TopLevelErrorBoundary> */}
+                            { /* </TopLevelErrorBoundary> */ }
                         </DownloaderWrapper>
                     </UserWrapper>
                 </ScreenWrapper>

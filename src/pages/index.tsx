@@ -1,12 +1,12 @@
-import Login from '@/components/specific/login';
-
-import ActivityGraph from '@/components/specific/marketplace/ActivityGraph';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 export default function Home() {
-    return (
-        <>
-            <h1>Homepage</h1>
-            {/* <Login mode="login" /> */}
-        </>
-    );
+    const { push } = useRouter();
+
+    useEffect(() => {
+        push('/marketplace');
+    }, [push]);
+
+    return <></>;
 }

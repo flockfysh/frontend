@@ -23,45 +23,49 @@ export default function RecipeCard(props: Flockfysh.RecipeWithLabels) {
 
     return (
         <li className={ classes.cardContainer }>
-            {/* header */}
+            { /* header */ }
             <div className={ classes.headerWrapper }>
-                {/* title */}
+                { /* title */ }
                 <div className={ classes.headerTitleWrapper }>
                     <h2 className={ classes.headerTitle }>{ props.name }</h2>
+
                     <small className={ classes.headerSubtitle }>ID: { props._id }</small>
                 </div>
 
-                {/* base data */}
+                { /* base data */ }
                 <div className={ classes.headerBaseData }>
-                    {/* datasets data */}
+                    { /* datasets data */ }
                     <div className={ classes.headerBaseDataContent }>
                         <ReactSVG src={ database.src } />
-                        <small>Used in: <strong>{0}</strong> Datasets</small>
+
+                        <small>Used in: <strong>{ 0 }</strong> Datasets</small>
                     </div>
 
-                    {/* type */}
-                    {/*<div className={ classes.headerBaseDataType }>*/}
-                    {/*    <span className={ classes.headerBaseDataTypeContent }>{props.type}</span>*/}
-                    {/*</div>*/}
+                    { /* type */ }
+                    { /*<div className={ classes.headerBaseDataType }>*/ }
+                    { /*    <span className={ classes.headerBaseDataTypeContent }>{props.type}</span>*/ }
+                    { /*</div>*/ }
 
-                    {/* created at */}
+                    { /* created at */ }
                     <div className={ classes.headerBaseDataContent }>
                         <ReactSVG src={ clock.src } />
-                        <small>Created At: {dateCreatedAt} UTC</small>
+
+                        <small>Created At: { dateCreatedAt } UTC</small>
                     </div>
                 </div>
             </div>
 
-            {/* tags */}
+            { /* tags */ }
             <div className={ classes.tagsAndActionsWrapper }>
-                {/* tags */}
+                { /* tags */ }
                 <div className={ classes.tagsWrapper }>
                     {
                         Array.from(props.labels.entries()).map(function transformEntry([clientSideUuid, label]) {
                             return (
                                 <div key={ clientSideUuid } className={ classes.tagsItem }>
-                                    {/* switch between icons */}
+                                    { /* switch between icons */ }
                                     <ReactSVG src={ iconMapping[label.tool].src } className={ classes.tagsItemIcon } />
+                                    
                                     <span>{ label.name }</span>
                                 </div>
                             );
@@ -69,7 +73,7 @@ export default function RecipeCard(props: Flockfysh.RecipeWithLabels) {
                     }
                 </div>
 
-                {/* actions */}
+                { /* actions */ }
                 <div className={ classes.actionsWrapper }>
                     <EditRecipeModal id={ props._id } />
                 </div>

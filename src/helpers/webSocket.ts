@@ -9,7 +9,8 @@ class AbstractWebSocket extends WebSocket {
         this.addEventListener('message', function (ev) {
             const rawData = JSON.parse(ev.data);
 
-            if (rawData.type === type) return listener.call(this, rawData.data as T);
+            if (rawData.type === type)
+                return listener.call(this, rawData.data as T);
         });
     }
 }

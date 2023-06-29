@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import api from '@/helpers/api';
 import UserInfo from '@/components/specific/profile/userInfo';
 import DatasetsOwned from '@/components/specific/profile/datasetsOwned';
-import UserSettings from '@/components/specific/profile/userSettings/userSettings';
+import UserSettings from '@/components/specific/profile/userSettings/';
 import Footer from '@/components/specific/marketplace/footer';
 
 export default function Profile(props: {
@@ -27,14 +27,15 @@ export default function Profile(props: {
     return (
         <>
             <UserInfo
+                curTab={ curTab }
                 { ...user }
                 updateTab={ updateCurTab }
             />
 
-            {curTab === 0 && <DatasetsOwned user={ user }/>}
-            {/*{curTab === 1 && <ActivityGraph />}*/}
+            { curTab === 0 && <DatasetsOwned user={ user }/> }
+            { /*{curTab === 1 && <ActivityGraph />}*/ }
 
-            {curTab === 2 && (
+            { curTab === 2 && (
                 <UserSettings
                     name="user"
                     email="trial@email.com"
@@ -44,7 +45,7 @@ export default function Profile(props: {
                     downloads={ 7 }
                     apiCalls={ 7898 }
                 />
-            )}
+            ) }
             <Footer/>
         </>
     );

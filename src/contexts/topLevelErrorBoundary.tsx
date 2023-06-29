@@ -8,7 +8,6 @@
 //     error?: Error;
 // }
 
-
 // export default class TopLevelErrorBoundary extends React.Component<{ children: React.ReactNode }, TopLevelErrorBoundaryState> {
 //     state: TopLevelErrorBoundaryState = { error: undefined };
 
