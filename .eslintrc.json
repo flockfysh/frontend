@@ -87,11 +87,7 @@
         "no-extra-semi": "error",
         "react/react-in-jsx-scope": "off",
         "react/jsx-curly-spacing": [
-            "error",
-            {
-                "when": "always",
-                "children": true
-            }
+            "off"
         ],
         "react/jsx-wrap-multilines": [
             "error",
