@@ -5,6 +5,7 @@ const nextConfig = {
         remotePatterns: [
             { hostname: '*.digitaloceanspaces.com' },
             { hostname: '*.figma.com' },
+            { hostname: '*.unsplash.com' },
         ],
     },
 };
