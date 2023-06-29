@@ -1,7 +1,3 @@
-[build]
-  command = "yarn run build"
-  publish = ".next"
-
 [[redirects]]
     from = "/*"
     to = "/"
