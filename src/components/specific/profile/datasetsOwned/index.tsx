@@ -15,6 +15,7 @@ import classes from './styles.module.css';
 
 function DatasetsOwned() {
     const { user } = useContext(UserContext);
+    user;
 
     const [datasets, updateDatasets] = useState([] as HomepageDataset[]);
 

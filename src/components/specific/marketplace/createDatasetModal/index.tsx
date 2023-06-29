@@ -97,7 +97,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
             ),
             visibility: newDatasetOptions.private ? true : false,
             price: Number(datasetCostOrReward.current.value)
-        }
+        };
 
         const res = await api.post('/api/datasets', data);
 
