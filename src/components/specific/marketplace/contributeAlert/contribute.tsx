@@ -25,7 +25,13 @@ const contribute = (props: popup) => {
         <div className={classes.container}>
             <div className={classes.headingDiv}>
                 <h3 className={classes.heading}>Contribution Request</h3>
-                <ReactSVG src={cross.src} className={classes.icon} />
+                <ReactSVG
+                    src={cross.src}
+                    className={classes.icon + ' ' + classes.cross}
+                    onClick={() => {
+                        props.open(false);
+                    }}
+                />
             </div>
             <div className={classes.inputDiv}>
                 <h4 className={classes.subheading}>Title</h4>

@@ -10,7 +10,9 @@
     padding: 1.2rem;
     background-color: var(--background);
     border-radius: 30px;
-    margin: auto;
+    left: calc(50% - 12.7rem);
+    position: fixed;
+    z-index: 23;
 }
 
 .heading {
@@ -85,4 +87,7 @@
 
 .textArea:focus {
     outline: none;
+}
+.cross:hover {
+    cursor: pointer;
 }
