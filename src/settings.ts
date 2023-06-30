@@ -16,9 +16,7 @@ export const FRONTEND_URL = DEBUG
     ? 'http://localhost:3000'
     : 'https://flockfysh.tech';
 
-export const SERVER_URL = DEBUG
-    ? 'http://localhost:8000'
-    : 'https://api.flockfysh.tech';
+export const SERVER_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export const serverURL = SERVER_URL; //process.env.NEXT_PUBLIC_BACKEND_URL;
 
