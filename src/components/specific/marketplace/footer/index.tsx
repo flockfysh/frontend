@@ -19,7 +19,7 @@ export default function Footer() {
                 </div>
 
                 <div className={ classes.contactInfoContainer }>
-                    <p>2261 Market Street</p>
+                    <p>2594 Hearst Ave</p>
                     <p>Berkeley, CA, United States</p>
                 </div>
             </div>
