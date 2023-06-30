@@ -69,9 +69,11 @@ const Marketplace: NextPageWithLayout = function () {
 
     return (
         <div className={classes.container}>
-            {popup === true ? <Contribute open={setPopup} /> : null}
+            {
+                popup ? <Contribute open={setPopup}/> : null
+            }
             <div style={{ filter: popup ? 'blur(30px)' : 'blur(0)' }}>
-                <MarketplaceNavbar />
+                <MarketplaceNavbar/>
 
                 <header className={classes.headerWrapper}>
                     {/* image */}
@@ -85,8 +87,8 @@ const Marketplace: NextPageWithLayout = function () {
                             alt="Datasets portrait image"
                         />
                         <div className={classes.imageTag}>
-                            <ReactSVG className={classes.imageTagIcon} src={cpu.src} />
-                            <div className={classes.imageTagSeparator} />
+                            <ReactSVG className={classes.imageTagIcon} src={cpu.src}/>
+                            <div className={classes.imageTagSeparator}/>
                             <span className={classes.imageTagText}>
                                 {dataset.type.toUpperCase()}
                             </span>
@@ -111,7 +113,7 @@ const Marketplace: NextPageWithLayout = function () {
                             <div className={classes.dataActionButtons}>
                                 <div className={classes.basicActionsWrapper}>
                                     <button className={classes.basicButton}>
-                                        <ReactSVG className={classes.imageTagIcon} src={flag.src} />
+                                        <ReactSVG className={classes.imageTagIcon} src={flag.src}/>
                                     </button>
                                     <button className={classes.basicButton}>
                                         <ReactSVG
@@ -132,7 +134,7 @@ const Marketplace: NextPageWithLayout = function () {
                                     className={classes.downloadButton}
                                     onClick={() => downloadDataset(dataset._id)}
                                 >
-                                    <ReactSVG className={classes.imageTagIcon} src={download.src} />
+                                    <ReactSVG className={classes.imageTagIcon} src={download.src}/>
                                     <span>
                                         Download ({formatFileSize(dataset.size.total.total)})
                                     </span>
@@ -165,7 +167,7 @@ const Marketplace: NextPageWithLayout = function () {
                             </div>
                             {/* licence */}
                             <div className={classes.licenceWrapper}>
-                                <ReactSVG className={classes.imageTagIcon} src={cpu.src} />
+                                <ReactSVG className={classes.imageTagIcon} src={cpu.src}/>
                                 Creative Commons
                             </div>
                         </div>
@@ -225,28 +227,28 @@ const Marketplace: NextPageWithLayout = function () {
                                     </span>
                                     <small>Files</small>
                                 </div>
-                                <div className={classes.specificationSeparator} />
+                                <div className={classes.specificationSeparator}/>
                                 <div className={classes.specificationItem}>
                                     <span className={classes.specificationItemTitle}>
                                         {dataset.metrics.downloads}
                                     </span>
                                     <small>Downloads</small>
                                 </div>
-                                <div className={classes.specificationSeparator} />
+                                <div className={classes.specificationSeparator}/>
                                 <div className={classes.specificationItem}>
                                     <span className={classes.specificationItemTitle}>
                                         {dayjs(dataset.createdAt).fromNow()}
                                     </span>
                                     <small>Created at</small>
                                 </div>
-                                <div className={classes.specificationSeparator} />
+                                <div className={classes.specificationSeparator}/>
                                 <div className={classes.specificationItem}>
                                     <span className={classes.specificationItemTitle}>
                                         {dayjs(dataset.updatedAt).fromNow()}
                                     </span>
                                     <small>Last Updated</small>
                                 </div>
-                                <div className={classes.specificationSeparator} />
+                                <div className={classes.specificationSeparator}/>
                                 <div className={classes.specificationItem}>
                                     <span className={classes.specificationItemTitle}>
                                         {dataset.contributors}
@@ -256,25 +258,26 @@ const Marketplace: NextPageWithLayout = function () {
                             </div>
                         </div>
                     </div>
-                </div>
-            </header>
+                </header>
+            </div>
+            ;
 
-            <main className={ classes.mainContent }>
-                { contentView === VIEW_STATES.items && (
-                    <ItemViewer { ...dataset } />
-                ) }
+            <main className={classes.mainContent}>
+                {contentView === VIEW_STATES.items && (
+                    <ItemViewer {...dataset} />
+                )}
 
-                { contentView === VIEW_STATES.activity && (
-                    <ActivityGraph { ...dataset } />
-                ) }
+                {contentView === VIEW_STATES.activity && (
+                    <ActivityGraph {...dataset} />
+                )}
 
-                { contentView === VIEW_STATES.contributions && (
-                    <Contributions { ...dataset } />
-                ) }
-                
-                { contentView === VIEW_STATES.settings && (
-                    <DatasetSettings { ...dataset } />
-                ) }
+                {contentView === VIEW_STATES.contributions && (
+                    <Contributions {...dataset} />
+                )}
+
+                {contentView === VIEW_STATES.settings && (
+                    <DatasetSettings {...dataset} />
+                )}
             </main>
         </div>
     );

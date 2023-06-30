@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 
 import { ReactSVG } from 'react-svg';
 
@@ -17,7 +17,7 @@ type popup = {
     children?: React.ReactNode;
 };
 
-const contribute = (props: popup) => {
+const Contribute = (props: popup) => {
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
 
@@ -36,7 +36,7 @@ const contribute = (props: popup) => {
             <div className={classes.inputDiv}>
                 <h4 className={classes.subheading}>Title</h4>
                 <div className={classes.mergedInput}>
-                    <ReactSVG src={edit.src} className={classes.icon} />
+                    <ReactSVG src={edit.src} className={classes.icon}/>
                     <input
                         className={classes.input}
                         type="text"
@@ -74,10 +74,10 @@ const contribute = (props: popup) => {
                 }}
             >
                 Submit Request
-                <ReactSVG src={database.src} className={classes.icon} />
+                <ReactSVG src={database.src} className={classes.icon}/>
             </button>
         </div>
     );
 };
 
-export default contribute;
+export default Contribute;
