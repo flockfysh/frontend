@@ -8,8 +8,8 @@ export default function CurrentUserProfile() {
 
     if (user) {
         return (
-            <ProfileCard profilePicture={user.profilePhoto?.url ?? getDefaultProfilePicture()}
-                         username={user.username}/>
+            <ProfileCard profilePicture={ user.profilePhoto?.url ?? getDefaultProfilePicture() }
+                         username={ user.username }/>
         );
     }
     return <></>;
