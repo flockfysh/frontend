@@ -71,34 +71,34 @@ const Marketplace: NextPageWithLayout = function () {
     if (!dataset || typeof router.query.datasetId !== 'string') return <></>;
 
     return (
-        <div className={classes.container}>
-            <header className={classes.headerWrapper}>
-                {/* image */}
-                <div className={classes.imageWrapper}>
+        <div className={ classes.container }>
+            <header className={ classes.headerWrapper }>
+                { /* image */ }
+                <div className={ classes.imageWrapper }>
                     <img
-                        className={classes.headerImage}
+                        className={ classes.headerImage }
                         src={
                             dataset.thumbnail?.url ??
                             'https://c.pxhere.com/photos/0d/b1/photo-168471.jpg!d'
                         }
                         alt="Datasets portrait image"
                     />
-                    <div className={classes.imageTag}>
-                        <ReactSVG className={classes.imageTagIcon} src={cpu.src}/>
-                        <div className={classes.imageTagSeparator}/>
-                        <span className={classes.imageTagText}>
-                                {dataset.type.toUpperCase()}
+                    <div className={ classes.imageTag }>
+                        <ReactSVG className={ classes.imageTagIcon } src={ cpu.src }/>
+                        <div className={ classes.imageTagSeparator }/>
+                        <span className={ classes.imageTagText }>
+                                { dataset.type.toUpperCase() }
                             </span>
                     </div>
                 </div>
-                {/* basic info */}
-                <div className={classes.dataContainer}>
-                    {/* first row */}
-                    <div className={classes.actionButtonsAndImageWrapper}>
-                        <div className={classes.datasetImageWrapper}>
-                            <div className={classes.datasetImageContainer}>
+                { /* basic info */ }
+                <div className={ classes.dataContainer }>
+                    { /* first row */ }
+                    <div className={ classes.actionButtonsAndImageWrapper }>
+                        <div className={ classes.datasetImageWrapper }>
+                            <div className={ classes.datasetImageContainer }>
                                 <img
-                                    className={classes.datasetImage}
+                                    className={ classes.datasetImage }
                                     src={
                                         dataset.icon?.url ??
                                         'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fget.pxhere.com%2Fphoto%2Fcar-vehicle-martini-sports-car-race-car-supercar-team-racing-race-track-porsche-motorsport-leicam-summilux50f14-typ240-supercup-sebastianloeb-gt3r-louwmanmuseum-land-vehicle-auto-racing-automobile-make-automotive-design-performance-car-stock-car-racing-porsche-911-gt3-porsche-911-gt2-236174.jpg&f=1&nofb=1&ipt=1806d4f590c10c3f085ed81b7b35d359fb70e4d85672c00eb29e2eacf4b63453&ipo=images'
@@ -107,73 +107,73 @@ const Marketplace: NextPageWithLayout = function () {
                                 />
                             </div>
                         </div>
-                        <div className={classes.dataActionButtons}>
-                            <div className={classes.basicActionsWrapper}>
-                                <button className={classes.basicButton}>
-                                    <ReactSVG className={classes.imageTagIcon} src={flag.src}/>
+                        <div className={ classes.dataActionButtons }>
+                            <div className={ classes.basicActionsWrapper }>
+                                <button className={ classes.basicButton }>
+                                    <ReactSVG className={ classes.imageTagIcon } src={ flag.src }/>
                                 </button>
-                                <button className={classes.basicButton}>
+                                <button className={ classes.basicButton }>
                                     <ReactSVG
-                                        className={classes.imageTagIcon}
-                                        src={bookmark.src}
+                                        className={ classes.imageTagIcon }
+                                        src={ bookmark.src }
                                     />
                                 </button>
                             </div>
-                            <ActionPopupWithButton button={(
+                            <ActionPopupWithButton button={ (
                                 <button
-                                    className={classes.contributeButton}
+                                    className={ classes.contributeButton }
                                 >
                                     Contribute
                                 </button>
-                            )} popupTitle={'Contribute'} variant={'marketplace'}>
-                                <Contribute dataset={dataset}></Contribute>
+                            ) } popupTitle={ 'Contribute' } variant={ 'marketplace' }>
+                                <Contribute dataset={ dataset }></Contribute>
                             </ActionPopupWithButton>
                             <button
-                                className={classes.downloadButton}
-                                onClick={() => downloadDataset(dataset._id)}
+                                className={ classes.downloadButton }
+                                onClick={ () => downloadDataset(dataset._id) }
                             >
-                                <ReactSVG className={classes.imageTagIcon} src={download.src}/>
+                                <ReactSVG className={ classes.imageTagIcon } src={ download.src }/>
                                 <span>
-                                        Download ({formatFileSize(dataset.size.total.total)})
+                                        Download ({ formatFileSize(dataset.size.total.total) })
                                     </span>
                             </button>
                         </div>
                     </div>
-                    {/* second row: description */}
-                    <div className={classes.descriptionContainer}>
-                        {/* title */}
-                        <div className={classes.titleWrapper}>
-                            <div className={classes.titleContainer}>
-                                <h2 className={classes.datasetTitle}>{dataset.name}</h2>
-                                <div className={classes.tagsContainer}>
-                                    {dataset.tags.map(tag => {
+                    { /* second row: description */ }
+                    <div className={ classes.descriptionContainer }>
+                        { /* title */ }
+                        <div className={ classes.titleWrapper }>
+                            <div className={ classes.titleContainer }>
+                                <h2 className={ classes.datasetTitle }>{ dataset.name }</h2>
+                                <div className={ classes.tagsContainer }>
+                                    { dataset.tags.map(tag => {
                                         return (
-                                            <span className={classes.datasetTag} key={tag}>
-                                                    {tag}
+                                            <span className={ classes.datasetTag } key={ tag }>
+                                                    { tag }
                                                 </span>
                                         );
-                                    })}
+                                    }) }
                                 </div>
                             </div>
-                            <span className={classes.datasetNick}>
-                                    @{dataset.user.username}
+                            <span className={ classes.datasetNick }>
+                                    @{ dataset.user.username }
                                 </span>
                         </div>
-                        {/* description */}
-                        <div className={classes.descriptionWrapper}>
-                            <p>{dataset.description}</p>
+                        { /* description */ }
+                        <div className={ classes.descriptionWrapper }>
+                            <p>{ dataset.description }</p>
                         </div>
-                        {/* licence */}
-                        <div className={classes.licenceWrapper}>
-                            <ReactSVG className={classes.imageTagIcon} src={cpu.src}/>
+                        { /* licence */ }
+                        <div className={ classes.licenceWrapper }>
+                            <ReactSVG className={ classes.imageTagIcon } src={ cpu.src }/>
                             Creative Commons
                         </div>
                     </div>
                 </div>
-                {/* action menu */}
-                <div className={classes.actionMenuContainer}>
-                    {/* button group */}
-                    <RadioButtons options={[
+                { /* action menu */ }
+                <div className={ classes.actionMenuContainer }>
+                    { /* button group */ }
+                    <RadioButtons options={ [
                         {
                             label: 'Items', value: VIEW_STATES.items,
                         },
@@ -188,41 +188,41 @@ const Marketplace: NextPageWithLayout = function () {
                         {
                             label: 'Contributions', value: VIEW_STATES.contributions,
                         },
-                    ]} value={contentView} onChange={val => setContentView(val)}/>
-                    {/* specification */}
-                    <div className={classes.specificationWrapper}>
-                        <div className={classes.specificationContainer}>
-                            <div className={classes.specificationItem}>
-                                    <span className={classes.specificationItemTitle}>
-                                        {dataset.assetCounts.total}
+                    ] } value={ contentView } onChange={ val => setContentView(val) }/>
+                    { /* specification */ }
+                    <div className={ classes.specificationWrapper }>
+                        <div className={ classes.specificationContainer }>
+                            <div className={ classes.specificationItem }>
+                                    <span className={ classes.specificationItemTitle }>
+                                        { dataset.assetCounts.total }
                                     </span>
                                 <small>Files</small>
                             </div>
-                            <div className={classes.specificationSeparator}/>
-                            <div className={classes.specificationItem}>
-                                    <span className={classes.specificationItemTitle}>
-                                        {dataset.metrics.downloads}
+                            <div className={ classes.specificationSeparator }/>
+                            <div className={ classes.specificationItem }>
+                                    <span className={ classes.specificationItemTitle }>
+                                        { dataset.metrics.downloads }
                                     </span>
                                 <small>Downloads</small>
                             </div>
-                            <div className={classes.specificationSeparator}/>
-                            <div className={classes.specificationItem}>
-                                    <span className={classes.specificationItemTitle}>
-                                        {dayjs(dataset.createdAt).fromNow()}
+                            <div className={ classes.specificationSeparator }/>
+                            <div className={ classes.specificationItem }>
+                                    <span className={ classes.specificationItemTitle }>
+                                        { dayjs(dataset.createdAt).fromNow() }
                                     </span>
                                 <small>Created at</small>
                             </div>
-                            <div className={classes.specificationSeparator}/>
-                            <div className={classes.specificationItem}>
-                                    <span className={classes.specificationItemTitle}>
-                                        {dayjs(dataset.updatedAt).fromNow()}
+                            <div className={ classes.specificationSeparator }/>
+                            <div className={ classes.specificationItem }>
+                                    <span className={ classes.specificationItemTitle }>
+                                        { dayjs(dataset.updatedAt).fromNow() }
                                     </span>
                                 <small>Last Updated</small>
                             </div>
-                            <div className={classes.specificationSeparator}/>
-                            <div className={classes.specificationItem}>
-                                    <span className={classes.specificationItemTitle}>
-                                        {dataset.contributors}
+                            <div className={ classes.specificationSeparator }/>
+                            <div className={ classes.specificationItem }>
+                                    <span className={ classes.specificationItemTitle }>
+                                        { dataset.contributors }
                                     </span>
                                 <small>Contributors</small>
                             </div>
@@ -231,22 +231,22 @@ const Marketplace: NextPageWithLayout = function () {
                 </div>
             </header>
 
-            <main className={classes.mainContent}>
-                {contentView === VIEW_STATES.items && (
-                    <ItemViewer {...dataset} />
-                )}
+            <main className={ classes.mainContent }>
+                { contentView === VIEW_STATES.items && (
+                    <ItemViewer { ...dataset } />
+                ) }
 
-                {contentView === VIEW_STATES.activity && (
-                    <ActivityGraph {...dataset} />
-                )}
+                { contentView === VIEW_STATES.activity && (
+                    <ActivityGraph { ...dataset } />
+                ) }
 
-                {contentView === VIEW_STATES.contributions && (
-                    <Contributions {...dataset} />
-                )}
+                { contentView === VIEW_STATES.contributions && (
+                    <Contributions { ...dataset } />
+                ) }
 
-                {contentView === VIEW_STATES.settings && (
-                    <DatasetSettings {...dataset} />
-                )}
+                { contentView === VIEW_STATES.settings && (
+                    <DatasetSettings { ...dataset } />
+                ) }
             </main>
         </div>
     );
@@ -255,7 +255,7 @@ const Marketplace: NextPageWithLayout = function () {
 Marketplace.getLayout = function (page) {
     return (
         <MarketplaceLayout>
-            {page}
+            { page }
         </MarketplaceLayout>
     );
 };
