@@ -22,6 +22,7 @@ import 'swiper/css/navigation';
 
 import classes from './styles.module.css';
 import { UserContext } from '@/contexts/userContext';
+import MarketplaceLayout from '@/components/layout/marketplaceLayout';
 
 const timeFilterOptions: [number, ManipulateType][] = [
     [1, 'day'],
@@ -163,11 +164,8 @@ const Marketplace: NextPageWithLayout = function () {
     });
 
     return (
-
-        <div className={ classes.container }>
-            <MarketplaceNavbar/>
-
-            {!!featuredDatasets.length && <FeaturedDatasetsSection datasets={featuredDatasets} />}
+        <div className={classes.container}>
+            {!!featuredDatasets.length && <FeaturedDatasetsSection datasets={featuredDatasets}/>}
 
             {!!trendingDatasets.length && (
                 <section className={classes.sectionContainer}>
@@ -183,7 +181,7 @@ const Marketplace: NextPageWithLayout = function () {
                         />
                     </div>
 
-                    <DatasetSwiper cardType="vertical" datasets={trendingDatasets} />
+                    <DatasetSwiper cardType="vertical" datasets={trendingDatasets}/>
                 </section>
             )}
 
@@ -193,7 +191,7 @@ const Marketplace: NextPageWithLayout = function () {
                         <h1 className={classes.header}>Most Popular Datasets</h1>
                     </div>
 
-                    <DatasetSwiper cardType="vertical" datasets={popularDatasets} />
+                    <DatasetSwiper cardType="vertical" datasets={popularDatasets}/>
                 </section>
             )}
 
@@ -203,7 +201,7 @@ const Marketplace: NextPageWithLayout = function () {
                         <h1 className={classes.header}>Premium Datasets</h1>
                     </div>
 
-                    <DatasetSwiper cardType="vertical" datasets={paidDatasets} />
+                    <DatasetSwiper cardType="vertical" datasets={paidDatasets}/>
                 </section>
             )}
 
@@ -212,7 +210,7 @@ const Marketplace: NextPageWithLayout = function () {
                     <h1 className={classes.header}>Trending Collections</h1>
                 </div>
 
-                <CollectionSwiper collections={ collections }/>
+                <CollectionSwiper collections={collections}/>
 
             </section>
 
@@ -220,18 +218,20 @@ const Marketplace: NextPageWithLayout = function () {
                 <h1 className={classes.howToHeader}>Upload, Request, and Share your Datasets</h1>
 
 
-                <div className={ classes.howToCards }>
+                <div className={classes.howToCards}>
                     <HowToCards/>
                 </div>
             </section>
-
-            <Footer/>
         </div>
     );
 };
 
 Marketplace.getLayout = function (page) {
-    return <>{page}</>;
+    return (
+        <MarketplaceLayout>
+            {page}
+        </MarketplaceLayout>
+    );
 };
 
 export default Marketplace;
