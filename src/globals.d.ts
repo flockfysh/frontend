@@ -6,17 +6,6 @@ declare global {
         type AssetType = 'image' | 'video' | 'text' | 'other';
         type PullRequestStatus = 'draft' | 'published' | 'merged' | 'rejected';
 
-        interface PullRequest {
-            _id: string;
-            dataset: string;
-            name: string;
-            description?: string;
-            createdAt: string;
-            updatedAt: string;
-            user: string;
-            status: Flockfysh.PullRequestStatus;
-        }
-
         interface Label {
             _id: string;
             name: string;
@@ -77,12 +66,13 @@ declare global {
 
         interface PullRequest {
             _id: string;
+            dataset: string;
             name: string;
+            description?: string;
             createdAt: string;
             updatedAt: string;
             user: string;
-            dataset: string;
-            status: string;
+            status: Flockfysh.PullRequestStatus;
         }
 
         interface PullRequestMessage {
