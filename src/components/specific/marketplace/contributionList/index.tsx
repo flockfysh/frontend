@@ -5,7 +5,7 @@ import search from '@/icons/main/search.svg';
 import database from '@/icons/main/database.svg';
 import { useStateWithDeps } from 'use-state-with-deps';
 import classes from './styles.module.css';
-import { ContributionItem } from './contributionItems';
+import { ContributionItem } from './contributionItem';
 import api from '@/helpers/api';
 import _dayjs from 'dayjs';
 import RadioButtons from '@/components/ui/input/radioButtons';
