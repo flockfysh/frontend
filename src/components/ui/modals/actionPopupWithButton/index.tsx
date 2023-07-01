@@ -7,7 +7,7 @@ interface ActionPopupWithButtonProps {
     popupTitle: string,
     className?: string,
     modalClassName?: string,
-
+    variant?: 'marketplace' | 'annotation';
     blurBg?: boolean,
 }
 
@@ -19,7 +19,7 @@ export default function ActionPopupWithButton(props: ActionPopupWithButtonProps)
             setOpen(true);
 
             return await props.button.props.onClick?.(e);
-        }
+        },
     });
 
     return (
@@ -32,8 +32,9 @@ export default function ActionPopupWithButton(props: ActionPopupWithButtonProps)
                         className={ props.className || '' }
                         modalClassName={ props.modalClassName || '' }
                         popupTitle={ props.popupTitle }
-                        onClose={ () => setOpen(false) } 
+                        onClose={ () => setOpen(false) }
                         blurBg={ props.blurBg ?? true }
+                        variant={ props.variant }
                     >
                         { props.children }
                     </ActionPopup>

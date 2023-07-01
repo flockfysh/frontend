@@ -12,7 +12,7 @@ import classes from './styles.module.css';
 import { capitalize } from '@/helpers/strings';
 import RadioButtons from '@/components/ui/input/radioButtons';
 import AsyncArray from '@/helpers/async';
-import { typeMapping } from '@/helpers/assets/upload';
+import { uploadTypeMapping } from '@/helpers/assets/upload';
 
 type CreateDatasetModalProps = {
     onClose: () => void;
@@ -58,7 +58,7 @@ async function uploadDataset(formData: FormData) {
         }
     })) as File[];
 
-    const config = typeMapping[formData.get('type') as Flockfysh.AssetType];
+    const config = uploadTypeMapping[formData.get('type') as Flockfysh.AssetType];
 
     async function upload(file: File) {
         try {

@@ -5,23 +5,28 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import classes from './styles.module.css';
 
-export default function Contributions(dataset: PreviewDataset){
+export default function Contributions(dataset: PreviewDataset) {
 
     const router = useRouter();
-    const [contributions, setContributions] = useState<Flockfysh.PullRequest[] | null>(null);
+    const [contributions, setContributions] = useState<ExpandedPullRequest[] | null>(null);
     const [curContribution, setCurContribution] = useState<Flockfysh.PullRequest | null>(null);
     const statusOptions = [
         { value: 'draft', label: 'Draft' },
         { value: 'reject', label: 'Reject' },
         { value: 'merge', label: 'Merge' },
-        { value: 'publish', label: 'Publish' }
+        { value: 'publish', label: 'Publish' },
     ];
+
     useEffect(() => {
-        const getContributions = async() => {
-            const temp =  ( await api.get(`/api/datasets/${router.query.datasetId}/pullRequests`)).data.data;
+        const getContributions = async () => {
+            const temp = (await api.get<Api.PaginatedResponse<ExpandedPullRequest[]>>(`/api/datasets/${router.query.datasetId}/pullRequests`, {
+                params: {
+                    expand: 'user,stats',
+                },
+            })).data.data;
             setContributions(temp);
         };
-        getContributions();
+        getContributions().then();
     }, []);
 
     async function submitMessage(elem: HTMLFormElement) {
@@ -29,34 +34,35 @@ export default function Contributions(dataset: PreviewDataset){
             status: string;
             comment: string;
         };
-        await api.patch('/api/pullRequests/'+curContribution!._id+'/status', { status: fd.status });
-        await api.post('/api/pullRequests/'+curContribution!._id+'/messages', { message: fd.comment });
+        await api.patch('/api/pullRequests/' + curContribution!._id + '/status', { status: fd.status });
+        await api.post('/api/pullRequests/' + curContribution!._id + '/messages', { message: fd.comment });
         return;
     }
+
     return (
         <>
-            <div className={ classes.card }>
-                <form onSubmit={ (e) => {
+            <div className={classes.card}>
+                <form onSubmit={(e) => {
                     e.preventDefault();
                     submitMessage(e.currentTarget);
-                } }>
-                    <div className={ classes.cardTop }>
-                        <h1 className={ classes.headerText }>Comment</h1>
+                }}>
+                    <div className={classes.cardTop}>
+                        <h1 className={classes.headerText}>Comment</h1>
                         <CustomSelect
-                            required={ true }
+                            required={true}
                             name="status"
-                            className={ classes.select }
+                            className={classes.select}
                             placeholder="Status"
-                            options={ statusOptions }
+                            options={statusOptions}
                         />
                     </div>
                     <textarea
-                        className={ classes.commentField }
-                        required={ true }
+                        className={classes.commentField}
+                        required={true}
                         name="comment"
                         placeholder="Add comment here..."
                     />
-                    <button className={ classes.submitButton }>Comment</button>
+                    <button className={classes.submitButton}>Comment</button>
                 </form>
             </div>
         </>
