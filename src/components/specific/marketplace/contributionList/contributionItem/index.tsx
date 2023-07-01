@@ -20,22 +20,22 @@ const statusesValues: Record<
     }
 > = {
     merged: {
-        icon: <ReactSVG className={classes.icon} src={check.src} />,
+        icon: <ReactSVG className={ classes.icon } src={ check.src } />,
         label: 'Accepted',
         styles: classes.statusAcceptedBorder,
     },
     rejected: {
-        icon: <ReactSVG className={classes.icon} src={close.src} />,
+        icon: <ReactSVG className={ classes.icon } src={ close.src } />,
         label: 'Rejected',
         styles: classes.statusRejectedBorder,
     },
     published: {
-        icon: <ReactSVG className={classes.icon} src={info.src} />,
+        icon: <ReactSVG className={ classes.icon } src={ info.src } />,
         label: 'In Review',
         styles: classes.statusInReviewBorder,
     },
     draft: {
-        icon: <ReactSVG className={classes.icon} src={info.src} />,
+        icon: <ReactSVG className={ classes.icon } src={ info.src } />,
         label: 'Draft',
         styles: classes.statusInReviewBorder,
     },
@@ -46,15 +46,15 @@ function StatusBadge({ status }: { status: Flockfysh.PullRequestStatus }) {
 
     return (
         <div
-            className={`${classes.statusBadgeWrapper} ${thisStatusContent?.styles}`}
+            className={ `${classes.statusBadgeWrapper} ${thisStatusContent?.styles}` }
         >
-            {thisStatusContent?.icon}
+            { thisStatusContent?.icon }
 
-            <div className={classes.statusBadgeSeparator} />
-            <span>{thisStatusContent?.label}</span>
+            <div className={ classes.statusBadgeSeparator } />
+            <span>{ thisStatusContent?.label }</span>
         </div>
     );
-};
+}
 
 export const ContributionItem = ({
     contribution,
@@ -64,39 +64,39 @@ export const ContributionItem = ({
     contribution: ExpandedPullRequest;
 }) => {
     return (
-        <div className={classes.itemContainer}>
-            {/* header */}
-            <div className={classes.headerWrapper}>
-                <div className={classes.titleWrapper}>
-                    {/* title */}
+        <div className={ classes.itemContainer }>
+            { /* header */ }
+            <div className={ classes.headerWrapper }>
+                <div className={ classes.titleWrapper }>
+                    { /* title */ }
                     <Link
-                        href={`/marketplace/${datasetId}/contributions/${contribution._id}`}
+                        href={ `/marketplace/${datasetId}/contributions/${contribution._id}` }
                     >
-                        <p className={classes.title}>{contribution.name}</p>
+                        <p className={ classes.title }>{ contribution.name }</p>
                     </Link>
 
-                    {/* tags */}
+                    { /* tags */ }
                     <div>
-                        <StatusBadge status={contribution.status} />
+                        <StatusBadge status={ contribution.status } />
                     </div>
                 </div>
 
-                <div className={classes.datetime}>
-                    <ReactSVG className={classes.icon} src={timer.src} />
-                    <span>{dayjs(contribution.updatedAt).fromNow()}</span>
+                <div className={ classes.datetime }>
+                    <ReactSVG className={ classes.icon } src={ timer.src } />
+                    <span>{ dayjs(contribution.updatedAt).fromNow() }</span>
                 </div>
             </div>
 
-            {/* footer */}
-            <div className={classes.footerWrapper}>
-                <div className={classes.itemContent}>
-                    opened {dayjs(contribution.createdAt).fromNow()} by @
-                    {contribution.user.username.slice(0, 16)}
+            { /* footer */ }
+            <div className={ classes.footerWrapper }>
+                <div className={ classes.itemContent }>
+                    opened { dayjs(contribution.createdAt).fromNow() } by @
+                    { contribution.user.username.slice(0, 16) }
                 </div>
                 
-                <div className={classes.messageBadge}>
-                    <ReactSVG className={classes.icon} src={commenting.src} />
-                    <span>{contribution.stats.messages}</span>
+                <div className={ classes.messageBadge }>
+                    <ReactSVG className={ classes.icon } src={ commenting.src } />
+                    <span>{ contribution.stats.messages }</span>
                 </div>
             </div>
         </div>

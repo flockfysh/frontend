@@ -8,8 +8,8 @@ export interface ErrorModalProps {
 
 export function ErrorModal(props: ErrorModalProps) {
     return (
-        <ModalBase closeModal={props.closeModal} title={props.title ?? 'Error'}>
-            <p>{props.message}</p>
+        <ModalBase closeModal={ props.closeModal } title={ props.title ?? 'Error' }>
+            <p>{ props.message }</p>
         </ModalBase>
     );
 }

@@ -7,11 +7,11 @@ export default function DatasetTimeFilter(props: {
     selected: number;
 }) {
     return (
-        <div className={classes.trendingFilterContainer}>
-            {props.options.map(([count, type], i) => (
+        <div className={ classes.trendingFilterContainer }>
+            { props.options.map(([count, type], i) => (
                 <button
-                    key={i}
-                    onClick={() => props.callback(i)}
+                    key={ i }
+                    onClick={ () => props.callback(i) }
                     className={
                         classes.trendingFilterGrid +
                         ' ' +
@@ -19,11 +19,11 @@ export default function DatasetTimeFilter(props: {
                     }
                 >
                     <div>
-                        {count}
-                        {type[0]}
+                        { count }
+                        { type[0] }
                     </div>
                 </button>
-            ))}
+            )) }
         </div>
     );
 }

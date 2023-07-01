@@ -61,62 +61,62 @@ const Contribute = (props: ContributeProps) => {
 
     return (
         <form
-            className={classes.container}
-            onSubmit={async (e) => {
+            className={ classes.container }
+            onSubmit={ async (e) => {
                 e.preventDefault();
                 await uploadPullRequest(
                     props.dataset,
                     new FormData(e.currentTarget)
                 );
-            }}
+            } }
         >
-            <div className={classes.inputDiv}>
-                <h4 className={classes.subheading}>Title</h4>
+            <div className={ classes.inputDiv }>
+                <h4 className={ classes.subheading }>Title</h4>
 
-                <div className={classes.mergedInput}>
-                    <ReactSVG src={edit.src} className={classes.icon} />
+                <div className={ classes.mergedInput }>
+                    <ReactSVG src={ edit.src } className={ classes.icon } />
 
                     <input
-                        className={classes.input}
-                        name={'name'}
+                        className={ classes.input }
+                        name={ 'name' }
                         type="text"
-                        value={title}
-                        onChange={(event) => {
+                        value={ title }
+                        onChange={ (event) => {
                             setTitle(event.target.value);
-                        }}
+                        } }
                     />
                 </div>
             </div>
 
-            <div className={classes.inputDiv}>
-                <h4 className={classes.subheading}>Describe your request</h4>
+            <div className={ classes.inputDiv }>
+                <h4 className={ classes.subheading }>Describe your request</h4>
 
                 <div>
                     <textarea
-                        className={classes.textArea}
-                        name={'description'}
+                        className={ classes.textArea }
+                        name={ 'description' }
                         placeholder="Describe what is in your contribution. Be as precise as you can"
-                        onChange={(event) => {
+                        onChange={ (event) => {
                             setBody(event.target.value);
-                        }}
-                        value={body}
+                        } }
+                        value={ body }
                     />
                 </div>
             </div>
 
-            <div className={classes.inputDiv}>
-                <h4 className={classes.subheading}>Files</h4>
+            <div className={ classes.inputDiv }>
+                <h4 className={ classes.subheading }>Files</h4>
 
                 <FileUpload
-                    uploadContainerClassName={`${classes.uploadContainer}`}
-                    datasetType={props.dataset.type}
-                    name={'files'}
+                    uploadContainerClassName={ `${classes.uploadContainer}` }
+                    datasetType={ props.dataset.type }
+                    name={ 'files' }
                 />
             </div>
             
-            <button className={classes.button} onClick={() => {}}>
+            <button className={ classes.button } onClick={ () => {} }>
                 Submit Request
-                <ReactSVG src={database.src} className={classes.icon} />
+                <ReactSVG src={ database.src } className={ classes.icon } />
             </button>
         </form>
     );

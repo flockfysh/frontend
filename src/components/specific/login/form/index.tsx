@@ -21,25 +21,25 @@ const LoginField = forwardRef<
     }
 >(function LoginField(props, ref) {
     return (
-        <label className={classes.field}>
+        <label className={ classes.field }>
             <input
-                ref={(e) => {
+                ref={ (e) => {
                     if (typeof ref === 'function') ref(e);
                     else if (ref) ref.current = e;
-                }}
-                name={props.name}
-                placeholder={props.placeholder}
-                className={`${props.errorMessage ? classes.inputInvalid : ''} ${
+                } }
+                name={ props.name }
+                placeholder={ props.placeholder }
+                className={ `${props.errorMessage ? classes.inputInvalid : ''} ${
                     classes.input
-                }`}
-                type={props.type}
+                }` }
+                type={ props.type }
             />
 
-            {props.errorMessage ? (
-                <span className={classes.error}>{props.errorMessage}</span>
+            { props.errorMessage ? (
+                <span className={ classes.error }>{ props.errorMessage }</span>
             ) : (
                 ''
-            )}
+            ) }
         </label>
     );
 });
@@ -172,78 +172,78 @@ export default function LoginForm(props: {
 
     return (
         <form
-            className={classes.loginForm}
-            onChange={(e) => {
+            className={ classes.loginForm }
+            onChange={ (e) => {
                 handleValid(e.currentTarget);
-            }}
-            onSubmit={(e) => {
+            } }
+            onSubmit={ (e) => {
                 e.preventDefault();
                 if (handleValid(e.currentTarget))
                     auth(e.currentTarget, props.mode).then();
-            }}
+            } }
         >
-            <fieldset className={classes.loginFieldset}>
-                <h2 className={classes.loginFormHeading}>
+            <fieldset className={ classes.loginFieldset }>
+                <h2 className={ classes.loginFormHeading }>
                     Please enter your information
                 </h2>
 
-                {props.mode === 'signup' ? (
+                { props.mode === 'signup' ? (
                     <LoginField
                         placeholder="Full name"
                         type="text"
                         name="fullName"
-                        errorMessage={nameError}
+                        errorMessage={ nameError }
                     />
                 ) : (
                     <></>
-                )}
+                ) }
 
                 <LoginField
                     placeholder="Email"
                     type="email"
                     name="email"
-                    errorMessage={emailError}
+                    errorMessage={ emailError }
                 />
 
                 <LoginField
                     placeholder="Password"
                     type="password"
                     name="password"
-                    errorMessage={passwordError}
+                    errorMessage={ passwordError }
                 />
 
-                {props.mode === 'signup' ? (
+                { props.mode === 'signup' ? (
                     <LoginField
                         placeholder="Confirm password"
                         type="password"
                         name="confirmPassword"
-                        errorMessage={confirmPasswordError}
+                        errorMessage={ confirmPasswordError }
                     />
                 ) : (
                     <></>
-                )}
+                ) }
 
-                <div className={classes.signInUtilities}>
-                    <label className={classes.label}>
+                <div className={ classes.signInUtilities }>
+                    <label className={ classes.label }>
                         <input
-                            type={'checkbox'}
-                            name={'rememberUser'}
-                            className={classes.checkbox}
+                            type={ 'checkbox' }
+                            name={ 'rememberUser' }
+                            className={ classes.checkbox }
                         />
                         <span>Remember Me</span>
                     </label>
 
                     <Link
-                        href={'/forgotPassword'}
-                        className={classes.forgotPassword}
+                        href={ '/forgotPassword' }
+                        className={ classes.forgotPassword }
                     >
                         Forgot Password?
                     </Link>
                 </div>
             </fieldset>
 
-            <button className={classes.signIn}>
-                {props.mode === 'login' ? 'Sign in' : 'Sign up'}
+            <button className={ classes.signIn }>
+                { props.mode === 'login' ? 'Sign in' : 'Sign up' }
             </button>
         </form>
     );

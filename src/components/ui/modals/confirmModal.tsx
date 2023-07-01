@@ -13,19 +13,19 @@ export function ConfirmModal(props: ConfirmModalProps) {
     }
 
     return (
-        <div className={classes.modalContainer}>
-            <div className={classes.modalContent}>
-                <h4 className={classes.modalTitle}>{props.title}</h4>
+        <div className={ classes.modalContainer }>
+            <div className={ classes.modalContent }>
+                <h4 className={ classes.modalTitle }>{ props.title }</h4>
 
-                {props.children}
+                { props.children }
 
-                <div className={classes.buttonContainer}>
-                    <button onClick={confirm} className={classes.closeModal}>
+                <div className={ classes.buttonContainer }>
+                    <button onClick={ confirm } className={ classes.closeModal }>
                         Yes
                     </button>
                     <button
-                        onClick={props.closeModal}
-                        className={classes.closeModal}
+                        onClick={ props.closeModal }
+                        className={ classes.closeModal }
                     >
                         No
                     </button>

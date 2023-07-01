@@ -7,10 +7,10 @@ import classes from './styles.module.css';
 
 export default function MarketplaceLayout(props: PropsWithChildren) {
     return (
-        <div className={classes.container}>
+        <div className={ classes.container }>
             <MarketplaceNavbar />
 
-            {props.children}
+            { props.children }
             
             <Footer />
         </div>

@@ -21,14 +21,14 @@ const datasetTypeOptions = [
 export default function CreateDatasetModal() {
     return (
         <ActionPopupWithButton
-            button={
-                <button className={classes.newDatasetButton}>
+            button={ (
+                <button className={ classes.newDatasetButton }>
                     <span>New Dataset</span>
 
-                    <ReactSVG src={plus.src} />
+                    <ReactSVG src={ plus.src } />
                 </button>
-            }
-            blurBg={true}
+              ) }
+            blurBg={ true }
             popupTitle="Create New Dataset"
         >
             <CreateDatasetForm />
@@ -77,70 +77,70 @@ function CreateDatasetForm() {
 
     return (
         <form
-            className={classes.createDatasetContainer}
-            onSubmit={(e) => {
+            className={ classes.createDatasetContainer }
+            onSubmit={ (e) => {
                 e.preventDefault();
                 createDataset(e.currentTarget).then(() => {
                     close();
                 });
-            }}
+            } }
         >
-            <div className={classes.formContainer}>
+            <div className={ classes.formContainer }>
                 <input
-                    required={true}
+                    required={ true }
                     name="name"
-                    className={classes.nameInp}
+                    className={ classes.nameInp }
                     type="text"
                     placeholder="Dataset Name"
                 />
 
                 <textarea
-                    className={classes.descInput}
-                    required={true}
+                    className={ classes.descInput }
+                    required={ true }
                     name="description"
                     placeholder="Dataset Description"
                 />
 
-                <div className={classes.recipeContainer}>
-                    <h1 className={classes.recipeHeader}>Choose a Recipe</h1>
+                <div className={ classes.recipeContainer }>
+                    <h1 className={ classes.recipeHeader }>Choose a Recipe</h1>
 
                     <CustomSelect
-                        className={classes.select}
-                        name={'recipe'}
+                        className={ classes.select }
+                        name={ 'recipe' }
                         placeholder="Recipe"
-                        onInputChange={(e) => setCurQuery(e)}
-                        options={recipes.map((recipe) => ({
+                        onInputChange={ (e) => setCurQuery(e) }
+                        options={ recipes.map((recipe) => ({
                             value: recipe._id,
                             label: `${recipe.name} - ${recipe.labels.length} labels`,
-                        }))}
-                        required={true}
+                        })) }
+                        required={ true }
                     />
 
                     <p>Add an existing recipe</p>
                 </div>
 
-                <div className={classes.bottomContainer}>
-                    <div className={classes.card}>
-                        <h1 className={classes.recipeHeader}>Dataset Type</h1>
+                <div className={ classes.bottomContainer }>
+                    <div className={ classes.card }>
+                        <h1 className={ classes.recipeHeader }>Dataset Type</h1>
 
                         <CustomSelect
-                            required={true}
+                            required={ true }
                             name="type"
-                            className={classes.select}
+                            className={ classes.select }
                             placeholder="Dataset Type"
-                            options={datasetTypeOptions}
+                            options={ datasetTypeOptions }
                         />
 
                         <p>Select the type of data in the dataset</p>
                     </div>
 
-                    <div className={classes.card}>
-                        <h1 className={classes.recipeHeader}>Tags</h1>
+                    <div className={ classes.card }>
+                        <h1 className={ classes.recipeHeader }>Tags</h1>
 
                         <CustomCreatableSelect
                             name="tags"
-                            isMulti={true}
-                            className={classes.select}
+                            isMulti={ true }
+                            className={ classes.select }
                             placeholder="Tags"
                         />
 
@@ -148,7 +148,7 @@ function CreateDatasetForm() {
                     </div>
                 </div>
 
-                <button className={classes.create}>Create</button>
+                <button className={ classes.create }>Create</button>
             </div>
         </form>
     );

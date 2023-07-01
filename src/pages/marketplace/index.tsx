@@ -158,74 +158,74 @@ const Marketplace: NextPageWithLayout = function () {
     });
 
     return (
-        <div className={classes.container}>
-            {!!featuredDatasets.length && (
-                <FeaturedDatasetsSection datasets={featuredDatasets} />
-            )}
+        <div className={ classes.container }>
+            { !!featuredDatasets.length && (
+                <FeaturedDatasetsSection datasets={ featuredDatasets } />
+            ) }
 
-            {!!trendingDatasets.length && (
-                <section className={classes.sectionContainer}>
-                    <div className={classes.headerContainer}>
-                        <h1 className={classes.header}>Trending Datasets</h1>
+            { !!trendingDatasets.length && (
+                <section className={ classes.sectionContainer }>
+                    <div className={ classes.headerContainer }>
+                        <h1 className={ classes.header }>Trending Datasets</h1>
 
                         <DatasetTimeFilter
-                            callback={(index) => {
+                            callback={ (index) => {
                                 setTimeFilter(index);
-                            }}
-                            options={timeFilterOptions}
-                            selected={timeFilter}
+                            } }
+                            options={ timeFilterOptions }
+                            selected={ timeFilter }
                         />
                     </div>
 
                     <DatasetSwiper
                         cardType="vertical"
-                        datasets={trendingDatasets}
+                        datasets={ trendingDatasets }
                     />
                 </section>
-            )}
+            ) }
 
-            {!!popularDatasets.length && (
-                <section className={classes.sectionContainer}>
-                    <div className={classes.headerContainer}>
-                        <h1 className={classes.header}>
+            { !!popularDatasets.length && (
+                <section className={ classes.sectionContainer }>
+                    <div className={ classes.headerContainer }>
+                        <h1 className={ classes.header }>
                             Most Popular Datasets
                         </h1>
                     </div>
 
                     <DatasetSwiper
                         cardType="vertical"
-                        datasets={popularDatasets}
+                        datasets={ popularDatasets }
                     />
                 </section>
-            )}
+            ) }
 
-            {!!paidDatasets.length && (
-                <section className={classes.sectionContainer}>
-                    <div className={classes.headerContainer}>
-                        <h1 className={classes.header}>Premium Datasets</h1>
+            { !!paidDatasets.length && (
+                <section className={ classes.sectionContainer }>
+                    <div className={ classes.headerContainer }>
+                        <h1 className={ classes.header }>Premium Datasets</h1>
                     </div>
 
                     <DatasetSwiper
                         cardType="vertical"
-                        datasets={paidDatasets}
+                        datasets={ paidDatasets }
                     />
                 </section>
-            )}
+            ) }
 
-            <section className={classes.sectionContainer}>
-                <div className={classes.headerContainer}>
-                    <h1 className={classes.header}>Trending Collections</h1>
+            <section className={ classes.sectionContainer }>
+                <div className={ classes.headerContainer }>
+                    <h1 className={ classes.header }>Trending Collections</h1>
                 </div>
 
-                <CollectionSwiper collections={collections} />
+                <CollectionSwiper collections={ collections } />
             </section>
 
-            <section className={classes.sectionContainer + ' ' + classes.howTo}>
-                <h1 className={classes.howToHeader}>
+            <section className={ classes.sectionContainer + ' ' + classes.howTo }>
+                <h1 className={ classes.howToHeader }>
                     Upload, Request, and Share your Datasets
                 </h1>
 
-                <div className={classes.howToCards}>
+                <div className={ classes.howToCards }>
                     <HowToCards />
                 </div>
             </section>
@@ -234,7 +234,7 @@ const Marketplace: NextPageWithLayout = function () {
 };
 
 Marketplace.getLayout = function (page) {
-    return <MarketplaceLayout>{page}</MarketplaceLayout>;
+    return <MarketplaceLayout>{ page }</MarketplaceLayout>;
 };
 
 export default Marketplace;

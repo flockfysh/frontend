@@ -14,21 +14,21 @@ interface CustomModalProps extends PropsWithChildren {
 export default function CustomModal(props: CustomModalProps) {
     return (
         <div
-            className={`${classes.overlay} ${
+            className={ `${classes.overlay} ${
                 props.blurBg ? classes.blurBg : ''
-            } ${props.className || ''}`}
-            onClick={(e) => {
+            } ${props.className || ''}` }
+            onClick={ (e) => {
                 if (e.target === e.currentTarget) props.onOuterClick?.(e);
-            }}
+            } }
         >
             <div
-                className={`${classes.container} ${props.modalClassName ?? ''}`}
+                className={ `${classes.container} ${props.modalClassName ?? ''}` }
             >
-                <div className={classes.header}>
-                    <h1 className={classes.headerText}>{props.popupTitle}</h1>
+                <div className={ classes.header }>
+                    <h1 className={ classes.headerText }>{ props.popupTitle }</h1>
                 </div>
 
-                {props.children}
+                { props.children }
             </div>
         </div>
     );

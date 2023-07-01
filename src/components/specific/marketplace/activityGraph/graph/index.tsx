@@ -198,10 +198,10 @@ export default function Graph(dataset: PreviewDataset) {
 
     return (
         <Chart
-            className={classes.chart}
-            options={options}
+            className={ classes.chart }
+            options={ options }
             type="bar"
-            data={data()}
+            data={ data() }
         />
     );
 }

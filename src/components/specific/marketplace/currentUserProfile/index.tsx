@@ -15,7 +15,7 @@ export default function CurrentUserProfile() {
                 profilePicture={
                     user.profilePhoto?.url ?? getDefaultProfilePicture()
                 }
-                username={user.username}
+                username={ user.username }
             />
         );
     

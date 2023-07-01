@@ -10,14 +10,14 @@ import DatasetSettings from '@/components/specific/marketplace/datasetSettings';
 const DatasetActivityPage: NextPageWithLayout = function () {
     const dataset = useContext(DatasetInfoContext);
     if (dataset)
-        return <DatasetSettings {...dataset} />;
+        return <DatasetSettings { ...dataset } />;
     else return <></>;
 };
 
 DatasetActivityPage.getLayout = function (page) {
     return (
         <MarketplaceLayout>
-            <DatasetInfo>{page}</DatasetInfo>
+            <DatasetInfo>{ page }</DatasetInfo>
         </MarketplaceLayout>
     );
 };

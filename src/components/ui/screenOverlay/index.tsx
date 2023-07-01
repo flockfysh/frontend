@@ -15,14 +15,14 @@ export default function FullScreenOverlayWithCenteredItem(
 
     return (
         <div
-            className={`${classes.overlay} ${blurBg ? classes.blurBg : ''} ${
+            className={ `${classes.overlay} ${blurBg ? classes.blurBg : ''} ${
                 opaqueBackdrop ? classes.opaque : ''
-            } ${props.className || ''}`}
-            onClick={(e) => {
+            } ${props.className || ''}` }
+            onClick={ (e) => {
                 if (e.target === e.currentTarget) props.onOuterClick?.(e);
-            }}
+            } }
         >
-            {props.children}
+            { props.children }
         </div>
     );
 }

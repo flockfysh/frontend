@@ -27,22 +27,22 @@ export default function Profile(props: { username: string }) {
 
     return (
         <>
-            <UserInfo curTab={curTab} {...user} updateTab={updateCurTab} />
+            <UserInfo curTab={ curTab } { ...user } updateTab={ updateCurTab } />
 
-            {curTab === 0 && <DatasetsOwned user={user} />}
-            {/*{curTab === 1 && <ActivityGraph />}*/}
+            { curTab === 0 && <DatasetsOwned user={ user } /> }
+            { /*{curTab === 1 && <ActivityGraph />}*/ }
 
-            {curTab === 2 && (
+            { curTab === 2 && (
                 <UserSettings
                     name="user"
                     email="trial@email.com"
                     apiKey="Sf3$dqq34Fa4gD43@F$&S"
-                    mailingList={true}
-                    transferLimit={1.9}
-                    downloads={7}
-                    apiCalls={7898}
+                    mailingList={ true }
+                    transferLimit={ 1.9 }
+                    downloads={ 7 }
+                    apiCalls={ 7898 }
                 />
-            )}
+            ) }
         </>
     );
 }

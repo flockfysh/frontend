@@ -36,8 +36,8 @@ export function ScreenWrapper(props: React.PropsWithChildren) {
     }, `(min-width: ${MIN_WIDTH}px)`);
 
     return (
-        <ScreenContext.Provider value={{ windowTooSmall }}>
-            {props.children}
+        <ScreenContext.Provider value={ { windowTooSmall } }>
+            { props.children }
         </ScreenContext.Provider>
     );
 }

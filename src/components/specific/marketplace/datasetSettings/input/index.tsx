@@ -35,65 +35,65 @@ export default function Input<T extends string | number>(props: {
     const id = useId();
 
     return (
-        <div className={classes.container}>
-            {props.label ? (
-                <div className={classes.labelContainer}>
-                    <label className={classes.label} htmlFor={id}>
-                        {props.label}
+        <div className={ classes.container }>
+            { props.label ? (
+                <div className={ classes.labelContainer }>
+                    <label className={ classes.label } htmlFor={ id }>
+                        { props.label }
                     </label>
-                    {props.tooltip ? (
-                        <button className={classes.helpIcon}>
-                            <ReactSVG src={help.src} />
+                    { props.tooltip ? (
+                        <button className={ classes.helpIcon }>
+                            <ReactSVG src={ help.src } />
 
-                            <p className={classes.helpIconTooltip}>
-                                {props.tooltip}
+                            <p className={ classes.helpIconTooltip }>
+                                { props.tooltip }
                             </p>
                         </button>
                     ) : (
                         <></>
-                    )}
+                    ) }
                 </div>
             ) : (
                 <></>
-            )}
+            ) }
 
             <label
-                className={`${classes.inputContainer} ${
+                className={ `${classes.inputContainer} ${
                     focus ? classes.focusedInput : ''
-                } ${inProgress ? classes.inProgress : ''}`}
+                } ${inProgress ? classes.inProgress : ''}` }
             >
-                {props.icon ? <ReactSVG src={props.icon} /> : <></>}
+                { props.icon ? <ReactSVG src={ props.icon } /> : <></> }
 
                 <input
-                    id={id}
-                    disabled={inProgress}
-                    max={props.max}
-                    min={props.min}
-                    type={props.type}
-                    placeholder={props.placeholder}
-                    onChange={(event) => {
+                    id={ id }
+                    disabled={ inProgress }
+                    max={ props.max }
+                    min={ props.min }
+                    type={ props.type }
+                    placeholder={ props.placeholder }
+                    onChange={ (event) => {
                         setValue(event.currentTarget.value as T);
-                    }}
-                    value={value}
-                    onFocus={() => {
+                    } }
+                    value={ value }
+                    onFocus={ () => {
                         setFocus(true);
-                    }}
-                    onBlur={() => setFocus(false)}
-                    className={`${classes.input}`}
+                    } }
+                    onBlur={ () => setFocus(false) }
+                    className={ `${classes.input}` }
                 />
 
                 <button
-                    disabled={inProgress}
-                    className={classes.button}
-                    onClick={async () => {
+                    disabled={ inProgress }
+                    className={ classes.button }
+                    onClick={ async () => {
                         setInProgress(true);
 
                         if (value !== undefined) await props.onSave?.(value);
 
                         setInProgress(false);
-                    }}
+                    } }
                 >
-                    {props.saveLabel ?? 'Update'}
+                    { props.saveLabel ?? 'Update' }
                 </button>
             </label>
         </div>

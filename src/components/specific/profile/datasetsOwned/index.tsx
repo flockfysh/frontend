@@ -74,7 +74,8 @@ function DatasetsOwned(props: { user: BaseUser }) {
                         }
                     )
                 ).data;
-            } else {
+            }
+ else {
                 fetched = (
                     await api.get<Api.PaginatedResponse<HomepageDataset[]>>(
                         '/api/datasets/search/shared',
@@ -109,61 +110,61 @@ function DatasetsOwned(props: { user: BaseUser }) {
     }, [props.user._id]);
 
     return (
-        <section className={classes.mainDiv}>
-            <div className={classes.cardDiv}>
-                <div className={classes.headDiv}>
-                    <label className={classes.searchContainer}>
+        <section className={ classes.mainDiv }>
+            <div className={ classes.cardDiv }>
+                <div className={ classes.headDiv }>
+                    <label className={ classes.searchContainer }>
                         <ReactSVG
-                            src={search.src}
-                            className={classes.searchIcon}
+                            src={ search.src }
+                            className={ classes.searchIcon }
                         />
 
                         <input
-                            onChange={(event) => {
+                            onChange={ (event) => {
                                 setQuery(event.currentTarget.value);
-                            }}
+                            } }
                             type="search"
-                            className={classes.search}
+                            className={ classes.search }
                             placeholder="Search datasets"
                         />
                     </label>
 
                     <ReactSVG
-                        src={search.src}
-                        className={classes.mobileSearch}
+                        src={ search.src }
+                        className={ classes.mobileSearch }
                     />
 
                     <RadioButtons
-                        options={[
+                        options={ [
                             { value: 'owned', label: 'Owned' },
                             {
                                 value: 'shared',
                                 label: 'Shared',
                                 shown: isCurrentUser,
                             },
-                        ]}
-                        value={filterType}
-                        onChange={(currentValue) =>
+                        ] }
+                        value={ filterType }
+                        onChange={ (currentValue) =>
                             setFilterType(currentValue as FilterType)
                         }
                     />
                 </div>
 
                 <InfiniteScroll
-                    useWindow={false}
-                    loadMore={load}
-                    hasMore={state.hasMore}
-                    className={classes.datasetGrid}
+                    useWindow={ false }
+                    loadMore={ load }
+                    hasMore={ state.hasMore }
+                    className={ classes.datasetGrid }
                 >
-                    {state.datasets.map((value) => {
+                    { state.datasets.map((value) => {
                         return (
                             <VerticalCard
-                                {...value}
-                                key={value._id}
-                                className={classes.verticalCard}
+                                { ...value }
+                                key={ value._id }
+                                className={ classes.verticalCard }
                             />
                         );
-                    })}
+                    }) }
                 </InfiniteScroll>
             </div>
         </section>

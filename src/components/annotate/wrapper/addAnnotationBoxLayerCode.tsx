@@ -59,32 +59,32 @@ export default function AddAnnotationBoxLayer(props: {
     return (
         <Layer>
             <Rect
-                ref={internalRectRef}
+                ref={ internalRectRef }
                 stroke="red"
-                strokeWidth={4}
-                opacity={isDragging ? 1 : 0}
+                strokeWidth={ 4 }
+                opacity={ isDragging ? 1 : 0 }
             />
 
             <Rect
                 draggable
-                x={0}
-                y={0}
-                strokeScaleEnabled={false}
-                width={props.width}
-                height={props.height}
-                onMouseDown={(e) => {
+                x={ 0 }
+                y={ 0 }
+                strokeScaleEnabled={ false }
+                width={ props.width }
+                height={ props.height }
+                onMouseDown={ (e) => {
                     const { x, y } = e.currentTarget
                         .getStage()!
                         .getRelativePointerPosition();
 
                     start.current.sX = x;
                     start.current.sY = y;
-                }}
-                onDragStart={() => {
+                } }
+                onDragStart={ () => {
                     setIsDragging(true);
                     updateRectangle();
-                }}
-                onDragMove={(e) => {
+                } }
+                onDragMove={ (e) => {
                     const stage = e.currentTarget.getStage()!;
                     let { x, y } = stage.getRelativePointerPosition();
 
@@ -94,8 +94,8 @@ export default function AddAnnotationBoxLayer(props: {
                     end.current.eY = y;
 
                     updateRectangle();
-                }}
-                onDragEnd={(e) => {
+                } }
+                onDragEnd={ (e) => {
                     const rectangle = e.currentTarget;
 
                     rectangle.x(0);
@@ -127,7 +127,7 @@ export default function AddAnnotationBoxLayer(props: {
                     };
 
                     props.onAdd?.(coords);
-                }}
+                } }
             />
         </Layer>
     );

@@ -35,25 +35,25 @@ const TableComponents = {
         props,
         ref
     ) {
-        return <TableContainer {...props} ref={ref} />;
+        return <TableContainer { ...props } ref={ ref } />;
     }),
     Table: forwardRef<HTMLTableElement, TableProps>(function _Table(
         props,
         ref
     ) {
         return (
-            <Table {...props} className={classes.viewerTableInner} ref={ref} />
+            <Table { ...props } className={ classes.viewerTableInner } ref={ ref } />
         );
     }),
     TableHead: forwardRef<HTMLTableSectionElement, TableHeadProps>(
         function _TableHead(props: TableHeadProps, ref) {
             return (
                 <TableHead
-                    {...props}
-                    className={`${classes.viewerTableHead} ${
+                    { ...props }
+                    className={ `${classes.viewerTableHead} ${
                         props.className || ''
-                    }`}
-                    ref={ref}
+                    }` }
+                    ref={ ref }
                 />
             );
         }
@@ -64,9 +64,9 @@ const TableComponents = {
     ) {
         return (
             <TableRow
-                {...props}
-                className={`${classes.viewerTableRow} ${props.className || ''}`}
-                ref={ref}
+                { ...props }
+                className={ `${classes.viewerTableRow} ${props.className || ''}` }
+                ref={ ref }
             />
         );
     }),
@@ -74,11 +74,11 @@ const TableComponents = {
         function _TableBody(props: TableBodyProps, ref) {
             return (
                 <TableBody
-                    {...props}
-                    className={`${classes.viewerTableBody} ${
+                    { ...props }
+                    className={ `${classes.viewerTableBody} ${
                         props.className || ''
-                    }`}
-                    ref={ref}
+                    }` }
+                    ref={ ref }
                 />
             );
         }
@@ -88,11 +88,11 @@ const TableComponents = {
 function CustomTableCell(props: TableCellProps) {
     return (
         <TableCell
-            {...props}
-            ref={props.ref}
-            className={`${props.className || ''} ${classes.viewerTableCell}`}
+            { ...props }
+            ref={ props.ref }
+            className={ `${props.className || ''} ${classes.viewerTableCell}` }
         >
-            <div className={classes.viewerTableCellInner}>{props.children}</div>
+            <div className={ classes.viewerTableCellInner }>{ props.children }</div>
         </TableCell>
     );
 }
@@ -177,10 +177,12 @@ export default function ActivityTable(props: {
                                 data: state.data,
                             };
                         });
-                    } catch (e) {
+                    }
+ catch (e) {
                         return;
                     }
-                } else {
+                }
+ else {
                     const userId = props.userId;
 
                     try {
@@ -208,7 +210,8 @@ export default function ActivityTable(props: {
                                 data: state.data,
                             };
                         });
-                    } catch (e) {
+                    }
+ catch (e) {
                         return;
                     }
                 }
@@ -230,50 +233,50 @@ export default function ActivityTable(props: {
     }, [state, load]);
 
     return (
-        <div className={classes.dataCardContainer}>
+        <div className={ classes.dataCardContainer }>
             <TableVirtuoso
-                data={dataArray}
-                fixedHeaderContent={Header}
-                className={classes.viewerTable}
-                components={TableComponents}
-                endReached={() => load()}
-                itemContent={function genRow(index, data) {
+                data={ dataArray }
+                fixedHeaderContent={ Header }
+                className={ classes.viewerTable }
+                components={ TableComponents }
+                endReached={ () => load() }
+                itemContent={ function genRow(index, data) {
                     return (
                         <>
-                            <CustomTableCell className={classes.uploadDate}>
+                            <CustomTableCell className={ classes.uploadDate }>
                                 <span>
-                                    {dayjs(data.date).format('DD/MM/YYYY')}
+                                    { dayjs(data.date).format('DD/MM/YYYY') }
                                 </span>
                             </CustomTableCell>
 
                             <CustomTableCell>
-                                <span className={classes.filename}>
-                                    <span className={classes.filenameText}>
-                                        {'dataset' in data
+                                <span className={ classes.filename }>
+                                    <span className={ classes.filenameText }>
+                                        { 'dataset' in data
                                             ? data.dataset
-                                            : data.userName}
+                                            : data.userName }
                                     </span>
                                 </span>
                             </CustomTableCell>
 
                             <CustomTableCell>
-                                <span>{capitalize(data.action)}</span>
+                                <span>{ capitalize(data.action) }</span>
                             </CustomTableCell>
 
                             <CustomTableCell>
-                                <span>{data.numFiles}</span>
+                                <span>{ data.numFiles }</span>
                             </CustomTableCell>
 
                             <CustomTableCell>
-                                <span>{formatFileSize(data.size)}</span>
+                                <span>{ formatFileSize(data.size) }</span>
                             </CustomTableCell>
 
                             <CustomTableCell>
-                                <span>{capitalize(data.type)}s</span>
+                                <span>{ capitalize(data.type) }s</span>
                             </CustomTableCell>
                         </>
                     );
-                }}
+                } }
             />
         </div>
     );

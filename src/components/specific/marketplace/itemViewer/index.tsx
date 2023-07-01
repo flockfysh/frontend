@@ -33,85 +33,85 @@ export default function ItemViewer(dataset: PreviewDataset) {
     };
 
     return (
-        <div className={classes.itemsContainer}>
-            {/* header */}
-            <div className={classes.mainContentHeader}>
-                <label className={classes.searchContainer}>
-                    <ReactSVG src={search.src} className={classes.searchIcon} />
+        <div className={ classes.itemsContainer }>
+            { /* header */ }
+            <div className={ classes.mainContentHeader }>
+                <label className={ classes.searchContainer }>
+                    <ReactSVG src={ search.src } className={ classes.searchIcon } />
 
                     <input
                         type="search"
-                        className={classes.search}
+                        className={ classes.search }
                         placeholder="Search by file name, extention"
-                        value={currentNameQuery}
-                        onChange={(e) => {
+                        value={ currentNameQuery }
+                        onChange={ (e) => {
                             setCurrentNameQuery(e.currentTarget.value);
-                        }}
+                        } }
                     />
                 </label>
 
-                <div className={classes.headerButtonsWrapper}>
-                    <div className={classes.tableViewButtonsWrapper}>
+                <div className={ classes.headerButtonsWrapper }>
+                    <div className={ classes.tableViewButtonsWrapper }>
                         <button
-                            className={`${classes.tableViewButton} ${
+                            className={ `${classes.tableViewButton} ${
                                 !showList ? classes.tableViewButtonActive : ''
-                            }`}
-                            onClick={toggleViewToGrid}
+                            }` }
+                            onClick={ toggleViewToGrid }
                         >
-                            <ReactSVG className={classes.icon} src={grid.src} />
+                            <ReactSVG className={ classes.icon } src={ grid.src } />
                         </button>
 
                         <button
-                            className={`${classes.tableViewButton} ${
+                            className={ `${classes.tableViewButton} ${
                                 showList ? classes.tableViewButtonActive : ''
-                            }`}
-                            onClick={toggleViewToList}
+                            }` }
+                            onClick={ toggleViewToList }
                         >
-                            <ReactSVG className={classes.icon} src={list.src} />
+                            <ReactSVG className={ classes.icon } src={ list.src } />
                         </button>
                     </div>
 
-                    <div className={classes.tableViewButtonsWrapper}>
+                    <div className={ classes.tableViewButtonsWrapper }>
                         <button
-                            className={`${classes.tableViewButton} ${
+                            className={ `${classes.tableViewButton} ${
                                 timeFilter === TIME_STATES.oneHour
                                     ? classes.tableViewButtonActive
                                     : ''
-                            }`}
-                            onClick={() => setTimeFilter(TIME_STATES.oneHour)}
+                            }` }
+                            onClick={ () => setTimeFilter(TIME_STATES.oneHour) }
                         >
                             1h
                         </button>
 
                         <button
-                            className={`${classes.tableViewButton} ${
+                            className={ `${classes.tableViewButton} ${
                                 timeFilter === TIME_STATES.sixHours
                                     ? classes.tableViewButtonActive
                                     : ''
-                            }`}
-                            onClick={() => setTimeFilter(TIME_STATES.sixHours)}
+                            }` }
+                            onClick={ () => setTimeFilter(TIME_STATES.sixHours) }
                         >
                             6h
                         </button>
 
                         <button
-                            className={`${classes.tableViewButton} ${
+                            className={ `${classes.tableViewButton} ${
                                 timeFilter === TIME_STATES.oneDay
                                     ? classes.tableViewButtonActive
                                     : ''
-                            }`}
-                            onClick={() => setTimeFilter(TIME_STATES.oneDay)}
+                            }` }
+                            onClick={ () => setTimeFilter(TIME_STATES.oneDay) }
                         >
                             24h
                         </button>
 
                         <button
-                            className={`${classes.tableViewButton} ${
+                            className={ `${classes.tableViewButton} ${
                                 timeFilter === TIME_STATES.sevenDays
                                     ? classes.tableViewButtonActive
                                     : ''
-                            }`}
-                            onClick={() => setTimeFilter(TIME_STATES.sevenDays)}
+                            }` }
+                            onClick={ () => setTimeFilter(TIME_STATES.sevenDays) }
                         >
                             7d
                         </button>
@@ -119,59 +119,59 @@ export default function ItemViewer(dataset: PreviewDataset) {
                 </div>
             </div>
 
-            {/* content */}
-            <div className={classes.contentContainer}>
-                {/* info column */}
-                <div className={classes.contentInfoContainer}>
-                    {/* title */}
-                    <div className={classes.infoTitleContainer}>
-                        <h2 className={classes.infoTitle}>DATASET explorer</h2>
+            { /* content */ }
+            <div className={ classes.contentContainer }>
+                { /* info column */ }
+                <div className={ classes.contentInfoContainer }>
+                    { /* title */ }
+                    <div className={ classes.infoTitleContainer }>
+                        <h2 className={ classes.infoTitle }>DATASET explorer</h2>
                     </div>
 
-                    {/* summary */}
-                    <div className={classes.infoBox}>
-                        <div className={classes.infoBoxTitleContainer}>
-                            <h3 className={classes.infoBoxTitle}>Summary</h3>
+                    { /* summary */ }
+                    <div className={ classes.infoBox }>
+                        <div className={ classes.infoBoxTitleContainer }>
+                            <h3 className={ classes.infoBoxTitle }>Summary</h3>
                         </div>
 
                         <div>
-                            <div className={classes.infoBoxSubtitle}>
+                            <div className={ classes.infoBoxSubtitle }>
                                 <ReactSVG
-                                    className={classes.infoBoxSubtitleIcon}
-                                    src={database.src}
+                                    className={ classes.infoBoxSubtitleIcon }
+                                    src={ database.src }
                                 />
-                                {dataset.assetCounts.total} Files
+                                { dataset.assetCounts.total } Files
                             </div>
 
-                            {Object.entries(dataset.assetCounts.byMimetype).map(
+                            { Object.entries(dataset.assetCounts.byMimetype).map(
                                 ([mimetype, count]) => {
                                     return (
                                         <div
                                             className={
                                                 classes.infoBoxSummaryItem
                                             }
-                                            key={mimetype}
+                                            key={ mimetype }
                                         >
                                             <span>
-                                                ├─ .{mime.extension(mimetype)}
+                                                ├─ .{ mime.extension(mimetype) }
                                             </span>
-                                            <span>{count}</span>
+                                            <span>{ count }</span>
                                         </div>
                                     );
                                 }
-                            )}
+                            ) }
                         </div>
                     </div>
 
-                    {/* file details */}
-                    <div className={classes.infoBox}>
-                        <div className={classes.infoBoxTitleContainer}>
-                            <h3 className={classes.infoBoxTitle}>
+                    { /* file details */ }
+                    <div className={ classes.infoBox }>
+                        <div className={ classes.infoBoxTitleContainer }>
+                            <h3 className={ classes.infoBoxTitle }>
                                 File Details
                             </h3>
                         </div>
 
-                        <div className={classes.infoBoxFileDetailsInnerBox}>
+                        <div className={ classes.infoBoxFileDetailsInnerBox }>
                             <div
                                 className={
                                     classes.infoBoxFileDetailsInnerBoxRow
@@ -182,7 +182,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
                                 </div>
 
                                 <div>
-                                    <span className={classes.infoWhite}>
+                                    <span className={ classes.infoWhite }>
                                         5760 x 3840
                                     </span>
                                 </div>
@@ -198,7 +198,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
                                 </div>
 
                                 <div>
-                                    <span className={classes.infoWhite}>
+                                    <span className={ classes.infoWhite }>
                                         ABCDELKLJK.jpeg
                                     </span>
                                 </div>
@@ -214,7 +214,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
                                 </div>
 
                                 <div>
-                                    <span className={classes.infoWhite}>
+                                    <span className={ classes.infoWhite }>
                                         image/jpeg
                                     </span>
                                 </div>
@@ -230,7 +230,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
                                 </div>
 
                                 <div>
-                                    <span className={classes.infoWhite}>
+                                    <span className={ classes.infoWhite }>
                                         @user
                                     </span>
                                 </div>
@@ -246,7 +246,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
                                 </div>
 
                                 <div>
-                                    <span className={classes.infoWhite}>
+                                    <span className={ classes.infoWhite }>
                                         8 Bit
                                     </span>
                                 </div>
@@ -262,7 +262,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
                                 </div>
 
                                 <div>
-                                    <span className={classes.infoWhite}>
+                                    <span className={ classes.infoWhite }>
                                         2.63 MB
                                     </span>
                                 </div>
@@ -271,17 +271,17 @@ export default function ItemViewer(dataset: PreviewDataset) {
                     </div>
                 </div>
 
-                {/* grid/list */}
-                <div className={classes.contentListContainer}>
-                    {/* list & grid */}
+                { /* grid/list */ }
+                <div className={ classes.contentListContainer }>
+                    { /* list & grid */ }
 
                     {
                         <AssetViewer
-                            showList={showList}
-                            searchQuery={{
+                            showList={ showList }
+                            searchQuery={ {
                                 displayName: currentNameQuery || undefined,
-                            }}
-                            datasetId={dataset._id}
+                            } }
+                            datasetId={ dataset._id }
                         />
                     }
                 </div>

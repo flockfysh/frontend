@@ -19,10 +19,10 @@ import classes from './styles.module.css';
 
 function Separator() {
     return (
-        <div className={classes.separatorContainer}>
-            <span className={classes.sepLine} />
-            <span className={classes.sepOr}>OR</span>
-            <span className={classes.sepLine} />
+        <div className={ classes.separatorContainer }>
+            <span className={ classes.sepLine } />
+            <span className={ classes.sepOr }>OR</span>
+            <span className={ classes.sepLine } />
         </div>
     );
 }
@@ -37,18 +37,18 @@ function OAuthLink(props: {
 
     return (
         <Link
-            href={url}
-            onClick={(e) => {
+            href={ url }
+            onClick={ (e) => {
                 e.preventDefault();
                 props.onClick?.(url);
-            }}
-            className={classes.oAuthBtn}
+            } }
+            className={ classes.oAuthBtn }
         >
-            <ReactSVG src={props.icon.src} />
+            <ReactSVG src={ props.icon.src } />
 
             <span>
-                {props.mode === 'login' ? 'Sign in' : 'Sign up'} with{' '}
-                {props.provider}
+                { props.mode === 'login' ? 'Sign in' : 'Sign up' } with{ ' ' }
+                { props.provider }
             </span>
         </Link>
     );
@@ -104,57 +104,57 @@ export default function Login(props: { mode: 'login' | 'signup' }) {
 
     return (
         <ActionPopup
-            blurBg={true}
-            modalClassName={classes.modal}
-            popupTitle={isLogin ? 'Sign in' : 'Sign Up'}
+            blurBg={ true }
+            modalClassName={ classes.modal }
+            popupTitle={ isLogin ? 'Sign in' : 'Sign Up' }
         >
-            <section className={classes.modalContent}>
-                <div className={classes.oAuthContainer}>
+            <section className={ classes.modalContent }>
+                <div className={ classes.oAuthContainer }>
                     <OAuthLink
-                        icon={google}
-                        provider={'Google'}
-                        mode={mode}
-                        onClick={oAuthLogin}
+                        icon={ google }
+                        provider={ 'Google' }
+                        mode={ mode }
+                        onClick={ oAuthLogin }
                     />
                     
                     <OAuthLink
-                        icon={github}
-                        provider={'GitHub'}
-                        mode={mode}
-                        onClick={oAuthLogin}
+                        icon={ github }
+                        provider={ 'GitHub' }
+                        mode={ mode }
+                        onClick={ oAuthLogin }
                     />
                 </div>
 
                 <Separator />
 
-                <LoginForm mode={mode} redirect={redirect} />
+                <LoginForm mode={ mode } redirect={ redirect } />
 
-                {isLogin ? (
-                    <p className={classes.changeType}>
+                { isLogin ? (
+                    <p className={ classes.changeType }>
                         Don&apos;t have an account?
                         <button
-                            className={classes.changeTypeButton}
-                            onClick={() => updateMode('signup')}
+                            className={ classes.changeTypeButton }
+                            onClick={ () => updateMode('signup') }
                         >
                             Sign up
                         </button>
                         instead.
                     </p>
                 ) : (
-                    <p className={classes.changeType}>
+                    <p className={ classes.changeType }>
                         Already have an account?
                         <button
-                            className={classes.changeTypeButton}
-                            onClick={() => updateMode('login')}
+                            className={ classes.changeTypeButton }
+                            onClick={ () => updateMode('login') }
                         >
                             Sign in
                         </button>
                         instead.
                     </p>
-                )}
+                ) }
 
-                <p className={classes.footer}>
-                    By signing in you agree to our{' '}
+                <p className={ classes.footer }>
+                    By signing in you agree to our{ ' ' }
                     <Link href="/terms">Terms & Conditions.</Link>
                 </p>
             </section>

@@ -9,5 +9,5 @@ export default function AddAnnotationBoxLayer(props: {
     height: number;
     onAdd?: (normalizedCoordinates: AnnotationBox) => void;
 }) {
-    return <NoSSRComponent {...props} />;
+    return <NoSSRComponent { ...props } />;
 }

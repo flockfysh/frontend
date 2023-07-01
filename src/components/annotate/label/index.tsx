@@ -11,21 +11,21 @@ export default function Label(props: LabelProps) {
     const { dotColor, ...buttonProps } = props;
 
     return (
-        <div className={`${classes.labelContainer}`}>
+        <div className={ `${classes.labelContainer}` }>
             <button
-                {...buttonProps}
-                className={`${classes.label} ${
+                { ...buttonProps }
+                className={ `${classes.label} ${
                     props.selected ? classes.selected : ''
-                }`}
+                }` }
             >
                 <div
-                    className={classes.colorDot}
-                    style={{
+                    className={ classes.colorDot }
+                    style={ {
                         backgroundColor: dotColor,
-                    }}
+                    } }
                 />
 
-                <p className={classes.labelText}>{props.children}</p>
+                <p className={ classes.labelText }>{ props.children }</p>
             </button>
         </div>
     );

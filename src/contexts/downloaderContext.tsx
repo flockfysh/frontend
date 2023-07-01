@@ -45,7 +45,8 @@ export function DownloaderWrapper(props: React.PropsWithChildren) {
             ).data;
             if (result.meta.hasNext) {
                 paginationState.next = result.meta.next;
-            } else {
+            }
+ else {
                 paginationState.next = undefined;
             }
             for (const asset of result.data) {
@@ -83,11 +84,11 @@ export function DownloaderWrapper(props: React.PropsWithChildren) {
 
     return (
         <DownloaderContext.Provider
-            value={{
+            value={ {
                 downloadDataset,
-            }}
+            } }
         >
-            {props.children}
+            { props.children }
         </DownloaderContext.Provider>
     );
 }

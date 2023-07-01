@@ -73,77 +73,77 @@ export default function ContributionList(dataset: PreviewDataset) {
     };
 
     return (
-        <div className={classes.itemsContainer}>
-            {/* header */}
-            <div className={classes.mainContentHeader}>
-                <label className={classes.searchContainer}>
-                    <ReactSVG src={search.src} className={classes.searchIcon} />
+        <div className={ classes.itemsContainer }>
+            { /* header */ }
+            <div className={ classes.mainContentHeader }>
+                <label className={ classes.searchContainer }>
+                    <ReactSVG src={ search.src } className={ classes.searchIcon } />
 
                     <input
                         type="search"
-                        className={classes.search}
+                        className={ classes.search }
                         placeholder="Search by user, title"
-                        value={currentNameQuery}
-                        onChange={(e) => {
+                        value={ currentNameQuery }
+                        onChange={ (e) => {
                             setCurrentNameQuery(e.currentTarget.value);
-                        }}
+                        } }
                     />
                 </label>
 
-                <div className={classes.headerButtonsWrapper}>
-                    <div className={classes.tableViewButtonsWrapper}>
-                        <RadioButtons options={TIME_STATES} />
+                <div className={ classes.headerButtonsWrapper }>
+                    <div className={ classes.tableViewButtonsWrapper }>
+                        <RadioButtons options={ TIME_STATES } />
                     </div>
                 </div>
             </div>
 
-            {/* content */}
+            { /* content */ }
             <div
-                className={classes.contentContainer}
-                ref={scrollerContainerRef}
+                className={ classes.contentContainer }
+                ref={ scrollerContainerRef }
             >
-                {/* contribution list */}
+                { /* contribution list */ }
                 <InfiniteScroll
-                    hasMore={state.hasNext}
-                    useWindow={false}
-                    loadMore={getContributions}
-                    className={classes.contentListContainer}
-                    getScrollParent={() => scrollerContainerRef.current}
+                    hasMore={ state.hasNext }
+                    useWindow={ false }
+                    loadMore={ getContributions }
+                    className={ classes.contentListContainer }
+                    getScrollParent={ () => scrollerContainerRef.current }
                 >
-                    {state.contributions.map((item) => (
+                    { state.contributions.map((item) => (
                         <ContributionItem
-                            key={item._id}
-                            datasetId={dataset._id}
-                            contribution={item}
+                            key={ item._id }
+                            datasetId={ dataset._id }
+                            contribution={ item }
                         />
-                    ))}
+                    )) }
                 </InfiniteScroll>
 
-                {/* info column */}
-                <div className={classes.contentInfoContainer}>
-                    {/* title */}
-                    <div className={classes.infoTitleContainer}>
-                        <h2 className={classes.infoTitle}>
+                { /* info column */ }
+                <div className={ classes.contentInfoContainer }>
+                    { /* title */ }
+                    <div className={ classes.infoTitleContainer }>
+                        <h2 className={ classes.infoTitle }>
                             Contribution Stats
                         </h2>
                     </div>
 
-                    {/* summary */}
-                    <div className={classes.infoBox}>
-                        <div className={classes.infoBoxTitleContainer}>
-                            <h3 className={classes.infoBoxTitle}>Summary</h3>
+                    { /* summary */ }
+                    <div className={ classes.infoBox }>
+                        <div className={ classes.infoBoxTitleContainer }>
+                            <h3 className={ classes.infoBoxTitle }>Summary</h3>
                         </div>
 
                         <div>
-                            <p className={classes.infoBoxSubtitle}>
+                            <p className={ classes.infoBoxSubtitle }>
                                 <ReactSVG
-                                    className={classes.infoBoxSubtitleIcon}
-                                    src={database.src}
+                                    className={ classes.infoBoxSubtitleIcon }
+                                    src={ database.src }
                                 />
-                                {/* {dataset.assetCounts.total} Files */}
+                                { /* {dataset.assetCounts.total} Files */ }
                             </p>
 
-                            {/* {Object.entries(dataset.assetCounts.byMimetype).map(
+                            { /* {Object.entries(dataset.assetCounts.byMimetype).map(
                 ([mimetype, count]) => {
                   return (
                     <div className={classes.infoBoxSummaryItem} key={mimetype}>
@@ -152,19 +152,19 @@ export default function ContributionList(dataset: PreviewDataset) {
                     </div>
                   );
                 }
-              )} */}
+              )} */ }
                         </div>
                     </div>
 
-                    {/* file details */}
-                    <div className={classes.infoBox}>
-                        <div className={classes.infoBoxTitleContainer}>
-                            <h3 className={classes.infoBoxTitle}>
+                    { /* file details */ }
+                    <div className={ classes.infoBox }>
+                        <div className={ classes.infoBoxTitleContainer }>
+                            <h3 className={ classes.infoBoxTitle }>
                                 File Details
                             </h3>
                         </div>
 
-                        <div className={classes.infoBoxFileDetailsInnerBox}>
+                        <div className={ classes.infoBoxFileDetailsInnerBox }>
                             <div
                                 className={
                                     classes.infoBoxFileDetailsInnerBoxRow

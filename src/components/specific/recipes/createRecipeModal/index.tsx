@@ -12,9 +12,9 @@ function CreateRecipeButton(
     buttonsProps: ButtonHTMLAttributes<HTMLButtonElement>
 ) {
     return (
-        <button className={classes.newRecipeButton} {...buttonsProps}>
+        <button className={ classes.newRecipeButton } { ...buttonsProps }>
             Create Recipe
-            <ReactSVG src={add.src} />
+            <ReactSVG src={ add.src } />
         </button>
     );
 }
@@ -22,8 +22,8 @@ function CreateRecipeButton(
 export default function CreateRecipeModal() {
     return (
         <ActionPopupWithButton
-            modalClassName={classes.recipeModal}
-            button={<CreateRecipeButton />}
+            modalClassName={ classes.recipeModal }
+            button={ <CreateRecipeButton /> }
             popupTitle="Create recipe"
         >
             <RecipeForm />

@@ -23,9 +23,9 @@ interface SidebarLinkProps {
 
 function SidebarLink(props: SidebarLinkProps) {
     return (
-        <Link href={props.href} className={classes.sidebarLink}>
-            <ReactSVG src={props.icon.src} className={classes.sidebarLinkSVG} />
-            <span className={classes.sidebarLinkText}>{props.text}</span>
+        <Link href={ props.href } className={ classes.sidebarLink }>
+            <ReactSVG src={ props.icon.src } className={ classes.sidebarLinkSVG } />
+            <span className={ classes.sidebarLinkText }>{ props.text }</span>
         </Link>
     );
 }
@@ -83,22 +83,22 @@ const SECTION_2_LINKS: SidebarLinkProps[] = [
 
 export default function MainSidebar() {
     return (
-        <nav className={classes.sidebar}>
-            <div className={classes.segment}>
+        <nav className={ classes.sidebar }>
+            <div className={ classes.segment }>
                 <Logo />
 
                 <div>
-                    {SECTION_1_LINKS.map((props) => {
-                        return <SidebarLink key={props.href} {...props} />;
-                    })}
+                    { SECTION_1_LINKS.map((props) => {
+                        return <SidebarLink key={ props.href } { ...props } />;
+                    }) }
                 </div>
             </div>
             
-            <div className={classes.segment}>
+            <div className={ classes.segment }>
                 <div>
-                    {SECTION_2_LINKS.map((props) => {
-                        return <SidebarLink key={props.href} {...props} />;
-                    })}
+                    { SECTION_2_LINKS.map((props) => {
+                        return <SidebarLink key={ props.href } { ...props } />;
+                    }) }
                 </div>
 
                 <Profile />

@@ -10,14 +10,14 @@ import DatasetInfo, {
 const DatasetItems: NextPageWithLayout = function () {
     const dataset = useContext(DatasetInfoContext);
     if (dataset)
-        return <ItemViewer {...dataset} />;
+        return <ItemViewer { ...dataset } />;
     else return <></>;
 };
 
 DatasetItems.getLayout = function (page) {
     return (
         <MarketplaceLayout>
-            <DatasetInfo>{page}</DatasetInfo>
+            <DatasetInfo>{ page }</DatasetInfo>
         </MarketplaceLayout>
     );
 };

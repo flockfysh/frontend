@@ -11,14 +11,14 @@ export default function FeaturedDatasetsSection(props: {
     const [curDataset, setCurDataset] = useState(props.datasets[0]);
 
     return (
-        <section className={classes.headerContainer}>
-            <FocusedDataset {...curDataset} />
+        <section className={ classes.headerContainer }>
+            <FocusedDataset { ...curDataset } />
 
             <DatasetSwiper
-                centeredSlides={true}
+                centeredSlides={ true }
                 cardType="wide"
-                datasets={props.datasets}
-                onSlideChange={(dataset) => setCurDataset(dataset)}
+                datasets={ props.datasets }
+                onSlideChange={ (dataset) => setCurDataset(dataset) }
             />
         </section>
     );

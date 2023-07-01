@@ -6,10 +6,10 @@ import classes from './styles.module.css';
 
 export default function MainLayout(props: PropsWithChildren) {
     return (
-        <div className={classes.container}>
+        <div className={ classes.container }>
             <MainSidebar />
 
-            <main className={classes.mainContent}>{props.children}</main>
+            <main className={ classes.mainContent }>{ props.children }</main>
         </div>
     );
 }

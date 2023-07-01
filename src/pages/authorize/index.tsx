@@ -59,9 +59,9 @@ interface AuthorizationInstance {
 
 function PermissionItem(props: { description: string; icon: StaticImageData }) {
     return (
-        <li className={classes.permissionItem}>
-            <ReactSVG src={props.icon.src} className={classes.permissionIcon} />
-            <p>{props.description}</p>
+        <li className={ classes.permissionItem }>
+            <ReactSVG src={ props.icon.src } className={ classes.permissionIcon } />
+            <p>{ props.description }</p>
         </li>
     );
 }
@@ -90,7 +90,8 @@ export default function Authorize() {
                 ).data.data;
 
                 setAuthorizationInstance(instanceInfo);
-            } catch (e) {
+            }
+ catch (e) {
                 setError(
                     'This authorization code is either invalid or expired.'
                 );
@@ -118,7 +119,8 @@ export default function Authorize() {
 
             window.close();
             router.push(`/datasets`);
-        } catch (e) {
+        }
+ catch (e) {
             if (e instanceof AxiosError)
                 setError(e.response?.data.error.message);
         }
@@ -128,22 +130,22 @@ export default function Authorize() {
         return (
             <ActionPopup
                 popupTitle="Sign in to Flockfysh"
-                blurBg={true}
-                onClose={() => {
+                blurBg={ true }
+                onClose={ () => {
                     router.push(`/datasets`).then();
-                }}
-                className={classes.authContainerOuter}
+                } }
+                className={ classes.authContainerOuter }
             >
-                <div className={classes.authContainerInner}>
-                    <h2 className={classes.errorHeading}>
+                <div className={ classes.authContainerInner }>
+                    <h2 className={ classes.errorHeading }>
                         Authorization error
                     </h2>
 
-                    <p>{error}</p>
+                    <p>{ error }</p>
 
                     <Link
                         href="/datasets"
-                        className={classes.authorizationButton}
+                        className={ classes.authorizationButton }
                     >
                         Go to dashboard
                     </Link>
@@ -157,55 +159,55 @@ export default function Authorize() {
     return (
         <ActionPopup
             popupTitle="Sign in to Flockfysh"
-            blurBg={false}
-            className={classes.authContainerOuter}
+            blurBg={ false }
+            className={ classes.authContainerOuter }
         >
-            <div className={classes.authContainerInner}>
-                <div className={classes.appDetails}>
-                    <div className={classes.appLogo} />
-                    <h2 className={classes.appName}>
-                        {authorizationInstance.client.name}
+            <div className={ classes.authContainerInner }>
+                <div className={ classes.appDetails }>
+                    <div className={ classes.appLogo } />
+                    <h2 className={ classes.appName }>
+                        { authorizationInstance.client.name }
                     </h2>
                     <p>wants to:</p>
                 </div>
 
-                <ul className={classes.permissionList}>
-                    {authorizationInstance.scope.map(
+                <ul className={ classes.permissionList }>
+                    { authorizationInstance.scope.map(
                         function generatePermissionItem(scope, index) {
                             if (PERMISSION_MAPPING[scope]) {
                                 const permObject = PERMISSION_MAPPING[scope];
 
                                 return (
                                     <PermissionItem
-                                        description={permObject.description}
-                                        icon={permObject.Icon}
-                                        key={index}
+                                        description={ permObject.description }
+                                        icon={ permObject.Icon }
+                                        key={ index }
                                     />
                                 );
                             }
 
                             return <></>;
                         }
-                    )}
+                    ) }
                 </ul>
 
-                <div className={classes.authorizationButtons}>
+                <div className={ classes.authorizationButtons }>
                     <button
-                        className={`${classes.authorizationButton} ${classes.rejectAuthorizationButton}`}
-                        onClick={async (e) => {
+                        className={ `${classes.authorizationButton} ${classes.rejectAuthorizationButton}` }
+                        onClick={ async (e) => {
                             e.preventDefault();
                             await authorize('reject');
-                        }}
+                        } }
                     >
                         Reject
                     </button>
 
                     <button
-                        className={classes.authorizationButton}
-                        onClick={async (e) => {
+                        className={ classes.authorizationButton }
+                        onClick={ async (e) => {
                             e.preventDefault();
                             await authorize('approve');
-                        }}
+                        } }
                     >
                         Approve
                     </button>

@@ -93,7 +93,8 @@ async function editRecipe(
 
             label.isNew = false;
             label.isModified = false;
-        } else if (label.isModified) {
+        }
+ else if (label.isModified) {
             if (!label._id) throw new Error('Missing label ID - cannot edit!');
 
             await api.patch(`/api/labels/${label._id}/name`, {
@@ -110,7 +111,8 @@ async function editRecipe(
 
             label.isNew = false;
             label.isModified = false;
-        } else if (label.isDeleted) {
+        }
+ else if (label.isDeleted) {
             if (!label._id)
                 throw new Error('Missing label ID - cannot delete!');
 
@@ -147,13 +149,13 @@ const ANNOTATION_TOOL_FULL_OPTIONS = ANNOTATION_TOOL_OPTIONS.map((opt) => {
     return {
         value: opt.value,
         label: (
-            <div className={classes.labelTool}>
+            <div className={ classes.labelTool }>
                 <ReactSVG
-                    className={classes.labelToolIcon}
-                    src={iconMapping[opt.value].src}
+                    className={ classes.labelToolIcon }
+                    src={ iconMapping[opt.value].src }
                 />
 
-                <span>{opt.label}</span>
+                <span>{ opt.label }</span>
             </div>
         ),
     };
@@ -262,54 +264,54 @@ export default function RecipeForm(props: RecipeFormProps) {
     }
 
     return (
-        <form className={classes.recipeForm}>
+        <form className={ classes.recipeForm }>
             <fieldset>
                 <label>
                     <TextInput
                         placeholder="Recipe name"
-                        icon={link.src}
+                        icon={ link.src }
                         label="Name"
-                        onChange={(e) => setName(e.currentTarget.value)}
-                        value={name}
+                        onChange={ (e) => setName(e.currentTarget.value) }
+                        value={ name }
                     />
                 </label>
             </fieldset>
 
-            <fieldset className={classes.labelFieldsetOuter}>
-                <div className={classes.labelFieldset}>
-                    <legend className={classes.recipeLabelHeader}>
-                        <div className={classes.recipeLabelDesc}>
-                            <ReactSVG src={pen.src} />
+            <fieldset className={ classes.labelFieldsetOuter }>
+                <div className={ classes.labelFieldset }>
+                    <legend className={ classes.recipeLabelHeader }>
+                        <div className={ classes.recipeLabelDesc }>
+                            <ReactSVG src={ pen.src } />
                             <span>Labels</span>
                         </div>
 
-                        {!immutable && (
+                        { !immutable && (
                             <button
-                                onClick={addLabel}
-                                className={classes.addLabelButton}
+                                onClick={ addLabel }
+                                className={ classes.addLabelButton }
                                 type="button"
                             >
-                                <ReactSVG src={add.src} />
+                                <ReactSVG src={ add.src } />
                             </button>
-                        )}
+                        ) }
                     </legend>
 
-                    {labels.size > 0 ? (
-                        <ul className={classes.labelDataFieldWrapper}>
-                            {Array.from(labels.entries()).map(
+                    { labels.size > 0 ? (
+                        <ul className={ classes.labelDataFieldWrapper }>
+                            { Array.from(labels.entries()).map(
                                 function transformEntry([
                                     clientSideUuid,
                                     label,
                                 ]) {
                                     return (
                                         <Label
-                                            {...label}
-                                            immutable={immutable}
-                                            key={clientSideUuid}
-                                            onDelete={() => {
+                                            { ...label }
+                                            immutable={ immutable }
+                                            key={ clientSideUuid }
+                                            onDelete={ () => {
                                                 removeLabel(clientSideUuid);
-                                            }}
-                                            onModify={(modifyParams) => {
+                                            } }
+                                            onModify={ (modifyParams) => {
                                                 const label =
                                                     labels.get(clientSideUuid);
 
@@ -326,23 +328,23 @@ export default function RecipeForm(props: RecipeFormProps) {
 
                                                     label.isModified = true;
                                                 }
-                                            }}
+                                            } }
                                         />
                                     );
                                 }
-                            )}
+                            ) }
                         </ul>
                     ) : (
                         <></>
-                    )}
+                    ) }
                 </div>
             </fieldset>
 
-            <div className={classes.saveButtonWrapper}>
+            <div className={ classes.saveButtonWrapper }>
                 <button
                     type="button"
-                    onClick={onSubmit}
-                    className={classes.saveButton}
+                    onClick={ onSubmit }
+                    className={ classes.saveButton }
                 >
                     Save Recipe
                 </button>
@@ -367,44 +369,44 @@ function Label(
     const unEditable = props.immutable && !props.isNew;
 
     return (
-        <li className={classes.labelDataField}>
+        <li className={ classes.labelDataField }>
             <input
                 type="color"
-                disabled={unEditable}
-                className={classes.labelColorInput}
-                defaultValue={props.color}
-                onChange={(e) => {
+                disabled={ unEditable }
+                className={ classes.labelColorInput }
+                defaultValue={ props.color }
+                onChange={ (e) => {
                     props.onModify({
                         color: e.currentTarget.value,
                     });
-                }}
+                } }
             />
 
             <TextInput
                 placeholder="Label name"
-                disabled={unEditable}
-                defaultValue={props.name}
-                classNames={{
+                disabled={ unEditable }
+                defaultValue={ props.name }
+                classNames={ {
                     input: classes.labelInput,
                     container: classes.labelContainer,
-                }}
-                onChange={(e) => {
+                } }
+                onChange={ (e) => {
                     if (!unEditable) {
                         props.onModify({
                             name: e.currentTarget.value,
                         });
                     }
-                }}
+                } }
             />
 
             <Select
-                isDisabled={unEditable}
-                defaultValue={ANNOTATION_TOOL_FULL_OPTIONS.find(
+                isDisabled={ unEditable }
+                defaultValue={ ANNOTATION_TOOL_FULL_OPTIONS.find(
                     (opt) => opt.value === props.tool
-                )}
-                options={ANNOTATION_TOOL_FULL_OPTIONS}
-                className={classes.labelToolSelectContainer}
-                classNames={{
+                ) }
+                options={ ANNOTATION_TOOL_FULL_OPTIONS }
+                className={ classes.labelToolSelectContainer }
+                classNames={ {
                     control: () => {
                         return classes.labelToolSelectControl;
                     },
@@ -417,23 +419,23 @@ function Label(
                     singleValue: () => {
                         return classes.labelToolSelectSingleValue;
                     },
-                }}
-                onChange={(newValue: any) => {
+                } }
+                onChange={ (newValue: any) => {
                     if (!unEditable)
                         props.onModify({
                             tool: newValue.value as Flockfysh.AnnotationTool,
                         });
-                }}
+                } }
             />
 
             <button
-                onClick={() => (!unEditable ? props.onDelete() : null)}
-                className={`${classes.deleteLabelButton} ${
+                onClick={ () => (!unEditable ? props.onDelete() : null) }
+                className={ `${classes.deleteLabelButton} ${
                     unEditable ? classes.deleteLabelButtonDisabled : ''
-                }`}
+                }` }
                 type="button"
             >
-                <ReactSVG src={unEditable ? lock.src : trash.src} />
+                <ReactSVG src={ unEditable ? lock.src : trash.src } />
             </button>
         </li>
     );

@@ -26,43 +26,43 @@ export default function CollectionSwiper(props: {
     // }, []);
 
     return (
-        <div className={classes.swiperContainer}>
-            <div className={`${classes.fadeOverlay} ${classes.previous}`}>
-                <button className={`${classes.navButton}`} ref={previousRef}>
-                    <ReactSVG src={prev.src} />
+        <div className={ classes.swiperContainer }>
+            <div className={ `${classes.fadeOverlay} ${classes.previous}` }>
+                <button className={ `${classes.navButton}` } ref={ previousRef }>
+                    <ReactSVG src={ prev.src } />
                 </button>
             </div>
 
             <Swiper
                 slidesPerView="auto"
-                modules={[Navigation]}
-                navigation={{
+                modules={ [Navigation] }
+                navigation={ {
                     enabled: true,
                     prevEl: previousRef.current,
                     nextEl: nextRef.current,
-                }}
-                className={classes.swiper}
-                onSlideChange={(swiper) => {
+                } }
+                className={ classes.swiper }
+                onSlideChange={ (swiper) => {
                     props.onSlideChange?.(props.collections[swiper.realIndex]);
-                }}
+                } }
             >
-                {props.collections.map((collection) => {
+                { props.collections.map((collection) => {
                     return (
                         <SwiperSlide
-                            className={classes.slide}
-                            key={collection._id}
+                            className={ classes.slide }
+                            key={ collection._id }
                         >
-                            <VerticalCollectionCard {...collection} />
+                            <VerticalCollectionCard { ...collection } />
                         </SwiperSlide>
                     );
-                })}
+                }) }
 
-                <div className={classes.swiperOverlay} />
+                <div className={ classes.swiperOverlay } />
             </Swiper>
 
-            <div className={`${classes.fadeOverlay} ${classes.next}`}>
-                <button className={`${classes.navButton}`} ref={nextRef}>
-                    <ReactSVG src={next.src} />
+            <div className={ `${classes.fadeOverlay} ${classes.next}` }>
+                <button className={ `${classes.navButton}` } ref={ nextRef }>
+                    <ReactSVG src={ next.src } />
                 </button>
             </div>
         </div>

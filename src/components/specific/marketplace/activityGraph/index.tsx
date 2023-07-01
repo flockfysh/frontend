@@ -49,48 +49,48 @@ export default function ActivityGraph(dataset: PreviewDataset) {
     const [selectedTime, updateSelectedTime] = useState(2);
 
     return (
-        <div className={classes.container}>
-            <div className={classes.headerContainer}>
-                <div className={classes.topHeaderContainer}>
-                    <h1 className={classes.header}>Latest Activity</h1>
+        <div className={ classes.container }>
+            <div className={ classes.headerContainer }>
+                <div className={ classes.topHeaderContainer }>
+                    <h1 className={ classes.header }>Latest Activity</h1>
 
                     <DatasetTimeFilter
-                        callback={(time) => updateSelectedTime(time)}
-                        options={[
+                        callback={ (time) => updateSelectedTime(time) }
+                        options={ [
                             [7, 'days'],
                             [1, 'month'],
                             [6, 'months'],
                             [1, 'year'],
-                        ]}
-                        selected={selectedTime}
+                        ] }
+                        selected={ selectedTime }
                     />
                 </div>
 
-                <div className={classes.headerContent}>
-                    {/*<div className={ classes.activityTimeline }>*/}
-                    {/*    {*/}
-                    {/*        activity.map((activity, i) => (*/}
-                    {/*            <ActivityCard*/}
-                    {/*                key={ i }*/}
-                    {/*                activity={ activity }*/}
-                    {/*            />*/}
-                    {/*        ))*/}
-                    {/*    }*/}
-                    {/*</div>*/}
+                <div className={ classes.headerContent }>
+                    { /*<div className={ classes.activityTimeline }>*/ }
+                    { /*    {*/ }
+                    { /*        activity.map((activity, i) => (*/ }
+                    { /*            <ActivityCard*/ }
+                    { /*                key={ i }*/ }
+                    { /*                activity={ activity }*/ }
+                    { /*            />*/ }
+                    { /*        ))*/ }
+                    { /*    }*/ }
+                    { /*</div>*/ }
 
-                    <div className={classes.chartContainer}>
-                        <Graph {...dataset} />
+                    <div className={ classes.chartContainer }>
+                        <Graph { ...dataset } />
                     </div>
                 </div>
             </div>
 
-            {/*<div className={ classes.history }>*/}
-            {/*    <h1 className={ classes.header }>Activity History</h1>*/}
+            { /*<div className={ classes.history }>*/ }
+            { /*    <h1 className={ classes.header }>Activity History</h1>*/ }
 
-            {/*    <div className={ classes.activityTableContainer }>*/}
-            {/*        <ActivityTable />*/}
-            {/*    </div>*/}
-            {/*</div>*/}
+            { /*    <div className={ classes.activityTableContainer }>*/ }
+            { /*        <ActivityTable />*/ }
+            { /*    </div>*/ }
+            { /*</div>*/ }
         </div>
     );
 }

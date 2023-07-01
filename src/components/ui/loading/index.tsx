@@ -4,7 +4,7 @@ import classes from './loading.module.css';
 
 export default function Loading() {
     return (
-        <div className={classes.loading}>
+        <div className={ classes.loading }>
             <LoadingIcon />
 
             <h2>Loading</h2>
@@ -14,8 +14,8 @@ export default function Loading() {
 
 export function LoadingScreen() {
     return (
-        <div className={classes.loadingScreen}>
-            <div className={classes.loading}>
+        <div className={ classes.loadingScreen }>
+            <div className={ classes.loading }>
                 <LoadingIcon />
 
                 <h2>Loading</h2>

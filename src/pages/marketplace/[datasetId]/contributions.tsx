@@ -11,14 +11,14 @@ import ContributionList from '@/components/specific/marketplace/contributionList
 const DatasetActivityPage: NextPageWithLayout = function () {
     const dataset = useContext(DatasetInfoContext);
     if (dataset)
-        return <ContributionList {...dataset} />;
+        return <ContributionList { ...dataset } />;
     else return <></>;
 };
 
 DatasetActivityPage.getLayout = function (page) {
     return (
         <MarketplaceLayout>
-            <DatasetInfo>{page}</DatasetInfo>
+            <DatasetInfo>{ page }</DatasetInfo>
         </MarketplaceLayout>
     );
 };

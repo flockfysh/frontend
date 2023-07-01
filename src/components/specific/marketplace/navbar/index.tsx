@@ -16,38 +16,38 @@ export default function MarketplaceNavbar() {
     const [isModalOpen, updateModalOpen] = useState(false);
 
     return (
-        <nav className={classes.nav}>
-            {isModalOpen && (
-                <CreateDatasetModal onClose={() => updateModalOpen(false)} />
-            )}
+        <nav className={ classes.nav }>
+            { isModalOpen && (
+                <CreateDatasetModal onClose={ () => updateModalOpen(false) } />
+            ) }
 
-            <div className={classes.subContainer + ' ' + classes.leftContainer}>
-                <Link className={classes.logoContainer} href="/marketplace">
-                    <ReactSVG src={fish.src} />
+            <div className={ classes.subContainer + ' ' + classes.leftContainer }>
+                <Link className={ classes.logoContainer } href="/marketplace">
+                    <ReactSVG src={ fish.src } />
 
                     <p>fDE</p>
                 </Link>
 
-                <label className={classes.searchContainer}>
-                    <ReactSVG src={search.src} className={classes.searchIcon} />
+                <label className={ classes.searchContainer }>
+                    <ReactSVG src={ search.src } className={ classes.searchIcon } />
 
                     <input
                         type="search"
-                        className={classes.search}
+                        className={ classes.search }
                         placeholder="Search by username or dataset name"
                     />
                 </label>
 
-                <ReactSVG src={search.src} className={classes.mobileSearch} />
+                <ReactSVG src={ search.src } className={ classes.mobileSearch } />
             </div>
 
-            <div className={classes.subContainer}>
+            <div className={ classes.subContainer }>
                 <ReactSVG
-                    onClick={() => updateModalOpen(true)}
-                    src={plusCircle.src}
-                    className={classes.leftIcon}
+                    onClick={ () => updateModalOpen(true) }
+                    src={ plusCircle.src }
+                    className={ classes.leftIcon }
                 />
-                <ReactSVG src={bell.src} className={classes.leftIcon} />
+                <ReactSVG src={ bell.src } className={ classes.leftIcon } />
 
                 <CurrentUserProfile />
             </div>

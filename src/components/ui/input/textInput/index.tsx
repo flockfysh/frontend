@@ -17,33 +17,33 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
     function TextInput(props, _) {
         return (
             <label
-                className={`${props.classNames?.container || ''} ${
+                className={ `${props.classNames?.container || ''} ${
                     classes.labelContainer
-                }`}
+                }` }
             >
-                {props.label ? (
+                { props.label ? (
                     <span
-                        className={`${props.classNames?.label} ${classes.label}`}
+                        className={ `${props.classNames?.label} ${classes.label}` }
                     >
-                        {props.label}
+                        { props.label }
                     </span>
                 ) : (
                     <></>
-                )}
+                ) }
 
-                <div className={classes.inputContainer}>
+                <div className={ classes.inputContainer }>
                     <input
-                        {...props}
-                        className={`${props.classNames?.input || ''} ${
+                        { ...props }
+                        className={ `${props.classNames?.input || ''} ${
                             classes.input
-                        } ${props.icon ? classes.inputWithIcon : ''}`}
+                        } ${props.icon ? classes.inputWithIcon : ''}` }
                     />
 
-                    {props.icon ? (
-                        <ReactSVG src={props.icon} className={classes.icon} />
+                    { props.icon ? (
+                        <ReactSVG src={ props.icon } className={ classes.icon } />
                     ) : (
                         ''
-                    )}
+                    ) }
                 </div>
             </label>
         );

@@ -15,11 +15,11 @@ export default function DatasetTypeCard(props: {
                 classes.datasetTypeContainer
             }
         >
-            <ReactSVG src={image.src} className={classes.icon} />
+            <ReactSVG src={ image.src } className={ classes.icon } />
 
             <span />
 
-            <p>{props.type.toUpperCase()}</p>
+            <p>{ props.type.toUpperCase() }</p>
         </div>
     );
 }

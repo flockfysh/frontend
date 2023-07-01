@@ -31,34 +31,34 @@ export default function CreatableSelect(props: {
     const id = useId();
 
     return (
-        <div className={classes.container}>
-            {props.label ? (
-                <div className={classes.labelContainer}>
-                    <label className={classes.label} htmlFor={id}>
-                        {props.label}
+        <div className={ classes.container }>
+            { props.label ? (
+                <div className={ classes.labelContainer }>
+                    <label className={ classes.label } htmlFor={ id }>
+                        { props.label }
                     </label>
 
-                    {props.tooltip ? (
-                        <button className={classes.helpIcon}>
-                            <ReactSVG src={help.src} />
+                    { props.tooltip ? (
+                        <button className={ classes.helpIcon }>
+                            <ReactSVG src={ help.src } />
 
-                            <p className={classes.helpIconTooltip}>
-                                {props.tooltip}
+                            <p className={ classes.helpIconTooltip }>
+                                { props.tooltip }
                             </p>
                         </button>
                     ) : (
                         <></>
-                    )}
+                    ) }
                 </div>
             ) : (
                 <></>
-            )}
+            ) }
 
             <CustomCreatableSelect
-                isMulti={true}
-                id={id}
-                placeholder={props.placeholder}
-                onChange={async (event) => {
+                isMulti={ true }
+                id={ id }
+                placeholder={ props.placeholder }
+                onChange={ async (event) => {
                     setInProgress(true);
                     const raw = (
                         event as { value: string; label: string }[]
@@ -68,15 +68,15 @@ export default function CreatableSelect(props: {
 
                     await props.onChange?.(raw);
                     setInProgress(false);
-                }}
-                value={value?.map((i) => {
+                } }
+                value={ value?.map((i) => {
                     return {
                         value: i,
                         label: i,
                     };
-                })}
-                className={`${classes.input}`}
-                classNames={{
+                }) }
+                className={ `${classes.input}` }
+                classNames={ {
                     control: () => {
                         return classes.inputControl;
                     },
@@ -92,7 +92,7 @@ export default function CreatableSelect(props: {
                     multiValueRemove: () => {
                         return classes.multiValueRemove;
                     },
-                }}
+                } }
             />
         </div>
     );

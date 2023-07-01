@@ -36,13 +36,13 @@ const TableComponents = {
     ) {
         return (
             <TableContainer
-                {...props}
-                style={{
+                { ...props }
+                style={ {
                     ...props.style,
                     height: 'unset',
-                }}
-                className={classes.viewerTableScroller}
-                ref={ref}
+                } }
+                className={ classes.viewerTableScroller }
+                ref={ ref }
             />
         );
     }),
@@ -51,18 +51,18 @@ const TableComponents = {
         ref
     ) {
         return (
-            <Table {...props} className={classes.viewerTableInner} ref={ref} />
+            <Table { ...props } className={ classes.viewerTableInner } ref={ ref } />
         );
     }),
     TableHead: forwardRef<HTMLTableSectionElement, TableHeadProps>(
         function _TableHead(props: TableHeadProps, ref) {
             return (
                 <TableHead
-                    {...props}
-                    className={`${classes.viewerTableHead} ${
+                    { ...props }
+                    className={ `${classes.viewerTableHead} ${
                         props.className || ''
-                    }`}
-                    ref={ref}
+                    }` }
+                    ref={ ref }
                 />
             );
         }
@@ -73,9 +73,9 @@ const TableComponents = {
     ) {
         return (
             <TableRow
-                {...props}
-                className={`${classes.viewerTableRow} ${props.className || ''}`}
-                ref={ref}
+                { ...props }
+                className={ `${classes.viewerTableRow} ${props.className || ''}` }
+                ref={ ref }
             />
         );
     }),
@@ -83,11 +83,11 @@ const TableComponents = {
         function _TableBody(props: TableBodyProps, ref) {
             return (
                 <TableBody
-                    {...props}
-                    className={`${classes.viewerTableBody} ${
+                    { ...props }
+                    className={ `${classes.viewerTableBody} ${
                         props.className || ''
-                    }`}
-                    ref={ref}
+                    }` }
+                    ref={ ref }
                 />
             );
         }
@@ -110,7 +110,7 @@ function TextComponent(props: { url: string }) {
         fetchThis().then();
     }, [props.url]);
 
-    return <code className={classes.textViewer}>{text}</code>;
+    return <code className={ classes.textViewer }>{ text }</code>;
 }
 
 function AssetTile(props: {
@@ -124,27 +124,27 @@ function AssetTile(props: {
     if (typeIs.is(props.item.mimetype, ['image/*']))
         component = (
             <Image
-                fill={true}
-                className={classes.image}
-                src={props.item.url}
-                alt={props.item.displayName}
+                fill={ true }
+                className={ classes.image }
+                src={ props.item.url }
+                alt={ props.item.displayName }
             />
         );
     else if (typeIs.is(props.item.mimetype, ['text/*', 'application/json']))
-        component = <TextComponent url={props.item.url} />;
+        component = <TextComponent url={ props.item.url } />;
     else component = <div />;
 
     return (
-        <div className={classes.imageWrapper}>
-            {component}
+        <div className={ classes.imageWrapper }>
+            { component }
 
             <button
-                className={classes.imageButton}
-                onClick={() => {
+                className={ classes.imageButton }
+                onClick={ () => {
                     props.delAsset(props.item._id);
-                }}
+                } }
             >
-                <ReactSVG className={classes.icon} src={trash.src} />
+                <ReactSVG className={ classes.icon } src={ trash.src } />
             </button>
         </div>
     );
@@ -165,11 +165,11 @@ interface AssetViewerState {
 function CustomTableCell(props: TableCellProps) {
     return (
         <TableCell
-            {...props}
-            ref={props.ref}
-            className={`${props.className || ''} ${classes.viewerTableCell}`}
+            { ...props }
+            ref={ props.ref }
+            className={ `${props.className || ''} ${classes.viewerTableCell}` }
         >
-            <div className={classes.viewerTableCellInner}>{props.children}</div>
+            <div className={ classes.viewerTableCellInner }>{ props.children }</div>
         </TableCell>
     );
 }
@@ -206,10 +206,10 @@ export default function AssetViewer(props: {
                     <CustomTableCell>
                         <input
                             type="checkbox"
-                            checked={assetArray.every(
+                            checked={ assetArray.every(
                                 (asset) => asset.selected
-                            )}
-                            onChange={(e) => {
+                            ) }
+                            onChange={ (e) => {
                                 const checked = e.currentTarget.checked;
 
                                 assetArray.forEach((asset) => {
@@ -217,13 +217,13 @@ export default function AssetViewer(props: {
                                 });
 
                                 setState((prev) => ({ ...prev }));
-                            }}
+                            } }
                         />
                     </CustomTableCell>
 
                     <CustomTableCell>File name</CustomTableCell>
 
-                    <CustomTableCell className={classes.uploadDate}>
+                    <CustomTableCell className={ classes.uploadDate }>
                         Uploaded at
                     </CustomTableCell>
 
@@ -273,7 +273,8 @@ export default function AssetViewer(props: {
                             assets: state.assets,
                         };
                     });
-                } catch (e) {
+                }
+ catch (e) {
                     return;
                 }
             }
@@ -307,36 +308,36 @@ export default function AssetViewer(props: {
     if (!props.showList) {
         return (
             <VirtuosoGrid
-                data={assetArray}
-                className={classes.gridContainer}
-                listClassName={classes.gridWrapper}
-                endReached={() => load().then()}
-                itemContent={(_index, item) => (
+                data={ assetArray }
+                className={ classes.gridContainer }
+                listClassName={ classes.gridWrapper }
+                endReached={ () => load().then() }
+                itemContent={ (_index, item) => (
                     <AssetTile
-                        item={item}
-                        key={item._id}
-                        delAsset={() => delAsset(item._id)}
+                        item={ item }
+                        key={ item._id }
+                        delAsset={ () => delAsset(item._id) }
                     />
-                )}
+                ) }
             />
         );
     }
 
     return (
-        <div className={classes.viewerTableContainer}>
+        <div className={ classes.viewerTableContainer }>
             <TableVirtuoso
-                data={assetArray}
-                fixedHeaderContent={Header}
-                components={TableComponents}
-                endReached={() => load()}
-                itemContent={function genRow(_index, data) {
+                data={ assetArray }
+                fixedHeaderContent={ Header }
+                components={ TableComponents }
+                endReached={ () => load() }
+                itemContent={ function genRow(_index, data) {
                     return (
                         <>
                             <CustomTableCell>
                                 <input
                                     type="checkbox"
-                                    checked={data.selected}
-                                    onChange={(e) => {
+                                    checked={ data.selected }
+                                    onChange={ (e) => {
                                         const item = state.assets.get(data._id);
 
                                         if (item)
@@ -344,52 +345,52 @@ export default function AssetViewer(props: {
                                                 e.currentTarget.checked;
 
                                         setState((prev) => ({ ...prev }));
-                                    }}
+                                    } }
                                 />
                             </CustomTableCell>
 
                             <CustomTableCell>
-                                <span className={classes.filename}>
-                                    <span className={classes.filenameText}>
-                                        {data.displayName}
+                                <span className={ classes.filename }>
+                                    <span className={ classes.filenameText }>
+                                        { data.displayName }
                                     </span>
                                 </span>
                             </CustomTableCell>
 
-                            <CustomTableCell className={classes.uploadDate}>
+                            <CustomTableCell className={ classes.uploadDate }>
                                 <span>
-                                    {dayjs(data.uploadedAt).format(
+                                    { dayjs(data.uploadedAt).format(
                                         'DD/MM/YYYY'
-                                    )}
+                                    ) }
                                 </span>
                             </CustomTableCell>
 
                             <CustomTableCell>
-                                <span>{capitalize(data.type)}</span>
+                                <span>{ capitalize(data.type) }</span>
                             </CustomTableCell>
 
                             <CustomTableCell>
-                                <span>{capitalize(data.stage)}</span>
+                                <span>{ capitalize(data.stage) }</span>
                             </CustomTableCell>
 
                             <CustomTableCell>
-                                <span>{formatFileSize(data.size)}</span>
+                                <span>{ formatFileSize(data.size) }</span>
                             </CustomTableCell>
 
                             <CustomTableCell>
                                 <button
-                                    onClick={() => delAsset(data._id)}
-                                    className={classes.deleteButton}
+                                    onClick={ () => delAsset(data._id) }
+                                    className={ classes.deleteButton }
                                 >
                                     <ReactSVG
-                                        className={classes.icon}
-                                        src={trash.src}
+                                        className={ classes.icon }
+                                        src={ trash.src }
                                     />
                                 </button>
                             </CustomTableCell>
                         </>
                     );
-                }}
+                } }
             />
         </div>
     );

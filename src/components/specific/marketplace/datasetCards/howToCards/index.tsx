@@ -8,11 +8,11 @@ import classes from './styles.module.css';
 
 export default function HowToCards() {
     return (
-        <div className={classes.container}>
-            <div className={classes.card}>
-                <ReactSVG className={classes.headerIcon} src={user.src} />
+        <div className={ classes.container }>
+            <div className={ classes.card }>
+                <ReactSVG className={ classes.headerIcon } src={ user.src } />
 
-                <div className={classes.cardBase}>
+                <div className={ classes.cardBase }>
                     <h1>Create an account</h1>
 
                     <p>
@@ -23,13 +23,13 @@ export default function HowToCards() {
                 </div>
             </div>
 
-            <div className={classes.card}>
+            <div className={ classes.card }>
                 <ReactSVG
-                    className={classes.headerIcon + ' ' + classes.noBorder}
-                    src={upload.src}
+                    className={ classes.headerIcon + ' ' + classes.noBorder }
+                    src={ upload.src }
                 />
 
-                <div className={classes.cardBase}>
+                <div className={ classes.cardBase }>
                     <h1>Upload & Request Datasets</h1>
 
                     <p>
@@ -40,13 +40,13 @@ export default function HowToCards() {
                 </div>
             </div>
 
-            <div className={classes.card}>
+            <div className={ classes.card }>
                 <ReactSVG
-                    className={classes.headerIcon + ' ' + classes.noBorder}
-                    src={users.src}
+                    className={ classes.headerIcon + ' ' + classes.noBorder }
+                    src={ users.src }
                 />
 
-                <div className={classes.cardBase}>
+                <div className={ classes.cardBase }>
                     <h1>Collaborate</h1>
 
                     <p>

@@ -6,7 +6,8 @@ import { Stats } from 'fs';
 let _window: Window | null = null;
 try {
     _window = window;
-} catch (e) {
+}
+ catch (e) {
     _window = null;
 }
 
@@ -99,7 +100,8 @@ export default function useBrowserFS() {
                             resolve();
                         });
                     });
-                } else {
+                }
+ else {
                     await promisesLib.purgeDir(pathName);
                     await promisesLib.rmdir(pathName, {
                         recursive: false,
@@ -118,7 +120,8 @@ export default function useBrowserFS() {
                                 recursive: true,
                             })
                         );
-                    } else {
+                    }
+ else {
                         promises.push(promisesLib.unlink(childPath));
                     }
                 }
@@ -143,7 +146,8 @@ export default function useBrowserFS() {
             async skipError(promise) {
                 try {
                     return await promise;
-                } catch (e) {}
+                }
+ catch (e) {}
             },
         };
         await promisesLib.purgeDir('/tmp');

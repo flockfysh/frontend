@@ -10,15 +10,15 @@ import classes from './styles.module.css';
 export default function EditRecipeModal(props: { id: string }) {
     return (
         <ActionPopupWithButton
-            modalClassName={classes.recipeModal}
-            button={
-                <button className={classes.actionEdit}>
-                    <ReactSVG src={edit.src} />
+            modalClassName={ classes.recipeModal }
+            button={ (
+                <button className={ classes.actionEdit }>
+                    <ReactSVG src={ edit.src } />
                 </button>
-            }
+              ) }
             popupTitle="Edit recipe"
         >
-            <RecipeForm id={props.id} />
+            <RecipeForm id={ props.id } />
         </ActionPopupWithButton>
     );
 }

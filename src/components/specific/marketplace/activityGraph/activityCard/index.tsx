@@ -8,18 +8,18 @@ function formatActivityToDescription(activity: UserActivity | DatasetActivity) {
     if ('dataset' in activity)
         return (
             <p>
-                {activity.action.toUpperCase()} {activity.numFiles}{' '}
-                {activity.type}s to{' '}
-                <span className={classes.bolded}>{activity.dataset}</span>{' '}
-                totalling {formatFileSize(activity.size)}
+                { activity.action.toUpperCase() } { activity.numFiles }{ ' ' }
+                { activity.type }s to{ ' ' }
+                <span className={ classes.bolded }>{ activity.dataset }</span>{ ' ' }
+                totalling { formatFileSize(activity.size) }
             </p>
         );
     else
         return (
             <p>
-                User <span className={classes.bolded}>{activity.userName}</span>{' '}
-                {activity.action} {activity.numFiles} {activity.type}s totalling{' '}
-                {formatFileSize(activity.size)}\
+                User <span className={ classes.bolded }>{ activity.userName }</span>{ ' ' }
+                { activity.action } { activity.numFiles } { activity.type }s totalling{ ' ' }
+                { formatFileSize(activity.size) }\
             </p>
         );
 }
@@ -28,14 +28,14 @@ export default function ActivityCard(props: {
     activity: UserActivity | DatasetActivity;
 }) {
     return (
-        <div className={classes.container}>
-            <div className={classes.progressLineContainer}>
-                <span className={classes.progressCircle} />
-                <span className={classes.progressLine} />
+        <div className={ classes.container }>
+            <div className={ classes.progressLineContainer }>
+                <span className={ classes.progressCircle } />
+                <span className={ classes.progressLine } />
             </div>
 
-            <div className={classes.rightSideContainer}>
-                {(function () {
+            <div className={ classes.rightSideContainer }>
+                { (function () {
                     const d1 = dayjs(props.activity.date);
                     const d2 = dayjs(new Date());
 
@@ -55,9 +55,9 @@ export default function ActivityCard(props: {
                     if (diffMi > 0) return `${diffMi} minutes ago`;
 
                     return 'Just now';
-                })()}
+                })() }
 
-                {formatActivityToDescription(props.activity)}
+                { formatActivityToDescription(props.activity) }
             </div>
         </div>
     );

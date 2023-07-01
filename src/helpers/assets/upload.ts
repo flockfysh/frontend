@@ -17,7 +17,8 @@ export async function uploadAssets(
                 `/api/datasets/${datasetId}/assets/upload/${config.endpoint}`,
                 fd
             );
-        } catch (e) {}
+        }
+ catch (e) {}
     }
 
     await new AsyncArray(files).chunkMap((file) => upload(file), undefined, {
@@ -41,7 +42,8 @@ export async function uploadToPullRequest(
                 `/api/pullRequests/${pullRequestId}/assets/new/upload/${config.endpoint}`,
                 fd
             );
-        } catch (e) {}
+        }
+ catch (e) {}
     }
 
     await new AsyncArray(files).chunkMap((file) => upload(file), undefined, {

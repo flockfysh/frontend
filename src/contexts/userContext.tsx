@@ -33,7 +33,8 @@ export function UserWrapper(props: PropsWithChildren) {
 
                     if (userData.curUser) setCurUser(userData.curUser);
                     else setCurUser(null);
-                } catch (e) {}
+                }
+ catch (e) {}
 
                 updateLoading(false);
             })();
@@ -52,8 +53,8 @@ export function UserWrapper(props: PropsWithChildren) {
 
     const curState = { user, setUser, refreshUser };
     return (
-        <UserContext.Provider value={curState}>
-            {props.children}
+        <UserContext.Provider value={ curState }>
+            { props.children }
         </UserContext.Provider>
     );
 }

@@ -37,7 +37,7 @@ const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>(
                     (props.containerClassName ? props.containerClassName : '')
                 }
             >
-                <label htmlFor={id}>
+                <label htmlFor={ id }>
                     <div
                         className={
                             classes.customUploadContainer +
@@ -50,29 +50,29 @@ const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>(
                         <h1>Drag and drop or select file to upload</h1>
 
                         <p>
-                            {mapping?.extHints.join(', ') ??
-                                'Select dataset type to insert files'}
+                            { mapping?.extHints.join(', ') ??
+                                'Select dataset type to insert files' }
                         </p>
 
-                        <p>{fileCount} files selected</p>
+                        <p>{ fileCount } files selected</p>
                     </div>
                 </label>
 
                 <input
-                    id={id}
-                    multiple={true}
-                    disabled={!mapping}
+                    id={ id }
+                    multiple={ true }
+                    disabled={ !mapping }
                     type="file"
-                    accept={mapping?.accept}
-                    name={props.name}
-                    onChange={(e) => {
+                    accept={ mapping?.accept }
+                    name={ props.name }
+                    onChange={ (e) => {
                         setFileCount(e.currentTarget.files?.length ?? 0);
-                    }}
-                    ref={(e) => {
+                    } }
+                    ref={ (e) => {
                         internalRef.current = e;
                         if (typeof _ref === 'function') _ref(e);
                         else if (_ref) _ref.current = e;
-                    }}
+                    } }
                 />
             </div>
         );

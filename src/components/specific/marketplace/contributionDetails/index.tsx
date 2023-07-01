@@ -63,33 +63,33 @@ export default function ContributionDetails(_dataset: PreviewDataset) {
 
     return (
         <>
-            <div className={classes.card}>
+            <div className={ classes.card }>
                 <form
-                    onSubmit={(e) => {
+                    onSubmit={ (e) => {
                         e.preventDefault();
                         submitMessage(e.currentTarget);
-                    }}
+                    } }
                 >
-                    <div className={classes.cardTop}>
-                        <h1 className={classes.headerText}>Comment</h1>
+                    <div className={ classes.cardTop }>
+                        <h1 className={ classes.headerText }>Comment</h1>
 
                         <CustomSelect
-                            required={true}
+                            required={ true }
                             name="status"
-                            className={classes.select}
+                            className={ classes.select }
                             placeholder="Status"
-                            options={statusOptions}
+                            options={ statusOptions }
                         />
                     </div>
 
                     <textarea
-                        className={classes.commentField}
-                        required={true}
+                        className={ classes.commentField }
+                        required={ true }
                         name="comment"
                         placeholder="Add comment here..."
                     />
                     
-                    <button className={classes.submitButton}>Comment</button>
+                    <button className={ classes.submitButton }>Comment</button>
                 </form>
             </div>
         </>

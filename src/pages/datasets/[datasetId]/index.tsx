@@ -96,119 +96,119 @@ const MyDatasets: NextPageWithLayout = function () {
     ];
 
     return (
-        <div className={classes.container}>
-            {/* this dataset info */}
-            <div className={classes.datasetInfoWrapper}>
-                {/* dataset data container */}
-                <div className={classes.datasetInfoDataWrapper}>
-                    <h3 className={classes.datasetName}>{dataset.name}</h3>
-                    <h4>{dataset.description}</h4>
+        <div className={ classes.container }>
+            { /* this dataset info */ }
+            <div className={ classes.datasetInfoWrapper }>
+                { /* dataset data container */ }
+                <div className={ classes.datasetInfoDataWrapper }>
+                    <h3 className={ classes.datasetName }>{ dataset.name }</h3>
+                    <h4>{ dataset.description }</h4>
                 </div>
 
-                {/* dataset status container */}
-                <div className={classes.datasetInfoStatusWrapper}>
-                    {/* current progress */}
+                { /* dataset status container */ }
+                <div className={ classes.datasetInfoStatusWrapper }>
+                    { /* current progress */ }
                     <div>
-                        <CircleProgressBar value={50} size={150} />
+                        <CircleProgressBar value={ 50 } size={ 150 } />
                     </div>
 
-                    {/* specific progress data */}
-                    <div className={classes.datasetInfoSpecificData}>
-                        {datasetProgressFakeData.map((item, index) => (
-                            <SpecificProgressData {...item} key={index} />
-                        ))}
+                    { /* specific progress data */ }
+                    <div className={ classes.datasetInfoSpecificData }>
+                        { datasetProgressFakeData.map((item, index) => (
+                            <SpecificProgressData { ...item } key={ index } />
+                        )) }
                     </div>
                 </div>
             </div>
 
-            {/* action buttons & searchbar */}
-            <div className={classes.actionAreaWrapper}>
-                {/* searchbar */}
-                <div className={classes.actionAreaSearchWrapper}>
+            { /* action buttons & searchbar */ }
+            <div className={ classes.actionAreaWrapper }>
+                { /* searchbar */ }
+                <div className={ classes.actionAreaSearchWrapper }>
                     <input
                         type="search"
                         placeholder="Search assets by regex"
-                        value={currentNameQuery}
-                        onChange={(e) => {
+                        value={ currentNameQuery }
+                        onChange={ (e) => {
                             setCurrentNameQuery(e.currentTarget.value);
-                        }}
+                        } }
                     />
                 </div>
 
-                {/* action functions */}
-                <div className={classes.actionAreaActionButtonsWrapper}>
-                    {/* switch table style */}
-                    <div className={classes.tableRelatedButtonsWrapper}>
-                        <div className={classes.tableViewButtonsWrapper}>
-                            <button onClick={toggleViewToGrid}>
+                { /* action functions */ }
+                <div className={ classes.actionAreaActionButtonsWrapper }>
+                    { /* switch table style */ }
+                    <div className={ classes.tableRelatedButtonsWrapper }>
+                        <div className={ classes.tableViewButtonsWrapper }>
+                            <button onClick={ toggleViewToGrid }>
                                 <ReactSVG
-                                    className={classes.icon}
-                                    src={grid.src}
+                                    className={ classes.icon }
+                                    src={ grid.src }
                                 />
                             </button>
 
-                            <div className={classes.separator} />
+                            <div className={ classes.separator } />
 
-                            <button onClick={toggleViewToList}>
+                            <button onClick={ toggleViewToList }>
                                 <ReactSVG
-                                    className={classes.icon}
-                                    src={list.src}
+                                    className={ classes.icon }
+                                    src={ list.src }
                                 />
                             </button>
                         </div>
 
-                        <button className={classes.outButton}>
+                        <button className={ classes.outButton }>
                             <ReactSVG
-                                className={classes.icon}
-                                src={logout.src}
+                                className={ classes.icon }
+                                src={ logout.src }
                             />
                         </button>
                     </div>
 
-                    {/* action button */}
-                    <div className={classes.actionButtonsWrapper}>
+                    { /* action button */ }
+                    <div className={ classes.actionButtonsWrapper }>
                         <button
-                            onClick={() => {
+                            onClick={ () => {
                                 router.push(
                                     '../annotate/' + router.query.datasetId
                                 );
-                            }}
-                            className={classes.actionButtonInitiateTraining}
+                            } }
+                            className={ classes.actionButtonInitiateTraining }
                         >
                             Initiate Training
-                            <ReactSVG className={classes.icon} src={cpu.src} />
+                            <ReactSVG className={ classes.icon } src={ cpu.src } />
                         </button>
 
-                        <button className={classes.actionButtonAnnotated}>
+                        <button className={ classes.actionButtonAnnotated }>
                             Annotated
-                            <ReactSVG className={classes.icon} src={edit.src} />
+                            <ReactSVG className={ classes.icon } src={ edit.src } />
                         </button>
                     </div>
                 </div>
             </div>
 
-            {/* list & grid */}
+            { /* list & grid */ }
             {
                 <AssetViewer
-                    showList={showList}
-                    searchQuery={{
+                    showList={ showList }
+                    searchQuery={ {
                         displayName: currentNameQuery || undefined,
-                    }}
-                    datasetId={router.query.datasetId}
+                    } }
+                    datasetId={ router.query.datasetId }
                 />
             }
 
-            {/* upload content */}
+            { /* upload content */ }
             <FileUploader
-                datasetId={router.query.datasetId}
-                datasetType={dataset.type}
+                datasetId={ router.query.datasetId }
+                datasetType={ dataset.type }
             />
         </div>
     );
 };
 
 MyDatasets.getLayout = function (page) {
-    return <MainLayout>{page}</MainLayout>;
+    return <MainLayout>{ page }</MainLayout>;
 };
 
 export default MyDatasets;

@@ -29,22 +29,22 @@ export default function ActionPopupWithButton(
 
     return (
         <>
-            {clonedButton}
+            { clonedButton }
 
-            {open ? (
+            { open ? (
                 <ActionPopup
-                    className={props.className || ''}
-                    modalClassName={props.modalClassName || ''}
-                    popupTitle={props.popupTitle}
-                    onClose={() => setOpen(false)}
-                    blurBg={props.blurBg ?? true}
-                    variant={props.variant}
+                    className={ props.className || '' }
+                    modalClassName={ props.modalClassName || '' }
+                    popupTitle={ props.popupTitle }
+                    onClose={ () => setOpen(false) }
+                    blurBg={ props.blurBg ?? true }
+                    variant={ props.variant }
                 >
-                    {props.children}
+                    { props.children }
                 </ActionPopup>
             ) : (
                 <></>
-            )}
+            ) }
         </>
     );
 }

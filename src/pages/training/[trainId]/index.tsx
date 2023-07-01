@@ -37,16 +37,16 @@ function TrainingLabels(
 
     return (
         <label
-            {...smallProps}
-            className={`${classes.label} ${props.className || ''}`}
+            { ...smallProps }
+            className={ `${classes.label} ${props.className || ''}` }
         >
             <div
-                className={classes.labelDot}
-                style={{
+                className={ classes.labelDot }
+                style={ {
                     backgroundColor: labelColor ?? LABEL_COLORS[0],
-                }}
+                } }
             />
-            {props.children}
+            { props.children }
         </label>
     );
 }
@@ -114,12 +114,14 @@ const Train: NextPageWithLayout = function (_props: {}) {
                     `/api/datasets/${dataset!._id}/initializeTraining`,
                     requestBody
                 );
-            } else if (dataset!.stage === 'feedback') {
+            }
+ else if (dataset!.stage === 'feedback') {
                 await api.post(
                     `/api/datasets/${dataset!._id}/continueTraining`
                 );
             }
-        } catch (error) {
+        }
+ catch (error) {
             if (error instanceof AxiosError)
                 throwError(
                     error.response?.data.error.message,
@@ -135,28 +137,28 @@ const Train: NextPageWithLayout = function (_props: {}) {
     };
 
     return dataset ? (
-        <div className={classes.container}>
+        <div className={ classes.container }>
             <form
-                className={classes.contentContainer}
-                onSubmit={initiateSubmission}
+                className={ classes.contentContainer }
+                onSubmit={ initiateSubmission }
             >
-                <div className={classes.titleBar}>
+                <div className={ classes.titleBar }>
                     <h1>Dataset training</h1>
 
                     <Button
-                        type={'submit'}
-                        className={classes.utilityButton}
-                        gradient={true}
+                        type={ 'submit' }
+                        className={ classes.utilityButton }
+                        gradient={ true }
                     >
-                        {buttonLabel[dataset!.stage]}
+                        { buttonLabel[dataset!.stage] }
 
-                        <RxArrowRight className={classes.icon} />
+                        <RxArrowRight className={ classes.icon } />
                     </Button>
                 </div>
 
-                {dataset!.stage === 'untrained' ? (
-                    <div className={classes.formInputs}>
-                        <div className={classes.labelledInputContainer}>
+                { dataset!.stage === 'untrained' ? (
+                    <div className={ classes.formInputs }>
+                        <div className={ classes.labelledInputContainer }>
                             <span
                                 className={
                                     classes.labelledInputContainer__label
@@ -165,8 +167,8 @@ const Train: NextPageWithLayout = function (_props: {}) {
                                 Search Queries
                             </span>
 
-                            <ul className={classes.trainingQueriesInputs}>
-                                {dataset!.tags.map(
+                            <ul className={ classes.trainingQueriesInputs }>
+                                { dataset!.tags.map(
                                     function generateSearchQueryInput(
                                         classString,
                                         index
@@ -174,20 +176,20 @@ const Train: NextPageWithLayout = function (_props: {}) {
                                         const id = v4();
 
                                         return (
-                                            <React.Fragment key={index}>
+                                            <React.Fragment key={ index }>
                                                 <TrainingLabels
-                                                    htmlFor={id}
+                                                    htmlFor={ id }
                                                     labelColor={
                                                         LABEL_COLORS[index]
                                                     }
                                                 >
-                                                    {classString}
+                                                    { classString }
                                                 </TrainingLabels>
 
                                                 <CustomCreatableSelect
-                                                    name={`searchQuery_${index}`}
-                                                    instanceId={id}
-                                                    isMulti={true}
+                                                    name={ `searchQuery_${index}` }
+                                                    instanceId={ id }
+                                                    isMulti={ true }
                                                     className={
                                                         classes.querySelect
                                                     }
@@ -195,11 +197,11 @@ const Train: NextPageWithLayout = function (_props: {}) {
                                             </React.Fragment>
                                         );
                                     }
-                                )}
+                                ) }
                             </ul>
                         </div>
 
-                        <label className={classes.labelledInputContainer}>
+                        <label className={ classes.labelledInputContainer }>
                             <span
                                 className={
                                     classes.labelledInputContainer__label
@@ -212,16 +214,16 @@ const Train: NextPageWithLayout = function (_props: {}) {
                                 type="number"
                                 id="desired_data"
                                 name="desired_data"
-                                min={1}
-                                max={10000}
-                                defaultValue={30}
-                                className={classes.outputQuantity}
+                                min={ 1 }
+                                max={ 10000 }
+                                defaultValue={ 30 }
+                                className={ classes.outputQuantity }
                             />
                         </label>
                     </div>
                 ) : (
                     <></>
-                )}
+                ) }
             </form>
         </div>
     ) : (
@@ -230,7 +232,7 @@ const Train: NextPageWithLayout = function (_props: {}) {
 };
 
 Train.getLayout = function (page) {
-    return <MainLayout>{page}</MainLayout>;
+    return <MainLayout>{ page }</MainLayout>;
 };
 
 export default Train;

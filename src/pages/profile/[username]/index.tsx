@@ -13,7 +13,7 @@ const ProfilePage: NextPageWithLayout = function () {
     const router = useRouter();
     const username = router.query.username;
     if (typeof username === 'string')
-        return <Profile username={username}></Profile>;
+        return <Profile username={ username }></Profile>;
     
     return <></>;
 };
@@ -22,9 +22,9 @@ export default ProfilePage;
 
 ProfilePage.getLayout = function (page) {
     return (
-        <div className={classes.container}>
+        <div className={ classes.container }>
             <MarketplaceNavbar />
-            {page}
+            { page }
             <Footer />
         </div>
     );

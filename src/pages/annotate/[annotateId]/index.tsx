@@ -57,7 +57,8 @@ const Annotate: NextPageWithLayout = function () {
                                 { params: { stage: 'feedback' } }
                             )
                         ).data.data;
-                    } else if (datasetState === 'untrained') {
+                    }
+ else if (datasetState === 'untrained') {
                         images = (
                             await api.get(
                                 `/api/datasets/${router.query.annotateId}/assets/ids`,
@@ -76,11 +77,13 @@ const Annotate: NextPageWithLayout = function () {
                     setImageIds(images);
                     setNumImages(images.length);
                     setLabels(datasetLabels);
-                } catch (e) {
+                }
+ catch (e) {
                     router.push('/404');
                 }
             })();
-        } else router.push('/404');
+        }
+ else router.push('/404');
     }, [router.query.annotateId, router]);
 
     useEffect(() => {
@@ -130,7 +133,8 @@ const Annotate: NextPageWithLayout = function () {
                     setCurAnnotationData({
                         curAnnotationData: localAnnotationData,
                     });
-                } catch (e) {}
+                }
+ catch (e) {}
             })();
         }
     }, [imageIds, imageIndex]);
@@ -180,7 +184,7 @@ const Annotate: NextPageWithLayout = function () {
 
     return (
         <AnnotationPageContext.Provider
-            value={{
+            value={ {
                 curImage,
                 labels,
                 nextImage,
@@ -196,7 +200,7 @@ const Annotate: NextPageWithLayout = function () {
                 isEditing,
                 setIsEditing,
                 numImages,
-            }}
+            } }
         >
             <AnnotateInner />
         </AnnotationPageContext.Provider>
@@ -231,69 +235,69 @@ function AnnotateInner() {
     if (!curImage) return <Loading />;
 
     return (
-        <div className={classes.annotateContainer}>
-            <div className={classes.headingContainer}>
-                <h1 className={classes.heading}>
-                    Image - {imageIndex + 1}/{numImages}
+        <div className={ classes.annotateContainer }>
+            <div className={ classes.headingContainer }>
+                <h1 className={ classes.heading }>
+                    Image - { imageIndex + 1 }/{ numImages }
                 </h1>
             </div>
 
-            <div className={classes.submitButtonContainer}>
+            <div className={ classes.submitButtonContainer }>
                 <GradientLink
-                    to={`./training/${router.query.annotateId}`}
+                    to={ `./training/${router.query.annotateId}` }
                     gradientDirection="rightToLeft"
-                    className={classes.initiateTrainingButton}
+                    className={ classes.initiateTrainingButton }
                 >
                     Initiate training
                 </GradientLink>
             </div>
 
-            <div className={classes.leftContainer}>
+            <div className={ classes.leftContainer }>
                 <NoSSRComponent />
             </div>
 
-            <div className={classes.labelContainer}>
-                <div className={classes.labelList}>
-                    {labels.map((label: Flockfysh.Label, index: number) => {
+            <div className={ classes.labelContainer }>
+                <div className={ classes.labelList }>
+                    { labels.map((label: Flockfysh.Label, index: number) => {
                         return (
                             <Label
-                                key={index}
-                                dotColor={label.color}
-                                selected={label === curLabel}
-                                onClick={() => {
+                                key={ index }
+                                dotColor={ label.color }
+                                selected={ label === curLabel }
+                                onClick={ () => {
                                     if (curLabel === label) setCurLabel(null);
                                     else setCurLabel(label);
-                                }}
+                                } }
                             >
-                                {label.name}
+                                { label.name }
                             </Label>
                         );
-                    })}
+                    }) }
                 </div>
 
-                <div className={classes.utilityButtons}>
+                <div className={ classes.utilityButtons }>
                     <Button
-                        className={classes.addLabelButton}
-                        onClick={() => setIsEditing(!isEditing)}
+                        className={ classes.addLabelButton }
+                        onClick={ () => setIsEditing(!isEditing) }
                     >
-                        {isEditing ? 'Currently Editing' : 'Edit Bounding Box'}
+                        { isEditing ? 'Currently Editing' : 'Edit Bounding Box' }
                     </Button>
                 </div>
             </div>
 
-            <div className={classes.switchImageContainer}>
+            <div className={ classes.switchImageContainer }>
                 <button
-                    className={classes.switchImageButton}
-                    onClick={prevImage}
+                    className={ classes.switchImageButton }
+                    onClick={ prevImage }
                 >
-                    <RxArrowLeft className={classes.switchImageIcon} />
+                    <RxArrowLeft className={ classes.switchImageIcon } />
                 </button>
 
                 <button
-                    className={classes.switchImageButton}
-                    onClick={nextImage}
+                    className={ classes.switchImageButton }
+                    onClick={ nextImage }
                 >
-                    <RxArrowRight className={classes.switchImageIcon} />
+                    <RxArrowRight className={ classes.switchImageIcon } />
                 </button>
             </div>
         </div>
@@ -301,7 +305,7 @@ function AnnotateInner() {
 }
 
 Annotate.getLayout = function (page) {
-    return <MainLayout>{page}</MainLayout>;
+    return <MainLayout>{ page }</MainLayout>;
 };
 
 export default Annotate;

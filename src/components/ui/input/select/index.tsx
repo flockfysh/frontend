@@ -29,10 +29,10 @@ const CustomSelect = forwardRef<any, Props>(function _CustomSelect<
     );
     return (
         <Select
-            {...props}
-            theme={theme}
-            className={props.className}
-            classNames={{
+            { ...props }
+            theme={ theme }
+            className={ props.className }
+            classNames={ {
                 ...props.classNames,
                 control(...args) {
                     return `${classes.control} ${
@@ -49,13 +49,13 @@ const CustomSelect = forwardRef<any, Props>(function _CustomSelect<
                         props.classNames?.menu?.(...args) || ''
                     }`;
                 },
-            }}
-            ref={(e) => {
+            } }
+            ref={ (e) => {
                 if (typeof ref === 'function') ref(e);
                 else if (ref) ref.current = e;
 
                 selectRef.current = e;
-            }}
+            } }
         />
     );
 });
@@ -71,13 +71,13 @@ export const CustomCreatableSelect = forwardRef<any, Props>(
     ) {
         return (
             <CreatableSelect
-                {...props}
-                onChange={(...args) => {
+                { ...props }
+                onChange={ (...args) => {
                     props.onChange?.(...args);
-                }}
-                theme={theme}
-                className={props.className}
-                classNames={{
+                } }
+                theme={ theme }
+                className={ props.className }
+                classNames={ {
                     ...props.classNames,
                     control(...args) {
                         return `${classes.control} ${
@@ -94,11 +94,11 @@ export const CustomCreatableSelect = forwardRef<any, Props>(
                             props.classNames?.menu?.(...args) || ''
                         }`;
                     },
-                }}
-                ref={(e) => {
+                } }
+                ref={ (e) => {
                     if (typeof ref === 'function') ref(e);
                     else if (ref) ref.current = e;
-                }}
+                } }
             />
         );
     }

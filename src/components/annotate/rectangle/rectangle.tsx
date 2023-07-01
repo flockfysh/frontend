@@ -22,14 +22,14 @@ export interface RectangleProps {
 
 function Buttons(props: { onDelete?: () => void; onDeselect?: () => void }) {
     return (
-        <nav className={classes.rectangleUtilityButtons}>
-            <Button className={`${classes.button}`} onClick={props.onDeselect}>
+        <nav className={ classes.rectangleUtilityButtons }>
+            <Button className={ `${classes.button}` } onClick={ props.onDeselect }>
                 <RxEyeNone />
             </Button>
 
             <Button
-                className={`${classes.button} ${classes.deleteButton}`}
-                onClick={props.onDelete}
+                className={ `${classes.button} ${classes.deleteButton}` }
+                onClick={ props.onDelete }
             >
                 <RxCross1 />
             </Button>
@@ -75,10 +75,10 @@ export default function Rectangle(props: RectangleProps) {
     if (props.isSelected) {
         transformer = (
             <Transformer
-                ignoreStroke={true}
-                ref={trRef}
-                rotateEnabled={false}
-                boundBoxFunc={(oldBox, newBox) => {
+                ignoreStroke={ true }
+                ref={ trRef }
+                rotateEnabled={ false }
+                boundBoxFunc={ (oldBox, newBox) => {
                     const tolerance = 0;
 
                     if (
@@ -94,24 +94,24 @@ export default function Rectangle(props: RectangleProps) {
                         return oldBox;
 
                     return newBox;
-                }}
+                } }
             />
         );
 
         htmlUtilityButtons = (
             <Html
-                divProps={{
+                divProps={ {
                     style: {
                         position: 'absolute',
                         top: konvaRectY + 'px',
                         left: konvaRectCenterX + 'px',
                         display: isDragging ? 'none' : 'block',
                     },
-                }}
+                } }
             >
                 <Buttons
-                    onDelete={props.onDelete}
-                    onDeselect={props.onDeselect}
+                    onDelete={ props.onDelete }
+                    onDeselect={ props.onDeselect }
                 />
             </Html>
         );
@@ -174,29 +174,29 @@ export default function Rectangle(props: RectangleProps) {
     return (
         <Layer>
             <Rect
-                {...props.shapeProps}
-                onClick={props.onSelect}
-                onTap={props.onSelect}
-                ref={shapeRef}
-                x={konvaRectX}
-                y={konvaRectY}
-                width={konvaRectWidth}
-                height={konvaRectHeight}
-                strokeScaleEnabled={false}
-                draggable={props.isSelected}
-                strokeWidth={Math.max(
+                { ...props.shapeProps }
+                onClick={ props.onSelect }
+                onTap={ props.onSelect }
+                ref={ shapeRef }
+                x={ konvaRectX }
+                y={ konvaRectY }
+                width={ konvaRectWidth }
+                height={ konvaRectHeight }
+                strokeScaleEnabled={ false }
+                draggable={ props.isSelected }
+                strokeWidth={ Math.max(
                     5,
                     0.01 * Math.min(props.containerWidth, props.containerHeight)
-                )}
-                onDragMove={dragMove}
-                onDragEnd={dragEnd}
-                onDragStart={dragStart}
-                onTransformStart={transformStart}
-                onTransformEnd={transformEnd}
+                ) }
+                onDragMove={ dragMove }
+                onDragEnd={ dragEnd }
+                onDragStart={ dragStart }
+                onTransformStart={ transformStart }
+                onTransformEnd={ transformEnd }
             />
 
-            {transformer}
-            {htmlUtilityButtons}
+            { transformer }
+            { htmlUtilityButtons }
         </Layer>
     );
 }
