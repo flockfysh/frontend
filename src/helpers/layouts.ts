@@ -1,9 +1,8 @@
-import React from 'react';
+import { ReactNode } from 'react';
 
 export function nestedLayout(
-    parent: (page?: React.ReactNode) => React.ReactNode | undefined,
-    child: (page?: React.ReactNode) => React.ReactNode | undefined,
+    parent: (page?: ReactNode) => ReactNode | undefined,
+    child: (page?: ReactNode) => ReactNode | undefined
 ) {
-
-    return (page?: React.ReactNode) => parent(child(page));
+    return (page?: ReactNode) => parent(child(page));
 }

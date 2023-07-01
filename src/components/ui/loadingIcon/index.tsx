@@ -10,7 +10,7 @@ export default function LoadingIcon(_: React.ComponentPropsWithRef<'img'>) {
         //     src={ loadingIcon }
         //     alt="Loading..."
         //     className={ `${ classes.loadingIcon } ${ props.className || '' }` }
-        //     { ...props d 
+        //     { ...props d
         // />
     );
 }

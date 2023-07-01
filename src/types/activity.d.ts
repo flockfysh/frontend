@@ -1,5 +1,5 @@
 declare interface ActivityMetric {
-    type: 'view' | 'download',
-    count: number,
-    date: string,
+    type: 'view' | 'download';
+    count: number;
+    date: string;
 }

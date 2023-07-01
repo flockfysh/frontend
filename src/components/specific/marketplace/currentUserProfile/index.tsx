@@ -1,16 +1,23 @@
-import { UserContext } from '@/contexts/userContext';
-import React from 'react';
+import { useContext } from 'react';
+
 import ProfileCard from '@/components/specific/marketplace/profileCard';
+
+import { UserContext } from '@/contexts/userContext';
+
 import { getDefaultProfilePicture } from '@/helpers/defaults';
 
 export default function CurrentUserProfile() {
-    const { user } = React.useContext(UserContext);
+    const { user } = useContext(UserContext);
 
-    if (user) {
+    if (user)
         return (
-            <ProfileCard profilePicture={ user.profilePhoto?.url ?? getDefaultProfilePicture() }
-                         username={ user.username }/>
+            <ProfileCard
+                profilePicture={
+                    user.profilePhoto?.url ?? getDefaultProfilePicture()
+                }
+                username={user.username}
+            />
         );
-    }
+    
     return <></>;
 }

@@ -12,9 +12,9 @@ import React from 'react';
 const ProfilePage: NextPageWithLayout = function () {
     const router = useRouter();
     const username = router.query.username;
-    if (typeof username === 'string') {
-        return <Profile username={ username }></Profile>;
-    }
+    if (typeof username === 'string')
+        return <Profile username={username}></Profile>;
+    
     return <></>;
 };
 
@@ -22,10 +22,10 @@ export default ProfilePage;
 
 ProfilePage.getLayout = function (page) {
     return (
-        <div className={ classes.container }>
-            <MarketplaceNavbar/>
-            { page }
-            <Footer/>
+        <div className={classes.container}>
+            <MarketplaceNavbar />
+            {page}
+            <Footer />
         </div>
     );
 };

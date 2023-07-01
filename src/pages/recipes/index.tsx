@@ -43,7 +43,7 @@ function RecipeSearchResult(props: { name?: string }) {
                         expand: 'labels',
                         limit: 50,
                     },
-                },
+                }
             )
         ).data;
 
@@ -61,19 +61,19 @@ function RecipeSearchResult(props: { name?: string }) {
     }, [props.name]);
 
     return (
-        <div className={ classes.mainContent } ref={ scrollerContainerRef }>
+        <div className={classes.mainContent} ref={scrollerContainerRef}>
             <InfiniteScroll
-                useWindow={ false }
-                loadMore={ load }
-                hasMore={ state.hasMore }
-                getScrollParent={ () => {
+                useWindow={false}
+                loadMore={load}
+                hasMore={state.hasMore}
+                getScrollParent={() => {
                     return scrollerContainerRef.current;
-                } }
+                }}
             >
-                <ul className={ classes.datasetGrid }>
-                    { state.recipes.map((recipe) => (
-                        <RecipeCard key={ recipe._id } { ...recipe } />
-                    )) }
+                <ul className={classes.datasetGrid}>
+                    {state.recipes.map((recipe) => (
+                        <RecipeCard key={recipe._id} {...recipe} />
+                    ))}
                 </ul>
             </InfiniteScroll>
         </div>
@@ -85,51 +85,48 @@ const RecipePage: NextPageWithLayout = function () {
 
     return (
         <>
-            <header className={ classes.header }>
-                <div className={ classes.headerTitleAndCTA }>
-                    <h1 className={ classes.headerTitle }>Your Recipes</h1>
+            <header className={classes.header}>
+                <div className={classes.headerTitleAndCTA}>
+                    <h1 className={classes.headerTitle}>Your Recipes</h1>
 
-                    <div className={ classes.headerCTA }>
-                        <DarkModeButton/>
-                        <CreateRecipeModal/>
+                    <div className={classes.headerCTA}>
+                        <DarkModeButton />
+                        <CreateRecipeModal />
                     </div>
                 </div>
 
-                <label className={ classes.searchBarContainer }>
+                <label className={classes.searchBarContainer}>
                     <ReactSVG
-                        src={ search.src }
-                        className={ classes.searchBarIcon }
+                        src={search.src}
+                        className={classes.searchBarIcon}
                     />
 
                     <input
                         type="search"
-                        className={ classes.searchBarInput }
-                        value={ curSearchQuery }
-                        onChange={ (e) => {
+                        className={classes.searchBarInput}
+                        value={curSearchQuery}
+                        onChange={(e) => {
                             setCurSearchQuery(e.currentTarget.value);
-                        } }
+                        }}
                         placeholder="Search"
                     />
 
-                    <button className={ classes.searchFilterButton }>
+                    <button className={classes.searchFilterButton}>
                         <ReactSVG
-                            src={ sliders.src }
-                            className={ classes.searchFilterIcon }
+                            src={sliders.src}
+                            className={classes.searchFilterIcon}
                         />
                     </button>
-
                 </label>
             </header>
 
-            <RecipeSearchResult
-                name={ curSearchQuery || undefined }
-            />
+            <RecipeSearchResult name={curSearchQuery || undefined} />
         </>
     );
 };
 
 RecipePage.getLayout = function (page) {
-    return <MainLayout>{ page }</MainLayout>;
+    return <MainLayout>{page}</MainLayout>;
 };
 
 export default RecipePage;

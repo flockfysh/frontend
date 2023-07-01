@@ -20,37 +20,35 @@ const MyDatasets: NextPageWithLayout = function () {
 
     return (
         <>
-            <header className={ classes.header }>
-                <label className={ classes.searchBarContainer }>
+            <header className={classes.header}>
+                <label className={classes.searchBarContainer}>
                     <ReactSVG
-                        src={ search.src }
-                        className={ classes.searchBarIcon }
+                        src={search.src}
+                        className={classes.searchBarIcon}
                     />
 
                     <input
                         type="search"
-                        className={ classes.searchBarInput }
-                        value={ curSearchQuery }
-                        onChange={ (e) => {
+                        className={classes.searchBarInput}
+                        value={curSearchQuery}
+                        onChange={(e) => {
                             setCurSearchQuery(e.currentTarget.value);
-                        } }
+                        }}
                         placeholder="Search"
                     />
 
-                    <button className={ classes.searchFilterButton }>
+                    <button className={classes.searchFilterButton}>
                         <ReactSVG
-                            src={ sliders.src }
-                            className={ classes.searchFilterIcon }
+                            src={sliders.src}
+                            className={classes.searchFilterIcon}
                         />
                     </button>
                 </label>
 
-                <CreateDatasetModal/>
+                <CreateDatasetModal />
             </header>
 
-            <DatasetSearchResult
-                name={ curSearchQuery || undefined }
-            />
+            <DatasetSearchResult name={curSearchQuery || undefined} />
         </>
     );
 };
@@ -106,19 +104,19 @@ function DatasetSearchResult(props: { name?: string }) {
     }
 
     return (
-        <div className={ classes.mainContent }>
+        <div className={classes.mainContent}>
             <InfiniteScroll
-                useWindow={ false }
-                loadMore={ load }
-                hasMore={ state.hasMore }
-                getScrollParent={ () => {
+                useWindow={false}
+                loadMore={load}
+                hasMore={state.hasMore}
+                getScrollParent={() => {
                     return scrollerContainerRef.current;
-                } }
+                }}
             >
-                <ul className={ classes.datasetGrid }>
-                    { state.datasets.map((dataset) => (
-                        <DatasetCard key={ dataset._id } { ...dataset } />
-                    )) }
+                <ul className={classes.datasetGrid}>
+                    {state.datasets.map((dataset) => (
+                        <DatasetCard key={dataset._id} {...dataset} />
+                    ))}
                 </ul>
             </InfiniteScroll>
         </div>
@@ -126,7 +124,7 @@ function DatasetSearchResult(props: { name?: string }) {
 }
 
 MyDatasets.getLayout = function (page) {
-    return <MainLayout>{ page }</MainLayout>;
+    return <MainLayout>{page}</MainLayout>;
 };
 
 export default MyDatasets;

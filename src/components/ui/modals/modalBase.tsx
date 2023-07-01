@@ -8,13 +8,18 @@ export interface ModalProps {
 
 export default function ModalBase(props: ModalProps) {
     return (
-        <div className={ classes.modalContainer }>
-            <div className={ classes.modalContent }>
-                <h4 className={ classes.modalTitle }>{ props.title }</h4>
+        <div className={classes.modalContainer}>
+            <div className={classes.modalContent}>
+                <h4 className={classes.modalTitle}>{props.title}</h4>
 
-                { props.children }
+                {props.children}
 
-                <button onClick={ props.closeModal } className={ classes.closeModal }>Ok</button>
+                <button
+                    onClick={props.closeModal}
+                    className={classes.closeModal}
+                >
+                    Ok
+                </button>
             </div>
         </div>
     );

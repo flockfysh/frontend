@@ -1,17 +1,24 @@
 import { useRef, useState } from 'react';
 import { ReactSVG } from 'react-svg';
+import InfiniteScroll from 'react-infinite-scroller';
+
+import _dayjs from 'dayjs';
+import { useStateWithDeps } from 'use-state-with-deps';
+
+import RadioButtons from '@/components/ui/input/radioButtons';
+import { ContributionItem } from './contributionItem';
+
+import api from '@/helpers/api';
 
 import search from '@/icons/main/search.svg';
 import database from '@/icons/main/database.svg';
-import { useStateWithDeps } from 'use-state-with-deps';
-import classes from './styles.module.css';
-import { ContributionItem } from './contributionItem';
-import api from '@/helpers/api';
-import _dayjs from 'dayjs';
-import RadioButtons from '@/components/ui/input/radioButtons';
-import InfiniteScroll from 'react-infinite-scroller';
 
-const TIME_STATES: { label: string, value: [number, _dayjs.ManipulateType] | null }[] = [
+import classes from './styles.module.css';
+
+const TIME_STATES: {
+    label: string;
+    value: [number, _dayjs.ManipulateType] | null;
+}[] = [
     { label: 'All', value: null },
     { label: '1h', value: [1, 'hour'] },
     { label: '6h', value: [6, 'hours'] },
@@ -23,10 +30,11 @@ export default function ContributionList(dataset: PreviewDataset) {
     const scrollerContainerRef = useRef<HTMLDivElement | null>(null);
     const [_timeFilter, _setTimeFilter] = useState(0);
     const [currentNameQuery, setCurrentNameQuery] = useState('');
+
     const [state, setState] = useStateWithDeps<{
         next?: string;
         hasNext: boolean;
-        contributions: ExpandedPullRequest[],
+        contributions: ExpandedPullRequest[];
     }>(initialState, [currentNameQuery, dataset._id]);
 
     function initialState(): typeof state {
@@ -39,15 +47,21 @@ export default function ContributionList(dataset: PreviewDataset) {
 
     const getContributions = async () => {
         if (state.hasNext) {
-            const temp = (await api.get<Api.PaginatedResponse<ExpandedPullRequest[]>>(`/api/datasets/${dataset._id}/pullRequests`, {
-                params: {
-                    expand: 'user,stats',
-                    name: currentNameQuery,
-                    limit: 10,
-                    next: state.next,
-                },
-            })).data;
-            setState(prevState => {
+            const temp = (
+                await api.get<Api.PaginatedResponse<ExpandedPullRequest[]>>(
+                    `/api/datasets/${dataset._id}/pullRequests`,
+                    {
+                        params: {
+                            expand: 'user,stats',
+                            name: currentNameQuery,
+                            limit: 10,
+                            next: state.next,
+                        },
+                    }
+                )
+            ).data;
+
+            setState((prevState) => {
                 prevState.contributions.push(...temp.data);
                 return {
                     ...prevState,
@@ -59,63 +73,77 @@ export default function ContributionList(dataset: PreviewDataset) {
     };
 
     return (
-        <div className={ classes.itemsContainer }>
-            { /* header */ }
-            <div className={ classes.mainContentHeader }>
-                <label className={ classes.searchContainer }>
-                    <ReactSVG src={ search.src } className={ classes.searchIcon }/>
+        <div className={classes.itemsContainer}>
+            {/* header */}
+            <div className={classes.mainContentHeader}>
+                <label className={classes.searchContainer}>
+                    <ReactSVG src={search.src} className={classes.searchIcon} />
 
                     <input
                         type="search"
-                        className={ classes.search }
+                        className={classes.search}
                         placeholder="Search by user, title"
-                        value={ currentNameQuery }
-                        onChange={ (e) => {
+                        value={currentNameQuery}
+                        onChange={(e) => {
                             setCurrentNameQuery(e.currentTarget.value);
-                        } }
+                        }}
                     />
                 </label>
 
-                <div className={ classes.headerButtonsWrapper }>
-                    <div className={ classes.tableViewButtonsWrapper }>
-                        <RadioButtons options={ TIME_STATES }/>
+                <div className={classes.headerButtonsWrapper}>
+                    <div className={classes.tableViewButtonsWrapper}>
+                        <RadioButtons options={TIME_STATES} />
                     </div>
                 </div>
             </div>
 
-            { /* content */ }
-            <div className={ classes.contentContainer } ref={ scrollerContainerRef }>
-                { /* contribution list */ }
-                <InfiniteScroll hasMore={ state.hasNext } useWindow={ false } loadMore={ getContributions }
-                                className={ classes.contentListContainer }
-                                getScrollParent={ () => scrollerContainerRef.current }>
-                    { state.contributions.map((item) => (
-                        <ContributionItem key={ item._id } datasetId={ dataset._id } contribution={ item }/>
-                    )) }
+            {/* content */}
+            <div
+                className={classes.contentContainer}
+                ref={scrollerContainerRef}
+            >
+                {/* contribution list */}
+                <InfiniteScroll
+                    hasMore={state.hasNext}
+                    useWindow={false}
+                    loadMore={getContributions}
+                    className={classes.contentListContainer}
+                    getScrollParent={() => scrollerContainerRef.current}
+                >
+                    {state.contributions.map((item) => (
+                        <ContributionItem
+                            key={item._id}
+                            datasetId={dataset._id}
+                            contribution={item}
+                        />
+                    ))}
                 </InfiniteScroll>
-                { /* info column */ }
-                <div className={ classes.contentInfoContainer }>
-                    { /* title */ }
-                    <div className={ classes.infoTitleContainer }>
-                        <h2 className={ classes.infoTitle }>Contribution Stats</h2>
+
+                {/* info column */}
+                <div className={classes.contentInfoContainer}>
+                    {/* title */}
+                    <div className={classes.infoTitleContainer}>
+                        <h2 className={classes.infoTitle}>
+                            Contribution Stats
+                        </h2>
                     </div>
 
-                    { /* summary */ }
-                    <div className={ classes.infoBox }>
-                        <div className={ classes.infoBoxTitleContainer }>
-                            <h3 className={ classes.infoBoxTitle }>Summary</h3>
+                    {/* summary */}
+                    <div className={classes.infoBox}>
+                        <div className={classes.infoBoxTitleContainer}>
+                            <h3 className={classes.infoBoxTitle}>Summary</h3>
                         </div>
 
                         <div>
-                            <p className={ classes.infoBoxSubtitle }>
+                            <p className={classes.infoBoxSubtitle}>
                                 <ReactSVG
-                                    className={ classes.infoBoxSubtitleIcon }
-                                    src={ database.src }
+                                    className={classes.infoBoxSubtitleIcon}
+                                    src={database.src}
                                 />
-                                { /* {dataset.assetCounts.total} Files */ }
+                                {/* {dataset.assetCounts.total} Files */}
                             </p>
 
-                            { /* {Object.entries(dataset.assetCounts.byMimetype).map(
+                            {/* {Object.entries(dataset.assetCounts.byMimetype).map(
                 ([mimetype, count]) => {
                   return (
                     <div className={classes.infoBoxSummaryItem} key={mimetype}>
@@ -124,18 +152,24 @@ export default function ContributionList(dataset: PreviewDataset) {
                     </div>
                   );
                 }
-              )} */ }
+              )} */}
                         </div>
                     </div>
 
-                    { /* file details */ }
-                    <div className={ classes.infoBox }>
-                        <div className={ classes.infoBoxTitleContainer }>
-                            <h3 className={ classes.infoBoxTitle }>File Details</h3>
+                    {/* file details */}
+                    <div className={classes.infoBox}>
+                        <div className={classes.infoBoxTitleContainer}>
+                            <h3 className={classes.infoBoxTitle}>
+                                File Details
+                            </h3>
                         </div>
 
-                        <div className={ classes.infoBoxFileDetailsInnerBox }>
-                            <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
+                        <div className={classes.infoBoxFileDetailsInnerBox}>
+                            <div
+                                className={
+                                    classes.infoBoxFileDetailsInnerBoxRow
+                                }
+                            >
                                 <div>
                                     <span>Resolution</span>
                                 </div>
@@ -145,7 +179,11 @@ export default function ContributionList(dataset: PreviewDataset) {
                                 </div>
                             </div>
 
-                            <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
+                            <div
+                                className={
+                                    classes.infoBoxFileDetailsInnerBoxRow
+                                }
+                            >
                                 <div>
                                     <span>Filename</span>
                                 </div>
@@ -155,7 +193,11 @@ export default function ContributionList(dataset: PreviewDataset) {
                                 </div>
                             </div>
 
-                            <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
+                            <div
+                                className={
+                                    classes.infoBoxFileDetailsInnerBoxRow
+                                }
+                            >
                                 <div>
                                     <span>Mime type</span>
                                 </div>
@@ -165,7 +207,11 @@ export default function ContributionList(dataset: PreviewDataset) {
                                 </div>
                             </div>
 
-                            <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
+                            <div
+                                className={
+                                    classes.infoBoxFileDetailsInnerBoxRow
+                                }
+                            >
                                 <div>
                                     <span>Uploaded By</span>
                                 </div>
@@ -175,7 +221,11 @@ export default function ContributionList(dataset: PreviewDataset) {
                                 </div>
                             </div>
 
-                            <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
+                            <div
+                                className={
+                                    classes.infoBoxFileDetailsInnerBoxRow
+                                }
+                            >
                                 <div>
                                     <span>Encoding</span>
                                 </div>
@@ -185,7 +235,11 @@ export default function ContributionList(dataset: PreviewDataset) {
                                 </div>
                             </div>
 
-                            <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
+                            <div
+                                className={
+                                    classes.infoBoxFileDetailsInnerBoxRow
+                                }
+                            >
                                 <div>
                                     <span>File Size</span>
                                 </div>

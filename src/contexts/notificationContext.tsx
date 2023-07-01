@@ -47,8 +47,7 @@ export default function NotificationWrapper() {
                     });
 
                     break;
-                }
- catch (e) {
+                } catch (e) {
                     await delay(5);
                 }
             }

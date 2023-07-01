@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect, useId } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import help from '@/icons/main/help-circle.svg';
@@ -20,70 +20,80 @@ export default function Input<T extends string | number>(props: {
     onChange?: (data: T) => void;
     onSave?: (data: T) => void;
 }) {
-    const [value, setValue] = React.useState(() => {
+    const [value, setValue] = useState(() => {
         return props.value ?? props.initialValue;
     });
-    const [inProgress, setInProgress] = React.useState(() => {
+    const [inProgress, setInProgress] = useState(() => {
         return false;
     });
-    const [focus, setFocus] = React.useState(false);
+    const [focus, setFocus] = useState(false);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (props.value !== undefined) setValue(props.value);
     }, [props.value]);
 
-    const id = React.useId();
+    const id = useId();
 
     return (
-        <div className={ classes.container }>
-            { props.label ? (
-                <div className={ classes.labelContainer }>
-                    <label className={ classes.label } htmlFor={ id }>{ props.label }</label>
-                    { props.tooltip ? (
-                        <button className={ classes.helpIcon }>
-                            <ReactSVG src={ help.src } />
+        <div className={classes.container}>
+            {props.label ? (
+                <div className={classes.labelContainer}>
+                    <label className={classes.label} htmlFor={id}>
+                        {props.label}
+                    </label>
+                    {props.tooltip ? (
+                        <button className={classes.helpIcon}>
+                            <ReactSVG src={help.src} />
 
-                            <p className={ classes.helpIconTooltip }>{ props.tooltip }</p>
+                            <p className={classes.helpIconTooltip}>
+                                {props.tooltip}
+                            </p>
                         </button>
-                    ) : <></> }
+                    ) : (
+                        <></>
+                    )}
                 </div>
-            ) : <></> }
+            ) : (
+                <></>
+            )}
 
             <label
-                className={ `${ classes.inputContainer } ${ focus ? classes.focusedInput : '' } ${ inProgress ? classes.inProgress : '' }` }
+                className={`${classes.inputContainer} ${
+                    focus ? classes.focusedInput : ''
+                } ${inProgress ? classes.inProgress : ''}`}
             >
-                { props.icon ? <ReactSVG src={ props.icon } /> : <></> }
+                {props.icon ? <ReactSVG src={props.icon} /> : <></>}
 
                 <input
-                    id={ id }
-                    disabled={ inProgress }
-                    max={ props.max }
-                    min={ props.min }
-                    type={ props.type }
-                    placeholder={ props.placeholder }
-                    onChange={ event => {
+                    id={id}
+                    disabled={inProgress}
+                    max={props.max}
+                    min={props.min}
+                    type={props.type}
+                    placeholder={props.placeholder}
+                    onChange={(event) => {
                         setValue(event.currentTarget.value as T);
-                    } }
-                    value={ value }
-                    onFocus={ () => {
+                    }}
+                    value={value}
+                    onFocus={() => {
                         setFocus(true);
-                    } }
-                    onBlur={ () => setFocus(false) }
-                    className={ `${classes.input}` }
+                    }}
+                    onBlur={() => setFocus(false)}
+                    className={`${classes.input}`}
                 />
 
                 <button
-                    disabled={ inProgress }
-                    className={ classes.button }
-                    onClick={ async () => {
+                    disabled={inProgress}
+                    className={classes.button}
+                    onClick={async () => {
                         setInProgress(true);
-                        
+
                         if (value !== undefined) await props.onSave?.(value);
 
                         setInProgress(false);
-                    } }
+                    }}
                 >
-                    { props.saveLabel ?? 'Update' }
+                    {props.saveLabel ?? 'Update'}
                 </button>
             </label>
         </div>

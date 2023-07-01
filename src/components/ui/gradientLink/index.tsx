@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { RxArrowRight } from 'react-icons/rx';
 import Link from 'next/link';
 
@@ -8,12 +8,14 @@ type GradientLinkProps = {
     gradientDirection?: string;
     hasArrow?: boolean;
     to: string;
-    children?: React.ReactNode;
+    children?: ReactNode;
     className?: string;
 };
 
 export default function GradientLink(props: GradientLinkProps) {
-    const gradientDirection = props.gradientDirection ? props.gradientDirection : 'topToBottom';
+    const gradientDirection = props.gradientDirection
+        ? props.gradientDirection
+        : 'topToBottom';
     const hasArrow = props.hasArrow ? props.hasArrow : false;
 
     let gradientClass;
@@ -32,23 +34,31 @@ export default function GradientLink(props: GradientLinkProps) {
             gradientClass = classes.gradientBottomRight;
     }
 
-    if(props.to.startsWith('http')) return (
-        <a className={ `${ classes.button } ${ gradientClass } ${ props.className || '' }` } href={ props.to } target="_blank">
-            { props.children }
+    if (props.to.startsWith('http'))
+        return (
+            <a
+                className={`${classes.button} ${gradientClass} ${
+                    props.className || ''
+                }`}
+                href={props.to}
+                target="_blank"
+            >
+                {props.children}
 
-            {
-                hasArrow ? <RxArrowRight className={ classes.svg } /> : <></>
-            }
-        </a>
-    );
+                {hasArrow ? <RxArrowRight className={classes.svg} /> : <></>}
+            </a>
+        );
 
     return (
-        <Link className={ `${ classes.button } ${ gradientClass } ${ props.className || '' }` } href={ props.to }>
-            { props.children }
+        <Link
+            className={`${classes.button} ${gradientClass} ${
+                props.className || ''
+            }`}
+            href={props.to}
+        >
+            {props.children}
 
-            {
-                hasArrow ? <RxArrowRight className={ classes.svg } /> : <></>
-            }
+            {hasArrow ? <RxArrowRight className={classes.svg} /> : <></>}
         </Link>
     );
 }

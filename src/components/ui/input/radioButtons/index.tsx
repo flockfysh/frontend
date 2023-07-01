@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 export default function RadioButtons<T>(props: {
     label?: string;
-    options: { label: string, value: T, shown?: boolean }[];
+    options: { label: string; value: T; shown?: boolean }[];
     value?: T;
     initialValue?: T;
     name?: string;
@@ -24,47 +24,61 @@ export default function RadioButtons<T>(props: {
         if (props.value !== undefined) setValue(props.value);
     }, [props.value]);
 
-    const Component = props.isLink ? Link : ({ ...props }: ComponentPropsWithRef<'button'>) =>
-        <button { ...props }></button>;
-
+    const Component = props.isLink
+        ? Link
+        : ({ ...props }: ComponentPropsWithRef<'button'>) => (
+              <button {...props}></button>
+          );
 
     return (
-        <div className={ classes.container }>
-            { props.label ? (
-                <div className={ classes.labelContainer }>
-                    <label className={ classes.label }>{ props.label }</label>
-                    { props.tooltip ? (
-                        <button className={ classes.helpIcon }>
-                            <ReactSVG src={ help.src }/>
+        <div className={classes.container}>
+            {props.label ? (
+                <div className={classes.labelContainer}>
+                    <label className={classes.label}>{props.label}</label>
+                    {props.tooltip ? (
+                        <button className={classes.helpIcon}>
+                            <ReactSVG src={help.src} />
 
-                            <p className={ classes.helpIconTooltip }>{ props.tooltip }</p>
+                            <p className={classes.helpIconTooltip}>
+                                {props.tooltip}
+                            </p>
                         </button>
-                    ) : <></> }
+                    ) : (
+                        <></>
+                    )}
                 </div>
-            ) : <></> }
-            <div className={ classes.buttons }>
-                { props.options.map(function generate(option, index) {
+            ) : (
+                <></>
+            )}
+            <div className={classes.buttons}>
+                {props.options.map(function generate(option, index) {
                     if (option.shown === false) {
                         return <></>;
                     }
                     return (
                         <Component
-                            href={ option.value as string }
-                            onClick={ () => {
+                            href={option.value as string}
+                            onClick={() => {
                                 setValue(option.value);
                                 props.onChange?.(option.value);
-                            } }
-                            type={ 'button' }
-                            className={ `${classes.button} ${option.value === value ? classes.selected : ''}` }
-                            key={ option.value?.toString() ?? index.toString() }
+                            }}
+                            type={'button'}
+                            className={`${classes.button} ${
+                                option.value === value ? classes.selected : ''
+                            }`}
+                            key={option.value?.toString() ?? index.toString()}
                         >
-                            { option.label }
+                            {option.label}
                         </Component>
                     );
-                }) }
+                })}
             </div>
 
-            <input type="hidden" name={ props.name } value={ JSON.stringify(value) }/>
+            <input
+                type="hidden"
+                name={props.name}
+                value={JSON.stringify(value)}
+            />
         </div>
     );
 }

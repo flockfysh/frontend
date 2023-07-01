@@ -29,24 +29,25 @@ const timeFilterOptions: [number, ManipulateType][] = [
 const Marketplace: NextPageWithLayout = function () {
     const [timeFilter, setTimeFilter] = useState(0);
 
-
     const [featuredDatasets, setFeaturedDatasets] = useState<HomepageDataset[]>(
-        [],
+        []
     );
 
     useEffect(() => {
         async function fetch() {
             const result = (
-                await api.get<Api.PaginatedResponse<HomepageDataset[]>>('/api/datasets/search', {
-                    params: {
-                        public: true,
-                        sort: 'metrics.views',
-                        expand: 'assetCounts,size,likes,user,thumbnail,url',
-                        ascending: false,
-                        limit: 8,
-                    },
-                })
-
+                await api.get<Api.PaginatedResponse<HomepageDataset[]>>(
+                    '/api/datasets/search',
+                    {
+                        params: {
+                            public: true,
+                            sort: 'metrics.views',
+                            expand: 'assetCounts,size,likes,user,thumbnail,url',
+                            ascending: false,
+                            limit: 8,
+                        },
+                    }
+                )
             ).data.data;
 
             setFeaturedDatasets(result);
@@ -56,13 +57,12 @@ const Marketplace: NextPageWithLayout = function () {
     }, []);
 
     const [trendingDatasets, setTrendingDatasets] = useState<HomepageDataset[]>(
-        [],
+        []
     );
 
     useEffect(() => {
         async function fetch() {
             const result = (
-
                 await api.get<Api.PaginatedResponse<HomepageDataset[]>>(
                     '/api/datasets/search',
                     {
@@ -76,7 +76,7 @@ const Marketplace: NextPageWithLayout = function () {
                                 .subtract(...timeFilterOptions[timeFilter])
                                 .toString(),
                         },
-                    },
+                    }
                 )
             ).data.data;
 
@@ -87,13 +87,12 @@ const Marketplace: NextPageWithLayout = function () {
     }, [timeFilter]);
 
     const [popularDatasets, setPopularDatasets] = useState<HomepageDataset[]>(
-        [],
+        []
     );
 
     useEffect(() => {
         async function fetch() {
             const result = (
-
                 await api.get<Api.PaginatedResponse<HomepageDataset[]>>(
                     '/api/datasets/search',
                     {
@@ -104,7 +103,7 @@ const Marketplace: NextPageWithLayout = function () {
                             ascending: false,
                             limit: 8,
                         },
-                    },
+                    }
                 )
             ).data.data;
             setPopularDatasets(result);
@@ -117,7 +116,6 @@ const Marketplace: NextPageWithLayout = function () {
     useEffect(() => {
         async function fetch() {
             const result = (
-
                 await api.get<Api.PaginatedResponse<HomepageDataset[]>>(
                     '/api/datasets/search',
                     {
@@ -129,7 +127,7 @@ const Marketplace: NextPageWithLayout = function () {
                             paid: true,
                             limit: 8,
                         },
-                    },
+                    }
                 )
             ).data.data;
             setPaidDatasets(result);
@@ -160,62 +158,75 @@ const Marketplace: NextPageWithLayout = function () {
     });
 
     return (
-        <div className={ classes.container }>
-            { !!featuredDatasets.length && <FeaturedDatasetsSection datasets={ featuredDatasets }/> }
+        <div className={classes.container}>
+            {!!featuredDatasets.length && (
+                <FeaturedDatasetsSection datasets={featuredDatasets} />
+            )}
 
-            { !!trendingDatasets.length && (
-                <section className={ classes.sectionContainer }>
-                    <div className={ classes.headerContainer }>
-                        <h1 className={ classes.header }>Trending Datasets</h1>
+            {!!trendingDatasets.length && (
+                <section className={classes.sectionContainer}>
+                    <div className={classes.headerContainer}>
+                        <h1 className={classes.header}>Trending Datasets</h1>
 
                         <DatasetTimeFilter
-                            callback={ index => {
+                            callback={(index) => {
                                 setTimeFilter(index);
-                            } }
-                            options={ timeFilterOptions }
-                            selected={ timeFilter }
+                            }}
+                            options={timeFilterOptions}
+                            selected={timeFilter}
                         />
                     </div>
 
-                    <DatasetSwiper cardType="vertical" datasets={ trendingDatasets }/>
+                    <DatasetSwiper
+                        cardType="vertical"
+                        datasets={trendingDatasets}
+                    />
                 </section>
-            ) }
+            )}
 
-            { !!popularDatasets.length && (
-                <section className={ classes.sectionContainer }>
-                    <div className={ classes.headerContainer }>
-                        <h1 className={ classes.header }>Most Popular Datasets</h1>
+            {!!popularDatasets.length && (
+                <section className={classes.sectionContainer}>
+                    <div className={classes.headerContainer}>
+                        <h1 className={classes.header}>
+                            Most Popular Datasets
+                        </h1>
                     </div>
 
-                    <DatasetSwiper cardType="vertical" datasets={ popularDatasets }/>
+                    <DatasetSwiper
+                        cardType="vertical"
+                        datasets={popularDatasets}
+                    />
                 </section>
-            ) }
+            )}
 
-            { !!paidDatasets.length && (
-                <section className={ classes.sectionContainer }>
-                    <div className={ classes.headerContainer }>
-                        <h1 className={ classes.header }>Premium Datasets</h1>
+            {!!paidDatasets.length && (
+                <section className={classes.sectionContainer}>
+                    <div className={classes.headerContainer}>
+                        <h1 className={classes.header}>Premium Datasets</h1>
                     </div>
 
-                    <DatasetSwiper cardType="vertical" datasets={ paidDatasets }/>
+                    <DatasetSwiper
+                        cardType="vertical"
+                        datasets={paidDatasets}
+                    />
                 </section>
-            ) }
+            )}
 
-            <section className={ classes.sectionContainer }>
-                <div className={ classes.headerContainer }>
-                    <h1 className={ classes.header }>Trending Collections</h1>
+            <section className={classes.sectionContainer}>
+                <div className={classes.headerContainer}>
+                    <h1 className={classes.header}>Trending Collections</h1>
                 </div>
 
-                <CollectionSwiper collections={ collections }/>
-
+                <CollectionSwiper collections={collections} />
             </section>
 
-            <section className={ classes.sectionContainer + ' ' + classes.howTo }>
-                <h1 className={ classes.howToHeader }>Upload, Request, and Share your Datasets</h1>
+            <section className={classes.sectionContainer + ' ' + classes.howTo}>
+                <h1 className={classes.howToHeader}>
+                    Upload, Request, and Share your Datasets
+                </h1>
 
-
-                <div className={ classes.howToCards }>
-                    <HowToCards/>
+                <div className={classes.howToCards}>
+                    <HowToCards />
                 </div>
             </section>
         </div>
@@ -223,11 +234,7 @@ const Marketplace: NextPageWithLayout = function () {
 };
 
 Marketplace.getLayout = function (page) {
-    return (
-        <MarketplaceLayout>
-            { page }
-        </MarketplaceLayout>
-    );
+    return <MarketplaceLayout>{page}</MarketplaceLayout>;
 };
 
 export default Marketplace;

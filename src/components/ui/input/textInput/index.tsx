@@ -10,27 +10,44 @@ interface TextInputProps extends ComponentPropsWithoutRef<'input'> {
         container?: string;
         input?: string;
         label?: string;
-    }
+    };
 }
 
-const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function TextInput(props, _) {
-    return (
-        <label
-            className={ `${ props.classNames?.container || '' } ${ classes.labelContainer }` }
-        >
-            { props.label ? <span className={ `${ props.classNames?.label } ${ classes.label }` }>{ props.label }</span> : <></> }
-            
-            <div className={ classes.inputContainer }>
-                <input
-                    { ...props }
-                    className={ `${ props.classNames?.input || '' } ${ classes.input } ${ props.icon ? classes.inputWithIcon : '' }` }
-                />
-                
-                { props.icon ? <ReactSVG src={ props.icon } className={ classes.icon } /> : '' }
-            </div>
+const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
+    function TextInput(props, _) {
+        return (
+            <label
+                className={`${props.classNames?.container || ''} ${
+                    classes.labelContainer
+                }`}
+            >
+                {props.label ? (
+                    <span
+                        className={`${props.classNames?.label} ${classes.label}`}
+                    >
+                        {props.label}
+                    </span>
+                ) : (
+                    <></>
+                )}
 
-        </label>
-    );
-});
+                <div className={classes.inputContainer}>
+                    <input
+                        {...props}
+                        className={`${props.classNames?.input || ''} ${
+                            classes.input
+                        } ${props.icon ? classes.inputWithIcon : ''}`}
+                    />
+
+                    {props.icon ? (
+                        <ReactSVG src={props.icon} className={classes.icon} />
+                    ) : (
+                        ''
+                    )}
+                </div>
+            </label>
+        );
+    }
+);
 
 export default TextInput;
