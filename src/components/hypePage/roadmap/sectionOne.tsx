@@ -25,7 +25,7 @@ function SectionOne() {
     return (
         <section className={ commonClasses.section } id="roadmap">
             <div className={ classes.numberDiv }>
-                <img src={ oneFish } alt="" className={ classes.fish }/>
+                <img src={ oneFish.src } alt="" className={ classes.fish }/>
                 <h3 className={ classes.number }>1</h3>
             </div>
             <SectionHeader
@@ -34,15 +34,15 @@ function SectionOne() {
                 body="No matter where you are in the process, whether you have a couple pieces, or a large stack of data, our dataset tooling can process and expand the data to gear it for a large scale"
             />
             <div className={ classes.cards }>
-                <img src={ mainImage } alt="" className={ classes.mainImage }/>
-                <img src={ mobileImage1 } alt="" className={ classes.mobileImage }/>
+                <img src={ mainImage.src } alt="" className={ classes.mainImage }/>
+                <img src={ mobileImage1.src } alt="" className={ classes.mobileImage }/>
                 <div className={ classes.cardHolder }>
-                    <Card heading="Minimal Requirements" body={ card1body } icon={ icon1 } className={ classes.card }/>
-                    <Card heading="Cloud Portability" body={ card2body } icon={ icon2 } className={ classes.card }/>
-                    <Card heading="Local flexibility" body={ card3body } icon={ icon3 } className={ classes.card }/>
-                    <Card heading="Broad applicability" body={ card4body } icon={ icon4 } className={ classes.card }/>
+                    <Card heading="Minimal Requirements" body={ card1body } icon={ icon1.src } className={ classes.card }/>
+                    <Card heading="Cloud Portability" body={ card2body } icon={ icon2.src } className={ classes.card }/>
+                    <Card heading="Local flexibility" body={ card3body } icon={ icon3.src } className={ classes.card }/>
+                    <Card heading="Broad applicability" body={ card4body } icon={ icon4.src } className={ classes.card }/>
                 </div>
-                <img src={ mobileImage2 } alt="" className={ classes.mobileImage }/>
+                <img src={ mobileImage2.src } alt="" className={ classes.mobileImage }/>
 
             </div>
         </section>

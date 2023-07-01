@@ -16,25 +16,25 @@ const cardsInfo = [
         name: 'rapid-experimentation',
         title: 'Rapid Experimentation',
         description: 'Quickly test many datasets to leverage transfer learning and custom pre-training.',
-        icon: rapidExperimentationIcon,
+        icon: rapidExperimentationIcon.src,
     },
     {
         name: 'lightning-fast',
         title: 'Lightning Fast',
         description: 'Initiate flockfysh and get large-scale datasets in a few days.',
-        icon: lightningFastIcon,
+        icon: lightningFastIcon.src,
     },
     {
         name: 'absolute-control',
         title: 'Absolute Control',
         description: 'Make real-time corrections to your datasets. We\'ll regularly send you samples throughout the process. ',
-        icon: absoluteControlIcon,
+        icon: absoluteControlIcon.src,
     },
     {
         name: 'minimal-human-effort',
         title: 'Minimal Human Effort',
         description: 'Provide 5 minutes of your time for a fully annotated, large-scale dataset. Countless hours of manual labeling is now obsolete.',
-        icon: minimalHumanEffortIcon,
+        icon: minimalHumanEffortIcon.src,
     },
 ];
 
@@ -42,7 +42,7 @@ function SectionTwo() {
     return (
         <section className={ `${commonClasses.section} ${classes.sectionTwoContainer}` }>
             <div className={ classes.numberDiv }>
-                <img src={ twoFish } alt="" className={ classes.fish }/>
+                <img src={ twoFish.src } alt="" className={ classes.fish }/>
                 <h3 className={ classes.number }>2</h3>
             </div>
 
@@ -55,12 +55,12 @@ function SectionTwo() {
             <div className={ classes.container }>
                 <div className={ classes.middleImageContainer }>
                     <div className={ classes.middleImagewrapper }>
-                        <img src={ secondSectionImage } alt=""/>
+                        <img src={ secondSectionImage.src } alt=""/>
                     </div>
                 </div>
 
                 <div className={ classes.aboveImageContainer }>
-                    <img src={ aboveImage } alt=""/>
+                    <img src={ aboveImage.src } alt=""/>
                 </div>
 
                 <div className={ classes.infoContainer }>
@@ -76,7 +76,7 @@ function SectionTwo() {
                 </div>
 
                 <div className={ classes.belowImageContainer }>
-                    <img src={ belowImage } alt=""/>
+                    <img src={ belowImage.src } alt=""/>
                 </div>
             </div>
         </section>

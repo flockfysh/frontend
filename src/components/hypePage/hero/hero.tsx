@@ -27,7 +27,7 @@ export default function Hero() {
                 </div>
 
                 <div className={ classes.foundryLogoContainer }>
-                    <img src={ foundryImage } className={ classes.foundryLogo }/>
+                    <img src={ foundryImage.src } className={ classes.foundryLogo }/>
                 </div>
 
                 <div>|</div>
