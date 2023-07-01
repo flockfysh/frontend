@@ -10,7 +10,6 @@ import link from '@/icons/main/link.svg';
 import api from '@/helpers/api';
 
 import classes from './styles.module.css';
-import { boolean } from 'zod';
 
 export default function DatasetSettings(dataset: PreviewDataset) {
     const router = useRouter();

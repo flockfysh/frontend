@@ -11,32 +11,42 @@ import { ApiError } from '@/helpers/errors';
 
 import classes from './styles.module.css';
 
-const LoginField = forwardRef<HTMLInputElement, {
-    errorMessage?: string,
-    type?: string,
-    placeholder?: string,
-    name?: string,
-}>(function LoginField(props, ref) {
+const LoginField = forwardRef<
+    HTMLInputElement,
+    {
+        errorMessage?: string;
+        type?: string;
+        placeholder?: string;
+        name?: string;
+    }
+>(function LoginField(props, ref) {
     return (
-        <label className={ classes.field }>
+        <label className={classes.field}>
             <input
-                ref={ (e) => {
+                ref={(e) => {
                     if (typeof ref === 'function') ref(e);
                     else if (ref) ref.current = e;
-                } }
-                name={ props.name }
-                placeholder={ props.placeholder }
-                className={ `${ props.errorMessage ? classes.inputInvalid : '' } ${ classes.input }` }
-                type={ props.type }
+                }}
+                name={props.name}
+                placeholder={props.placeholder}
+                className={`${props.errorMessage ? classes.inputInvalid : ''} ${
+                    classes.input
+                }`}
+                type={props.type}
             />
-            { props.errorMessage ? <span className={ classes.error }>{ props.errorMessage }</span> : '' }
+
+            {props.errorMessage ? (
+                <span className={classes.error}>{props.errorMessage}</span>
+            ) : (
+                ''
+            )}
         </label>
     );
 });
 
 export default function LoginForm(props: {
-    mode: 'signup' | 'login',
-    redirect: () => void,
+    mode: 'signup' | 'login';
+    redirect: () => void;
 }) {
     const { refreshUser } = useContext(UserContext);
 
@@ -49,10 +59,10 @@ export default function LoginForm(props: {
         let formValid = true;
 
         const properties = formToJSON(elem) as {
-            fullName?: string,
-            email: string,
-            password: string,
-            confirmPassword?: string,
+            fullName?: string;
+            email: string;
+            password: string;
+            confirmPassword?: string;
         };
 
         try {
@@ -61,8 +71,11 @@ export default function LoginForm(props: {
                 required_error: 'Missing email.',
                 // eslint-disable-next-line camelcase
                 invalid_type_error: 'Email must be a string.',
-            }).nonempty('Missing email.').email('Email is invalid.').parse(properties.email);
-            
+            })
+                .nonempty('Missing email.')
+                .email('Email is invalid.')
+                .parse(properties.email);
+
             setEmailError('');
         }
         catch (e) {
@@ -97,13 +110,15 @@ export default function LoginForm(props: {
                     required_error: 'Missing display name.',
                     // eslint-disable-next-line camelcase
                     invalid_type_error: 'Display name must be a string.',
-                }).nonempty('Missing display name.').parse(properties.fullName);
+                })
+                    .nonempty('Missing display name.')
+                    .parse(properties.fullName);
 
                 setNameError('');
             }
             catch (e) {
                 formValid = false;
-                
+
                 if (e instanceof z.ZodError) setNameError(e.issues[0].message);
             }
 
@@ -122,83 +137,114 @@ export default function LoginForm(props: {
             const data = await formToJSON(form);
 
             await api.post(`/api/auth/${mode}`, data);
-            
+
             refreshUser();
             props.redirect();
         }
         catch (e) {
             if (e instanceof ApiError) {
                 const ERROR_MAPPING: Record<string, () => void> = {
-                    'ERROR_USER_EXISTS': () => setEmailError('This email has already been registered.'),
-                    'ERROR_MISSING_NAME': () => setNameError('Display name is missing.'),
-                    'ERROR_INVALID_EMAIL': () => setEmailError('Email is not valid.'),
-                    'ERROR_INVALID_PASSWORD': () => setPasswordError('Password is not valid.'),
-                    'ERROR_OAUTH_ACCOUNT_WITHOUT_PASSWORD': () => setPasswordError('Please try logging in with Google or GitHub.'),
-                    'ERROR_INVALID_CREDENTIALS': () => setPasswordError('Username or password is not correct.'),
+                    ERROR_USER_EXISTS: () =>
+                        setEmailError(
+                            'This email has already been registered.'
+                        ),
+                    ERROR_MISSING_NAME: () =>
+                        setNameError('Display name is missing.'),
+                    ERROR_INVALID_EMAIL: () =>
+                        setEmailError('Email is not valid.'),
+                    ERROR_INVALID_PASSWORD: () =>
+                        setPasswordError('Password is not valid.'),
+                    ERROR_OAUTH_ACCOUNT_WITHOUT_PASSWORD: () =>
+                        setPasswordError(
+                            'Please try logging in with Google or GitHub.'
+                        ),
+                    ERROR_INVALID_CREDENTIALS: () =>
+                        setPasswordError(
+                            'Username or password is not correct.'
+                        ),
                 };
 
                 ERROR_MAPPING[e.code]?.();
             }
-            else throw e;
+            else throw e; // TODO: I don't think this is handled
         }
     }
 
     return (
         <form
-            className={ classes.loginForm }
-            onChange={ e => {
+            className={classes.loginForm}
+            onChange={(e) => {
                 handleValid(e.currentTarget);
-            } }
-            onSubmit={ e => {
+            }}
+            onSubmit={(e) => {
                 e.preventDefault();
-                if (handleValid(e.currentTarget)) auth(e.currentTarget, props.mode).then();
-            } }
+                if (handleValid(e.currentTarget))
+                    auth(e.currentTarget, props.mode).then();
+            }}
         >
-            <fieldset className={ classes.loginFieldset }>
-                <h2 className={ classes.loginFormHeading }>Please enter your information</h2>
+            <fieldset className={classes.loginFieldset}>
+                <h2 className={classes.loginFormHeading}>
+                    Please enter your information
+                </h2>
 
-                {
-                    props.mode === 'signup' ? (
-                        <LoginField
-                            placeholder="Full name"
-                            type="text"
-                            name="fullName"
-                            errorMessage={ nameError } 
-                        />
-                    ) : <></>
-                }
+                {props.mode === 'signup' ? (
+                    <LoginField
+                        placeholder="Full name"
+                        type="text"
+                        name="fullName"
+                        errorMessage={nameError}
+                    />
+                ) : (
+                    <></>
+                )}
 
-                <LoginField placeholder="Email" type="email" name="email" errorMessage={ emailError } />
-                
+                <LoginField
+                    placeholder="Email"
+                    type="email"
+                    name="email"
+                    errorMessage={emailError}
+                />
+
                 <LoginField
                     placeholder="Password"
                     type="password"
                     name="password"
-                    errorMessage={ passwordError }
+                    errorMessage={passwordError}
                 />
 
-                {
-                    props.mode === 'signup' ? (
-                        <LoginField
-                            placeholder="Confirm password"
-                            type="password"
-                            name="confirmPassword"
-                            errorMessage={ confirmPasswordError }
+                {props.mode === 'signup' ? (
+                    <LoginField
+                        placeholder="Confirm password"
+                        type="password"
+                        name="confirmPassword"
+                        errorMessage={confirmPasswordError}
+                    />
+                ) : (
+                    <></>
+                )}
+
+                <div className={classes.signInUtilities}>
+                    <label className={classes.label}>
+                        <input
+                            type={'checkbox'}
+                            name={'rememberUser'}
+                            className={classes.checkbox}
                         />
-                    ) : <></>
-                }
-                
-                <div className={ classes.signInUtilities }>
-                    <label className={ classes.label }>
-                        <input type={ 'checkbox' } name={ 'rememberUser' } className={ classes.checkbox } />
                         <span>Remember Me</span>
                     </label>
-                    
-                    <Link href={ '/forgotPassword' } className={ classes.forgotPassword }>Forgot Password?</Link>
+
+                    <Link
+                        href={'/forgotPassword'}
+                        className={classes.forgotPassword}
+                    >
+                        Forgot Password?
+                    </Link>
                 </div>
             </fieldset>
 
-            <button className={ classes.signIn }>{ props.mode === 'login' ? 'Sign in' : 'Sign up' }</button>
+            <button className={classes.signIn}>
+                {props.mode === 'login' ? 'Sign in' : 'Sign up'}
+            </button>
         </form>
     );
 }

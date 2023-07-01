@@ -8,8 +8,6 @@ import Profile from '@/components/layout/mainSidebar/profile';
 
 import home from '@/icons/main/home.svg';
 import document from '@/icons/main/file-text.svg';
-import layers from '@/icons/main/3-layers.svg';
-import analytics from '@/icons/main/sliders.svg';
 import settings from '@/icons/main/settings.svg';
 import marketplace from '@/icons/main/shopping-cart.svg';
 import help from '@/icons/main/help-circle.svg';
@@ -18,16 +16,16 @@ import bell from '@/icons/main/bell.svg';
 import classes from './styles.module.css';
 
 interface SidebarLinkProps {
-    icon: StaticImageData,
-    text: string,
-    href: string,
+    icon: StaticImageData;
+    text: string;
+    href: string;
 }
 
 function SidebarLink(props: SidebarLinkProps) {
     return (
-        <Link href={ props.href } className={ classes.sidebarLink }>
-            <ReactSVG src={ props.icon.src } className={ classes.sidebarLinkSVG } />
-            <span className={ classes.sidebarLinkText }>{ props.text }</span>
+        <Link href={props.href} className={classes.sidebarLink}>
+            <ReactSVG src={props.icon.src} className={classes.sidebarLinkSVG} />
+            <span className={classes.sidebarLinkText}>{props.text}</span>
         </Link>
     );
 }
@@ -80,27 +78,27 @@ const SECTION_2_LINKS: SidebarLinkProps[] = [
         href: '/settings',
         text: 'Settings',
         icon: settings,
-    },
+    }
 ];
-
 
 export default function MainSidebar() {
     return (
-        <nav className={ classes.sidebar }>
-            <div className={ classes.segment }>
+        <nav className={classes.sidebar}>
+            <div className={classes.segment}>
                 <Logo />
 
                 <div>
-                    { SECTION_1_LINKS.map(props => {
-                        return <SidebarLink key={ props.href } { ...props } />;
-                    }) }
+                    {SECTION_1_LINKS.map((props) => {
+                        return <SidebarLink key={props.href} {...props} />;
+                    })}
                 </div>
             </div>
-            <div className={ classes.segment }>
+            
+            <div className={classes.segment}>
                 <div>
-                    { SECTION_2_LINKS.map(props => {
-                        return <SidebarLink key={ props.href } { ...props } />;
-                    }) }
+                    {SECTION_2_LINKS.map((props) => {
+                        return <SidebarLink key={props.href} {...props} />;
+                    })}
                 </div>
 
                 <Profile />

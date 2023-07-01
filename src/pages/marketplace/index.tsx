@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NextPageWithLayout } from '@/pages/_app';
 
 import { v4 } from 'uuid';
 import { ManipulateType } from 'dayjs';
 import { fakerEN } from '@faker-js/faker';
 
-import MarketplaceNavbar from '@/components/specific/marketplace/navbar';
 import HowToCards from '@/components/specific/marketplace/datasetCards/howToCards';
 import FeaturedDatasetsSection from '@/components/specific/marketplace/featuredDatasetsSection';
 import DatasetSwiper from '@/components/specific/marketplace/datasetSwiper';
 import CollectionSwiper from '@/components/specific/marketplace/collectionSwiper';
 import DatasetTimeFilter from '@/components/specific/marketplace/datasetTimeFilter';
-
-import Footer from '@/components/specific/marketplace/footer';
 
 import api from '@/helpers/api';
 import { dayjs } from '@/helpers/date';
@@ -20,9 +17,8 @@ import { dayjs } from '@/helpers/date';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-import classes from './styles.module.css';
-import { UserContext } from '@/contexts/userContext';
 import MarketplaceLayout from '@/components/layout/marketplaceLayout';
+import classes from './styles.module.css';
 
 const timeFilterOptions: [number, ManipulateType][] = [
     [1, 'day'],

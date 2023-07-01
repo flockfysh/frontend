@@ -1,9 +1,8 @@
-import { useState, useRef, useContext, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { ReactSVG } from 'react-svg';
 import Link from 'next/link';
 import CustomSelect, { CustomCreatableSelect } from '@/components/ui/input/select';
 import FileUpload from '@/components/fileUpload';
-import { ErrorContext } from '@/contexts/errorContext';
 import api from '@/helpers/api';
 import xmark from '@/icons/xmark.svg';
 import save from '@/icons/main/save.svg';
@@ -97,7 +96,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
     }, []);
 
     const [isUpload, updateIsUpload] = useState(true);
-    const [newDatasetOptions, updateOptions] = useState({
+    const [_newDatasetOptions, _updateOptions] = useState({
         private: false,
         contributions: true,
         annotations: true,
@@ -108,6 +107,8 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
     async function requestDataset() {
 
     }
+
+    requestDataset();
 
     // TODO: need to fix modal w/ file uplaods
     return (

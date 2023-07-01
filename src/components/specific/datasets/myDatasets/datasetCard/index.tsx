@@ -11,56 +11,59 @@ import classes from './styles.module.css';
 
 dayjs.extend(relativeTime);
 
-const tagColor: string[] = [
-    'var(--primary2-300)',
-    'var(--success-500)',
-];
+const tagColor: string[] = ['var(--primary2-300)', 'var(--success-500)'];
 
-export default function DatasetCard(props: Flockfysh.Dataset & { assetCounts: Flockfysh.DatasetAssetCounts }) {
+export default function DatasetCard(
+    props: Flockfysh.Dataset & { assetCounts: Flockfysh.DatasetAssetCounts }
+) {
     const dateDiff = dayjs(props.updatedAt).fromNow();
 
     return (
-        <li className={ classes.card }>
-            <Link href={ `/datasets/${props._id}` } className={ classes.linkOverlay }/>
+        <li className={classes.card}>
+            <Link
+                href={`/datasets/${props._id}`}
+                className={classes.linkOverlay}
+            />
 
-            <div className={ classes.firstRow }>
-                <ReactSVG src={ folder.src }/>
-                <h2 className={ classes.datasetName }>{ props.name }</h2>
+            <div className={classes.firstRow}>
+                <ReactSVG src={folder.src} />
+                <h2 className={classes.datasetName}>{props.name}</h2>
             </div>
 
-            <div className={ classes.cardInfo }>
-                <div className={ classes.firstInfoRow }>
-                    <div className={ classes.assetCountText }>
-                        <span className={ classes.assetCount }>{ props.assetCounts.total }</span>
+            <div className={classes.cardInfo}>
+                <div className={classes.firstInfoRow}>
+                    <div className={classes.assetCountText}>
+                        <span className={classes.assetCount}>
+                            {props.assetCounts.total}
+                        </span>
                         <span>Assets</span>
                     </div>
 
-                    <div className={ classes.lastUpdated }>
-                        <ReactSVG src={ clock.src }/>
-                        <span>{ dateDiff }</span>
+                    <div className={classes.lastUpdated}>
+                        <ReactSVG src={clock.src} />
+                        
+                        <span>{dateDiff}</span>
                     </div>
                 </div>
 
                 <div>
-                    <p>
-                        { props.description }
-                    </p>
+                    <p>{props.description}</p>
                 </div>
 
-                <ul className={ classes.tagBadges }>
-                    { props.tags.map((tag, index) => {
+                <ul className={classes.tagBadges}>
+                    {props.tags.map((tag, index) => {
                         return (
                             <li
-                                className={ classes.badge }
-                                style={ {
+                                className={classes.badge}
+                                style={{
                                     background: tagColor[index],
-                                } }
-                                key={ index }
+                                }}
+                                key={index}
                             >
-                                { tag }
+                                {tag}
                             </li>
                         );
-                    }) }
+                    })}
                 </ul>
             </div>
         </li>

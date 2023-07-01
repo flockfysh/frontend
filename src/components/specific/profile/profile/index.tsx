@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import api from '@/helpers/api';
 import UserInfo from '@/components/specific/profile/userInfo';
 import DatasetsOwned from '@/components/specific/profile/datasetsOwned';
 import UserSettings from '@/components/specific/profile/userSettings/';
-import Footer from '@/components/specific/marketplace/footer';
 
 export default function Profile(props: {
     username: string;

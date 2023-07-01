@@ -1,15 +1,24 @@
-import CustomSelect from '@/components/ui/input/select';
-import api from '@/helpers/api';
-import { formToJSON } from 'axios';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+
+import { formToJSON } from 'axios';
+
+import CustomSelect from '@/components/ui/input/select';
+
+import api from '@/helpers/api';
+
 import classes from './styles.module.css';
 
-export default function ContributionDetails(dataset: PreviewDataset) {
-
+export default function ContributionDetails(_dataset: PreviewDataset) {
     const router = useRouter();
-    const [contributions, setContributions] = useState<ExpandedPullRequest[] | null>(null);
-    const [curContribution, setCurContribution] = useState<Flockfysh.PullRequest | null>(null);
+
+    const [_contributions, setContributions] = useState<
+        ExpandedPullRequest[] | null
+    >(null);
+
+    const [curContribution, _setCurContribution] =
+        useState<Flockfysh.PullRequest | null>(null);
+
     const statusOptions = [
         { value: 'draft', label: 'Draft' },
         { value: 'reject', label: 'Reject' },
@@ -19,50 +28,68 @@ export default function ContributionDetails(dataset: PreviewDataset) {
 
     useEffect(() => {
         const getContributions = async () => {
-            const temp = (await api.get<Api.PaginatedResponse<ExpandedPullRequest[]>>(`/api/datasets/${router.query.datasetId}/pullRequests`, {
-                params: {
-                    expand: 'user,stats',
-                },
-            })).data.data;
+            const temp = (
+                await api.get<Api.PaginatedResponse<ExpandedPullRequest[]>>(
+                    `/api/datasets/${router.query.datasetId}/pullRequests`,
+                    {
+                        params: {
+                            expand: 'user,stats',
+                        },
+                    }
+                )
+            ).data.data;
             setContributions(temp);
         };
+        
         getContributions().then();
-    }, []);
+    }, [router.query.datasetId]);
 
     async function submitMessage(elem: HTMLFormElement) {
         const fd = formToJSON(elem) as {
             status: string;
             comment: string;
         };
-        await api.patch('/api/pullRequests/' + curContribution!._id + '/status', { status: fd.status });
-        await api.post('/api/pullRequests/' + curContribution!._id + '/messages', { message: fd.comment });
-        return;
+
+        await api.patch(
+            '/api/pullRequests/' + curContribution!._id + '/status',
+            { status: fd.status }
+        );
+        
+        await api.post(
+            '/api/pullRequests/' + curContribution!._id + '/messages',
+            { message: fd.comment }
+        );
     }
 
     return (
         <>
-            <div className={ classes.card }>
-                <form onSubmit={ (e) => {
-                    e.preventDefault();
-                    submitMessage(e.currentTarget);
-                } }>
-                    <div className={ classes.cardTop }>
-                        <h1 className={ classes.headerText }>Comment</h1>
+            <div className={classes.card}>
+                <form
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        submitMessage(e.currentTarget);
+                    }}
+                >
+                    <div className={classes.cardTop}>
+                        <h1 className={classes.headerText}>Comment</h1>
+
                         <CustomSelect
-                            required={ true }
+                            required={true}
                             name="status"
-                            className={ classes.select }
+                            className={classes.select}
                             placeholder="Status"
-                            options={ statusOptions }
+                            options={statusOptions}
                         />
                     </div>
+
                     <textarea
-                        className={ classes.commentField }
-                        required={ true }
+                        className={classes.commentField}
+                        required={true}
                         name="comment"
                         placeholder="Add comment here..."
                     />
-                    <button className={ classes.submitButton }>Comment</button>
+                    
+                    <button className={classes.submitButton}>Comment</button>
                 </form>
             </div>
         </>

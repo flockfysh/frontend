@@ -27,16 +27,22 @@ ChartJS.register(
     Legend,
     Tooltip,
     LineController,
-    BarController,
+    BarController
 );
 
 // TODO: need to specify type for the prop data
 export default function Graph(dataset: PreviewDataset) {
-    const [rawActivityMetrics, setRawActivityMetrics] = useState<ActivityMetric[]>([]);
+    const [rawActivityMetrics, setRawActivityMetrics] = useState<
+        ActivityMetric[]
+    >([]);
 
     useEffect(() => {
         async function fetch() {
-            const result = (await api.get<Api.Response<ActivityMetric[]>>(`/api/datasets/${dataset._id}/activity`)).data.data;
+            const result = (
+                await api.get<Api.Response<ActivityMetric[]>>(
+                    `/api/datasets/${dataset._id}/activity`
+                )
+            ).data.data;
             setRawActivityMetrics(result);
         }
 
@@ -47,7 +53,7 @@ export default function Graph(dataset: PreviewDataset) {
         return dayjs().startOf('day').subtract(i, 'days');
     }).reverse();
 
-    const labels = xAxis.map(day => {
+    const labels = xAxis.map((day) => {
         return day.format('DD/MM');
     });
 
@@ -94,7 +100,7 @@ export default function Graph(dataset: PreviewDataset) {
                             0,
                             0,
                             chartArea.bottom,
-                            chartArea.top,
+                            chartArea.top
                         );
 
                         gradient.addColorStop(0, '#2BCDE4');
@@ -185,7 +191,6 @@ export default function Graph(dataset: PreviewDataset) {
                     },
                 },
                 max: Math.max(...transformed.view) || 50,
-
             },
         },
         maintainAspectRatio: true,
@@ -193,10 +198,10 @@ export default function Graph(dataset: PreviewDataset) {
 
     return (
         <Chart
-            className={ classes.chart }
-            options={ options }
+            className={classes.chart}
+            options={options}
             type="bar"
-            data={ data() }
+            data={data()}
         />
     );
 }

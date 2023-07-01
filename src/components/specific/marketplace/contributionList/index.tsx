@@ -1,11 +1,11 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import search from '@/icons/main/search.svg';
 import database from '@/icons/main/database.svg';
 import { useStateWithDeps } from 'use-state-with-deps';
 import classes from './styles.module.css';
-import { ContributionItem } from './ContributionItem';
+import { ContributionItem } from './contributionItems';
 import api from '@/helpers/api';
 import _dayjs from 'dayjs';
 import RadioButtons from '@/components/ui/input/radioButtons';
@@ -21,7 +21,7 @@ const TIME_STATES: { label: string, value: [number, _dayjs.ManipulateType] | nul
 
 export default function ContributionList(dataset: PreviewDataset) {
     const scrollerContainerRef = useRef<HTMLDivElement | null>(null);
-    const [timeFilter, setTimeFilter] = useState(0);
+    const [_timeFilter, _setTimeFilter] = useState(0);
     const [currentNameQuery, setCurrentNameQuery] = useState('');
     const [state, setState] = useStateWithDeps<{
         next?: string;
