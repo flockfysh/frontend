@@ -12,8 +12,9 @@ import React from 'react';
 const ProfilePage: NextPageWithLayout = function () {
     const router = useRouter();
     const username = router.query.username;
+
     if (typeof username === 'string')
-        return <Profile username={ username }></Profile>;
+        return <Profile username={ username } />;
     
     return <></>;
 };
