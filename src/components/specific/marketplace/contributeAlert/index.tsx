@@ -39,7 +39,7 @@ async function uploadPullRequest(
     const files = formData.getAll('files').filter((item) => {
         return item instanceof File && item.size > 0;
     }) as File[];
-    
+
     const pullRequest = await api
         .post<Api.Response<Flockfysh.PullRequest>>(
             `/api/datasets/${dataset._id}/pullRequests`,
@@ -68,13 +68,14 @@ const Contribute = (props: ContributeProps) => {
                     props.dataset,
                     new FormData(e.currentTarget)
                 );
+                close();
             } }
         >
             <div className={ classes.inputDiv }>
                 <h4 className={ classes.subheading }>Title</h4>
 
                 <div className={ classes.mergedInput }>
-                    <ReactSVG src={ edit.src } className={ classes.icon } />
+                    <ReactSVG src={ edit.src } className={ classes.icon }/>
 
                     <input
                         className={ classes.input }
@@ -113,10 +114,11 @@ const Contribute = (props: ContributeProps) => {
                     name={ 'files' }
                 />
             </div>
-            
-            <button className={ classes.button } onClick={ () => {} }>
+
+            <button className={ classes.button } onClick={ () => {
+            } }>
                 Submit Request
-                <ReactSVG src={ database.src } className={ classes.icon } />
+                <ReactSVG src={ database.src } className={ classes.icon }/>
             </button>
         </form>
     );
