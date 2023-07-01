@@ -24,51 +24,52 @@ type ContributeProps = {
     children?: React.ReactNode;
 };
 
-async function uploadPullRequest(
-    dataset: {
-        _id: string;
-        type: Flockfysh.AssetType;
-    },
-    formData: FormData
-) {
-    const uploadData = {
-        name: formData.get('name'),
-        description: formData.get('description'),
-    };
-
-    const files = formData.getAll('files').filter((item) => {
-        return item instanceof File && item.size > 0;
-    }) as File[];
-
-    const pullRequest = await api
-        .post<Api.Response<Flockfysh.PullRequest>>(
-            `/api/datasets/${dataset._id}/pullRequests`,
-            uploadData
-        )
-        .then((res) => res.data.data);
-
-    const config = uploadTypeMapping[dataset.type];
-
-    await uploadToPullRequest(pullRequest._id, files, config);
-}
-
-const Contribute = (props: ContributeProps) => {
+export default function Contribute(props: ContributeProps) {
     const { close } = useContext(PopupModalContext);
-    close;
 
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
+
+    async function uploadPullRequest(
+        dataset: {
+            _id: string;
+            type: Flockfysh.AssetType;
+        },
+        formData: FormData
+    ) {
+        const uploadData = {
+            name: formData.get('name'),
+            description: formData.get('description'),
+        };
+    
+        const files = formData.getAll('files').filter((item) => {
+            return item instanceof File && item.size > 0;
+        }) as File[];
+    
+        const pullRequest = await api
+        .post<Api.Response<Flockfysh.PullRequest>>(
+            `/api/datasets/${dataset._id}/pullRequests`,
+            uploadData
+            )
+            .then((res) => res.data.data);
+            
+            const config = uploadTypeMapping[dataset.type];
+            
+        uploadToPullRequest(pullRequest._id, files, config);    
+
+        close();
+    }
 
     return (
         <form
             className={ classes.container }
             onSubmit={ async (e) => {
                 e.preventDefault();
+
                 await uploadPullRequest(
                     props.dataset,
                     new FormData(e.currentTarget)
                 );
-                close();
             } }
         >
             <div className={ classes.inputDiv }>
@@ -95,7 +96,7 @@ const Contribute = (props: ContributeProps) => {
                 <div>
                     <textarea
                         className={ classes.textArea }
-                        name={ 'description' }
+                        name="description"
                         placeholder="Describe what is in your contribution. Be as precise as you can"
                         onChange={ (event) => {
                             setBody(event.target.value);
@@ -111,17 +112,14 @@ const Contribute = (props: ContributeProps) => {
                 <FileUpload
                     uploadContainerClassName={ `${classes.uploadContainer}` }
                     datasetType={ props.dataset.type }
-                    name={ 'files' }
+                    name="files"
                 />
             </div>
 
-            <button className={ classes.button } onClick={ () => {
-            } }>
+            <button className={ classes.button }>
                 Submit Request
                 <ReactSVG src={ database.src } className={ classes.icon }/>
             </button>
         </form>
     );
-};
-
-export default Contribute;
+}

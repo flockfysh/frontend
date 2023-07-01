@@ -63,7 +63,7 @@ function Header(props: { url: string; editable: boolean }) {
     );
 }
 
-const ProfilePhoto = (props: { url: string; editable: boolean }) => {
+function ProfilePhoto(props: { url: string; editable: boolean }) {
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (
@@ -103,7 +103,7 @@ const ProfilePhoto = (props: { url: string; editable: boolean }) => {
             ) }
         </div>
     );
-};
+}
 
 const UserInfo = (
     props: ProfilePageUser & {

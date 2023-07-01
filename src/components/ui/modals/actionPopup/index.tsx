@@ -3,7 +3,6 @@ import { ReactSVG } from 'react-svg';
 
 import xMark from '@/icons/xmark.svg';
 import classes from './styles.module.css';
-import cross from '@/icons/main/x-circle.svg';
 
 interface ActionPopupProps extends PropsWithChildren {
     blurBg: boolean;
@@ -54,7 +53,7 @@ export default function ActionPopup(props: ActionPopupProps) {
                 <div className={ classes.header }>
                     <h3 className={ classes.headerText }>Contribution Request</h3>
                     <ReactSVG
-                        src={ cross.src }
+                        src={ xMark.src }
                         className={ classes.closeBtn }
                         onClick={ props.onClose }
                     />
