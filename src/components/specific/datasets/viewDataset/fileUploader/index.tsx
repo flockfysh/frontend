@@ -2,7 +2,7 @@ import { ReactSVG } from 'react-svg';
 import upload from '@/icons/main/upload.svg';
 import help from '@/icons/main/help-circle.svg';
 import classes from './styles.module.css';
-import { typeMapping, uploadAssets } from '@/helpers/assets/upload';
+import { uploadTypeMapping, uploadAssets } from '@/helpers/assets/upload';
 
 export interface FileUploaderProps {
     datasetId: string;
@@ -10,7 +10,7 @@ export interface FileUploaderProps {
 }
 
 export default function FileUploader(props: FileUploaderProps) {
-    const typeData = typeMapping[props.datasetType] ?? typeMapping.other;
+    const typeData = uploadTypeMapping[props.datasetType] ?? uploadTypeMapping.other;
 
     return (
         <div className={ classes.uploadDataWrapper }>

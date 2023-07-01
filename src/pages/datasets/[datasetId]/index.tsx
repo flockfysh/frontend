@@ -46,7 +46,7 @@ const MyDatasets: NextPageWithLayout = function () {
                         params: {
                             expand: 'size,assetCounts,annotationCounts',
                         },
-                    }
+                    },
                 )
             ).data.data;
             setDataset(result);
@@ -67,7 +67,7 @@ const MyDatasets: NextPageWithLayout = function () {
     };
 
     if (!dataset || typeof router.query.datasetId !== 'string') return <></>;
-    
+
     const datasetProgressFakeData = [
         {
             value: `${dataset.assetCounts.byAnnotationStatus.annotated} / ${dataset.assetCounts.total}`,
@@ -109,13 +109,13 @@ const MyDatasets: NextPageWithLayout = function () {
                 <div className={ classes.datasetInfoStatusWrapper }>
                     { /* current progress */ }
                     <div>
-                        <CircleProgressBar value={ 50 } size={ 150 } />
+                        <CircleProgressBar value={ 50 } size={ 150 }/>
                     </div>
 
                     { /* specific progress data */ }
                     <div className={ classes.datasetInfoSpecificData }>
                         { datasetProgressFakeData.map((item, index) => (
-                            <SpecificProgressData { ...item } key={ index } />
+                            <SpecificProgressData { ...item } key={ index }/>
                         )) }
                     </div>
                 </div>
@@ -147,7 +147,7 @@ const MyDatasets: NextPageWithLayout = function () {
                                 />
                             </button>
 
-                            <div className={ classes.separator } />
+                            <div className={ classes.separator }/>
 
                             <button onClick={ toggleViewToList }>
                                 <ReactSVG
@@ -170,18 +170,18 @@ const MyDatasets: NextPageWithLayout = function () {
                         <button
                             onClick={ () => {
                                 router.push(
-                                    '../annotate/' + router.query.datasetId
+                                    '../annotate/' + router.query.datasetId,
                                 );
                             } }
                             className={ classes.actionButtonInitiateTraining }
                         >
                             Initiate Training
-                            <ReactSVG className={ classes.icon } src={ cpu.src } />
+                            <ReactSVG className={ classes.icon } src={ cpu.src }/>
                         </button>
 
                         <button className={ classes.actionButtonAnnotated }>
                             Annotated
-                            <ReactSVG className={ classes.icon } src={ edit.src } />
+                            <ReactSVG className={ classes.icon } src={ edit.src }/>
                         </button>
                     </div>
                 </div>

@@ -4,6 +4,7 @@ declare global {
         type AssetStage = 'uploaded' | 'feedback' | 'completed';
         type DatasetStage = 'untrained' | 'feedback' | 'completed';
         type AssetType = 'image' | 'video' | 'text' | 'other';
+        type PullRequestStatus = 'draft' | 'published' | 'merged' | 'rejected';
 
         interface Label {
             _id: string;
@@ -62,17 +63,19 @@ declare global {
                 assetId: string;
             };
         }
-        interface PullRequest{
+
+        interface PullRequest {
             _id: string;
+            dataset: string;
             name: string;
+            description?: string;
             createdAt: string;
             updatedAt: string;
             user: string;
-            dataset: string;
-            status: string;
+            status: Flockfysh.PullRequestStatus;
         }
 
-        interface PullRequestMessage{
+        interface PullRequestMessage {
             message: string;
             createdAt: string;
             updatedAt: string;

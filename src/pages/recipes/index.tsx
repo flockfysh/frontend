@@ -20,7 +20,7 @@ function RecipeSearchResult(props: { name?: string }) {
     const scrollerContainerRef = useRef<HTMLDivElement | null>(null);
     const initialState = () => {
         return {
-            hasMore: true,
+            hasNext: true,
             next: undefined,
             recipes: [],
         };
@@ -50,7 +50,7 @@ function RecipeSearchResult(props: { name?: string }) {
         state.recipes.push(...fetched.data);
 
         setState({
-            hasMore: fetched.meta.hasNext,
+            hasNext: fetched.meta.hasNext,
             recipes: state.recipes,
             next: fetched.meta.next,
         });
@@ -65,7 +65,7 @@ function RecipeSearchResult(props: { name?: string }) {
             <InfiniteScroll
                 useWindow={ false }
                 loadMore={ load }
-                hasMore={ state.hasMore }
+                hasMore={ state.hasNext }
                 getScrollParent={ () => {
                     return scrollerContainerRef.current;
                 } }
@@ -88,10 +88,10 @@ const RecipePage: NextPageWithLayout = function () {
             <header className={ classes.header }>
                 <div className={ classes.headerTitleAndCTA }>
                     <h1 className={ classes.headerTitle }>Your Recipes</h1>
-                
+
                     <div className={ classes.headerCTA }>
-                        <DarkModeButton />
-                        <CreateRecipeModal />
+                        <DarkModeButton/>
+                        <CreateRecipeModal/>
                     </div>
                 </div>
 

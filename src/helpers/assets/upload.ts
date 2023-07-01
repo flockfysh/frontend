@@ -20,7 +20,26 @@ export async function uploadAssets(datasetId: string, files: File[], config: {
     });
 }
 
-export const typeMapping: Record<Flockfysh.AssetType, {
+export async function uploadToPullRequest(pullRequestId: string, files: File[], config: {
+    endpoint: string,
+    fieldName: string,
+}) {
+    async function upload(file: File) {
+        try {
+            const fd = new FormData();
+            fd.set(config.fieldName, file);
+            await api.post(`/api/pullRequests/${pullRequestId}/assets/new/upload/${config.endpoint}`, fd);
+        }
+ catch (e) {
+        }
+    }
+
+    await new AsyncArray(files).chunkMap(file => upload(file), undefined, {
+        maxThreads: 20,
+    });
+}
+
+export const uploadTypeMapping: Record<Flockfysh.AssetType, {
     accept: string,
     extHints: string[],
     endpoint: string,

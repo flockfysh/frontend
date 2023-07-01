@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ComponentPropsWithRef } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import help from '@/icons/main/help-circle.svg';
 
 import classes from './styles.module.css';
+import Link from 'next/link';
 
 export default function RadioButtons<T>(props: {
     label?: string;
@@ -12,6 +13,7 @@ export default function RadioButtons<T>(props: {
     initialValue?: T;
     name?: string;
     tooltip?: string;
+    isLink?: boolean;
     onChange?: (data: T) => void;
 }) {
     const [value, setValue] = useState(() => {
@@ -21,6 +23,10 @@ export default function RadioButtons<T>(props: {
     useEffect(() => {
         if (props.value !== undefined) setValue(props.value);
     }, [props.value]);
+
+    const Component = props.isLink ? Link : ({ ...props }: ComponentPropsWithRef<'button'>) =>
+        <button { ...props }></button>;
+
 
     return (
         <div className={ classes.container }>
@@ -36,14 +42,14 @@ export default function RadioButtons<T>(props: {
                     ) : <></> }
                 </div>
             ) : <></> }
-
             <div className={ classes.buttons }>
                 { props.options.map(function generate(option, index) {
                     if (option.shown === false) {
                         return <></>;
                     }
                     return (
-                        <button
+                        <Component
+                            href={ option.value as string }
                             onClick={ () => {
                                 setValue(option.value);
                                 props.onChange?.(option.value);
@@ -53,7 +59,7 @@ export default function RadioButtons<T>(props: {
                             key={ option.value?.toString() ?? index.toString() }
                         >
                             { option.label }
-                        </button>
+                        </Component>
                     );
                 }) }
             </div>

@@ -9,7 +9,7 @@ import {
     Tooltip,
     LineController,
     BarController,
-    ScriptableContext
+    ScriptableContext,
 } from 'chart.js';
 import { Chart, ChartProps } from 'react-chartjs-2';
 
@@ -27,7 +27,7 @@ ChartJS.register(
     Legend,
     Tooltip,
     LineController,
-    BarController
+    BarController,
 );
 
 // TODO: need to specify type for the prop data
@@ -57,7 +57,7 @@ export default function Graph(dataset: PreviewDataset) {
         view: {},
         download: {},
     };
-    
+
     for (const rawMetric of rawActivityMetrics) {
         const date = dayjs().startOf('day').toString();
         metricHashmap[rawMetric.type][date] = rawMetric.count;
@@ -94,7 +94,7 @@ export default function Graph(dataset: PreviewDataset) {
                             0,
                             0,
                             chartArea.bottom,
-                            chartArea.top
+                            chartArea.top,
                         );
 
                         gradient.addColorStop(0, '#2BCDE4');
@@ -167,7 +167,7 @@ export default function Graph(dataset: PreviewDataset) {
                         size: 12,
                     },
                 },
-                max: Math.max(...transformed.download) || 50
+                max: Math.max(...transformed.download) || 50,
             },
             y1: {
                 type: 'linear' as const,
@@ -184,7 +184,7 @@ export default function Graph(dataset: PreviewDataset) {
                         size: 12,
                     },
                 },
-                max: Math.max(...transformed.view) || 50
+                max: Math.max(...transformed.view) || 50,
 
             },
         },

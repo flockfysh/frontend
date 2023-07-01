@@ -22,6 +22,7 @@ import 'swiper/css/navigation';
 
 import classes from './styles.module.css';
 import { UserContext } from '@/contexts/userContext';
+import MarketplaceLayout from '@/components/layout/marketplaceLayout';
 
 const timeFilterOptions: [number, ManipulateType][] = [
     [1, 'day'],
@@ -163,75 +164,74 @@ const Marketplace: NextPageWithLayout = function () {
     });
 
     return (
-
         <div className={ classes.container }>
-            <MarketplaceNavbar/>
+            { !!featuredDatasets.length && <FeaturedDatasetsSection datasets={ featuredDatasets }/> }
 
-            {!!featuredDatasets.length && <FeaturedDatasetsSection datasets={featuredDatasets} />}
-
-            {!!trendingDatasets.length && (
-                <section className={classes.sectionContainer}>
-                    <div className={classes.headerContainer}>
-                        <h1 className={classes.header}>Trending Datasets</h1>
+            { !!trendingDatasets.length && (
+                <section className={ classes.sectionContainer }>
+                    <div className={ classes.headerContainer }>
+                        <h1 className={ classes.header }>Trending Datasets</h1>
 
                         <DatasetTimeFilter
-                            callback={index => {
+                            callback={ index => {
                                 setTimeFilter(index);
-                            }}
-                            options={timeFilterOptions}
-                            selected={timeFilter}
+                            } }
+                            options={ timeFilterOptions }
+                            selected={ timeFilter }
                         />
                     </div>
 
-                    <DatasetSwiper cardType="vertical" datasets={trendingDatasets} />
+                    <DatasetSwiper cardType="vertical" datasets={ trendingDatasets }/>
                 </section>
-            )}
+            ) }
 
-            {!!popularDatasets.length && (
-                <section className={classes.sectionContainer}>
-                    <div className={classes.headerContainer}>
-                        <h1 className={classes.header}>Most Popular Datasets</h1>
+            { !!popularDatasets.length && (
+                <section className={ classes.sectionContainer }>
+                    <div className={ classes.headerContainer }>
+                        <h1 className={ classes.header }>Most Popular Datasets</h1>
                     </div>
 
-                    <DatasetSwiper cardType="vertical" datasets={popularDatasets} />
+                    <DatasetSwiper cardType="vertical" datasets={ popularDatasets }/>
                 </section>
-            )}
+            ) }
 
-            {!!paidDatasets.length && (
-                <section className={classes.sectionContainer}>
-                    <div className={classes.headerContainer}>
-                        <h1 className={classes.header}>Premium Datasets</h1>
+            { !!paidDatasets.length && (
+                <section className={ classes.sectionContainer }>
+                    <div className={ classes.headerContainer }>
+                        <h1 className={ classes.header }>Premium Datasets</h1>
                     </div>
 
-                    <DatasetSwiper cardType="vertical" datasets={paidDatasets} />
+                    <DatasetSwiper cardType="vertical" datasets={ paidDatasets }/>
                 </section>
-            )}
+            ) }
 
-            <section className={classes.sectionContainer}>
-                <div className={classes.headerContainer}>
-                    <h1 className={classes.header}>Trending Collections</h1>
+            <section className={ classes.sectionContainer }>
+                <div className={ classes.headerContainer }>
+                    <h1 className={ classes.header }>Trending Collections</h1>
                 </div>
 
                 <CollectionSwiper collections={ collections }/>
 
             </section>
 
-            <section className={classes.sectionContainer + ' ' + classes.howTo}>
-                <h1 className={classes.howToHeader}>Upload, Request, and Share your Datasets</h1>
+            <section className={ classes.sectionContainer + ' ' + classes.howTo }>
+                <h1 className={ classes.howToHeader }>Upload, Request, and Share your Datasets</h1>
 
 
                 <div className={ classes.howToCards }>
                     <HowToCards/>
                 </div>
             </section>
-
-            <Footer/>
         </div>
     );
 };
 
 Marketplace.getLayout = function (page) {
-    return <>{page}</>;
+    return (
+        <MarketplaceLayout>
+            { page }
+        </MarketplaceLayout>
+    );
 };
 
 export default Marketplace;
