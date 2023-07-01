@@ -10,6 +10,7 @@ import link from '@/icons/main/link.svg';
 import api from '@/helpers/api';
 
 import classes from './styles.module.css';
+import { boolean } from 'zod';
 
 export default function DatasetSettings(dataset: PreviewDataset) {
     const router = useRouter();
@@ -27,8 +28,9 @@ export default function DatasetSettings(dataset: PreviewDataset) {
                         placeholder="New user"
                         tooltip="Change ownership of the dataset to another dataset."
                         onSave={ async data => {
-                            await api.patch(`/api/datasets/${dataset._id}/price`, {
-                                price: +data,
+                            await api.patch(`/api/datasets/${dataset._id}/ownership`, {
+                                username: data,
+                                retainAdmin: true,
                             });
                         } }
                     />
