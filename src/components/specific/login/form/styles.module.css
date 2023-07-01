@@ -15,7 +15,7 @@
     font-weight: 700;
     line-height: 1.5em;
     font-size: 1rem;
-    color: var(--primary1-200);
+    color: var(--primary1-100);
 }
 
 .field {
@@ -31,14 +31,15 @@
 }
 
 .input {
-    border-radius: 9999px;
+    border-radius: 10px;
     background: transparent;
     padding: 16px;
     font-size: 0.875rem;
     line-height: 1rem;
     outline: none;
     color: var(--white);
-    border: 1px solid var(--primary1-300);
+    border: 2px solid var(--grey);
+    transition: 0.15s;
 }
 
 .inputInvalid {
@@ -46,7 +47,11 @@
 }
 
 .input::placeholder {
-    color: var(--primary1-100);
+    color: var(--light-grey);
+}
+
+.input:focus {
+    border-color: var(--light-grey);
 }
 
 .input:-webkit-autofill {
@@ -57,18 +62,19 @@
     width: 24px;
     height: 24px;
     appearance: none;
+    cursor: pointer;
     transition: 0.15s;
     position: relative;
     border-radius: 6px;
-    border: 1.5px solid var(--primary1-200);
+    border: 2px solid var(--grey);
 }
 
 .checkbox:checked {
-    background-color: var(--primary1-200);
+    background-color: var(--primary1-100);
 }
 
 .checkbox:hover {
-    border-color: var(--primary1-300);
+    border-color: var(--light-grey);
 }
 
 .label {
@@ -76,42 +82,47 @@
     display: flex;
     gap: 8px;
     align-items: center;
-    color: var(--primary1-200);
+    color: var(--white);
 }
 
 .signInUtilities {
+    margin-top: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
 .forgotPassword {
+    font-size: smaller;
     transition: 0.2s;
-    color: var(--error-500);
+    color: var(--light-grey) !important;
 }
 
 .forgotPassword:hover {
-    color: var(--error-600);
+    opacity: 0.7;
 }
 
 .signIn {
-    background: var(--white);
+    border: 2px solid var(--grey);
+    background: none;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--primary2-950);
+    color: var(--white);
     font-size: 1rem;
     line-height: 1.25rem;
     gap: 8px;
-    border-radius: 9999px;
+    border-radius: 10px;
     padding: 14px 16px;
     font-weight: 600;
     cursor: pointer;
     transition: 0.15s;
-    box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.5),
-        0px 8px 16px rgba(255, 255, 255, 0.1);
 }
 
 .signIn:hover {
-    background: var(--primary2-100);
+    box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.5),
+        0px 8px 16px rgba(255, 255, 255, 0.1);
+    background: var(--white);
+    color: var(--background);
+    border-color: var(--white);
 }

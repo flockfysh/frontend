@@ -32,6 +32,7 @@ function OAuthLink(props: {
     provider: string;
     mode: 'signup' | 'login';
     onClick?: (url: string) => void;
+    className?: string;
 }) {
     const url = getBackendUrl(`/api/auth/${props.provider.toLowerCase()}`);
 
@@ -42,7 +43,7 @@ function OAuthLink(props: {
                 e.preventDefault();
                 props.onClick?.(url);
             } }
-            className={ classes.oAuthBtn }
+            className={ `${ classes.oAuthBtn } ${ props.className ? props.className : '' }` }
         >
             <ReactSVG src={ props.icon.src } />
 
@@ -54,7 +55,7 @@ function OAuthLink(props: {
     );
 }
 
-export default function Login(props: { mode: 'login' | 'signup' }) {
+export default function Login(props: { mode: 'login' | 'signup', onClose: () => void }) {
     const router = useRouter();
     const { user, refreshUser } = useContext(UserContext);
 
@@ -107,21 +108,24 @@ export default function Login(props: { mode: 'login' | 'signup' }) {
             blurBg={ true }
             modalClassName={ classes.modal }
             popupTitle={ isLogin ? 'Sign in' : 'Sign Up' }
+            onOuterClick={ props.onClose }
+            onClose={ props.onClose }
         >
             <section className={ classes.modalContent }>
                 <div className={ classes.oAuthContainer }>
                     <OAuthLink
                         icon={ google }
-                        provider={ 'Google' }
+                        provider="Google"
                         mode={ mode }
                         onClick={ oAuthLogin }
                     />
                     
                     <OAuthLink
                         icon={ github }
-                        provider={ 'GitHub' }
+                        provider="GitHub"
                         mode={ mode }
                         onClick={ oAuthLogin }
+                        className={ classes.githubIcon }
                     />
                 </div>
 

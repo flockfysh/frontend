@@ -226,15 +226,16 @@ export default function LoginForm(props: {
                 <div className={ classes.signInUtilities }>
                     <label className={ classes.label }>
                         <input
-                            type={ 'checkbox' }
-                            name={ 'rememberUser' }
+                            type="checkbox"
+                            name="rememberUser"
                             className={ classes.checkbox }
                         />
+
                         <span>Remember Me</span>
                     </label>
 
                     <Link
-                        href={ '/forgotPassword' }
+                        href="/forgot-password"
                         className={ classes.forgotPassword }
                     >
                         Forgot Password?
