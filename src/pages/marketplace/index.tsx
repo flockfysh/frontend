@@ -22,6 +22,7 @@ import 'swiper/css/navigation';
 
 import classes from './styles.module.css';
 import { UserContext } from '@/contexts/userContext';
+import MarketplaceLayout from '@/components/layout/marketplaceLayout';
 
 const timeFilterOptions: [number, ManipulateType][] = [
     [1, 'day'],
@@ -32,6 +33,7 @@ const timeFilterOptions: [number, ManipulateType][] = [
 const Marketplace: NextPageWithLayout = function () {
     const [timeFilter, setTimeFilter] = useState(0);
 
+
     const [featuredDatasets, setFeaturedDatasets] = useState<HomepageDataset[]>(
         [],
     );
@@ -39,18 +41,16 @@ const Marketplace: NextPageWithLayout = function () {
     useEffect(() => {
         async function fetch() {
             const result = (
-                await api.get<Api.PaginatedResponse<HomepageDataset[]>>(
-                    '/api/datasets/search',
-                    {
-                        params: {
-                            public: true,
-                            sort: 'metrics.views',
-                            expand: 'assetCounts,size,likes,user,thumbnail,url',
-                            ascending: false,
-                            limit: 8,
-                        },
+                await api.get<Api.PaginatedResponse<HomepageDataset[]>>('/api/datasets/search', {
+                    params: {
+                        public: true,
+                        sort: 'metrics.views',
+                        expand: 'assetCounts,size,likes,user,thumbnail,url',
+                        ascending: false,
+                        limit: 8,
                     },
-                )
+                })
+
             ).data.data;
 
             setFeaturedDatasets(result);
@@ -66,6 +66,7 @@ const Marketplace: NextPageWithLayout = function () {
     useEffect(() => {
         async function fetch() {
             const result = (
+
                 await api.get<Api.PaginatedResponse<HomepageDataset[]>>(
                     '/api/datasets/search',
                     {
@@ -96,6 +97,7 @@ const Marketplace: NextPageWithLayout = function () {
     useEffect(() => {
         async function fetch() {
             const result = (
+
                 await api.get<Api.PaginatedResponse<HomepageDataset[]>>(
                     '/api/datasets/search',
                     {
@@ -119,6 +121,7 @@ const Marketplace: NextPageWithLayout = function () {
     useEffect(() => {
         async function fetch() {
             const result = (
+
                 await api.get<Api.PaginatedResponse<HomepageDataset[]>>(
                     '/api/datasets/search',
                     {
@@ -155,20 +158,14 @@ const Marketplace: NextPageWithLayout = function () {
             type: 'image',
             thumbnail: {
                 assetId: v4(),
-                url: 'https://s3-alpha-sig.figma.com/img/49ee/d081/4307a875ed2dabf708582228964d3985?Expires=1687737600&Signature=kNAl46fRLyUSGUSIVv7qu5BiKptidiRojEkUy7YkIstv9E28TmP1rOHcXxemh9CBjcUrn9dlLoyE4hixT1q~mHfnLqPWh1DZRPfZS5GBnZdnQMcXf~8cJ42RrhE3ZtfNAj9a97mf~maOqZ2tG7~NTMPsKtoGBqm8ZM02xlqPHVraEdWY39KcZhi5qS4DGL~6ZXnucPBTSa1wd-ZpHfMhFUI6b-IBCKPyGkXpy03oOD00X13R-3aQUJNoLnjHdD31OLXO~EGJI4XOynNhaJk2-91ca5ZvT3qcbTJy2pAivz3s2-wCtLQY8suZcPhTGFSqnI~k8sJQ-6Zde6DTFrXVzw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
+                url: 'https://images.unsplash.com/photo-1555412654-72a95a495858?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d2F0ZXJ8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60',
             },
         };
     });
 
     return (
         <div className={ classes.container }>
-            <MarketplaceNavbar/>
-
-            { !!featuredDatasets.length && (
-                <FeaturedDatasetsSection
-                    datasets={ featuredDatasets }
-                />
-            ) }
+            { !!featuredDatasets.length && <FeaturedDatasetsSection datasets={ featuredDatasets }/> }
 
             { !!trendingDatasets.length && (
                 <section className={ classes.sectionContainer }>
@@ -176,7 +173,7 @@ const Marketplace: NextPageWithLayout = function () {
                         <h1 className={ classes.header }>Trending Datasets</h1>
 
                         <DatasetTimeFilter
-                            callback={ (index) => {
+                            callback={ index => {
                                 setTimeFilter(index);
                             } }
                             options={ timeFilterOptions }
@@ -184,25 +181,17 @@ const Marketplace: NextPageWithLayout = function () {
                         />
                     </div>
 
-                    <DatasetSwiper
-                        cardType="vertical"
-                        datasets={ trendingDatasets }
-                    />
+                    <DatasetSwiper cardType="vertical" datasets={ trendingDatasets }/>
                 </section>
             ) }
 
             { !!popularDatasets.length && (
                 <section className={ classes.sectionContainer }>
                     <div className={ classes.headerContainer }>
-                        <h1 className={ classes.header }>
-                            Most Popular Datasets
-                        </h1>
+                        <h1 className={ classes.header }>Most Popular Datasets</h1>
                     </div>
 
-                    <DatasetSwiper
-                        cardType="vertical"
-                        datasets={ popularDatasets }
-                    />
+                    <DatasetSwiper cardType="vertical" datasets={ popularDatasets }/>
                 </section>
             ) }
 
@@ -212,10 +201,7 @@ const Marketplace: NextPageWithLayout = function () {
                         <h1 className={ classes.header }>Premium Datasets</h1>
                     </div>
 
-                    <DatasetSwiper
-                        cardType="vertical"
-                        datasets={ paidDatasets }
-                    />
+                    <DatasetSwiper cardType="vertical" datasets={ paidDatasets }/>
                 </section>
             ) }
 
@@ -225,25 +211,27 @@ const Marketplace: NextPageWithLayout = function () {
                 </div>
 
                 <CollectionSwiper collections={ collections }/>
+
             </section>
 
             <section className={ classes.sectionContainer + ' ' + classes.howTo }>
-                <h1 className={ classes.howToHeader }>
-                    Upload, Request, and Share your Datasets
-                </h1>
+                <h1 className={ classes.howToHeader }>Upload, Request, and Share your Datasets</h1>
+
 
                 <div className={ classes.howToCards }>
                     <HowToCards/>
                 </div>
             </section>
-
-            <Footer/>
         </div>
     );
 };
 
 Marketplace.getLayout = function (page) {
-    return <>{ page }</>;
+    return (
+        <MarketplaceLayout>
+            { page }
+        </MarketplaceLayout>
+    );
 };
 
 export default Marketplace;

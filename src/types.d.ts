@@ -1,3 +1,7 @@
+// TODO: Fix this
+declare type AnnotationBox = any;
+declare type UploadedImage = any;
+
 declare interface BaseActivity {
     id: string;
     date: Date;

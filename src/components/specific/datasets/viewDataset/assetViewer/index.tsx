@@ -10,7 +10,7 @@ import {
     TableHeadProps,
     TableProps,
     TableRow,
-    TableRowProps
+    TableRowProps,
 } from '@mui/material';
 
 import axios from 'axios';
@@ -33,7 +33,7 @@ const TableComponents = {
                 { ...props }
                 style={ {
                     ...props.style,
-                    height: 'unset'
+                    height: 'unset',
                 } }
                 className={ classes.viewerTableScroller }
                 ref={ ref }
@@ -53,7 +53,7 @@ const TableComponents = {
         return (
             <TableHead
                 { ...props }
-                className={ `${ classes.viewerTableHead } ${ props.className || '' }` }
+                className={ `${classes.viewerTableHead} ${props.className || ''}` }
                 ref={ ref }
             />
         );
@@ -62,7 +62,7 @@ const TableComponents = {
         return (
             <TableRow
                 { ...props }
-                className={ `${ classes.viewerTableRow } ${ props.className || '' }` }
+                className={ `${classes.viewerTableRow} ${props.className || ''}` }
                 ref={ ref }
             />
         );
@@ -120,9 +120,9 @@ function AssetTile(props: {
         );
     else if (typeIs.is(props.item.mimetype, ['text/*', 'application/json']))
         component = (
-            <TextComponent url={ props.item.url } />
+            <TextComponent url={ props.item.url }/>
         );
-    else component = <div />;
+    else component = <div/>;
 
     return (
         <div className={ classes.imageWrapper }>
@@ -131,7 +131,7 @@ function AssetTile(props: {
             <button className={ classes.imageButton } onClick={ () => {
                 props.delAsset(props.item._id);
             } }>
-                <ReactSVG className={ classes.icon } src={ trash.src } />
+                <ReactSVG className={ classes.icon } src={ trash.src }/>
             </button>
         </div>
     );
@@ -151,7 +151,7 @@ function CustomTableCell(props: TableCellProps) {
         <TableCell
             { ...props }
             ref={ props.ref }
-            className={ `${ props.className || '' } ${ classes.viewerTableCell }` }
+            className={ `${props.className || ''} ${classes.viewerTableCell}` }
         >
             <div className={ classes.viewerTableCellInner }>
                 { props.children }
@@ -196,7 +196,7 @@ export default function AssetViewer(props: {
                             checked={ assetArray.every(asset => asset.selected) }
                             onChange={ (e) => {
                                 const checked = e.currentTarget.checked;
-                                
+
                                 assetArray.forEach(asset => {
                                     asset.selected = checked;
                                 });
@@ -209,31 +209,31 @@ export default function AssetViewer(props: {
                     <CustomTableCell>
                         File name
                     </CustomTableCell>
-                    
+
                     <CustomTableCell className={ classes.uploadDate }>
                         Uploaded at
                     </CustomTableCell>
-                    
+
                     <CustomTableCell>
                         Type
                     </CustomTableCell>
-                    
+
                     <CustomTableCell>
                         Status
                     </CustomTableCell>
-                    
+
                     <CustomTableCell>
                         Size
                     </CustomTableCell>
-                    
-                    <CustomTableCell />
+
+                    <CustomTableCell/>
                 </TableRow>
             </>
         );
     }
 
     const load = useCallback(
-        async function(numItems: number = 20) {
+        async function (numItems: number = 20) {
             if (state.hasMore) {
                 const datasetId = props.datasetId;
 
@@ -257,17 +257,17 @@ export default function AssetViewer(props: {
                         return {
                             ...prev,
                             next: result.meta.next,
-                            hasMore: result.meta.hasNext,
+                            hasNext: result.meta.hasNext,
                             assets: state.assets,
                         };
                     });
                 }
-                catch (e) {
+ catch (e) {
                     return;
                 }
             }
         }
-    , [props.datasetId, props.searchQuery.displayName, state.assets, state.hasMore, state.next]);
+        , [props.datasetId, props.searchQuery.displayName, state.assets, state.hasMore, state.next]);
 
     useEffect(() => {
         setState(initialState);
@@ -294,7 +294,7 @@ export default function AssetViewer(props: {
                 listClassName={ classes.gridWrapper }
                 endReached={ () => load().then() }
                 itemContent={ (index, item) => (
-                    <AssetTile item={ item } key={ item._id } delAsset={ () => delAsset(item._id) } />
+                    <AssetTile item={ item } key={ item._id } delAsset={ () => delAsset(item._id) }/>
                 ) }
             />
         );
@@ -318,7 +318,7 @@ export default function AssetViewer(props: {
                                         const item = state.assets.get(data._id);
 
                                         if (item) item.selected = e.currentTarget.checked;
-                                        
+
                                         setState((prev) => ({ ...prev }));
                                     } }
                                 />
@@ -348,7 +348,7 @@ export default function AssetViewer(props: {
 
                             <CustomTableCell>
                                 <button onClick={ () => delAsset(data._id) } className={ classes.deleteButton }>
-                                    <ReactSVG className={ classes.icon } src={ trash.src } />
+                                    <ReactSVG className={ classes.icon } src={ trash.src }/>
                                 </button>
                             </CustomTableCell>
                         </>

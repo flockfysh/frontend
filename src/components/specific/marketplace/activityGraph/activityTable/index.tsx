@@ -52,7 +52,7 @@ const TableComponents = {
         return (
             <TableHead
                 { ...props }
-                className={ `${ classes.viewerTableHead } ${ props.className || '' }` }
+                className={ `${classes.viewerTableHead} ${props.className || ''}` }
                 ref={ ref }
             />
         );
@@ -61,7 +61,7 @@ const TableComponents = {
         return (
             <TableRow
                 { ...props }
-                className={ `${ classes.viewerTableRow } ${ props.className || '' }` }
+                className={ `${classes.viewerTableRow} ${props.className || ''}` }
                 ref={ ref }
             />
         );
@@ -70,7 +70,7 @@ const TableComponents = {
         return (
             <TableBody
                 { ...props }
-                className={ `${ classes.viewerTableBody } ${ props.className || '' }` }
+                className={ `${classes.viewerTableBody} ${props.className || ''}` }
                 ref={ ref }
             />
         );
@@ -82,7 +82,7 @@ function CustomTableCell(props: TableCellProps) {
         <TableCell
             { ...props }
             ref={ props.ref }
-            className={ `${ props.className || '' } ${ classes.viewerTableCell }` }
+            className={ `${props.className || ''} ${classes.viewerTableCell}` }
         >
             <div className={ classes.viewerTableCellInner }>
                 { props.children }
@@ -95,10 +95,10 @@ function Header() {
     return (
         <>
             <TableRow>
-                <CustomTableCell >
+                <CustomTableCell>
                     Date & Time
                 </CustomTableCell>
-                
+
                 <CustomTableCell>
                     Username
                 </CustomTableCell>
@@ -106,7 +106,7 @@ function Header() {
                 <CustomTableCell>
                     Action
                 </CustomTableCell>
-                
+
                 <CustomTableCell>
                     Number of Files
                 </CustomTableCell>
@@ -135,11 +135,11 @@ export default function ActivityTable(props: { datasetId?: string, userId?: stri
             userName: 'praks',
         }
     );
-    
+
     const initialState = (): ActivityViewerState => {
         return {
             data: fakeData,
-            hasMore: true,
+            hasNext: true,
             initialLoad: true,
             next: undefined,
         };
@@ -149,12 +149,12 @@ export default function ActivityTable(props: { datasetId?: string, userId?: stri
     const dataArray = state.data;
 
     const load = useCallback(
-        async function(numItems: number=20) {
+        async function (numItems: number = 20) {
             // TODO: connect w/ backend
-            if (state.hasMore) {
-                if(props.datasetId) {
+            if (state.hasNext) {
+                if (props.datasetId) {
                     const datasetId = props.datasetId;
-        
+
                     try {
                         const result = (await api.get<Api.PaginatedResponse<DatasetActivity[]>>(`/api/`, {
                             params: {
@@ -163,27 +163,27 @@ export default function ActivityTable(props: { datasetId?: string, userId?: stri
                                 limit: numItems,
                             },
                         })).data;
-    
+
                         for (const item of result.data) {
                             state.data.push(item);
                         }
-    
+
                         setState((prev) => {
                             return {
                                 ...prev,
                                 next: result.meta.next,
-                                hasMore: result.meta.hasNext,
+                                hasNext: result.meta.hasNext,
                                 data: state.data,
                             };
                         });
                     }
-                    catch (e) {
+ catch (e) {
                         return;
                     }
                 }
                 else {
                     const userId = props.userId;
-                    
+
                     try {
                         const result = (await api.get<Api.PaginatedResponse<UserActivity[]>>(`/api/`, {
                             params: {
@@ -192,27 +192,27 @@ export default function ActivityTable(props: { datasetId?: string, userId?: stri
                                 limit: numItems,
                             },
                         })).data;
-    
+
                         for (const item of result.data) {
                             state.data.push(item);
                         }
-    
+
                         setState((prev) => {
                             return {
                                 ...prev,
                                 next: result.meta.next,
-                                hasMore: result.meta.hasNext,
+                                hasNext: result.meta.hasNext,
                                 data: state.data,
                             };
                         });
                     }
-                    catch (e) {
+ catch (e) {
                         return;
                     }
                 }
             }
         }
-    , [props.datasetId, props.userId, state.data, state.hasMore, state.next]);
+        , [props.datasetId, props.userId, state.data, state.hasNext, state.next]);
 
     useEffect(() => {
         if (state.initialLoad) {
@@ -225,7 +225,7 @@ export default function ActivityTable(props: { datasetId?: string, userId?: stri
             load(20).then();
         }
     }, [state, load]);
-    
+
     return (
         <div className={ classes.dataCardContainer }>
             <TableVirtuoso
@@ -236,7 +236,7 @@ export default function ActivityTable(props: { datasetId?: string, userId?: stri
                 endReached={ () => load() }
                 itemContent={ function genRow(index, data) {
                     return (
-                        <>   
+                        <>
                             <CustomTableCell className={ classes.uploadDate }>
                                 <span>{ dayjs(data.date).format('DD/MM/YYYY') }</span>
                             </CustomTableCell>

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next export"
   },
   "dependencies": {
     "@emotion/cache": "^11.11.0",
@@ -37,6 +38,7 @@
     "react-virtuoso": "^4.3.8",
     "swiper": "^9.3.2",
     "type-is": "^1.6.18",
+    "use-state-with-deps": "^1.1.2",
     "uuid": "^9.0.0",
     "zod": "^3.21.4"
   },

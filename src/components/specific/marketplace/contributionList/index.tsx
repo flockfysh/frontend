@@ -1,134 +1,121 @@
-import { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import search from '@/icons/main/search.svg';
 import database from '@/icons/main/database.svg';
-
+import { useStateWithDeps } from 'use-state-with-deps';
 import classes from './styles.module.css';
 import { ContributionItem } from './ContributionItem';
+import api from '@/helpers/api';
+import _dayjs from 'dayjs';
+import RadioButtons from '@/components/ui/input/radioButtons';
+import InfiniteScroll from 'react-infinite-scroller';
 
-const TIME_STATES = {
-  oneHour: '1h',
-  sixHours: '6h',
-  oneDay: '24h',
-  sevenDays: '7d',
-};
-
-const TEMP_contributionHistory = Array(20)
-  .fill(null)
-  .map((item, index) => ({
-    id: index,
-    title: 'Contribution Title',
-    createdAt: 'June 23, 2023',
-    updatedAt: '5 hours ago',
-    issue: '722',
-    user: '@user',
-    status: '0',
-    messageCount: '5',
-  }));
+const TIME_STATES: { label: string, value: [number, _dayjs.ManipulateType] | null }[] = [
+    { label: 'All', value: null },
+    { label: '1h', value: [1, 'hour'] },
+    { label: '6h', value: [6, 'hours'] },
+    { label: '24h', value: [24, 'hours'] },
+    { label: '7d', value: [7, 'days'] },
+];
 
 export default function ContributionList(dataset: PreviewDataset) {
-  const [timeFilter, setTimeFilter] = useState(TIME_STATES.sixHours);
-  const [currentNameQuery, setCurrentNameQuery] = useState('');
+    const scrollerContainerRef = useRef<HTMLDivElement | null>(null);
+    const [timeFilter, setTimeFilter] = useState(0);
+    const [currentNameQuery, setCurrentNameQuery] = useState('');
+    const [state, setState] = useStateWithDeps<{
+        next?: string;
+        hasNext: boolean;
+        contributions: ExpandedPullRequest[],
+    }>(initialState, [currentNameQuery, dataset._id]);
 
-  return (
-    <div className={ classes.itemsContainer }>
-      { /* header */ }
-      <div className={ classes.mainContentHeader }>
-        <label className={ classes.searchContainer }>
-          <ReactSVG src={ search.src } className={ classes.searchIcon } />
+    function initialState(): typeof state {
+        return {
+            next: undefined,
+            hasNext: true,
+            contributions: [],
+        };
+    }
 
-          <input
-            type="search"
-            className={ classes.search }
-            placeholder="Search by user, title"
-            value={ currentNameQuery }
-            onChange={ (e) => {
-              setCurrentNameQuery(e.currentTarget.value);
-            } }
-          />
-        </label>
+    const getContributions = async () => {
+        if (state.hasNext) {
+            const temp = (await api.get<Api.PaginatedResponse<ExpandedPullRequest[]>>(`/api/datasets/${dataset._id}/pullRequests`, {
+                params: {
+                    expand: 'user,stats',
+                    name: currentNameQuery,
+                    limit: 10,
+                    next: state.next,
+                },
+            })).data;
+            setState(prevState => {
+                prevState.contributions.push(...temp.data);
+                return {
+                    ...prevState,
+                    hasNext: temp.meta.hasNext,
+                    next: temp.meta.next,
+                };
+            });
+        }
+    };
 
-        <div className={ classes.headerButtonsWrapper }>
-          <div className={ classes.tableViewButtonsWrapper }>
-            <button
-              className={ `${classes.tableViewButton} ${
-                timeFilter === TIME_STATES.oneHour
-                  ? classes.tableViewButtonActive
-                  : ''
-              }` }
-              onClick={ () => setTimeFilter(TIME_STATES.oneHour) }
-            >
-              1h
-            </button>
+    return (
+        <div className={ classes.itemsContainer }>
+            { /* header */ }
+            <div className={ classes.mainContentHeader }>
+                <label className={ classes.searchContainer }>
+                    <ReactSVG src={ search.src } className={ classes.searchIcon }/>
 
-            <button
-              className={ `${classes.tableViewButton} ${
-                timeFilter === TIME_STATES.sixHours
-                  ? classes.tableViewButtonActive
-                  : ''
-              }` }
-              onClick={ () => setTimeFilter(TIME_STATES.sixHours) }
-            >
-              6h
-            </button>
+                    <input
+                        type="search"
+                        className={ classes.search }
+                        placeholder="Search by user, title"
+                        value={ currentNameQuery }
+                        onChange={ (e) => {
+                            setCurrentNameQuery(e.currentTarget.value);
+                        } }
+                    />
+                </label>
 
-            <button
-              className={ `${classes.tableViewButton} ${
-                timeFilter === TIME_STATES.oneDay
-                  ? classes.tableViewButtonActive
-                  : ''
-              }` }
-              onClick={ () => setTimeFilter(TIME_STATES.oneDay) }
-            >
-              24h
-            </button>
-
-            <button
-              className={ `${classes.tableViewButton} ${
-                timeFilter === TIME_STATES.sevenDays
-                  ? classes.tableViewButtonActive
-                  : ''
-              }` }
-              onClick={ () => setTimeFilter(TIME_STATES.sevenDays) }
-            >
-              7d
-            </button>
-          </div>
-        </div>
-      </div>
-
-      { /* content */ }
-      <div className={ classes.contentContainer }>
-        { /* contribution list */ }
-        <div className={ classes.contentListContainer }>
-          { TEMP_contributionHistory.map((item) => (
-            <ContributionItem key={ item.id } data={ item } />
-          )) }
-        </div>
-        { /* info column */ }
-        <div className={ classes.contentInfoContainer }>
-          { /* title */ }
-          <div className={ classes.infoTitleContainer }>
-            <h2 className={ classes.infoTitle }>Contribution Stats</h2>
-          </div>
-
-          { /* summary */ }
-          <div className={ classes.infoBox }>
-            <div className={ classes.infoBoxTitleContainer }>
-              <h3 className={ classes.infoBoxTitle }>Summary</h3>
+                <div className={ classes.headerButtonsWrapper }>
+                    <div className={ classes.tableViewButtonsWrapper }>
+                        <RadioButtons options={ TIME_STATES }/>
+                    </div>
+                </div>
             </div>
 
-            <div>
-              <p className={ classes.infoBoxSubtitle }>
-                <ReactSVG
-                  className={ classes.infoBoxSubtitleIcon }
-                  src={ database.src }
-                />
-                { /* {dataset.assetCounts.total} Files */ }
-              </p>
+            { /* content */ }
+            <div className={ classes.contentContainer } ref={ scrollerContainerRef }>
+                { /* contribution list */ }
+                <InfiniteScroll hasMore={ state.hasNext } useWindow={ false } loadMore={ getContributions }
+                                className={ classes.contentListContainer }
+                                getScrollParent={ () => scrollerContainerRef.current }>
+                    { state.contributions.map((item) => (
+                        <ContributionItem key={ item._id } datasetId={ dataset._id } contribution={ item }/>
+                    )) }
+                </InfiniteScroll>
+                { /* info column */ }
+                <div className={ classes.contentInfoContainer }>
+                    { /* title */ }
+                    <div className={ classes.infoTitleContainer }>
+                        <h2 className={ classes.infoTitle }>Contribution Stats</h2>
+                    </div>
 
-              { /* {Object.entries(dataset.assetCounts.byMimetype).map(
+                    { /* summary */ }
+                    <div className={ classes.infoBox }>
+                        <div className={ classes.infoBoxTitleContainer }>
+                            <h3 className={ classes.infoBoxTitle }>Summary</h3>
+                        </div>
+
+                        <div>
+                            <p className={ classes.infoBoxSubtitle }>
+                                <ReactSVG
+                                    className={ classes.infoBoxSubtitleIcon }
+                                    src={ database.src }
+                                />
+                                { /* {dataset.assetCounts.total} Files */ }
+                            </p>
+
+                            { /* {Object.entries(dataset.assetCounts.byMimetype).map(
                 ([mimetype, count]) => {
                   return (
                     <div className={classes.infoBoxSummaryItem} key={mimetype}>
@@ -138,79 +125,79 @@ export default function ContributionList(dataset: PreviewDataset) {
                   );
                 }
               )} */ }
+                        </div>
+                    </div>
+
+                    { /* file details */ }
+                    <div className={ classes.infoBox }>
+                        <div className={ classes.infoBoxTitleContainer }>
+                            <h3 className={ classes.infoBoxTitle }>File Details</h3>
+                        </div>
+
+                        <div className={ classes.infoBoxFileDetailsInnerBox }>
+                            <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
+                                <div>
+                                    <span>Resolution</span>
+                                </div>
+
+                                <div>
+                                    <span>5760 x 3840</span>
+                                </div>
+                            </div>
+
+                            <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
+                                <div>
+                                    <span>Filename</span>
+                                </div>
+
+                                <div>
+                                    <span>ABCDELKLJK.jpeg</span>
+                                </div>
+                            </div>
+
+                            <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
+                                <div>
+                                    <span>Mime type</span>
+                                </div>
+
+                                <div>
+                                    <span>image/jpeg</span>
+                                </div>
+                            </div>
+
+                            <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
+                                <div>
+                                    <span>Uploaded By</span>
+                                </div>
+
+                                <div>
+                                    <span>@user</span>
+                                </div>
+                            </div>
+
+                            <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
+                                <div>
+                                    <span>Encoding</span>
+                                </div>
+
+                                <div>
+                                    <span>8 Bit</span>
+                                </div>
+                            </div>
+
+                            <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
+                                <div>
+                                    <span>File Size</span>
+                                </div>
+
+                                <div>
+                                    <span>2.63 MB</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-
-          { /* file details */ }
-          <div className={ classes.infoBox }>
-            <div className={ classes.infoBoxTitleContainer }>
-              <h3 className={ classes.infoBoxTitle }>File Details</h3>
-            </div>
-
-            <div className={ classes.infoBoxFileDetailsInnerBox }>
-              <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
-                <div>
-                  <span>Resolution</span>
-                </div>
-
-                <div>
-                  <span>5760 x 3840</span>
-                </div>
-              </div>
-
-              <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
-                <div>
-                  <span>Filename</span>
-                </div>
-
-                <div>
-                  <span>ABCDELKLJK.jpeg</span>
-                </div>
-              </div>
-
-              <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
-                <div>
-                  <span>Mime type</span>
-                </div>
-
-                <div>
-                  <span>image/jpeg</span>
-                </div>
-              </div>
-
-              <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
-                <div>
-                  <span>Uploaded By</span>
-                </div>
-
-                <div>
-                  <span>@user</span>
-                </div>
-              </div>
-
-              <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
-                <div>
-                  <span>Encoding</span>
-                </div>
-
-                <div>
-                  <span>8 Bit</span>
-                </div>
-              </div>
-
-              <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
-                <div>
-                  <span>File Size</span>
-                </div>
-
-                <div>
-                  <span>2.63 MB</span>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 }
