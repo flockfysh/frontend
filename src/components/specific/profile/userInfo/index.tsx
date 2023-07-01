@@ -1,7 +1,13 @@
 import { useContext, useRef } from 'react';
 import { ReactSVG } from 'react-svg';
+import Image from 'next/image';
 
 import Link from 'next/link';
+
+import { UserContext } from '@/contexts/userContext';
+
+import api from '@/helpers/api';
+
 import svg from '@/icons/main/plus-circle.svg';
 import github from '@/icons/main/github.svg';
 import linkedIn from '@/icons/main/linkedin.svg';
@@ -9,10 +15,7 @@ import twitter from '@/icons/main/twitter.svg';
 import link from '@/icons/main/link.svg';
 import pen from '@/icons/main/pen-tool.svg';
 
-import Image from 'next/image';
 import classes from './styles.module.css';
-import { UserContext } from '@/contexts/userContext';
-import api from '@/helpers/api';
 
 function Header(props: { url: string; editable: boolean }) {
     const inputRef = useRef<HTMLInputElement>(null);
@@ -21,16 +24,17 @@ function Header(props: { url: string; editable: boolean }) {
         <div className={ classes.headerPictureContainer }>
             <div className={ classes.headerPictureSubContainer }>
                 <Image
-                    alt={ 'Image' }
+                    alt="banner"
                     className={ classes.headPic }
-                    src={ props.url }
+                    src={ props.url ? props.url : 'https://images.unsplash.com/photo-1688149571284-ba299c1a247e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1634&q=80' }
                     fill={ true }
-                ></Image>
+                />
             </div>
+
             { props.editable ? (
                 <>
                     <input
-                        type={ 'file' }
+                        type="file"
                         ref={ inputRef }
                         className={ classes.hiddenPhotoChange }
                         onChange={ async (e) => {
@@ -42,6 +46,7 @@ function Header(props: { url: string; editable: boolean }) {
                             }
                         } }
                     />
+
                     <button
                         className={ classes.photoChangeButton }
                         onClick={ () => {
@@ -68,6 +73,7 @@ const ProfilePhoto = (props: { url: string; editable: boolean }) => {
                 src={ props.url }
                 alt="profile pic"
             />
+            
             { props.editable ? (
                 <>
                     <input
@@ -76,8 +82,10 @@ const ProfilePhoto = (props: { url: string; editable: boolean }) => {
                         onChange={ async (e) => {
                             if (e.currentTarget.files) {
                                 const fd = new FormData();
+
                                 fd.append('image', e.currentTarget.files[0]);
                                 e.currentTarget.value = '';
+
                                 await api.put('/api/users/profilePhoto', fd);
                             }
                         } }
@@ -113,6 +121,7 @@ const UserInfo = (
                     url={ props.headerPhoto?.url ?? '' }
                     editable={ editable }
                 />
+                
                 <ProfilePhoto
                     url={ props.profilePhoto?.url ?? '' }
                     editable={ editable }

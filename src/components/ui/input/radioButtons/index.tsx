@@ -52,9 +52,8 @@ export default function RadioButtons<T>(props: {
             ) }
             <div className={ classes.buttons }>
                 { props.options.map(function generate(option, index) {
-                    if (option.shown === false) {
-                        return <></>;
-                    }
+                    if (option.shown === false) return <></>;
+                    
                     return (
                         <Component
                             href={ option.value as string }

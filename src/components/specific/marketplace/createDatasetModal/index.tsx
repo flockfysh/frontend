@@ -48,6 +48,7 @@ async function uploadDataset(formData: FormData) {
                 name: name,
             })
             .then((res) => res.data);
+
         recipe = newRecipe.data._id;
     }
 
@@ -83,12 +84,14 @@ async function uploadDataset(formData: FormData) {
                 fd
             );
         }
- catch (e) {}
+        catch (e) {}
     }
 
     await new AsyncArray(files).chunkMap((file) => upload(file), undefined, {
         maxThreads: 20,
     });
+
+
 }
 
 export default function CreateDatasetModal(props: CreateDatasetModalProps) {
@@ -186,7 +189,9 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                     onSubmit={ async (e) => {
                         e.preventDefault();
                         const formData = new FormData(e.currentTarget);
+                        
                         await uploadDataset(formData);
+                        props.onClose();
                     } }
                 >
                     <div className={ classes.rowContainer }>

@@ -35,6 +35,12 @@
     padding: 12px;
     background: var(--main-grey);
     border-radius: 16px;
+    transition: 0.2s;
+    color: var(--white);
+}
+
+.photoChangeButton:hover {
+    color: var(--primary1-100);
 }
 
 .profilePic {

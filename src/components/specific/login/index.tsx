@@ -108,7 +108,6 @@ export default function Login(props: { mode: 'login' | 'signup', onClose: () => 
             blurBg={ true }
             modalClassName={ classes.modal }
             popupTitle={ isLogin ? 'Sign in' : 'Sign Up' }
-            onOuterClick={ props.onClose }
             onClose={ props.onClose }
         >
             <section className={ classes.modalContent }>
