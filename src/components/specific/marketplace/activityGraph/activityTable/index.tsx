@@ -12,7 +12,7 @@ import {
     TableHeadProps,
     TableProps,
     TableRow,
-    TableRowProps
+    TableRowProps,
 } from '@mui/material';
 
 import dayjs from 'dayjs';
@@ -133,13 +133,13 @@ export default function ActivityTable(props: { datasetId?: string, userId?: stri
             size: Math.random() * 2.5e+10,
             type: 'image' as Flockfysh.AssetType,
             userName: 'praks',
-        }
+        },
     );
 
     const initialState = (): ActivityViewerState => {
         return {
             data: fakeData,
-            hasNext: true,
+            hasMore: true,
             initialLoad: true,
             next: undefined,
         };
@@ -151,7 +151,7 @@ export default function ActivityTable(props: { datasetId?: string, userId?: stri
     const load = useCallback(
         async function (numItems: number = 20) {
             // TODO: connect w/ backend
-            if (state.hasNext) {
+            if (state.hasMore) {
                 if (props.datasetId) {
                     const datasetId = props.datasetId;
 
@@ -212,7 +212,7 @@ export default function ActivityTable(props: { datasetId?: string, userId?: stri
                 }
             }
         }
-        , [props.datasetId, props.userId, state.data, state.hasNext, state.next]);
+        , [props.datasetId, props.userId, state.data, state.hasMore, state.next]);
 
     useEffect(() => {
         if (state.initialLoad) {

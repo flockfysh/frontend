@@ -20,7 +20,7 @@ function RecipeSearchResult(props: { name?: string }) {
     const scrollerContainerRef = useRef<HTMLDivElement | null>(null);
     const initialState = () => {
         return {
-            hasNext: true,
+            hasMore: true,
             next: undefined,
             recipes: [],
         };
@@ -43,14 +43,14 @@ function RecipeSearchResult(props: { name?: string }) {
                         expand: 'labels',
                         limit: 50,
                     },
-                }
+                },
             )
         ).data;
 
         state.recipes.push(...fetched.data);
 
         setState({
-            hasNext: fetched.meta.hasNext,
+            hasMore: fetched.meta.hasNext,
             recipes: state.recipes,
             next: fetched.meta.next,
         });
@@ -65,7 +65,7 @@ function RecipeSearchResult(props: { name?: string }) {
             <InfiniteScroll
                 useWindow={ false }
                 loadMore={ load }
-                hasMore={ state.hasNext }
+                hasMore={ state.hasMore }
                 getScrollParent={ () => {
                     return scrollerContainerRef.current;
                 } }

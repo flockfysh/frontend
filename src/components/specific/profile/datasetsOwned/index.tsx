@@ -20,7 +20,7 @@ function DatasetsOwned(props: {
 
     const initialState = () => {
         return {
-            hasNext: true,
+            hasMore: true,
             next: undefined,
             datasets: [],
         };
@@ -77,7 +77,7 @@ function DatasetsOwned(props: {
 
         state.datasets.push(...fetched.data);
         setState({
-            hasNext: fetched.meta.hasNext,
+            hasMore: fetched.meta.hasNext,
             datasets: state.datasets,
             next: fetched.meta.next,
         });
@@ -126,7 +126,7 @@ function DatasetsOwned(props: {
                     />
                 </div>
 
-                <InfiniteScroll useWindow={ false } loadMore={ load } hasMore={ state.hasNext }
+                <InfiniteScroll useWindow={ false } loadMore={ load } hasMore={ state.hasMore }
                                 className={ classes.datasetGrid }>
                     { state.datasets.map((value) => {
                         return (
