@@ -18,7 +18,7 @@ export const FRONTEND_URL = DEBUG
 
 export const SERVER_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export const serverURL = SERVER_URL; //process.env.NEXT_PUBLIC_BACKEND_URL;
+export const serverURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 const _socketIOServerURL = new URL(serverURL);
 
