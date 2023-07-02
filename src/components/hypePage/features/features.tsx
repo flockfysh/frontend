@@ -1,10 +1,11 @@
-import ctrlIcon from '../../../icons/hype/ctrl.svg';
-import effortlessIcon from '../../../icons/hype/effortless.svg';
-import flexIcon from '../../../icons/hype/flex.svg';
-import compatibilityIcon from '../../../icons/hype/compatibility.svg';
+import Card from '@/components/ui/card';
+
+import ctrlIcon from '@/icons/hype/ctrl.svg';
+import effortlessIcon from '@/icons/hype/effortless.svg';
+import flexIcon from '@/icons/hype/flex.svg';
+import compatibilityIcon from '@/icons/hype/compatibility.svg';
 
 import classes from './features.module.css';
-import Card from '../../UI/card';
 
 export default function Features() {
     const featureItems = [

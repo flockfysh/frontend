@@ -1,7 +1,7 @@
 .box {
-  border: 0.0625rem solid var(--color-aqua);
-  box-shadow: 0 0rem 1.5rem var(--color-aqua-shadow),
-    0 0rem 1.5rem var(--color-aqua-shadow);
+  border: 0.0625rem solid var(--info-400);
+  box-shadow: 0 0rem 1.5rem #4accf462,
+    0 0rem 1.5rem var(--info-400);
   border-radius: 0.625rem;
   padding: min(1.875rem, 1.875rem) min(2.5rem, 2.5rem);
   width: 25rem;

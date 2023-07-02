@@ -1,15 +1,19 @@
-import CustomSelect from '@/components/ui/input/select';
-import api from '@/helpers/api';
-import { formToJSON } from 'axios';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+
+import { formToJSON } from 'axios';
+
+import CustomSelect from '@/components/ui/input/select';
+
+import api from '@/helpers/api';
+
 import classes from './styles.module.css';
 
-export default function Contributions(dataset: PreviewDataset) {
+export default function Contributions(_dataset: PreviewDataset) {
 
     const router = useRouter();
-    const [contributions, setContributions] = useState<ExpandedPullRequest[] | null>(null);
-    const [curContribution, setCurContribution] = useState<Flockfysh.PullRequest | null>(null);
+    const [_contributions, setContributions] = useState<ExpandedPullRequest[] | null>(null);
+    const [curContribution, _setCurContribution] = useState<Flockfysh.PullRequest | null>(null);
     const statusOptions = [
         { value: 'draft', label: 'Draft' },
         { value: 'reject', label: 'Reject' },
@@ -26,8 +30,9 @@ export default function Contributions(dataset: PreviewDataset) {
             })).data.data;
             setContributions(temp);
         };
+
         getContributions().then();
-    }, []);
+    }, [router.query.datasetId]);
 
     async function submitMessage(elem: HTMLFormElement) {
         const fd = formToJSON(elem) as {
