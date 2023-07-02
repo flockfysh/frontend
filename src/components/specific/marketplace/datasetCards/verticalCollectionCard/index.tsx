@@ -1,6 +1,3 @@
-import Image from 'next/image';
-import Avatar from 'boring-avatars';
-
 import DatasetTypeCard from '../../datasetTypeCard';
 import ProfileCard from '../../profileCard';
 
