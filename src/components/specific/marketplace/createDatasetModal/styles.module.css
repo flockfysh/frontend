@@ -66,14 +66,6 @@
     cursor: pointer;
 }
 
-.disablePointerEvents {
-    pointer-events: none;
-}
-
-.disablePointerEvents * {
-    pointer-events: visible;
-}
-
 .changeTypeBtn:hover {
     background: var(--main-grey);
 }
