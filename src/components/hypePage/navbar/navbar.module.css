@@ -23,6 +23,7 @@
     align-items: center;
     height: 3.5rem;
     width: 10%;
+    padding-left: 1.5rem;
 }
 
 .logo:hover {
@@ -101,6 +102,7 @@
     background-blend-mode: normal;
     transition: 0.15s;
     cursor: pointer;
+    margin-right: 1rem;
 }
 
 .signinButton:hover {

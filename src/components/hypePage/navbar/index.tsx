@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { BsArrowRight } from 'react-icons/bs';
@@ -36,7 +37,7 @@ export default function HomeNavbar() {
     return (
         <nav className={ classes.nav }>
             <Link className={ classes.logo } href="/">
-                <img src={ logoIcon } className={ classes.logoImg } alt="logo" />
+                <Image src= { logoIcon } className={ classes.logoImg } width = { 40 } height = { 40 } alt="logo" />
                 <span className={ classes.logoText }>flockfysh</span>
             </Link>
 

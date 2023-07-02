@@ -2,6 +2,7 @@ import { ReactSVG } from 'react-svg';
 import Link from 'next/link';
 
 import twitter from '@/icons/base/twitter.svg';
+import mail from '@/icons/base/mail.svg';
 import linkedin from '@/icons/base/linkedin.svg';
 import github from '@/icons/providers/github.svg';
 import skydeck from '@/icons/skydeck.png';
@@ -22,6 +23,9 @@ export default function Footer() {
                     <Link href="https://linkedin.com/company/flockfysh" target = "_blank">
                         <ReactSVG className={ classes.socialIcon } src={ linkedin.src } />
                     </Link>
+                    <Link href="mailto:hey@flockfysh.tech" target = "_blank">
+                        <ReactSVG className={ classes.socialIcon } src={ mail.src } />
+                    </Link>
                 </div>
 
                 <div className={ classes.contactInfoContainer }>
@@ -39,9 +43,11 @@ export default function Footer() {
 
             <div className={ classes.tos }>
                 <div className={ classes.backed }>
-                    <p>Backed by </p>
+                    <Link className={ classes.link } href="https://skydeck.berkeley.edu/" target = "_blank">
+                        <p>Backed by </p>
 
-                    <img src={ skydeck.src } alt="skydeck" />
+                        <img src={ skydeck.src } alt="skydeck" />
+                    </Link>
                 </div>
 
                 <div className={ classes.tosContent }>
