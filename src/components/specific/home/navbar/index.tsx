@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { BsArrowRight } from 'react-icons/bs';
@@ -7,20 +7,20 @@ import { BsArrowRight } from 'react-icons/bs';
 import NavItem from './navItem';
 import MobileNavItem from './mobileNavItem';
 
-import { UserContext } from '../../../../contexts/userContext';
+import { UserContext } from '@/contexts/userContext';
 
-import logoIcon from '../../../../icons/branding/fish.svg';
+import logoIcon from '@/icons/branding/fish.svg';
 
 import classes from './navbar.module.css';
 
 export default function HomeNavbar() {
-  const { curUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const [navOpen, updateNav] = useState(false);
 
   const navLinks = [
     {
-      to: '/#roadmap',
+      to: '/home/#roadmap',
       name: 'Roadmap',
     },
     {
@@ -35,7 +35,7 @@ export default function HomeNavbar() {
 
   return (
     <nav className={ classes.nav }>
-      <Link className={ classes.logo } to="/">
+      <Link className={ classes.logo } href="/">
         <img src={ logoIcon } className={ classes.logoImg } />
         <span className={ classes.logoText }>flockfysh</span>
       </Link>
@@ -46,7 +46,7 @@ export default function HomeNavbar() {
             {navLinks.map((link, i) => (
               <MobileNavItem to={ link.to } name={ link.name } key={ i } />
             ))}
-            {curUser ? (
+            {user ? (
               <MobileNavItem to="/dashboard" name="Dashboard" />
             ) : (
               <MobileNavItem to="/login" name="Sign In" />
@@ -66,13 +66,13 @@ export default function HomeNavbar() {
       </ul>
 
       <div className={ classes.signinWrapper }>
-        {curUser ? (
-          <Link to="/dashboard" className={ classes.signinButton }>
+        {user ? (
+          <Link href="/dashboard" className={ classes.signinButton }>
             Marketplace <BsArrowRight size={ 15 } className={ classes.siginArrow } />
           </Link>
         ) : (
-          <Link to="/login" className={ classes.signinButton }>
-            Marketplace <BsArrowRight size={ 15 } className={ classes.siginArrow } />
+          <Link href="/login" className={ classes.signinButton }>
+            Login <BsArrowRight size={ 15 } className={ classes.siginArrow } />
           </Link>
         )}
       </div>

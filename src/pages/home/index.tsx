@@ -20,11 +20,9 @@ function HomePage() {
     );
 }
 
-/*
 //Uncomment this to when we figure out how to set up the navbar context
 HomePage.getLayout = function (page) {
     return <HomeLayout>{ page }</HomeLayout>;
 };
-*/
 
 export default HomePage
