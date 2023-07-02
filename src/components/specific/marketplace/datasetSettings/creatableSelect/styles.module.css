@@ -40,9 +40,9 @@
 .inputContainer {
     display: flex;
     gap: 8px;
-    padding: 8px 12px;
+    padding: 11px 12px;
     align-items: center;
-    width: fit-content;
+    width: 100%;
     border-radius: 16px;
     background: var(--main-grey);
 }
@@ -64,10 +64,6 @@
 .input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
-}
-
-.input:focus {
-    outline: none;
 }
 
 .label {
@@ -92,10 +88,6 @@
     cursor: progress;
 }
 
-.inputControl {
-    padding: 8px 12px;
-    border-radius: 16px;
-}
 
 .valueContainer {
     padding: 0;
@@ -103,7 +95,7 @@
 
 .inputMultiValue {
     border-radius: 16px;
-    padding: 6px 16px;
+    padding: 8px 16px;
     display: flex;
     gap: 8px;
     background: var(--background);
