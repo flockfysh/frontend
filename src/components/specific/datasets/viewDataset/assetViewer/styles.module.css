@@ -69,6 +69,11 @@
 .deleteButton {
     background: transparent;
     cursor: pointer;
+    transition: color 0.15s ease-in-out;
+}
+
+.deleteButton:hover {
+    color: var(--primary1-100);
 }
 
 .textViewer {
