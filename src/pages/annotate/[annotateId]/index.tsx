@@ -44,7 +44,7 @@ const Annotate: NextPageWithLayout = function () {
                 try {
                     const datasetState = (
                         await api.get(
-                            `/api/datasets/${router.query.annotateId}/stage`,
+                            `/api/datasets/${router.query.annotateId}/stage`
                         )
                     ).data.data;
 
@@ -54,22 +54,22 @@ const Annotate: NextPageWithLayout = function () {
                         images = (
                             await api.get(
                                 `/api/datasets/${router.query.annotateId}/assets/ids`,
-                                { params: { stage: 'feedback' } },
+                                { params: { stage: 'feedback' } }
                             )
                         ).data.data;
                     }
-                    else if (datasetState === 'untrained') {
+ else if (datasetState === 'untrained') {
                         images = (
                             await api.get(
                                 `/api/datasets/${router.query.annotateId}/assets/ids`,
-                                { params: { stage: 'uploaded' } },
+                                { params: { stage: 'uploaded' } }
                             )
                         ).data.data;
                     }
 
                     const datasetLabels: Flockfysh.Label[] = (
                         await api.get(
-                            `/api/datasets/${router.query.annotateId}/labels`,
+                            `/api/datasets/${router.query.annotateId}/labels`
                         )
                     ).data.data;
 
@@ -83,7 +83,7 @@ const Annotate: NextPageWithLayout = function () {
                 }
             })();
         }
-        else router.push('/404');
+ else router.push('/404');
     }, [router.query.annotateId, router]);
 
     useEffect(() => {
@@ -103,7 +103,7 @@ const Annotate: NextPageWithLayout = function () {
                     // Step 2: Get the image's annotation data.
                     const remoteAnnotationData = (
                         await api.get<{ success: boolean; data: any[] }>(
-                            `/api/assets/${imageIds[imageIndex]}/annotations`,
+                            `/api/assets/${imageIds[imageIndex]}/annotations`
                         )
                     ).data.data;
 
@@ -125,8 +125,8 @@ const Annotate: NextPageWithLayout = function () {
                                     y,
                                     width,
                                     height,
-                                },
-                            ),
+                                }
+                            )
                         );
                     }
 
@@ -134,8 +134,7 @@ const Annotate: NextPageWithLayout = function () {
                         curAnnotationData: localAnnotationData,
                     });
                 }
- catch (e) {
-                }
+ catch (e) {}
             })();
         }
     }, [imageIds, imageIndex]);
@@ -174,7 +173,7 @@ const Annotate: NextPageWithLayout = function () {
             curLabel,
             0,
             undefined,
-            params,
+            params
         );
 
         curAnnotationData.set(newId, annotationObj);
@@ -203,7 +202,7 @@ const Annotate: NextPageWithLayout = function () {
                 numImages,
             } }
         >
-            <AnnotateInner/>
+            <AnnotateInner />
         </AnnotationPageContext.Provider>
     );
 };
@@ -230,10 +229,10 @@ function AnnotateInner() {
         () => import('@/components/annotate/wrapper'),
         {
             ssr: false,
-        },
+        }
     );
 
-    if (!curImage) return <Loading/>;
+    if (!curImage) return <Loading />;
 
     return (
         <div className={ classes.annotateContainer }>
@@ -254,7 +253,7 @@ function AnnotateInner() {
             </div>
 
             <div className={ classes.leftContainer }>
-                <NoSSRComponent/>
+                <NoSSRComponent />
             </div>
 
             <div className={ classes.labelContainer }>
@@ -291,14 +290,14 @@ function AnnotateInner() {
                     className={ classes.switchImageButton }
                     onClick={ prevImage }
                 >
-                    <RxArrowLeft className={ classes.switchImageIcon }/>
+                    <RxArrowLeft className={ classes.switchImageIcon } />
                 </button>
 
                 <button
                     className={ classes.switchImageButton }
                     onClick={ nextImage }
                 >
-                    <RxArrowRight className={ classes.switchImageIcon }/>
+                    <RxArrowRight className={ classes.switchImageIcon } />
                 </button>
             </div>
         </div>

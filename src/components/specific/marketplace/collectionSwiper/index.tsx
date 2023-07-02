@@ -14,21 +14,21 @@ import next from '@/icons/main/arrow-right.svg';
 import classes from './styles.module.css';
 
 export default function CollectionSwiper(props: {
-    collections: HomepageCollection[],
-    onSlideChange?: (selected: HomepageCollection) => void,
+    collections: HomepageCollection[];
+    onSlideChange?: (selected: HomepageCollection) => void;
 }) {
     const previousRef = useRef<HTMLButtonElement | null>(null);
     const nextRef = useRef<HTMLButtonElement | null>(null);
     // const forceUpdate = useForceUpdate();
-    
+
     // useEffect(() => {
     //     forceUpdate();
     // }, []);
 
     return (
         <div className={ classes.swiperContainer }>
-            <div className={ `${ classes.fadeOverlay } ${ classes.previous }` }>
-                <button className={ `${ classes.navButton }` } ref={ previousRef }>
+            <div className={ `${classes.fadeOverlay} ${classes.previous}` }>
+                <button className={ `${classes.navButton}` } ref={ previousRef }>
                     <ReactSVG src={ prev.src } />
                 </button>
             </div>
@@ -36,15 +36,22 @@ export default function CollectionSwiper(props: {
             <Swiper
                 slidesPerView="auto"
                 modules={ [Navigation] }
-                navigation={ { enabled: true, prevEl: previousRef.current, nextEl: nextRef.current } }
+                navigation={ {
+                    enabled: true,
+                    prevEl: previousRef.current,
+                    nextEl: nextRef.current,
+                } }
                 className={ classes.swiper }
-                onSlideChange={ swiper => {
+                onSlideChange={ (swiper) => {
                     props.onSlideChange?.(props.collections[swiper.realIndex]);
                 } }
             >
-                { props.collections.map(collection => {
+                { props.collections.map((collection) => {
                     return (
-                        <SwiperSlide className={ classes.slide } key={ collection._id }>
+                        <SwiperSlide
+                            className={ classes.slide }
+                            key={ collection._id }
+                        >
                             <VerticalCollectionCard { ...collection } />
                         </SwiperSlide>
                     );
@@ -53,8 +60,8 @@ export default function CollectionSwiper(props: {
                 <div className={ classes.swiperOverlay } />
             </Swiper>
 
-            <div className={ `${ classes.fadeOverlay } ${ classes.next }` }>
-                <button className={ `${ classes.navButton }` } ref={ nextRef }>
+            <div className={ `${classes.fadeOverlay} ${classes.next}` }>
+                <button className={ `${classes.navButton}` } ref={ nextRef }>
                     <ReactSVG src={ next.src } />
                 </button>
             </div>

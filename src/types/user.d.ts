@@ -1,3 +1,1 @@
-declare interface ProfilePageUser extends BaseUser {
-
-}
+declare interface ProfilePageUser extends BaseUser {}

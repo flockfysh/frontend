@@ -7,9 +7,7 @@ import edit from '@/icons/main/edit-3.svg';
 
 import classes from './styles.module.css';
 
-export default function EditRecipeModal(props: {
-    id: string,
-}) {
+export default function EditRecipeModal(props: { id: string }) {
     return (
         <ActionPopupWithButton
             modalClassName={ classes.recipeModal }
@@ -17,7 +15,7 @@ export default function EditRecipeModal(props: {
                 <button className={ classes.actionEdit }>
                     <ReactSVG src={ edit.src } />
                 </button>
-            ) }
+              ) }
             popupTitle="Edit recipe"
         >
             <RecipeForm id={ props.id } />

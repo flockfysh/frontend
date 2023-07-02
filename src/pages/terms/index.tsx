@@ -10,7 +10,7 @@ import search from '@/icons/main/search.svg';
 import sliders from '@/icons/main/sliders.svg';
 
 import classes from './styles.module.css';
-
+import Footer from '@/components/specific/marketplace/footer';
 
 const TermsPage: NextPageWithLayout = function () {
 
@@ -19,6 +19,7 @@ const TermsPage: NextPageWithLayout = function () {
             <h1>
                 Terms of Service
             </h1>
+            <Footer />
         </>
     );
 };

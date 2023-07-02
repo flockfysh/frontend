@@ -10,29 +10,27 @@ import Button from '@/components/ui/theming/button';
 import classes from './styles.module.css';
 
 export interface RectangleProps {
-    shapeProps: Konva.NodeConfig & AnnotationBox,
-    isSelected: boolean,
-    onSelect: () => void,
-    onDelete: () => void,
-    onDeselect: () => void,
-    onChange: (shape: AnnotationBox) => void,
-    containerWidth: number,
-    containerHeight: number
+    shapeProps: Konva.NodeConfig & AnnotationBox;
+    isSelected: boolean;
+    onSelect: () => void;
+    onDelete: () => void;
+    onDeselect: () => void;
+    onChange: (shape: AnnotationBox) => void;
+    containerWidth: number;
+    containerHeight: number;
 }
 
-// TODO: change these to existing icons
-
-function Buttons(props: {
-    onDelete?: () => void;
-    onDeselect?: () => void;
-}) {
+function Buttons(props: { onDelete?: () => void; onDeselect?: () => void }) {
     return (
         <nav className={ classes.rectangleUtilityButtons }>
-            <Button className={ `${ classes.button }` } onClick={ props.onDeselect }>
+            <Button className={ `${classes.button}` } onClick={ props.onDeselect }>
                 <RxEyeNone />
             </Button>
-            
-            <Button className={ `${ classes.button } ${ classes.deleteButton }` } onClick={ props.onDelete }>
+
+            <Button
+                className={ `${classes.button} ${classes.deleteButton}` }
+                onClick={ props.onDelete }
+            >
                 <RxCross1 />
             </Button>
         </nav>
@@ -47,7 +45,7 @@ export default function Rectangle(props: RectangleProps) {
 
     useEffect(() => {
         if (props.isSelected) {
-            const handler = function(e: KeyboardEvent): void {
+            const handler = function (e: KeyboardEvent): void {
                 if (e.key === 'Delete') props.onDelete?.();
             };
 
@@ -62,9 +60,15 @@ export default function Rectangle(props: RectangleProps) {
 
     const konvaRectWidth = props.shapeProps.width * props.containerWidth;
     const konvaRectHeight = props.shapeProps.height * props.containerHeight;
-    const konvaRectX = (props.shapeProps.x - props.shapeProps.width / 2) * props.containerWidth;
-    const konvaRectCenterX = (props.shapeProps.x) * props.containerWidth;
-    const konvaRectY = (props.shapeProps.y - props.shapeProps.height / 2) * props.containerHeight;
+
+    const konvaRectX =
+        (props.shapeProps.x - props.shapeProps.width / 2) *
+        props.containerWidth;
+        
+    const konvaRectCenterX = props.shapeProps.x * props.containerWidth;
+    const konvaRectY =
+        (props.shapeProps.y - props.shapeProps.height / 2) *
+        props.containerHeight;
 
     let transformer, htmlUtilityButtons;
 
@@ -74,36 +78,41 @@ export default function Rectangle(props: RectangleProps) {
                 ignoreStroke={ true }
                 ref={ trRef }
                 rotateEnabled={ false }
-                boundBoxFunc={
-                    (oldBox, newBox) => {
-                        const tolerance = 0;
+                boundBoxFunc={ (oldBox, newBox) => {
+                    const tolerance = 0;
 
-                        if (
-                            newBox.width < 3 ||
-                            newBox.height < 3 ||
-                            newBox.x + newBox.width > props.containerWidth + tolerance ||
-                            newBox.y + newBox.height > props.containerHeight + tolerance ||
-                            newBox.x < -tolerance ||
-                            newBox.y < -tolerance
-                        ) return oldBox;
+                    if (
+                        newBox.width < 3 ||
+                        newBox.height < 3 ||
+                        newBox.x + newBox.width >
+                            props.containerWidth + tolerance ||
+                        newBox.y + newBox.height >
+                            props.containerHeight + tolerance ||
+                        newBox.x < -tolerance ||
+                        newBox.y < -tolerance
+                    )
+                        return oldBox;
 
-                        return newBox;
-                    }
-                }
-
+                    return newBox;
+                } }
             />
         );
 
         htmlUtilityButtons = (
-            <Html divProps={ {
-                style: {
-                    position: 'absolute',
-                    top: konvaRectY + 'px',
-                    left: konvaRectCenterX + 'px',
-                    display: isDragging ? 'none' : 'block',
-                },
-            } }>
-                <Buttons onDelete={ props.onDelete } onDeselect={ props.onDeselect } />
+            <Html
+                divProps={ {
+                    style: {
+                        position: 'absolute',
+                        top: konvaRectY + 'px',
+                        left: konvaRectCenterX + 'px',
+                        display: isDragging ? 'none' : 'block',
+                    },
+                } }
+            >
+                <Buttons
+                    onDelete={ props.onDelete }
+                    onDeselect={ props.onDeselect }
+                />
             </Html>
         );
     }
@@ -121,18 +130,16 @@ export default function Rectangle(props: RectangleProps) {
 
         curr.scaleX(1);
         curr.scaleY(1);
-        
+
         const newWidth = Math.max(10, curr.width() * scaleX);
         const newHeight = Math.max(10, curr.height() * scaleY);
-        
-        props.onChange(
-            {
-                x: (curr.x() + newWidth / 2) / props.containerWidth,
-                y: (curr.y() + newHeight / 2) / props.containerHeight,
-                width: newWidth / props.containerWidth,
-                height: newHeight / props.containerHeight,
-            },
-        );
+
+        props.onChange({
+            x: (curr.x() + newWidth / 2) / props.containerWidth,
+            y: (curr.y() + newHeight / 2) / props.containerHeight,
+            width: newWidth / props.containerWidth,
+            height: newHeight / props.containerHeight,
+        });
     }
 
     function dragStart() {
@@ -144,7 +151,10 @@ export default function Rectangle(props: RectangleProps) {
         tempX = Math.min(props.containerWidth - e.currentTarget.width(), tempX);
 
         let tempY = Math.max(0, e.currentTarget.y());
-        tempY = Math.min(props.containerHeight - e.currentTarget.height(), tempY);
+        tempY = Math.min(
+            props.containerHeight - e.currentTarget.height(),
+            tempY
+        );
 
         e.target.x(tempX);
         e.target.y(tempY);
@@ -174,7 +184,10 @@ export default function Rectangle(props: RectangleProps) {
                 height={ konvaRectHeight }
                 strokeScaleEnabled={ false }
                 draggable={ props.isSelected }
-                strokeWidth={ Math.max(5, 0.01 * Math.min(props.containerWidth, props.containerHeight)) }
+                strokeWidth={ Math.max(
+                    5,
+                    0.01 * Math.min(props.containerWidth, props.containerHeight)
+                ) }
                 onDragMove={ dragMove }
                 onDragEnd={ dragEnd }
                 onDragStart={ dragStart }

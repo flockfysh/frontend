@@ -14,7 +14,12 @@ export default function ModalBase(props: ModalProps) {
 
                 { props.children }
 
-                <button onClick={ props.closeModal } className={ classes.closeModal }>Ok</button>
+                <button
+                    onClick={ props.closeModal }
+                    className={ classes.closeModal }
+                >
+                    Ok
+                </button>
             </div>
         </div>
     );

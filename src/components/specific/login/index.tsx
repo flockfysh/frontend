@@ -32,40 +32,47 @@ function OAuthLink(props: {
     provider: string;
     mode: 'signup' | 'login';
     onClick?: (url: string) => void;
+    className?: string;
 }) {
-    const url = getBackendUrl(`/api/auth/${ props.provider.toLowerCase() }`);
+    const url = getBackendUrl(`/api/auth/${props.provider.toLowerCase()}`);
 
     return (
         <Link
             href={ url }
-            onClick={ e => {
+            onClick={ (e) => {
                 e.preventDefault();
                 props.onClick?.(url);
             } }
-            className={ classes.oAuthBtn }
+            className={ `${ classes.oAuthBtn } ${ props.className ? props.className : '' }` }
         >
             <ReactSVG src={ props.icon.src } />
 
-            <span>{ props.mode === 'login' ? 'Sign in' : 'Sign up' } with { props.provider }</span>
+            <span>
+                { props.mode === 'login' ? 'Sign in' : 'Sign up' } with{ ' ' }
+                { props.provider }
+            </span>
         </Link>
     );
 }
 
-export default function Login(props: {
-    mode: 'login' | 'signup'
-}) {
-    const [mode, updateMode] = useState(props.mode);
-    const isLogin = mode === 'login';
-    const curPopup = useRef<Window | null>(null);
+export default function Login(props: { mode: 'login' | 'signup', onClose: () => void }) {
     const router = useRouter();
     const { user, refreshUser } = useContext(UserContext);
 
-    const redirect = useCallback(function redirect() {
-        const code = router.query.code;
+    const [mode, updateMode] = useState(props.mode);
+    const isLogin = mode === 'login';
+    
+    const curPopup = useRef<Window | null>(null);
 
-        if (code) router.push(`/authorize?code=${code}`).then();
-        else router.push('/datasets').then();
-    }, [router]);
+    const redirect = useCallback(
+        function redirect() {
+            const code = router.query.code;
+
+            if (code) router.push(`/authorize?code=${code}`).then();
+            else router.push('/datasets').then();
+        },
+        [router]
+    );
 
     useEffect(() => {
         if (user) {
@@ -97,45 +104,61 @@ export default function Login(props: {
     }
 
     return (
-        <ActionPopup blurBg={ true } modalClassName={ classes.modal } popupTitle={ isLogin ? 'Sign in' : 'Sign Up' }>
+        <ActionPopup
+            blurBg={ true }
+            modalClassName={ classes.modal }
+            popupTitle={ isLogin ? 'Sign in' : 'Sign Up' }
+            onClose={ props.onClose }
+        >
             <section className={ classes.modalContent }>
                 <div className={ classes.oAuthContainer }>
-                    <OAuthLink icon={ google } provider={ 'Google' } mode={ mode } onClick={ oAuthLogin } />
-                    <OAuthLink icon={ github } provider={ 'GitHub' } mode={ mode } onClick={ oAuthLogin } />
+                    <OAuthLink
+                        icon={ google }
+                        provider="Google"
+                        mode={ mode }
+                        onClick={ oAuthLogin }
+                    />
+                    
+                    <OAuthLink
+                        icon={ github }
+                        provider="GitHub"
+                        mode={ mode }
+                        onClick={ oAuthLogin }
+                        className={ classes.githubIcon }
+                    />
                 </div>
 
-                <Separator/>
+                <Separator />
 
                 <LoginForm mode={ mode } redirect={ redirect } />
 
-                {
-                    isLogin ? (
-                        <p className={ classes.changeType }>
-                            Don&apos;t have an account?
-                            <button
-                                className={ classes.changeTypeButton }
-                                onClick={ () => updateMode('signup') }
-                            >
-                                Sign up
-                            </button>
-                            instead.
-                        </p>
-                    ) : (
-                        <p className={ classes.changeType }>
-                            Already have an account?
-                            <button
-                                className={ classes.changeTypeButton }
-                                onClick={ () => updateMode('login') }
-                            >
-                                Sign in
-                            </button>
-                            instead.
-                        </p>
-                    )
-                }
+                { isLogin ? (
+                    <p className={ classes.changeType }>
+                        Don&apos;t have an account?
+                        <button
+                            className={ classes.changeTypeButton }
+                            onClick={ () => updateMode('signup') }
+                        >
+                            Sign up
+                        </button>
+                        instead.
+                    </p>
+                ) : (
+                    <p className={ classes.changeType }>
+                        Already have an account?
+                        <button
+                            className={ classes.changeTypeButton }
+                            onClick={ () => updateMode('login') }
+                        >
+                            Sign in
+                        </button>
+                        instead.
+                    </p>
+                ) }
 
                 <p className={ classes.footer }>
-                    By signing in you agree to our <Link href="/terms">Terms & Conditions.</Link>
+                    By signing in you agree to our{ ' ' }
+                    <Link href="/terms">Terms & Conditions.</Link>
                 </p>
             </section>
         </ActionPopup>

@@ -31,7 +31,7 @@ interface InitiateTrainingRequest {
 }
 
 function TrainingLabels(
-    props: React.ComponentPropsWithRef<'label'> & { labelColor?: string },
+    props: React.ComponentPropsWithRef<'label'> & { labelColor?: string }
 ) {
     const { labelColor, ...smallProps } = props;
 
@@ -54,7 +54,7 @@ function TrainingLabels(
 const Train: NextPageWithLayout = function (_props: {}) {
     const { throwError } = useContext(ErrorContext);
     const [dataset, setDataset] = useState<Flockfysh.PopulatedDataset | null>(
-        null,
+        null
     );
     const router = useRouter();
 
@@ -72,7 +72,7 @@ const Train: NextPageWithLayout = function (_props: {}) {
                         params: {
                             expand: 'size,assetCounts,annotationCounts',
                         },
-                    },
+                    }
                 )
             ).data.data;
             setDataset(result);
@@ -112,12 +112,12 @@ const Train: NextPageWithLayout = function (_props: {}) {
 
                 await api.post(
                     `/api/datasets/${dataset!._id}/initializeTraining`,
-                    requestBody,
+                    requestBody
                 );
             }
-            else if (dataset!.stage === 'feedback') {
+ else if (dataset!.stage === 'feedback') {
                 await api.post(
-                    `/api/datasets/${dataset!._id}/continueTraining`,
+                    `/api/datasets/${dataset!._id}/continueTraining`
                 );
             }
         }
@@ -125,7 +125,7 @@ const Train: NextPageWithLayout = function (_props: {}) {
             if (error instanceof AxiosError)
                 throwError(
                     error.response?.data.error.message,
-                    'Training error',
+                    'Training error'
                 );
         }
     }
@@ -152,7 +152,7 @@ const Train: NextPageWithLayout = function (_props: {}) {
                     >
                         { buttonLabel[dataset!.stage] }
 
-                        <RxArrowRight className={ classes.icon }/>
+                        <RxArrowRight className={ classes.icon } />
                     </Button>
                 </div>
 
@@ -171,7 +171,7 @@ const Train: NextPageWithLayout = function (_props: {}) {
                                 { dataset!.tags.map(
                                     function generateSearchQueryInput(
                                         classString,
-                                        index,
+                                        index
                                     ) {
                                         const id = v4();
 
@@ -196,7 +196,7 @@ const Train: NextPageWithLayout = function (_props: {}) {
                                                 />
                                             </React.Fragment>
                                         );
-                                    },
+                                    }
                                 ) }
                             </ul>
                         </div>

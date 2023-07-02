@@ -36,7 +36,10 @@ export default function AnnotationWrapper() {
         refresh,
     } = useContext(AnnotationPageContext);
 
-    const [wrapperDimension, setWrapperDimension] = useState<{ width: number, height: number }>({
+    const [wrapperDimension, setWrapperDimension] = useState<{
+        width: number;
+        height: number;
+    }>({
         width: 0,
         height: 0,
     });
@@ -47,7 +50,7 @@ export default function AnnotationWrapper() {
         if (annotationImageRef.current) {
             const imageElem = annotationImageRef.current;
 
-            const updateWrapperSize= function(): void {
+            const updateWrapperSize = function (): void {
                 setWrapperDimension({
                     width: Math.ceil(imageElem.width),
                     height: Math.ceil(imageElem.height),
@@ -70,7 +73,7 @@ export default function AnnotationWrapper() {
 
     for (const [id, annotationObject] of curAnnotationData.entries()) {
         if (annotationObject.label === curLabel) {
-            rectangles.push((
+            rectangles.push(
                 <Rectangle
                     key={ id }
                     shapeProps={ {
@@ -87,22 +90,19 @@ export default function AnnotationWrapper() {
                     isSelected={ id === curBox }
                     containerWidth={ wrapperDimension.width }
                     containerHeight={ wrapperDimension.height }
-                    onChange={
-                        function save(box) {
-                            annotationObject.edit(box);
-                            refresh();
-                        }
-                    }
-                    onDelete={
-                        function deleteBox() {
-                            annotationObject.delete();
-                            curAnnotationData.delete(id);
-                            refresh();
-                            setCurBox('');
-                        }
-                    }
+                    onChange={ function save(box) {
+                        annotationObject.edit(box);
+                        refresh();
+                    } }
+                    onDelete={ function deleteBox() {
+                        annotationObject.delete();
+                        curAnnotationData.delete(id);
+                        
+                        refresh();
+                        setCurBox('');
+                    } }
                 />
-            ));
+            );
         }
     }
 
@@ -122,21 +122,21 @@ export default function AnnotationWrapper() {
                     e.evt.preventDefault();
                     setCurBox('');
                 } }
-                className={ `${ classes.annotationCanvasStage } ${ !isEditing ? classes.canvasCrosshair : '' }` }
+                className={ `${classes.annotationCanvasStage} ${
+                    !isEditing ? classes.canvasCrosshair : ''
+                }` }
             >
                 { rectangles }
-                
-                {
-                    !isEditing && (
-                        <AddAnnotationBoxLayer
-                            width={ wrapperDimension.width }
-                            height={ wrapperDimension.height }
-                            onAdd={ (coords) => {
-                                addAnnotationObject(coords);
-                            } }
-                        />
-                    )
-                }
+
+                { !isEditing && (
+                    <AddAnnotationBoxLayer
+                        width={ wrapperDimension.width }
+                        height={ wrapperDimension.height }
+                        onAdd={ (coords) => {
+                            addAnnotationObject(coords);
+                        } }
+                    />
+                ) }
             </Stage>
         </div>
     );

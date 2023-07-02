@@ -88,7 +88,7 @@ const RecipePage: NextPageWithLayout = function () {
             <header className={ classes.header }>
                 <div className={ classes.headerTitleAndCTA }>
                     <h1 className={ classes.headerTitle }>Your Recipes</h1>
-                
+
                     <div className={ classes.headerCTA }>
                         <DarkModeButton />
                         <CreateRecipeModal />
@@ -117,13 +117,10 @@ const RecipePage: NextPageWithLayout = function () {
                             className={ classes.searchFilterIcon }
                         />
                     </button>
-
                 </label>
             </header>
 
-            <RecipeSearchResult
-                name={ curSearchQuery || undefined }
-            />
+            <RecipeSearchResult name={ curSearchQuery || undefined } />
         </>
     );
 };

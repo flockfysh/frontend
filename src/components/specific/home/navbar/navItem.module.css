@@ -1,0 +1,27 @@
+.navbarLink {
+    font-size: 1.5rem;
+    transition: all 0.2s ease-in-out;
+    color: var(--color-white);
+}
+
+.navbarLinkActive {
+    color: var(--color-blue-primary);
+}
+
+.navbarLink:hover {
+    color: #b0b0b0;
+}
+
+.mobileListItem {
+    width: 100%;
+}
+
+.navbarLink {
+    display: block;
+    width: 100%;
+    padding: 1rem 3rem;
+}
+
+.mobileNavbarLink {
+    font-size: 1.5rem;
+}

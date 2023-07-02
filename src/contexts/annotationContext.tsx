@@ -20,21 +20,20 @@ export interface IAnnotationPageContext {
     numImages: number;
 }
 
-export const AnnotationPageContext =
-    createContext<IAnnotationPageContext>({
-        curImage: null,
-        labels: [],
-        imageIndex: 0,
-        curAnnotationData: new Map(),
-        numImages: 0,
-        nextImage: () => {},
-        prevImage: () => {},
-        refresh: () => {},
-        curLabel: null,
-        setCurLabel: () => {},
-        curBox: '',
-        setCurBox: () => {},
-        addAnnotationObject: async () => {},
-        isEditing: false,
-        setIsEditing: () => {},
-    });
+export const AnnotationPageContext = createContext<IAnnotationPageContext>({
+    curImage: null,
+    labels: [],
+    imageIndex: 0,
+    curAnnotationData: new Map(),
+    numImages: 0,
+    nextImage: () => {},
+    prevImage: () => {},
+    refresh: () => {},
+    curLabel: null,
+    setCurLabel: () => {},
+    curBox: '',
+    setCurBox: () => {},
+    addAnnotationObject: async () => {},
+    isEditing: false,
+    setIsEditing: () => {},
+});

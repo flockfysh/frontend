@@ -16,14 +16,14 @@ import { Layer, Rect } from 'react-konva';
  * @constructor
  */
 export default function AddAnnotationBoxLayer(props: {
-    width: number,
-    height: number,
+    width: number;
+    height: number;
     onAdd?: (normalizedCoordinates: AnnotationBox) => void;
 }) {
     const [isDragging, setIsDragging] = useState(false);
 
-    const start = useRef<{ sX: number, sY: number }>({ sX: 0, sY: 0 });
-    const end = useRef<{ eX: number, eY: number }>({ eX: 0, eY: 0 });
+    const start = useRef<{ sX: number; sY: number }>({ sX: 0, sY: 0 });
+    const end = useRef<{ eX: number; eY: number }>({ eX: 0, eY: 0 });
 
     const internalRectRef = useRef<Konva.Rect>(null);
 
@@ -58,7 +58,12 @@ export default function AddAnnotationBoxLayer(props: {
 
     return (
         <Layer>
-            <Rect ref={ internalRectRef } stroke="red" strokeWidth={ 4 } opacity={ isDragging ? 1 : 0 } />
+            <Rect
+                ref={ internalRectRef }
+                stroke="red"
+                strokeWidth={ 4 }
+                opacity={ isDragging ? 1 : 0 }
+            />
 
             <Rect
                 draggable
@@ -67,8 +72,10 @@ export default function AddAnnotationBoxLayer(props: {
                 strokeScaleEnabled={ false }
                 width={ props.width }
                 height={ props.height }
-                onMouseDown={ e => {
-                    const { x, y } = e.currentTarget.getStage()!.getRelativePointerPosition();
+                onMouseDown={ (e) => {
+                    const { x, y } = e.currentTarget
+                        .getStage()!
+                        .getRelativePointerPosition();
 
                     start.current.sX = x;
                     start.current.sY = y;
@@ -77,19 +84,18 @@ export default function AddAnnotationBoxLayer(props: {
                     setIsDragging(true);
                     updateRectangle();
                 } }
-                onDragMove={ e => {
-                        const stage = e.currentTarget.getStage()!;
-                        let { x, y } = stage.getRelativePointerPosition();
+                onDragMove={ (e) => {
+                    const stage = e.currentTarget.getStage()!;
+                    let { x, y } = stage.getRelativePointerPosition();
 
-                        x = boundCoordinates(x, 0, stage.width());
-                        y = boundCoordinates(y, 0, stage.height());
-                        end.current.eX = x;
-                        end.current.eY = y;
+                    x = boundCoordinates(x, 0, stage.width());
+                    y = boundCoordinates(y, 0, stage.height());
+                    end.current.eX = x;
+                    end.current.eY = y;
 
-                        updateRectangle();
-                    }
-                }
-                onDragEnd={ e => {
+                    updateRectangle();
+                } }
+                onDragEnd={ (e) => {
                     const rectangle = e.currentTarget;
 
                     rectangle.x(0);
@@ -110,7 +116,8 @@ export default function AddAnnotationBoxLayer(props: {
                     const normalizedWidth = width / stageWidth;
                     const normalizedHeight = height / stageHeight;
 
-                    if (normalizedHeight < 0.02 || normalizedHeight < 0.02) return;
+                    if (normalizedHeight < 0.02 || normalizedHeight < 0.02)
+                        return;
 
                     const coords = {
                         x: normalizedX,

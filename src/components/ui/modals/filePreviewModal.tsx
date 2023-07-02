@@ -14,7 +14,7 @@ export function FilePreview(props: FilePreviewProps) {
 
     useEffect(() => {
         const newUrl = URL.createObjectURL(props.file);
-        
+
         setUrl(newUrl);
 
         return () => {
@@ -25,7 +25,11 @@ export function FilePreview(props: FilePreviewProps) {
     return (
         <ModalBase title={ props.file.name } closeModal={ props.closeModal }>
             <div className={ classes.imageContainer }>
-                <img src={ url } alt={ props.file.name } className={ classes.image } />
+                <img
+                    src={ url }
+                    alt={ props.file.name }
+                    className={ classes.image }
+                />
             </div>
         </ModalBase>
     );

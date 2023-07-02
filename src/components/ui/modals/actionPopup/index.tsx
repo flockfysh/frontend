@@ -1,9 +1,8 @@
-import React, { PropsWithChildren, createContext } from 'react';
+import { PropsWithChildren, createContext } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import xMark from '@/icons/xmark.svg';
 import classes from './styles.module.css';
-import cross from '@/icons/main/x-circle.svg';
 
 interface ActionPopupProps extends PropsWithChildren {
     blurBg: boolean;
@@ -20,33 +19,48 @@ interface PopupModalContext {
 }
 
 export const PopupModalContext = createContext<PopupModalContext>({
-    close: () => {
-    },
+    close: () => {},
 });
 
 export default function ActionPopup(props: ActionPopupProps) {
-    const markupMapping: Record<'marketplace' | 'annotation', React.ReactNode | undefined> = {
-        annotation: <div className={ `${classes.container} ${props.modalClassName ?? ''}` }>
-            <div className={ classes.header }>
-                <ReactSVG className={ classes.closeBtn } src={ xMark.src } onClick={ props.onClose }/>
+    const markupMapping: Record<
+        'marketplace' | 'annotation',
+        React.ReactNode | undefined
+    > = {
+        annotation: (
+            <div
+                className={ `${classes.container} ${props.modalClassName ?? ''}` }
+            >
+                <div className={ classes.header }>
+                    <ReactSVG
+                        className={ classes.closeBtn }
+                        src={ xMark.src }
+                        onClick={ props.onClose }
+                    />
 
-                <h1 className={ classes.headerText }>{ props.popupTitle }</h1>
-            </div>
+                    <h1 className={ classes.headerText }>{ props.popupTitle }</h1>
+                </div>
 
-            { props.children }
-        </div>,
-        marketplace: <div
-            className={ `${classes.container} ${classes.marketplaceVariant} ${props.modalClassName ?? ''}` }>
-            <div className={ classes.header }>
-                <h3 className={ classes.headerText }>Contribution Request</h3>
-                <ReactSVG
-                    src={ cross.src }
-                    className={ classes.closeBtn }
-                    onClick={ props.onClose }
-                />
+                { props.children }
             </div>
-            { props.children }
-        </div>,
+        ),
+        marketplace: (
+            <div
+                className={ `${classes.container} ${
+                    classes.marketplaceVariant
+                } ${props.modalClassName ?? ''}` }
+            >
+                <div className={ classes.header }>
+                    <h3 className={ classes.headerText }>Contribution Request</h3>
+                    <ReactSVG
+                        src={ xMark.src }
+                        className={ classes.closeBtn }
+                        onClick={ props.onClose }
+                    />
+                </div>
+                { props.children }
+            </div>
+        ),
     };
 
     return (
@@ -56,8 +70,10 @@ export default function ActionPopup(props: ActionPopupProps) {
             } }
         >
             <div
-                className={ `${classes.overlay} ${props.blurBg ? classes.blurBg : ''} ${props.className || ''}` }
-                onClick={ e => {
+                className={ `${classes.overlay} ${
+                    props.blurBg ? classes.blurBg : ''
+                } ${props.className || ''}` }
+                onClick={ (e) => {
                     if (e.target === e.currentTarget) props.onClose?.();
                 } }
             >

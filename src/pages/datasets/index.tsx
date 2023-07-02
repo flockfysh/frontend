@@ -48,9 +48,7 @@ const MyDatasets: NextPageWithLayout = function () {
                 <CreateDatasetModal />
             </header>
 
-            <DatasetSearchResult
-                name={ curSearchQuery || undefined }
-            />
+            <DatasetSearchResult name={ curSearchQuery || undefined } />
         </>
     );
 };
@@ -95,7 +93,7 @@ function DatasetSearchResult(props: { name?: string }) {
                 },
             })
         ).data;
-        
+
         state.datasets.push(...fetched.data);
 
         setState({

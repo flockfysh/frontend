@@ -13,10 +13,7 @@ export default function ProfileCard(props: ProfileCardProps) {
             href={ `/profile/${props.username}` }
             className={ `${classes.profileContainer} ${props.className || ''}` }
         >
-            <img
-                src={ props.profilePicture }
-                alt="Profile Picture"
-            />
+            <img src={ props.profilePicture } alt="Profile Picture" />
 
             <p>@{ props.username }</p>
         </Link>

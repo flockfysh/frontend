@@ -1,8 +1,8 @@
 import classes from './styles.module.css';
 
 export interface ProgressDataProps {
-    value: string,
-    label: string,
+    value: string;
+    label: string;
 }
 
 export default function SpecificProgressData(props: ProgressDataProps) {

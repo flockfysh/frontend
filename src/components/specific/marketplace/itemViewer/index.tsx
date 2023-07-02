@@ -140,85 +140,131 @@ export default function ItemViewer(dataset: PreviewDataset) {
                                     className={ classes.infoBoxSubtitleIcon }
                                     src={ database.src }
                                 />
-
                                 { dataset.assetCounts.total } Files
                             </div>
 
-                            { Object.entries(dataset.assetCounts.byMimetype).map(([mimetype, count]) => {
-                                return (
-                                    <div className={ classes.infoBoxSummaryItem } key={ mimetype }>
-                                        <span>├─ .{ mime.extension(mimetype) }</span>
-                                        <span>{ count }</span>
-                                    </div>
-                                );
-                            }) }
+                            { Object.entries(dataset.assetCounts.byMimetype).map(
+                                ([mimetype, count]) => {
+                                    return (
+                                        <div
+                                            className={
+                                                classes.infoBoxSummaryItem
+                                            }
+                                            key={ mimetype }
+                                        >
+                                            <span>
+                                                ├─ .{ mime.extension(mimetype) }
+                                            </span>
+                                            <span>{ count }</span>
+                                        </div>
+                                    );
+                                }
+                            ) }
                         </div>
                     </div>
 
                     { /* file details */ }
                     <div className={ classes.infoBox }>
                         <div className={ classes.infoBoxTitleContainer }>
-                            <h3 className={ classes.infoBoxTitle }>File Details</h3>
+                            <h3 className={ classes.infoBoxTitle }>
+                                File Details
+                            </h3>
                         </div>
 
                         <div className={ classes.infoBoxFileDetailsInnerBox }>
-                            <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
+                            <div
+                                className={
+                                    classes.infoBoxFileDetailsInnerBoxRow
+                                }
+                            >
                                 <div>
                                     <span>Resolution</span>
                                 </div>
 
                                 <div>
-                                    <span className={ classes.infoWhite }>5760 x 3840</span>
+                                    <span className={ classes.infoWhite }>
+                                        5760 x 3840
+                                    </span>
                                 </div>
                             </div>
-                            
-                            <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
+
+                            <div
+                                className={
+                                    classes.infoBoxFileDetailsInnerBoxRow
+                                }
+                            >
                                 <div>
                                     <span>Filename</span>
                                 </div>
 
                                 <div>
-                                    <span className={ classes.infoWhite }>ABCDELKLJK.jpeg</span>
+                                    <span className={ classes.infoWhite }>
+                                        ABCDELKLJK.jpeg
+                                    </span>
                                 </div>
                             </div>
 
-                            <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
+                            <div
+                                className={
+                                    classes.infoBoxFileDetailsInnerBoxRow
+                                }
+                            >
                                 <div>
                                     <span>Mime type</span>
                                 </div>
 
                                 <div>
-                                    <span className={ classes.infoWhite }>image/jpeg</span>
+                                    <span className={ classes.infoWhite }>
+                                        image/jpeg
+                                    </span>
                                 </div>
                             </div>
-                            
-                            <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
+
+                            <div
+                                className={
+                                    classes.infoBoxFileDetailsInnerBoxRow
+                                }
+                            >
                                 <div>
                                     <span>Uploaded By</span>
                                 </div>
 
                                 <div>
-                                    <span className={ classes.infoWhite }>@user</span>
+                                    <span className={ classes.infoWhite }>
+                                        @user
+                                    </span>
                                 </div>
                             </div>
 
-                            <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
+                            <div
+                                className={
+                                    classes.infoBoxFileDetailsInnerBoxRow
+                                }
+                            >
                                 <div>
                                     <span>Encoding</span>
                                 </div>
 
                                 <div>
-                                    <span className={ classes.infoWhite }>8 Bit</span>
+                                    <span className={ classes.infoWhite }>
+                                        8 Bit
+                                    </span>
                                 </div>
                             </div>
 
-                            <div className={ classes.infoBoxFileDetailsInnerBoxRow }>
+                            <div
+                                className={
+                                    classes.infoBoxFileDetailsInnerBoxRow
+                                }
+                            >
                                 <div>
                                     <span>File Size</span>
                                 </div>
-                            
+
                                 <div>
-                                    <span className={ classes.infoWhite }>2.63 MB</span>
+                                    <span className={ classes.infoWhite }>
+                                        2.63 MB
+                                    </span>
                                 </div>
                             </div>
                         </div>

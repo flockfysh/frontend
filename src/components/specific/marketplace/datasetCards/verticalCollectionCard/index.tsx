@@ -1,8 +1,9 @@
+import Image from 'next/image';
+
 import DatasetTypeCard from '../../datasetTypeCard';
 import ProfileCard from '../../profileCard';
 
 import classes from './styles.module.css';
-import Image from 'next/image';
 
 export default function VerticalCollectionCard(props: HomepageCollection) {
     return (
@@ -14,10 +15,9 @@ export default function VerticalCollectionCard(props: HomepageCollection) {
                 className={ classes.thumbnail }
             />
 
-
             <div className={ classes.contentContainer }>
                 <div className={ classes.header }>
-                    <img src={ props.icon?.url } alt="Avatar"/>
+                    <img src={ props.icon?.url } alt="Avatar" />
 
                     <div className={ classes.contentContainer }>
                         <div className={ classes.header }>
@@ -26,7 +26,10 @@ export default function VerticalCollectionCard(props: HomepageCollection) {
                                 alt="Avatar"
                             />
 
-                            <DatasetTypeCard type={ props.type } className={ classes.typeCard }/>
+                            <DatasetTypeCard
+                                type={ props.type }
+                                className={ classes.typeCard }
+                            />
                         </div>
 
                         <div className={ classes.middleSection }>
@@ -34,10 +37,11 @@ export default function VerticalCollectionCard(props: HomepageCollection) {
 
                             <div className={ classes.profileCardContainer }>
                                 <ProfileCard
-
                                     className={ classes.profileCard }
                                     username={ props.user.username }
-                                    profilePicture={ props.user.profilePhoto?.url ?? '' }
+                                    profilePicture={
+                                        props.user.profilePhoto?.url ?? ''
+                                    }
                                 />
                             </div>
                         </div>
@@ -45,7 +49,9 @@ export default function VerticalCollectionCard(props: HomepageCollection) {
                         <div className={ classes.footer }>
                             <div className={ classes.infoContainer }>
                                 <p className={ classes.infoHeader }>Datasets</p>
-                                <p className={ classes.info }>{ props.itemCount }</p>
+                                <p className={ classes.info }>
+                                    { props.itemCount }
+                                </p>
                             </div>
                         </div>
                     </div>

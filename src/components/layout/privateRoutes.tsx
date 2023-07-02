@@ -10,6 +10,5 @@ export default function PrivateRoutes() {
         if (!user && router) {
             router.replace('/login').then();
         }
-
     }, [router, user]);
 }
