@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef } from 'react';
 import { BsArrowRight } from 'react-icons/bs';
-
+import Link from 'next/link';
 import foundryImage from '../images/citris-foundry.png';
 
 import classes from './hero.module.css';
@@ -37,7 +37,7 @@ export default function Hero() {
                 <div>|</div>
 
                 <div className={ classes.readMoreFoundry }>
-                    <a href="https://blog.flockfysh.tech/blog/flockfysh-citrus/">Read More</a>
+                    <Link href="https://blog.flockfysh.tech/blog/flockfysh-citrus/"> Read More </Link>
 
                     <BsArrowRight size={ 15 } />
                 </div>
