@@ -41,6 +41,7 @@ export default function Contribute(props: ContributeProps) {
             name: formData.get('name'),
             description: formData.get('description'),
         };
+        console.log(uploadData);
 
         const files = formData.getAll('files').filter((item) => {
             return item instanceof File && item.size > 0;
