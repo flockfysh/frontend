@@ -1,0 +1,67 @@
+.box {
+  border: 0.0625rem solid var(--info-400);
+  box-shadow: 0 0rem 1.5rem #4accf462,
+    0 0rem 1.5rem var(--info-400);
+  border-radius: 0.625rem;
+  padding: min(1.875rem, 1.875rem) min(2.5rem, 2.5rem);
+  width: 25rem;
+}
+
+.heading {
+  font-weight: bold;
+  font-size: 1.25rem;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.body {
+  font-size: 0.875rem;
+}
+
+.icon {
+  height: 1.5625rem;
+  width: 1.5625rem;
+  margin-bottom: 0.3125rem;
+}
+
+.box div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.9375rem;
+}
+
+@media only screen and (max-width: 48.125rem) {
+  .box {
+    width: 21.875rem;
+  }
+
+  .cardHolder div:not(:first-of-type) {
+    margin-left: 3.125rem;
+  }
+}
+
+@media only screen and (max-width: 43.75rem) {
+  .box {
+    max-width: 31.25rem;
+    padding: 2.5rem 3.125rem;
+  }
+}
+
+@media only screen and (max-width: 31.25rem) {
+  .box {
+    max-width: 25rem;
+    padding: 2.5rem 3.125rem;
+  }
+}
+
+@media only screen and (max-width: 25rem) {
+  .box {
+    width: 100%;
+    padding: 1.875rem 1.875rem;
+  }
+
+  .heading {
+    font-size: 1.125rem;
+  }
+}

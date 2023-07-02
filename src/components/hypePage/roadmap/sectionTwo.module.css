@@ -1,0 +1,146 @@
+.sectionTwoContainer {
+  text-align: center;
+  margin-inline: 0;
+}
+
+.number {
+  font-size: 2.1875rem;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.numberDiv {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  width: 5.9375rem;
+  height: 5.9375rem;
+  border: 0.25rem solid var(--color-blue-secondary);
+  border-radius: 18.75rem;
+  margin: 3.125rem auto;
+}
+
+.fish {
+  position: absolute;
+  width: 15rem;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.middleImageContainer {
+  display: none;
+}
+
+.aboveImageContainer {
+  width: 5.875rem;
+  margin: auto;
+  margin-bottom: 3rem;
+  margin-top: 1.5rem;
+}
+
+.belowImageContainer {
+  width: 17.25rem;
+  margin: auto;
+  margin-bottom: 1.5rem;
+  margin-top: 3rem;
+}
+
+.infoContainer {
+  display: flex;
+  gap: 1.875rem;
+  flex-direction: column;
+  align-items: center;
+  text-align: start;
+  margin: auto;
+}
+
+@media only all and (min-width: 43.75rem) {
+  .infoContainer {
+    position: absolute;
+  }
+
+  .middleImageContainer {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    width: 100%;
+    z-index: -100;
+    margin-left: -1.875rem;
+  }
+
+  .middleImagewrapper {
+    display: flex;
+    width: 100%;
+    max-width: 40.625rem;
+    justify-content: center;
+  }
+
+  .middleImageContainer img {
+    width: 50%;
+    margin: 0;
+  }
+
+  .belowImageContainer,
+  .aboveImageContainer {
+    display: none;
+  }
+
+  .infoContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .anchor {
+    position: absolute;
+  }
+
+  .anchor0 {
+    transform: translate(-1.875rem, -19.375rem);
+  }
+
+  .anchor1 {
+    transform: translate(-0.625rem, -5.625rem);
+  }
+
+  .anchor2 {
+    transform: translate(-1.875rem, 15rem);
+  }
+
+  .anchor3 {
+    transform: translate(5rem, 29.375rem);
+  }
+
+  .card0 {
+    transform: translate(-100%, -100%);
+  }
+
+  .card1 {
+    transform: translate(0, -50%);
+  }
+
+  .card2 {
+    transform: translate(-100%, -50%);
+  }
+
+  .card3 {
+    transform: translate(0, -50%);
+  }
+
+  .card {
+    position: absolute;
+  }
+}

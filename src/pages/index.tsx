@@ -1,12 +1,9 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import HomePage from '@/components/hypePage';
 
 export default function Home() {
-    const { push } = useRouter();
-
-    useEffect(() => {
-        push('/marketplace');
-    }, [push]);
-
-    return <></>;
+    return (
+        <>
+            <HomePage />
+        </>
+    );
 }
