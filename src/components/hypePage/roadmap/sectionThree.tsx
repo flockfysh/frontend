@@ -5,7 +5,7 @@ import icon10 from '../../../icons/hype/icon10.svg';
 import icon11 from '../../../icons/hype/icon11.svg';
 import mainImage from '.././images/thirdSectionImage.svg';
 import SectionHeader from './components/sectionHeader';
-import Card from '../../UI/card';
+import Card from '../../ui/card';
 
 function SectionThree() {
     const card1body =

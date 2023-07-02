@@ -8,7 +8,7 @@ import secondSectionImage from '.././images/secondSectionImage.svg';
 import twoFish from '.././images/twoFish.svg';
 import aboveImage from '.././images/aboveImageSecondSection.svg';
 import belowImage from '.././images/belowImageSecondSection.svg';
-import Card from '../../UI/card';
+import Card from '../../ui/card';
 import SectionHeader from './components/sectionHeader';
 
 const cardsInfo = [

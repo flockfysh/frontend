@@ -1,4 +1,4 @@
-import Card from '../../UI/card';
+import Card from '../../ui/card';
 import icon1 from '../../../icons/hype/icon1.svg';
 import icon2 from '../../../icons/hype/icon2.svg';
 import icon3 from '../../../icons/hype/icon3.svg';
