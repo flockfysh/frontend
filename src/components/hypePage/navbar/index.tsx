@@ -52,7 +52,7 @@ export default function HomeNavbar() {
                             />
                         )) }
                         { user ? (
-                            <MobileNavItem to="/dashboard" name="Dashboard" />
+                            <MobileNavItem to="/marketplace" name="Marketplace" />
                         ) : (
                             <MobileNavItem to="/login" name="Sign In" />
                         ) }
@@ -72,7 +72,7 @@ export default function HomeNavbar() {
 
             <div className={ classes.signinWrapper }>
                 { user ? (
-                    <Link href="/dashboard" className={ classes.signinButton }>
+                    <Link href="/marketplace" className={ classes.signinButton }>
                         Marketplace{ ' ' }
                         <BsArrowRight
                             size={ 15 }
