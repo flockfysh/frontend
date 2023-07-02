@@ -9,6 +9,7 @@ import Link from 'next/link';
 export default function RadioButtons<T>(props: {
     label?: string;
     options: { label: string; value: T; shown?: boolean }[];
+    highlightCallback?: (value: T) => boolean;
     value?: T;
     initialValue?: T;
     name?: string;
@@ -53,6 +54,13 @@ export default function RadioButtons<T>(props: {
             <div className={ classes.buttons }>
                 { props.options.map(function generate(option, index) {
                     if (option.shown === false) return <></>;
+                    let selected;
+                    if (props.highlightCallback) {
+                        selected = props.highlightCallback(option.value);
+                    }
+                    else {
+                        selected = option.value === value;
+                    }
 
                     return (
                         <Component
@@ -63,7 +71,7 @@ export default function RadioButtons<T>(props: {
                             } }
                             type={ 'button' }
                             className={ `${classes.button} ${
-                                option.value === value ? classes.selected : ''
+                                selected ? classes.selected : ''
                             }` }
                             key={ option.value?.toString() ?? index.toString() }
                         >
