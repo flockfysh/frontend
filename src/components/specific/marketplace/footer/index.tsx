@@ -13,19 +13,19 @@ export default function Footer() {
         <div className={ classes.footer }>
             <div className={ classes.socials }>
                 <div className={ classes.socialIconContainer }>
-                    <ReactSVG className={ classes.github } src={ github.src } />
-                    <ReactSVG
-                        className={ classes.socialIcon }
-                        src={ twitter.src }
-                    />
-                    <ReactSVG
-                        className={ classes.socialIcon }
-                        src={ linkedin.src }
-                    />
+                    <a href="https://github.com/flockfysh" target = "_blank">
+                        <ReactSVG className={ classes.github } src={ github.src } />
+                    </a>
+                    <a href="https://twitter.com/flockfysh" target = "_blank">
+                        <ReactSVG className={ classes.socialIcon } src={ twitter.src } />
+                    </a>
+                    <a href="https://linkedin.com/company/flockfysh" target = "_blank">
+                        <ReactSVG className={ classes.socialIcon } src={ linkedin.src } />
+                    </a>
                 </div>
 
                 <div className={ classes.contactInfoContainer }>
-                    <p>2261 Market Street</p>
+                    <p>2594 Hearst Ave</p>
                     <p>Berkeley, CA, United States</p>
                 </div>
             </div>
@@ -45,13 +45,9 @@ export default function Footer() {
                 </div>
 
                 <div className={ classes.tosContent }>
-                    <Link className={ classes.link } href="">
-                        Terms of Service
-                    </Link>
+                    <Link className={ classes.link } href="/terms">Terms of Service</Link>
                     <span className={ classes.circleDivider } />
-                    <Link className={ classes.link } href="">
-                        Privacy Policy
-                    </Link>
+                    <Link className={ classes.link } href="/privacy">Privacy Policy</Link>
                 </div>
             </div>
         </div>
