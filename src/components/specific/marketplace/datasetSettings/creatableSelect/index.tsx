@@ -40,7 +40,7 @@ export default function CreatableSelect(props: {
 
                     { props.tooltip ? (
                         <button className={ classes.helpIcon }>
-                            <ReactSVG src={ help.src } />
+                            <ReactSVG src={ help.src }/>
 
                             <p className={ classes.helpIconTooltip }>
                                 { props.tooltip }
@@ -78,7 +78,7 @@ export default function CreatableSelect(props: {
                 className={ `${classes.input}` }
                 classNames={ {
                     control: () => {
-                        return classes.inputControl;
+                        return classes.inputContainer;
                     },
                     multiValue: () => {
                         return classes.inputMultiValue;

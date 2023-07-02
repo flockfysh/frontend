@@ -85,6 +85,7 @@ export default function DatasetSettings(dataset: PreviewDataset) {
 
                     <CreatableSelect
                         placeholder="Add tags"
+
                         initialValue={ dataset.tags }
                         label="Adjust tags"
                         tooltip="Tags help Flockfysh categorize your dataset better so that users who need it can easily locate it."
