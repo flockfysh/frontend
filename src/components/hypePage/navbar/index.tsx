@@ -21,7 +21,7 @@ export default function HomeNavbar() {
 
     const navLinks = [
         {
-            to: '/home',
+            to: '/#roadmap',
             name: 'Roadmap',
         },
         {
