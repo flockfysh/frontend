@@ -9,15 +9,15 @@ import api from '@/helpers/api';
 
 import classes from './styles.module.css';
 
-export default function ContributionDetails(_dataset: PreviewDataset) {
+export default function ContributionDetails(props: {
+    dataset: PreviewDataset,
+    contributionId: string,
+}) {
     const router = useRouter();
+    const dataset = props.dataset;
 
-    const [_contributions, setContributions] = useState<
-        ExpandedPullRequest[] | null
-    >(null);
-
-    const [curContribution, _setCurContribution] =
-        useState<Flockfysh.PullRequest | null>(null);
+    const [curContribution, setCurContribution] =
+        useState<ExpandedPullRequest | null>(null);
 
     const statusOptions = [
         { value: 'draft', label: 'Draft' },
@@ -29,18 +29,18 @@ export default function ContributionDetails(_dataset: PreviewDataset) {
     useEffect(() => {
         const getContributions = async () => {
             const temp = (
-                await api.get<Api.PaginatedResponse<ExpandedPullRequest[]>>(
-                    `/api/datasets/${router.query.datasetId}/pullRequests`,
+                await api.get<Api.Response<ExpandedPullRequest>>(
+                    `/api/pullRequests/${props.contributionId}`,
                     {
                         params: {
                             expand: 'user,stats',
                         },
-                    }
+                    },
                 )
             ).data.data;
-            setContributions(temp);
+            setCurContribution(temp);
         };
-        
+
         getContributions().then();
     }, [router.query.datasetId]);
 
@@ -52,12 +52,12 @@ export default function ContributionDetails(_dataset: PreviewDataset) {
 
         await api.patch(
             '/api/pullRequests/' + curContribution!._id + '/status',
-            { status: fd.status }
+            { status: fd.status },
         );
-        
+
         await api.post(
             '/api/pullRequests/' + curContribution!._id + '/messages',
-            { message: fd.comment }
+            { message: fd.comment },
         );
     }
 
@@ -88,7 +88,7 @@ export default function ContributionDetails(_dataset: PreviewDataset) {
                         name="comment"
                         placeholder="Add comment here..."
                     />
-                    
+
                     <button className={ classes.submitButton }>Comment</button>
                 </form>
             </div>
