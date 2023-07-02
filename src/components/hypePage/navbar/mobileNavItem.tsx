@@ -1,6 +1,5 @@
-import { NavLink } from 'react-router-dom';
-
 import classes from './navItem.module.css';
+import NavLink from './navLink';
 
 type NavItemProps = {
     to: string;
@@ -17,7 +16,6 @@ export default function MobileNavItem(props: NavItemProps) {
                         classes.navbarLink
                     } ${classes.mobileNavbarLink}`
                 }
-                end
             >
                 { props.name }
             </NavLink>

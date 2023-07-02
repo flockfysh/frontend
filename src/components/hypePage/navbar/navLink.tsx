@@ -1,24 +1,35 @@
-import { NavLinkProps } from 'react-router-dom';
+import Link, { LinkProps } from 'next/link';
+import { useRouter } from 'next/router';
+
+interface ClassNameProps {
+    isActive: boolean
+    isPending: boolean
+}
+
+interface NavLinkProps extends Omit<LinkProps, 'className' | 'href'>{
+    className: string | ((values: ClassNameProps) => string);
+    to: string;
+    children: React.ReactNode;
+}
+
 
 export default function NavLink(props: NavLinkProps) {
-    let possibleExternalLink: string;
+    const route = useRouter();
+    const regEx = /^http/;
 
-    if (typeof props.to === 'string') possibleExternalLink = props.to;
-    else possibleExternalLink = props.to?.pathname || '';
+    
 
     const className =
         typeof props.className !== 'string'
             ? props.className?.({
-                  isActive: false,
-                  isPending: false,
+                  isActive: route.pathname === props.to,
+                  isPending: route.pathname === props.to,
               })
             : props.className;
 
-    return (
-        <a
-            { ...(props as React.ComponentPropsWithRef<'a'>) }
-            href={ possibleExternalLink }
-            className={ className }
-        ></a>
+    return regEx.test(props.to) ? (
+      <Link href={ props.to } className={ className }>{ props.children }</Link>
+    ) : (
+      <a href={ props.to } className={ className }>{ props.children }</a>
     );
 }
