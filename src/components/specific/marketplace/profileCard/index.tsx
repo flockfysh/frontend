@@ -16,15 +16,15 @@ export default function ProfileCard(props: ProfileCardProps) {
         >
             {
             props.profilePicture ? 
-            <img src={props.profilePicture ? props.profilePicture : 'd'} alt="Profile Picture" />
-            : 
+            <img src={ props.profilePicture ? props.profilePicture : 'd' } alt="Profile Picture" />
+            : (
             <Avatar
             size={ 32 }
-            name={Math.random().toString()}
+            name={ Math.random().toString() }
             variant="marble"
                 colors={ ['#92A1C6', '#146A7C', '#F0AB3D', '#C271B4', '#C20D90'] }
             />
-            }
+          ) }
             <p>@{ props.username }</p>
         </Link>
     );
