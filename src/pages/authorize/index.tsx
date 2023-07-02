@@ -91,7 +91,7 @@ export default function Authorize() {
 
                 setAuthorizationInstance(instanceInfo);
             }
-            catch (e) {
+ catch (e) {
                 setError(
                     'This authorization code is either invalid or expired.'
                 );
@@ -120,7 +120,7 @@ export default function Authorize() {
             window.close();
             router.push(`/datasets`);
         }
-        catch (e) {
+ catch (e) {
             if (e instanceof AxiosError)
                 setError(e.response?.data.error.message);
         }

@@ -5,8 +5,8 @@ interface IProps {
     size?: number;
 }
 
-export const CircleProgressBar: React.FC<IProps> = (props) => {
-    const size = (props.size ?? 120);
+export default function CircleProgressBar(props: IProps) {
+    const size = props.size ?? 120;
     const strokeWidth = 10;
     const center = size / 2;
     const radius = center - strokeWidth;
@@ -33,7 +33,7 @@ export const CircleProgressBar: React.FC<IProps> = (props) => {
                 strokeWidth={ strokeWidth }
                 strokeDasharray={ dashArray }
                 strokeDashoffset={ dashOffset }
-                transform={ `rotate(-90 ${ center } ${ center })` }
+                transform={ `rotate(-90 ${center} ${center})` }
             />
 
             <text
@@ -44,7 +44,7 @@ export const CircleProgressBar: React.FC<IProps> = (props) => {
                 className={ classes.percentage }
                 fill="var(--primary1-100)"
             >
-                { `${ props.value }%` }
+                { `${props.value}%` }
             </text>
 
             <text
@@ -59,4 +59,4 @@ export const CircleProgressBar: React.FC<IProps> = (props) => {
             </text>
         </svg>
     );
-};
+}

@@ -27,7 +27,7 @@ export default function CreateDatasetModal() {
 
                     <ReactSVG src={ plus.src } />
                 </button>
-            ) }
+              ) }
             blurBg={ true }
             popupTitle="Create New Dataset"
         >
@@ -43,13 +43,18 @@ function CreateDatasetForm() {
 
     useEffect(() => {
         async function load() {
-            const recipes = (await api.get<Api.Response<Flockfysh.RecipeWithLabels[]>>('/api/recipes/search', {
-                params: {
-                    name: curQuery || undefined,
-                    expand: 'labels',
-                }
-            })).data.data;
-            
+            const recipes = (
+                await api.get<Api.Response<Flockfysh.RecipeWithLabels[]>>(
+                    '/api/recipes/search',
+                    {
+                        params: {
+                            name: curQuery || undefined,
+                            expand: 'labels',
+                        },
+                    }
+                )
+            ).data.data;
+
             setRecipes(recipes);
         }
 
@@ -66,14 +71,14 @@ function CreateDatasetForm() {
         };
 
         if (typeof fd.tags === 'string') fd.tags = [fd.tags];
-        
+
         await api.post('/api/datasets', fd);
     }
 
     return (
         <form
             className={ classes.createDatasetContainer }
-            onSubmit={ e => {
+            onSubmit={ (e) => {
                 e.preventDefault();
                 createDataset(e.currentTarget).then(() => {
                     close();
@@ -104,12 +109,10 @@ function CreateDatasetForm() {
                         name={ 'recipe' }
                         placeholder="Recipe"
                         onInputChange={ (e) => setCurQuery(e) }
-                        options={ recipes.map(recipe => (
-                            {
-                                value: recipe._id,
-                                label: `${recipe.name} - ${recipe.labels.length} labels`
-                            }
-                        )) }
+                        options={ recipes.map((recipe) => ({
+                            value: recipe._id,
+                            label: `${recipe.name} - ${recipe.labels.length} labels`,
+                        })) }
                         required={ true }
                     />
 

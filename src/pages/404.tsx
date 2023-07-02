@@ -10,12 +10,11 @@ export default function PageNotFound() {
             </div>
 
             <p>
-                We fyshed long and hard but couldn&apos;t find the page you were looking for!
+                We fyshed long and hard but couldn&apos;t find the page you were
+                looking for!
             </p>
 
-            <div className={ classes.pnfButtonContainer }>
-                
-            </div>
+            <div className={ classes.pnfButtonContainer }></div>
         </div>
     );
 }

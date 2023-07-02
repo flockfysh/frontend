@@ -9,9 +9,7 @@ export default function MainLayout(props: PropsWithChildren) {
         <div className={ classes.container }>
             <MainSidebar />
 
-            <main className={ classes.mainContent }>
-                { props.children }
-            </main>
+            <main className={ classes.mainContent }>{ props.children }</main>
         </div>
     );
 }

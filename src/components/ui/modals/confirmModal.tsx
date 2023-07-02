@@ -20,8 +20,15 @@ export function ConfirmModal(props: ConfirmModalProps) {
                 { props.children }
 
                 <div className={ classes.buttonContainer }>
-                    <button onClick={ confirm } className={ classes.closeModal }>Yes</button>
-                    <button onClick={ props.closeModal } className={ classes.closeModal }>No</button>
+                    <button onClick={ confirm } className={ classes.closeModal }>
+                        Yes
+                    </button>
+                    <button
+                        onClick={ props.closeModal }
+                        className={ classes.closeModal }
+                    >
+                        No
+                    </button>
                 </div>
             </div>
         </div>

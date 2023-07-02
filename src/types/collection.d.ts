@@ -3,10 +3,10 @@ declare interface HomepageCollection extends Flockfysh.Collection {
     thumbnail?: {
         assetId: string;
         url: string;
-    },
+    };
     icon?: {
         assetId: string;
         url: string;
-    }
-    user: RedactedUser,
+    };
+    user: RedactedUser;
 }

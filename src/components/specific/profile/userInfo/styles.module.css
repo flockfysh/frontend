@@ -4,21 +4,22 @@
     border-radius: 16px;
     object-fit: cover;
     z-index: -1;
+    aspect-ratio: 16/9;
 }
 
 .headerPictureContainer {
     width: 100%;
-    aspect-ratio: 16/9;
     position: relative;
 }
 
 .headerPictureSubContainer {
     width: 100%;
-    height: calc(100% + 3rem);
-    position: absolute;
+    height: 30rem;
+    /* position: absolute; */
 }
 
 .profilePictureContainer {
+    margin-top: -3rem;
     position: relative;
 }
 
@@ -35,6 +36,12 @@
     padding: 12px;
     background: var(--main-grey);
     border-radius: 16px;
+    transition: 0.2s;
+    color: var(--white);
+}
+
+.photoChangeButton:hover {
+    color: var(--primary1-100);
 }
 
 .profilePic {
@@ -80,7 +87,6 @@
 .followButton:hover {
     background: var(--grey);
 }
-
 
 .followIcon {
     width: 1.3rem;

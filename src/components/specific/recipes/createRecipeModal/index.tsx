@@ -8,12 +8,11 @@ import add from '@/icons/main/plus-circle.svg';
 
 import classes from './styles.module.css';
 
-function CreateRecipeButton(buttonsProps: ButtonHTMLAttributes<HTMLButtonElement>) {
+function CreateRecipeButton(
+    buttonsProps: ButtonHTMLAttributes<HTMLButtonElement>
+) {
     return (
-        <button
-            className={ classes.newRecipeButton }
-            { ...buttonsProps }
-        >
+        <button className={ classes.newRecipeButton } { ...buttonsProps }>
             Create Recipe
             <ReactSVG src={ add.src } />
         </button>

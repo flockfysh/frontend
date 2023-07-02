@@ -1,6 +1,6 @@
-import { PropsWithChildren, useState, useEffect, useMemo } from 'react';
+import { PropsWithChildren, useMemo } from 'react';
 
-import createCache, { EmotionCache } from '@emotion/cache';
+import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
 
 export function EmotionCacheProvider(props: PropsWithChildren) {
@@ -10,6 +10,6 @@ export function EmotionCacheProvider(props: PropsWithChildren) {
             prepend: true,
         });
     }, []);
-    return <CacheProvider value={ cache }>{ props.children }</CacheProvider>;
 
+    return <CacheProvider value={ cache }>{ props.children }</CacheProvider>;
 }

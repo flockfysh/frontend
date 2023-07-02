@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { NextPageWithLayout } from '@/pages/_app';
 
 import MainLayout from '@/components/layout/mainLayout';
-import { CircleProgressBar } from '@/components/specific/datasets/viewDataset/circleProgressBar';
+import CircleProgressBar from '@/components/specific/datasets/viewDataset/circleProgressBar';
 import SpecificProgressData from '@/components/specific/datasets/viewDataset/specificProgressData';
 import FileUploader from '@/components/specific/datasets/viewDataset/fileUploader';
 import AssetViewer from '@/components/specific/datasets/viewDataset/assetViewer';
@@ -67,7 +67,7 @@ const MyDatasets: NextPageWithLayout = function () {
     };
 
     if (!dataset || typeof router.query.datasetId !== 'string') return <></>;
-    
+
     const datasetProgressFakeData = [
         {
             value: `${dataset.assetCounts.byAnnotationStatus.annotated} / ${dataset.assetCounts.total}`,

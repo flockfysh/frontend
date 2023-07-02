@@ -1,23 +1,37 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { ReactSVG } from 'react-svg';
 import Link from 'next/link';
 
 import CurrentUserProfile from '@/components/specific/marketplace/currentUserProfile';
 import CreateDatasetModal from '../createDatasetModal';
 
+import Login from '../../login';
+
+import { UserContext } from '@/contexts/userContext';
+
 import fish from '@/icons/branding/fish.svg';
 import search from '@/icons/main/search.svg';
 import bell from '@/icons/main/bell.svg';
 import plusCircle from '@/icons/main/plus-circle.svg';
+import userIcon from '@/icons/main/user.svg';
 
 import classes from './styles.module.css';
 
 export default function MarketplaceNavbar() {
+    const { user } = useContext(UserContext);
+
+    const [isLogin, updateLogin] = useState(false);
     const [isModalOpen, updateModalOpen] = useState(false);
 
     return (
         <nav className={ classes.nav }>
-            { isModalOpen && <CreateDatasetModal onClose={ () => updateModalOpen(false) } /> }
+            {
+                isModalOpen && <CreateDatasetModal onClose={ () => updateModalOpen(false) } />
+            }
+
+            {
+                isLogin && <Login mode="login" onClose={ () => updateLogin(false) } />
+            }
 
             <div className={ classes.subContainer + ' ' + classes.leftContainer }>
                 <Link className={ classes.logoContainer } href="/marketplace">
@@ -40,10 +54,24 @@ export default function MarketplaceNavbar() {
             </div>
 
             <div className={ classes.subContainer }>
-                <ReactSVG onClick={ () => updateModalOpen(true) } src={ plusCircle.src } className={ classes.leftIcon } />
-                <ReactSVG src={ bell.src } className={ classes.leftIcon } />
-
-                <CurrentUserProfile />
+                {
+                    user ? (
+                        <>
+                            <ReactSVG
+                                onClick={ () => updateModalOpen(true) }
+                                src={ plusCircle.src }
+                                className={ classes.leftIcon }
+                            />
+                            <ReactSVG src={ bell.src } className={ classes.leftIcon } />
+            
+                            <CurrentUserProfile />
+                        </>
+                    ) : (
+                        <button className={ classes.loginButton } onClick={ () => updateLogin(true) }>
+                            Login <ReactSVG className={ classes.loginIcon } src={ userIcon.src } />
+                        </button>
+                    )
+                }
             </div>
         </nav>
     );

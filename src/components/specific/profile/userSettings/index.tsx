@@ -45,21 +45,27 @@ export default function UserSettings(props: UserSettings) {
 
                 <div className={ classes.navDiv }>
                     <div
-                        className={ `${ classes.navButton } ${ (filter === 0 && classes.active) } ${ classes.firstButton }` }
+                        className={ `${classes.navButton} ${
+                            filter === 0 && classes.active
+                        } ${classes.firstButton}` }
                         onClick={ () => updateFilter(0) }
                     >
                         General
                     </div>
-                    
+
                     <div
-                        className={ `${ classes.navButton } ${ (filter === 1 && classes.active) }` }
+                        className={ `${classes.navButton} ${
+                            filter === 1 && classes.active
+                        }` }
                         onClick={ () => updateFilter(1) }
                     >
                         Billing
                     </div>
-                    
+
                     <div
-                        className={ `${ classes.navButton } ${ (filter === 2 && classes.active) } ${ classes.lastButton }` }
+                        className={ `${classes.navButton} ${
+                            filter === 2 && classes.active
+                        } ${classes.lastButton}` }
                         onClick={ () => updateFilter(2) }
                     >
                         Connections
@@ -70,22 +76,31 @@ export default function UserSettings(props: UserSettings) {
             <div className={ classes.credentialsDiv }>
                 <div className={ classes.contentDiv }>
                     <div className={ classes.infoContainerDiv }>
-                        <h4 className={ classes.subheading }>Your email address</h4>
+                        <h4 className={ classes.subheading }>
+                            Your email address
+                        </h4>
 
                         <div className={ classes.inputDiv }>
-                            <ReactSVG src={ mail.src } className={ classes.icons } />
+                            <ReactSVG
+                                src={ mail.src }
+                                className={ classes.icons }
+                            />
 
                             <input
                                 type="text"
                                 className={ classes.input }
                                 value={ email }
-                                onChange={ event => {
+                                onChange={ (event) => {
                                     setEmail(event.target.value);
                                 } }
                             />
 
                             <button className={ classes.button }>
-                                Change <ReactSVG src={ edit.src } className={ classes.icons } />
+                                Change{ ' ' }
+                                <ReactSVG
+                                    src={ edit.src }
+                                    className={ classes.icons }
+                                />
                             </button>
                         </div>
                     </div>
@@ -103,7 +118,10 @@ export default function UserSettings(props: UserSettings) {
                                         navigator.clipboard.writeText(apiKey);
                                     } }
                                 >
-                                    <ReactSVG src={ copy.src } className={ classes.icons } />
+                                    <ReactSVG
+                                        src={ copy.src }
+                                        className={ classes.icons }
+                                    />
                                 </button>
                             </p>
 
@@ -115,18 +133,25 @@ export default function UserSettings(props: UserSettings) {
                                         finalKey =
                                             finalKey +
                                             String.fromCharCode(
-                                                Math.round(Math.random() * 93) + 33
+                                                Math.round(Math.random() * 93) +
+                                                    33
                                             );
                                     }
 
                                     setApiKey(finalKey);
                                 } }
                             >
-                                <ReactSVG src={ generate.src } className={ classes.icons } />
+                                <ReactSVG
+                                    src={ generate.src }
+                                    className={ classes.icons }
+                                />
                             </button>
 
                             <button className={ classes.iconButton }>
-                                <ReactSVG src={ trash.src } className={ classes.icons } />
+                                <ReactSVG
+                                    src={ trash.src }
+                                    className={ classes.icons }
+                                />
                             </button>
                         </div>
                     </div>
@@ -143,26 +168,35 @@ export default function UserSettings(props: UserSettings) {
                                 type="password"
                                 className={ classes.input }
                                 value={ password }
-                                onChange={ event => {
+                                onChange={ (event) => {
                                     setPassword(event.target.value);
                                 } }
                             />
 
                             <button className={ classes.button }>
-                                Save <ReactSVG src={ save.src } className={ classes.icons } />
+                                Save{ ' ' }
+                                <ReactSVG
+                                    src={ save.src }
+                                    className={ classes.icons }
+                                />
                             </button>
                         </div>
                     </div>
                 </div>
 
                 <div className={ classes.limitsDiv }>
-                    <h4 className={ classes.subheading + ' ' + classes.limitsHeading }>Limits</h4>
+                    <h4
+                        className={
+                            classes.subheading + ' ' + classes.limitsHeading
+                        }
+                    >
+                        Limits
+                    </h4>
 
                     <div className={ classes.limitsContentDiv }>
                         <div className={ classes.limitObject }>
                             <h5 className={ classes.limit }>
                                 <span>Transfer Limit</span>
-                                
                                 { props.transferLimit.toString() } / 25GB
                             </h5>
 
@@ -170,21 +204,26 @@ export default function UserSettings(props: UserSettings) {
                                 <div
                                     className={ classes.graphContent }
                                     style={ {
-                                        width: ((props.transferLimit / 25) * 100).toString() + '%',
+                                        width:
+                                            (
+                                                (props.transferLimit / 25) *
+                                                100
+                                            ).toString() + '%',
                                     } }
                                 />
                             </div>
 
                             <ReactSVG
                                 src={ info.src }
-                                className={ classes.icons + ' ' + classes.infoIcon }
+                                className={
+                                    classes.icons + ' ' + classes.infoIcon
+                                }
                             />
                         </div>
 
                         <div className={ classes.limitObject }>
                             <h5 className={ classes.limit }>
                                 <span>Downloads</span>
-
                                 { props.downloads.toString() } / 10 datasets
                             </h5>
 
@@ -192,14 +231,20 @@ export default function UserSettings(props: UserSettings) {
                                 <div
                                     className={ classes.graphContent }
                                     style={ {
-                                        width: ((props.downloads / 10) * 100).toString() + '%',
+                                        width:
+                                            (
+                                                (props.downloads / 10) *
+                                                100
+                                            ).toString() + '%',
                                     } }
                                 />
                             </div>
 
                             <ReactSVG
                                 src={ info.src }
-                                className={ classes.icons + ' ' + classes.infoIcon }
+                                className={
+                                    classes.icons + ' ' + classes.infoIcon
+                                }
                             />
                         </div>
 
@@ -208,19 +253,25 @@ export default function UserSettings(props: UserSettings) {
                                 <span>API Calls</span>
                                 { props.apiCalls.toString() } / 10,000
                             </h5>
-                        
+
                             <div className={ classes.graphBody }>
                                 <div
                                     className={ classes.graphContent }
                                     style={ {
-                                        width: ((props.apiCalls / 10000) * 100).toString() + '%',
+                                        width:
+                                            (
+                                                (props.apiCalls / 10000) *
+                                                100
+                                            ).toString() + '%',
                                     } }
                                 />
                             </div>
 
                             <ReactSVG
                                 src={ info.src }
-                                className={ classes.icons + ' ' + classes.infoIcon }
+                                className={
+                                    classes.icons + ' ' + classes.infoIcon
+                                }
                             />
                         </div>
                     </div>
@@ -229,13 +280,20 @@ export default function UserSettings(props: UserSettings) {
 
             <div className={ classes.linksDiv }>
                 <div className={ classes.linkHeadingDiv }>
-                    <h4 className={ classes.subheading + ' ' + classes.linkSubheading }>Links</h4>
-            
+                    <h4
+                        className={
+                            classes.subheading + ' ' + classes.linkSubheading
+                        }
+                    >
+                        Links
+                    </h4>
+
                     <button className={ classes.button }>
-                        Save <ReactSVG src={ save.src } className={ classes.icons } />
+                        Save{ ' ' }
+                        <ReactSVG src={ save.src } className={ classes.icons } />
                     </button>
                 </div>
-            
+
                 <div>
                     <div className={ classes.eachLinkDiv }>
                         <ReactSVG
@@ -246,7 +304,7 @@ export default function UserSettings(props: UserSettings) {
                         <input
                             className={ classes.linkInput }
                             value={ github }
-                            onChange={ event => setGithub(event.target.value) }
+                            onChange={ (event) => setGithub(event.target.value) }
                         />
                     </div>
 
@@ -259,7 +317,9 @@ export default function UserSettings(props: UserSettings) {
                         <input
                             className={ classes.linkInput }
                             value={ linkedin }
-                            onChange={ event => setLinkedin(event.target.value) }
+                            onChange={ (event) =>
+                                setLinkedin(event.target.value)
+                            }
                         />
                     </div>
 
@@ -272,7 +332,7 @@ export default function UserSettings(props: UserSettings) {
                         <input
                             className={ classes.linkInput }
                             value={ twitter }
-                            onChange={ event => setTwitter(event.target.value) }
+                            onChange={ (event) => setTwitter(event.target.value) }
                         />
                     </div>
 
@@ -285,13 +345,14 @@ export default function UserSettings(props: UserSettings) {
                         <input
                             className={ classes.linkInput }
                             value={ website }
-                            onChange={ event => setWebsite(event.target.value) }
+                            onChange={ (event) => setWebsite(event.target.value) }
                         />
                     </div>
                 </div>
 
                 <button className={ classes.deactivateButton }>
-                    Deactivate Account <ReactSVG src={ trash.src } className={ classes.icons } />
+                    Deactivate Account{ ' ' }
+                    <ReactSVG src={ trash.src } className={ classes.icons } />
                 </button>
             </div>
         </section>

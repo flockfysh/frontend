@@ -12,7 +12,7 @@ import {
     TableHeadProps,
     TableProps,
     TableRow,
-    TableRowProps
+    TableRowProps,
 } from '@mui/material';
 
 import dayjs from 'dayjs';
@@ -28,53 +28,61 @@ type ActivityViewerState = {
     data: (UserActivity | DatasetActivity)[];
     initialLoad: boolean;
     next: string | undefined;
-}
+};
 
 const TableComponents = {
-    Scroller: forwardRef<HTMLDivElement, ScrollerProps>(function _Scroller(props, ref) {
+    Scroller: forwardRef<HTMLDivElement, ScrollerProps>(function _Scroller(
+        props,
+        ref
+    ) {
+        return <TableContainer { ...props } ref={ ref } />;
+    }),
+    Table: forwardRef<HTMLTableElement, TableProps>(function _Table(
+        props,
+        ref
+    ) {
         return (
-            <TableContainer
-                { ...props }
-                ref={ ref }
-            />
+            <Table { ...props } className={ classes.viewerTableInner } ref={ ref } />
         );
     }),
-    Table: forwardRef<HTMLTableElement, TableProps>(function _Table(props, ref) {
-        return (
-            <Table
-                { ...props }
-                className={ classes.viewerTableInner }
-                ref={ ref }
-            />
-        );
-    }),
-    TableHead: forwardRef<HTMLTableSectionElement, TableHeadProps>(function _TableHead(props: TableHeadProps, ref) {
-        return (
-            <TableHead
-                { ...props }
-                className={ `${ classes.viewerTableHead } ${ props.className || '' }` }
-                ref={ ref }
-            />
-        );
-    }),
-    TableRow: forwardRef<HTMLTableRowElement, TableRowProps>(function _TableRow(props: TableRowProps, ref) {
+    TableHead: forwardRef<HTMLTableSectionElement, TableHeadProps>(
+        function _TableHead(props: TableHeadProps, ref) {
+            return (
+                <TableHead
+                    { ...props }
+                    className={ `${classes.viewerTableHead} ${
+                        props.className || ''
+                    }` }
+                    ref={ ref }
+                />
+            );
+        }
+    ),
+    TableRow: forwardRef<HTMLTableRowElement, TableRowProps>(function _TableRow(
+        props: TableRowProps,
+        ref
+    ) {
         return (
             <TableRow
                 { ...props }
-                className={ `${ classes.viewerTableRow } ${ props.className || '' }` }
+                className={ `${classes.viewerTableRow} ${props.className || ''}` }
                 ref={ ref }
             />
         );
     }),
-    TableBody: forwardRef<HTMLTableSectionElement, TableBodyProps>(function _TableBody(props: TableBodyProps, ref) {
-        return (
-            <TableBody
-                { ...props }
-                className={ `${ classes.viewerTableBody } ${ props.className || '' }` }
-                ref={ ref }
-            />
-        );
-    }),
+    TableBody: forwardRef<HTMLTableSectionElement, TableBodyProps>(
+        function _TableBody(props: TableBodyProps, ref) {
+            return (
+                <TableBody
+                    { ...props }
+                    className={ `${classes.viewerTableBody} ${
+                        props.className || ''
+                    }` }
+                    ref={ ref }
+                />
+            );
+        }
+    ),
 };
 
 function CustomTableCell(props: TableCellProps) {
@@ -82,11 +90,9 @@ function CustomTableCell(props: TableCellProps) {
         <TableCell
             { ...props }
             ref={ props.ref }
-            className={ `${ props.className || '' } ${ classes.viewerTableCell }` }
+            className={ `${props.className || ''} ${classes.viewerTableCell}` }
         >
-            <div className={ classes.viewerTableCellInner }>
-                { props.children }
-            </div>
+            <div className={ classes.viewerTableCellInner }>{ props.children }</div>
         </TableCell>
     );
 }
@@ -95,47 +101,38 @@ function Header() {
     return (
         <>
             <TableRow>
-                <CustomTableCell >
-                    Date & Time
-                </CustomTableCell>
-                
-                <CustomTableCell>
-                    Username
-                </CustomTableCell>
+                <CustomTableCell>Date & Time</CustomTableCell>
 
-                <CustomTableCell>
-                    Action
-                </CustomTableCell>
-                
-                <CustomTableCell>
-                    Number of Files
-                </CustomTableCell>
+                <CustomTableCell>Username</CustomTableCell>
 
-                <CustomTableCell>
-                    Size
-                </CustomTableCell>
+                <CustomTableCell>Action</CustomTableCell>
 
-                <CustomTableCell>
-                    Type
-                </CustomTableCell>
+                <CustomTableCell>Number of Files</CustomTableCell>
+
+                <CustomTableCell>Size</CustomTableCell>
+
+                <CustomTableCell>Type</CustomTableCell>
             </TableRow>
         </>
     );
 }
 
-export default function ActivityTable(props: { datasetId?: string, userId?: string }) {
-    const fakeData = new Array(200).fill(
-        {
-            id: '1',
-            date: new Date(),
-            action: ['added', 'removed', 'uploaded', 'initiated'][Math.floor(Math.random() * 4)] as ('added' | 'removed' | 'uploaded' | 'initiated'),
-            numFiles: Math.floor(Math.random() * 20),
-            size: Math.random() * 2.5e+10,
-            type: 'image' as Flockfysh.AssetType,
-            userName: 'praks',
-        }
-    );
-    
+export default function ActivityTable(props: {
+    datasetId?: string;
+    userId?: string;
+}) {
+    const fakeData = new Array(200).fill({
+        id: '1',
+        date: new Date(),
+        action: ['added', 'removed', 'uploaded', 'initiated'][
+            Math.floor(Math.random() * 4)
+        ] as 'added' | 'removed' | 'uploaded' | 'initiated',
+        numFiles: Math.floor(Math.random() * 20),
+        size: Math.random() * 2.5e10,
+        type: 'image' as Flockfysh.AssetType,
+        userName: 'praks',
+    });
+
     const initialState = (): ActivityViewerState => {
         return {
             data: fakeData,
@@ -149,74 +146,83 @@ export default function ActivityTable(props: { datasetId?: string, userId?: stri
     const dataArray = state.data;
 
     const load = useCallback(
-        async function(numItems: number=20) {
+        async function (numItems: number = 20) {
             // TODO: connect w/ backend
             if (state.hasMore) {
-                if(props.datasetId) {
+                if (props.datasetId) {
                     const datasetId = props.datasetId;
-        
+
                     try {
-                        const result = (await api.get<Api.PaginatedResponse<DatasetActivity[]>>(`/api/`, {
-                            params: {
-                                next: state.next,
-                                datasetId: datasetId,
-                                limit: numItems,
-                            },
-                        })).data;
-    
+                        const result = (
+                            await api.get<
+                                Api.PaginatedResponse<DatasetActivity[]>
+                            >(`/api/`, {
+                                params: {
+                                    next: state.next,
+                                    datasetId: datasetId,
+                                    limit: numItems,
+                                },
+                            })
+                        ).data;
+
                         for (const item of result.data) {
                             state.data.push(item);
                         }
-    
+
                         setState((prev) => {
                             return {
                                 ...prev,
                                 next: result.meta.next,
-                                hasMore: result.meta.hasNext,
+                                hasNext: result.meta.hasNext,
                                 data: state.data,
                             };
                         });
                     }
-                    catch (e) {
+ catch (e) {
                         return;
                     }
                 }
-                else {
+ else {
                     const userId = props.userId;
-                    
+
                     try {
-                        const result = (await api.get<Api.PaginatedResponse<UserActivity[]>>(`/api/`, {
-                            params: {
-                                next: state.next,
-                                userId: userId,
-                                limit: numItems,
-                            },
-                        })).data;
-    
+                        const result = (
+                            await api.get<
+                                Api.PaginatedResponse<UserActivity[]>
+                            >(`/api/`, {
+                                params: {
+                                    next: state.next,
+                                    userId: userId,
+                                    limit: numItems,
+                                },
+                            })
+                        ).data;
+
                         for (const item of result.data) {
                             state.data.push(item);
                         }
-    
+
                         setState((prev) => {
                             return {
                                 ...prev,
                                 next: result.meta.next,
-                                hasMore: result.meta.hasNext,
+                                hasNext: result.meta.hasNext,
                                 data: state.data,
                             };
                         });
                     }
-                    catch (e) {
+ catch (e) {
                         return;
                     }
                 }
             }
-        }
-    , [props.datasetId, props.userId, state.data, state.hasMore, state.next]);
+        },
+        [props.datasetId, props.userId, state.data, state.hasMore, state.next]
+    );
 
     useEffect(() => {
         if (state.initialLoad) {
-            setState(prev => {
+            setState((prev) => {
                 return {
                     ...prev,
                     initialLoad: false,
@@ -225,7 +231,7 @@ export default function ActivityTable(props: { datasetId?: string, userId?: stri
             load(20).then();
         }
     }, [state, load]);
-    
+
     return (
         <div className={ classes.dataCardContainer }>
             <TableVirtuoso
@@ -236,15 +242,19 @@ export default function ActivityTable(props: { datasetId?: string, userId?: stri
                 endReached={ () => load() }
                 itemContent={ function genRow(index, data) {
                     return (
-                        <>   
+                        <>
                             <CustomTableCell className={ classes.uploadDate }>
-                                <span>{ dayjs(data.date).format('DD/MM/YYYY') }</span>
+                                <span>
+                                    { dayjs(data.date).format('DD/MM/YYYY') }
+                                </span>
                             </CustomTableCell>
 
                             <CustomTableCell>
                                 <span className={ classes.filename }>
                                     <span className={ classes.filenameText }>
-                                        { 'dataset' in data ? data.dataset : data.userName }
+                                        { 'dataset' in data
+                                            ? data.dataset
+                                            : data.userName }
                                     </span>
                                 </span>
                             </CustomTableCell>

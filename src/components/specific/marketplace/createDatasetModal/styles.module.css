@@ -74,7 +74,6 @@
     pointer-events: visible;
 }
 
-
 .changeTypeBtn:hover {
     background: var(--main-grey);
 }

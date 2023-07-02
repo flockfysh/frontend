@@ -9,7 +9,7 @@ import {
     Tooltip,
     LineController,
     BarController,
-    ScriptableContext
+    ScriptableContext,
 } from 'chart.js';
 import { Chart, ChartProps } from 'react-chartjs-2';
 
@@ -32,11 +32,17 @@ ChartJS.register(
 
 // TODO: need to specify type for the prop data
 export default function Graph(dataset: PreviewDataset) {
-    const [rawActivityMetrics, setRawActivityMetrics] = useState<ActivityMetric[]>([]);
+    const [rawActivityMetrics, setRawActivityMetrics] = useState<
+        ActivityMetric[]
+    >([]);
 
     useEffect(() => {
         async function fetch() {
-            const result = (await api.get<Api.Response<ActivityMetric[]>>(`/api/datasets/${dataset._id}/activity`)).data.data;
+            const result = (
+                await api.get<Api.Response<ActivityMetric[]>>(
+                    `/api/datasets/${dataset._id}/activity`
+                )
+            ).data.data;
             setRawActivityMetrics(result);
         }
 
@@ -47,7 +53,7 @@ export default function Graph(dataset: PreviewDataset) {
         return dayjs().startOf('day').subtract(i, 'days');
     }).reverse();
 
-    const labels = xAxis.map(day => {
+    const labels = xAxis.map((day) => {
         return day.format('DD/MM');
     });
 
@@ -57,7 +63,7 @@ export default function Graph(dataset: PreviewDataset) {
         view: {},
         download: {},
     };
-    
+
     for (const rawMetric of rawActivityMetrics) {
         const date = dayjs().startOf('day').toString();
         metricHashmap[rawMetric.type][date] = rawMetric.count;
@@ -167,7 +173,7 @@ export default function Graph(dataset: PreviewDataset) {
                         size: 12,
                     },
                 },
-                max: Math.max(...transformed.download) || 50
+                max: Math.max(...transformed.download) || 50,
             },
             y1: {
                 type: 'linear' as const,
@@ -184,8 +190,7 @@ export default function Graph(dataset: PreviewDataset) {
                         size: 12,
                     },
                 },
-                max: Math.max(...transformed.view) || 50
-
+                max: Math.max(...transformed.view) || 50,
             },
         },
         maintainAspectRatio: true,

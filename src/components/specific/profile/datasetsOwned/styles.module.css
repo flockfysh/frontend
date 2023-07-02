@@ -106,7 +106,6 @@
     border: 2px solid var(--grey);
 }
 
-
 .navButton:hover {
     background-color: var(--white-transparent);
 }
@@ -114,7 +113,6 @@
 .active {
     background: var(--grey);
 }
-
 
 .cardDiv {
     width: 100%;

@@ -28,21 +28,33 @@ export default class AnnotationObject {
     }
 
     async editInner() {
-        if (!this.serverId) throw new Error('This internal function cannot be called without having a server ID.');
-        
+        if (!this.serverId)
+            throw new Error(
+                'This internal function cannot be called without having a server ID.'
+            );
+
         const { width, height, x, y } = this.boundingBox;
 
         await api.put(`/api/annotations/${this.serverId}`, {
             label: this.label?._id,
             frame: this.frame,
-            data: { center: [x+width/2, y+height/2], dimensions:[width, height], rotation: 0 },
+            data: {
+                center: [x + width / 2, y + height / 2],
+                dimensions: [width, height],
+                rotation: 0,
+            },
         });
     }
 
     async deleteInner() {
-        if (this.deleted) throw new Error('This image has already been deleted.');
-        if (!this.serverId) throw new Error('This internal function cannot be called without having a server ID.');
-        
+        if (this.deleted)
+            throw new Error('This image has already been deleted.');
+
+        if (!this.serverId)
+            throw new Error(
+                'This internal function cannot be called without having a server ID.'
+            );
+
         await api.delete(`/api/annotations/${this.serverId}`);
     }
 
@@ -55,7 +67,12 @@ export default class AnnotationObject {
      * If the box is newly created, leave this empty.
      * @param boundingBox Annotation box data from the server.
      */
-    constructor(label: Flockfysh.Label, frame: number, serverId?: string, boundingBox?: AnnotationBox) {
+    constructor(
+        label: Flockfysh.Label,
+        frame: number,
+        serverId?: string,
+        boundingBox?: AnnotationBox
+    ) {
         this.label = label;
         this.frame = frame;
         this.serverId = serverId;
@@ -70,21 +87,29 @@ export default class AnnotationObject {
      * Also throws if the box already belongs to another image.
      */
     async saveTo(imageId: string) {
-        if (this.serverId) throw new Error('This annotation box has already been created server-side.');
-        
+        if (this.serverId)
+            throw new Error(
+                'This annotation box has already been created server-side.'
+            );
+
         const { width, height, x, y } = this.boundingBox;
 
         const response = await api.post(`/api/assets/${imageId}/annotations`, {
             label: this.label?._id,
             frame: this.frame,
-            data: { center: [x+width/2, y+height/2], dimensions:[width, height], rotation: 0 },
-            assetId: imageId
+            data: {
+                center: [x + width / 2, y + height / 2],
+                dimensions: [width, height],
+                rotation: 0,
+            },
+            assetId: imageId,
         });
 
         const newRemoteAnnotationBox = response.data.data;
-        
-        if (!newRemoteAnnotationBox.id) throw new Error('Annotation response from server is malformed.');
-        
+
+        if (!newRemoteAnnotationBox.id)
+            throw new Error('Annotation response from server is malformed.');
+
         this.serverId = newRemoteAnnotationBox.id;
     }
 
@@ -101,7 +126,7 @@ export default class AnnotationObject {
         if (!this.serverId) {
             if (!this.pollQueued) {
                 this.pollQueued = true;
-             
+
                 await this.pollInner();
             }
             else return;
@@ -124,7 +149,7 @@ export default class AnnotationObject {
             }
             else return;
         }
-        
+
         await this.deleteInner();
     }
 }

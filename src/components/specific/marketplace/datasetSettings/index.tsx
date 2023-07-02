@@ -4,10 +4,10 @@ import Input from '@/components/specific/marketplace/datasetSettings/input';
 import CreatableSelect from '@/components/specific/marketplace/datasetSettings/creatableSelect';
 import RadioButtons from '@/components/ui/input/radioButtons';
 
+import api from '@/helpers/api';
+
 import cash from '@/icons/main/dollar-sign.svg';
 import link from '@/icons/main/link.svg';
-
-import api from '@/helpers/api';
 
 import classes from './styles.module.css';
 
@@ -26,28 +26,38 @@ export default function DatasetSettings(dataset: PreviewDataset) {
                         icon={ link.src }
                         placeholder="New user"
                         tooltip="Change ownership of the dataset to another dataset."
-                        onSave={ async data => {
-                            await api.patch(`/api/datasets/${dataset._id}/price`, {
-                                price: +data,
-                            });
+                        onSave={ async (data) => {
+                            await api.patch(
+                                `/api/datasets/${dataset._id}/ownership`,
+                                {
+                                    username: data,
+                                    retainAdmin: true,
+                                }
+                            );
                         } }
                     />
 
                     <RadioButtons
-                        options={ [{
-                            value: true,
-                            label: 'Public',
-                        }, {
-                            value: false,
-                            label: 'Private',
-                        }] }
+                        options={ [
+                            {
+                                value: true,
+                                label: 'Public',
+                            },
+                            {
+                                value: false,
+                                label: 'Private',
+                            },
+                        ] }
                         label="Change visibility"
                         initialValue={ dataset.public }
                         tooltip="Changing this setting to public allows your dataset to appear on the marketplace, while changing it to private hides it."
-                        onChange={ async data => {
-                            await api.patch(`/api/datasets/${dataset._id}/visibility`, {
-                                public: data,
-                            });
+                        onChange={ async (data) => {
+                            await api.patch(
+                                `/api/datasets/${dataset._id}/visibility`,
+                                {
+                                    public: data,
+                                }
+                            );
                         } }
                     />
 
@@ -58,12 +68,17 @@ export default function DatasetSettings(dataset: PreviewDataset) {
                         max={ 100 }
                         placeholder="New amount"
                         initialValue={ dataset.price }
-                        tooltip={ 'Setting the price of the dataset will allow you to charge for the dataset, ' +
-                            'but prevents users without explicit permissions from viewing or contributing.' }
-                        onSave={ async data => {
-                            await api.patch(`/api/datasets/${dataset._id}/price`, {
-                                price: +data,
-                            });
+                        tooltip={
+                            'Setting the price of the dataset will allow you to charge for the dataset, ' +
+                            'but prevents users without explicit permissions from viewing or contributing.'
+                        }
+                        onSave={ async (data) => {
+                            await api.patch(
+                                `/api/datasets/${dataset._id}/price`,
+                                {
+                                    price: +data,
+                                }
+                            );
                         } }
                         saveLabel="Save"
                     />
@@ -73,7 +88,7 @@ export default function DatasetSettings(dataset: PreviewDataset) {
                         initialValue={ dataset.tags }
                         label="Adjust tags"
                         tooltip="Tags help Flockfysh categorize your dataset better so that users who need it can easily locate it."
-                        onChange={ async data => {
+                        onChange={ async (data) => {
                             await api.patch(`/api/datasets/${dataset._id}`, {
                                 tags: data,
                             });

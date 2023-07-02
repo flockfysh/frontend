@@ -15,7 +15,10 @@ import line from '@/icons/main/slash-divider.svg';
 import classes from './styles.module.css';
 
 const iconMapping: Record<Flockfysh.AnnotationTool, StaticImageData> = {
-    line, polygon, ellipse: circle, boundingBox: square,
+    line,
+    polygon,
+    ellipse: circle,
+    boundingBox: square,
 };
 
 export default function RecipeCard(props: Flockfysh.RecipeWithLabels) {
@@ -29,7 +32,9 @@ export default function RecipeCard(props: Flockfysh.RecipeWithLabels) {
                 <div className={ classes.headerTitleWrapper }>
                     <h2 className={ classes.headerTitle }>{ props.name }</h2>
 
-                    <small className={ classes.headerSubtitle }>ID: { props._id }</small>
+                    <small className={ classes.headerSubtitle }>
+                        ID: { props._id }
+                    </small>
                 </div>
 
                 { /* base data */ }
@@ -38,7 +43,9 @@ export default function RecipeCard(props: Flockfysh.RecipeWithLabels) {
                     <div className={ classes.headerBaseDataContent }>
                         <ReactSVG src={ database.src } />
 
-                        <small>Used in: <strong>{ 0 }</strong> Datasets</small>
+                        <small>
+                            Used in: <strong>{ 0 }</strong> Datasets
+                        </small>
                     </div>
 
                     { /* type */ }
@@ -59,18 +66,24 @@ export default function RecipeCard(props: Flockfysh.RecipeWithLabels) {
             <div className={ classes.tagsAndActionsWrapper }>
                 { /* tags */ }
                 <div className={ classes.tagsWrapper }>
-                    {
-                        Array.from(props.labels.entries()).map(function transformEntry([clientSideUuid, label]) {
+                    { Array.from(props.labels.entries()).map(
+                        function transformEntry([clientSideUuid, label]) {
                             return (
-                                <div key={ clientSideUuid } className={ classes.tagsItem }>
+                                <div
+                                    key={ clientSideUuid }
+                                    className={ classes.tagsItem }
+                                >
                                     { /* switch between icons */ }
-                                    <ReactSVG src={ iconMapping[label.tool].src } className={ classes.tagsItemIcon } />
-                                    
+                                    <ReactSVG
+                                        src={ iconMapping[label.tool].src }
+                                        className={ classes.tagsItemIcon }
+                                    />
+
                                     <span>{ label.name }</span>
                                 </div>
                             );
-                        })
-                    }
+                        }
+                    ) }
                 </div>
 
                 { /* actions */ }

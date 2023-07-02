@@ -8,8 +8,6 @@ import Profile from '@/components/layout/mainSidebar/profile';
 
 import home from '@/icons/main/home.svg';
 import document from '@/icons/main/file-text.svg';
-import layers from '@/icons/main/3-layers.svg';
-import analytics from '@/icons/main/sliders.svg';
 import settings from '@/icons/main/settings.svg';
 import marketplace from '@/icons/main/shopping-cart.svg';
 import help from '@/icons/main/help-circle.svg';
@@ -18,9 +16,9 @@ import bell from '@/icons/main/bell.svg';
 import classes from './styles.module.css';
 
 interface SidebarLinkProps {
-    icon: StaticImageData,
-    text: string,
-    href: string,
+    icon: StaticImageData;
+    text: string;
+    href: string;
 }
 
 function SidebarLink(props: SidebarLinkProps) {
@@ -80,9 +78,8 @@ const SECTION_2_LINKS: SidebarLinkProps[] = [
         href: '/settings',
         text: 'Settings',
         icon: settings,
-    },
+    }
 ];
-
 
 export default function MainSidebar() {
     return (
@@ -91,14 +88,15 @@ export default function MainSidebar() {
                 <Logo />
 
                 <div>
-                    { SECTION_1_LINKS.map(props => {
+                    { SECTION_1_LINKS.map((props) => {
                         return <SidebarLink key={ props.href } { ...props } />;
                     }) }
                 </div>
             </div>
+            
             <div className={ classes.segment }>
                 <div>
-                    { SECTION_2_LINKS.map(props => {
+                    { SECTION_2_LINKS.map((props) => {
                         return <SidebarLink key={ props.href } { ...props } />;
                     }) }
                 </div>

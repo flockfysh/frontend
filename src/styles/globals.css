@@ -151,6 +151,10 @@ a:visited {
     color: inherit;
 }
 
+a:-webkit-any-link {
+    color: inherit;
+}
+
 ::selection {
     background-color: var(--primary1-200);
 }

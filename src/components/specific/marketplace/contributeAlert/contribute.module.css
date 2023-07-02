@@ -62,16 +62,22 @@
 }
 
 .button {
-    background-color: var(--primary2-950);
+    background: none;
+    border: 2px solid var(--grey);
     font-size: 0.9rem;
     padding: 0.8rem 1rem;
-    border-radius: 15px;
+    border-radius: 10px;
     margin: 0 auto;
     margin-top: 2.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+    transition: 0.15s;
+}
+
+.button:hover {
+    background-color: var(--grey);
 }
 
 .textArea {

@@ -1,49 +1,49 @@
 import { useState } from 'react';
 import DatasetTimeFilter from '../datasetTimeFilter';
 import Graph from './graph';
-import ActivityCard from './activityCard';
-import ActivityTable from '@/components/specific/marketplace/activityGraph/activityTable';
+// import ActivityCard from './activityCard';
+// import ActivityTable from '@/components/specific/marketplace/activityGraph/activityTable';
 import classes from './styles.module.css';
 
 export default function ActivityGraph(dataset: PreviewDataset) {
-    const activity: DatasetActivity[] = [
-        {
-            id: 'abc123',
-            date: new Date(),
-            action: 'added' as const,
-            numFiles: 200,
-            size: 1e+9 * 20,
-            type: 'image' as Flockfysh.AssetType,
-            userName: 'dogs'
-        },
-        {
-            id: 'abc123',
-            date: new Date(),
-            action: 'added' as const,
-            numFiles: 200,
-            size: 1e+9 * 10,
-            type: 'image' as Flockfysh.AssetType,
-            userName: 'dogs'
-        },
-        {
-            id: 'abc123',
-            date: new Date(),
-            action: 'added' as const,
-            numFiles: 200,
-            size: 1e+9 * 5,
-            type: 'image' as Flockfysh.AssetType,
-            userName: 'dogs'
-        },
-        {
-            id: 'abc123',
-            date: new Date(),
-            action: 'added' as const,
-            numFiles: 200,
-            size: 1e+9 * 15,
-            type: 'image' as Flockfysh.AssetType,
-            userName: 'dogs'
-        },
-    ];
+    // const activity: DatasetActivity[] = [
+    //     {
+    //         id: 'abc123',
+    //         date: new Date(),
+    //         action: 'added' as const,
+    //         numFiles: 200,
+    //         size: 1e+9 * 20,
+    //         type: 'image' as Flockfysh.AssetType,
+    //         userName: 'dogs'
+    //     },
+    //     {
+    //         id: 'abc123',
+    //         date: new Date(),
+    //         action: 'added' as const,
+    //         numFiles: 200,
+    //         size: 1e+9 * 10,
+    //         type: 'image' as Flockfysh.AssetType,
+    //         userName: 'dogs'
+    //     },
+    //     {
+    //         id: 'abc123',
+    //         date: new Date(),
+    //         action: 'added' as const,
+    //         numFiles: 200,
+    //         size: 1e+9 * 5,
+    //         type: 'image' as Flockfysh.AssetType,
+    //         userName: 'dogs'
+    //     },
+    //     {
+    //         id: 'abc123',
+    //         date: new Date(),
+    //         action: 'added' as const,
+    //         numFiles: 200,
+    //         size: 1e+9 * 15,
+    //         type: 'image' as Flockfysh.AssetType,
+    //         userName: 'dogs'
+    //     },
+    // ];
 
     // 0 = 1 week, 1 = 1 month, 2 = 6 months, 3 = 1 year
     const [selectedTime, updateSelectedTime] = useState(2);
@@ -57,18 +57,10 @@ export default function ActivityGraph(dataset: PreviewDataset) {
                     <DatasetTimeFilter
                         callback={ (time) => updateSelectedTime(time) }
                         options={ [
-                            [
-                                7, 'days',
-                            ],
-                            [
-                                1, 'month',
-                            ],
-                            [
-                                6, 'months',
-                            ],
-                            [
-                                1, 'year',
-                            ]
+                            [7, 'days'],
+                            [1, 'month'],
+                            [6, 'months'],
+                            [1, 'year'],
                         ] }
                         selected={ selectedTime }
                     />
