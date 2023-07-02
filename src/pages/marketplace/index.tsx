@@ -212,14 +212,13 @@ const Marketplace: NextPageWithLayout = function () {
                 </section>
             ) }
 
-            { /*<section className={ classes.sectionContainer }>*/ }
-            { /*    <div className={ classes.headerContainer }>*/ }
-            { /*        <h1 className={ classes.header }>Trending Collections</h1>*/ }
-            { /*    </div>*/ }
+            <section className={ classes.sectionContainer }>
+                <div className={ classes.headerContainer }>
+                    <h1 className={ classes.header }>Trending Collections</h1>
+                </div>
 
-            { /*    <CollectionSwiper collections={ collections }/>*/ }
-
-            { /*</section>*/ }
+                <CollectionSwiper collections={ collections }/>
+            </section>
 
             <section className={ classes.sectionContainer + ' ' + classes.howTo }>
                 <h1 className={ classes.howToHeader }>
