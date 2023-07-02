@@ -35,27 +35,27 @@ export default function Contribute(props: ContributeProps) {
             _id: string;
             type: Flockfysh.AssetType;
         },
-        formData: FormData
+        formData: FormData,
     ) {
         const uploadData = {
             name: formData.get('name'),
             description: formData.get('description'),
         };
-    
+
         const files = formData.getAll('files').filter((item) => {
             return item instanceof File && item.size > 0;
         }) as File[];
-    
+
         const pullRequest = await api
-        .post<Api.Response<Flockfysh.PullRequest>>(
-            `/api/datasets/${dataset._id}/pullRequests`,
-            uploadData
+            .post<Api.Response<Flockfysh.PullRequest>>(
+                `/api/datasets/${dataset._id}/pullRequests`,
+                uploadData,
             )
             .then((res) => res.data.data);
-            
-            const config = uploadTypeMapping[dataset.type];
-            
-        uploadToPullRequest(pullRequest._id, files, config);    
+
+        const config = uploadTypeMapping[dataset.type];
+
+        uploadToPullRequest(pullRequest._id, files, config);
 
         close();
     }
@@ -68,12 +68,12 @@ export default function Contribute(props: ContributeProps) {
 
                 await uploadPullRequest(
                     props.dataset,
-                    new FormData(e.currentTarget)
+                    new FormData(e.currentTarget),
                 );
             } }
         >
             <div className={ classes.inputDiv }>
-                <h4 className={ classes.subheading }>Title</h4>
+                <h4 className={ classes.subheading }>Contribution name</h4>
 
                 <div className={ classes.mergedInput }>
                     <ReactSVG src={ edit.src } className={ classes.icon }/>
@@ -83,6 +83,7 @@ export default function Contribute(props: ContributeProps) {
                         name={ 'name' }
                         type="text"
                         value={ title }
+                        placeholder={ 'Enter a memorable contribution name.' }
                         onChange={ (event) => {
                             setTitle(event.target.value);
                         } }
