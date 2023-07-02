@@ -62,6 +62,7 @@ async function uploadDataset(formData: FormData) {
         description: formData.get('description'),
         price: +(formData.get('price') ?? 0),
         public: JSON.parse(formData.get('public') as string),
+        license: formData.get('license'),
     };
 
     const newDataset = await api
