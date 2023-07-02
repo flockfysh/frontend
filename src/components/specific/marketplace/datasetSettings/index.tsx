@@ -11,6 +11,16 @@ import link from '@/icons/main/link.svg';
 
 import classes from './styles.module.css';
 
+import { DATASET_LICENSE_DESCRIPTION, DATASET_LICENSE_ENUM } from '@/helpers/enums/license';
+import Select from '@/components/specific/marketplace/datasetSettings/select';
+
+const licenseOptions = DATASET_LICENSE_ENUM._def.values.map(license => {
+    return {
+        label: DATASET_LICENSE_DESCRIPTION[license],
+        value: license,
+    };
+});
+
 export default function DatasetSettings(dataset: PreviewDataset) {
     const router = useRouter();
 
@@ -32,7 +42,7 @@ export default function DatasetSettings(dataset: PreviewDataset) {
                                 {
                                     username: data,
                                     retainAdmin: true,
-                                }
+                                },
                             );
                         } }
                     />
@@ -56,7 +66,7 @@ export default function DatasetSettings(dataset: PreviewDataset) {
                                 `/api/datasets/${dataset._id}/visibility`,
                                 {
                                     public: data,
-                                }
+                                },
                             );
                         } }
                     />
@@ -77,7 +87,7 @@ export default function DatasetSettings(dataset: PreviewDataset) {
                                 `/api/datasets/${dataset._id}/price`,
                                 {
                                     price: +data,
-                                }
+                                },
                             );
                         } }
                         saveLabel="Save"
@@ -85,12 +95,25 @@ export default function DatasetSettings(dataset: PreviewDataset) {
 
                     <CreatableSelect
                         placeholder="Add tags"
+
                         initialValue={ dataset.tags }
                         label="Adjust tags"
                         tooltip="Tags help Flockfysh categorize your dataset better so that users who need it can easily locate it."
                         onChange={ async (data) => {
                             await api.patch(`/api/datasets/${dataset._id}`, {
                                 tags: data,
+                            });
+                        } }
+                    />
+
+                    <Select
+                        initialValue={ licenseOptions[0] }
+                        label="Adjust license"
+                        tooltip="License helps or prevents legal access to the dataset."
+                        options={ licenseOptions }
+                        onChange={ async (data) => {
+                            await api.patch(`/api/datasets/${dataset._id}/license`, {
+                                license: data,
                             });
                         } }
                     />

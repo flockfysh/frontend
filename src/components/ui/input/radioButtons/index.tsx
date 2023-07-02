@@ -27,8 +27,8 @@ export default function RadioButtons<T>(props: {
     const Component = props.isLink
         ? Link
         : ({ ...props }: ComponentPropsWithRef<'button'>) => (
-              <button { ...props }></button>
-          );
+            <button { ...props }></button>
+        );
 
     return (
         <div className={ classes.container }>
@@ -37,7 +37,7 @@ export default function RadioButtons<T>(props: {
                     <label className={ classes.label }>{ props.label }</label>
                     { props.tooltip ? (
                         <button className={ classes.helpIcon }>
-                            <ReactSVG src={ help.src } />
+                            <ReactSVG src={ help.src }/>
 
                             <p className={ classes.helpIconTooltip }>
                                 { props.tooltip }
@@ -53,11 +53,11 @@ export default function RadioButtons<T>(props: {
             <div className={ classes.buttons }>
                 { props.options.map(function generate(option, index) {
                     if (option.shown === false) return <></>;
-                    
+
                     return (
                         <Component
                             href={ option.value as string }
-                            onClick={ () => {
+                            onClick={ (e) => {
                                 setValue(option.value);
                                 props.onChange?.(option.value);
                             } }

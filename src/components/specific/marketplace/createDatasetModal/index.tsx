@@ -18,6 +18,7 @@ import save from '@/icons/main/save.svg';
 import coinStack from '@/icons/main/coin-stack.svg';
 
 import classes from './styles.module.css';
+import { DATASET_LICENSE_DESCRIPTION, DATASET_LICENSE_ENUM } from '@/helpers/enums/license';
 
 type CreateDatasetModalProps = {
     onClose: () => void;
@@ -31,11 +32,12 @@ const datasetTypeOptions = [
 ];
 
 // ! Look at this
-const licenseOptions = [
-    { value: 'image', label: 'Images' },
-    { value: 'text', label: 'Text' },
-    { value: 'video', label: 'Video' },
-];
+const licenseOptions = DATASET_LICENSE_ENUM._def.values.map(license => {
+    return {
+        label: DATASET_LICENSE_DESCRIPTION[license],
+        value: license,
+    };
+});
 
 async function uploadDataset(formData: FormData) {
     const name = formData.get('name');
@@ -60,6 +62,7 @@ async function uploadDataset(formData: FormData) {
         description: formData.get('description'),
         price: +(formData.get('price') ?? 0),
         public: JSON.parse(formData.get('public') as string),
+        license: formData.get('license'),
     };
 
     const newDataset = await api
@@ -81,10 +84,11 @@ async function uploadDataset(formData: FormData) {
             fd.set(config.fieldName, file);
             await api.post(
                 `/api/datasets/${newDataset._id}/assets/upload/${config.endpoint}`,
-                fd
+                fd,
             );
         }
-        catch (e) {}
+ catch (e) {
+        }
     }
 
     await new AsyncArray(files).chunkMap((file) => upload(file), undefined, {
@@ -98,7 +102,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
     const [datasetType, setDatasetType] = useState<
         Flockfysh.AssetType | undefined
     >(undefined);
-    
+
     const [recipes, setRecipes] = useState<Flockfysh.RecipeWithLabels[]>([]);
     const [isAgreed, updateAgreed] = useState(false);
 
@@ -112,7 +116,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                             name: undefined,
                             expand: 'labels',
                         },
-                    }
+                    },
                 )
             ).data.data;
 
@@ -131,7 +135,8 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
     // TODO: recipe select
 
     // TODO: Is this implemented?
-    async function requestDataset() {}
+    async function requestDataset() {
+    }
 
     requestDataset();
 
@@ -189,7 +194,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                     onSubmit={ async (e) => {
                         e.preventDefault();
                         const formData = new FormData(e.currentTarget);
-                        
+
                         await uploadDataset(formData);
                         props.onClose();
                     } }
@@ -217,11 +222,11 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                     value={
                                         datasetType
                                             ? {
-                                                  label: capitalize(
-                                                      datasetType
-                                                  ),
-                                                  value: datasetType,
-                                              }
+                                                label: capitalize(
+                                                    datasetType,
+                                                ),
+                                                value: datasetType,
+                                            }
                                             : undefined
                                     }
                                     onChange={ (newValue) => {
@@ -230,7 +235,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                                 newValue as {
                                                     value: Flockfysh.AssetType;
                                                 }
-                                            ).value
+                                            ).value,
                                         );
                                     } }
                                     classNames={ {
@@ -278,7 +283,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                     <p>Minimum Number of Items</p>
 
                                     { /* TODO: need to change the scroll. React select */ }
-                                    <input type="number" required={ true } />
+                                    <input type="number" required={ true }/>
                                 </>
                             ) }
                         </label>
@@ -372,7 +377,9 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                             />
                         </label>
 
-                        <label className={ classes.disablePointerEvents }>
+                        <label className={ classes.disablePointerEvents } onClick={ e => {
+                            e.preventDefault();
+                        } }>
                             { /* TODO: Add info tooltip */ }
                             <p>Visibility</p>
 
@@ -452,7 +459,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                         name="license"
                                         classNames={ {
                                             control: () => {
-                                                return classes.inputControl;
+                                                return `${classes.inputControl} ${classes.licenseInput}`;
                                             },
                                             option: () => {
                                                 return classes.selectOption;
@@ -463,6 +470,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                         } }
                                         placeholder="Item"
                                         options={ licenseOptions }
+                                        defaultValue={ licenseOptions[0] }
                                     />
                                 </>
                             ) : (
@@ -470,7 +478,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                     <p>Deadline</p>
 
                                     { /* TODO: need to change the icon color */ }
-                                    <input type="date" required={ true } />
+                                    <input type="date" required={ true }/>
                                 </>
                             ) }
                         </label>
@@ -514,13 +522,13 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                 <>
                                     <p>Save Dataset</p>
 
-                                    <ReactSVG src={ save.src } />
+                                    <ReactSVG src={ save.src }/>
                                 </>
                             ) : (
                                 <>
                                     <p>Request Dataset</p>
 
-                                    <ReactSVG src={ coinStack.src } />
+                                    <ReactSVG src={ coinStack.src }/>
                                 </>
                             ) }
                         </button>

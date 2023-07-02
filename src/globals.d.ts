@@ -1,3 +1,5 @@
+import { _DatasetLicense } from '@/helpers/enums/license';
+
 declare global {
     namespace Flockfysh {
         type AnnotationTool = 'boundingBox' | 'ellipse' | 'polygon' | 'line';
@@ -5,6 +7,7 @@ declare global {
         type DatasetStage = 'untrained' | 'feedback' | 'completed';
         type AssetType = 'image' | 'video' | 'text' | 'other';
         type PullRequestStatus = 'draft' | 'published' | 'merged' | 'rejected';
+        type DatasetLicense = _DatasetLicense;
 
         interface Label {
             _id: string;
@@ -49,6 +52,7 @@ declare global {
                 views: number;
                 downloads: number;
             };
+            license: DatasetLicense;
         }
 
         interface Collection {

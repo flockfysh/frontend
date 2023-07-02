@@ -1,22 +1,23 @@
 import { useState, useEffect, useId } from 'react';
 import { ReactSVG } from 'react-svg';
 
-import { CustomCreatableSelect } from '@/components/ui/input/select';
+import CustomSelect, { CustomCreatableSelect } from '@/components/ui/input/select';
 
 import help from '@/icons/main/help-circle.svg';
 
 import classes from './styles.module.css';
 
-export default function CreatableSelect(props: {
+export default function Select(props: {
     icon?: string;
     label?: string;
     tooltip?: string;
     placeholder?: string;
-    value?: string[];
-    initialValue?: string[];
-    onChange?: (data: string[]) => void;
+    value?: { label: string, value: string };
+    initialValue?: { label: string, value: string };
+    options: { label: string, value: string }[],
+    onChange?: (data: string) => void;
 }) {
-    const [value, setValue] = useState(() => {
+    const [value, setValue] = useState<{ label: string, value: string } | undefined>(() => {
         return props.value ?? props.initialValue;
     });
 
@@ -54,27 +55,18 @@ export default function CreatableSelect(props: {
                 <></>
             ) }
 
-            <CustomCreatableSelect
-                isMulti={ true }
+            <CustomSelect
                 id={ id }
+                options={ props.options }
                 placeholder={ props.placeholder }
                 onChange={ async (event) => {
                     setInProgress(true);
-                    const raw = (
-                        event as { value: string; label: string }[]
-                    ).map((i) => i.value);
-
+                    const raw = event as { value: string; label: string };
                     setValue(raw);
-
-                    await props.onChange?.(raw);
+                    await props.onChange?.(raw.value);
                     setInProgress(false);
                 } }
-                value={ value?.map((i) => {
-                    return {
-                        value: i,
-                        label: i,
-                    };
-                }) }
+                value={ value }
                 className={ `${classes.input}` }
                 classNames={ {
                     control: () => {
