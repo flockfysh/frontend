@@ -22,6 +22,7 @@
     z-index: -1;
     object-fit: cover;
     object-position: center;
+    border: none;
     filter: blur(4px) brightness(0.7);
 }
 
