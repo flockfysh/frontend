@@ -376,7 +376,9 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                             />
                         </label>
 
-                        <label className={ classes.disablePointerEvents }>
+                        <label className={ classes.disablePointerEvents } onClick={ e => {
+                            e.preventDefault();
+                        } }>
                             { /* TODO: Add info tooltip */ }
                             <p>Visibility</p>
 
