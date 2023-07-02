@@ -13,15 +13,15 @@ export default function Footer() {
         <div className={ classes.footer }>
             <div className={ classes.socials }>
                 <div className={ classes.socialIconContainer }>
-                    <a href="https://github.com/flockfysh" target = "_blank">
+                    <Link href="https://github.com/flockfysh" target = "_blank">
                         <ReactSVG className={ classes.github } src={ github.src } />
-                    </a>
-                    <a href="https://twitter.com/flockfysh" target = "_blank">
+                    </Link>
+                    <Link href="https://twitter.com/flockfysh" target = "_blank">
                         <ReactSVG className={ classes.socialIcon } src={ twitter.src } />
-                    </a>
-                    <a href="https://linkedin.com/company/flockfysh" target = "_blank">
+                    </Link>
+                    <Link href="https://linkedin.com/company/flockfysh" target = "_blank">
                         <ReactSVG className={ classes.socialIcon } src={ linkedin.src } />
-                    </a>
+                    </Link>
                 </div>
 
                 <div className={ classes.contactInfoContainer }>
