@@ -13,7 +13,7 @@ export default function WideFocusedCard(props: HomepageDataset) {
         <div className={ classes.cardContainer }>
             <div className={ classes.header }>
                 <div className={ classes.thumbnail }>
-                    { props.icon && <img src={ props.icon?.url } alt="avatar" /> }
+                    { props.icon && <img src={ props.icon?.url } alt="avatar"/> }
                 </div>
 
                 <DatasetTypeCard
@@ -40,9 +40,9 @@ export default function WideFocusedCard(props: HomepageDataset) {
 
             <div className={ classes.footer }>
                 <div className={ classes.left }>
-                    <img src={ props.user.profilePhoto?.url } alt="pfp" />
+                    <img src={ props.user.profilePhoto?.url } alt="pfp"/>
 
-                    <p>@{ props.user.username.slice(0, 15) }</p>
+                    <p>@{ props.user.username.slice(0, 16) }</p>
                 </div>
 
                 <div className={ classes.right }>

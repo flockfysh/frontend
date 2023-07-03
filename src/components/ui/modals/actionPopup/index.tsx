@@ -19,7 +19,8 @@ interface PopupModalContext {
 }
 
 export const PopupModalContext = createContext<PopupModalContext>({
-    close: () => {},
+    close: () => {
+    },
 });
 
 export default function ActionPopup(props: ActionPopupProps) {
@@ -51,7 +52,7 @@ export default function ActionPopup(props: ActionPopupProps) {
                 } ${props.modalClassName ?? ''}` }
             >
                 <div className={ classes.header }>
-                    <h3 className={ classes.headerText }>Contribution Request</h3>
+                    <h3 className={ classes.headerText }>{ props.popupTitle }</h3>
                     <ReactSVG
                         src={ xMark.src }
                         className={ classes.closeBtn }

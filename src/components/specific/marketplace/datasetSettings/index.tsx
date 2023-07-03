@@ -5,6 +5,7 @@ import DatasetGeneralSettings from '@/components/specific/marketplace/datasetSet
 import { useRouter } from 'next/router';
 import RadioButtons from '@/components/ui/input/radioButtons';
 import { AiFillCustomerService } from 'react-icons/ai';
+import DatasetPermissionManager from '@/components/specific/marketplace/datasetSettings/permissionManager';
 
 
 export default function DatasetSettingsLayout() {
@@ -27,6 +28,7 @@ export default function DatasetSettingsLayout() {
             label: 'Contributions',
             heading: 'Contribution Settings',
             value: `/marketplace/${dataset._id}/settings?tab=contributions`,
+            component: DatasetPermissionManager,
         },
     ];
 
