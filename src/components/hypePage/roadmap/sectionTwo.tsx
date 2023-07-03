@@ -1,5 +1,6 @@
 import commonClasses from './common.module.css';
 import classes from './sectionTwo.module.css';
+
 import rapidExperimentationIcon from '.././images/rapidExperimentation.svg';
 import lightningFastIcon from '.././images/lightningFast.svg';
 import absoluteControlIcon from '.././images/absoluteControl.svg';
@@ -8,6 +9,7 @@ import secondSectionImage from '.././images/secondSectionImage.svg';
 import twoFish from '.././images/twoFish.svg';
 import aboveImage from '.././images/aboveImageSecondSection.svg';
 import belowImage from '.././images/belowImageSecondSection.svg';
+
 import Card from '../../ui/card';
 import SectionHeader from './components/sectionHeader';
 
@@ -40,9 +42,11 @@ const cardsInfo = [
 
 function SectionTwo() {
     return (
-        <section className={ `${commonClasses.section} ${classes.sectionTwoContainer}` }>
+        <section
+            className={ `${commonClasses.section} ${classes.sectionTwoContainer}` }
+        >
             <div className={ classes.numberDiv }>
-                <img src={ twoFish.src } alt="" className={ classes.fish }/>
+                <img src={ twoFish.src } alt="" className={ classes.fish } />
                 <h3 className={ classes.number }>2</h3>
             </div>
 
@@ -55,28 +59,36 @@ function SectionTwo() {
             <div className={ classes.container }>
                 <div className={ classes.middleImageContainer }>
                     <div className={ classes.middleImagewrapper }>
-                        <img src={ secondSectionImage.src } alt=""/>
+                        <img src={ secondSectionImage.src } alt="" />
                     </div>
                 </div>
 
                 <div className={ classes.aboveImageContainer }>
-                    <img src={ aboveImage.src } alt=""/>
+                    <img src={ aboveImage.src } alt="" />
                 </div>
 
                 <div className={ classes.infoContainer }>
-                    {
-                        cardsInfo.map((item, i) => (
-                            <div key={ i } className={ `${classes['anchor' + i]} ${classes.anchor}` }>
-                                <Card className={ `${classes['card' + i]} ${classes.card}` } heading={ item.title }
-                                      body={ item.description }
-                                      icon={ item.icon }/>
-                            </div>
-                        ))
-                    }
+                    { cardsInfo.map((item, i) => (
+                        <div
+                            key={ i }
+                            className={ `${classes['anchor' + i]} ${
+                                classes.anchor
+                            }` }
+                        >
+                            <Card
+                                className={ `${classes['card' + i]} ${
+                                    classes.card
+                                }` }
+                                heading={ item.title }
+                                body={ item.description }
+                                icon={ item.icon }
+                            />
+                        </div>
+                    )) }
                 </div>
 
                 <div className={ classes.belowImageContainer }>
-                    <img src={ belowImage.src } alt=""/>
+                    <img src={ belowImage.src } alt="" />
                 </div>
             </div>
         </section>

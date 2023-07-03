@@ -41,7 +41,7 @@ export default function DatasetCard(
 
                     <div className={ classes.lastUpdated }>
                         <ReactSVG src={ clock.src } />
-                        
+
                         <span>{ dateDiff }</span>
                     </div>
                 </div>

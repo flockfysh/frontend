@@ -43,7 +43,7 @@ export async function uploadToPullRequest(
                 fd
             );
         }
-        catch (e) {}
+ catch (e) {}
     }
 
     await new AsyncArray(files).chunkMap((file) => upload(file), undefined, {

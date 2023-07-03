@@ -75,7 +75,7 @@ function DatasetsOwned(props: { user: BaseUser }) {
                     )
                 ).data;
             }
- else {
+            else {
                 fetched = (
                     await api.get<Api.PaginatedResponse<HomepageDataset[]>>(
                         '/api/datasets/search/shared',
@@ -149,6 +149,14 @@ function DatasetsOwned(props: { user: BaseUser }) {
                         }
                     />
                 </div>
+
+                {
+                    state.datasets.length === 0 && (
+                        <div>
+                            <p>No datasets</p>                           
+                        </div>
+                    )
+                }
 
                 <InfiniteScroll
                     useWindow={ false }

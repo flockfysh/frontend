@@ -34,8 +34,8 @@ export default function Profile(props: { username: string }) {
 
             { curTab === 2 && (
                 <UserSettings
-                    name="user"
-                    email="trial@email.com"
+                    username={ user.username }
+                    email={ user.email }
                     apiKey="Sf3$dqq34Fa4gD43@F$&S"
                     mailingList={ true }
                     transferLimit={ 1.9 }

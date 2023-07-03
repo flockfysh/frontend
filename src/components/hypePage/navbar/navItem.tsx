@@ -10,9 +10,7 @@ export default function NavItem(props: NavItemProps) {
     return (
         <li className={ classes.listItem }>
             <NavLink
-                to={
-                    props.to
-                }
+                to={ props.to }
                 className={ (navData) =>
                     navData.isActive
                         ? `${classes.navbarLinkActive} ${classes.navbarLink}`

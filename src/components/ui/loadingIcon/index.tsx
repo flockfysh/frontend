@@ -1,4 +1,4 @@
-// ! Fix this component
+// TODO: Fix this component
 
 // import loadingIcon from '../../../images/icons/loading.svg';
 // import classes from './loadingIcon.module.css';

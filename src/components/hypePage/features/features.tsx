@@ -37,11 +37,14 @@ export default function Features() {
 
     return (
         <section className={ classes.featuresWrapper }>
-            {
-                featureItems.map((item, i) => (
-                    <Card key={ i } heading={ item.title } body={ item.description } icon={ item.src }/>
-                ))
-            }
+            { featureItems.map((item, i) => (
+                <Card
+                    key={ i }
+                    heading={ item.title }
+                    body={ item.description }
+                    icon={ item.src }
+                />
+            )) }
         </section>
     );
 }

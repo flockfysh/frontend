@@ -30,7 +30,6 @@ ChartJS.register(
     BarController
 );
 
-// TODO: need to specify type for the prop data
 export default function Graph(dataset: PreviewDataset) {
     const [rawActivityMetrics, setRawActivityMetrics] = useState<
         ActivityMetric[]

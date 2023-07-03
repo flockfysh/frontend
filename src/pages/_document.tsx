@@ -17,21 +17,21 @@ export default function Document() {
                     property="og:title"
                     content="flockfysh | lightning fast large scale ML datasets"
                 />
-                <meta property="og:type" content="website"/>
-                <meta property="og:url" content="http://www.flockfysh.tech/"/>
-                <meta property="og:image" content=""/>
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="http://www.flockfysh.tech/" />
+                <meta property="og:image" content="" />
                 <meta
                     property="og:description"
                     content="lightning fast large scale ML datasets"
                 />
 
-                <link rel="icon" href="/favicon.ico"/>
+                <link rel="icon" href="/favicon.ico" />
             </Head>
 
             <body>
-            <Main/>
+                <Main />
 
-            <NextScript/>
+                <NextScript />
             </body>
         </Html>
     );
