@@ -196,11 +196,12 @@
     padding: 0.3rem 0.3rem;
     border-radius: 10px;
     padding-left: 1.3rem;
+    gap: 1.3rem;
 }
 
 .input {
     background: var(--main-grey);
-    padding: 0.7rem 1.3rem;
+    padding: 0.7rem 0;
     width: 23ch;
     font-size: 1rem;
     opacity: 0.8;

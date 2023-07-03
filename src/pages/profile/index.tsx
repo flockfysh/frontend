@@ -1,17 +1,18 @@
-import { useRouter } from 'next/router';
 import MarketplaceNavbar from '@/components/specific/marketplace/navbar';
+
+
 import classes from './profile.module.css';
 import { NextPageWithLayout } from '@/pages/_app';
 import Profile from '@/components/specific/profile/profile';
 import Footer from '@/components/specific/marketplace/footer';
-import React from 'react';
+import React, { useContext } from 'react';
+import { UserContext } from '@/contexts/userContext';
 
 const ProfilePage: NextPageWithLayout = function () {
-    const router = useRouter();
-    const username = router.query.username;
+    const { user } = useContext(UserContext);
 
-    if (typeof username === 'string')
-        return <Profile username={ username }/>;
+    if (user)
+        return <Profile username={ user.username }/>;
 
     return <></>;
 };
