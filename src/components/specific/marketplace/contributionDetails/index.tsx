@@ -43,7 +43,7 @@ export default function ContributionDetails(props: {
             ).data.data;
             setCurContribution(contribution);
             const tempMessages = (
-                await api.get<Api.Response<Flockfysh.PullRequestMessage[]>>(
+                await api.get<Api.Response<any>>(
                     `/api/pullRequests/${props.contributionId}/messages`,
                     {
                         params: {
