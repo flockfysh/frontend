@@ -31,11 +31,14 @@ export default function WideFocusedCard(props: HomepageDataset) {
                     getDefaultDatasetThumbnail(props.type).src
                 }
             />
-            <div className={ classes.overlay }></div>
+
+            <div className={ classes.overlay } />
+            
             <Link
                 className={ classes.linkOverlay }
                 href={ `/marketplace/${props._id}` }
-            ></Link>
+            />
+            
             <div className={ classes.datasetName }>{ props.name }</div>
 
             <div className={ classes.footer }>

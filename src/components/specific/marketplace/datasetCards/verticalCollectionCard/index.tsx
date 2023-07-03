@@ -16,10 +16,7 @@ export default function VerticalCollectionCard(props: HomepageCollection) {
 
     return (
         <div className={ classes.container }>
-            <img
-                // fill={ true }
-                // src={ props.thumbnail?.url ?? '' }
-                alt="Thumbnail"
+            <div
                 className={ classes.thumbnail }
                 style={ {
                     background:
@@ -36,12 +33,6 @@ export default function VerticalCollectionCard(props: HomepageCollection) {
                         '%)',
                 } }
             />
-            { /* <Avatar
-            // className={ classes.thumbnail }
-            name={Math.random().toString()}
-            variant="marble"
-                colors={ ['#92A1C6', '#146A7C', '#F0AB3D', '#C271B4', '#C20D90'] }
-            /> */ }
 
             <div className={ classes.contentContainer }>
                 <div className={ classes.header }>
@@ -59,18 +50,18 @@ export default function VerticalCollectionCard(props: HomepageCollection) {
                 <div className={ classes.middleSection }>
                     <h1>{ props.name }</h1>
 
-                    <div className={ classes.profileCardContainer }>
-                        <ProfileCard
-                            className={ classes.profileCard }
-                            username={ props.user.username }
-                            profilePicture={ props.user.profilePhoto?.url ?? '' }
-                        />
-                    </div>
-
                     <div className={ classes.footer }>
                         <div className={ classes.infoContainer }>
                             <p className={ classes.infoHeader }>Datasets</p>
                             <p className={ classes.info }>{ props.itemCount }</p>
+                        </div>
+
+                        <div className={ classes.profileCardContainer }>
+                            <ProfileCard
+                                className={ classes.profileCard }
+                                username={ props.user.username }
+                                profilePicture={ props.user.profilePhoto?.url ?? '' }
+                            />
                         </div>
                     </div>
                 </div>
