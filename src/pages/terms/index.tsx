@@ -1,4 +1,3 @@
-
 import { NextPageWithLayout } from '@/pages/_app';
 
 import MainLayout from '@/components/layout/mainLayout';

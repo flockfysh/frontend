@@ -3,6 +3,7 @@ import { ReactSVG } from 'react-svg';
 
 import { PopupModalContext } from '@/components/ui/modals/actionPopup';
 import FileUpload from '@/components/fileUpload/index';
+import Editing from '@/components/ui/editingBox/editing';
 
 import {
     uploadTypeMapping,
@@ -41,7 +42,6 @@ export default function Contribute(props: ContributeProps) {
             name: formData.get('name'),
             description: formData.get('description'),
         };
-        console.log(uploadData);
 
         const files = formData.getAll('files').filter((item) => {
             return item instanceof File && item.size > 0;
@@ -95,17 +95,7 @@ export default function Contribute(props: ContributeProps) {
             <div className={ classes.inputDiv }>
                 <h4 className={ classes.subheading }>Describe your request</h4>
 
-                <div>
-                    <textarea
-                        className={ classes.textArea }
-                        name="description"
-                        placeholder="Describe what is in your contribution. Be as precise as you can"
-                        onChange={ (event) => {
-                            setBody(event.target.value);
-                        } }
-                        value={ body }
-                    />
-                </div>
+                <Editing body={ body } setBody={ setBody } />
             </div>
 
             <div className={ classes.inputDiv }>

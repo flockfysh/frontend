@@ -17,7 +17,6 @@ import key from '@/icons/main/key.svg';
 import classes from './styles.module.css';
 import api from '@/helpers/api';
 import { useStateWithDeps } from 'use-state-with-deps';
-import username from '@/pages/profile/[username]';
 
 type UserSettings = {
     username: string;
@@ -44,6 +43,7 @@ function Input(props: {
     const [value, setValue] = useStateWithDeps<string>(() => {
         return props.value ?? props.initialValue ?? '';
     }, [props.value]);
+
     const validation = props.validator?.(value) ?? true;
 
     return (
@@ -96,7 +96,7 @@ export default function UserSettings(props: UserSettings) {
     const [github, setGithub] = useState('github.com');
     const [linkedin, setLinkedin] = useState('linkedin.com');
     const [website, setWebsite] = useState('test.com');
-    const [email, setEmail] = useState(props.email);
+    const [email, _setEmail] = useState(props.email);
     const [password, setPassword] = useState('');
     const [apiKey, setApiKey] = useState(props.apiKey);
 
