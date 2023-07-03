@@ -148,7 +148,7 @@ export default function ContributionDetails(props: {
 
     return (
         <>
-        {showList && 
+        { showList && (
             <div className={ classes.pullRequestContent }>
                 <div className={ classes.pullRequestBody }>
                     <div className={ classes.bodyHeader }>
@@ -215,11 +215,11 @@ export default function ContributionDetails(props: {
                     <h3 className={ classes.h3 }>Placeholder</h3>
                 </div>
             </div>
-        }
+          ) }
         { !showList && (
             <div className={ classes.assetViewContainer }>
                 <div className = { classes.assetViewContainerHeader }>
-                    <button className={ classes.backButton } onClick={toggleViewToList}><BsArrowLeftCircle/> Back</button>
+                    <button className={ classes.backButton } onClick={ toggleViewToList }><BsArrowLeftCircle/> Back</button>
                     <h3>{ curContribution?.name }</h3>
                     <div className={ classes.toggleButtonsContainer }>
                         <button className={ classes.toggleButton } onClick={ toggleViewToGrid }>
