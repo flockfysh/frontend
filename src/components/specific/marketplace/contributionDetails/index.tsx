@@ -84,7 +84,7 @@ export default function ContributionDetails(props: {
             ).data.data;
             setCurContribution(contribution);
             const tempMessages = (
-                await api.get<Api.Response<ExpandedPullRequestMessage[]>>(
+                await api.get<Api.Response<any>>(
                     `/api/pullRequests/${props.contributionId}/messages`,
                     {
                         params: {
@@ -94,7 +94,7 @@ export default function ContributionDetails(props: {
                         },
                     },
                 )
-            ).data.data;
+            ).data.data.data;
             setMessages(tempMessages);
         };
 
@@ -165,7 +165,7 @@ export default function ContributionDetails(props: {
                             </time>
                         </div>
                         <p>{ curContribution.description }</p>
-                        <button className={ classes.changesButton }>View Changes <MdOpenInNew/></button>
+                        <button className={ classes.changesButton } onClick={ toggleViewToGrid }>View Changes <MdOpenInNew/></button>
                     </div>
                     <span className={ classes.vl }/>
                     <span className={ classes.dot }/>
@@ -179,27 +179,37 @@ export default function ContributionDetails(props: {
                         );
                     }) }
                     <div className={ classes.card }>
-                        <form
-                            onSubmit={ (e) => {
-                                e.preventDefault();
-                                submitMessage(e.currentTarget);
-                            } }
-                        >
-                            <div className={ classes.cardTop }>
-                                <h1 className={ classes.headerText }>Comment</h1>
+                    <form
+                        onSubmit={ (e) => {
+                            e.preventDefault();
+                            submitMessage(e.currentTarget);
+                        } }
+                    >
+                        <div className={ classes.cardTop }>
+                            <h1 className={ classes.headerText }>Comment</h1>
 
-                                { curContribution.status !== 'merged' ? (
-                                    <CustomSelect
-                                        name="status"
-                                        className={ classes.select }
-                                        placeholder="Status"
-                                        options={ statusOptions }
-                                    />
-                                ) : <></> }
-                            </div>
-                            <button className={ classes.submitButton }>Comment</button>
-                        </form>
-                    </div>
+                            { curContribution.status !== 'merged' ? (
+                                <CustomSelect
+                                    name="status"
+                                    className={ classes.select }
+                                    placeholder="Status"
+                                    options={ statusOptions }
+                                />
+                            ) : <></> }
+                        </div>
+
+                        <textarea
+                            value={ text }
+                            onChange={ changeText }
+                            className={ classes.commentField }
+                            required={ true }
+                            name="comment"
+                            placeholder="Add comment here..."
+                        />
+
+                        <button className={ classes.submitButton }>Comment</button>
+                    </form>
+                </div>
                 </div>
                 <div className={ classes.pullRequestStats }>
                     <h3 className={ classes.h3 }>Placeholder</h3>
@@ -209,7 +219,7 @@ export default function ContributionDetails(props: {
         { !showList && (
             <div className={ classes.assetViewContainer }>
                 <div className = { classes.assetViewContainerHeader }>
-                    <button className={ classes.backButton }><BsArrowLeftCircle/> Back</button>
+                    <button className={ classes.backButton } onClick={toggleViewToList}><BsArrowLeftCircle/> Back</button>
                     <h3>{ curContribution?.name }</h3>
                     <div className={ classes.toggleButtonsContainer }>
                         <button className={ classes.toggleButton } onClick={ toggleViewToGrid }>
