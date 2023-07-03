@@ -62,15 +62,15 @@ export default function ContributionDetails(props: {
     }
 
     if(!curContribution){
-        return <></>
+        return <></>;
     }
     
     return (
-        <div className={classes.pullRequestContent}>
-            <div className={classes.pullRequestBody}>
-                <div className={classes.bodyHeader}>
-                    <button className={classes.backButton}><BsArrowLeftCircle/> Back</button>
-                    <h3>{curContribution.name}</h3>
+        <div className={ classes.pullRequestContent }>
+            <div className={ classes.pullRequestBody }>
+                <div className={ classes.bodyHeader }>
+                    <button className={ classes.backButton }><BsArrowLeftCircle/> Back</button>
+                    <h3>{ curContribution.name }</h3>
                 </div>
                 <div className={ classes.card }>
                     <form
@@ -102,8 +102,8 @@ export default function ContributionDetails(props: {
                     </form>
                 </div>
             </div>
-            <div className={classes.pullRequestStats}>
-                <h3 className={classes.h3}>Placeholder</h3>
+            <div className={ classes.pullRequestStats }>
+                <h3 className={ classes.h3 }>Placeholder</h3>
             </div>
         </div>
     );
