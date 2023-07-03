@@ -4,8 +4,6 @@ import ProfileCard from '@/components/specific/marketplace/profileCard';
 
 import { UserContext } from '@/contexts/userContext';
 
-import { getDefaultProfilePicture } from '@/helpers/defaults';
-
 export default function CurrentUserProfile() {
     const { user } = useContext(UserContext);
 
@@ -13,7 +11,7 @@ export default function CurrentUserProfile() {
         return (
             <ProfileCard
                 profilePicture={
-                    user.profilePhoto?.url ?? getDefaultProfilePicture()
+                    user.profilePhoto?.url
                 }
                 username={ user.username }
             />

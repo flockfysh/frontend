@@ -1,8 +1,11 @@
 import { useContext, useRef } from 'react';
 import { ReactSVG } from 'react-svg';
-import Image from 'next/image';
 
+import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+
+import Avatar from 'boring-avatars';
 
 import { UserContext } from '@/contexts/userContext';
 
@@ -68,19 +71,38 @@ function Header(props: { url: string; editable: boolean }) {
 }
 
 function ProfilePhoto(props: { url: string; editable: boolean }) {
+    const router = useRouter();
+
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (
         <div className={ classes.profilePictureContainer }>
-            <img
-                className={ classes.profilePic }
-                src={
-                    props.url
-                        ? props.url
-                        : 'https://images.unsplash.com/photo-1524704654690-b56c05c78a00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80'
-                }
-                alt="profile pic"
-            />
+            {
+                props.url
+                    ? (
+                        <img
+                            className={ classes.profilePic }
+                            src={ props.url }
+                            alt="profile pic"
+                        />
+                    )
+                    : (
+                        <div className={ classes.defaultProfilePic }>
+                            <Avatar
+                                size="12rem"
+                                name={ Math.random().toString() }
+                                variant="marble"
+                                colors={ [
+                                    '#92A1C6',
+                                    '#146A7C',
+                                    '#F0AB3D',
+                                    '#C271B4',
+                                    '#C20D90',
+                                ] }
+                            />
+                        </div>
+                    )
+            }
 
             { props.editable ? (
                 <>
@@ -95,6 +117,8 @@ function ProfilePhoto(props: { url: string; editable: boolean }) {
                                 e.currentTarget.value = '';
 
                                 await api.put('/api/users/profilePhoto', fd);
+                                
+                                router.reload();
                             }
                         } }
                         ref={ inputRef }

@@ -4,7 +4,7 @@ import Avatar from 'boring-avatars';
 import classes from './styles.module.css';
 
 type ProfileCardProps = {
-    profilePicture: string;
+    profilePicture?: string;
     username: string;
     className?: string;
 };
