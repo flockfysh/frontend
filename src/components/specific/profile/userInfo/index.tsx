@@ -200,6 +200,7 @@ const UserInfo = (
                     <p className={ classes.followers }>
                         <span className={ classes.span }>{ 20 }</span> following
                     </p>
+                    
                     <p className={ classes.followers }>
                         <span className={ classes.span }>{ 3 }</span> followers
                     </p>

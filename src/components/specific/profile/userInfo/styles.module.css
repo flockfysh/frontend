@@ -86,6 +86,7 @@
 
 .followers {
     font-size: 1rem;
+    color: var(--light-grey) !important;
 }
 
 .followButton {
