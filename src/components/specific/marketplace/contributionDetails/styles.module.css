@@ -1,3 +1,52 @@
+.pullRequestContent{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    padding: 1rem;
+    border: 1px solid;
+    border-radius: 16px;
+}
+
+.pullRequestBody{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid;
+    border-radius: 16px;
+    padding: 1rem;
+}
+
+.pullRequestInfo{
+    display: flex;
+    flex-direction: column;
+}
+.bodyHeader{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.contributionStats{
+    border: 1px solid;
+    border-radius: 16px;
+}
+
+.statusDetails{
+    border: 1px solid;
+    border-radius: 16px;
+}
+
+.backButton{
+    display: inline-flex;
+    height: 2.5rem;
+    padding: 10px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 16px;
+    background: var(--primary-2950, #08066C);
+}
 .card {
     display: flex;
     flex-direction: column;
@@ -52,6 +101,7 @@
     margin-left: auto;
     height: 42px;
     width: 102px;
+    margin-top: -0.5rem;
     justify-content: center;
     align-items: center;
     flex-shrink: 0;

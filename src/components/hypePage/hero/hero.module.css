@@ -1,0 +1,227 @@
+.heroSectionDiv {
+    margin: 4.5rem 0;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: auto;
+}
+
+.infoFoundry {
+    display: flex;
+    flex-direction: row;
+    gap: 0.25rem;
+    border: 0.0625rem solid #171720;
+    background: rgba(12, 12, 15, 0.5);
+    background-blend-mode: normal;
+    border-radius: 1.5rem;
+    padding: 0.25rem 1rem;
+}
+
+.infoFoundry div {
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+}
+
+.foundryLogoContainer {
+    flex: none;
+}
+
+.foundryLogo {
+    height: 2.5rem;
+    width: auto;
+}
+
+.readMoreFoundry {
+    text-decoration: underline;
+    transition: 0.2s;
+}
+
+.readMoreFoundry a {
+    margin-right: 0.25rem;
+    color: inherit;
+    transition: 0.15s;
+}
+
+.readMoreFoundry a:hover {
+    color: var(--primary1-100);
+}
+
+.heroHeading {
+}
+
+.contentSection {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.contentSection h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.25rem;
+    line-height: 1.5em;
+    margin-block: 0.625rem;
+    text-align: center;
+}
+
+.contentSection span {
+    font-size: 0.875rem;
+    line-height: 0.15rem;
+    text-align: center;
+}
+
+.infoBeta {
+    padding: 0 0.546875rem;
+    background: rgba(253, 84, 0, 0.12);
+    background-blend-mode: normal;
+    font-weight: bold !important;
+    font-size: 0.075rem !important;
+    line-height: 1rem;
+    border-radius: 0.25rem;
+    color: rgba(255, 140, 63, 0.98);
+    font-weight: 800;
+}
+
+.inputEmail {
+    display: flex;
+    row-gap: 1.25rem;
+    column-gap: 1.25rem;
+    flex-direction: column;
+}
+
+.inputEmail input {
+    outline: none;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    text-align: center;
+    border: 0.0625rem solid rgba(223, 239, 254, 0.13);
+    background: rgba(226, 240, 253, 0.1);
+    background-blend-mode: normal;
+    color: var(--white);
+    height: 2.6875rem;
+    transition: 0.3s;
+}
+
+.inputEmail input::placeholder {
+    color: rgba(255, 255, 255, 0.685);
+}
+
+.inputEmail label {
+    color: var(--color-red-primary);
+    display: block;
+    font-size: 0.9375rem;
+    margin-top: 0.25rem;
+}
+
+.inputEmail span {
+    color: #a3e86b;
+    display: block;
+    font-size: 0.9375rem;
+    margin-top: 0.25rem;
+}
+
+.inputSuccessEmail input {
+    border-color: #a3e86b;
+}
+
+.inputEmail button {
+    outline: none;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    border: 0.0625rem solid #e5e7eb;
+    background: #ffffff;
+    background-blend-mode: normal;
+    box-shadow: 0.5rem 0rem 1.25rem rgba(255, 178, 36, 0.3),
+        0rem 0rem 1.25rem rgba(112, 225, 200, 0.3),
+        -0.5rem 0rem 1.25rem rgba(5, 162, 194, 0.3);
+    transition: 0.2s;
+    cursor: pointer;
+    height: 2.6875rem;
+    opacity: 1;
+    color: var(--color-black-primary);
+    -webkit-opacity: 1;
+    -webkit-text-fill-color: var(--color-black-primary);
+}
+
+.inputEmail button:hover {
+    box-shadow: 0.5rem 0rem 2.5rem rgba(255, 178, 36, 0.3),
+        0rem 0rem 1.5rem rgba(112, 225, 200, 0.3),
+        -0.5rem 0rem 1.5rem rgba(5, 162, 194, 0.3);
+    color: var(--color-blue-secondary);
+}
+
+.otherContent {
+    font-size: 0.875rem;
+    line-height: 0.15rem;
+}
+
+.submitButton {
+    transition: width 0.2s ease-out;
+}
+
+.submitSuccess {
+}
+
+@media only all and (min-width: 31.25rem) {
+    .heroSectionDiv {
+        gap: 2.25rem;
+    }
+
+    .infoFoundry {
+        gap: 1.5rem;
+    }
+
+    .infoFoundry div {
+        font-size: 1rem;
+        line-height: 0.15rem;
+    }
+
+    .foundryLogo {
+        height: 2.8125rem;
+    }
+
+    .infoBeta {
+        margin-bottom: 1rem;
+        font-size: 0.75rem !important;
+    }
+
+    .contentSection span {
+        font-size: 1rem;
+        line-height: 1.625rem;
+    }
+
+    .contentSection h1 {
+        margin-bottom: 1.625rem;
+        font-size: 4rem;
+    }
+
+    .extraInfo {
+        display: inherit;
+    }
+
+    .inputEmail {
+        flex-direction: row;
+    }
+
+    .inputEmail input {
+        font-size: 1.25rem;
+        padding: 0.75rem 1rem;
+        height: 4.0625rem;
+    }
+
+    .inputEmail button {
+        font-size: 1.25rem;
+        padding: 0.75rem 1rem;
+        height: 4.0625rem;
+    }
+
+    .otherContent {
+        display: none;
+    }
+}

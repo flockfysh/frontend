@@ -8,6 +8,7 @@ import CustomSelect from '@/components/ui/input/select';
 import api from '@/helpers/api';
 
 import classes from './styles.module.css';
+import { BsArrowLeftCircle } from 'react-icons/bs';
 
 export default function ContributionDetails(props: {
     dataset: PreviewDataset,
@@ -15,9 +16,7 @@ export default function ContributionDetails(props: {
 }) {
     const router = useRouter();
     const dataset = props.dataset;
-
-    const [curContribution, setCurContribution] =
-        useState<ExpandedPullRequest | null>(null);
+    const [curContribution, setCurContribution] = useState<ExpandedPullRequest | null>(null);
 
     const statusOptions = [
         { value: 'draft', label: 'Draft' },
@@ -39,6 +38,7 @@ export default function ContributionDetails(props: {
                 )
             ).data.data;
             setCurContribution(temp);
+            console.log(temp);
         };
 
         getContributions().then();
@@ -61,37 +61,50 @@ export default function ContributionDetails(props: {
         );
     }
 
+    if(!curContribution){
+        return <></>;
+    }
+    
     return (
-        <>
-            <div className={ classes.card }>
-                <form
-                    onSubmit={ (e) => {
-                        e.preventDefault();
-                        submitMessage(e.currentTarget);
-                    } }
-                >
-                    <div className={ classes.cardTop }>
-                        <h1 className={ classes.headerText }>Comment</h1>
+        <div className={ classes.pullRequestContent }>
+            <div className={ classes.pullRequestBody }>
+                <div className={ classes.bodyHeader }>
+                    <button className={ classes.backButton }><BsArrowLeftCircle/> Back</button>
+                    <h3>{ curContribution.name }</h3>
+                </div>
+                <div className={ classes.card }>
+                    <form
+                        onSubmit={ (e) => {
+                            e.preventDefault();
+                            submitMessage(e.currentTarget);
+                        } }
+                    >
+                        <div className={ classes.cardTop }>
+                            <h1 className={ classes.headerText }>Comment</h1>
 
-                        <CustomSelect
+                            <CustomSelect
+                                required={ true }
+                                name="status"
+                                className={ classes.select }
+                                placeholder="Status"
+                                options={ statusOptions }
+                            />
+                        </div>
+
+                        <textarea
+                            className={ classes.commentField }
                             required={ true }
-                            name="status"
-                            className={ classes.select }
-                            placeholder="Status"
-                            options={ statusOptions }
+                            name="comment"
+                            placeholder="Add comment here..."
                         />
-                    </div>
 
-                    <textarea
-                        className={ classes.commentField }
-                        required={ true }
-                        name="comment"
-                        placeholder="Add comment here..."
-                    />
-
-                    <button className={ classes.submitButton }>Comment</button>
-                </form>
+                        <button className={ classes.submitButton }>Comment</button>
+                    </form>
+                </div>
             </div>
-        </>
+            <div className={ classes.pullRequestStats }>
+                <h3 className={ classes.h3 }>Placeholder</h3>
+            </div>
+        </div>
     );
 }
