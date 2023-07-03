@@ -13,7 +13,7 @@ import classes from './sectionOne.module.css';
 import commonClasses from './common.module.css';
 
 const card1body =
-    'Build top-notch, labeled large scale datasets whether you have 50 or 50,000 data samples.';
+    'Directly request users to contribute data, models, or quality assurance based on their specific experiences.';
 const card2body =
     'Seamlessly connect our services with your favorite data storage platforms such as AWS and Azure.';
 const card3body =
@@ -37,7 +37,7 @@ function SectionOne() {
                 <img src={ mainImage.src } alt="" className={ classes.mainImage }/>
                 <img src={ mobileImage1.src } alt="" className={ classes.mobileImage }/>
                 <div className={ classes.cardHolder }>
-                    <Card heading="Minimal Requirements" body={ card1body } icon={ icon1.src } className={ classes.card }/>
+                    <Card heading="Direct Access" body={ card1body } icon={ icon1.src } className={ classes.card }/>
                     <Card heading="Cloud Portability" body={ card2body } icon={ icon2.src } className={ classes.card }/>
                     <Card heading="Local flexibility" body={ card3body } icon={ icon3.src } className={ classes.card }/>
                     <Card heading="Broad applicability" body={ card4body } icon={ icon4.src } className={ classes.card }/>
