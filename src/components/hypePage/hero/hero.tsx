@@ -40,28 +40,20 @@ export default function Hero() {
                 <div>|</div>
 
                 <div className={ classes.readMoreFoundry }>
-                    <Link href="https://blog.flockfysh.tech/blog/flockfysh-citrus/">
-                        { ' ' }
-                        Read More{ ' ' }
-                    </Link>
+                    <Link href="https://blog.flockfysh.tech/blog/flockfysh-citrus/" target = "_blank"> Read More </Link>
 
                     <BsArrowRight size={ 15 } />
                 </div>
             </div>
 
             <div className={ classes.contentSection }>
-                <span className={ classes.infoBeta }>
-                    Currently in private beta
-                </span>
+                <span className={ classes.infoBeta }> Currently in beta! </span>
 
                 <h1 className={ classes.heroHeading }>
                     Dataset&nbsp;creation from&nbsp;the&nbsp;future.
                 </h1>
 
-                <span>
-                    Polished for any use case, flockfysh takes the complexity
-                    out of datasets.
-                </span>
+                <span>Polished for any use AI case, flockfysh takes the complexity out of acquiring AI.</span>
 
                 <span className={ classes.extraInfo }>
                     Designed for developers, researchers, and those who dare to
