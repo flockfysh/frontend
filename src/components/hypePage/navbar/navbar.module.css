@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-top: 1.875rem;
     position: relative;
     z-index: 1;
     align-items: center;

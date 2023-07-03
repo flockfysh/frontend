@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -8,15 +8,11 @@ import { BsArrowRight } from 'react-icons/bs';
 import NavItem from './navItem';
 import MobileNavItem from './mobileNavItem';
 
-import { UserContext } from '@/contexts/userContext';
-
 import logoIcon from '@/icons/branding/fish.svg';
 
 import classes from './navbar.module.css';
 
 export default function HomeNavbar() {
-    const { user } = useContext(UserContext);
-
     const [navOpen, updateNav] = useState(false);
 
     const navLinks = [
@@ -57,14 +53,8 @@ export default function HomeNavbar() {
                                 key={ i }
                             />
                         )) }
-                        { user ? (
-                            <MobileNavItem
-                                to="/marketplace"
-                                name="Marketplace"
-                            />
-                        ) : (
-                            <MobileNavItem to="/login" name="Sign In" />
-                        ) }
+
+                        <MobileNavItem to="/marketplace" name="Marketplace" />
                     </div>
                 ) : (
                     <></>
@@ -80,23 +70,10 @@ export default function HomeNavbar() {
             </ul>
 
             <div className={ classes.signinWrapper }>
-                { user ? (
-                    <Link href="/marketplace" className={ classes.signinButton }>
-                        Marketplace{ ' ' }
-                        <BsArrowRight
-                            size={ 15 }
-                            className={ classes.siginArrow }
-                        />
-                    </Link>
-                ) : (
-                    <Link href="/login" className={ classes.signinButton }>
-                        Login{ ' ' }
-                        <BsArrowRight
-                            size={ 15 }
-                            className={ classes.siginArrow }
-                        />
-                    </Link>
-                ) }
+                <Link href="/marketplace" className={ classes.signinButton }>
+                    Marketplace{ ' ' }
+                    <BsArrowRight size={ 15 } className={ classes.siginArrow } />
+                </Link>
             </div>
         </nav>
     );
