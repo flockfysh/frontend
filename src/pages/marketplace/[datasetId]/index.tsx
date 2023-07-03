@@ -9,8 +9,8 @@ import DatasetInfo, {
 
 const DatasetItems: NextPageWithLayout = function () {
     const dataset = useContext(DatasetInfoContext);
-    if (dataset)
-        return <ItemViewer { ...dataset } />;
+    
+    if (dataset) return <ItemViewer { ...dataset } />;
     else return <></>;
 };
 

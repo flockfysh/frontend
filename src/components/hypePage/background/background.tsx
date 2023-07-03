@@ -6,7 +6,7 @@ import bgMobile2 from '../images/BGMobile2.png';
 import classes from './background.module.css';
 
 export default function Background() {
-   return (
+    return (
         <div className={ classes.backgroundWrapper }>
             <img className={ classes.bgDesktop1 } src={ bgDesktop1.src } alt="" />
             <img className={ classes.bgDesktop2 } src={ bgDesktop2.src } alt="" />

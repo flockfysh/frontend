@@ -93,7 +93,7 @@ export const ContributionItem = ({
                     opened { dayjs(contribution.createdAt).fromNow() } by @
                     { contribution.user.username.slice(0, 16) }
                 </div>
-                
+
                 <div className={ classes.messageBadge }>
                     <ReactSVG className={ classes.icon } src={ commenting.src } />
                     <span>{ contribution.stats.messages }</span>

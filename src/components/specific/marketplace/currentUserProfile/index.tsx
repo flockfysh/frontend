@@ -18,6 +18,6 @@ export default function CurrentUserProfile() {
                 username={ user.username }
             />
         );
-    
+
     return <></>;
 }

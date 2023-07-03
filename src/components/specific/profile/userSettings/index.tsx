@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { ReactSVG } from 'react-svg';
+import { useStateWithDeps } from 'use-state-with-deps';
+
+import api from '@/helpers/api';
 
 import edit from '@/icons/main/edit-3.svg';
 import save from '@/icons/main/save.svg';
@@ -15,8 +18,6 @@ import mail from '@/icons/main/mail.svg';
 import key from '@/icons/main/key.svg';
 
 import classes from './styles.module.css';
-import api from '@/helpers/api';
-import { useStateWithDeps } from 'use-state-with-deps';
 
 type UserSettings = {
     username: string;
@@ -29,15 +30,15 @@ type UserSettings = {
 };
 
 function Input(props: {
-    label?: string,
-    value?: string,
-    saveLabel?: string,
-    icon?: string,
-    saveIcon?: string,
-    initialValue?: string,
-    validator?: (data: string) => boolean,
-    onChange?: (data: string) => void,
-    onSave?: (data: string) => void,
+    label?: string;
+    value?: string;
+    saveLabel?: string;
+    icon?: string;
+    saveIcon?: string;
+    initialValue?: string;
+    validator?: (data: string) => boolean;
+    onChange?: (data: string) => void;
+    onSave?: (data: string) => void;
 }) {
     const id = React.useId();
     const [value, setValue] = useStateWithDeps<string>(() => {
@@ -49,23 +50,24 @@ function Input(props: {
     return (
         <label htmlFor={ id } className={ classes.infoContainerDiv }>
             { props.label ? (
-                <div className={ classes.subheading }>
-                    { props.label }
-                </div>
-            ) : '' }
+                <div className={ classes.subheading }>{ props.label }</div>
+            ) : (
+                ''
+            ) }
 
             <div className={ classes.inputDiv }>
                 { props.icon ? (
-                    <ReactSVG
-                        src={ props.icon }
-                        className={ classes.icons }
-                    />
-                ) : <></> }
+                    <ReactSVG src={ props.icon } className={ classes.icons } />
+                ) : (
+                    <></>
+                ) }
 
                 <input
                     type="email"
                     id={ id }
-                    className={ `${classes.input} ${validation ? classes.invalidInput : ''}` }
+                    className={ `${classes.input} ${
+                        validation ? classes.invalidInput : ''
+                    }` }
                     value={ value }
                     onChange={ (event) => {
                         setValue(event.target.value);
@@ -74,18 +76,25 @@ function Input(props: {
                 />
 
                 { props.saveLabel ? (
-                    <button className={ classes.button } onClick={ () => {
-                        props.onSave?.(value);
-                    } }>
+                    <button
+                        className={ classes.button }
+                        onClick={ () => {
+                            props.onSave?.(value);
+                        } }
+                    >
                         { props.saveLabel }
                         { props.saveIcon ? (
                             <ReactSVG
                                 src={ props.saveIcon }
                                 className={ classes.icons }
                             />
-                        ) : <></> }
+                        ) : (
+                            <></>
+                        ) }
                     </button>
-                ) : <></> }
+                ) : (
+                    <></>
+                ) }
             </div>
         </label>
     );
@@ -143,21 +152,22 @@ export default function UserSettings(props: UserSettings) {
                     <Input
                         label={ 'Change email' }
                         initialValue={ props.email }
-                        saveLabel={ 'Change' } saveIcon={ edit.src }
-                        icon={ mail.src }/>
+                        saveLabel={ 'Change' }
+                        saveIcon={ edit.src }
+                        icon={ mail.src }
+                    />
 
                     <Input
                         label={ 'Change username' }
                         initialValue={ props.username }
-                        saveLabel={ 'Change' } saveIcon={ edit.src }
+                        saveLabel={ 'Change' }
+                        saveIcon={ edit.src }
                         icon={ mail.src }
-                        onSave={
-                            async (newUsername) => {
-                                await api.patch('/api/users/username', {
-                                    username: newUsername,
-                                });
-                            }
-                        }
+                        onSave={ async (newUsername) => {
+                            await api.patch('/api/users/username', {
+                                username: newUsername,
+                            });
+                        } }
                     />
 
                     <div className={ classes.infoContainerDiv }>
@@ -189,7 +199,7 @@ export default function UserSettings(props: UserSettings) {
                                             finalKey +
                                             String.fromCharCode(
                                                 Math.round(Math.random() * 93) +
-                                                33,
+                                                    33
                                             );
                                     }
 
@@ -213,12 +223,11 @@ export default function UserSettings(props: UserSettings) {
                 </div>
 
                 <div className={ classes.contentDiv }>
-
                     <div className={ classes.infoContainerDiv }>
                         <h4 className={ classes.subheading }>Change password</h4>
 
                         <div className={ classes.inputDiv }>
-                            <ReactSVG src={ key.src } className={ classes.icons }/>
+                            <ReactSVG src={ key.src } className={ classes.icons } />
 
                             <input
                                 type="email"
@@ -229,11 +238,14 @@ export default function UserSettings(props: UserSettings) {
                                 } }
                             />
 
-                            <button className={ classes.button } onClick={ async () => {
-                                await api.patch('/api/users/email', {
-                                    email: email,
-                                });
-                            } }>
+                            <button
+                                className={ classes.button }
+                                onClick={ async () => {
+                                    await api.patch('/api/users/email', {
+                                        email: email,
+                                    });
+                                } }
+                            >
                                 Save
                                 <ReactSVG
                                     src={ save.src }
@@ -350,7 +362,7 @@ export default function UserSettings(props: UserSettings) {
 
                     <button className={ classes.button }>
                         Save{ ' ' }
-                        <ReactSVG src={ save.src } className={ classes.icons }/>
+                        <ReactSVG src={ save.src } className={ classes.icons } />
                     </button>
                 </div>
 
@@ -412,7 +424,7 @@ export default function UserSettings(props: UserSettings) {
 
                 <button className={ classes.deactivateButton }>
                     Deactivate Account{ ' ' }
-                    <ReactSVG src={ trash.src } className={ classes.icons }/>
+                    <ReactSVG src={ trash.src } className={ classes.icons } />
                 </button>
             </div>
         </section>

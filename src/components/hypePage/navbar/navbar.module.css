@@ -1,156 +1,156 @@
 .nav {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 1.875rem;
-  position: relative;
-  z-index: 1;
-  align-items: center;
-  width: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1.875rem;
+    position: relative;
+    z-index: 1;
+    align-items: center;
+    width: auto;
 }
 
 .listContainer {
-  display: none;
-  align-items: center;
-  gap: 0.3125rem;
+    display: none;
+    align-items: center;
+    gap: 0.3125rem;
 }
 
 .logo {
-  font-size: 1.875rem;
-  font-weight: 600;
-  transition: 0.2s;
-  display: flex;
-  align-items: center;
-  height: 2.1875rem;
-  width: 10%;
-  padding-left: 0.9375rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    height: 2.1875rem;
+    width: 10%;
+    padding-left: 0.9375rem;
 }
 
 .logo:hover {
-  color: var(--color-blue-primary);
+    color: var(--color-blue-primary);
 }
 
 .logoImg {
-  height: inherit;
-  width: auto;
-  margin-right: 0.625rem;
+    height: inherit;
+    width: auto;
+    margin-right: 0.625rem;
 }
 
 .logoText {
-  margin-left: 0.375rem;
-  color: #eeeeee;
-  font-size: 0.9375rem;
+    margin-left: 0.375rem;
+    color: #eeeeee;
+    font-size: 0.9375rem;
 }
 
 /* #region Nav Mobile Styles */
 
 .navOpenButton {
-  font-size: 1.875rem;
-  align-self: center;
-  transition: 0.2s;
-  cursor: pointer;
-  background: transparent;
-  color: white;
-  padding-inline: 0.625rem;
-  margin-right: -0.625rem;
-  border: none;
-  display: flex;
-  align-items: center;
+    font-size: 1.875rem;
+    align-self: center;
+    transition: 0.2s;
+    cursor: pointer;
+    background: transparent;
+    color: white;
+    padding-inline: 0.625rem;
+    margin-right: -0.625rem;
+    border: none;
+    display: flex;
+    align-items: center;
 }
 
 .navOpenButton:hover {
-  color: var(--color-blue-primary);
+    color: var(--color-blue-primary);
 }
 
 .mobileNavLinksContainer {
-  position: absolute;
-  width: 12.5rem;
-  right: 0;
-  top: 100%;
-  margin-top: 0.375rem;
-  padding: 0.375rem 0;
-  background: #191924;
-  border-radius: 0.875rem;
-  list-style: none;
-  border: 0.0625rem solid rgba(223, 239, 254, 0.13);
+    position: absolute;
+    width: 12.5rem;
+    right: 0;
+    top: 100%;
+    margin-top: 0.375rem;
+    padding: 0.375rem 0;
+    background: #191924;
+    border-radius: 0.875rem;
+    list-style: none;
+    border: 0.0625rem solid rgba(223, 239, 254, 0.13);
 }
 
 .mobileNavLinksContainer li:last-child a {
-  color: var(--color-blue-tertiary);
-  font-weight: 600;
+    color: var(--color-blue-tertiary);
+    font-weight: 600;
 }
 .mobileNavLinksContainer li:last-child a:hover {
-  color: var(--color-blue-gradients);
+    color: var(--color-blue-gradients);
 }
 
 .signinWrapper {
-  display: none;
+    display: none;
 }
 
 .signinButton {
-  padding: 0.625rem 0.78125rem;
-  text-align: center;
-  vertical-align: center;
-  border-radius: 0.375rem;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  display: flex;
-  align-items: center;
-  color: rgba(239, 247, 255, 0.62);
-  border: 0.0625rem solid rgba(223, 239, 254, 0.13);
-  background: rgba(226, 240, 253, 0.08);
-  background-blend-mode: normal;
-  transition: 0.15s;
-  cursor: pointer;
-  margin-right: 0.625rem;
+    padding: 0.625rem 0.78125rem;
+    text-align: center;
+    vertical-align: center;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    display: flex;
+    align-items: center;
+    color: rgba(239, 247, 255, 0.62);
+    border: 0.0625rem solid rgba(223, 239, 254, 0.13);
+    background: rgba(226, 240, 253, 0.08);
+    background-blend-mode: normal;
+    transition: 0.15s;
+    cursor: pointer;
+    margin-right: 0.625rem;
 }
 
 .signinButton:hover {
-  color: rgba(239, 247, 255, 0.62);
-  border: 0.0625rem solid rgba(223, 239, 254, 0.13);
-  background: rgba(226, 240, 253, 0.212);
+    color: rgba(239, 247, 255, 0.62);
+    border: 0.0625rem solid rgba(223, 239, 254, 0.13);
+    background: rgba(226, 240, 253, 0.212);
 }
 
 .siginArrow {
-  margin-left: 0.375rem;
+    margin-left: 0.375rem;
 }
 
 @media only all and (min-width: 40.625rem) {
-  .logo {
-    flex: 1;
-    justify-content: flex-start;
-  }
+    .logo {
+        flex: 1;
+        justify-content: flex-start;
+    }
 
-  .logoImg {
-    height: 3.25rem;
-    width: fit-content;
-  }
+    .logoImg {
+        height: 3.25rem;
+        width: fit-content;
+    }
 
-  .logoText {
-    margin-left: 0.75rem;
-    font-size: 1.5rem;
-  }
+    .logoText {
+        margin-left: 0.75rem;
+        font-size: 1.5rem;
+    }
 
-  .navOpenButton {
-    display: none;
-  }
+    .navOpenButton {
+        display: none;
+    }
 
-  .listContainer {
-    flex: 3;
-    display: flex;
-    justify-content: center;
-  }
+    .listContainer {
+        flex: 3;
+        display: flex;
+        justify-content: center;
+    }
 
-  .signinWrapper {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    flex: 1;
-  }
+    .signinWrapper {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex: 1;
+    }
 
-  .listContainer {
-    display: flex;
-  }
+    .listContainer {
+        display: flex;
+    }
 }
 
 /* #endregion */

@@ -131,17 +131,17 @@ Over: `{condition ? <><> : <><>}`
 -   For JSX return statements that take up more than one line (including return statement), please wrap the JSX in parentheses. <br>
     Prefer:
     <br>
-    `      return (
-          <div>
-              ...
-          </div>
-      );
-     `
+    `     return (
+      <div>
+          ...
+      </div>
+  );
+`
     <br>
     Over:
     <br>
-    `      return <div>
-          ...
+    ` return <div>
+    ...
       </div>;
      `
 

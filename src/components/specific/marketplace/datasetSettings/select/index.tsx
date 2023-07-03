@@ -12,12 +12,14 @@ export default function Select(props: {
     label?: string;
     tooltip?: string;
     placeholder?: string;
-    value?: { label: string, value: string };
-    initialValue?: { label: string, value: string };
-    options: { label: string, value: string }[],
+    value?: { label: string; value: string };
+    initialValue?: { label: string; value: string };
+    options: { label: string; value: string }[];
     onChange?: (data: string) => void;
 }) {
-    const [value, setValue] = useState<{ label: string, value: string } | undefined>(() => {
+    const [value, setValue] = useState<
+        { label: string; value: string } | undefined
+    >(() => {
         return props.value ?? props.initialValue;
     });
 
@@ -41,7 +43,7 @@ export default function Select(props: {
 
                     { props.tooltip ? (
                         <button className={ classes.helpIcon }>
-                            <ReactSVG src={ help.src }/>
+                            <ReactSVG src={ help.src } />
 
                             <p className={ classes.helpIconTooltip }>
                                 { props.tooltip }

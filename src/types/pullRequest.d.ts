@@ -10,6 +10,7 @@ declare interface ExpandedPullRequest extends Flockfysh.PullRequest {
     stats: PullRequestStats;
 }
 
-declare interface ExpandedPullRequestMessage extends Flockfysh.PullRequestMessage {
+declare interface ExpandedPullRequestMessage
+    extends Flockfysh.PullRequestMessage {
     user: RedactedUser;
 }

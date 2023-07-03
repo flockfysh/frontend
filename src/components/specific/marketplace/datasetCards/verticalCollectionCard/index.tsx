@@ -8,7 +8,7 @@ export default function VerticalCollectionCard(props: HomepageCollection) {
         const gradients = ['#92A1C6', '#146A7C'];
         return gradients[Math.round(Math.random() * 1)];
     };
-    
+
     const gradientFunction2 = () => {
         const gradients = ['#F0AB3D', '#C271B4', '#C20D90'];
         return gradients[Math.round(Math.random() * 2)];

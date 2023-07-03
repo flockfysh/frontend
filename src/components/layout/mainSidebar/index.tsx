@@ -78,7 +78,7 @@ const SECTION_2_LINKS: SidebarLinkProps[] = [
         href: '/settings',
         text: 'Settings',
         icon: settings,
-    }
+    },
 ];
 
 export default function MainSidebar() {
@@ -93,7 +93,7 @@ export default function MainSidebar() {
                     }) }
                 </div>
             </div>
-            
+
             <div className={ classes.segment }>
                 <div>
                     { SECTION_2_LINKS.map((props) => {

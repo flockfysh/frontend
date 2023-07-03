@@ -37,7 +37,13 @@ export default function HomeNavbar() {
     return (
         <nav className={ classes.nav }>
             <Link className={ classes.logo } href="/">
-                <Image src= { logoIcon } className={ classes.logoImg } width = { 40 } height = { 40 } alt="logo" />
+                <Image
+                    src={ logoIcon }
+                    className={ classes.logoImg }
+                    width={ 40 }
+                    height={ 40 }
+                    alt="logo"
+                />
                 <span className={ classes.logoText }>flockfysh</span>
             </Link>
 
@@ -52,7 +58,10 @@ export default function HomeNavbar() {
                             />
                         )) }
                         { user ? (
-                            <MobileNavItem to="/marketplace" name="Marketplace" />
+                            <MobileNavItem
+                                to="/marketplace"
+                                name="Marketplace"
+                            />
                         ) : (
                             <MobileNavItem to="/login" name="Sign In" />
                         ) }

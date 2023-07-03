@@ -36,7 +36,7 @@ export default function Contribute(props: ContributeProps) {
             _id: string;
             type: Flockfysh.AssetType;
         },
-        formData: FormData,
+        formData: FormData
     ) {
         const uploadData = {
             name: formData.get('name'),
@@ -50,7 +50,7 @@ export default function Contribute(props: ContributeProps) {
         const pullRequest = await api
             .post<Api.Response<Flockfysh.PullRequest>>(
                 `/api/datasets/${dataset._id}/pullRequests`,
-                uploadData,
+                uploadData
             )
             .then((res) => res.data.data);
 
@@ -69,7 +69,7 @@ export default function Contribute(props: ContributeProps) {
 
                 await uploadPullRequest(
                     props.dataset,
-                    new FormData(e.currentTarget),
+                    new FormData(e.currentTarget)
                 );
             } }
         >
@@ -77,7 +77,7 @@ export default function Contribute(props: ContributeProps) {
                 <h4 className={ classes.subheading }>Contribution name</h4>
 
                 <div className={ classes.mergedInput }>
-                    <ReactSVG src={ edit.src } className={ classes.icon }/>
+                    <ReactSVG src={ edit.src } className={ classes.icon } />
 
                     <input
                         className={ classes.input }
@@ -110,7 +110,7 @@ export default function Contribute(props: ContributeProps) {
 
             <button className={ classes.button }>
                 Submit Request
-                <ReactSVG src={ database.src } className={ classes.icon }/>
+                <ReactSVG src={ database.src } className={ classes.icon } />
             </button>
         </form>
     );

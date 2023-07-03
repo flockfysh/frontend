@@ -129,7 +129,7 @@ export default class AnnotationObject {
 
                 await this.pollInner();
             }
-            else return;
+ else return;
         }
 
         await this.editInner();
@@ -147,7 +147,7 @@ export default class AnnotationObject {
                 this.pollQueued = true;
                 await this.pollInner();
             }
-            else return;
+ else return;
         }
 
         await this.deleteInner();

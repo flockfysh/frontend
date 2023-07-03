@@ -40,7 +40,7 @@ export default function CreatableSelect(props: {
 
                     { props.tooltip ? (
                         <button className={ classes.helpIcon }>
-                            <ReactSVG src={ help.src }/>
+                            <ReactSVG src={ help.src } />
 
                             <p className={ classes.helpIconTooltip }>
                                 { props.tooltip }

@@ -10,7 +10,9 @@ function Roadmap() {
             <SectionOne />
             <SectionTwo />
             <SectionThree />
+            
             <EndMessage />
+
             <RoadmapBackground />
         </>
     );

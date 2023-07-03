@@ -10,8 +10,8 @@ import ActivityGraph from '@/components/specific/marketplace/activityGraph';
 
 const DatasetActivityPage: NextPageWithLayout = function () {
     const dataset = useContext(DatasetInfoContext);
-    if (dataset)
-        return <ActivityGraph { ...dataset } />;
+    
+    if (dataset) return <ActivityGraph { ...dataset } />;
     else return <></>;
 };
 

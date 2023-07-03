@@ -43,7 +43,9 @@ function OAuthLink(props: {
                 e.preventDefault();
                 props.onClick?.(url);
             } }
-            className={ `${ classes.oAuthBtn } ${ props.className ? props.className : '' }` }
+            className={ `${classes.oAuthBtn} ${
+                props.className ? props.className : ''
+            }` }
         >
             <ReactSVG src={ props.icon.src } />
 
@@ -55,13 +57,16 @@ function OAuthLink(props: {
     );
 }
 
-export default function Login(props: { mode: 'login' | 'signup', onClose: () => void }) {
+export default function Login(props: {
+    mode: 'login' | 'signup';
+    onClose: () => void;
+}) {
     const router = useRouter();
     const { user, refreshUser } = useContext(UserContext);
 
     const [mode, updateMode] = useState(props.mode);
     const isLogin = mode === 'login';
-    
+
     const curPopup = useRef<Window | null>(null);
 
     const redirect = useCallback(
@@ -95,7 +100,7 @@ export default function Login(props: { mode: 'login' | 'signup', onClose: () => 
                     refreshUser();
                     redirect();
                 }
-                else if (!e.data.success) {
+ else if (!e.data.success) {
                     popup?.close();
                     throw new Error(e.data.message);
                 }
@@ -118,7 +123,7 @@ export default function Login(props: { mode: 'login' | 'signup', onClose: () => 
                         mode={ mode }
                         onClick={ oAuthLogin }
                     />
-                    
+
                     <OAuthLink
                         icon={ github }
                         provider="GitHub"

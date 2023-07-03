@@ -15,8 +15,12 @@ export default function HowToCards() {
                 <div className={ classes.cardBase }>
                     <h1>Buy and Sell AI</h1>
 
-                    <p> From buy, renting, to selling AI models and datasets on your terms, easily earn recurring
-                        revenue while advancing AI. </p>
+                    <p>
+                        { ' ' }
+                        From buy, renting, to selling AI models and datasets on
+                        your terms, easily earn recurring revenue while
+                        advancing AI.{ ' ' }
+                    </p>
                 </div>
             </div>
 
@@ -29,8 +33,12 @@ export default function HowToCards() {
                 <div className={ classes.cardBase }>
                     <h1> Ethically build and QA large datasets</h1>
 
-                    <p> Directly interact with those who provide the data and obtain anonymized, risk free data.
-                        Seamless run workflows that ensure your data is top notch, while easily finding QA experts. 
+                    <p>
+                        { ' ' }
+                        Directly interact with those who provide the data and
+                        obtain anonymized, risk free data. Seamless run
+                        workflows that ensure your data is top notch, while
+                        easily finding QA experts.
                     </p>
                 </div>
             </div>
@@ -44,8 +52,12 @@ export default function HowToCards() {
                 <div className={ classes.cardBase }>
                     <h1>Collaborate</h1>
 
-                    <p> Work together to build some awesome AI services and use flockfysh&apos;s platform as a stepping
-                        stone to commercialize your venture or directly support the open source community.
+                    <p>
+                        { ' ' }
+                        Work together to build some awesome AI services and use
+                        flockfysh&apos;s platform as a stepping stone to
+                        commercialize your venture or directly support the open
+                        source community.
                     </p>
                 </div>
             </div>

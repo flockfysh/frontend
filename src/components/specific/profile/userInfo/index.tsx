@@ -26,7 +26,11 @@ function Header(props: { url: string; editable: boolean }) {
                 <Image
                     alt="banner"
                     className={ classes.headPic }
-                    src={ props.url ? props.url : 'https://images.unsplash.com/photo-1688149571284-ba299c1a247e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1634&q=80' }
+                    src={
+                        props.url
+                            ? props.url
+                            : 'https://images.unsplash.com/photo-1688149571284-ba299c1a247e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1634&q=80'
+                    }
                     fill={ true }
                 />
             </div>
@@ -73,7 +77,7 @@ function ProfilePhoto(props: { url: string; editable: boolean }) {
                 src={ props.url }
                 alt="profile pic"
             />
-            
+
             { props.editable ? (
                 <>
                     <input
@@ -121,7 +125,7 @@ const UserInfo = (
                     url={ props.headerPhoto?.url ?? '' }
                     editable={ editable }
                 />
-                
+
                 <ProfilePhoto
                     url={ props.profilePhoto?.url ?? '' }
                     editable={ editable }

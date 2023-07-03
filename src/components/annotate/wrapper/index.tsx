@@ -97,7 +97,7 @@ export default function AnnotationWrapper() {
                     onDelete={ function deleteBox() {
                         annotationObject.delete();
                         curAnnotationData.delete(id);
-                        
+
                         refresh();
                         setCurBox('');
                     } }

@@ -1,10 +1,10 @@
 import { useState, useEffect, ComponentPropsWithRef } from 'react';
 import { ReactSVG } from 'react-svg';
+import Link from 'next/link';
 
 import help from '@/icons/main/help-circle.svg';
 
 import classes from './styles.module.css';
-import Link from 'next/link';
 
 export default function RadioButtons<T>(props: {
     label?: string;
@@ -27,8 +27,8 @@ export default function RadioButtons<T>(props: {
     const Component = props.isLink
         ? Link
         : ({ ...props }: ComponentPropsWithRef<'button'>) => (
-            <button { ...props }></button>
-        );
+              <button { ...props }></button>
+          );
 
     return (
         <div className={ classes.container }>
@@ -37,7 +37,7 @@ export default function RadioButtons<T>(props: {
                     <label className={ classes.label }>{ props.label }</label>
                     { props.tooltip ? (
                         <button className={ classes.helpIcon }>
-                            <ReactSVG src={ help.src }/>
+                            <ReactSVG src={ help.src } />
 
                             <p className={ classes.helpIconTooltip }>
                                 { props.tooltip }

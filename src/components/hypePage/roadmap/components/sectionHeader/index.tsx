@@ -6,7 +6,11 @@ interface SectionHeaderProps {
     body?: string;
 }
 
-export default function SectionHeader({ subHeader, header, body }: SectionHeaderProps) {
+export default function SectionHeader({
+    subHeader,
+    header,
+    body,
+}: SectionHeaderProps) {
     return (
         <div className={ classes.headerContainer }>
             <div className={ classes.headerWrapper }>
