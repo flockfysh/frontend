@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import edit from '@/icons/main/edit-3.svg';
@@ -15,9 +15,12 @@ import mail from '@/icons/main/mail.svg';
 import key from '@/icons/main/key.svg';
 
 import classes from './styles.module.css';
+import api from '@/helpers/api';
+import { useStateWithDeps } from 'use-state-with-deps';
+import username from '@/pages/profile/[username]';
 
 type UserSettings = {
-    name: string;
+    username: string;
     email: string;
     apiKey: string;
     mailingList: boolean;
@@ -25,6 +28,68 @@ type UserSettings = {
     downloads: number;
     apiCalls: number;
 };
+
+function Input(props: {
+    label?: string,
+    value?: string,
+    saveLabel?: string,
+    icon?: string,
+    saveIcon?: string,
+    initialValue?: string,
+    validator?: (data: string) => boolean,
+    onChange?: (data: string) => void,
+    onSave?: (data: string) => void,
+}) {
+    const id = React.useId();
+    const [value, setValue] = useStateWithDeps<string>(() => {
+        return props.value ?? props.initialValue ?? '';
+    }, [props.value]);
+    const validation = props.validator?.(value) ?? true;
+
+    return (
+        <label htmlFor={ id } className={ classes.infoContainerDiv }>
+            { props.label ? (
+                <div className={ classes.subheading }>
+                    { props.label }
+                </div>
+            ) : '' }
+
+            <div className={ classes.inputDiv }>
+                { props.icon ? (
+                    <ReactSVG
+                        src={ props.icon }
+                        className={ classes.icons }
+                    />
+                ) : <></> }
+
+                <input
+                    type="email"
+                    id={ id }
+                    className={ `${classes.input} ${validation ? classes.invalidInput : ''}` }
+                    value={ value }
+                    onChange={ (event) => {
+                        setValue(event.target.value);
+                        props.onChange?.(event.target.value);
+                    } }
+                />
+
+                { props.saveLabel ? (
+                    <button className={ classes.button } onClick={ () => {
+                        props.onSave?.(value);
+                    } }>
+                        { props.saveLabel }
+                        { props.saveIcon ? (
+                            <ReactSVG
+                                src={ props.saveIcon }
+                                className={ classes.icons }
+                            />
+                        ) : <></> }
+                    </button>
+                ) : <></> }
+            </div>
+        </label>
+    );
+}
 
 export default function UserSettings(props: UserSettings) {
     const [twitter, setTwitter] = useState('twitter.com');
@@ -75,35 +140,25 @@ export default function UserSettings(props: UserSettings) {
 
             <div className={ classes.credentialsDiv }>
                 <div className={ classes.contentDiv }>
-                    <div className={ classes.infoContainerDiv }>
-                        <h4 className={ classes.subheading }>
-                            Your email address
-                        </h4>
+                    <Input
+                        label={ 'Change email' }
+                        initialValue={ props.email }
+                        saveLabel={ 'Change' } saveIcon={ edit.src }
+                        icon={ mail.src }/>
 
-                        <div className={ classes.inputDiv }>
-                            <ReactSVG
-                                src={ mail.src }
-                                className={ classes.icons }
-                            />
-
-                            <input
-                                type="text"
-                                className={ classes.input }
-                                value={ email }
-                                onChange={ (event) => {
-                                    setEmail(event.target.value);
-                                } }
-                            />
-
-                            <button className={ classes.button }>
-                                Change{ ' ' }
-                                <ReactSVG
-                                    src={ edit.src }
-                                    className={ classes.icons }
-                                />
-                            </button>
-                        </div>
-                    </div>
+                    <Input
+                        label={ 'Change username' }
+                        initialValue={ props.username }
+                        saveLabel={ 'Change' } saveIcon={ edit.src }
+                        icon={ mail.src }
+                        onSave={
+                            async (newUsername) => {
+                                await api.patch('/api/users/username', {
+                                    username: newUsername,
+                                });
+                            }
+                        }
+                    />
 
                     <div className={ classes.infoContainerDiv }>
                         <h4 className={ classes.subheading }>Your API key</h4>
@@ -134,7 +189,7 @@ export default function UserSettings(props: UserSettings) {
                                             finalKey +
                                             String.fromCharCode(
                                                 Math.round(Math.random() * 93) +
-                                                    33
+                                                33,
                                             );
                                     }
 
@@ -158,14 +213,15 @@ export default function UserSettings(props: UserSettings) {
                 </div>
 
                 <div className={ classes.contentDiv }>
+
                     <div className={ classes.infoContainerDiv }>
                         <h4 className={ classes.subheading }>Change password</h4>
 
                         <div className={ classes.inputDiv }>
-                            <ReactSVG src={ key.src } className={ classes.icons } />
+                            <ReactSVG src={ key.src } className={ classes.icons }/>
 
                             <input
-                                type="password"
+                                type="email"
                                 className={ classes.input }
                                 value={ password }
                                 onChange={ (event) => {
@@ -173,8 +229,12 @@ export default function UserSettings(props: UserSettings) {
                                 } }
                             />
 
-                            <button className={ classes.button }>
-                                Save{ ' ' }
+                            <button className={ classes.button } onClick={ async () => {
+                                await api.patch('/api/users/email', {
+                                    email: email,
+                                });
+                            } }>
+                                Save
                                 <ReactSVG
                                     src={ save.src }
                                     className={ classes.icons }
@@ -290,7 +350,7 @@ export default function UserSettings(props: UserSettings) {
 
                     <button className={ classes.button }>
                         Save{ ' ' }
-                        <ReactSVG src={ save.src } className={ classes.icons } />
+                        <ReactSVG src={ save.src } className={ classes.icons }/>
                     </button>
                 </div>
 
@@ -352,7 +412,7 @@ export default function UserSettings(props: UserSettings) {
 
                 <button className={ classes.deactivateButton }>
                     Deactivate Account{ ' ' }
-                    <ReactSVG src={ trash.src } className={ classes.icons } />
+                    <ReactSVG src={ trash.src } className={ classes.icons }/>
                 </button>
             </div>
         </section>
