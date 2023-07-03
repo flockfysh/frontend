@@ -74,7 +74,7 @@ export default function Login(props: {
             const code = router.query.code;
 
             if (code) router.push(`/authorize?code=${code}`).then();
-            else router.push('/datasets').then();
+            else router.replace(router.asPath);
         },
         [router]
     );
@@ -100,7 +100,7 @@ export default function Login(props: {
                     refreshUser();
                     redirect();
                 }
- else if (!e.data.success) {
+                else if (!e.data.success) {
                     popup?.close();
                     throw new Error(e.data.message);
                 }
