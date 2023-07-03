@@ -29,7 +29,7 @@ function Header(props: { url: string; editable: boolean }) {
                     src={
                         props.url
                             ? props.url
-                            : 'https://images.unsplash.com/photo-1688149571284-ba299c1a247e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1634&q=80'
+                            : 'https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'
                     }
                     fill={ true }
                 />
@@ -74,14 +74,18 @@ function ProfilePhoto(props: { url: string; editable: boolean }) {
         <div className={ classes.profilePictureContainer }>
             <img
                 className={ classes.profilePic }
-                src={ props.url }
+                src={
+                    props.url
+                        ? props.url
+                        : 'https://images.unsplash.com/photo-1524704654690-b56c05c78a00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80'
+                }
                 alt="profile pic"
             />
 
             { props.editable ? (
                 <>
                     <input
-                        type={ 'file' }
+                        type="file"
                         className={ classes.hiddenPhotoChange }
                         onChange={ async (e) => {
                             if (e.currentTarget.files) {
