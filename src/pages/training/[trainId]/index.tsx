@@ -81,7 +81,6 @@ const Train: NextPageWithLayout = function (_props: {}) {
         load().then();
     }, [router.query.datasetId, router.query.trainId]);
 
-    // TODO: dataset.stage doesn't exist?
     if (dataset && dataset!.stage === 'completed') {
         router.push('/datasets/' + router.query.datasetId);
     }
