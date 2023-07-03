@@ -21,21 +21,54 @@ import pen from '@/icons/main/pen-tool.svg';
 import classes from './styles.module.css';
 
 function Header(props: { url: string; editable: boolean }) {
+    const gradientFunction = () => {
+        const gradients = ['#92A1C6', '#146A7C'];
+        return gradients[Math.round(Math.random() * 1)];
+    };
+
+    const gradientFunction2 = () => {
+        const gradients = ['#F0AB3D', '#C271B4', '#C20D90'];
+        return gradients[Math.round(Math.random() * 2)];
+    };
+    const router = useRouter();
+
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (
         <div className={ classes.headerPictureContainer }>
             <div className={ classes.headerPictureSubContainer }>
-                <Image
-                    alt="banner"
-                    className={ classes.headPic }
-                    src={
-                        props.url
-                            ? props.url
-                            : 'https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'
-                    }
-                    fill={ true }
-                />
+                {
+                    props.url
+                        ? (
+                            <Image
+                                alt="banner"
+                                className={ classes.headPic }
+                                src={
+                                    props.url
+                                }
+                                fill={ true }
+                            />
+                        )
+                        : (
+                            <div
+                                className={ classes.defaultBanner }
+                                style={ {
+                                    background:
+                                        'linear-gradient(' +
+                                        Math.round(Math.random() * 360) +
+                                        'deg, ' +
+                                        gradientFunction() +
+                                        ' ' +
+                                        Math.round(Math.random() * 30) +
+                                        '%,' +
+                                        gradientFunction2() +
+                                        ' ' +
+                                        Math.round(Math.random() * 35 + 70) +
+                                        '%)',
+                                } }
+                            />
+                        )
+                }
             </div>
 
             { props.editable ? (
@@ -47,9 +80,13 @@ function Header(props: { url: string; editable: boolean }) {
                         onChange={ async (e) => {
                             if (e.currentTarget.files) {
                                 const fd = new FormData();
+                                
                                 fd.append('image', e.currentTarget.files[0]);
                                 e.currentTarget.value = '';
+
                                 await api.put('/api/users/headerPhoto', fd);
+
+                                router.reload();
                             }
                         } }
                     />
