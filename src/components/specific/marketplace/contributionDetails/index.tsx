@@ -21,7 +21,7 @@ export default function ContributionDetails(props: {
     const dataset = props.dataset;
     const [curContribution, setCurContribution] = useState<ExpandedPullRequest | null>(null);
     const [messages, setMessages] = useState<ExpandedPullRequestMessage[]>([]);
-    const [text, setText] = useState<string>("");
+    const [text, setText] = useState<string>('');
     const statusOptions = [
         { value: 'draft', label: 'Draft' },
         { value: 'rejected', label: 'Reject' },
@@ -79,8 +79,8 @@ export default function ContributionDetails(props: {
             { message: fd.comment },
         );
         
-        setText("");
-        const tempMessage = { message: fd.comment, createdAt: new Date().toString(), updatedAt: new Date().toString(), user: curContribution!.user, pullRequest: props.contributionId }
+        setText('');
+        const tempMessage = { message: fd.comment, createdAt: new Date().toString(), updatedAt: new Date().toString(), user: curContribution!.user, pullRequest: props.contributionId };
         setMessages([...messages, tempMessage]);
     }
 
@@ -132,7 +132,7 @@ export default function ContributionDetails(props: {
                             <span className={ classes.dot } />
                         </>
                     );
-                })}
+                }) }
                 <div className={ classes.card }>
                     <form
                         onSubmit={ (e) => {
@@ -153,8 +153,8 @@ export default function ContributionDetails(props: {
                         </div>
 
                         <textarea
-                            value={text}
-                            onChange={changeText}
+                            value={ text }
+                            onChange={ changeText }
                             className={ classes.commentField }
                             required={ true }
                             name="comment"
