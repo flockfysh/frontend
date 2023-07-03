@@ -39,7 +39,7 @@ export default function ContributionDetailsGridView(props: {
                     />
                 </button>
             </div>
-            <AssetViewer contributionId={props.contributionId} searchQuery={ {displayName:undefined}} showList={false} />
+            <AssetViewer contributionId={ props.contributionId } searchQuery={ { displayName:undefined } } showList={ false } />
         </div>
     );
 }

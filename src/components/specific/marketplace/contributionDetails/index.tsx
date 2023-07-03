@@ -105,7 +105,7 @@ export default function ContributionDetails(props: {
 
     return (
         <>
-        { showList && 
+        { showList && (
             <div className={ classes.pullRequestContent }>
                 <div className={ classes.pullRequestBody }>
                     <div className={ classes.bodyHeader }>
@@ -186,8 +186,8 @@ export default function ContributionDetails(props: {
                     <h3 className={ classes.h3 }>Placeholder</h3>
                 </div>
             </div>
-            }
-        { !showList && 
+          ) }
+        { !showList && (
             <div className={ classes.assetViewContainer }>
                 <div className = { classes.assetViewContainerHeader }>
                     <button className={ classes.backButton }><BsArrowLeftCircle/> Back</button>
@@ -202,8 +202,9 @@ export default function ContributionDetails(props: {
                         </button>
                     </div>
                 </div>
-            <AssetViewer contributionId={props.contributionId} searchQuery={ {displayName:undefined}} showList={false} />
-         </div>}
+            <AssetViewer contributionId={ props.contributionId } searchQuery={ { displayName:undefined } } showList={ false } />
+         </div>
+          ) }
         </>
     );
 }
