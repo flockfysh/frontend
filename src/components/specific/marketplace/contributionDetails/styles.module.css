@@ -142,7 +142,7 @@
     flex-direction: column;
     width: 100%;
     margin-left: 1rem;
-    padding: 1rem;
+    padding: 0.5rem 1rem 1rem 0.5rem;
     background: var(--primary2-950);
     border-radius: 16px;
     background-color: #1e1e1e;
@@ -153,8 +153,6 @@
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    margin-top: -0.5rem;
-    margin-left: -0.5rem;
     padding: 0;
 }
 
@@ -198,4 +196,29 @@
     border-radius: 50%;
     display: inline-block;
     margin: 0.5rem 0 1rem 1.4375rem;
-  }
+}
+
+.assetViewContainer{
+    border: 1px solid;
+    border-radius: 16px;
+    padding: 0 1rem 1rem 1rem;
+    color: var(--primary-1100, #D2E1FF);
+}
+
+.assetViewContainerHeader{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;  
+}
+
+.toggleButtonsContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;  
+}
+
+.toggleButton{
+    background-color: inherit;
+}
