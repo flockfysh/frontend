@@ -12,6 +12,40 @@ import { BsArrowLeftCircle } from 'react-icons/bs';
 import { CgProfile } from 'react-icons/cg';
 import { AiOutlineFieldTime } from 'react-icons/ai';
 import { MdOpenInNew } from 'react-icons/md';
+import { dayjs } from '@/helpers/date';
+import Image from 'next/image';
+import Link from 'next/link';
+
+function UserCard(props: {
+    user: RedactedUser
+}) {
+    return (
+        <Link className={ classes.username } href={ `/profile/${props.user.username}` }>
+            <Image alt={ 'Profile picture' } width={ 24 } height={ 24 }
+                   src={ props.user.profilePhoto?.url ?? '' }
+                   className={ classes.userPicture }></Image>
+            <span> { props.user.fullName }</span>
+        </Link>
+    );
+}
+
+function Message(props: {
+    message: ExpandedPullRequestMessage
+}) {
+    return (
+        <div className={ classes.message }>
+            <div className={ classes.messageHeader }>
+                <UserCard user={ props.message.user }></UserCard>
+                <div className={ classes.time }>
+                    <AiOutlineFieldTime/>
+                    <h3> { Math.round(Math.abs(new Date().getTime() - new Date(props.message.createdAt).getTime()) / 3.6e6) } hours
+                        ago</h3>
+                </div>
+            </div>
+            <p>{ props.message.message }</p>
+        </div>
+    );
+}
 
 export default function ContributionDetails(props: {
     dataset: PreviewDataset,
@@ -43,23 +77,24 @@ export default function ContributionDetails(props: {
             ).data.data;
             setCurContribution(contribution);
             const tempMessages = (
-                await api.get<Api.Response<Flockfysh.PullRequestMessage[]>>(
+                await api.get<Api.Response<ExpandedPullRequestMessage[]>>(
                     `/api/pullRequests/${props.contributionId}/messages`,
                     {
                         params: {
-                            expand: 'user'
+                            expand: 'user',
+                            sort: 'createdAt',
+                            ascending: true,
                         },
                     },
                 )
-            ).data.data.data;
-            console.log(tempMessages);
+            ).data.data;
             setMessages(tempMessages);
         };
 
         getContributions().then();
     }, [router.query.datasetId]);
 
-    async function changeText(e: ChangeEvent<HTMLTextAreaElement>){
+    async function changeText(e: ChangeEvent<HTMLTextAreaElement>) {
         setText(e.target.value);
     }
 
@@ -69,22 +104,30 @@ export default function ContributionDetails(props: {
             comment: string;
         };
 
-        await api.patch(
-            '/api/pullRequests/' + curContribution!._id + '/status',
-            { status: fd.status },
-        );
+        if (fd.status) {
+            await api.patch(
+                '/api/pullRequests/' + curContribution!._id + '/status',
+                { status: fd.status },
+            );
+        }
 
         await api.post(
             '/api/pullRequests/' + curContribution!._id + '/messages',
             { message: fd.comment },
         );
-        
+
         setText('');
-        const tempMessage = { message: fd.comment, createdAt: new Date().toString(), updatedAt: new Date().toString(), user: curContribution!.user, pullRequest: props.contributionId };
+        const tempMessage = {
+            message: fd.comment,
+            createdAt: new Date().toString(),
+            updatedAt: new Date().toString(),
+            user: curContribution!.user,
+            pullRequest: props.contributionId,
+        };
         setMessages([...messages, tempMessage]);
     }
 
-    if(!curContribution){
+    if (!curContribution) {
         return <></>;
     }
 
@@ -94,42 +137,27 @@ export default function ContributionDetails(props: {
                 <div className={ classes.bodyHeader }>
                     <button className={ classes.backButton }><BsArrowLeftCircle/> Back</button>
                     <h3>{ curContribution.name }</h3>
-                    <h1>#1</h1>
+                    <h3 className={ classes.prNumber }>#1</h3>
                 </div>
-                <div className = { classes.message } >
-                    <div className= { classes.messageHeader } >
-                        <div className={ classes.username } >
-                            <CgProfile />
-                            <span> { curContribution.user.username }</span>
-                        </div>
-                        <div className={ classes.time }>
+                <div className={ classes.message }>
+                    <div className={ classes.messageHeader }>
+                        <UserCard user={ curContribution.user }></UserCard>
+                        <time className={ classes.time }>
                             <AiOutlineFieldTime/>
-                            <h3> { Math.round(Math.abs(new Date().getTime() - new Date(curContribution.createdAt).getTime())/3.6e6) } hours ago</h3>
-                        </div>
+                            <h3> { dayjs(curContribution.createdAt).fromNow() }</h3>
+                        </time>
                     </div>
                     <p>{ curContribution.description }</p>
-                    <button className={ classes.changesButton } >View Changes <MdOpenInNew/> </button>
+                    <button className={ classes.changesButton }>View Changes <MdOpenInNew/></button>
                 </div>
-                <span className={ classes.vl } />
-                <span className={ classes.dot } />
+                <span className={ classes.vl }/>
+                <span className={ classes.dot }/>
                 { messages.map((message: ExpandedPullRequestMessage) => {
                     return (
                         <>
-                            <div className={ classes.message } >
-                                <div className={ classes.messageHeader } >
-                                    <div className={ classes.username } >
-                                        <CgProfile />
-                                        <span> { message.user.username } </span>
-                                    </div>
-                                    <div className={ classes.time }>
-                                        <AiOutlineFieldTime/>
-                                        <h3> { Math.round(Math.abs(new Date().getTime() - new Date(message.createdAt).getTime())/3.6e6) } hours ago</h3>
-                                    </div>
-                                </div>
-                                <p>{ message.message }</p>
-                            </div>
-                            <span className={ classes.vl } />
-                            <span className={ classes.dot } />
+                            <Message message={ message }></Message>
+                            <span className={ classes.vl }/>
+                            <span className={ classes.dot }/>
                         </>
                     );
                 }) }
@@ -143,13 +171,14 @@ export default function ContributionDetails(props: {
                         <div className={ classes.cardTop }>
                             <h1 className={ classes.headerText }>Comment</h1>
 
-                            <CustomSelect
-                                required={ true }
-                                name="status"
-                                className={ classes.select }
-                                placeholder="Status"
-                                options={ statusOptions }
-                            />
+                            { curContribution.status !== 'merged' ? (
+                                <CustomSelect
+                                    name="status"
+                                    className={ classes.select }
+                                    placeholder="Status"
+                                    options={ statusOptions }
+                                />
+                            ) : <></> }
                         </div>
 
                         <textarea
