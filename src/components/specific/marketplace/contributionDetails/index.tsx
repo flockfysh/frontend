@@ -165,8 +165,8 @@ export default function ContributionDetails(props: {
                     </form>
                 </div>
             </div>
-            <div className={classes.pullRequestStats}>
-                <h3 className={classes.h3}>Placeholder</h3>
+            <div className={ classes.pullRequestStats }>
+                <h3 className={ classes.h3 }>Placeholder</h3>
             </div>
         </div>
     );
