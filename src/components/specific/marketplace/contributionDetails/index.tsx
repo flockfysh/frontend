@@ -1,25 +1,22 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
+import Link from 'next/link';
+
+import { BsArrowLeftCircle, BsGrid3X3, BsReverseListColumnsReverse } from 'react-icons/bs';
+import { AiOutlineFieldTime } from 'react-icons/ai';
+import { MdOpenInNew } from 'react-icons/md';
 
 import { formToJSON } from 'axios';
 
 import CustomSelect from '@/components/ui/input/select';
+import AssetViewer from '../contributionDetailsGridView/contributionAssetViewer';
 
 import api from '@/helpers/api';
+import { dayjs } from '@/helpers/date';
 
 import classes from './styles.module.css';
-import { BsArrowLeftCircle, BsFillGrid3X3GapFill, BsGrid3X3, BsReverseListColumnsReverse } from 'react-icons/bs';
-import { CgProfile } from 'react-icons/cg';
-import { AiOutlineFieldTime } from 'react-icons/ai';
-import { MdOpenInNew } from 'react-icons/md';
-import grid from '@/icons/main/grid.svg';
-import list from '@/icons/main/list.svg';
-import AssetViewer from '../contributionDetailsGridView/contributionAssetViewer';
-import { ReactSVG } from 'react-svg';
 
-import { dayjs } from '@/helpers/date';
-import Image from 'next/image';
-import Link from 'next/link';
 
 function UserCard(props: {
     user: RedactedUser

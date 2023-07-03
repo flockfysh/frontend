@@ -9,8 +9,7 @@ export default function ContributionDetailsGridView(props: {
     dataset: PreviewDataset,
     contributionId: string,
 }) {
-
-    const [showList, setShowList] = useState<boolean>(true);
+    const [_showList, setShowList] = useState<boolean>(true);
 
     const toggleViewToList = () => {
         setShowList(true);

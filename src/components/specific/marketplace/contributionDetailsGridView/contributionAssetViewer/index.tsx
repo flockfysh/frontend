@@ -1,5 +1,4 @@
 import { forwardRef, useState, useEffect, useCallback } from 'react';
-import { ReactSVG } from 'react-svg';
 import { ScrollerProps, TableVirtuoso, VirtuosoGrid } from 'react-virtuoso';
 
 import {
@@ -183,7 +182,6 @@ export default function AssetViewer(props: {
     const assetArray = Array.from(state.assets.values());
 
     async function delAsset(id: string) {
-        console.log(id);
         await api.delete(`/api/pullRequests/${props.contributionId}/assets/existing/${id}`);
         state.assets.delete(id);
         setState((prev) => {
@@ -266,7 +264,7 @@ export default function AssetViewer(props: {
                         };
                     });
                 }
- catch (e) {
+                catch (e) {
                     return;
                 }
             }
@@ -277,6 +275,7 @@ export default function AssetViewer(props: {
             state.assets,
             state.hasMore,
             state.next,
+            setState
         ],
     );
 
@@ -291,7 +290,7 @@ export default function AssetViewer(props: {
 
             load(20).then();
         }
-    }, [state, load]);
+    }, [state, load, setState]);
 
     if (!props.showList) {
         return (
