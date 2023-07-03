@@ -287,6 +287,7 @@ export default function AssetViewer(props: {
             state.assets,
             state.hasMore,
             state.next,
+            setState
         ],
     );
 
@@ -301,7 +302,7 @@ export default function AssetViewer(props: {
 
             load(20).then();
         }
-    }, [state, load]);
+    }, [state, load, setState]);
 
     if (!props.showList) {
         return (

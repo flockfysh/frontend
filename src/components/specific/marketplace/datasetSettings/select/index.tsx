@@ -1,7 +1,7 @@
 import { useState, useEffect, useId } from 'react';
 import { ReactSVG } from 'react-svg';
 
-import CustomSelect, { CustomCreatableSelect } from '@/components/ui/input/select';
+import CustomSelect from '@/components/ui/input/select';
 
 import help from '@/icons/main/help-circle.svg';
 

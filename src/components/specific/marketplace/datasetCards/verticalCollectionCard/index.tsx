@@ -5,14 +5,14 @@ import classes from './styles.module.css';
 
 export default function VerticalCollectionCard(props: HomepageCollection) {
 
-   let gradientFunction = ()=>{
-    let gradients = ['#92A1C6', '#146A7C'];
+   const gradientFunction = () => {
+    const gradients = ['#92A1C6', '#146A7C'];
     return gradients[Math.round(Math.random()*1)];
-   }
-   let gradientFunction2 = ()=>{
-    let gradients = [ '#F0AB3D', '#C271B4', '#C20D90'];
+   };
+   const gradientFunction2 = () => {
+    const gradients = [ '#F0AB3D', '#C271B4', '#C20D90'];
     return gradients[Math.round(Math.random()*2)];
-   }
+   };
     return (
         <div className={ classes.container }>
             <img
@@ -20,14 +20,14 @@ export default function VerticalCollectionCard(props: HomepageCollection) {
                 // src={ props.thumbnail?.url ?? '' }
                 alt="Thumbnail"
                 className={ classes.thumbnail }
-                style={{background: "linear-gradient(" + Math.round(Math.random()*360) +"deg, " + gradientFunction() + " " + Math.round(Math.random()*30) + "%," + gradientFunction2() + " " + Math.round(Math.random()*35 +70)  + "%)"}}
+                style={ { background: 'linear-gradient(' + Math.round(Math.random()*360) +'deg, ' + gradientFunction() + ' ' + Math.round(Math.random()*30) + '%,' + gradientFunction2() + ' ' + Math.round(Math.random()*35 +70)  + '%)' } }
             />
-            {/* <Avatar
+            { /* <Avatar
             // className={ classes.thumbnail }
             name={Math.random().toString()}
             variant="marble"
                 colors={ ['#92A1C6', '#146A7C', '#F0AB3D', '#C271B4', '#C20D90'] }
-            /> */}
+            /> */ }
 
             <div className={ classes.contentContainer }>
                 <div className={ classes.header }>
@@ -36,7 +36,7 @@ export default function VerticalCollectionCard(props: HomepageCollection) {
                         alt="Avatar"
                     />
 
-                    <DatasetTypeCard type={ props.type } className={classes.typeCard} />
+                    <DatasetTypeCard type={ props.type } className={ classes.typeCard } />
                 </div>
 
                 <div className={ classes.middleSection }>

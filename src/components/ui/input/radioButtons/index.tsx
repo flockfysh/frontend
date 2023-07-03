@@ -57,7 +57,7 @@ export default function RadioButtons<T>(props: {
                     return (
                         <Component
                             href={ option.value as string }
-                            onClick={ (e) => {
+                            onClick={ (_e) => {
                                 setValue(option.value);
                                 props.onChange?.(option.value);
                             } }

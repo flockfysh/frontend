@@ -16,6 +16,8 @@ export default function ContributionDetails(props: {
     const router = useRouter();
     const dataset = props.dataset;
 
+    dataset;
+
     const [curContribution, setCurContribution] =
         useState<ExpandedPullRequest | null>(null);
 
@@ -42,7 +44,7 @@ export default function ContributionDetails(props: {
         };
 
         getContributions().then();
-    }, [router.query.datasetId]);
+    }, [router.query.datasetId, props.contributionId]);
 
     async function submitMessage(elem: HTMLFormElement) {
         const fd = formToJSON(elem) as {
