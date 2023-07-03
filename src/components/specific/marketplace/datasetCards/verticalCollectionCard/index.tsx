@@ -4,7 +4,6 @@ import ProfileCard from '../../profileCard';
 import classes from './styles.module.css';
 
 export default function VerticalCollectionCard(props: HomepageCollection) {
-
    const gradientFunction = () => {
     const gradients = ['#92A1C6', '#146A7C'];
     return gradients[Math.round(Math.random()*1)];

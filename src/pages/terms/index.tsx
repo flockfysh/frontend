@@ -3,6 +3,8 @@ import { NextPageWithLayout } from '@/pages/_app';
 import MainLayout from '@/components/layout/mainLayout';
 import Footer from '@/components/specific/marketplace/footer';
 
+// import classes from './styles.module.css';
+
 const TermsPage: NextPageWithLayout = function () {
 
     return (
@@ -10,6 +12,7 @@ const TermsPage: NextPageWithLayout = function () {
             <h1>
                 Terms of Service
             </h1>
+            
             <Footer />
         </>
     );

@@ -11,7 +11,7 @@ import classes from './styles.module.css';
 
 export default function Contributions(_dataset: PreviewDataset) {
     const router = useRouter();
-    
+
     const [_contributions, setContributions] = useState<ExpandedPullRequest[] | null>(null);
     const [curContribution, _setCurContribution] = useState<Flockfysh.PullRequest | null>(null);
     const statusOptions = [
@@ -30,6 +30,7 @@ export default function Contributions(_dataset: PreviewDataset) {
             })).data.data;
             setContributions(temp);
         };
+
         getContributions().then();
     }, [router.query.datasetId]);
 
