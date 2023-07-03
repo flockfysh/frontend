@@ -14,7 +14,7 @@ export default function Profile(props: { username: string }) {
         async function fetch() {
             const user = await api
                 .get<Api.Response<RedactedUser>>(
-                    `/api/users/byUsername/${props.username}`
+                    `/api/users/byUsername/${props.username}`,
                 )
                 .then((res) => res.data.data);
             setUser(user);
@@ -27,15 +27,15 @@ export default function Profile(props: { username: string }) {
 
     return (
         <>
-            <UserInfo curTab={ curTab } { ...user } updateTab={ updateCurTab } />
+            <UserInfo curTab={ curTab } { ...user } updateTab={ updateCurTab }/>
 
-            { curTab === 0 && <DatasetsOwned user={ user } /> }
+            { curTab === 0 && <DatasetsOwned user={ user }/> }
             { /*{curTab === 1 && <ActivityGraph />}*/ }
 
             { curTab === 2 && (
                 <UserSettings
-                    name="user"
-                    email="trial@email.com"
+                    username={ user.username }
+                    email={ user.email }
                     apiKey="Sf3$dqq34Fa4gD43@F$&S"
                     mailingList={ true }
                     transferLimit={ 1.9 }
