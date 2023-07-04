@@ -7,90 +7,36 @@ import InfiniteScroll from 'react-infinite-scroller';
 import deleteIcon from '@/icons/main/trash.svg';
 import { ReactSVG } from 'react-svg';
 import plus from '@/icons/main/plus-circle.svg';
-import { v4 } from 'uuid';
-import { useMemo } from 'react';
 import ActionPopupWithButton from '@/components/ui/modals/actionPopupWithButton';
+import PermissionForm from '@/components/specific/marketplace/datasetSettings/permissionManager/permissionForm';
+import { permissionOptions } from '@/helpers/enums/permission';
+import useClient from '@/helpers/hooks/useClient';
 import api from '@/helpers/api';
+import { ApiError } from '@/helpers/errors';
 
-const dummyPermissions: PermissionWithUser[] = Array.from({ length: 5 }, () => {
-    return {
-        _id: v4(),
-        dataset: '2131254',
-        role: 'admin',
-        user: {
-            email: 'khanhtranngoccva@gmail.com',
-            username: 'khanhtranngoccva',
-            firstName: 'Khanh',
-            lastName: 'Tran',
-            fullName: 'Khanh Tran',
-            _id: 'user1',
-        },
-        purchased: false,
-    };
-});
 
-const options: { value: Flockfysh.DatasetAccessLevel, label: string }[] = [
-    {
-        value: 'admin', label: 'Administrator',
-    },
-    {
-        value: 'maintainer', label: 'Maintainer',
-    },
-    {
-        value: 'contributor', label: 'Contributor',
-    },
-    {
-        value: 'blocked', label: 'Blocked',
-    },
-];
-
-function PermissionModal() {
+function PermissionModal(props: {
+    dataset: PreviewDataset
+    onInsert: (data: PermissionWithUser) => void
+}) {
     return (
         <ActionPopupWithButton button={ (
             <button className={ classes.inviteButton }>
                 Invite
                 <ReactSVG src={ plus.src }></ReactSVG>
             </button>
-        ) } popupTitle={ 'Invite Contributors' } variant={ 'marketplace' }>
-            <PermissionForm></PermissionForm>
+        ) } popupTitle={ 'Add permissions' } variant={ 'marketplace' }>
+            <PermissionForm dataset={ props.dataset } onInsert={ props.onInsert }></PermissionForm>
         </ActionPopupWithButton>
     );
 }
 
-function PermissionForm() {
-    return (
-        <form className={ classes.addPermissionForm }>
-            <AsyncCustomSelect isMulti={ true } loadOptions={ async (inputValue) => {
-                const users = (await api.get<Api.PaginatedResponse<RedactedUser[]>>('/api/users/search', {
-                    params: {
-                        query: inputValue,
-                    },
-                })).data.data;
-                return users.map(user => {
-                    const res = {
-                        label: user.username,
-                        value: <div><Image width={ 24 } height={ 24 } alt={ '' }
-                                           src={ user.profilePhoto?.url ?? getDefaultProfilePicture() }/><span>user.username</span>
-                        </div>,
-                    };
-                    return res;
-                });
-            } }/>
-        </form>
-    );
-}
 
 function PermissionCard(props: {
     permission: PermissionWithUser,
+    onDelete: () => void,
 }) {
-    const body = useMemo(() => {
-        try {
-            return document.querySelector('html');
-        }
- catch (e) {
-            return null;
-        }
-    }, []);
+    const body = useClient(() => document.body);
 
     return (
         <li className={ classes.card }>
@@ -106,19 +52,32 @@ function PermissionCard(props: {
                     { props.permission.user.email }
                 </span>
                 <Select
-                    options={ options } isMulti={ false }
+                    options={ permissionOptions } isMulti={ false }
                     className={ classes.selectInput }
                     classNames={ {
                         menu() {
                             return classes.selectMenu;
                         },
                     } }
-                    menuPortalTarget={ document.body }
+                    onChange={ data => {
+                    } }
+                    menuPortalTarget={ body }
                     menuPosition={ 'fixed' }
-                    defaultValue={ options.filter(opt => opt.value === props.permission.role)[0] }
+                    defaultValue={ permissionOptions.filter(opt => opt.value === props.permission.role)[0] }
                 />
             </div>
-            <button onClick={ () => {
+            <button onClick={ async () => {
+                try {
+                    await api.delete(`/api/datasetPermissions/${props.permission._id}`);
+                }
+ catch (e) {
+                    if (e instanceof ApiError && e.code === 'ERROR_NOT_FOUND') {
+                    }
+                    else {
+                        throw e;
+                    }
+                }
+                props.onDelete();
             } } className={ classes.deleteButton }>
                 <ReactSVG src={ deleteIcon.src } className={ classes.deleteButtonIcon }></ReactSVG>
             </button>
@@ -130,16 +89,34 @@ export default function PermissionManager(dataset: PreviewDataset) {
     const [state, setState] = useStateWithDeps<{
         hasMore: boolean,
         next?: string,
-        permissions: PermissionWithUser[]
+        permissions: Map<string, PermissionWithUser>
     }>(initialState, [dataset._id]);
-
 
     function initialState() {
         return {
             hasMore: true,
             next: undefined,
-            permissions: [],
+            permissions: new Map(),
         };
+    }
+
+    async function load() {
+        const result = (await api.get<Api.PaginatedResponse<PermissionWithUser[]>>(`/api/datasets/${dataset._id}/permissions`, {
+            params: {
+                next: state.next,
+                expand: 'user',
+            },
+        })).data;
+        setState((prevState) => {
+            for (const item of result.data) {
+                prevState.permissions.set(item._id, item);
+            }
+            return {
+                ...prevState,
+                next: result.meta.next,
+                hasMore: result.meta.hasNext,
+            };
+        });
     }
 
     return (
@@ -148,15 +125,25 @@ export default function PermissionManager(dataset: PreviewDataset) {
                 <h3 className={ classes.heading }>
                     People who have access
                 </h3>
-                <PermissionModal></PermissionModal>
+                <PermissionModal dataset={ dataset } onInsert={ (perm) => {
+                    state.permissions.set(perm._id, perm);
+                    setState(prevState => ({ ...prevState }));
+                } }></PermissionModal>
             </div>
             <div className={ classes.permissionListContainer }>
-                <InfiniteScroll loadMore={ () => {
+                <InfiniteScroll hasMore={ state.hasMore } loadMore={ () => {
+                    load();
                 } }>
                     <ul className={ classes.permissionList }>
-                        { dummyPermissions.map(permission => (
-                            <PermissionCard key={ permission._id }
-                                            permission={ permission }/>
+                        { [...state.permissions.entries()].map(([key, perm]) => (
+                            <PermissionCard
+                                key={ key }
+                                onDelete={ () => {
+                                    state.permissions.delete(key);
+                                    setState(prevState => ({ ...prevState }));
+                                } }
+                                permission={ perm }
+                            />
                         )) }
                     </ul>
                 </InfiniteScroll>

@@ -30,6 +30,7 @@ export default function GeneralSettings(dataset: PreviewDataset) {
                         icon={ link.src }
                         placeholder="New user"
                         tooltip="Change ownership of the dataset to another dataset."
+                        saveLabel={ 'Transfer' }
                         onSave={ async (data) => {
                             await api.patch(
                                 `/api/datasets/${dataset._id}/ownership`,

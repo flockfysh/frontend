@@ -100,9 +100,3 @@
     width: 100%;
     z-index: 9999;
 }
-
-.addPermissionForm {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
