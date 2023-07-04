@@ -12,18 +12,68 @@ import bgRoadmapMobile3 from '../../images/bg-roadmap-mobile-3.png';
 import classes from './background.module.css';
 
 export default function RoadmapBackground() {
-   return (
+    return (
         <div className={ classes.backgroundWrapper }>
-            <img className={ `${classes.bgRoadmapDesktop} ${classes.bgRoadmapDesktop1}` } src={ bgRoadmapDesktop1.src } alt="" loading="lazy" />
-            <img className={ `${classes.bgRoadmapDesktop} ${classes.bgRoadmapDesktop2}` } src={ bgRoadmapDesktop2.src } alt="" loading="lazy" />
-            <img className={ `${classes.bgRoadmapMobile} ${classes.bgRoadmapMobile1 }` } src={ bgRoadmapMobile1.src } alt="" loading="lazy" />
-            <img className={ `${classes.bgRoadmapDesktop} ${classes.bgRoadmapDesktop3}` } src={ bgRoadmapDesktop3.src } alt="" loading="lazy" />
-            <img className={ `${classes.bgRoadmapDesktop} ${classes.bgRoadmapDesktop4}` } src={ bgRoadmapDesktop4.src } alt="" loading="lazy" />
-            <img className={ `${classes.bgRoadmapDesktop} ${classes.bgRoadmapDesktop5}` } src={ bgRoadmapDesktop5.src } alt="" loading="lazy" />
-            <img className={ `${classes.bgRoadmapMobile} ${classes.bgRoadmapMobile2 }` } src={ bgRoadmapMobile2.src } alt="" loading="lazy" />
-            <img className={ `${classes.bgRoadmapDesktop} ${classes.bgRoadmapDesktop6}` } src={ bgRoadmapDesktop6.src } alt="" loading="lazy" />
-            <img className={ `${classes.bgRoadmapDesktop} ${classes.bgRoadmapDesktop7}` } src={ bgRoadmapDesktop7.src } alt="" loading="lazy" />
-            <img className={ `${classes.bgRoadmapMobile} ${classes.bgRoadmapMobile3 }` } src={ bgRoadmapMobile3.src } alt="" loading="lazy" />
+            <img
+                className={ `${classes.bgRoadmapDesktop} ${classes.bgRoadmapDesktop1}` }
+                src={ bgRoadmapDesktop1.src }
+                alt=""
+                loading="lazy"
+            />
+            <img
+                className={ `${classes.bgRoadmapDesktop} ${classes.bgRoadmapDesktop2}` }
+                src={ bgRoadmapDesktop2.src }
+                alt=""
+                loading="lazy"
+            />
+            <img
+                className={ `${classes.bgRoadmapMobile} ${classes.bgRoadmapMobile1}` }
+                src={ bgRoadmapMobile1.src }
+                alt=""
+                loading="lazy"
+            />
+            <img
+                className={ `${classes.bgRoadmapDesktop} ${classes.bgRoadmapDesktop3}` }
+                src={ bgRoadmapDesktop3.src }
+                alt=""
+                loading="lazy"
+            />
+            <img
+                className={ `${classes.bgRoadmapDesktop} ${classes.bgRoadmapDesktop4}` }
+                src={ bgRoadmapDesktop4.src }
+                alt=""
+                loading="lazy"
+            />
+            <img
+                className={ `${classes.bgRoadmapDesktop} ${classes.bgRoadmapDesktop5}` }
+                src={ bgRoadmapDesktop5.src }
+                alt=""
+                loading="lazy"
+            />
+            <img
+                className={ `${classes.bgRoadmapMobile} ${classes.bgRoadmapMobile2}` }
+                src={ bgRoadmapMobile2.src }
+                alt=""
+                loading="lazy"
+            />
+            <img
+                className={ `${classes.bgRoadmapDesktop} ${classes.bgRoadmapDesktop6}` }
+                src={ bgRoadmapDesktop6.src }
+                alt=""
+                loading="lazy"
+            />
+            <img
+                className={ `${classes.bgRoadmapDesktop} ${classes.bgRoadmapDesktop7}` }
+                src={ bgRoadmapDesktop7.src }
+                alt=""
+                loading="lazy"
+            />
+            <img
+                className={ `${classes.bgRoadmapMobile} ${classes.bgRoadmapMobile3}` }
+                src={ bgRoadmapMobile3.src }
+                alt=""
+                loading="lazy"
+            />
         </div>
     );
 }

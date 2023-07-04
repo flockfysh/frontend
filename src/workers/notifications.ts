@@ -1,5 +1,3 @@
-// import logoIcon from '../images/icons/logo.svg';
-
 export interface NotificationData {
     title: string;
     body: string;
@@ -15,7 +13,6 @@ export async function sendNotification(data: NotificationData) {
 
     await worker.registration.showNotification(data.title, {
         body: data.body,
-        // icon: logoIcon,
         data: {
             url: data.url,
         },

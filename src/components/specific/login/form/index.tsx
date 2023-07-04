@@ -78,7 +78,7 @@ export default function LoginForm(props: {
 
             setEmailError('');
         }
-        catch (e) {
+ catch (e) {
             formValid = false;
 
             if (e instanceof ZodError) setEmailError(e.issues[0].message);
@@ -97,7 +97,7 @@ export default function LoginForm(props: {
 
             setPasswordError('');
         }
-        catch (e) {
+ catch (e) {
             formValid = false;
 
             if (e instanceof ZodError) setPasswordError(e.issues[0].message);
@@ -116,7 +116,7 @@ export default function LoginForm(props: {
 
                 setNameError('');
             }
-            catch (e) {
+ catch (e) {
                 formValid = false;
 
                 if (e instanceof z.ZodError) setNameError(e.issues[0].message);
@@ -126,7 +126,7 @@ export default function LoginForm(props: {
                 formValid = false;
                 setConfirmPasswordError('Passwords do not match.');
             }
-            else setConfirmPasswordError('');
+ else setConfirmPasswordError('');
         }
 
         return formValid;

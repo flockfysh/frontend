@@ -1,36 +1,38 @@
-import Image from 'next/image';
-import Avatar from 'boring-avatars';
-
 import DatasetTypeCard from '../../datasetTypeCard';
 import ProfileCard from '../../profileCard';
 
 import classes from './styles.module.css';
 
 export default function VerticalCollectionCard(props: HomepageCollection) {
+    const gradientFunction = () => {
+        const gradients = ['#92A1C6', '#146A7C'];
+        return gradients[Math.round(Math.random() * 1)];
+    };
 
-   const gradientFunction = () => {
-    const gradients = ['#92A1C6', '#146A7C'];
-    return gradients[Math.round(Math.random()*1)];
-   };
-   const gradientFunction2 = () => {
-    const gradients = [ '#F0AB3D', '#C271B4', '#C20D90'];
-    return gradients[Math.round(Math.random()*2)];
-   };
+    const gradientFunction2 = () => {
+        const gradients = ['#F0AB3D', '#C271B4', '#C20D90'];
+        return gradients[Math.round(Math.random() * 2)];
+    };
+
     return (
         <div className={ classes.container }>
-            <img
-                // fill={ true }
-                // src={ props.thumbnail?.url ?? '' }
-                alt="Thumbnail"
+            <div
                 className={ classes.thumbnail }
-                style={ { background: 'linear-gradient(' + Math.round(Math.random()*360) +'deg, ' + gradientFunction() + ' ' + Math.round(Math.random()*30) + '%,' + gradientFunction2() + ' ' + Math.round(Math.random()*35 +70)  + '%)' } }
+                style={ {
+                    background:
+                        'linear-gradient(' +
+                        Math.round(Math.random() * 360) +
+                        'deg, ' +
+                        gradientFunction() +
+                        ' ' +
+                        Math.round(Math.random() * 30) +
+                        '%,' +
+                        gradientFunction2() +
+                        ' ' +
+                        Math.round(Math.random() * 35 + 70) +
+                        '%)',
+                } }
             />
-            { /* <Avatar
-            // className={ classes.thumbnail }
-            name={Math.random().toString()}
-            variant="marble"
-                colors={ ['#92A1C6', '#146A7C', '#F0AB3D', '#C271B4', '#C20D90'] }
-            /> */ }
 
             <div className={ classes.contentContainer }>
                 <div className={ classes.header }>
@@ -39,24 +41,27 @@ export default function VerticalCollectionCard(props: HomepageCollection) {
                         alt="Avatar"
                     />
 
-                    <DatasetTypeCard type={ props.type } className={ classes.typeCard } />
+                    <DatasetTypeCard
+                        type={ props.type }
+                        className={ classes.typeCard }
+                    />
                 </div>
 
                 <div className={ classes.middleSection }>
                     <h1>{ props.name }</h1>
 
-                    <div className={ classes.profileCardContainer }>
-                        <ProfileCard
-                            className={ classes.profileCard }
-                            username={ props.user.username }
-                            profilePicture={ props.user.profilePhoto?.url ?? '' }
-                        />
-                    </div>
-
                     <div className={ classes.footer }>
                         <div className={ classes.infoContainer }>
                             <p className={ classes.infoHeader }>Datasets</p>
                             <p className={ classes.info }>{ props.itemCount }</p>
+                        </div>
+
+                        <div className={ classes.profileCardContainer }>
+                            <ProfileCard
+                                className={ classes.profileCard }
+                                username={ props.user.username }
+                                profilePicture={ props.user.profilePhoto?.url ?? '' }
+                            />
                         </div>
                     </div>
                 </div>

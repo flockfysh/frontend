@@ -14,17 +14,32 @@ export default function Footer() {
         <div className={ classes.footer }>
             <div className={ classes.socials }>
                 <div className={ classes.socialIconContainer }>
-                    <Link href="https://github.com/flockfysh" target = "_blank">
+                    <Link href="https://github.com/flockfysh" target="_blank">
                         <ReactSVG className={ classes.github } src={ github.src } />
                     </Link>
-                    <Link href="https://twitter.com/flockfysh" target = "_blank">
-                        <ReactSVG className={ classes.socialIcon } src={ twitter.src } />
+                    
+                    <Link href="https://twitter.com/flockfysh" target="_blank">
+                        <ReactSVG
+                            className={ classes.socialIcon }
+                            src={ twitter.src }
+                        />
                     </Link>
-                    <Link href="https://linkedin.com/company/flockfysh" target = "_blank">
-                        <ReactSVG className={ classes.socialIcon } src={ linkedin.src } />
+
+                    <Link
+                        href="https://linkedin.com/company/flockfysh"
+                        target="_blank"
+                    >
+                        <ReactSVG
+                            className={ classes.socialIcon }
+                            src={ linkedin.src }
+                        />
                     </Link>
-                    <Link href="mailto:hey@flockfysh.tech" target = "_blank">
-                        <ReactSVG className={ classes.socialIcon } src={ mail.src } />
+
+                    <Link href="mailto:hey@flockfysh.tech" target="_blank">
+                        <ReactSVG
+                            className={ classes.socialIcon }
+                            src={ mail.src }
+                        />
                     </Link>
                 </div>
 
@@ -43,7 +58,11 @@ export default function Footer() {
 
             <div className={ classes.tos }>
                 <div className={ classes.backed }>
-                    <Link className={ classes.link } href="https://skydeck.berkeley.edu/" target = "_blank">
+                    <Link
+                        className={ classes.link }
+                        href="https://skydeck.berkeley.edu/"
+                        target="_blank"
+                    >
                         <p>Backed by </p>
 
                         <img src={ skydeck.src } alt="skydeck" />
@@ -51,9 +70,13 @@ export default function Footer() {
                 </div>
 
                 <div className={ classes.tosContent }>
-                    <Link className={ classes.link } href="/terms">Terms of Service</Link>
+                    <Link className={ classes.link } href="/terms">
+                        Terms of Service
+                    </Link>
                     <span className={ classes.circleDivider } />
-                    <Link className={ classes.link } href="/privacy">Privacy Policy</Link>
+                    <Link className={ classes.link } href="/privacy">
+                        Privacy Policy
+                    </Link>
                 </div>
             </div>
         </div>

@@ -10,10 +10,13 @@ import api from '@/helpers/api';
 import classes from './styles.module.css';
 
 export default function Contributions(_dataset: PreviewDataset) {
-
     const router = useRouter();
-    const [_contributions, setContributions] = useState<ExpandedPullRequest[] | null>(null);
-    const [curContribution, _setCurContribution] = useState<Flockfysh.PullRequest | null>(null);
+
+    const [_contributions, setContributions] = useState<
+        ExpandedPullRequest[] | null
+    >(null);
+    const [curContribution, _setCurContribution] =
+        useState<Flockfysh.PullRequest | null>(null);
     const statusOptions = [
         { value: 'draft', label: 'Draft' },
         { value: 'reject', label: 'Reject' },
@@ -23,11 +26,16 @@ export default function Contributions(_dataset: PreviewDataset) {
 
     useEffect(() => {
         const getContributions = async () => {
-            const temp = (await api.get<Api.PaginatedResponse<ExpandedPullRequest[]>>(`/api/datasets/${router.query.datasetId}/pullRequests`, {
-                params: {
-                    expand: 'user,stats',
-                },
-            })).data.data;
+            const temp = (
+                await api.get<Api.PaginatedResponse<ExpandedPullRequest[]>>(
+                    `/api/datasets/${router.query.datasetId}/pullRequests`,
+                    {
+                        params: {
+                            expand: 'user,stats',
+                        },
+                    }
+                )
+            ).data.data;
             setContributions(temp);
         };
 
@@ -39,18 +47,26 @@ export default function Contributions(_dataset: PreviewDataset) {
             status: string;
             comment: string;
         };
-        await api.patch('/api/pullRequests/' + curContribution!._id + '/status', { status: fd.status });
-        await api.post('/api/pullRequests/' + curContribution!._id + '/messages', { message: fd.comment });
+        await api.patch(
+            '/api/pullRequests/' + curContribution!._id + '/status',
+            { status: fd.status }
+        );
+        await api.post(
+            '/api/pullRequests/' + curContribution!._id + '/messages',
+            { message: fd.comment }
+        );
         return;
     }
 
     return (
         <>
             <div className={ classes.card }>
-                <form onSubmit={ (e) => {
-                    e.preventDefault();
-                    submitMessage(e.currentTarget);
-                } }>
+                <form
+                    onSubmit={ (e) => {
+                        e.preventDefault();
+                        submitMessage(e.currentTarget);
+                    } }
+                >
                     <div className={ classes.cardTop }>
                         <h1 className={ classes.headerText }>Comment</h1>
                         <CustomSelect
@@ -61,6 +77,7 @@ export default function Contributions(_dataset: PreviewDataset) {
                             options={ statusOptions }
                         />
                     </div>
+
                     <textarea
                         className={ classes.commentField }
                         required={ true }

@@ -2,9 +2,9 @@ import dynamic from 'next/dynamic';
 import { RectangleProps } from './rectangle';
 
 const NoSSRComponent = dynamic(() => import('./rectangle'), {
-    ssr: false
+    ssr: false,
 });
 
-export default function Rectangle(props: RectangleProps){
+export default function Rectangle(props: RectangleProps) {
     return <NoSSRComponent { ...props } />;
 }

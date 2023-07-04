@@ -29,5 +29,3 @@ declare interface PreviewDataset extends Flockfysh.Dataset {
     };
     permission: string;
 }
-
-

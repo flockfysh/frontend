@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ReactSVG } from 'react-svg';
 import Link from 'next/link';
 
@@ -18,7 +18,10 @@ import save from '@/icons/main/save.svg';
 import coinStack from '@/icons/main/coin-stack.svg';
 
 import classes from './styles.module.css';
-import { DATASET_LICENSE_DESCRIPTION, DATASET_LICENSE_ENUM } from '@/helpers/enums/license';
+import {
+    DATASET_LICENSE_DESCRIPTION,
+    DATASET_LICENSE_ENUM,
+} from '@/helpers/enums/license';
 
 type CreateDatasetModalProps = {
     onClose: () => void;
@@ -31,8 +34,7 @@ const datasetTypeOptions = [
     { value: 'other', label: 'Other' },
 ];
 
-// ! Look at this
-const licenseOptions = DATASET_LICENSE_ENUM._def.values.map(license => {
+const licenseOptions = DATASET_LICENSE_ENUM._def.values.map((license) => {
     return {
         label: DATASET_LICENSE_DESCRIPTION[license],
         value: license,
@@ -84,18 +86,15 @@ async function uploadDataset(formData: FormData) {
             fd.set(config.fieldName, file);
             await api.post(
                 `/api/datasets/${newDataset._id}/assets/upload/${config.endpoint}`,
-                fd,
+                fd
             );
         }
- catch (e) {
-        }
+        catch (e) {}
     }
 
     await new AsyncArray(files).chunkMap((file) => upload(file), undefined, {
         maxThreads: 20,
     });
-
-
 }
 
 export default function CreateDatasetModal(props: CreateDatasetModalProps) {
@@ -103,28 +102,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
         Flockfysh.AssetType | undefined
     >(undefined);
 
-    const [recipes, setRecipes] = useState<Flockfysh.RecipeWithLabels[]>([]);
     const [isAgreed, updateAgreed] = useState(false);
-
-    useEffect(() => {
-        async function load() {
-            const recipes = (
-                await api.get<Api.Response<Flockfysh.RecipeWithLabels[]>>(
-                    '/api/recipes/search',
-                    {
-                        params: {
-                            name: undefined,
-                            expand: 'labels',
-                        },
-                    },
-                )
-            ).data.data;
-
-            setRecipes(recipes);
-        }
-
-        load().then();
-    }, []);
 
     const [isUpload, updateIsUpload] = useState(true);
     const [_newDatasetOptions, _updateOptions] = useState({
@@ -135,8 +113,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
     // TODO: recipe select
 
     // TODO: Is this implemented?
-    async function requestDataset() {
-    }
+    async function requestDataset() {}
 
     requestDataset();
 
@@ -195,8 +172,8 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                         e.preventDefault();
                         const formData = new FormData(e.currentTarget);
 
-                        await uploadDataset(formData);
                         props.onClose();
+                        await uploadDataset(formData);
                     } }
                 >
                     <div className={ classes.rowContainer }>
@@ -222,11 +199,11 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                     value={
                                         datasetType
                                             ? {
-                                                label: capitalize(
-                                                    datasetType,
-                                                ),
-                                                value: datasetType,
-                                            }
+                                                  label: capitalize(
+                                                      datasetType
+                                                  ),
+                                                  value: datasetType,
+                                              }
                                             : undefined
                                     }
                                     onChange={ (newValue) => {
@@ -235,7 +212,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                                 newValue as {
                                                     value: Flockfysh.AssetType;
                                                 }
-                                            ).value,
+                                            ).value
                                         );
                                     } }
                                     classNames={ {
@@ -283,42 +260,10 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                     <p>Minimum Number of Items</p>
 
                                     { /* TODO: need to change the scroll. React select */ }
-                                    <input type="number" required={ true }/>
+                                    <input type="number" required={ true } />
                                 </>
                             ) }
                         </label>
-
-                        { isUpload && (
-                            <label>
-                                <p>Recipe</p>
-
-                                <CustomSelect
-                                    name="recipe"
-                                    classNames={ {
-                                        control: () => {
-                                            return classes.inputControl;
-                                        },
-                                        option: () => {
-                                            return classes.selectOption;
-                                        },
-                                        menu: () => {
-                                            return classes.selectMenu;
-                                        },
-                                    } }
-                                    placeholder="Recipe"
-                                    options={ [
-                                        {
-                                            value: null,
-                                            label: `Create recipe on the fly`,
-                                        },
-                                        ...recipes.map((recipe) => ({
-                                            value: recipe._id,
-                                            label: `${recipe.name} - ${recipe.labels.length} labels`,
-                                        })),
-                                    ] }
-                                />
-                            </label>
-                        ) }
                     </div>
 
                     <div className={ classes.rowContainer }>
@@ -370,16 +315,18 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                             ) }
 
                             <input
-                                required={ true }
                                 type="number"
                                 placeholder="Amount.."
-                                name={ 'price' }
+                                name="price"
                             />
                         </label>
 
-                        <label className={ classes.disablePointerEvents } onClick={ e => {
-                            e.preventDefault();
-                        } }>
+                        <label
+                            className={ classes.disablePointerEvents }
+                            onClick={ (e) => {
+                                e.preventDefault();
+                            } }
+                        >
                             { /* TODO: Add info tooltip */ }
                             <p>Visibility</p>
 
@@ -478,7 +425,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                     <p>Deadline</p>
 
                                     { /* TODO: need to change the icon color */ }
-                                    <input type="date" required={ true }/>
+                                    <input type="date" required={ true } />
                                 </>
                             ) }
                         </label>
@@ -522,13 +469,13 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                 <>
                                     <p>Save Dataset</p>
 
-                                    <ReactSVG src={ save.src }/>
+                                    <ReactSVG src={ save.src } />
                                 </>
                             ) : (
                                 <>
                                     <p>Request Dataset</p>
 
-                                    <ReactSVG src={ coinStack.src }/>
+                                    <ReactSVG src={ coinStack.src } />
                                 </>
                             ) }
                         </button>

@@ -64,7 +64,7 @@ export default function Rectangle(props: RectangleProps) {
     const konvaRectX =
         (props.shapeProps.x - props.shapeProps.width / 2) *
         props.containerWidth;
-        
+
     const konvaRectCenterX = props.shapeProps.x * props.containerWidth;
     const konvaRectY =
         (props.shapeProps.y - props.shapeProps.height / 2) *

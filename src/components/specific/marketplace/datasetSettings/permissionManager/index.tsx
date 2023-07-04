@@ -1,6 +1,6 @@
 import { getDefaultProfilePicture } from '@/helpers/defaults';
 import Image from 'next/image';
-import Select, { AsyncCustomSelect, CustomCreatableSelect } from '@/components/ui/input/select';
+import Select from '@/components/ui/input/select';
 import classes from './styles.module.css';
 import { useStateWithDeps } from 'use-state-with-deps';
 import InfiniteScroll from 'react-infinite-scroller';

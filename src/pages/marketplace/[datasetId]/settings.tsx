@@ -9,8 +9,8 @@ import DatasetSettingsLayout from '@/components/specific/marketplace/datasetSett
 
 const DatasetActivityPage: NextPageWithLayout = function () {
     const dataset = useContext(DatasetInfoContext);
-    if (dataset)
-        return <DatasetSettingsLayout { ...dataset } />;
+
+    if (dataset) return <DatasetSettingsLayout { ...dataset } />;
     else return <></>;
 };
 

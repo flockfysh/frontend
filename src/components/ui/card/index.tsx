@@ -15,7 +15,11 @@ export default function Card({ heading, body, icon, className }: AppProps) {
         <div className={ `${classes.box} ${className || ''}` }>
             <div>
                 <h4 className={ classes.heading }>{ heading }</h4>
-                <img src={ icon } alt={ `${heading} Icon` } className={ classes.icon }/>
+                <img
+                    src={ icon }
+                    alt={ `${heading} Icon` }
+                    className={ classes.icon }
+                />
             </div>
 
             <p className={ classes.body }>{ body }</p>

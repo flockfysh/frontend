@@ -3,16 +3,11 @@ import { NextPageWithLayout } from '@/pages/_app';
 import MainLayout from '@/components/layout/mainLayout';
 import Footer from '@/components/specific/marketplace/footer';
 
-// import classes from './styles.module.css';
-
 const PrivacyPage: NextPageWithLayout = function () {
-
     return (
         <>
-            <h1>
-                Privacy
-            </h1>
-            
+            <h1>Privacy</h1>
+
             <Footer />
         </>
     );

@@ -3,6 +3,7 @@ import { ReactSVG } from 'react-svg';
 
 import { PopupModalContext } from '@/components/ui/modals/actionPopup';
 import FileUpload from '@/components/fileUpload/index';
+import Editing from '@/components/ui/editingBox/editing';
 
 import {
     uploadTypeMapping,
@@ -35,13 +36,12 @@ export default function Contribute(props: ContributeProps) {
             _id: string;
             type: Flockfysh.AssetType;
         },
-        formData: FormData,
+        formData: FormData
     ) {
         const uploadData = {
             name: formData.get('name'),
             description: formData.get('description'),
         };
-        console.log(uploadData);
 
         const files = formData.getAll('files').filter((item) => {
             return item instanceof File && item.size > 0;
@@ -50,7 +50,7 @@ export default function Contribute(props: ContributeProps) {
         const pullRequest = await api
             .post<Api.Response<Flockfysh.PullRequest>>(
                 `/api/datasets/${dataset._id}/pullRequests`,
-                uploadData,
+                uploadData
             )
             .then((res) => res.data.data);
 
@@ -69,7 +69,7 @@ export default function Contribute(props: ContributeProps) {
 
                 await uploadPullRequest(
                     props.dataset,
-                    new FormData(e.currentTarget),
+                    new FormData(e.currentTarget)
                 );
             } }
         >
@@ -77,7 +77,7 @@ export default function Contribute(props: ContributeProps) {
                 <h4 className={ classes.subheading }>Contribution name</h4>
 
                 <div className={ classes.mergedInput }>
-                    <ReactSVG src={ edit.src } className={ classes.icon }/>
+                    <ReactSVG src={ edit.src } className={ classes.icon } />
 
                     <input
                         className={ classes.input }
@@ -95,17 +95,7 @@ export default function Contribute(props: ContributeProps) {
             <div className={ classes.inputDiv }>
                 <h4 className={ classes.subheading }>Describe your request</h4>
 
-                <div>
-                    <textarea
-                        className={ classes.textArea }
-                        name="description"
-                        placeholder="Describe what is in your contribution. Be as precise as you can"
-                        onChange={ (event) => {
-                            setBody(event.target.value);
-                        } }
-                        value={ body }
-                    />
-                </div>
+                <Editing body={ body } setBody={ setBody } />
             </div>
 
             <div className={ classes.inputDiv }>
@@ -120,7 +110,7 @@ export default function Contribute(props: ContributeProps) {
 
             <button className={ classes.button }>
                 Submit Request
-                <ReactSVG src={ database.src } className={ classes.icon }/>
+                <ReactSVG src={ database.src } className={ classes.icon } />
             </button>
         </form>
     );

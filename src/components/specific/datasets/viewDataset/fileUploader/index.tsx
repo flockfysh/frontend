@@ -29,7 +29,6 @@ export default function FileUploader(props: FileUploaderProps) {
 
                 <small className={ classes.uploadDataSubDesc }>
                     Stored on file system
-                    
                     <button className={ classes.helpButton }>
                         <ReactSVG src={ help.src } />
                     </button>

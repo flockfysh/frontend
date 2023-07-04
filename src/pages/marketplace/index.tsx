@@ -217,7 +217,7 @@ const Marketplace: NextPageWithLayout = function () {
                     <h1 className={ classes.header }>Trending Collections</h1>
                 </div>
 
-                <CollectionSwiper collections={ collections }/>
+                <CollectionSwiper collections={ collections } />
             </section>
 
             <section className={ classes.sectionContainer + ' ' + classes.howTo }>

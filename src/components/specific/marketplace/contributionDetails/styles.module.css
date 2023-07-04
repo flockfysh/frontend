@@ -6,7 +6,7 @@
     padding: 1rem;
     border-radius: 16px;
     border: 2px solid var(--main-grey);
-    color: var(--primary1-100), #D2E1FF;
+    color: var(--primary1-100), #d2e1ff;
 }
 
 .pullRequestBody {
@@ -73,7 +73,7 @@
     align-items: center;
     gap: 4px;
     border-radius: 16px;
-    background: var(--primary-2950, #08066C);
+    background: var(--primary-2950, #08066c);
 }
 
 .changesButton {
@@ -83,7 +83,7 @@
     padding: 10px 16px;
     height: 2.25rem;
     border-radius: 16px;
-    background: var(--primary-2950, #08066C);
+    background: var(--primary-2950, #08066c);
     text-align: center;
     white-space: nowrap;
     margin-left: auto;
@@ -167,8 +167,6 @@
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    margin-top: -0.5rem;
-    margin-left: -0.5rem;
     padding: 0;
 }
 
@@ -211,4 +209,29 @@
     border-radius: 50%;
     display: inline-block;
     margin: 0.5rem 0 1rem 1.4375rem;
+}
+
+.assetViewContainer {
+    border: 1px solid;
+    border-radius: 16px;
+    padding: 0 1rem 1rem 1rem;
+    color: var(--primary-1100, #d2e1ff);
+}
+
+.assetViewContainerHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+}
+
+.toggleButtonsContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.toggleButton {
+    background-color: inherit;
 }

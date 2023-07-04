@@ -1,5 +1,4 @@
 import { forwardRef, useState, useEffect, useCallback } from 'react';
-import { ReactSVG } from 'react-svg';
 import { ScrollerProps, TableVirtuoso, VirtuosoGrid } from 'react-virtuoso';
 
 import {
@@ -24,8 +23,6 @@ import dayjs from 'dayjs';
 import { capitalize } from '@/helpers/strings';
 import { formatFileSize } from '@/helpers/formatting';
 import api from '@/helpers/api';
-
-import trash from '@/icons/main/trash-2.svg';
 
 import classes from './styles.module.css';
 import { useStateWithDeps } from 'use-state-with-deps';
@@ -135,20 +132,7 @@ function AssetTile(props: {
         component = <TextComponent url={ props.item.url } />;
     else component = <div />;
 
-    return (
-        <div className={ classes.imageWrapper }>
-            { component }
-
-            <button
-                className={ classes.imageButton }
-                onClick={ () => {
-                    props.delAsset(props.item._id);
-                } }
-            >
-                <ReactSVG className={ classes.icon } src={ trash.src } />
-            </button>
-        </div>
-    );
+    return <div className={ classes.imageWrapper }>{ component }</div>;
 }
 
 interface AssetViewerState {
@@ -176,7 +160,7 @@ function CustomTableCell(props: TableCellProps) {
 }
 
 export default function AssetViewer(props: {
-    datasetId: string;
+    contributionId: string;
     searchQuery: { displayName?: string };
     showList: boolean;
 }) {
@@ -190,13 +174,15 @@ export default function AssetViewer(props: {
     };
 
     const [state, setState] = useStateWithDeps<AssetViewerState>(initialState, [
-        props.datasetId,
+        props.contributionId,
         props.searchQuery.displayName,
     ]);
     const assetArray = Array.from(state.assets.values());
 
     async function delAsset(id: string) {
-        await api.delete(`/api/assets/${id}`);
+        await api.delete(
+            `/api/pullRequests/${props.contributionId}/assets/existing/${id}`
+        );
         state.assets.delete(id);
         setState((prev) => {
             return { ...prev };
@@ -246,12 +232,12 @@ export default function AssetViewer(props: {
     const load = useCallback(
         async function (numItems: number = 20) {
             if (state.hasMore) {
-                const datasetId = props.datasetId;
+                const contributionId = props.contributionId;
 
                 try {
                     const result = (
                         await api.get<Api.PaginatedResponse<Flockfysh.Asset[]>>(
-                            `/api/datasets/${datasetId}/assets`,
+                            `/api/pullRequests/${contributionId}/assets/new`,
                             {
                                 params: {
                                     next: state.next,
@@ -284,7 +270,7 @@ export default function AssetViewer(props: {
             }
         },
         [
-            props.datasetId,
+            props.contributionId,
             props.searchQuery.displayName,
             state.assets,
             state.hasMore,
@@ -376,18 +362,6 @@ export default function AssetViewer(props: {
 
                             <CustomTableCell>
                                 <span>{ formatFileSize(data.size) }</span>
-                            </CustomTableCell>
-
-                            <CustomTableCell>
-                                <button
-                                    onClick={ () => delAsset(data._id) }
-                                    className={ classes.deleteButton }
-                                >
-                                    <ReactSVG
-                                        className={ classes.icon }
-                                        src={ trash.src }
-                                    />
-                                </button>
                             </CustomTableCell>
                         </>
                     );

@@ -11,7 +11,7 @@ export default function MarketplaceLayout(props: PropsWithChildren) {
             <MarketplaceNavbar />
 
             { props.children }
-            
+
             <Footer />
         </div>
     );

@@ -26,9 +26,9 @@ import bookmark from '@/icons/main/bookmark.svg';
 import classes from './styles.module.css';
 import { DATASET_LICENSE_DESCRIPTION } from '@/helpers/enums/license';
 
-export const DatasetInfoContext = createContext<
-    PreviewDataset | undefined
->(undefined);
+export const DatasetInfoContext = createContext<PreviewDataset | undefined>(
+    undefined
+);
 
 export default function DatasetInfo(props: PropsWithChildren) {
     const router = useRouter();
@@ -49,7 +49,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
                         params: {
                             expand: 'size,assetCounts,annotationCounts,user,contributors,thumbnail,icon,permission',
                         },
-                    },
+                    }
                 )
             ).data.data;
 
@@ -86,7 +86,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                 src={ cpu.src }
                             />
 
-                            <div className={ classes.imageTagSeparator }/>
+                            <div className={ classes.imageTagSeparator } />
 
                             <span className={ classes.imageTagText }>
                                 { dataset.type.toUpperCase() }
@@ -135,11 +135,11 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                         >
                                             Contribute
                                         </button>
-                                    ) }
+                                      ) }
                                     popupTitle={ 'Contribute' }
                                     variant={ 'marketplace' }
                                 >
-                                    <Contribute dataset={ dataset }/>
+                                    <Contribute dataset={ dataset } />
                                 </ActionPopupWithButton>
 
                                 <button
@@ -154,7 +154,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                     <span>
                                         Download (
                                         { formatFileSize(
-                                            dataset.size.total.total,
+                                            dataset.size.total.total
                                         ) }
                                         )
                                     </span>

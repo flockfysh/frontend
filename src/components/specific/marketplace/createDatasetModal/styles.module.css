@@ -10,6 +10,10 @@
     justify-content: center;
 }
 
+.tagContainer {
+    max-height: 10px;
+}
+
 .container {
     padding: 1rem;
     border-radius: 10px;
