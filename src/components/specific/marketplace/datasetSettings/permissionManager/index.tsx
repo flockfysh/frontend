@@ -59,7 +59,10 @@ function PermissionCard(props: {
                             return classes.selectMenu;
                         },
                     } }
-                    onChange={ data => {
+                    onChange={ async data => {
+                        await api.patch(`/api/datasetPermissions/${props.permission._id}`, {
+                            role: data.value,
+                        });
                     } }
                     menuPortalTarget={ body }
                     menuPosition={ 'fixed' }
