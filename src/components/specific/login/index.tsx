@@ -20,9 +20,9 @@ import classes from './styles.module.css';
 function Separator() {
     return (
         <div className={ classes.separatorContainer }>
-            <span className={ classes.sepLine } />
+            <span className={ classes.sepLine }/>
             <span className={ classes.sepOr }>OR</span>
-            <span className={ classes.sepLine } />
+            <span className={ classes.sepLine }/>
         </div>
     );
 }
@@ -47,7 +47,7 @@ function OAuthLink(props: {
                 props.className ? props.className : ''
             }` }
         >
-            <ReactSVG src={ props.icon.src } />
+            <ReactSVG src={ props.icon.src }/>
 
             <span>
                 { props.mode === 'login' ? 'Sign in' : 'Sign up' } with{ ' ' }
@@ -65,19 +65,19 @@ export default function Login(props: {
     const { user, refreshUser } = useContext(UserContext);
 
     const [mode, updateMode] = useState(props.mode);
-    const isLogin = mode === 'login';
-
-    const curPopup = useRef<Window | null>(null);
-
     const redirect = useCallback(
         function redirect() {
             const code = router.query.code;
-
             if (code) router.push(`/authorize?code=${code}`).then();
-            else router.replace(router.asPath);
+            else if (router.asPath === router.pathname) router.replace('/datasets').then();
+            else router.replace(router.asPath).then();
         },
-        [router]
+        [router],
     );
+
+    const isLogin = mode === 'login';
+
+    const curPopup = useRef<Window | null>(null);
 
     useEffect(() => {
         if (user) {
@@ -133,9 +133,9 @@ export default function Login(props: {
                     />
                 </div>
 
-                <Separator />
+                <Separator/>
 
-                <LoginForm mode={ mode } redirect={ redirect } />
+                <LoginForm mode={ mode } redirect={ redirect }/>
 
                 { isLogin ? (
                     <p className={ classes.changeType }>
