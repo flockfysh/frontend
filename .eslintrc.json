@@ -17,7 +17,6 @@
     },
     "plugins": ["react", "@typescript-eslint"],
     "rules": {
-        "react/no-unescaped-entities": "off",
         "@next/next/no-img-element": "off",
         "no-constant-condition": "error",
         "no-dupe-else-if": "error",
