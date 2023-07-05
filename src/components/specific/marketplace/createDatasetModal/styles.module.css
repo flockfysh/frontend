@@ -8,6 +8,7 @@
     position: fixed;
     align-items: center;
     justify-content: center;
+    animation: 0.15s ease-in-out 1 modalFadeIn;
 }
 
 .tagContainer {
@@ -15,12 +16,36 @@
 }
 
 .container {
+    overflow-y: scroll;
     padding: 1rem;
     border-radius: 10px;
     min-width: 30%;
     max-width: 100%;
+    max-height: 90%;
     width: fit-content;
     background: var(--background);
+}
+
+.fadeOut {
+    animation: 0.15s ease-in-out 1 modalFadeOut forwards;
+}
+
+@keyframes modalFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes modalFadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }
 
 .blurBg {

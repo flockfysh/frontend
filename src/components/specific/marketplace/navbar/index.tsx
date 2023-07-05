@@ -63,7 +63,7 @@ export default function MarketplaceNavbar() {
                         />
                         <ReactSVG src={ bell.src } className={ classes.leftIcon } />
 
-                        <CurrentUserProfile />
+                        <CurrentUserProfile showMenu={ true } />
                     </>
                 ) : (
                     <button

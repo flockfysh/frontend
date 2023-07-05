@@ -22,6 +22,7 @@ type ProfileCardProps = {
     profilePicture?: string;
     username: string;
     className?: string;
+    showMenu: boolean;
 };
 
 export default function ProfileCard(props: ProfileCardProps) {
@@ -30,14 +31,13 @@ export default function ProfileCard(props: ProfileCardProps) {
 
     const logout = async () => {
         await api.get('/api/auth/logout');
-        router.replace('/login').then();
+        router.reload();
     };
 
     const handleOnCloseMenu = (e: any) => {
         if (!open) return;
-        if (e.relatedTarget && e.relatedTarget.id === 'item-div') {
-          return;
-        }
+        if (e.relatedTarget && e.relatedTarget.id === 'item-div') return;
+
         setOpen(false);
     };
 
@@ -55,7 +55,7 @@ export default function ProfileCard(props: ProfileCardProps) {
                 ) : (
                     <Avatar
                         size={ 32 }
-                        name="Praks"
+                        name={ props.username }
                         variant="marble"
                         colors={ [
                             '#92A1C6',
@@ -68,47 +68,58 @@ export default function ProfileCard(props: ProfileCardProps) {
                 ) }
                 <p>@{ props.username }</p>
             </button>
-            <div id="menu-div" className={ `${classes.dropdown} ${open ? classes.dropdownActive : ''}` } onClick={ (e) => e.stopPropagation() }>
-                <Link id="item-div" href={ `/profile/${props.username}` } className={ classes.dropdownItem }>
-                    <ReactSVG src={ user.src } className={ classes.icon } />
-                    <span>View Profile</span>
-                </Link>
-                <Link id="item-div" href="/datasets" className={ classes.dropdownItem }>
-                    <ReactSVG src={ zap.src } className={ classes.icon } />
-                    <span>My Datasets</span>
-                </Link>
-                <Link id="item-div" href="/settings" className={ classes.dropdownItem }>
-                    <ReactSVG src={ settings.src } className={ classes.icon } />
-                    <span>Settings</span>
-                </Link>
+            
+            {
+                props.showMenu && (
+                    <div id="menu-div" className={ `${classes.dropdown} ${open ? classes.dropdownActive : ''}` } onClick={ (e) => e.stopPropagation() }>
+                        <Link id="item-div" href={ `/profile/${props.username}` } className={ classes.dropdownItem }>
+                            <ReactSVG src={ user.src } className={ classes.icon } />
+                            <span>View Profile</span>
+                        </Link>
 
-                <div className={ classes.separator } />
-                
-                <Link id="item-div" href="/changelog" className={ classes.dropdownItem }>
-                    <ReactSVG src={ layers.src } className={ classes.icon } />
-                    <span>Changelog</span>
-                </Link>
-                <a id="item-div" href="https://discord.gg/Ss8vcfQWPM" target="_blank" className={ classes.dropdownItem }>
-                    <ReactSVG src={ discord.src } className={ classes.icon } />
-                    <span>Join Discord</span>
-                </a>
-                <Link id="item-div" href="/support" className={ classes.dropdownItem }>
-                    <ReactSVG src={ help.src } className={ classes.icon } />
-                    <span>Support</span>
-                </Link>
-                <a id="item-div" href="https://docs.flockfysh.ai/" target="_blank" className={ classes.dropdownItem }>
-                    <ReactSVG src={ code.src } className={ classes.icon } />
-                    <span>Documentation</span>
-                </a>
+                        <Link id="item-div" href="/datasets" className={ classes.dropdownItem }>
+                            <ReactSVG src={ zap.src } className={ classes.icon } />
+                            <span>My Datasets</span>
+                        </Link>
 
-                <div className={ classes.separator } />
+                        <Link id="item-div" href="/settings" className={ classes.dropdownItem }>
+                            <ReactSVG src={ settings.src } className={ classes.icon } />
+                            <span>Settings</span>
+                        </Link>
 
-                
-                <button id="item-div" onClick={ () => logout() } className={ classes.dropdownItem }>
-                    <ReactSVG src={ logOut.src } className={ classes.icon } />
-                    <span>Log out</span>
-                </button>
-            </div>
+                        <div className={ classes.separator } />
+                        
+                        <Link id="item-div" href="/changelog" className={ classes.dropdownItem }>
+                            <ReactSVG src={ layers.src } className={ classes.icon } />
+                            <span>Changelog</span>
+                        </Link>
+
+                        <a id="item-div" href="https://discord.gg/Ss8vcfQWPM" target="_blank" className={ classes.dropdownItem }>
+                            <ReactSVG src={ discord.src } className={ classes.icon } />
+                            <span>Join Discord</span>
+                        </a>
+
+                        <Link id="item-div" href="/support" className={ classes.dropdownItem }>
+                            <ReactSVG src={ help.src } className={ classes.icon } />
+                            <span>Support</span>
+                        </Link>
+
+                        <a id="item-div" href="https://docs.flockfysh.ai/" target="_blank" className={ classes.dropdownItem }>
+                            <ReactSVG src={ code.src } className={ classes.icon } />
+                            <span>Documentation</span>
+                        </a>
+
+                        <div className={ classes.separator } />
+
+                        <button id="item-div" onClick={ () => logout() } className={ classes.dropdownItem }>
+                            <ReactSVG src={ logOut.src } className={ classes.icon } />
+                            
+                            <span>Log out</span>
+                        </button>
+                    </div>
+                )
+            }
+
         </div>
     );
 }

@@ -153,7 +153,7 @@ function DatasetsOwned(props: { user: BaseUser }) {
                 {
                     state.datasets.length === 0 && (
                         <div>
-                            <p>No datasets</p>                           
+                            <p>No datasets found. Click the plus icon in the navbar to create one</p>                           
                         </div>
                     )
                 }

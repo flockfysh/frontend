@@ -36,6 +36,7 @@ export default function RadioButtons<T>(props: {
             { props.label ? (
                 <div className={ classes.labelContainer }>
                     <label className={ classes.label }>{ props.label }</label>
+
                     { props.tooltip ? (
                         <button className={ classes.helpIcon }>
                             <ReactSVG src={ help.src } />
@@ -55,21 +56,20 @@ export default function RadioButtons<T>(props: {
                 { props.options.map(function generate(option, index) {
                     if (option.shown === false) return <></>;
                     let selected;
-                    if (props.highlightCallback) {
+
+                    if (props.highlightCallback)
                         selected = props.highlightCallback(option.value);
-                    }
-                    else {
+                    else
                         selected = option.value === value;
-                    }
 
                     return (
                         <Component
-                            href={ option.value as string }
+                            href={ option.value?.toString() ?? '' }
                             onClick={ (_e) => {
                                 setValue(option.value);
                                 props.onChange?.(option.value);
                             } }
-                            type={ 'button' }
+                            type="button"
                             className={ `${classes.button} ${
                                 selected ? classes.selected : ''
                             }` }

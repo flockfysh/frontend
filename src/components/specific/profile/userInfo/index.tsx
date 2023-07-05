@@ -107,7 +107,7 @@ function Header(props: { url: string; editable: boolean }) {
     );
 }
 
-function ProfilePhoto(props: { url: string; editable: boolean }) {
+function ProfilePhoto(props: { url: string; editable: boolean; username: string }) {
     const router = useRouter();
 
     const inputRef = useRef<HTMLInputElement>(null);
@@ -127,7 +127,7 @@ function ProfilePhoto(props: { url: string; editable: boolean }) {
                         <div className={ classes.defaultProfilePic }>
                             <Avatar
                                 size="12rem"
-                                name={ Math.random().toString() }
+                                name={ props.username }
                                 variant="marble"
                                 colors={ [
                                     '#92A1C6',
@@ -194,6 +194,7 @@ const UserInfo = (
                 <ProfilePhoto
                     url={ props.profilePhoto?.url ?? '' }
                     editable={ editable }
+                    username={ props.username }
                 />
 
                 <div className={ classes.followDiv }>

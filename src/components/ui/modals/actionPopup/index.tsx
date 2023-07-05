@@ -1,4 +1,4 @@
-import { PropsWithChildren, createContext } from 'react';
+import { PropsWithChildren, createContext, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import xMark from '@/icons/xmark.svg';
@@ -24,6 +24,8 @@ export const PopupModalContext = createContext<PopupModalContext>({
 });
 
 export default function ActionPopup(props: ActionPopupProps) {
+    const [fadeOut, updateFadeOut] = useState(false);
+
     const markupMapping: Record<
         'marketplace' | 'annotation',
         React.ReactNode | undefined
@@ -36,7 +38,7 @@ export default function ActionPopup(props: ActionPopupProps) {
                     <ReactSVG
                         className={ classes.closeBtn }
                         src={ xMark.src }
-                        onClick={ props.onClose }
+                        onClick={ () => updateFadeOut(true) }
                     />
 
                     <h1 className={ classes.headerText }>{ props.popupTitle }</h1>
@@ -53,10 +55,11 @@ export default function ActionPopup(props: ActionPopupProps) {
             >
                 <div className={ classes.header }>
                     <h3 className={ classes.headerText }>{ props.popupTitle }</h3>
+
                     <ReactSVG
                         src={ xMark.src }
                         className={ classes.closeBtn }
-                        onClick={ props.onClose }
+                        onClick={ () => updateFadeOut(true) }
                     />
                 </div>
                 { props.children }
@@ -71,12 +74,24 @@ export default function ActionPopup(props: ActionPopupProps) {
             } }
         >
             <div
-                className={ `${classes.overlay} ${
-                    props.blurBg ? classes.blurBg : ''
-                } ${props.className || ''}` }
+                className={
+                    `
+                    ${ classes.overlay }
+                    ${
+                        props.blurBg ? classes.blurBg : ''
+                    }
+                    ${ props.className || '' }
+                    ${ fadeOut ? classes.fadeOut : '' }
+                    `
+                }
                 onClick={ (e) => {
-                    if (e.target === e.currentTarget) props.onClose?.();
+                    if (e.target === e.currentTarget) updateFadeOut(true);
                 } }
+                onAnimationEnd={
+                    () => {
+                        if(fadeOut) props.onClose?.();
+                    }
+                }
             >
                 { markupMapping[props.variant ?? 'annotation'] }
             </div>
