@@ -13,31 +13,31 @@ const PrivacyPage: NextPageWithLayout = function () {
                     <HomeNavbar />
 
                     <div>
-                    <h1>Dataset Exchange Legal - Privacy Policy</h1>
+                    <h1 className = { classes.allHeaders }>Dataset Exchange Legal - Privacy Policy</h1>
 
-                        <h2><strong>Definitions</strong></h2>
+                        <h2 className = { classes.allHeaders }><strong className = { classes.strongHeaders }>Definitions</strong></h2>
 
-                        <p><strong>"Account"</strong> is the account that you, or your entity, will create on the Website to access, use or purchase our Services. It must be secured by a strong password!</p>
-                        <p><strong>"Agreement"</strong> or <strong>"Terms"</strong> refer to all of the terms and conditions that apply between us. They include these Terms, Supplemental Terms, notices and policies available at our Website at [flockfysh.ai], and/or any other binding document that we provide and/or that you sign, including but not limited to an Order or Request Form, a Scope of Work, or a Master Services Agreement.</p>
-                        <p><strong>"Dataset"</strong> refers to a structured collection of data samples used to train machine learning Models.</p>
-                        <p>&ldquo;<strong>Service</strong>&rdquo; refers to the Dataset Exchange product made and proprietary owned by flockfysh, Inc. It refers to what we offer, provides, and that you access, use, or purchase. Services may include:</p>
+                        <p><strong className = { classes.strongHeaders }>"Account"</strong> is the account that you, or your entity, will create on the Website to access, use or purchase our Services. It must be secured by a strong password!</p>
+                        <p><strong className = { classes.strongHeaders }>"Agreement"</strong> or <strong className = { classes.strongHeaders }>"Terms"</strong> refer to all of the terms and conditions that apply between us. They include these Terms, Supplemental Terms, notices and policies available at our Website at [flockfysh.ai], and/or any other binding document that we provide and/or that you sign, including but not limited to an Order or Request Form, a Scope of Work, or a Master Services Agreement.</p>
+                        <p><strong className = { classes.strongHeaders }>"Dataset"</strong> refers to a structured collection of data samples used to train machine learning Models.</p>
+                        <p>&ldquo;<strong className = { classes.strongHeaders }>Service</strong>&rdquo; refers to the Dataset Exchange product made and proprietary owned by flockfysh, Inc. It refers to what we offer, provides, and that you access, use, or purchase. Services may include:</p>
                         <ul>
                         <li>Acquiring or collecting Datasets and Models through the flockfysh platform, selling datasets, or any financial transactions that occur on flockfysh.&nbsp;</li>
                         <li>Performing quality assurance on datasets using flockfysh&rsquo;s automated services or expert review.</li>
                         <li>Any further consulting services which would be explicitly defined in a contract, and upheld by these Terms of Services.</li>
                         </ul>
-                        <p><strong>&ldquo;flockfysh&rdquo;</strong> refers to flockfysh, Inc., which may perform its obligations through its affiliates, directors, investors, contractors, licensors, officers, agents and/or employees.</p>
-                        <p><strong>"Model"</strong> refers to a pre-trained machine learning model including algorithms and weights, which can be run to make predictions.</p>
-                        <p><strong>"Request Form"</strong> refers to the document shared by flockfysh to the Customer describing the quantity/number of services ordered by the Customer and the fees payable for such services. Additional Order Forms may be negotiated between and executed by the Parties and shall be incorporated into the Agreement.</p>
-                        <p><strong>"Organization"</strong> refers to a workspace representing a legal entity and/or several Users. A User can be part of multiple organizations.</p>
-                        <p><strong>"User"</strong> refers to the individual person, company, or organization that accesses, receives, or uses the Services. That's you!</p>
-                        <p><strong>&ldquo;Customer&rdquo;</strong> refers to an individual, organization, or entity that accesses uses, or purchases our Service. It encompasses both individuals who directly interact with our Service as end-users, as well as organizations or entities that engage with our Services on behalf of their employees, members, or other authorized individuals.</p>
-                        <p><strong>&ldquo;Anonymous Information&rdquo; </strong>refers to Information that does not enable identification of an individual user, such as aggregated information about the use of the Service.</p>
-                        <p>Effective Date: [Date from which the Privacy Policy is Active and Updated]</p>
+                        <p><strong className = { classes.strongHeaders }>&ldquo;flockfysh&rdquo;</strong> refers to flockfysh, Inc., which may perform its obligations through its affiliates, directors, investors, contractors, licensors, officers, agents and/or employees.</p>
+                        <p><strong className = { classes.strongHeaders }>"Model"</strong> refers to a pre-trained machine learning model including algorithms and weights, which can be run to make predictions.</p>
+                        <p><strong className = { classes.strongHeaders }>"Request Form"</strong> refers to the document shared by flockfysh to the Customer describing the quantity/number of services ordered by the Customer and the fees payable for such services. Additional Order Forms may be negotiated between and executed by the Parties and shall be incorporated into the Agreement.</p>
+                        <p><strong className = { classes.strongHeaders }>"Organization"</strong> refers to a workspace representing a legal entity and/or several Users. A User can be part of multiple organizations.</p>
+                        <p><strong className = { classes.strongHeaders }>"User"</strong> refers to the individual person, company, or organization that accesses, receives, or uses the Services. That's you!</p>
+                        <p><strong className = { classes.strongHeaders }>&ldquo;Customer&rdquo;</strong> refers to an individual, organization, or entity that accesses uses, or purchases our Service. It encompasses both individuals who directly interact with our Service as end-users, as well as organizations or entities that engage with our Services on behalf of their employees, members, or other authorized individuals.</p>
+                        <p><strong className = { classes.strongHeaders }>&ldquo;Anonymous Information&rdquo; </strong>refers to Information that does not enable identification of an individual user, such as aggregated information about the use of the Service.</p>
+                        <p className={ classes.allHeaders }>Effective Date: July 5th, 2023 </p>
                         <p>The Effective Data represent the Recent Updated Terms. We may change or update the Privacy Policy from time to time. The change will be effective [number of days] days following posting it on the Website or other communication channels. If you continue using the Services [number of days] days following such posting, that means you accept those changes.</p>
                         <p>The Policy is part of the Company's Terms of Use. The Policy applies to all users of the Services (&ldquo;Users&rdquo;).</p>
 
-                        <h3>INFORMATION WE COLLECT FROM OUR SERVICES</h3>
+                        <h3 className = { classes.allHeaders }>INFORMATION WE COLLECT FROM OUR SERVICES</h3>
                         <p>The Company occasionally collects Personal Information from Users and Customers. &ldquo;Personal Information&rdquo; means any information that can, alone or associated with other information, be used to identify an individual or an organization, including but not limited to</p>
                         <ul>
                         <li>personal information such as full name, email address, and payment information when users sign up for our services</li>
@@ -52,17 +52,17 @@ const PrivacyPage: NextPageWithLayout = function () {
                         <p>If you decide to share your information or content publicly, and if you decide to include Personal Information, you understand that anyone may view this information.</p>
                         <p>If you decide to keep your information private and control your access to it, you acknowledge that only authorized users will have the privilege to view this information. However, the Company, flockfysh Inc., retains the right to access such information, either with your consent or without it, solely for legitimate purposes such as ensuring the security of its Services or fulfilling legal and regulatory obligations.</p>
 
-                        <h3>INFORMATION WE COLLECT FROM THIRD PARTIES</h3>
+                        <h3 className = { classes.allHeaders }>INFORMATION WE COLLECT FROM THIRD PARTIES</h3>
                         <p>We may collect information from third parties that help us deliver the Services or Process information.</p>
 
-                        <h3>INFORMATION WE COLLECT FROM YOUR USE OF THE SERVICES</h3>
+                        <h3 className = { classes.allHeaders }>INFORMATION WE COLLECT FROM YOUR USE OF THE SERVICES</h3>
                         <ul>
                         <li>information about your Use of the Services, your session (date, location), your IP address,</li>
                         <li>information from cookies, especially your login information, your preferences,</li>
                         <li>information about your device: type, model, version, operating system, browser</li>
                         </ul>
 
-                        <h3>HOW WE USE THE INFORMATION</h3>
+                        <h3 className = { classes.allHeaders }>HOW WE USE THE INFORMATION</h3>
                         <ul>
                         <li>We use personal information to provide our services, process payments, and communicate with users.</li>
                         <li>We use the identity documentation to protect the legal rights of the users of our platform.&nbsp;</li>
@@ -78,16 +78,16 @@ const PrivacyPage: NextPageWithLayout = function () {
                         <li>We use data to company with any applicable law, regulation, legal process, or governmental requests</li>
                         </ul>
 
-                        <h3><strong>CONSENT</strong></h3>
+                        <h3 className = { classes.allHeaders }><strong className = { classes.strongHeaders }>CONSENT</strong></h3>
                         <p>By registering an account on our Website and utilizing our Services, you provide your explicit consent to disclose certain information, which may include personal data. You also acknowledge and agree to our processing of this Personal Information as outlined in this Privacy Policy.</p>
 
-                        <h3>AGREEMENT</h3>
+                        <h3 className = { classes.allHeaders }>AGREEMENT</h3>
                         <p>By engaging in any form of agreement with flockfysh, Inc., whether it be through using the Services and adhering to the terms and conditions provided on the Website or by entering into a separate agreement, you also provide your consent to the processing of your Personal Information in accordance with the obligations stipulated in such an agreement.</p>
 
-                        <h3>LEGITIMATE INTERESTS</h3>
+                        <h3 className = { classes.allHeaders }>LEGITIMATE INTERESTS</h3>
                         <p>In addition to the aforementioned scenarios, flockfysh, Inc. may utilize the information collected from you to pursue legitimate interests, including but not limited to legal or regulatory compliance, security control, business operations, scientific research, or any other interest that is reasonably considered legitimate.</p>
 
-                        <h3>SHARING OF INFORMATION</h3>
+                        <h3 className = { classes.allHeaders }>SHARING OF INFORMATION</h3>
                         <p>The Compay will not sell, rent or lease your Personal Information except as provided for by this Policy. The Company may also share other information as provided by this Policy.</p>
                         
                         <ul>
@@ -102,17 +102,17 @@ const PrivacyPage: NextPageWithLayout = function () {
                         <li>We may use and share Anonymous Information with third-party service providers, to provide and improve the Services and other products or technologies of the Company</li>
                         </ul>
 
-                        <h3>YOUR RIGHTS</h3>
+                        <h3 className = { classes.allHeaders }>YOUR RIGHTS</h3>
                         <p>In accordance with data protection Delaware Law, you may have the right to access and review the Personal Information that the Company holds about you.</p>
                         
-                        <h3>DATA ACCESS</h3>
+                        <h3 className = { classes.allHeaders }>DATA ACCESS</h3>
                         <p>You can access, modify, or delete the information we have collected by editing your profile or controlling the data and content you share at any time.</p>
                         <p>For other requests regarding access to Personal Information, please direct your communication to [support@flockfysh.ai]. Please clearly indicate that your inquiry pertains to data protection and specify if the request is time-sensitive.</p>
 
-                        <h3>DATA STORAGE</h3>
+                        <h3 className = { classes.allHeaders }>DATA STORAGE</h3>
                         <p>We retain your information for as long as necessary to provide the Services, comply with applicable legal requirements, maintain security, prevent incidents, and pursue our legitimate interests.</p>
                         <p>You have the option to cancel your account and remove your content at any time by editing your profile. If you wish to request the erasure of all your Personal Information processed by us, you may do so by submitting a written request to [support@flockfysh.ai]</p>
-                        <h3>DATA SECURITY</h3>
+                        <h3 className = { classes.allHeaders }>DATA SECURITY</h3>
                         <p>Safeguarding the security of your Personal Information is of utmost importance to us. The Company adheres to widely accepted industry standards and implements suitable administrative, physical, and technical safeguards to protect Personal Information. However, it is important to note that no method of transmission over the Internet or electronic storage is entirely secure. Despite our diligent efforts to employ commercially acceptable measures in protecting Personal Information, absolute security or confidentiality cannot be guaranteed. Should you have any inquiries regarding security, please feel free to contact the Company at support@flockfysh.ai</p>
                         <ul>
                         <li>We take reasonable measures to protect users' personal information from unauthorized access, use, or disclosure.</li>
@@ -122,25 +122,25 @@ const PrivacyPage: NextPageWithLayout = function () {
                         <p>In the event of an incident that impacts the security or integrity of your Personal Information, we will take prompt and appropriate measures to identify and address the incident. Furthermore, we will notify you in a timely manner regarding the nature of the incident and any steps you may need to take to mitigate potential risks or protect your information.</p>
                         <p>Please note that certain Personal Information and other information you provide in relation to your use of the Services may be stored on your device, even if the Company does not collect such information directly. It is your responsibility to ensure the security of your device and prevent unauthorized access. Additionally, you are responsible for maintaining the confidentiality of your password and any other information that should be kept confidential.</p>
 
-                        <h3>LOCATION OF PROCESSING AND DATA TRANSFERS </h3>
+                        <h3 className = { classes.allHeaders }>LOCATION OF PROCESSING AND DATA TRANSFERS </h3>
                         <p>The Company's operations and servers are located in the United States.</p>
                         <p>Personal Information collected through the Services may be stored and processed in the United States or in any other country where the Company, its affiliates, subsidiaries, or agents have facilities. By using the Services, you consent to the transfer of your information outside of your country. The Company may also transfer your Personal Information to affiliated companies for storage or processing purposes, and such transfers may occur to countries worldwide. The Company ensures that these parties adhere to the Policy and process the information in compliance with applicable data protection laws.</p>
                         <p>If you provide Personal Information, it may be transferred to and processed on computers located in the United States and other countries. We make efforts to implement appropriate safeguards to maintain the security and protection of your Personal Information in accordance with applicable data protection laws.</p>
                         <p>If you have any other questions, please contact the Company at [support@flockfysh.ai]</p>
 
-                        <h3>COMMUNICATION AND CAN-SPAM ACT</h3>
+                        <h3 className = { classes.allHeaders }>COMMUNICATION AND CAN-SPAM ACT</h3>
                         <p>The Company may collect your email address to facilitate communication, provide information, and respond to inquiries or requests.</p>
                         <p>The Company ensures that its email communications do not contain false or misleading subjects or email addresses. Advertisements are clearly identified as such, and the Company includes its physical business address in its communications. Additionally, the Company respects users' preferences and honors opt-out/unsubscribe requests. Users can easily unsubscribe from receiving further correspondence by following the instructions provided at the bottom of any email from the Company.</p>
 
-                        <h3>PRIVACY POLICY CHANGES</h3>
+                        <h3 className = { classes.allHeaders }>PRIVACY POLICY CHANGES</h3>
                         <ul>
                         <li>We reserve the right to update this privacy policy at any time.</li>
                         <li>We will notify users of any material changes to this privacy policy.</li>
                         </ul>
 
-                        <h3>CONTACT INFORMATION</h3>
+                        <h3 className = { classes.allHeaders }>CONTACT INFORMATION</h3>
                         <ul>
-                        <li>If you have any questions or concerns about this privacy policy, please contact us at [support@flockfysh.ai].</li>
+                            <li>If you have any questions or concerns about this privacy policy, please contact us at [support@flockfysh.ai].</li>
                         </ul>
                         <p>This privacy policy is intended to comply with applicable data privacy laws and regulations. By using our services, users agree to the terms of this privacy policy.</p>
                         <p>flockfysh, Inc.</p>
