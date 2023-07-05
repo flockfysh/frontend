@@ -17,6 +17,8 @@
     min-height: 30%;
     width: fit-content;
     position: relative;
+    display: flex;
+    flex-direction: column;
     background: var(--background, #141414);
     box-shadow: 0px 0px 40px #d2e1ff34;
     overflow: auto;

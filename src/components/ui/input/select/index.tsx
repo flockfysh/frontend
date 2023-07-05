@@ -1,8 +1,9 @@
-import { forwardRef, useRef, ForwardedRef } from 'react';
+import React, { forwardRef, useRef, ForwardedRef } from 'react';
 import Select, { Props, GroupBase, SelectInstance } from 'react-select';
-import CreatableSelect from 'react-select/creatable';
-
 import classes from './styles.module.css';
+import AsyncCreatableSelect, { AsyncCreatableProps } from 'react-select/async-creatable';
+import AsyncSelect, { AsyncProps } from 'react-select/async';
+
 
 const theme = (theme: any) => ({
     ...theme,
@@ -16,16 +17,16 @@ const theme = (theme: any) => ({
     },
 });
 
-const CustomSelect = forwardRef<any, Props>(function _CustomSelect<
+const CustomSelect = forwardRef<any, Props<any, any, any>>(function _CustomSelect<
     Option,
     IsMulti extends boolean = false,
     Group extends GroupBase<Option> = GroupBase<Option>
 >(
     props: Props<Option, IsMulti, Group>,
-    ref: ForwardedRef<SelectInstance<Option, IsMulti, Group>>
+    ref: ForwardedRef<SelectInstance<Option, IsMulti, Group>>,
 ) {
     const selectRef = useRef<SelectInstance<Option, IsMulti, Group> | null>(
-        null
+        null,
     );
     return (
         <Select
@@ -60,17 +61,61 @@ const CustomSelect = forwardRef<any, Props>(function _CustomSelect<
     );
 });
 
-export const CustomCreatableSelect = forwardRef<any, Props>(
+export const AsyncCustomSelect = forwardRef<any, AsyncProps<any, any, any>>(function _CustomSelect<
+    Option,
+    IsMulti extends boolean = false,
+    Group extends GroupBase<Option> = GroupBase<Option>
+>(
+    props: AsyncProps<Option, IsMulti, Group>,
+    ref: ForwardedRef<SelectInstance<Option, IsMulti, Group>>,
+) {
+    const selectRef = useRef<SelectInstance<Option, IsMulti, Group> | null>(
+        null,
+    );
+    return (
+        <AsyncSelect
+            { ...props }
+            theme={ theme }
+            className={ props.className }
+            classNames={ {
+                ...props.classNames,
+                control(...args) {
+                    return `${classes.control} ${
+                        props.classNames?.control?.(...args) || ''
+                    }`;
+                },
+                placeholder(...args) {
+                    return `${classes.placeholder} ${
+                        props.classNames?.placeholder?.(...args) || ''
+                    }`;
+                },
+                menu(...args) {
+                    return `${classes.menu} ${
+                        props.classNames?.menu?.(...args) || ''
+                    }`;
+                },
+            } }
+            ref={ (e) => {
+                if (typeof ref === 'function') ref(e);
+                else if (ref) ref.current = e;
+
+                selectRef.current = e;
+            } }
+        />
+    );
+});
+
+export const CustomCreatableSelect = forwardRef<any, AsyncCreatableProps<any, any, any>>(
     function _CreatableCustomSelect<
         Option,
         IsMulti extends boolean = false,
         Group extends GroupBase<Option> = GroupBase<Option>
     >(
-        props: Props<Option, IsMulti, Group>,
-        ref: React.ForwardedRef<SelectInstance<Option, IsMulti, Group>>
+        props: AsyncCreatableProps<Option, IsMulti, Group>,
+        ref: React.ForwardedRef<SelectInstance<Option, IsMulti, Group>>,
     ) {
         return (
-            <CreatableSelect
+            <AsyncCreatableSelect
                 { ...props }
                 onChange={ (...args) => {
                     props.onChange?.(...args);
@@ -101,7 +146,7 @@ export const CustomCreatableSelect = forwardRef<any, Props>(
                 } }
             />
         );
-    }
+    },
 );
 
 export default CustomSelect;

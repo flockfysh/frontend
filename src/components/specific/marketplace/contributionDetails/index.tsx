@@ -45,14 +45,14 @@ function Message(props: { message: ExpandedPullRequestMessage }) {
             <div className={ classes.messageHeader }>
                 <UserCard user={ props.message.user }></UserCard>
                 <div className={ classes.time }>
-                    <AiOutlineFieldTime />
+                    <AiOutlineFieldTime/>
                     <h3>
                         { ' ' }
                         { Math.round(
                             Math.abs(
                                 new Date().getTime() -
-                                    new Date(props.message.createdAt).getTime()
-                            ) / 3.6e6
+                                new Date(props.message.createdAt).getTime(),
+                            ) / 3.6e6,
                         ) }{ ' ' }
                         hours ago
                     </h3>
@@ -94,12 +94,12 @@ export default function ContributionDetails(props: {
                         params: {
                             expand: 'user,stats',
                         },
-                    }
+                    },
                 )
             ).data.data;
             setCurContribution(contribution);
             const tempMessages = (
-                await api.get<Api.Response<any>>(
+                await api.get<Api.PaginatedResponse<ExpandedPullRequestMessage[]>>(
                     `/api/pullRequests/${props.contributionId}/messages`,
                     {
                         params: {
@@ -107,9 +107,9 @@ export default function ContributionDetails(props: {
                             sort: 'createdAt',
                             ascending: true,
                         },
-                    }
+                    },
                 )
-            ).data.data.data;
+            ).data.data;
             setMessages(tempMessages);
         };
 
@@ -137,13 +137,13 @@ export default function ContributionDetails(props: {
         if (fd.status) {
             await api.patch(
                 '/api/pullRequests/' + curContribution!._id + '/status',
-                { status: fd.status }
+                { status: fd.status },
             );
         }
 
         await api.post(
             '/api/pullRequests/' + curContribution!._id + '/messages',
-            { message: fd.comment }
+            { message: fd.comment },
         );
 
         setText('');
@@ -168,7 +168,7 @@ export default function ContributionDetails(props: {
                     <div className={ classes.pullRequestBody }>
                         <div className={ classes.bodyHeader }>
                             <button className={ classes.backButton }>
-                                <BsArrowLeftCircle /> Back
+                                <BsArrowLeftCircle/> Back
                             </button>
                             <h3>{ curContribution.name }</h3>
                             <h3 className={ classes.prNumber }>#1</h3>
@@ -179,11 +179,11 @@ export default function ContributionDetails(props: {
                                     user={ curContribution.user }
                                 ></UserCard>
                                 <time className={ classes.time }>
-                                    <AiOutlineFieldTime />
+                                    <AiOutlineFieldTime/>
                                     <h3>
                                         { ' ' }
                                         { dayjs(
-                                            curContribution.createdAt
+                                            curContribution.createdAt,
                                         ).fromNow() }
                                     </h3>
                                 </time>
@@ -193,17 +193,17 @@ export default function ContributionDetails(props: {
                                 className={ classes.changesButton }
                                 onClick={ toggleViewToGrid }
                             >
-                                View Changes <MdOpenInNew />
+                                View Changes <MdOpenInNew/>
                             </button>
                         </div>
-                        <span className={ classes.vl } />
-                        <span className={ classes.dot } />
+                        <span className={ classes.vl }/>
+                        <span className={ classes.dot }/>
                         { messages.map((message: ExpandedPullRequestMessage) => {
                             return (
                                 <>
                                     <Message message={ message }></Message>
-                                    <span className={ classes.vl } />
-                                    <span className={ classes.dot } />
+                                    <span className={ classes.vl }/>
+                                    <span className={ classes.dot }/>
                                 </>
                             );
                         }) }
@@ -258,7 +258,7 @@ export default function ContributionDetails(props: {
                             className={ classes.backButton }
                             onClick={ toggleViewToList }
                         >
-                            <BsArrowLeftCircle /> Back
+                            <BsArrowLeftCircle/> Back
                         </button>
                         <h3>{ curContribution?.name }</h3>
                         <div className={ classes.toggleButtonsContainer }>
@@ -266,14 +266,14 @@ export default function ContributionDetails(props: {
                                 className={ classes.toggleButton }
                                 onClick={ toggleViewToGrid }
                             >
-                                <BsGrid3X3 />
+                                <BsGrid3X3/>
                             </button>
 
                             <button
                                 className={ classes.toggleButton }
                                 onClick={ toggleViewToList }
                             >
-                                <BsReverseListColumnsReverse />
+                                <BsReverseListColumnsReverse/>
                             </button>
                         </div>
                     </div>

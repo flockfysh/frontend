@@ -1,0 +1,104 @@
+
+.addPermissionForm {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    flex: 1;
+}
+
+.userEntry {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.userEntryProfilePicture {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    flex: none;
+}
+
+.userEntryInfo {
+    gap: 2px;
+    display: flex;
+    flex-direction: column;
+}
+
+.userEntryFullName {
+    font-weight: 700;
+}
+
+.userInputControl {
+    width: 50%;
+    flex: 1;
+    background: none;
+}
+
+.userInputMenu {
+    min-width: 100%;
+    width: fit-content;
+}
+
+.userInputContainer {
+    display: flex;
+    background: var(--main-grey);
+    gap: 12px;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 16px;
+}
+
+.userInputValueContainer {
+    padding-block: 4px;
+}
+
+.permissionRoleInput {
+    width: 10rem;
+    align-items: center;
+}
+
+.userInputIndicatorSeparator {
+    display: none;
+}
+
+.userInputDropdownIndicator {
+    display: none;
+}
+
+.userInputMultiValue {
+    background: var(--secondary-background);
+    border-radius: 8px;
+    padding: 4px;
+    gap: 8px;
+}
+
+.userInputMenuPortal {
+    z-index: 9999;
+}
+
+.permissionRoleInputMenuPortal {
+    z-index: 9999;
+}
+
+.formFooter {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.formBody {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.commissionInput {
+    flex: 1;
+}
+
+.saveButton {
+    background: var(--primary2-950);
+    padding: 8px 12px;
+    border-radius: 16px;
+}

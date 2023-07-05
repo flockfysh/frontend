@@ -4,6 +4,8 @@ import { ReactSVG } from 'react-svg';
 import help from '@/icons/main/help-circle.svg';
 
 import classes from './styles.module.css';
+import { set } from 'zod';
+import { fa } from '@faker-js/faker';
 
 export default function Input<T extends string | number>(props: {
     label?: string;
@@ -17,6 +19,8 @@ export default function Input<T extends string | number>(props: {
     tooltip?: string;
     saveLabel?: string;
     type?: string;
+    className?: string;
+    disabled?: boolean;
     onChange?: (data: T) => void;
     onSave?: (data: T) => void;
 }) {
@@ -27,15 +31,22 @@ export default function Input<T extends string | number>(props: {
         return false;
     });
     const [focus, setFocus] = useState(false);
+    const isDisabled = props.disabled || inProgress;
 
     useEffect(() => {
         if (props.value !== undefined) setValue(props.value);
     }, [props.value]);
 
+    useEffect(() => {
+        if (isDisabled) {
+            setFocus(false);
+        }
+    }, [isDisabled]);
+
     const id = useId();
 
     return (
-        <div className={ classes.container }>
+        <div className={ `${classes.container} ${props.className || ''}` }>
             { props.label ? (
                 <div className={ classes.labelContainer }>
                     <label className={ classes.label } htmlFor={ id }>
@@ -43,7 +54,7 @@ export default function Input<T extends string | number>(props: {
                     </label>
                     { props.tooltip ? (
                         <button className={ classes.helpIcon }>
-                            <ReactSVG src={ help.src } />
+                            <ReactSVG src={ help.src }/>
 
                             <p className={ classes.helpIconTooltip }>
                                 { props.tooltip }
@@ -57,16 +68,16 @@ export default function Input<T extends string | number>(props: {
                 <></>
             ) }
 
-            <label
+            <div
                 className={ `${classes.inputContainer} ${
                     focus ? classes.focusedInput : ''
                 } ${inProgress ? classes.inProgress : ''}` }
             >
-                { props.icon ? <ReactSVG src={ props.icon } /> : <></> }
+                { props.icon ? <ReactSVG src={ props.icon }/> : <></> }
 
                 <input
                     id={ id }
-                    disabled={ inProgress }
+                    disabled={ isDisabled }
                     max={ props.max }
                     min={ props.min }
                     type={ props.type }
@@ -82,20 +93,22 @@ export default function Input<T extends string | number>(props: {
                     className={ `${classes.input}` }
                 />
 
-                <button
-                    disabled={ inProgress }
-                    className={ classes.button }
-                    onClick={ async () => {
-                        setInProgress(true);
+                { props.saveLabel ? (
+                    <button
+                        disabled={ isDisabled }
+                        className={ classes.button }
+                        onClick={ async () => {
+                            setInProgress(true);
 
-                        if (value !== undefined) await props.onSave?.(value);
+                            if (value !== undefined) await props.onSave?.(value);
 
-                        setInProgress(false);
-                    } }
-                >
-                    { props.saveLabel ?? 'Update' }
-                </button>
-            </label>
+                            setInProgress(false);
+                        } }
+                    >
+                        { props.saveLabel ?? 'Update' }
+                    </button>
+                ) : <></> }
+            </div>
         </div>
     );
 }

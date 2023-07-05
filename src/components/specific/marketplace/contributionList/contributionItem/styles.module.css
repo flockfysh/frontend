@@ -19,9 +19,11 @@
 .statusAcceptedBorder {
     border: 1px solid var(--success-500, #14dd59);
 }
+
 .statusRejectedBorder {
     border: 1px solid var(--error-500, #ea2e2e);
 }
+
 .statusInReviewBorder {
     border: 1px solid var(--warning-500, #ead72e);
 }
@@ -79,7 +81,7 @@
 }
 
 .itemContent {
-    color: var(--primary-1100, #d2e1ff);
+    color: var(--primary1-100, #d2e1ff);
 
     /* Body/B14 */
     font-size: 0.875rem;
@@ -88,11 +90,17 @@
 
 .messageBadge {
     display: flex;
-    gap: 0.62rem;
+    gap: 6px;
 
-    color: var(--primary-1100, #d2e1ff);
+    color: var(--primary1-100, #d2e1ff);
 
     /* Body/B14 */
     font-size: 0.875rem;
     line-height: 1.5rem;
+}
+
+.itemStats {
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
