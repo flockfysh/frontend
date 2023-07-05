@@ -1,10 +1,9 @@
 import { NextPageWithLayout } from '@/pages/_app';
 
-import MainLayout from '@/components/layout/mainLayout';
 import Footer from '@/components/specific/marketplace/footer';
 import HomeNavbar from '@/components/hypePage/navbar';
+
 import classes from './styles.module.css';
-import Link from 'next/link';
 
 const PrivacyPage: NextPageWithLayout = function () {
     return (
