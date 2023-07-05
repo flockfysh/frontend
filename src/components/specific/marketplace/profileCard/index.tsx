@@ -1,9 +1,12 @@
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Avatar from 'boring-avatars';
 
-import classes from './styles.module.css';
 import { useState } from 'react';
 import { ReactSVG } from 'react-svg';
+
+import api from '@/helpers/api';
+
 import user from '@/icons/main/user.svg';
 import settings from '@/icons/main/settings.svg';
 import zap from '@/icons/main/zap.svg';
@@ -12,8 +15,8 @@ import discord from '@/icons/main/Discord.svg';
 import help from '@/icons/main/help-circle.svg';
 import code from '@/icons/main/code.svg';
 import logOut from '@/icons/main/log-out.svg';
-import api from '@/helpers/api';
-import { useRouter } from 'next/router';
+
+import classes from './styles.module.css';
 
 type ProfileCardProps = {
     profilePicture?: string;
@@ -24,7 +27,6 @@ type ProfileCardProps = {
 export default function ProfileCard(props: ProfileCardProps) {
     const [open, setOpen] = useState(false);
     const router = useRouter();
-
 
     const logout = async () => {
         await api.get('/api/auth/logout');
@@ -53,7 +55,7 @@ export default function ProfileCard(props: ProfileCardProps) {
                 ) : (
                     <Avatar
                         size={ 32 }
-                        name={ Math.random().toString() }
+                        name="Praks"
                         variant="marble"
                         colors={ [
                             '#92A1C6',

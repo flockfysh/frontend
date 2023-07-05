@@ -4,8 +4,6 @@ import { ReactSVG } from 'react-svg';
 import help from '@/icons/main/help-circle.svg';
 
 import classes from './styles.module.css';
-import { set } from 'zod';
-import { fa } from '@faker-js/faker';
 
 export default function Input<T extends string | number>(props: {
     label?: string;

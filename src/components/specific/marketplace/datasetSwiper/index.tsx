@@ -7,7 +7,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import VerticalCard from '@/components/specific/marketplace/datasetCards/verticalCard';
 import WideFocusedCard from '@/components/specific/marketplace/datasetCards/wideFocusedCard';
 
-import useForceUpdate from '@/helpers/useForceUpdate';
+import useForceUpdate from '@/helpers/hooks/useForceUpdate';
 
 import prev from '@/icons/main/arrow-left.svg';
 import next from '@/icons/main/arrow-right.svg';
