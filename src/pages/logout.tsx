@@ -16,5 +16,5 @@ export default function Logout() {
         }
 
         logout().then();
-    }, [router]);
+    }, [router, setUser]);
 }

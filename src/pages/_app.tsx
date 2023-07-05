@@ -4,7 +4,6 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { NextPage } from 'next';
 
-import NotificationWrapper from '@/contexts/notificationContext';
 import { UserWrapper } from '@/contexts/userContext';
 import { ErrorWrapper } from '@/contexts/errorContext';
 import { ScreenWrapper } from '@/contexts/screenContext';

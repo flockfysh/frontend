@@ -102,30 +102,32 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
         Flockfysh.AssetType | undefined
     >(undefined);
 
+    const [isFadeOut, updateFadeOut] = useState(false);
+
     const [isAgreed, updateAgreed] = useState(false);
 
     const [isUpload, updateIsUpload] = useState(true);
-    const [_newDatasetOptions, _updateOptions] = useState({
-        private: false,
-        contributions: true,
-        annotations: true,
-    });
-    // TODO: recipe select
 
     // TODO: Is this implemented?
     async function requestDataset() {}
 
     requestDataset();
 
-    // TODO: need to fix modal w/ file uplaods
     return (
         <div
-            className={ `${classes.overlay} ${classes.blurBg}` }
+            className={ `${ classes.overlay } ${ classes.blurBg } ${ isFadeOut ? classes.fadeOut : '' }` }
             onClick={ (e) => {
                 if (e.target === e.currentTarget) props.onClose();
             } }
+            onAnimationEnd={
+                () => {
+                    if(isFadeOut) props.onClose();
+                }
+            }
         >
-            <div className={ classes.container }>
+            <div
+                className={ `${ classes.container }` }
+            >
                 <div className={ classes.header }>
                     <h1 className={ classes.headerText }>
                         { isUpload ? 'Upload Datasets' : 'Request Datasets' }
@@ -133,7 +135,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
 
                     <ReactSVG
                         src={ xmark.src }
-                        onClick={ props.onClose }
+                        onClick={ () => updateFadeOut(true) }
                         className={ classes.closeBtn }
                     />
                 </div>
@@ -170,10 +172,11 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                     className={ classes.form }
                     onSubmit={ async (e) => {
                         e.preventDefault();
-                        const formData = new FormData(e.currentTarget);
+                        // const formData = new FormData(e.currentTarget);
 
-                        props.onClose();
-                        await uploadDataset(formData);
+                        // uploadDataset(formData);
+
+                        updateFadeOut(true);
                     } }
                 >
                     <div className={ classes.rowContainer }>

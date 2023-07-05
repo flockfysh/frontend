@@ -1,11 +1,10 @@
-import classes from './styles.module.css';
-import React, { useContext } from 'react';
-import { DatasetInfoContext } from '@/components/layout/datasetLayout';
-import DatasetGeneralSettings from '@/components/specific/marketplace/datasetSettings/generalSettings';
 import { useRouter } from 'next/router';
+
+import DatasetGeneralSettings from '@/components/specific/marketplace/datasetSettings/generalSettings';
 import RadioButtons from '@/components/ui/input/radioButtons';
 import DatasetPermissionManager from '@/components/specific/marketplace/datasetSettings/permissionManager';
 
+import classes from './styles.module.css';
 
 export default function DatasetSettingsLayout(dataset: PreviewDataset) {
     const router = useRouter();

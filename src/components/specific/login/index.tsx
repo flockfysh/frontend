@@ -68,8 +68,8 @@ export default function Login(props: {
     const redirect = useCallback(
         function redirect() {
             const code = router.query.code;
+            
             if (code) router.push(`/authorize?code=${code}`).then();
-            else if (router.asPath === router.pathname) router.replace('/datasets').then();
             else router.replace(router.asPath).then();
         },
         [router],
