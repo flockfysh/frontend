@@ -4,7 +4,7 @@
 
 -   clone repo
 -   `yarn`
--   `yarn dev`
+-   `yarn dev` 
 
 ## [Contributing](contributing.md)
 
