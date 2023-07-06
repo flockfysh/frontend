@@ -40,7 +40,7 @@ export default function Hero() {
                 <div>|</div>
 
                 <div className={ classes.readMoreFoundry }>
-                    <Link href="https://blog.flockfysh.tech/blog/flockfysh-citrus/" target = "_blank"> Read More </Link>
+                    <Link href="https://blog.flockfysh.ai/blog/flockfysh-citrus/" target = "_blank"> Read More </Link>
 
                     <BsArrowRight size={ 15 } />
                 </div>
