@@ -18,7 +18,7 @@ export default function Document() {
                     content="flockfysh | lightning fast large scale ML datasets"
                 />
                 <meta property="og:type" content="website" />
-                <meta property="og:url" content="http://www.flockfysh.tech/" />
+                <meta property="og:url" content="http://www.flockfysh.ai/" />
                 <meta property="og:image" content="" />
                 <meta
                     property="og:description"
