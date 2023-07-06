@@ -98,6 +98,7 @@ declare global {
             size: Flockfysh.DatasetSize;
             assetCounts: Flockfysh.DatasetAssetCounts;
             annotationCounts: Flockfysh.DatasetAnnotationCounts;
+            permission: Flockfysh.DatasetAccessLevel;
         }
 
         interface DatasetAssetCounts {
