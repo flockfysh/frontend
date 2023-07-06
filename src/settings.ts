@@ -14,7 +14,7 @@ export const DEBUG = process.env.DEBUG === 'true';
 /* The CRA framework will automatically set process.env.NODE_ENV to development, which corresponds to debug mode. */
 export const FRONTEND_URL = DEBUG
     ? 'http://localhost:3000'
-    : 'https://flockfysh.tech';
+    : 'https://flockfysh.ai';
 
 export const SERVER_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 

@@ -21,11 +21,11 @@ export default function HomeNavbar() {
             name: 'Roadmap',
         },
         {
-            to: 'https://docs.flockfysh.tech',
+            to: 'https://docs.flockfysh.ai',
             name: 'Docs',
         },
         {
-            to: 'https://blog.flockfysh.tech',
+            to: 'https://blog.flockfysh.ai',
             name: 'Blog',
         },
     ];
