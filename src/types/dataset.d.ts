@@ -27,5 +27,5 @@ declare interface PreviewDataset extends Flockfysh.Dataset {
         assetId: string;
         url: string;
     };
-    permission: string;
+    permission: Flockfysh.DatasetAccessLevel;
 }

@@ -25,14 +25,11 @@ import bookmark from '@/icons/main/bookmark.svg';
 
 import classes from './styles.module.css';
 import { DATASET_LICENSE_DESCRIPTION } from '@/helpers/enums/license';
+import { genPurchaseUrl } from '@/helpers/endpoints/datasets';
 
 export const DatasetInfoContext = createContext<PreviewDataset | undefined>(
     undefined,
 );
-
-async function genPurchaseUrl(datasetId: string) {
-    return (await api.post<Api.Response<string>>(`/api/datasets/${datasetId}/purchase`)).data.data;
-}
 
 export default function DatasetInfo(props: PropsWithChildren) {
     const router = useRouter();

@@ -192,6 +192,22 @@
     cursor: pointer;
 }
 
+.purchaseOverlay {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.purchaseHeading {
+    text-align: center;
+}
+
+.purchaseLink {
+    color: var(--primary1-400);
+}
+
 @media only all and (min-width: 768px) {
     .uploadDate {
         display: table-cell;

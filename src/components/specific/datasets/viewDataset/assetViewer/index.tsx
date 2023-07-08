@@ -21,7 +21,7 @@ import Image from 'next/image';
 import typeIs from 'type-is';
 import dayjs from 'dayjs';
 
-import { capitalize } from '@/helpers/strings';
+import { capitalize } from '@/helpers/dataManipulation/strings';
 import { formatFileSize } from '@/helpers/formatting';
 import api from '@/helpers/api';
 
@@ -30,6 +30,9 @@ import trash from '@/icons/main/trash-2.svg';
 import classes from './styles.module.css';
 import { useStateWithDeps } from 'use-state-with-deps';
 import { prop } from 'react-data-table-component/dist/src/DataTable/util';
+import { genPurchaseUrl } from '@/helpers/endpoints/datasets';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const TableComponents = {
     Scroller: forwardRef<HTMLDivElement, ScrollerProps>(function _Scroller(
@@ -182,6 +185,7 @@ export default function AssetViewer(props: {
     searchQuery: { displayName?: string };
     showList: boolean;
 }) {
+    const router = useRouter();
     const initialState = (): AssetViewerState => {
         return {
             assets: new Map(),
@@ -310,8 +314,14 @@ export default function AssetViewer(props: {
 
     if (props.datasetPermissionLevel === 'preview') {
         return (
-            <div>
-
+            <div className={ classes.purchaseOverlay }>
+                <h2 className={ classes.purchaseHeading }>
+                    This dataset requires purchasing access.
+                </h2>
+                <p><Link href={ '#' } className={ classes.purchaseLink } onClick={ async () => {
+                    const url = await genPurchaseUrl(props.datasetId);
+                    await router.push(url);
+                } }>Purchase this dataset</Link> to gain access to its datasets.</p>
             </div>
         );
     }
