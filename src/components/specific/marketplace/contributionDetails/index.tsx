@@ -8,7 +8,7 @@ import {
     BsGrid3X3,
     BsReverseListColumnsReverse,
 } from 'react-icons/bs';
-import { AiOutlineFieldTime } from 'react-icons/ai';
+import { AiOutlineFieldTime, AiOutlineFile } from 'react-icons/ai';
 import { MdOpenInNew } from 'react-icons/md';
 
 import { formToJSON } from 'axios';
@@ -98,6 +98,7 @@ export default function ContributionDetails(props: {
                 )
             ).data.data;
             setCurContribution(contribution);
+            console.log(contribution);
             const tempMessages = (
                 await api.get<Api.PaginatedResponse<ExpandedPullRequestMessage[]>>(
                     `/api/pullRequests/${props.contributionId}/messages`,
@@ -167,7 +168,12 @@ export default function ContributionDetails(props: {
                 <div className={ classes.pullRequestContent }>
                     <div className={ classes.pullRequestBody }>
                         <div className={ classes.bodyHeader }>
-                            <button className={ classes.backButton }>
+                            <button onClick={ 
+                                    () => {
+                                        router.back();
+                                    }
+                                }
+                                className={ classes.backButton }>
                                 <BsArrowLeftCircle/> Back
                             </button>
                             <h3>{ curContribution.name }</h3>
@@ -196,7 +202,12 @@ export default function ContributionDetails(props: {
                                 View Changes <MdOpenInNew/>
                             </button>
                         </div>
-                        <span className={ classes.vl }/>
+                        <div className={ classes.messageInfo }>
+                            <span className={ classes.vl }/>
+                            <p className={ classes.greenText }>+{curContribution.stats.newAssets}</p>
+                            <AiOutlineFile/>
+                            <p className={ classes.redText }>-{curContribution.stats.deletedAssets}</p>
+                        </div>
                         <span className={ classes.dot }/>
                         { messages.map((message: ExpandedPullRequestMessage) => {
                             return (
@@ -247,6 +258,20 @@ export default function ContributionDetails(props: {
                         </div>
                     </div>
                     <div className={ classes.pullRequestStats }>
+                        <div className = { classes.statsBody }>
+                            <div className={ classes.contributionStats }>
+                                <h3>Contribution Stats</h3>
+                                <div className={ classes.statsSummary }>
+                                    <h3>Summary</h3>
+                                </div>
+                                <div className={ classes.statsDetails }>
+                                    <h3>Details</h3>
+                                </div>
+                            </div>
+                            <div className={ classes.status }>
+                                <h3>Status</h3>
+                            </div>
+                        </div>
                         <h3 className={ classes.h3 }>Placeholder</h3>
                     </div>
                 </div>
