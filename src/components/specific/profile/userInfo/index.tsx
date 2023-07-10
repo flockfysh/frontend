@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import Image from 'next/image';
@@ -181,11 +181,28 @@ const UserInfo = (
         curTab: number;
     }
 ) => {
+    const [followers, setFollowers] = useState()
+    const [followings, setFollowings] = useState()
     const { user } = useContext(UserContext);
     const router = useRouter();
     const following = router.query.username
-    console.log({following})
     const editable = user?._id === props._id;
+
+    useEffect(() => {
+        const fetchData = async () => {
+            await api.get(`/api/users/byUsername/${following}/followers`)
+            .then(res => {
+                setFollowers(res.data.data)
+            })
+
+            await api.get(`/api/users/byUsername/${following}/followings`)
+            .then(res => {
+                setFollowings(res.data.data)
+            })
+        }
+
+        fetchData()
+    }, [])
 
     return (
         <section>
@@ -203,11 +220,11 @@ const UserInfo = (
 
                 <div className={ classes.followDiv }>
                     <p className={ classes.followers }>
-                        <span className={ classes.span }>{ 20 }</span> following
+                        <span className={ classes.span }>{ (followers ?? []).length }</span> following
                     </p>
                     
                     <p className={ classes.followers }>
-                        <span className={ classes.span }>{ 3 }</span> followers
+                        <span className={ classes.span }>{ (followings ?? []).length }</span> followers
                     </p>
 
                     <button
