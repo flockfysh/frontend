@@ -281,3 +281,22 @@
     width: fit-content;
     align-items: center;
 }
+
+.imageTagIcon {
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.followButton {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 24px;
+    background: var(--primary2-950);
+    border-radius: 20px;
+    border: none;
+
+    font-size: 18px;
+    line-height: 22px;
+    transition: 0.2s;
+}

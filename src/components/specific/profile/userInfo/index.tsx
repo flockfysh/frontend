@@ -17,6 +17,7 @@ import linkedIn from '@/icons/main/linkedin.svg';
 import twitter from '@/icons/main/twitter.svg';
 import link from '@/icons/main/link.svg';
 import pen from '@/icons/main/pen-tool.svg';
+import plus from '@/icons/main/plus-circle.svg'
 
 import classes from './styles.module.css';
 
@@ -205,6 +206,17 @@ const UserInfo = (
                     <p className={ classes.followers }>
                         <span className={ classes.span }>{ 3 }</span> followers
                     </p>
+
+                    <button
+                        className={ classes.followButton }
+                        >
+                        <span>Follow</span>
+                        <ReactSVG
+                            className={ classes.imageTagIcon }
+                            src={ plus.src }
+                        />
+
+                    </button>
 
                     { editable && (
                         <button className={ classes.followButton }>
