@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 import { useStateWithDeps } from 'use-state-with-deps';
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -19,6 +19,7 @@ import key from '@/icons/main/key.svg';
 
 import classes from './styles.module.css';
 import IconInput from '@/components/ui/input/iconInput';
+import { UserContext } from '@/contexts/userContext';
 
 type UserSettings = {
     username: string;
@@ -109,7 +110,12 @@ function Input(props: {
 }
 
 export default function UserSettings(props: UserSettings) {
-    const { register, handleSubmit } = useForm<IFormInput>();
+    const [linkValues, setLinkValues] = useState({
+        github: "",
+        linkedin: "",
+        twitter: "",
+        website: ""
+    })
     const [twitter, setTwitter] = useState('twitter.com');
     const [github, setGithub] = useState('github.com');
     const [linkedin, setLinkedin] = useState('linkedin.com');
@@ -117,13 +123,37 @@ export default function UserSettings(props: UserSettings) {
     const [email, _setEmail] = useState(props.email);
     const [password, setPassword] = useState('');
     const [apiKey, setApiKey] = useState(props.apiKey);
-
+    const { register, handleSubmit, reset } = useForm<IFormInput>({
+        defaultValues: linkValues
+    });
+    const { user } = useContext(UserContext)
+    
     // 0=general, 1=billing, 2=connections
     const [filter, updateFilter] = useState(0);
 
-    const onSubmit: SubmitHandler<IFormInput> = (data) => {
-        console.log({data})
+    const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+        await api.put('/api/users/links', { data })
+        .then(res => {
+            console.log({res})
+            setLinkValues(res.data.data)
+            // reset(res.data.data)
+        })
     }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            await api.get(`/api/users/${user?._id}/links`)
+            .then(res => {
+                setLinkValues(res.data.data)
+            })
+        }
+
+        fetchData()
+    }, [user?._id])
+
+    useEffect(() => {
+        reset(linkValues)
+    }, [linkValues])
 
     return (
         <section className={ classes.containDiv }>

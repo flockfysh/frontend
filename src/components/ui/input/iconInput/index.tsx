@@ -10,7 +10,6 @@ type IconInputTypes = {
 };
 
 const IconInput = ({name, placeholder, icon, register}: IconInputTypes) => {
-    const [value, setValue] = useState('')
     return (
         <div className={ classes.eachLinkDiv }>
             <ReactSVG
@@ -20,10 +19,8 @@ const IconInput = ({name, placeholder, icon, register}: IconInputTypes) => {
 
             <input
                 className={ classes.linkInput }
-                value={ value }
                 placeholder={placeholder}
                 {...register(name)}
-                onChange={ (event) => setValue(event.target.value) }
             />
         </div>
 
