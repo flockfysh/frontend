@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ReactSVG } from 'react-svg';
 import { useStateWithDeps } from 'use-state-with-deps';
-
+import { useForm, SubmitHandler } from "react-hook-form";
 import api from '@/helpers/api';
 
 import edit from '@/icons/main/edit-3.svg';
@@ -18,6 +18,7 @@ import mail from '@/icons/main/mail.svg';
 import key from '@/icons/main/key.svg';
 
 import classes from './styles.module.css';
+import IconInput from '@/components/ui/input/iconInput';
 
 type UserSettings = {
     username: string;
@@ -28,6 +29,13 @@ type UserSettings = {
     downloads: number;
     apiCalls: number;
 };
+
+type IFormInput = {
+    github?: string;
+    linkedin?: string;
+    twitter?: string;
+    website?: string;
+}
 
 function Input(props: {
     label?: string;
@@ -101,6 +109,7 @@ function Input(props: {
 }
 
 export default function UserSettings(props: UserSettings) {
+    const { register, handleSubmit } = useForm<IFormInput>();
     const [twitter, setTwitter] = useState('twitter.com');
     const [github, setGithub] = useState('github.com');
     const [linkedin, setLinkedin] = useState('linkedin.com');
@@ -111,6 +120,10 @@ export default function UserSettings(props: UserSettings) {
 
     // 0=general, 1=billing, 2=connections
     const [filter, updateFilter] = useState(0);
+
+    const onSubmit: SubmitHandler<IFormInput> = (data) => {
+        console.log({data})
+    }
 
     return (
         <section className={ classes.containDiv }>
@@ -350,7 +363,7 @@ export default function UserSettings(props: UserSettings) {
                 </div>
             </div>
 
-            <div className={ classes.linksDiv }>
+            <form onSubmit={handleSubmit(onSubmit)} className={ classes.linksDiv }>
                 <div className={ classes.linkHeadingDiv }>
                     <h4
                         className={
@@ -360,73 +373,47 @@ export default function UserSettings(props: UserSettings) {
                         Links
                     </h4>
 
-                    <button className={ classes.button }>
+                    <button type='submit' className={ classes.button }>
                         Save{ ' ' }
                         <ReactSVG src={ save.src } className={ classes.icons } />
                     </button>
                 </div>
 
                 <div>
-                    <div className={ classes.eachLinkDiv }>
-                        <ReactSVG
-                            src={ githubIcon.src }
-                            className={ classes.icons + ' ' + classes.inputIcons }
-                        />
+                    <IconInput 
+                        name='github'
+                        placeholder='github.com'
+                        icon={githubIcon}
+                        register={register}
+                    />
 
-                        <input
-                            className={ classes.linkInput }
-                            value={ github }
-                            onChange={ (event) => setGithub(event.target.value) }
-                        />
-                    </div>
+                    <IconInput 
+                        name='linkedin'
+                        placeholder='linkedin.com'
+                        icon={linkedInIcon}
+                        register={register}
+                    />
 
-                    <div className={ classes.eachLinkDiv }>
-                        <ReactSVG
-                            src={ linkedInIcon.src }
-                            className={ classes.icons + ' ' + classes.inputIcons }
-                        />
+                    <IconInput 
+                        name='twitter'
+                        placeholder='twitter.com'
+                        icon={twitterIcon}
+                        register={register}
+                    />
 
-                        <input
-                            className={ classes.linkInput }
-                            value={ linkedin }
-                            onChange={ (event) =>
-                                setLinkedin(event.target.value)
-                            }
-                        />
-                    </div>
-
-                    <div className={ classes.eachLinkDiv }>
-                        <ReactSVG
-                            src={ twitterIcon.src }
-                            className={ classes.icons + ' ' + classes.inputIcons }
-                        />
-
-                        <input
-                            className={ classes.linkInput }
-                            value={ twitter }
-                            onChange={ (event) => setTwitter(event.target.value) }
-                        />
-                    </div>
-
-                    <div className={ classes.eachLinkDiv }>
-                        <ReactSVG
-                            src={ link.src }
-                            className={ classes.icons + ' ' + classes.inputIcons }
-                        />
-
-                        <input
-                            className={ classes.linkInput }
-                            value={ website }
-                            onChange={ (event) => setWebsite(event.target.value) }
-                        />
-                    </div>
+                    <IconInput 
+                        name='website'
+                        placeholder='test.com'
+                        icon={link}
+                        register={register}
+                    />
                 </div>
 
                 <button className={ classes.deactivateButton }>
                     Deactivate Account{ ' ' }
                     <ReactSVG src={ trash.src } className={ classes.icons } />
                 </button>
-            </div>
+            </form>
         </section>
     );
 }
