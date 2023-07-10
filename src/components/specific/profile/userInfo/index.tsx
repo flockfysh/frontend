@@ -182,6 +182,9 @@ const UserInfo = (
     }
 ) => {
     const { user } = useContext(UserContext);
+    const router = useRouter();
+    const following = router.query.username
+    console.log({following})
     const editable = user?._id === props._id;
 
     return (
@@ -209,7 +212,12 @@ const UserInfo = (
 
                     <button
                         className={ classes.followButton }
-                        >
+                        onClick={ async () =>
+                            await api.put(`/api/users/username/follow`, {
+                                username: following
+                            })
+                        }
+                    >
                         <span>Follow</span>
                         <ReactSVG
                             className={ classes.imageTagIcon }
