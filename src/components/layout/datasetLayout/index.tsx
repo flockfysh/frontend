@@ -121,11 +121,14 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                         />
                                     </button>
 
-                                    <button className={ classes.basicButton }>
+                                    <button
+                                        className={ classes.basicButton }
+                                    >
                                         <ReactSVG
                                             className={ classes.imageTagIcon }
                                             src={ bookmark.src }
                                         />
+                                        
                                     </button>
                                 </div>
 
