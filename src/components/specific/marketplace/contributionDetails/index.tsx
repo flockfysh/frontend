@@ -202,8 +202,8 @@ export default function ContributionDetails(props: {
                             return (
                                 <>
                                     <Message message={ message }></Message>
-                                    <span className={ classes.vl }/>
-                                    <span className={ classes.dot }/>
+                                    <span className={ classes.vl } />
+                                    <span className={ classes.dot } />
                                 </>
                             );
                         }) }
