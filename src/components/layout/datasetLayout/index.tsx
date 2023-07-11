@@ -168,15 +168,18 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                         <button
                                             className={ classes.downloadButton}
                                             onClick={ async () => {
+                                                setLike(!liked);
                                                 if (!liked) {
-                                                    const res = await api.post(`/api/datasets/${datasetId}/likes`);
+                                                    await api.post(`/api/datasets/${datasetId}/likes`);
+                                                    const res = await api.get(`/api/datasets/${datasetId}/likes/count`);
+                                                    setLikeCounts(res.data.data);
                                                     setLike(true);
-                                                    setLikeCounts((prev) => prev + 1);
                                                 }
                                                 else {
-                                                    const res = await api.delete(`/api/datasets/${datasetId}/likes`);
+                                                    await api.delete(`/api/datasets/${datasetId}/likes`);
+                                                    const res = await api.get(`/api/datasets/${datasetId}/likes/count`);
+                                                    setLikeCounts(res.data.data);
                                                     setLike(false);
-                                                    setLikeCounts((prev) => prev - 1);
                                                 }
                                             }}
                                         >
