@@ -240,11 +240,15 @@ const UserInfo = (
                     <button
                         className={ classes.followButton }
                         onClick={ async () => {
-                            const res = await api.put(`/api/users/byUsername/${following}/follow`);
-                            setIsFollowing(true);
+                            if (!isFollowing) {
+                                const res = await api.put(`/api/users/byUsername/${following}/follow`);
+                                setIsFollowing(true);
+                                setFollowers(res.data.data);
+                            }
+                            const res = await api.put(`/api/users/byUsername/${following}/unfollow`);
+                            setIsFollowing(false);
                             setFollowers(res.data.data);
                         } }
-                        disabled={ isFollowing ? true : false }
                     >
                         <span>{ isFollowing ? 'Following' : 'Follow' }</span>
                         <ReactSVG
