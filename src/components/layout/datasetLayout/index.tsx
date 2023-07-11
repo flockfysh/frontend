@@ -22,10 +22,12 @@ import cpu from '@/icons/main/cpu.svg';
 import flag from '@/icons/main/flag.svg';
 import download from '@/icons/main/download.svg';
 import bookmark from '@/icons/main/bookmark.svg';
+import bookmarkFilled from '@/icons/main/bookmarkFilled.svg';
 
 import classes from './styles.module.css';
 import { DATASET_LICENSE_DESCRIPTION } from '@/helpers/enums/license';
 import { genPurchaseUrl } from '@/helpers/endpoints/datasets';
+import { UserContext } from '@/contexts/userContext';
 
 export const DatasetInfoContext = createContext<PreviewDataset | undefined>(
     undefined,
@@ -33,9 +35,9 @@ export const DatasetInfoContext = createContext<PreviewDataset | undefined>(
 
 export default function DatasetInfo(props: PropsWithChildren) {
     const router = useRouter();
-
     const [dataset, setDataset] = useState<PreviewDataset | undefined>();
     const [liked, setLike] = useState(false);
+    const [bookmarked, setBookmark] = useState(false);
     const [likeCounts, setLikeCounts] = useState(0);
     const { downloadDataset } = useContext(DownloaderContext);
 
@@ -141,10 +143,23 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                         />
                                     </button>
 
-                                    <button className={ classes.basicButton }>
+                                    <button
+                                        className={ classes.basicButton }
+                                        onClick={ async () => {
+                                            setBookmark(!bookmarked);
+                                            if (!bookmarked) {
+                                                await api.post(`/api/datasets/${datasetId}/bookmarks`);
+                                                setBookmark(true);
+                                            }
+                                            else {
+                                                await api.delete(`/api/datasets/${datasetId}/bookmarks`);
+                                                setBookmark(false);
+                                            }
+                                        }}
+                                    >
                                         <ReactSVG
                                             className={ classes.imageTagIcon }
-                                            src={ bookmark.src }
+                                            src={ bookmarked ? bookmarkFilled.src : bookmark.src }
                                         />
                                     </button>
                                 </div>
