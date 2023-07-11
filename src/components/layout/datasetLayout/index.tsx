@@ -22,7 +22,7 @@ import cpu from '@/icons/main/cpu.svg';
 import flag from '@/icons/main/flag.svg';
 import download from '@/icons/main/download.svg';
 import bookmark from '@/icons/main/bookmark.svg';
-import bookmarkFilled from '@/icons/main/bookmarkFilled.svg'
+import bookmarkFilled from '@/icons/main/bookmarkFilled.svg';
 
 import classes from './styles.module.css';
 import { DATASET_LICENSE_DESCRIPTION } from '@/helpers/enums/license';
@@ -146,7 +146,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                     <button
                                         className={ classes.basicButton }
                                         onClick={ async () => {
-                                            setBookmark(!bookmarked)
+                                            setBookmark(!bookmarked);
                                             if (!bookmarked) {
                                                 await api.post(`/api/datasets/${datasetId}/bookmarks`);
                                                 setBookmark(true);

@@ -14,7 +14,7 @@ import search from '@/icons/main/search.svg';
 import classes from './styles.module.css';
 
 function DatasetsOwned(props: { user: BaseUser }) {
-    type FilterType = 'owned' | 'shared';
+    type FilterType = 'owned' | 'shared' | 'bookmarked';
 
     const { user } = useContext(UserContext);
     const [query, setQuery] = useState('');
@@ -75,10 +75,26 @@ function DatasetsOwned(props: { user: BaseUser }) {
                     )
                 ).data;
             }
-            else {
+            else if (filterType === 'shared') {
                 fetched = (
                     await api.get<Api.PaginatedResponse<HomepageDataset[]>>(
                         '/api/datasets/search/shared',
+                        {
+                            params: {
+                                name: query,
+                                next: state.next,
+                                expand: 'assetCounts,size,likes,user',
+                                limit: 50,
+                                sort: 'updatedAt',
+                            },
+                        }
+                    )
+                ).data;
+            }
+            else {
+                fetched = (
+                    await api.get<Api.PaginatedResponse<HomepageDataset[]>>(
+                        '/api/datasets/search/bookmarked',
                         {
                             params: {
                                 name: query,
@@ -142,6 +158,8 @@ function DatasetsOwned(props: { user: BaseUser }) {
                                 label: 'Shared',
                                 shown: isCurrentUser,
                             },
+                            { value: 'Bookmarked', label: 'Bookmarked' },
+
                         ] }
                         value={ filterType }
                         onChange={ (currentValue) =>
