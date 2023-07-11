@@ -9,7 +9,7 @@ type IconInputTypes = {
     register: Function;
 };
 
-const IconInput = ({name, placeholder, icon, register}: IconInputTypes) => {
+const IconInput = ({ name, placeholder, icon, register }: IconInputTypes) => {
     return (
         <div className={ classes.eachLinkDiv }>
             <ReactSVG
@@ -23,8 +23,7 @@ const IconInput = ({name, placeholder, icon, register}: IconInputTypes) => {
                 {...register(name)}
             />
         </div>
-
-    )
-}
+    );
+};
 
 export default IconInput;

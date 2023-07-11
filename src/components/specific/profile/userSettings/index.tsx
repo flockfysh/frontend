@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 import { useStateWithDeps } from 'use-state-with-deps';
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler } from 'react-hook-form';
 import api from '@/helpers/api';
 
 import edit from '@/icons/main/edit-3.svg';
@@ -36,7 +36,7 @@ type IFormInput = {
     linkedin?: string;
     twitter?: string;
     website?: string;
-}
+};
 
 function Input(props: {
     label?: string;
@@ -111,49 +111,39 @@ function Input(props: {
 
 export default function UserSettings(props: UserSettings) {
     const [linkValues, setLinkValues] = useState({
-        github: "",
-        linkedin: "",
-        twitter: "",
-        website: ""
-    })
-    const [twitter, setTwitter] = useState('twitter.com');
-    const [github, setGithub] = useState('github.com');
-    const [linkedin, setLinkedin] = useState('linkedin.com');
-    const [website, setWebsite] = useState('test.com');
+        github: '',
+        linkedin: '',
+        twitter: '',
+        website: ''
+    });
     const [email, _setEmail] = useState(props.email);
     const [password, setPassword] = useState('');
     const [apiKey, setApiKey] = useState(props.apiKey);
     const { register, handleSubmit, reset } = useForm<IFormInput>({
         defaultValues: linkValues
     });
-    const { user } = useContext(UserContext)
+    const { user } = useContext(UserContext);
     
     // 0=general, 1=billing, 2=connections
     const [filter, updateFilter] = useState(0);
 
     const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-        await api.put('/api/users/links', { data })
-        .then(res => {
-            console.log({res})
-            setLinkValues(res.data.data)
-            // reset(res.data.data)
-        })
-    }
+        const res = await api.put('/api/users/links', { data });
+        setLinkValues(res.data.data);
+    };
 
     useEffect(() => {
         const fetchData = async () => {
-            await api.get(`/api/users/${user?._id}/links`)
-            .then(res => {
-                setLinkValues(res.data.data)
-            })
-        }
+            const res = await api.get(`/api/users/${user?._id}/links`);
+            setLinkValues(res.data.data);
+        };
 
-        fetchData()
-    }, [user?._id])
+        fetchData();
+    }, [user?._id]);
 
     useEffect(() => {
-        reset(linkValues)
-    }, [linkValues])
+        reset(linkValues);
+    }, [linkValues, reset]);
 
     return (
         <section className={ classes.containDiv }>
@@ -403,7 +393,7 @@ export default function UserSettings(props: UserSettings) {
                         Links
                     </h4>
 
-                    <button type='submit' className={ classes.button }>
+                    <button type="submit" className={ classes.button }>
                         Save{ ' ' }
                         <ReactSVG src={ save.src } className={ classes.icons } />
                     </button>
@@ -411,29 +401,29 @@ export default function UserSettings(props: UserSettings) {
 
                 <div>
                     <IconInput 
-                        name='github'
-                        placeholder='github.com'
+                        name="github"
+                        placeholder="github.com"
                         icon={githubIcon}
                         register={register}
                     />
 
                     <IconInput 
-                        name='linkedin'
-                        placeholder='linkedin.com'
+                        name="linkedin"
+                        placeholder="linkedin.com"
                         icon={linkedInIcon}
                         register={register}
                     />
 
                     <IconInput 
-                        name='twitter'
-                        placeholder='twitter.com'
+                        name="twitter"
+                        placeholder="twitter.com"
                         icon={twitterIcon}
                         register={register}
                     />
 
                     <IconInput 
-                        name='website'
-                        placeholder='test.com'
+                        name="website"
+                        placeholder="test.com"
                         icon={link}
                         register={register}
                     />
