@@ -35,22 +35,16 @@ export const DatasetInfoContext = createContext<PreviewDataset | undefined>(
 
 export default function DatasetInfo(props: PropsWithChildren) {
     const router = useRouter();
-
     const [dataset, setDataset] = useState<PreviewDataset | undefined>();
     const [liked, setLike] = useState(false);
+    const [bookmarked, setBookmark] = useState(false);
     const [likeCounts, setLikeCounts] = useState(0);
-    const [bookmarked, setBookmark] = useState<Boolean>(false);
     const { downloadDataset } = useContext(DownloaderContext);
 
     const datasetId = router.query.datasetId;
 
-
-    const { user } = useContext(UserContext)
-    console.log({datasetId})
-
     useEffect(() => {
         async function load() {
-
             if (typeof datasetId !== 'string') return;
 
             const result = (
@@ -152,16 +146,13 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                     <button
                                         className={ classes.basicButton }
                                         onClick={ async () => {
+                                            setBookmark(!bookmarked)
                                             if (!bookmarked) {
-                                                await api.put(`/api/datasets/${datasetId}/mark`, {
-                                                    id: user?._id
-                                                });
+                                                await api.post(`/api/datasets/${datasetId}/bookmarks`);
                                                 setBookmark(true);
                                             }
                                             else {
-                                                await api.put(`/api/datasets/${datasetId}/unmark`, {
-                                                    id: user?._id
-                                                });
+                                                await api.delete(`/api/datasets/${datasetId}/bookmarks`);
                                                 setBookmark(false);
                                             }
                                         }}
