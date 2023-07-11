@@ -240,14 +240,17 @@ const UserInfo = (
                     <button
                         className={ classes.followButton }
                         onClick={ async () => {
-                            if (!isFollowing) {
-                                const res = await api.put(`/api/users/byUsername/${following}/follow`);
+                            let res;
+                            if (isFollowing) {
+                                res = await api.put(`/api/users/byUsername/${following}/unfollow`);
+                                setIsFollowing(false);
+                                setFollowers(res.data.data);
+                            }
+                            else {
+                                res = await api.put(`/api/users/byUsername/${following}/follow`);
                                 setIsFollowing(true);
                                 setFollowers(res.data.data);
                             }
-                            const res = await api.put(`/api/users/byUsername/${following}/unfollow`);
-                            setIsFollowing(false);
-                            setFollowers(res.data.data);
                         } }
                     >
                         <span>{ isFollowing ? 'Following' : 'Follow' }</span>
