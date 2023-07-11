@@ -35,12 +35,14 @@ export default function DatasetInfo(props: PropsWithChildren) {
     const router = useRouter();
 
     const [dataset, setDataset] = useState<PreviewDataset | undefined>();
+    const [liked, setLike] = useState(false);
+    const [likeCounts, setLikeCounts] = useState(0);
     const { downloadDataset } = useContext(DownloaderContext);
+
+    const datasetId = router.query.datasetId;
 
     useEffect(() => {
         async function load() {
-            const datasetId = router.query.datasetId;
-
             if (typeof datasetId !== 'string') return;
 
             const result = (
@@ -62,9 +64,27 @@ export default function DatasetInfo(props: PropsWithChildren) {
         }
 
         load().then();
-    }, [router.query.datasetId]);
+    }, [datasetId]);
 
-    if (!dataset || typeof router.query.datasetId !== 'string') return <></>;
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await api.get(`/api/datasets/${datasetId}/likes/count`);
+            setLikeCounts(res.data.data);
+        };
+        
+        fetchData();
+    }, [datasetId]);
+    
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await api.get(`/api/datasets/${datasetId}/likes`);
+            setLike(res.data.data);
+        };
+        
+        fetchData();
+    }, [datasetId]);
+
+    if (!dataset || typeof datasetId !== 'string') return <></>;
 
     return (
         <DatasetInfoContext.Provider value={ dataset }>
@@ -144,6 +164,25 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                         >
                                             <Contribute dataset={ dataset }/>
                                         </ActionPopupWithButton>
+                                        
+                                        <button
+                                            className={ classes.downloadButton}
+                                            onClick={ async () => {
+                                                if (!liked) {
+                                                    const res = await api.post(`/api/datasets/${datasetId}/likes`);
+                                                    setLike(true);
+                                                    setLikeCounts((prev) => prev + 1);
+                                                }
+                                                else {
+                                                    const res = await api.delete(`/api/datasets/${datasetId}/likes`);
+                                                    setLike(false);
+                                                    setLikeCounts((prev) => prev - 1);
+                                                }
+                                            }}
+                                        >
+                                            <span>{ liked ? 'Unlike' : 'Like' }</span>
+                                            <span>{ likeCounts }</span>
+                                        </button>
 
                                         <button
                                             className={ classes.downloadButton }
