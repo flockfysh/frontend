@@ -86,6 +86,15 @@ export default function DatasetInfo(props: PropsWithChildren) {
         fetchData();
     }, [datasetId]);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await api.get(`/api/datasets/${datasetId}/bookmarks`);
+            setBookmark(res.data.data);
+        };
+        
+        fetchData();
+    }, [datasetId]);
+
     if (!dataset || typeof datasetId !== 'string') return <></>;
 
     return (
