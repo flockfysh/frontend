@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import Image from 'next/image';
@@ -11,12 +11,12 @@ import { UserContext } from '@/contexts/userContext';
 
 import api from '@/helpers/api';
 
-import svg from '@/icons/main/plus-circle.svg';
 import github from '@/icons/main/github.svg';
 import linkedIn from '@/icons/main/linkedin.svg';
 import twitter from '@/icons/main/twitter.svg';
 import link from '@/icons/main/link.svg';
 import pen from '@/icons/main/pen-tool.svg';
+import plus from '@/icons/main/plus-circle.svg';
 
 import classes from './styles.module.css';
 
@@ -180,8 +180,39 @@ const UserInfo = (
         curTab: number;
     }
 ) => {
+    const [followers, setFollowers] = useState();
+    const [followings, setFollowings] = useState();
+    const [isFollowing, setIsFollowing] = useState(false);
     const { user } = useContext(UserContext);
+    const router = useRouter();
+    const following = router.query.username;
     const editable = user?._id === props._id;
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await api.get(`/api/users/byUsername/${following}/followers`);
+            setFollowers(res.data.data);
+        };
+
+        fetchData();
+    }, [following]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await api.get(`/api/users/byUsername/${following}/followings`);
+            setFollowings(res.data.data);
+        };
+        fetchData();
+    }, [following]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await api.get(`/api/users/byUsername/${following}/isFollowing`);
+            setIsFollowing(res.data.data);
+        };
+
+        fetchData();
+    }, [following]);
 
     return (
         <section>
@@ -199,19 +230,36 @@ const UserInfo = (
 
                 <div className={ classes.followDiv }>
                     <p className={ classes.followers }>
-                        <span className={ classes.span }>{ 20 }</span> following
+                        <span className={ classes.span }>{ (followings ?? []).length }</span> following
                     </p>
                     
                     <p className={ classes.followers }>
-                        <span className={ classes.span }>{ 3 }</span> followers
+                        <span className={ classes.span }>{ (followers ?? []).length }</span> followers
                     </p>
+
+                    <button
+                        className={ classes.followButton }
+                        onClick={ async () => {
+                            const res = await api.put(`/api/users/byUsername/${following}/follow`);
+                            setIsFollowing(true);
+                            setFollowers(res.data.data);
+                        } }
+                        disabled={ isFollowing ? true : false }
+                    >
+                        <span>{ isFollowing ? 'Following' : 'Follow' }</span>
+                        <ReactSVG
+                            className={ classes.imageTagIcon }
+                            src={ plus.src }
+                        />
+
+                    </button>
 
                     { editable && (
                         <button className={ classes.followButton }>
                             Edit profile{ ' ' }
                             <ReactSVG
                                 className={ classes.followIcon }
-                                src={ svg.src }
+                                src={ plus.src }
                             />
                         </button>
                     ) }
