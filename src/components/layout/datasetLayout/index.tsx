@@ -68,21 +68,21 @@ export default function DatasetInfo(props: PropsWithChildren) {
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await api.get(`/api/datasets/${datasetId}/likes/count`)
+            const res = await api.get(`/api/datasets/${datasetId}/likes/count`);
             setLikeCounts(res.data.data);
         };
         
         fetchData();
-    }, [datasetId])
+    }, [datasetId]);
     
     useEffect(() => {
         const fetchData = async () => {
-            const res = await api.get(`/api/datasets/${datasetId}/likes`)
+            const res = await api.get(`/api/datasets/${datasetId}/likes`);
             setLike(res.data.data);
         };
         
         fetchData();
-    }, [datasetId])
+    }, [datasetId]);
 
     if (!dataset || typeof datasetId !== 'string') return <></>;
 
@@ -180,7 +180,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                                 }
                                             }}
                                         >
-                                            <span>{ liked ? "Unlike" : "Like"}</span>
+                                            <span>{ liked ? 'Unlike' : 'Like' }</span>
                                             <span>{ likeCounts }</span>
                                         </button>
 
