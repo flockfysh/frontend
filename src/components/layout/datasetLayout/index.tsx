@@ -22,10 +22,12 @@ import cpu from '@/icons/main/cpu.svg';
 import flag from '@/icons/main/flag.svg';
 import download from '@/icons/main/download.svg';
 import bookmark from '@/icons/main/bookmark.svg';
+import bookmarkFilled from '@/icons/main/bookmarkFilled.svg'
 
 import classes from './styles.module.css';
 import { DATASET_LICENSE_DESCRIPTION } from '@/helpers/enums/license';
 import { genPurchaseUrl } from '@/helpers/endpoints/datasets';
+import { UserContext } from '@/contexts/userContext';
 
 export const DatasetInfoContext = createContext<PreviewDataset | undefined>(
     undefined,
@@ -37,12 +39,18 @@ export default function DatasetInfo(props: PropsWithChildren) {
     const [dataset, setDataset] = useState<PreviewDataset | undefined>();
     const [liked, setLike] = useState(false);
     const [likeCounts, setLikeCounts] = useState(0);
+    const [bookmarked, setBookmark] = useState<Boolean>(false);
     const { downloadDataset } = useContext(DownloaderContext);
 
     const datasetId = router.query.datasetId;
 
+
+    const { user } = useContext(UserContext)
+    console.log({datasetId})
+
     useEffect(() => {
         async function load() {
+
             if (typeof datasetId !== 'string') return;
 
             const result = (
@@ -141,10 +149,26 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                         />
                                     </button>
 
-                                    <button className={ classes.basicButton }>
+                                    <button
+                                        className={ classes.basicButton }
+                                        onClick={ async () => {
+                                            if (!bookmarked) {
+                                                await api.put(`/api/datasets/${datasetId}/mark`, {
+                                                    id: user?._id
+                                                });
+                                                setBookmark(true);
+                                            }
+                                            else {
+                                                await api.put(`/api/datasets/${datasetId}/unmark`, {
+                                                    id: user?._id
+                                                });
+                                                setBookmark(false);
+                                            }
+                                        }}
+                                    >
                                         <ReactSVG
                                             className={ classes.imageTagIcon }
-                                            src={ bookmark.src }
+                                            src={ bookmarked ? bookmarkFilled.src : bookmark.src }
                                         />
                                     </button>
                                 </div>
