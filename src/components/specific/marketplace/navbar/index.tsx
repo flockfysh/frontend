@@ -11,73 +11,69 @@ import { UserContext } from '@/contexts/userContext';
 
 import fish from '@/icons/branding/fish.svg';
 import search from '@/icons/main/search.svg';
-import bell from '@/icons/main/bell.svg';
 import plusCircle from '@/icons/main/plus-circle.svg';
 import userIcon from '@/icons/main/user.svg';
 
 import classes from './styles.module.css';
+import BellNotification from '../notifications/bell';
 
 export default function MarketplaceNavbar() {
-    const { user } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
-    const [isLogin, updateLogin] = useState(false);
-    const [isModalOpen, updateModalOpen] = useState(false);
+  const [isLogin, updateLogin] = useState(false);
+  const [isModalOpen, updateModalOpen] = useState(false);
 
-    return (
-        <nav className={ classes.nav }>
-            { isModalOpen && (
-                <CreateDatasetModal onClose={ () => updateModalOpen(false) } />
-            ) }
 
-            { isLogin && (
-                <Login mode="login" onClose={ () => updateLogin(false) } />
-            ) }
+  return (
+    <nav className={ classes.nav }>
+      { isModalOpen && (
+        <CreateDatasetModal onClose={ () => updateModalOpen(false) } />
+      ) }
 
-            <div className={ classes.subContainer + ' ' + classes.leftContainer }>
-                <Link className={ classes.logoContainer } href="/marketplace">
-                    <ReactSVG src={ fish.src } />
+      { isLogin && <Login mode="login" onClose={ () => updateLogin(false) } /> }
 
-                    <p>fDE</p>
-                </Link>
+      <div className={ classes.subContainer + ' ' + classes.leftContainer }>
+        <Link className={ classes.logoContainer } href="/marketplace">
+          <ReactSVG src={ fish.src } />
 
-                <label className={ classes.searchContainer }>
-                    <ReactSVG src={ search.src } className={ classes.searchIcon } />
+          <p>fDE</p>
+        </Link>
 
-                    <input
-                        type="search"
-                        className={ classes.search }
-                        placeholder="Search by username or dataset name"
-                    />
-                </label>
+        <label className={ classes.searchContainer }>
+          <ReactSVG src={ search.src } className={ classes.searchIcon } />
 
-                <ReactSVG src={ search.src } className={ classes.mobileSearch } />
-            </div>
+          <input
+            type="search"
+            className={ classes.search }
+            placeholder="Search by username or dataset name"
+          />
+        </label>
 
-            <div className={ classes.subContainer }>
-                { user ? (
-                    <>
-                        <ReactSVG
-                            onClick={ () => updateModalOpen(true) }
-                            src={ plusCircle.src }
-                            className={ classes.leftIcon }
-                        />
-                        <ReactSVG src={ bell.src } className={ classes.leftIcon } />
+        <ReactSVG src={ search.src } className={ classes.mobileSearch } />
+      </div>
 
-                        <CurrentUserProfile showMenu={ true } />
-                    </>
-                ) : (
-                    <button
-                        className={ classes.loginButton }
-                        onClick={ () => updateLogin(true) }
-                    >
-                        Login{ ' ' }
-                        <ReactSVG
-                            className={ classes.loginIcon }
-                            src={ userIcon.src }
-                        />
-                    </button>
-                ) }
-            </div>
-        </nav>
-    );
+      <div className={ classes.subContainer }>
+        { user ? (
+          <>
+            <ReactSVG
+              onClick={ () => updateModalOpen(true) }
+              src={ plusCircle.src }
+              className={ classes.leftIcon }
+            />
+
+          <BellNotification/>
+
+            <CurrentUserProfile showMenu={ true } />
+          </>
+        ) : (
+          <button
+            className={ classes.loginButton }
+            onClick={ () => updateLogin(true) }
+          >
+            Login <ReactSVG className={ classes.loginIcon } src={ userIcon.src } />
+          </button>
+        ) }
+      </div>
+    </nav>
+  );
 }

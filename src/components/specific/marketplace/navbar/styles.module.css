@@ -11,6 +11,18 @@
     width: 50%;
 }
 
+.leftIcon {
+    align-self: center;
+    margin: 0px 15px;
+    color: var(--primary1-100);
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+.leftIcon:hover {
+    color: var(--primary1-300);
+}
+
 .logoContainer {
     display: flex;
     color: var(--primary1-100);
@@ -83,17 +95,7 @@
     opacity: 0.8;
 }
 
-.leftIcon {
-    align-self: center;
-    margin: 0px 15px;
-    color: var(--primary1-100);
-    cursor: pointer;
-    transition: 0.15s;
-}
 
-.leftIcon:hover {
-    color: var(--primary1-300);
-}
 
 .loginButton {
     display: flex;
@@ -122,3 +124,4 @@
         display: block;
     }
 }
+
