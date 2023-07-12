@@ -19,6 +19,7 @@ import 'swiper/css/navigation';
 
 import MarketplaceLayout from '@/components/layout/marketplaceLayout';
 import classes from './styles.module.css';
+import PostSwiper from '@/components/specific/marketplace/postSwiper';
 
 const timeFilterOptions: [number, ManipulateType][] = [
     [1, 'day'],
@@ -157,6 +158,24 @@ const Marketplace: NextPageWithLayout = function () {
         };
     });
 
+    const posts: HomepagePost[] = Array.from({ length: 6 }, () => {
+        return {
+            _id: v4(),
+            name: fakerEN.vehicle.type(),
+            content: "No content",
+            user: {
+                username: 'praks',
+                _id: '24159335',
+                fullName: 'Prakriti Bista',
+                firstName: 'Prakriti',
+                email: 'praks@gmail.com',
+                lastName: 'Bista',
+            },
+            likes: 20,
+            views: 30,
+        };
+    });
+
     return (
         <div className={ classes.container }>
             { !!featuredDatasets.length && (
@@ -218,6 +237,14 @@ const Marketplace: NextPageWithLayout = function () {
                 </div>
 
                 <CollectionSwiper collections={ collections } />
+            </section>
+
+            <section className={ classes.sectionContainer }>
+                <div className={ classes.headerContainer }>
+                    <h1 className={ classes.header }>Posts</h1>
+                </div>
+
+                <PostSwiper posts={ posts } />
             </section>
 
             <section className={ classes.sectionContainer + ' ' + classes.howTo }>
