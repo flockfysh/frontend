@@ -180,6 +180,12 @@ const UserInfo = (
         curTab: number;
     }
 ) => {
+    const [linkValues, setLinkValues] = useState({
+        github: 'https://github.com',
+        linkedin: 'https://linkedin.com',
+        twitter: 'https://twitter.com',
+        website: 'https://website.com'
+    });
     const [followers, setFollowers] = useState();
     const [followings, setFollowings] = useState();
     const [isFollowing, setIsFollowing] = useState(false);
@@ -187,6 +193,15 @@ const UserInfo = (
     const router = useRouter();
     const following = router.query.username;
     const editable = user?._id === props._id;
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await api.get(`/api/users/${user?._id}/links`);
+            setLinkValues(res.data.data);
+        };
+
+        fetchData();
+    }, [user?._id]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -281,17 +296,19 @@ const UserInfo = (
                     <h6 className={ classes.description }>{ '' }</h6>
 
                     <div className={ classes.socialsDiv }>
-                        <a className={ classes.link } href="#">
+                        <a
+                            className={ classes.link }
+                            href={ linkValues?.website || 'https://user.com' }
+                        >
                             <ReactSVG
                                 src={ link.src }
                                 className={ classes.icons }
-                            />{ ' ' }
-                            user.com
+                            />
                         </a>
 
                         <a
                             className={ classes.link }
-                            href="https://www.github.com"
+                            href={ linkValues?.github || 'https://github.com' }
                         >
                             <ReactSVG
                                 src={ github.src }
@@ -301,7 +318,7 @@ const UserInfo = (
 
                         <a
                             className={ classes.link }
-                            href="https://www.linkedin.com"
+                            href={ linkValues?.linkedin || 'https://linkedin.com' }
                         >
                             <ReactSVG
                                 src={ linkedIn.src }
@@ -311,7 +328,7 @@ const UserInfo = (
 
                         <a
                             className={ classes.link }
-                            href="https://www.twitter.com"
+                            href={ linkValues?.twitter || 'https://twitter.com' }
                         >
                             <ReactSVG
                                 src={ twitter.src }

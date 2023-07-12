@@ -52,3 +52,8 @@
 .inputIcons svg {
     height: 1.2rem;
 }
+
+.errors {
+    font-size: small;
+    color: red;
+}
