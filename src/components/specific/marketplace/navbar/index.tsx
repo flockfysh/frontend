@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import CurrentUserProfile from '@/components/specific/marketplace/currentUserProfile';
 import CreateDatasetModal from '../createDatasetModal';
-
+import CreatePostModal from '../createPostModal';
 import Login from '../../login';
 
 import { UserContext } from '@/contexts/userContext';
@@ -13,6 +13,7 @@ import fish from '@/icons/branding/fish.svg';
 import search from '@/icons/main/search.svg';
 import bell from '@/icons/main/bell.svg';
 import plusCircle from '@/icons/main/plus-circle.svg';
+import penTool from '@/icons/main/pen-tool.svg';
 import userIcon from '@/icons/main/user.svg';
 
 import classes from './styles.module.css';
@@ -21,12 +22,17 @@ export default function MarketplaceNavbar() {
     const { user } = useContext(UserContext);
 
     const [isLogin, updateLogin] = useState(false);
-    const [isModalOpen, updateModalOpen] = useState(false);
+    const [isDatasetModalOpen, updateDatasetModalOpen] = useState(false);
+    const [isPostModalOpen, updatePostModalOpen] = useState(false);
 
     return (
         <nav className={ classes.nav }>
-            { isModalOpen && (
-                <CreateDatasetModal onClose={ () => updateModalOpen(false) } />
+            { isDatasetModalOpen && (
+                <CreateDatasetModal onClose={ () => updateDatasetModalOpen(false) } />
+            ) }
+            
+            { isPostModalOpen && (
+                <CreatePostModal onClose={ () => updatePostModalOpen(false) } />
             ) }
 
             { isLogin && (
@@ -57,7 +63,12 @@ export default function MarketplaceNavbar() {
                 { user ? (
                     <>
                         <ReactSVG
-                            onClick={ () => updateModalOpen(true) }
+                            onClick={ () => updatePostModalOpen(true) }
+                            src={ penTool.src }
+                            className={ classes.leftIcon }
+                        />
+                        <ReactSVG
+                            onClick={ () => updateDatasetModalOpen(true) }
                             src={ plusCircle.src }
                             className={ classes.leftIcon }
                         />
