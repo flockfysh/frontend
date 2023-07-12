@@ -22,22 +22,9 @@ export default function VerticalPostCard(
         <div className={ `${classes.container} ${props.className || ''}` }>
             <div className={ classes.contentContainer }>
                 <div className={ classes.middleSection }>
-                    <h1>{ props.name }</h1>
-                    <p>@{ props.user.username.slice(0, 16) }</p>
+                    <h1>{ props.title }</h1>
                 </div>
 
-                <div className={ classes.footer }>
-                    <div className={ classes.footerCardContainer }>
-                        <p>Likes</p>
-
-                        <h1>{ props.likes }</h1>
-                    </div>
-
-                    <div className={ classes.footerCardContainer }>
-                        <p className={ classes.size }>Views</p>
-                        <h1>{ props.views }</h1>
-                    </div>
-                </div>
             </div>
         </div>
     );

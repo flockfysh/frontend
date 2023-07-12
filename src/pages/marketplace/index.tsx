@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { NextPageWithLayout } from '@/pages/_app';
 
 import { v4 } from 'uuid';
@@ -20,6 +20,7 @@ import 'swiper/css/navigation';
 import MarketplaceLayout from '@/components/layout/marketplaceLayout';
 import classes from './styles.module.css';
 import PostSwiper from '@/components/specific/marketplace/postSwiper';
+import { PostContext } from '@/contexts/postContext';
 
 const timeFilterOptions: [number, ManipulateType][] = [
     [1, 'day'],
@@ -33,6 +34,7 @@ const Marketplace: NextPageWithLayout = function () {
     const [featuredDatasets, setFeaturedDatasets] = useState<HomepageDataset[]>(
         []
     );
+    const { posts, setPosts } = useContext(PostContext)
 
     useEffect(() => {
         async function fetch() {
@@ -137,6 +139,15 @@ const Marketplace: NextPageWithLayout = function () {
         fetch().then();
     }, [timeFilter]);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await api.get('/api/posts/');
+            setPosts(res.data.data);
+        };
+
+        fetchData();
+    }, []);
+
     const collections: HomepageCollection[] = Array.from({ length: 8 }, () => {
         return {
             _id: v4(),
@@ -155,24 +166,6 @@ const Marketplace: NextPageWithLayout = function () {
                 assetId: v4(),
                 url: 'https://images.unsplash.com/photo-1555412654-72a95a495858?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d2F0ZXJ8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60',
             },
-        };
-    });
-
-    const posts: HomepagePost[] = Array.from({ length: 6 }, () => {
-        return {
-            _id: v4(),
-            name: fakerEN.vehicle.type(),
-            content: "No content",
-            user: {
-                username: 'praks',
-                _id: '24159335',
-                fullName: 'Prakriti Bista',
-                firstName: 'Prakriti',
-                email: 'praks@gmail.com',
-                lastName: 'Bista',
-            },
-            likes: 20,
-            views: 30,
         };
     });
 

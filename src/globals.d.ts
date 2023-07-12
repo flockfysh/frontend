@@ -77,11 +77,9 @@ declare global {
 
         interface Post {
             _id: string;
-            name: string;
+            title: string;
             content: string;
             user: string;
-            likes: number;
-            views: number;
             thumbnail?: {
                 assetId: string;
             };
