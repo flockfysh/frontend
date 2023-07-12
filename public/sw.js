@@ -1,14 +1,6 @@
-export interface NotificationData {
-  title: string;
-  body: string;
-  url?: string;
-}
+const worker = self;
 
-if (!(self instanceof ServiceWorkerGlobalScope)) throw new Error();
-
-const worker: ServiceWorkerGlobalScope = self;
-
-export async function sendNotification(data: NotificationData) {
+async function sendNotification(data) {
   if (Notification.permission !== 'granted') return;
 
   await worker.registration.showNotification(data.title, {

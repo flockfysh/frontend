@@ -20,6 +20,8 @@ export function UserWrapper(props: PropsWithChildren) {
     const [isLoading, updateLoading] = useState(true);
 
     useEffect(() => {
+        navigator.serviceWorker.register('/sw.js');
+
         if (isLoading) {
             (async function getUserState() {
                 try {
