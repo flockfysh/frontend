@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import Image from 'next/image';
@@ -11,12 +11,12 @@ import { UserContext } from '@/contexts/userContext';
 
 import api from '@/helpers/api';
 
-import svg from '@/icons/main/plus-circle.svg';
 import github from '@/icons/main/github.svg';
 import linkedIn from '@/icons/main/linkedin.svg';
 import twitter from '@/icons/main/twitter.svg';
 import link from '@/icons/main/link.svg';
 import pen from '@/icons/main/pen-tool.svg';
+import plus from '@/icons/main/plus-circle.svg';
 
 import classes from './styles.module.css';
 
@@ -107,7 +107,7 @@ function Header(props: { url: string; editable: boolean }) {
     );
 }
 
-function ProfilePhoto(props: { url: string; editable: boolean }) {
+function ProfilePhoto(props: { url: string; editable: boolean; username: string }) {
     const router = useRouter();
 
     const inputRef = useRef<HTMLInputElement>(null);
@@ -127,7 +127,7 @@ function ProfilePhoto(props: { url: string; editable: boolean }) {
                         <div className={ classes.defaultProfilePic }>
                             <Avatar
                                 size="12rem"
-                                name={ Math.random().toString() }
+                                name={ props.username }
                                 variant="marble"
                                 colors={ [
                                     '#92A1C6',
@@ -180,8 +180,54 @@ const UserInfo = (
         curTab: number;
     }
 ) => {
+    const [linkValues, setLinkValues] = useState({
+        github: 'https://github.com',
+        linkedin: 'https://linkedin.com',
+        twitter: 'https://twitter.com',
+        website: 'https://website.com'
+    });
+    const [followers, setFollowers] = useState();
+    const [followings, setFollowings] = useState();
+    const [isFollowing, setIsFollowing] = useState(false);
     const { user } = useContext(UserContext);
+    const router = useRouter();
+    const following = router.query.username;
     const editable = user?._id === props._id;
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await api.get(`/api/users/${user?._id}/links`);
+            setLinkValues(res.data.data);
+        };
+
+        fetchData();
+    }, [user?._id]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await api.get(`/api/users/byUsername/${following}/followers`);
+            setFollowers(res.data.data);
+        };
+
+        fetchData();
+    }, [following]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await api.get(`/api/users/byUsername/${following}/followings`);
+            setFollowings(res.data.data);
+        };
+        fetchData();
+    }, [following]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await api.get(`/api/users/byUsername/${following}/isFollowing`);
+            setIsFollowing(res.data.data);
+        };
+
+        fetchData();
+    }, [following]);
 
     return (
         <section>
@@ -194,23 +240,48 @@ const UserInfo = (
                 <ProfilePhoto
                     url={ props.profilePhoto?.url ?? '' }
                     editable={ editable }
+                    username={ props.username }
                 />
 
                 <div className={ classes.followDiv }>
                     <p className={ classes.followers }>
-                        <span className={ classes.span }>{ 20 }</span> following
+                        <span className={ classes.span }>{ (followings ?? []).length }</span> following
                     </p>
                     
                     <p className={ classes.followers }>
-                        <span className={ classes.span }>{ 3 }</span> followers
+                        <span className={ classes.span }>{ (followers ?? []).length }</span> followers
                     </p>
+
+                    <button
+                        className={ classes.followButton }
+                        onClick={ async () => {
+                            let res;
+                            if (isFollowing) {
+                                res = await api.put(`/api/users/byUsername/${following}/unfollow`);
+                                setIsFollowing(false);
+                                setFollowers(res.data.data);
+                            }
+                            else {
+                                res = await api.put(`/api/users/byUsername/${following}/follow`);
+                                setIsFollowing(true);
+                                setFollowers(res.data.data);
+                            }
+                        } }
+                    >
+                        <span>{ isFollowing ? 'Following' : 'Follow' }</span>
+                        <ReactSVG
+                            className={ classes.imageTagIcon }
+                            src={ plus.src }
+                        />
+
+                    </button>
 
                     { editable && (
                         <button className={ classes.followButton }>
                             Edit profile{ ' ' }
                             <ReactSVG
                                 className={ classes.followIcon }
-                                src={ svg.src }
+                                src={ plus.src }
                             />
                         </button>
                     ) }
@@ -225,17 +296,19 @@ const UserInfo = (
                     <h6 className={ classes.description }>{ '' }</h6>
 
                     <div className={ classes.socialsDiv }>
-                        <a className={ classes.link } href="#">
+                        <a
+                            className={ classes.link }
+                            href={ linkValues?.website || 'https://user.com' }
+                        >
                             <ReactSVG
                                 src={ link.src }
                                 className={ classes.icons }
-                            />{ ' ' }
-                            user.com
+                            />
                         </a>
 
                         <a
                             className={ classes.link }
-                            href="https://www.github.com"
+                            href={ linkValues?.github || 'https://github.com' }
                         >
                             <ReactSVG
                                 src={ github.src }
@@ -245,7 +318,7 @@ const UserInfo = (
 
                         <a
                             className={ classes.link }
-                            href="https://www.linkedin.com"
+                            href={ linkValues?.linkedin || 'https://linkedin.com' }
                         >
                             <ReactSVG
                                 src={ linkedIn.src }
@@ -255,7 +328,7 @@ const UserInfo = (
 
                         <a
                             className={ classes.link }
-                            href="https://www.twitter.com"
+                            href={ linkValues?.twitter || 'https://twitter.com' }
                         >
                             <ReactSVG
                                 src={ twitter.src }

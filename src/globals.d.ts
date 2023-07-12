@@ -8,6 +8,13 @@ declare global {
         type AssetType = 'image' | 'video' | 'text' | 'other';
         type PullRequestStatus = 'draft' | 'published' | 'merged' | 'rejected';
         type DatasetLicense = _DatasetLicense;
+        type DatasetAccessLevel = 'admin' |
+            'maintainer' |
+            'blocked' |
+            'none' |
+            'contributor' |
+            'preview' |
+            'owner';
 
         interface Label {
             _id: string;
@@ -91,6 +98,7 @@ declare global {
             size: Flockfysh.DatasetSize;
             assetCounts: Flockfysh.DatasetAssetCounts;
             annotationCounts: Flockfysh.DatasetAnnotationCounts;
+            permission: Flockfysh.DatasetAccessLevel;
         }
 
         interface DatasetAssetCounts {
@@ -126,6 +134,14 @@ declare global {
             url: string;
             mimetype: string;
             displayName: string;
+        }
+
+        interface Permission {
+            user: string;
+            dataset: string;
+            _id: string;
+            role: Flockfysh.DatasetAccessLevel;
+            purchased: boolean;
         }
     }
 

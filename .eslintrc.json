@@ -17,6 +17,7 @@
     },
     "plugins": ["react", "@typescript-eslint"],
     "rules": {
+        "react/no-unescaped-entities": "off",
         "@next/next/no-img-element": "off",
         "no-constant-condition": "error",
         "no-dupe-else-if": "error",
@@ -86,13 +87,7 @@
         ],
         "no-extra-semi": "error",
         "react/react-in-jsx-scope": "off",
-        "react/jsx-curly-spacing": [
-            "error",
-            {
-                "when": "always",
-                "children": true
-            }
-        ],
+        "react/jsx-curly-spacing": "off",
         "react/jsx-wrap-multilines": [
             "error",
             {

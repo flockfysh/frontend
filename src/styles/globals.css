@@ -147,11 +147,7 @@ body {
     min-height: 100%;
 }
 
-a:visited {
-    color: inherit;
-}
-
-a:-webkit-any-link {
+a {
     color: inherit;
 }
 

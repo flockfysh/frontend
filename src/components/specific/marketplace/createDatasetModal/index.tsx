@@ -11,7 +11,7 @@ import RadioButtons from '@/components/ui/input/radioButtons';
 import api from '@/helpers/api';
 import AsyncArray from '@/helpers/async';
 import { uploadTypeMapping } from '@/helpers/assets/upload';
-import { capitalize } from '@/helpers/strings';
+import { capitalize } from '@/helpers/dataManipulation/strings';
 
 import xmark from '@/icons/xmark.svg';
 import save from '@/icons/main/save.svg';
@@ -86,10 +86,11 @@ async function uploadDataset(formData: FormData) {
             fd.set(config.fieldName, file);
             await api.post(
                 `/api/datasets/${newDataset._id}/assets/upload/${config.endpoint}`,
-                fd
+                fd,
             );
         }
-        catch (e) {}
+ catch (e) {
+        }
     }
 
     await new AsyncArray(files).chunkMap((file) => upload(file), undefined, {
@@ -98,34 +99,35 @@ async function uploadDataset(formData: FormData) {
 }
 
 export default function CreateDatasetModal(props: CreateDatasetModalProps) {
-    const [datasetType, setDatasetType] = useState<
-        Flockfysh.AssetType | undefined
-    >(undefined);
+    const [datasetType, setDatasetType] = useState<Flockfysh.AssetType | undefined>(undefined);
+
+    const [isFadeOut, updateFadeOut] = useState(false);
 
     const [isAgreed, updateAgreed] = useState(false);
 
     const [isUpload, updateIsUpload] = useState(true);
-    const [_newDatasetOptions, _updateOptions] = useState({
-        private: false,
-        contributions: true,
-        annotations: true,
-    });
-    // TODO: recipe select
 
     // TODO: Is this implemented?
-    async function requestDataset() {}
+    async function requestDataset() {
+    }
 
     requestDataset();
 
-    // TODO: need to fix modal w/ file uplaods
     return (
         <div
-            className={ `${classes.overlay} ${classes.blurBg}` }
+            className={ `${classes.overlay} ${classes.blurBg} ${isFadeOut ? classes.fadeOut : ''}` }
             onClick={ (e) => {
                 if (e.target === e.currentTarget) props.onClose();
             } }
+            onAnimationEnd={
+                () => {
+                    if (isFadeOut) props.onClose();
+                }
+            }
         >
-            <div className={ classes.container }>
+            <div
+                className={ `${classes.container}` }
+            >
                 <div className={ classes.header }>
                     <h1 className={ classes.headerText }>
                         { isUpload ? 'Upload Datasets' : 'Request Datasets' }
@@ -133,7 +135,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
 
                     <ReactSVG
                         src={ xmark.src }
-                        onClick={ props.onClose }
+                        onClick={ () => updateFadeOut(true) }
                         className={ classes.closeBtn }
                     />
                 </div>
@@ -171,9 +173,8 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                     onSubmit={ async (e) => {
                         e.preventDefault();
                         const formData = new FormData(e.currentTarget);
-
-                        props.onClose();
                         await uploadDataset(formData);
+                        updateFadeOut(true);
                     } }
                 >
                     <div className={ classes.rowContainer }>
@@ -199,11 +200,11 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                     value={
                                         datasetType
                                             ? {
-                                                  label: capitalize(
-                                                      datasetType
-                                                  ),
-                                                  value: datasetType,
-                                              }
+                                                label: capitalize(
+                                                    datasetType,
+                                                ),
+                                                value: datasetType,
+                                            }
                                             : undefined
                                     }
                                     onChange={ (newValue) => {
@@ -212,7 +213,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                                 newValue as {
                                                     value: Flockfysh.AssetType;
                                                 }
-                                            ).value
+                                            ).value,
                                         );
                                     } }
                                     classNames={ {
@@ -260,7 +261,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                     <p>Minimum Number of Items</p>
 
                                     { /* TODO: need to change the scroll. React select */ }
-                                    <input type="number" required={ true } />
+                                    <input type="number" required={ true }/>
                                 </>
                             ) }
                         </label>
@@ -425,7 +426,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                     <p>Deadline</p>
 
                                     { /* TODO: need to change the icon color */ }
-                                    <input type="date" required={ true } />
+                                    <input type="date" required={ true }/>
                                 </>
                             ) }
                         </label>
@@ -469,13 +470,13 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                 <>
                                     <p>Save Dataset</p>
 
-                                    <ReactSVG src={ save.src } />
+                                    <ReactSVG src={ save.src }/>
                                 </>
                             ) : (
                                 <>
                                     <p>Request Dataset</p>
 
-                                    <ReactSVG src={ coinStack.src } />
+                                    <ReactSVG src={ coinStack.src }/>
                                 </>
                             ) }
                         </button>

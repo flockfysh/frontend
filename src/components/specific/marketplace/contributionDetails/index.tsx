@@ -8,7 +8,7 @@ import {
   BsGrid3X3,
   BsReverseListColumnsReverse,
 } from 'react-icons/bs';
-import { AiOutlineFieldTime } from 'react-icons/ai';
+import { AiOutlineFieldTime, AiOutlineFile } from 'react-icons/ai';
 import { MdOpenInNew } from 'react-icons/md';
 
 import { formToJSON } from 'axios';
@@ -37,26 +37,26 @@ function UserCard(props: { user: RedactedUser }) {
 }
 
 function Message(props: { message: ExpandedPullRequestMessage }) {
-  return (
-    <div className={ classes.message }>
-      <div className={ classes.messageHeader }>
-        <UserCard user={ props.message.user }></UserCard>
-        <div className={ classes.time }>
-          <AiOutlineFieldTime />
-          <h3>
-            { ' ' }
-            { Math.round(
-              Math.abs(
-                new Date().getTime() -
-                  new Date(props.message.createdAt).getTime()
-              ) / 3.6e6
-            ) }{ ' ' }
-            hours ago
-          </h3>
+    return (
+        <div className={ classes.message }>
+            <div className={ classes.messageHeader }>
+                <UserCard user={ props.message.user }></UserCard>
+                <div className={ classes.time }>
+                    <AiOutlineFieldTime/>
+                    <h3>
+                        { ' ' }
+                        { Math.round(
+                            Math.abs(
+                                new Date().getTime() -
+                                new Date(props.message.createdAt).getTime(),
+                            ) / 3.6e6,
+                        ) }{ ' ' }
+                        hours ago
+                    </h3>
+                </div>
+            </div>
+            <p>{ props.message.message }</p>
         </div>
-      </div>
-      <p>{ props.message.message }</p>
-    </div>
   );
 }
 

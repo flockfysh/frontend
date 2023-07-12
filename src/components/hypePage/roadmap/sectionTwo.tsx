@@ -17,29 +17,25 @@ const cardsInfo = [
     {
         name: 'rapid-experimentation',
         title: 'Rapid Experimentation',
-        description:
-            'Quickly test many datasets to leverage transfer learning and custom pre-training.',
+        description: 'Quickly test many datasets to leverage custom pretraining, finetuning, or evaluation.',
         icon: rapidExperimentationIcon.src,
     },
     {
         name: 'lightning-fast',
         title: 'Lightning Fast',
-        description:
-            'Initiate flockfysh and get large-scale datasets in a few days.',
+        description: 'Got an idea? The dataset will come within a month!',
         icon: lightningFastIcon.src,
     },
     {
         name: 'absolute-control',
         title: 'Absolute Control',
-        description:
-            'Make real-time corrections to your datasets. We\'ll regularly send you samples throughout the process. ',
+        description: 'Have complete control over what kind of data composes your dataset. Easy automate and receive scheduled notifications on contributions',
         icon: absoluteControlIcon.src,
     },
     {
-        name: 'minimal-human-effort',
-        title: 'Minimal Human Effort',
-        description:
-            'Provide 5 minutes of your time for a fully annotated, large-scale dataset. Countless hours of manual labeling is now obsolete.',
+        name: 'together',
+        title: 'Bringing everything together',
+        description: 'Provide 5 minutes of your time for a fully annotated, large-scale dataset with top notch QA. Use workflows to control the ins and outs of every part of the process.',
         icon: minimalHumanEffortIcon.src,
     },
 ];

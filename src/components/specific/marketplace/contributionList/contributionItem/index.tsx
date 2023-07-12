@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { ReactSVG } from 'react-svg';
 
 import { dayjs } from '@/helpers/date';
-
+import plus from '@/icons/main/plus-circle.svg';
 import check from '@/icons/main/check.svg';
 import close from '@/icons/main/x-circle.svg';
 import info from '@/icons/main/info.svg';
@@ -20,22 +20,22 @@ const statusesValues: Record<
     }
 > = {
     merged: {
-        icon: <ReactSVG className={ classes.icon } src={ check.src } />,
+        icon: <ReactSVG className={ classes.icon } src={ check.src }/>,
         label: 'Accepted',
         styles: classes.statusAcceptedBorder,
     },
     rejected: {
-        icon: <ReactSVG className={ classes.icon } src={ close.src } />,
+        icon: <ReactSVG className={ classes.icon } src={ close.src }/>,
         label: 'Rejected',
         styles: classes.statusRejectedBorder,
     },
     published: {
-        icon: <ReactSVG className={ classes.icon } src={ info.src } />,
+        icon: <ReactSVG className={ classes.icon } src={ info.src }/>,
         label: 'In Review',
         styles: classes.statusInReviewBorder,
     },
     draft: {
-        icon: <ReactSVG className={ classes.icon } src={ info.src } />,
+        icon: <ReactSVG className={ classes.icon } src={ info.src }/>,
         label: 'Draft',
         styles: classes.statusInReviewBorder,
     },
@@ -50,16 +50,16 @@ function StatusBadge({ status }: { status: Flockfysh.PullRequestStatus }) {
         >
             { thisStatusContent?.icon }
 
-            <div className={ classes.statusBadgeSeparator } />
+            <div className={ classes.statusBadgeSeparator }/>
             <span>{ thisStatusContent?.label }</span>
         </div>
     );
 }
 
 export const ContributionItem = ({
-    contribution,
-    datasetId,
-}: {
+                                     contribution,
+                                     datasetId,
+                                 }: {
     datasetId: string;
     contribution: ExpandedPullRequest;
 }) => {
@@ -77,12 +77,12 @@ export const ContributionItem = ({
 
                     { /* tags */ }
                     <div>
-                        <StatusBadge status={ contribution.status } />
+                        <StatusBadge status={ contribution.status }/>
                     </div>
                 </div>
 
                 <div className={ classes.datetime }>
-                    <ReactSVG className={ classes.icon } src={ timer.src } />
+                    <ReactSVG className={ classes.icon } src={ timer.src }/>
                     <span>{ dayjs(contribution.updatedAt).fromNow() }</span>
                 </div>
             </div>
@@ -94,9 +94,16 @@ export const ContributionItem = ({
                     { contribution.user?.username.slice(0, 16) }
                 </div>
 
-                <div className={ classes.messageBadge }>
-                    <ReactSVG className={ classes.icon } src={ commenting.src } />
-                    <span>{ contribution.stats.messages }</span>
+                <div className={ classes.itemStats }>
+                    <div className={ classes.messageBadge }>
+                        <ReactSVG className={ classes.icon } src={ plus.src }/>
+                        <span>{ contribution.stats.newAssets }</span>
+                    </div>
+
+                    <div className={ classes.messageBadge }>
+                        <ReactSVG className={ classes.icon } src={ commenting.src }/>
+                        <span>{ contribution.stats.messages }</span>
+                    </div>
                 </div>
             </div>
         </div>

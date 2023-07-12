@@ -4,7 +4,6 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { NextPage } from 'next';
 
-import NotificationWrapper from '@/contexts/notificationContext';
 import { UserWrapper } from '@/contexts/userContext';
 import { ErrorWrapper } from '@/contexts/errorContext';
 import { ScreenWrapper } from '@/contexts/screenContext';
@@ -42,7 +41,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
                     content="width=device-width, initial-scale=1"
                 />
 
-                <link rel="icon" href="/favicon.ico" />
+                <link rel="icon" href="/favicon.ico"/>
             </Head>
 
             <EmotionCacheProvider>
@@ -51,7 +50,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
                         <DownloaderWrapper>
                             { /* <TopLevelErrorBoundary> */ }
                             <ErrorWrapper>
-                                <NotificationWrapper />
+                                { /*<NotificationWrapper />*/ }
 
                                 { getLayout(<Component { ...pageProps } />) }
                             </ErrorWrapper>

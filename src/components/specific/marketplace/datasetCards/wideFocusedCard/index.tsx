@@ -9,11 +9,21 @@ import { getDefaultDatasetThumbnail } from '@/helpers/defaults';
 import classes from './styles.module.css';
 
 export default function WideFocusedCard(props: HomepageDataset) {
+    const gradientFunction = () => {
+        const gradients = ['#92A1C6', '#146A7C'];
+        return gradients[Math.round(Math.random() * 1)];
+    };
+
+    const gradientFunction2 = () => {
+        const gradients = ['#F0AB3D', '#C271B4', '#C20D90'];
+        return gradients[Math.round(Math.random() * 2)];
+    };
+    
     return (
         <div className={ classes.cardContainer }>
             <div className={ classes.header }>
                 <div className={ classes.thumbnail }>
-                    { props.icon && <img src={ props.icon?.url } alt="avatar" /> }
+                    { props.icon && <img src={ props.icon?.url } alt="avatar"/> }
                 </div>
 
                 <DatasetTypeCard
@@ -22,14 +32,22 @@ export default function WideFocusedCard(props: HomepageDataset) {
                 />
             </div>
 
-            <Image
-                fill={ true }
-                alt="Dataset thumbnail"
+            <div
                 className={ classes.image }
-                src={
-                    props.thumbnail?.url ??
-                    getDefaultDatasetThumbnail(props.type).src
-                }
+                style={ {
+                    background:
+                        'linear-gradient(' +
+                        Math.round(Math.random() * 360) +
+                        'deg, ' +
+                        gradientFunction() +
+                        ' ' +
+                        Math.round(Math.random() * 30) +
+                        '%,' +
+                        gradientFunction2() +
+                        ' ' +
+                        Math.round(Math.random() * 35 + 70) +
+                        '%)',
+                } }
             />
 
             <div className={ classes.overlay } />
@@ -43,9 +61,9 @@ export default function WideFocusedCard(props: HomepageDataset) {
 
             <div className={ classes.footer }>
                 <div className={ classes.left }>
-                    <img src={ props.user.profilePhoto?.url } alt="pfp" />
+                    <img src={ props.user.profilePhoto?.url } alt="pfp"/>
 
-                    <p>@{ props.user.username.slice(0, 15) }</p>
+                    <p>@{ props.user.username.slice(0, 16) }</p>
                 </div>
 
                 <div className={ classes.right }>

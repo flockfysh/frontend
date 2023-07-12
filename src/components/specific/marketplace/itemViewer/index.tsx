@@ -37,7 +37,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
             { /* header */ }
             <div className={ classes.mainContentHeader }>
                 <label className={ classes.searchContainer }>
-                    <ReactSVG src={ search.src } className={ classes.searchIcon } />
+                    <ReactSVG src={ search.src } className={ classes.searchIcon }/>
 
                     <input
                         type="search"
@@ -58,7 +58,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
                             }` }
                             onClick={ toggleViewToGrid }
                         >
-                            <ReactSVG className={ classes.icon } src={ grid.src } />
+                            <ReactSVG className={ classes.icon } src={ grid.src }/>
                         </button>
 
                         <button
@@ -67,7 +67,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
                             }` }
                             onClick={ toggleViewToList }
                         >
-                            <ReactSVG className={ classes.icon } src={ list.src } />
+                            <ReactSVG className={ classes.icon } src={ list.src }/>
                         </button>
                     </div>
 
@@ -158,7 +158,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
                                             <span>{ count }</span>
                                         </div>
                                     );
-                                }
+                                },
                             ) }
                         </div>
                     </div>
@@ -277,6 +277,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
 
                     {
                         <AssetViewer
+                            datasetPermissionLevel={ dataset.permission }
                             showList={ showList }
                             searchQuery={ {
                                 displayName: currentNameQuery || undefined,

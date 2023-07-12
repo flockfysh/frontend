@@ -22,24 +22,29 @@ import cpu from '@/icons/main/cpu.svg';
 import flag from '@/icons/main/flag.svg';
 import download from '@/icons/main/download.svg';
 import bookmark from '@/icons/main/bookmark.svg';
+import bookmarkFilled from '@/icons/main/bookmarkFilled.svg';
 
 import classes from './styles.module.css';
 import { DATASET_LICENSE_DESCRIPTION } from '@/helpers/enums/license';
+import { genPurchaseUrl } from '@/helpers/endpoints/datasets';
+import { UserContext } from '@/contexts/userContext';
 
 export const DatasetInfoContext = createContext<PreviewDataset | undefined>(
-    undefined
+    undefined,
 );
 
 export default function DatasetInfo(props: PropsWithChildren) {
     const router = useRouter();
-
     const [dataset, setDataset] = useState<PreviewDataset | undefined>();
+    const [liked, setLike] = useState(false);
+    const [bookmarked, setBookmark] = useState(false);
+    const [likeCounts, setLikeCounts] = useState(0);
     const { downloadDataset } = useContext(DownloaderContext);
+
+    const datasetId = router.query.datasetId;
 
     useEffect(() => {
         async function load() {
-            const datasetId = router.query.datasetId;
-
             if (typeof datasetId !== 'string') return;
 
             const result = (
@@ -49,7 +54,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
                         params: {
                             expand: 'size,assetCounts,annotationCounts,user,contributors,thumbnail,icon,permission',
                         },
-                    }
+                    },
                 )
             ).data.data;
 
@@ -61,9 +66,36 @@ export default function DatasetInfo(props: PropsWithChildren) {
         }
 
         load().then();
-    }, [router.query.datasetId]);
+    }, [datasetId]);
 
-    if (!dataset || typeof router.query.datasetId !== 'string') return <></>;
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await api.get(`/api/datasets/${datasetId}/likes/count`);
+            setLikeCounts(res.data.data);
+        };
+        
+        fetchData();
+    }, [datasetId]);
+    
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await api.get(`/api/datasets/${datasetId}/likes`);
+            setLike(res.data.data);
+        };
+        
+        fetchData();
+    }, [datasetId]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await api.get(`/api/datasets/${datasetId}/bookmarks`);
+            setBookmark(res.data.data);
+        };
+        
+        fetchData();
+    }, [datasetId]);
+
+    if (!dataset || typeof datasetId !== 'string') return <></>;
 
     return (
         <DatasetInfoContext.Provider value={ dataset }>
@@ -86,7 +118,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                 src={ cpu.src }
                             />
 
-                            <div className={ classes.imageTagSeparator } />
+                            <div className={ classes.imageTagSeparator }/>
 
                             <span className={ classes.imageTagText }>
                                 { dataset.type.toUpperCase() }
@@ -120,45 +152,94 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                         />
                                     </button>
 
-                                    <button className={ classes.basicButton }>
+                                    <button
+                                        className={ classes.basicButton }
+                                        onClick={ async () => {
+                                            setBookmark(!bookmarked);
+                                            if (!bookmarked) {
+                                                await api.post(`/api/datasets/${datasetId}/bookmarks`);
+                                                setBookmark(true);
+                                            }
+                                            else {
+                                                await api.delete(`/api/datasets/${datasetId}/bookmarks`);
+                                                setBookmark(false);
+                                            }
+                                        }}
+                                    >
                                         <ReactSVG
                                             className={ classes.imageTagIcon }
-                                            src={ bookmark.src }
+                                            src={ bookmarked ? bookmarkFilled.src : bookmark.src }
                                         />
                                     </button>
                                 </div>
 
-                                <ActionPopupWithButton
-                                    button={ (
-                                        <button
-                                            className={ classes.contributeButton }
+                                { dataset.permission !== 'preview' ? (
+                                    <>
+                                        <ActionPopupWithButton
+                                            button={ (
+                                                <button
+                                                    className={ classes.contributeButton }
+                                                >
+                                                    Contribute
+                                                </button>
+                                            ) }
+                                            popupTitle={ 'Contribute' }
+                                            variant={ 'marketplace' }
                                         >
-                                            Contribute
+                                            <Contribute dataset={ dataset }/>
+                                        </ActionPopupWithButton>
+                                        
+                                        <button
+                                            className={ classes.downloadButton}
+                                            onClick={ async () => {
+                                                setLike(!liked);
+                                                if (!liked) {
+                                                    await api.post(`/api/datasets/${datasetId}/likes`);
+                                                    const res = await api.get(`/api/datasets/${datasetId}/likes/count`);
+                                                    setLikeCounts(res.data.data);
+                                                    setLike(true);
+                                                }
+                                                else {
+                                                    await api.delete(`/api/datasets/${datasetId}/likes`);
+                                                    const res = await api.get(`/api/datasets/${datasetId}/likes/count`);
+                                                    setLikeCounts(res.data.data);
+                                                    setLike(false);
+                                                }
+                                            }}
+                                        >
+                                            <span>{ liked ? 'Unlike' : 'Like' }</span>
+                                            <span>{ likeCounts }</span>
                                         </button>
-                                      ) }
-                                    popupTitle={ 'Contribute' }
-                                    variant={ 'marketplace' }
-                                >
-                                    <Contribute dataset={ dataset } />
-                                </ActionPopupWithButton>
 
-                                <button
-                                    className={ classes.downloadButton }
-                                    onClick={ () => downloadDataset(dataset._id) }
-                                >
-                                    <ReactSVG
-                                        className={ classes.imageTagIcon }
-                                        src={ download.src }
-                                    />
+                                        <button
+                                            className={ classes.downloadButton }
+                                            onClick={ () => downloadDataset(dataset._id) }
+                                        >
+                                            <ReactSVG
+                                                className={ classes.imageTagIcon }
+                                                src={ download.src }
+                                            />
 
-                                    <span>
+                                            <span>
                                         Download (
-                                        { formatFileSize(
-                                            dataset.size.total.total
-                                        ) }
-                                        )
+                                                { formatFileSize(
+                                                    dataset.size.total.total,
+                                                ) }
+                                                )
                                     </span>
-                                </button>
+                                        </button>
+                                    </>
+                                ) : (
+                                    <button
+                                        className={ classes.contributeButton }
+                                        onClick={ async () => {
+                                            const url = await genPurchaseUrl(dataset._id);
+                                            await router.push(url);
+                                        } }
+                                    >
+                                        Buy for ${ dataset.price.toFixed(2) }
+                                    </button>
+                                ) }
                             </div>
                         </div>
 

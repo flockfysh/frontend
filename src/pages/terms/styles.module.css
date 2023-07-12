@@ -1,0 +1,25 @@
+.mainHypepageContainer {
+    background-color: #040409;
+}
+
+.mainHypepageWrapper {
+    position: absolute;
+    width: 100%;
+    padding: 1.5rem 1rem;
+}
+
+.allHeaders {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.strongHeaders{
+    font-weight: bolder;
+
+}
+
+@media only all and (min-width: 910px) {
+    .mainHypepageWrapper {
+        padding: 2.5rem 3rem;
+    }
+}

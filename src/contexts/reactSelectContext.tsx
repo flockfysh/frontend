@@ -8,6 +8,7 @@ export function EmotionCacheProvider(props: PropsWithChildren) {
         return createCache({
             key: 'css-module',
             prepend: true,
+            speedy: true,
         });
     }, []);
 

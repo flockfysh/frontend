@@ -8,6 +8,29 @@
     position: fixed;
     align-items: center;
     justify-content: center;
+    animation: 0.15s ease-in-out 1 modalFadeIn;
+}
+
+.fadeOut {
+    animation: 0.15s ease-in-out 1 modalFadeOut forwards;
+}
+
+@keyframes modalFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes modalFadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }
 
 .container {
@@ -17,6 +40,8 @@
     min-height: 30%;
     width: fit-content;
     position: relative;
+    display: flex;
+    flex-direction: column;
     background: var(--background, #141414);
     box-shadow: 0px 0px 40px #d2e1ff34;
     overflow: auto;

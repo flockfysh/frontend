@@ -61,6 +61,7 @@ export default function VerticalCollectionCard(props: HomepageCollection) {
                                 className={ classes.profileCard }
                                 username={ props.user.username }
                                 profilePicture={ props.user.profilePhoto?.url ?? '' }
+                                showMenu={ false }
                             />
                         </div>
                     </div>

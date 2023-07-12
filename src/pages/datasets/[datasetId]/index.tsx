@@ -44,9 +44,9 @@ const MyDatasets: NextPageWithLayout = function () {
                     `/api/datasets/${datasetId}`,
                     {
                         params: {
-                            expand: 'size,assetCounts,annotationCounts',
+                            expand: 'size,assetCounts,annotationCounts,permission',
                         },
-                    }
+                    },
                 )
             ).data.data;
             setDataset(result);
@@ -109,13 +109,13 @@ const MyDatasets: NextPageWithLayout = function () {
                 <div className={ classes.datasetInfoStatusWrapper }>
                     { /* current progress */ }
                     <div>
-                        <CircleProgressBar value={ 50 } size={ 150 } />
+                        <CircleProgressBar value={ 50 } size={ 150 }/>
                     </div>
 
                     { /* specific progress data */ }
                     <div className={ classes.datasetInfoSpecificData }>
                         { datasetProgressFakeData.map((item, index) => (
-                            <SpecificProgressData { ...item } key={ index } />
+                            <SpecificProgressData { ...item } key={ index }/>
                         )) }
                     </div>
                 </div>
@@ -147,7 +147,7 @@ const MyDatasets: NextPageWithLayout = function () {
                                 />
                             </button>
 
-                            <div className={ classes.separator } />
+                            <div className={ classes.separator }/>
 
                             <button onClick={ toggleViewToList }>
                                 <ReactSVG
@@ -170,18 +170,18 @@ const MyDatasets: NextPageWithLayout = function () {
                         <button
                             onClick={ () => {
                                 router.push(
-                                    '../annotate/' + router.query.datasetId
+                                    '../annotate/' + router.query.datasetId,
                                 );
                             } }
                             className={ classes.actionButtonInitiateTraining }
                         >
                             Initiate Training
-                            <ReactSVG className={ classes.icon } src={ cpu.src } />
+                            <ReactSVG className={ classes.icon } src={ cpu.src }/>
                         </button>
 
                         <button className={ classes.actionButtonAnnotated }>
                             Annotated
-                            <ReactSVG className={ classes.icon } src={ edit.src } />
+                            <ReactSVG className={ classes.icon } src={ edit.src }/>
                         </button>
                     </div>
                 </div>
@@ -194,6 +194,7 @@ const MyDatasets: NextPageWithLayout = function () {
                     searchQuery={ {
                         displayName: currentNameQuery || undefined,
                     } }
+                    datasetPermissionLevel={ dataset.permission }
                     datasetId={ router.query.datasetId }
                 />
             }

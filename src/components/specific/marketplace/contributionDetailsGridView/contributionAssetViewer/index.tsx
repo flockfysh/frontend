@@ -20,7 +20,7 @@ import Image from 'next/image';
 import typeIs from 'type-is';
 import dayjs from 'dayjs';
 
-import { capitalize } from '@/helpers/strings';
+import { capitalize } from '@/helpers/dataManipulation/strings';
 import { formatFileSize } from '@/helpers/formatting';
 import api from '@/helpers/api';
 
@@ -30,7 +30,7 @@ import { useStateWithDeps } from 'use-state-with-deps';
 const TableComponents = {
     Scroller: forwardRef<HTMLDivElement, ScrollerProps>(function _Scroller(
         props,
-        ref
+        ref,
     ) {
         return (
             <TableContainer
@@ -46,10 +46,10 @@ const TableComponents = {
     }),
     Table: forwardRef<HTMLTableElement, TableProps>(function _Table(
         props,
-        ref
+        ref,
     ) {
         return (
-            <Table { ...props } className={ classes.viewerTableInner } ref={ ref } />
+            <Table { ...props } className={ classes.viewerTableInner } ref={ ref }/>
         );
     }),
     TableHead: forwardRef<HTMLTableSectionElement, TableHeadProps>(
@@ -63,11 +63,11 @@ const TableComponents = {
                     ref={ ref }
                 />
             );
-        }
+        },
     ),
     TableRow: forwardRef<HTMLTableRowElement, TableRowProps>(function _TableRow(
         props: TableRowProps,
-        ref
+        ref,
     ) {
         return (
             <TableRow
@@ -88,7 +88,7 @@ const TableComponents = {
                     ref={ ref }
                 />
             );
-        }
+        },
     ),
 };
 
@@ -129,8 +129,8 @@ function AssetTile(props: {
             />
         );
     else if (typeIs.is(props.item.mimetype, ['text/*', 'application/json']))
-        component = <TextComponent url={ props.item.url } />;
-    else component = <div />;
+        component = <TextComponent url={ props.item.url }/>;
+    else component = <div/>;
 
     return <div className={ classes.imageWrapper }>{ component }</div>;
 }
@@ -140,8 +140,8 @@ interface AssetViewerState {
     assets: Map<
         string,
         Flockfysh.Asset & {
-            selected: boolean;
-        }
+        selected: boolean;
+    }
     >;
     initialLoad: boolean;
     next: string | undefined;
@@ -181,7 +181,7 @@ export default function AssetViewer(props: {
 
     async function delAsset(id: string) {
         await api.delete(
-            `/api/pullRequests/${props.contributionId}/assets/existing/${id}`
+            `/api/pullRequests/${props.contributionId}/assets/existing/${id}`,
         );
         state.assets.delete(id);
         setState((prev) => {
@@ -197,7 +197,7 @@ export default function AssetViewer(props: {
                         <input
                             type="checkbox"
                             checked={ assetArray.every(
-                                (asset) => asset.selected
+                                (asset) => asset.selected,
                             ) }
                             onChange={ (e) => {
                                 const checked = e.currentTarget.checked;
@@ -223,7 +223,7 @@ export default function AssetViewer(props: {
 
                     <CustomTableCell>Size</CustomTableCell>
 
-                    <CustomTableCell />
+                    <CustomTableCell/>
                 </TableRow>
             </>
         );
@@ -244,7 +244,7 @@ export default function AssetViewer(props: {
                                     displayName: props.searchQuery.displayName,
                                     limit: numItems,
                                 },
-                            }
+                            },
                         )
                     ).data;
 
@@ -276,7 +276,7 @@ export default function AssetViewer(props: {
             state.hasMore,
             state.next,
             setState,
-        ]
+        ],
     );
 
     useEffect(() => {
@@ -347,7 +347,7 @@ export default function AssetViewer(props: {
                             <CustomTableCell className={ classes.uploadDate }>
                                 <span>
                                     { dayjs(data.uploadedAt).format(
-                                        'DD/MM/YYYY'
+                                        'DD/MM/YYYY',
                                     ) }
                                 </span>
                             </CustomTableCell>

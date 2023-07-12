@@ -21,7 +21,7 @@ import Image from 'next/image';
 import typeIs from 'type-is';
 import dayjs from 'dayjs';
 
-import { capitalize } from '@/helpers/strings';
+import { capitalize } from '@/helpers/dataManipulation/strings';
 import { formatFileSize } from '@/helpers/formatting';
 import api from '@/helpers/api';
 
@@ -29,11 +29,15 @@ import trash from '@/icons/main/trash-2.svg';
 
 import classes from './styles.module.css';
 import { useStateWithDeps } from 'use-state-with-deps';
+import { prop } from 'react-data-table-component/dist/src/DataTable/util';
+import { genPurchaseUrl } from '@/helpers/endpoints/datasets';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const TableComponents = {
     Scroller: forwardRef<HTMLDivElement, ScrollerProps>(function _Scroller(
         props,
-        ref
+        ref,
     ) {
         return (
             <TableContainer
@@ -49,10 +53,10 @@ const TableComponents = {
     }),
     Table: forwardRef<HTMLTableElement, TableProps>(function _Table(
         props,
-        ref
+        ref,
     ) {
         return (
-            <Table { ...props } className={ classes.viewerTableInner } ref={ ref } />
+            <Table { ...props } className={ classes.viewerTableInner } ref={ ref }/>
         );
     }),
     TableHead: forwardRef<HTMLTableSectionElement, TableHeadProps>(
@@ -66,11 +70,11 @@ const TableComponents = {
                     ref={ ref }
                 />
             );
-        }
+        },
     ),
     TableRow: forwardRef<HTMLTableRowElement, TableRowProps>(function _TableRow(
         props: TableRowProps,
-        ref
+        ref,
     ) {
         return (
             <TableRow
@@ -91,7 +95,7 @@ const TableComponents = {
                     ref={ ref }
                 />
             );
-        }
+        },
     ),
 };
 
@@ -132,8 +136,8 @@ function AssetTile(props: {
             />
         );
     else if (typeIs.is(props.item.mimetype, ['text/*', 'application/json']))
-        component = <TextComponent url={ props.item.url } />;
-    else component = <div />;
+        component = <TextComponent url={ props.item.url }/>;
+    else component = <div/>;
 
     return (
         <div className={ classes.imageWrapper }>
@@ -145,7 +149,7 @@ function AssetTile(props: {
                     props.delAsset(props.item._id);
                 } }
             >
-                <ReactSVG className={ classes.icon } src={ trash.src } />
+                <ReactSVG className={ classes.icon } src={ trash.src }/>
             </button>
         </div>
     );
@@ -156,8 +160,8 @@ interface AssetViewerState {
     assets: Map<
         string,
         Flockfysh.Asset & {
-            selected: boolean;
-        }
+        selected: boolean;
+    }
     >;
     initialLoad: boolean;
     next: string | undefined;
@@ -177,9 +181,11 @@ function CustomTableCell(props: TableCellProps) {
 
 export default function AssetViewer(props: {
     datasetId: string;
+    datasetPermissionLevel?: Flockfysh.DatasetAccessLevel;
     searchQuery: { displayName?: string };
     showList: boolean;
 }) {
+    const router = useRouter();
     const initialState = (): AssetViewerState => {
         return {
             assets: new Map(),
@@ -211,7 +217,7 @@ export default function AssetViewer(props: {
                         <input
                             type="checkbox"
                             checked={ assetArray.every(
-                                (asset) => asset.selected
+                                (asset) => asset.selected,
                             ) }
                             onChange={ (e) => {
                                 const checked = e.currentTarget.checked;
@@ -237,7 +243,7 @@ export default function AssetViewer(props: {
 
                     <CustomTableCell>Size</CustomTableCell>
 
-                    <CustomTableCell />
+                    <CustomTableCell/>
                 </TableRow>
             </>
         );
@@ -258,7 +264,7 @@ export default function AssetViewer(props: {
                                     displayName: props.searchQuery.displayName,
                                     limit: numItems,
                                 },
-                            }
+                            },
                         )
                     ).data;
 
@@ -290,7 +296,7 @@ export default function AssetViewer(props: {
             state.hasMore,
             state.next,
             setState,
-        ]
+        ],
     );
 
     useEffect(() => {
@@ -305,6 +311,20 @@ export default function AssetViewer(props: {
             load(20).then();
         }
     }, [state, load, setState]);
+
+    if (props.datasetPermissionLevel === 'preview') {
+        return (
+            <div className={ classes.purchaseOverlay }>
+                <h2 className={ classes.purchaseHeading }>
+                    This dataset requires purchasing access.
+                </h2>
+                <p><Link href={ '#' } className={ classes.purchaseLink } onClick={ async () => {
+                    const url = await genPurchaseUrl(props.datasetId);
+                    await router.push(url);
+                } }>Purchase this dataset</Link> to gain access to its datasets.</p>
+            </div>
+        );
+    }
 
     if (!props.showList) {
         return (
@@ -361,7 +381,7 @@ export default function AssetViewer(props: {
                             <CustomTableCell className={ classes.uploadDate }>
                                 <span>
                                     { dayjs(data.uploadedAt).format(
-                                        'DD/MM/YYYY'
+                                        'DD/MM/YYYY',
                                     ) }
                                 </span>
                             </CustomTableCell>

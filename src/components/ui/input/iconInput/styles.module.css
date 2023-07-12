@@ -1,0 +1,59 @@
+.eachLinkDiv {
+    position: relative;
+    height: fit-content;
+}
+
+.eachLinkDiv:not(:first-of-type) {
+    margin-top: 1.2rem;
+}
+
+.eachLinkDiv:first-of-type {
+    margin-top: 3rem;
+}
+
+.eachLinkDiv:first-of-type .inputIcons {
+    top: 0.75rem;
+}
+
+.linkInput {
+    background: var(--main-grey);
+    padding: 0.7rem 1.3rem;
+    padding-left: 3.3rem;
+    border-radius: 0.8rem;
+}
+
+.linkInput:focus {
+    outline: none;
+}
+
+.icons {
+    height: fit-content;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.icons:hover {
+    color: var(--primary1-200);
+}
+
+.icons svg {
+    width: 1.2rem;
+    display: inline-block;
+    margin-bottom: -0.3rem;
+}
+
+.inputIcons {
+    position: absolute;
+    z-index: 2;
+    left: 1rem;
+    top: 0.65rem;
+}
+
+.inputIcons svg {
+    height: 1.2rem;
+}
+
+.errors {
+    font-size: small;
+    color: red;
+}

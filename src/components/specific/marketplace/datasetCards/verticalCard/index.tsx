@@ -16,7 +16,7 @@ import classes from './styles.module.css';
 export default function VerticalCard(
     props: HomepageDataset & {
         className?: string;
-    }
+    },
 ) {
     return (
         <div className={ `${classes.container} ${props.className || ''}` }>
@@ -50,7 +50,7 @@ export default function VerticalCard(
 
                 <div className={ classes.middleSection }>
                     <h1>{ props.name }</h1>
-                    <p>@{ props.user.username.slice(0, 15) }</p>
+                    <p>@{ props.user.username.slice(0, 16) }</p>
                 </div>
 
                 <Link

@@ -12,8 +12,26 @@
     color: var(--primary1-100);
 }
 
-.heading {
+.navigationBar {
+    display: flex;
+    justify-content: space-between;
+    gap: 4rem;
+    align-items: center;
+}
+
+.navigationHeading {
+    font-weight: 700;
     font-size: 2rem;
+}
+
+.childContent {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.heading {
+    font-size: 1.75rem;
     font-weight: 700;
 }
 

@@ -9,22 +9,34 @@ import Profile from '@/components/layout/mainSidebar/profile';
 import home from '@/icons/main/home.svg';
 import document from '@/icons/main/file-text.svg';
 import settings from '@/icons/main/settings.svg';
+import money from '@/icons/main/dollar-sign.svg';
 import marketplace from '@/icons/main/shopping-cart.svg';
 import help from '@/icons/main/help-circle.svg';
 import bell from '@/icons/main/bell.svg';
 
 import classes from './styles.module.css';
+import _default from 'chart.js/dist/core/core.interaction';
+import api from '@/helpers/api';
+import { useRouter } from 'next/router';
 
 interface SidebarLinkProps {
     icon: StaticImageData;
     text: string;
     href: string;
+    onClick?: () => Promise<string>;
 }
 
 function SidebarLink(props: SidebarLinkProps) {
+    const router = useRouter();
+
     return (
-        <Link href={ props.href } className={ classes.sidebarLink }>
-            <ReactSVG src={ props.icon.src } className={ classes.sidebarLinkSVG } />
+        <Link href={ props.href } className={ classes.sidebarLink } onClick={ async () => {
+            const link = await props.onClick?.();
+            if (link) {
+                await router.push(link);
+            }
+        } }>
+            <ReactSVG src={ props.icon.src } className={ classes.sidebarLinkSVG }/>
             <span className={ classes.sidebarLinkText }>{ props.text }</span>
         </Link>
     );
@@ -41,20 +53,27 @@ const SECTION_1_LINKS: SidebarLinkProps[] = [
         text: 'Recipes',
         icon: document,
     },
-    // {
-    //     href: '/training',
-    //     text: 'Training',
-    //     icon: layers,
-    // },
-    // {
-    //     href: '/analytics',
-    //     text: 'Analytics',
-    //     icon: analytics,
-    // },
     {
         href: '/marketplace',
         text: 'Marketplace',
         icon: marketplace,
+    },
+    {
+        href: '#',
+        text: 'Manage Payout',
+        icon: money,
+        onClick: async () => {
+            try {
+                return await api.post<Api.Response<string>>('/api/users/payout/dashboard', {
+                    returnUrl: window.location.href,
+                }).then(res => res.data.data);
+            }
+ catch (e) {
+                return await api.post<Api.Response<string>>('/api/users/payout/onboarding', {
+                    returnUrl: window.location.href,
+                }).then(res => res.data.data);
+            }
+        },
     },
 ];
 
@@ -85,7 +104,7 @@ export default function MainSidebar() {
     return (
         <nav className={ classes.sidebar }>
             <div className={ classes.segment }>
-                <Logo />
+                <Logo/>
 
                 <div>
                     { SECTION_1_LINKS.map((props) => {
@@ -101,7 +120,7 @@ export default function MainSidebar() {
                     }) }
                 </div>
 
-                <Profile />
+                <Profile/>
             </div>
         </nav>
     );
