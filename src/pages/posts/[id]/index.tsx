@@ -1,6 +1,7 @@
 import {
     useState,
     useEffect,
+    useContext,
 } from 'react';
 import { ReactSVG } from 'react-svg';
 import { useRouter } from 'next/router';
@@ -10,18 +11,30 @@ import MarketplaceLayout from '@/components/layout/marketplaceLayout';
 import cpu from '@/icons/main/cpu.svg';
 import flag from '@/icons/main/flag.svg';
 import classes from './styles.module.css';
+import { UserContext } from '@/contexts/userContext';
+import EditPostModal from '@/components/specific/marketplace/editPostModal';
+import { PostContext } from '@/contexts/postContext';
 
 
 const PostItems = function () {
     const router = useRouter();
-    const [post, setPost] = useState<HomepagePost | undefined>();
+    const [postData, setPostData] = useState<HomepagePost>({
+        _id: '',
+        title: '',
+        content: '',
+        user: '',
+    });
     const [liked, setLike] = useState(false);
     const [likeCounts, setLikeCounts] = useState(0);
+    const [isPostModalOpen, setPostModalOpen] = useState(false)
+    const { user } = useContext(UserContext);
+    const { post } = useContext(PostContext)
 
     const postId = router.query.id;
+    const userId = user?._id;
 
     useEffect(() => {
-        async function load() {
+        const fetchDate = async () => {
             if (typeof postId !== 'string') return;
 
             const result = (
@@ -30,11 +43,20 @@ const PostItems = function () {
                 )
             ).data.data;
 
-            setPost(result);
-        }
+            setPostData(result);
+        };
 
-        load().then();
+        fetchDate();
     }, [postId]);
+
+    useEffect(() => {
+        setPostData({
+            _id: post._id,
+            title: post.title,
+            content: post.content,
+            user: post.user,
+        })
+    }, [post])
 
     useEffect(() => {
         const fetchData = async () => {
@@ -54,10 +76,13 @@ const PostItems = function () {
         fetchData();
     }, [postId]);
 
-    if (!post || typeof postId !== 'string') return <></>;
+    if (!postData || typeof postId !== 'string') return <></>;
     return (
         <MarketplaceLayout>
             <div className={ classes.container }>
+            { isPostModalOpen && (
+                <EditPostModal id={postId} onClose={ () => setPostModalOpen(false) } />
+            )}
             <header className={ classes.headerWrapper }>
                 { /* image */ }
                 <div className={ classes.imageWrapper }>
@@ -101,12 +126,6 @@ const PostItems = function () {
 
                         <div className={ classes.dataActionButtons }>
                             <div className={ classes.basicActionsWrapper }>
-                                <button className={ classes.basicButton }>
-                                    <ReactSVG
-                                        className={ classes.imageTagIcon }
-                                        src={ flag.src }
-                                    />
-                                </button>
                                 <button
                                     className={ classes.downloadButton}
                                     onClick={ async () => {
@@ -128,9 +147,31 @@ const PostItems = function () {
                                     <span>{ liked ? 'Unlike' : 'Like' }</span>
                                     <span>{ likeCounts }</span>
                                 </button>
+                                {postData.user === userId && (
+                                    <>
+                                        <button
+                                            className={ classes.downloadButton}
+                                            onClick={ async () => {
+                                                await api.delete(`/api/posts/${postId}`);
+                                                router.push('/marketplace');
+                                            }}
+                                        >
+                                            Delete
+                                        </button>
+                                        <button
+                                            className={ classes.downloadButton}
+                                            onClick={() => setPostModalOpen(true)}
+                                        >
+                                            Edit
+                                        </button>
+                                    </>
+                                )}
                             </div>
                         </div>
                     </div>
+                    <h2 className={ classes.name }>{ postData.title }</h2>
+                    <h5 className={ classes.username }>@{ postData.user }</h5>
+                    <p>{ postData.content }</p>
                 </div>
             </header>
         </div>
