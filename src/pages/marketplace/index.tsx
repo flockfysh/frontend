@@ -142,6 +142,7 @@ const Marketplace: NextPageWithLayout = function () {
     useEffect(() => {
         const fetchData = async () => {
             const res = await api.get('/api/posts/');
+            console.log({res})
             setPosts(res.data.data);
         };
 
