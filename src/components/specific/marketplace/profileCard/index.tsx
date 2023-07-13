@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Avatar from 'boring-avatars';
 
-import React, { useContext,  useState } from 'react';
+import React, { useContext, useId, useRef, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import api from '@/helpers/api';

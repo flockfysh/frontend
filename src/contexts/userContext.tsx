@@ -29,8 +29,6 @@ export function UserWrapper(props: PropsWithChildren) {
     const [meta, setMeta] = useState<UserContextMeta | null>(null);
 
     useEffect(() => {
-        navigator.serviceWorker.register('/sw.js');
-
         if (isLoading) {
             (async function getUserState() {
                 try {
