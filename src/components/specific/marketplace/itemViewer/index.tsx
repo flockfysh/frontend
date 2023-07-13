@@ -23,7 +23,6 @@ export default function ItemViewer(dataset: PreviewDataset) {
     const [showList, setShowList] = useState(true);
     const [timeFilter, setTimeFilter] = useState(TIME_STATES.sixHours);
     const [currentNameQuery, setCurrentNameQuery] = useState('');
-    console.log({dataset})
 
     const toggleViewToList = () => {
         setShowList(true);

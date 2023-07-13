@@ -30,10 +30,10 @@ const PostItems = function () {
     const [author, setAuthor] = useState({
         fullname: '',
         username: ''
-    })
-    const [isPostModalOpen, setPostModalOpen] = useState(false)
+    });
+    const [isPostModalOpen, setPostModalOpen] = useState(false);
     const { user } = useContext(UserContext);
-    const { post, setPost } = useContext(PostContext)
+    const { post, setPost } = useContext(PostContext);
 
     const postId = router.query.id;
     const userId = user?._id;
@@ -60,8 +60,8 @@ const PostItems = function () {
             title: post.title,
             content: post.content,
             user: post.user,
-        })
-    }, [post])
+        });
+    }, [post]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -84,15 +84,13 @@ const PostItems = function () {
     useEffect(() =>  {
         const fetchData = async () => {
             const res = await api.get(`/api/users/${post.user}`);
-            console.log(res.data.data)
             setAuthor({
                 fullname: res.data.data.fullName,
                 username: res.data.data.username
             });
         };
         fetchData();
-    }, [post])
-    console.log({author})
+    }, [post]);
 
     if (!postData || typeof postId !== 'string') return <></>;
     return (
@@ -121,7 +119,7 @@ const PostItems = function () {
                         <div className={ classes.imageTagSeparator }/>
 
                         <span className={ classes.imageTagText }>
-                            { "POST" }
+                            POST
                         </span>
                     </div>
                 </div>
@@ -188,7 +186,7 @@ const PostItems = function () {
                         </div>
                     </div>
                     <h2 className={ classes.name }>{ postData.title }</h2>
-                    <Link href={`/profile/${author.username}`} target='_blank' className={ classes.username }>Author: { author.fullname }</Link>
+                    <Link href={`/profile/${author.username}`} target="_blank" className={ classes.username }>Author: { author.fullname }</Link>
                     <p>{ postData.content }</p>
                 </div>
             </header>

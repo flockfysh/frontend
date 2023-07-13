@@ -1,4 +1,10 @@
-import { Dispatch, SetStateAction, PropsWithChildren, createContext, useState } from "react";
+import {
+    Dispatch,
+    SetStateAction,
+    PropsWithChildren,
+    createContext,
+    useState
+} from 'react';
 
 interface IPostContext {
     post: HomepagePost | {
@@ -22,7 +28,7 @@ export const PostContext = createContext<IPostContext>({
     posts: [],
     setPost: () => {},
     setPosts: () => {}
-})
+});
 
 export const PostWrapper = (props: PropsWithChildren) => {
     const [post, setPost] = useState<HomepagePost>({
@@ -30,12 +36,12 @@ export const PostWrapper = (props: PropsWithChildren) => {
         title: '',
         content: '',
         user: '',
-    })
-    const [posts, setPosts] = useState<HomepagePost[]>([])
+    });
+    const [posts, setPosts] = useState<HomepagePost[]>([]);
 
     return (
-        <PostContext.Provider value={{post, posts, setPost, setPosts}}>
+        <PostContext.Provider value={{ post, posts, setPost, setPosts }}>
             {props.children}
         </PostContext.Provider>
-    )
-}
+    );
+};

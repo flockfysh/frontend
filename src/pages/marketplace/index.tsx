@@ -34,7 +34,7 @@ const Marketplace: NextPageWithLayout = function () {
     const [featuredDatasets, setFeaturedDatasets] = useState<HomepageDataset[]>(
         []
     );
-    const { posts, setPosts } = useContext(PostContext)
+    const { posts, setPosts } = useContext(PostContext);
 
     useEffect(() => {
         async function fetch() {
@@ -142,12 +142,11 @@ const Marketplace: NextPageWithLayout = function () {
     useEffect(() => {
         const fetchData = async () => {
             const res = await api.get('/api/posts/');
-            console.log({res})
             setPosts(res.data.data);
         };
 
         fetchData();
-    }, []);
+    }, [setPosts]);
 
     const collections: HomepageCollection[] = Array.from({ length: 8 }, () => {
         return {

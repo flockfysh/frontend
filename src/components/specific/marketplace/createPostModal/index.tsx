@@ -19,16 +19,16 @@ type IFormInput = {
 export default function CreatePostModal(props: CreatePostModalProps) {
     const [isFadeOut, updateFadeOut] = useState(false);
     const { register, handleSubmit } = useForm<IFormInput>();
-    const { setPosts } = useContext(PostContext)
+    const { setPosts } = useContext(PostContext);
 
     const onSubmit: SubmitHandler<IFormInput> = async (data) => {
         await api.post('/api/posts/', {
             title: data.title,
             content: data.content
-        })
-        const res = await api.get('/api/posts/')
-        setPosts(res.data.data)
-    }
+        });
+        const res = await api.get('/api/posts/');
+        setPosts(res.data.data);
+    };
 
     return (
         <div
@@ -79,7 +79,7 @@ export default function CreatePostModal(props: CreatePostModalProps) {
                                 required={ true }
                             />
                         </label>
-                        <button type='submit' className={classes.createButton}>Create</button>
+                        <button type="submit" className={classes.createButton}>Create</button>
                     </div>
                 </form>
             </div>

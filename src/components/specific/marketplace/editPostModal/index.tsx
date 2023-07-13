@@ -22,11 +22,11 @@ export default function EditPostModal(props: EditPostModalProps) {
     const [formValues, setFormValues] = useState({
         title: '',
         content: ''
-    })
+    });
     const { register, handleSubmit, reset } = useForm<IFormInput>({
         defaultValues: formValues
     });
-    const { setPost, setPosts } = useContext(PostContext)
+    const { setPost, setPosts } = useContext(PostContext);
     const { id } = props;
 
     const onSubmit: SubmitHandler<IFormInput> = async (data) => {
@@ -38,20 +38,19 @@ export default function EditPostModal(props: EditPostModalProps) {
         setPost(res.data.data);
         res = await api.get('/api/posts/');
         setPosts(res.data.data);
-    }
+    };
 
     useEffect(() => {
         const fetchData = async () => {
             const res = await api.get(`/api/posts/${id}`);
-            console.log(res.data)
             setFormValues({
                 title: res.data.data.title,
                 content: res.data.data.content
-            })
+            });
         };
 
         fetchData();
-    }, [id])
+    }, [id]);
 
     useEffect(() => {
         reset(formValues);
@@ -106,7 +105,7 @@ export default function EditPostModal(props: EditPostModalProps) {
                                 required={ true }
                             />
                         </label>
-                        <button type='submit' className={classes.createButton}>Update</button>
+                        <button type="submit" className={classes.createButton}>Update</button>
                     </div>
                 </form>
             </div>
