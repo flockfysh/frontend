@@ -1,8 +1,13 @@
+import { useState, useEffect } from 'react'
 import Link from 'next/link';
+import api from '@/helpers/api';
 import ProfileCard from '../../profileCard';
 import classes from './styles.module.css';
 
 export default function VerticalPostCard(props: HomepagePost) {
+    const [likeCount, setLikeCounts] = useState(0)
+    const id = props._id
+
     const gradientFunction = () => {
         const gradients = ['#92A1C6', '#146A7C'];
         return gradients[Math.round(Math.random() * 1)];
@@ -12,6 +17,15 @@ export default function VerticalPostCard(props: HomepagePost) {
         const gradients = ['#F0AB3D', '#C271B4', '#C20D90'];
         return gradients[Math.round(Math.random() * 2)];
     };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await api.get(`/api/posts/${id}/likes/count`);
+            setLikeCounts(res.data.data);
+        };
+        
+        fetchData();
+    }, [id]);
 
     return (
         <div className={ classes.container }>
@@ -49,15 +63,16 @@ export default function VerticalPostCard(props: HomepagePost) {
 
                     <div className={ classes.footer }>
                         <div className={ classes.infoContainer }>
-                            <p className={ classes.infoHeader }>Datasets</p>
-                            <p className={ classes.info }>{ props.content.split('').slice(0, 7).join('') }</p>
+                            <p className={ classes.infoHeader }>Likes</p>
+                            <p className={ classes.info }>{ likeCount }</p>
                         </div>
 
                         <div className={ classes.profileCardContainer }>
                             <ProfileCard
                                 className={ classes.profileCard }
-                                username={ props.user.split('').slice(0, 7).join('') }
+                                username={ `user_${props.user}` }
                                 showMenu={ false }
+                                isPostCard={ true }
                             />
                         </div>
                     </div>

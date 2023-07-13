@@ -234,7 +234,7 @@ const Marketplace: NextPageWithLayout = function () {
 
             <section className={ classes.sectionContainer }>
                 <div className={ classes.headerContainer }>
-                    <h1 className={ classes.header }>Posts</h1>
+                    <h1 className={ classes.header }>Popular Posts</h1>
                 </div>
 
                 <PostSwiper posts={ posts } />
