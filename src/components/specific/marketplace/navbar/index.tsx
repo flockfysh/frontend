@@ -17,13 +17,14 @@ import penTool from '@/icons/main/pen-tool.svg';
 import userIcon from '@/icons/main/user.svg';
 
 import classes from './styles.module.css';
+import { ModalContext } from '@/contexts/modalContext';
 
 export default function MarketplaceNavbar() {
     const { user } = useContext(UserContext);
 
     const [isLogin, updateLogin] = useState(false);
     const [isDatasetModalOpen, updateDatasetModalOpen] = useState(false);
-    const [isPostModalOpen, updatePostModalOpen] = useState(false);
+    const { isCreatePostOpen, setCreatePostOpen } = useContext(ModalContext);
 
     return (
         <nav className={ classes.nav }>
@@ -31,8 +32,8 @@ export default function MarketplaceNavbar() {
                 <CreateDatasetModal onClose={ () => updateDatasetModalOpen(false) } />
             ) }
             
-            { isPostModalOpen && (
-                <CreatePostModal onClose={ () => updatePostModalOpen(false) } />
+            { isCreatePostOpen && (
+                <CreatePostModal onClose={ () => setCreatePostOpen(false) } />
             ) }
 
             { isLogin && (
@@ -63,7 +64,7 @@ export default function MarketplaceNavbar() {
                 { user ? (
                     <>
                         <ReactSVG
-                            onClick={ () => updatePostModalOpen(true) }
+                            onClick={ () => setCreatePostOpen(true) }
                             src={ penTool.src }
                             className={ classes.leftIcon }
                         />

@@ -15,7 +15,7 @@ import classes from './styles.module.css';
 import { UserContext } from '@/contexts/userContext';
 import EditPostModal from '@/components/specific/marketplace/editPostModal';
 import { PostContext } from '@/contexts/postContext';
-
+import { ModalContext } from '@/contexts/modalContext';
 
 const PostItems = function () {
     const router = useRouter();
@@ -31,9 +31,9 @@ const PostItems = function () {
         fullname: '',
         username: ''
     });
-    const [isPostModalOpen, setPostModalOpen] = useState(false);
     const { user } = useContext(UserContext);
     const { post, setPost } = useContext(PostContext);
+    const { isEditPostOpen, setEditPostOpen } = useContext(ModalContext);
 
     const postId = router.query.id;
     const userId = user?._id;
@@ -52,7 +52,7 @@ const PostItems = function () {
         };
 
         fetchDate();
-    }, [postId]);
+    }, [postId, setPost]);
 
     useEffect(() => {
         setPostData({
@@ -96,8 +96,8 @@ const PostItems = function () {
     return (
         <MarketplaceLayout>
             <div className={ classes.container }>
-            { isPostModalOpen && (
-                <EditPostModal id={postId} onClose={ () => setPostModalOpen(false) } />
+            { isEditPostOpen && (
+                <EditPostModal id={postId} onClose={ () => setEditPostOpen(false) } />
             )}
             <header className={ classes.headerWrapper }>
                 { /* image */ }
@@ -176,7 +176,7 @@ const PostItems = function () {
                                         </button>
                                         <button
                                             className={ classes.downloadButton}
-                                            onClick={() => setPostModalOpen(true)}
+                                            onClick={() => setEditPostOpen(true)}
                                         >
                                             Edit
                                         </button>

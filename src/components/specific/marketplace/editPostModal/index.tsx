@@ -6,6 +6,7 @@ import xmark from '@/icons/xmark.svg';
 import api from '@/helpers/api';
 import classes from './styles.module.css';
 import { PostContext } from '@/contexts/postContext';
+import { ModalContext } from '@/contexts/modalContext';
 
 type EditPostModalProps = {
     id: string,
@@ -27,6 +28,7 @@ export default function EditPostModal(props: EditPostModalProps) {
         defaultValues: formValues
     });
     const { setPost, setPosts } = useContext(PostContext);
+    const { setEditPostOpen } = useContext(ModalContext);
     const { id } = props;
 
     const onSubmit: SubmitHandler<IFormInput> = async (data) => {
@@ -38,6 +40,7 @@ export default function EditPostModal(props: EditPostModalProps) {
         setPost(res.data.data);
         res = await api.get('/api/posts/');
         setPosts(res.data.data);
+        setEditPostOpen(false);
     };
 
     useEffect(() => {

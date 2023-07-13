@@ -9,10 +9,11 @@ import { ErrorWrapper } from '@/contexts/errorContext';
 import { ScreenWrapper } from '@/contexts/screenContext';
 import { EmotionCacheProvider } from '@/contexts/reactSelectContext';
 import { DownloaderWrapper } from '@/contexts/downloaderContext';
+import { PostWrapper } from '@/contexts/postContext';
+import { ModalWrapper } from '@/contexts/modalContext';
 
 import '@/styles/reset.css';
 import '@/styles/globals.css';
-import { PostWrapper } from '@/contexts/postContext';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
     getLayout?: (page: React.ReactElement) => React.ReactNode;
@@ -47,19 +48,21 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
             <EmotionCacheProvider>
                 <ScreenWrapper>
-                    <UserWrapper>
-                        <DownloaderWrapper>
-                            <PostWrapper>
-                                { /* <TopLevelErrorBoundary> */ }
-                                <ErrorWrapper>
-                                    { /*<NotificationWrapper />*/ }
+                    <ModalWrapper>
+                        <UserWrapper>
+                            <DownloaderWrapper>
+                                <PostWrapper>
+                                    { /* <TopLevelErrorBoundary> */ }
+                                    <ErrorWrapper>
+                                        { /*<NotificationWrapper />*/ }
 
-                                    { getLayout(<Component { ...pageProps } />) }
-                                </ErrorWrapper>
-                                { /* </TopLevelErrorBoundary> */ }
-                            </PostWrapper>
-                        </DownloaderWrapper>
-                    </UserWrapper>
+                                        { getLayout(<Component { ...pageProps } />) }
+                                    </ErrorWrapper>
+                                    { /* </TopLevelErrorBoundary> */ }
+                                </PostWrapper>
+                            </DownloaderWrapper>
+                        </UserWrapper>
+                    </ModalWrapper>
                 </ScreenWrapper>
             </EmotionCacheProvider>
         </>

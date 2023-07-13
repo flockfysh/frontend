@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import api from '@/helpers/api';
 import ProfileCard from '../../profileCard';
 import classes from './styles.module.css';
 
 export default function VerticalPostCard(props: HomepagePost) {
-    const [likeCount, setLikeCounts] = useState(0)
-    const id = props._id
+    const [likeCount, setLikeCounts] = useState(0);
+    const id = props._id;
 
     const gradientFunction = () => {
         const gradients = ['#92A1C6', '#146A7C'];
