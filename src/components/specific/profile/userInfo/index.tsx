@@ -196,12 +196,12 @@ const UserInfo = (
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await api.get(`/api/users/${user?._id}/links`);
+            const res = await api.get(`/api/users/byUsername/${following}/links`);
             setLinkValues(res.data.data);
         };
 
         fetchData();
-    }, [user?._id]);
+    }, [following]);
 
     useEffect(() => {
         const fetchData = async () => {

@@ -20,6 +20,7 @@ import key from '@/icons/main/key.svg';
 import classes from './styles.module.css';
 import IconInput from '@/components/ui/input/iconInput';
 import { UserContext } from '@/contexts/userContext';
+import { useRouter } from 'next/router';
 
 type UserSettings = {
     username: string;
@@ -122,7 +123,8 @@ export default function UserSettings(props: UserSettings) {
     const { register, handleSubmit, reset, formState: { errors } } = useForm<IFormInput>({
         defaultValues: linkValues
     });
-    const { user } = useContext(UserContext);
+    const router = useRouter();
+    const username = router.query.username;
     
     // 0=general, 1=billing, 2=connections
     const [filter, updateFilter] = useState(0);
@@ -134,12 +136,12 @@ export default function UserSettings(props: UserSettings) {
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await api.get(`/api/users/${user?._id}/links`);
+            const res = await api.get(`/api/users/byUsername/${username}/links`);
             setLinkValues(res.data.data);
         };
 
         fetchData();
-    }, [user?._id]);
+    }, [username]);
 
     useEffect(() => {
         reset(linkValues);
