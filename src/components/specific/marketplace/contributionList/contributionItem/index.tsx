@@ -56,13 +56,13 @@ function StatusBadge({ status }: { status: Flockfysh.PullRequestStatus }) {
     );
 }
 
-export const ContributionItem = ({
+export function ContributionItem({
                                      contribution,
                                      datasetId,
                                  }: {
     datasetId: string;
     contribution: ExpandedPullRequest;
-}) => {
+}) {
     return (
         <div className={ classes.itemContainer }>
             { /* header */ }
@@ -108,4 +108,4 @@ export const ContributionItem = ({
             </div>
         </div>
     );
-};
+}

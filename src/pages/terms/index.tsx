@@ -1,4 +1,3 @@
-import { NextPageWithLayout } from '@/pages/_app';
 import Link from 'next/link';
 
 import Footer from '@/components/specific/marketplace/footer';
@@ -6,7 +5,7 @@ import HomeNavbar from '@/components/hypePage/navbar';
 
 import classes from './styles.module.css';
 
-const TermsPage: NextPageWithLayout = function () {
+export default function TermsPage() {
     return (
         <>
             <div className= { classes.mainHypepageContainer }>
@@ -17,6 +16,7 @@ const TermsPage: NextPageWithLayout = function () {
                         <h1 className = { classes.allHeaders }>Dataset Exchange Legal - Terms of Service</h1>
 
                         <h3 className = { classes.allHeaders }>Definitions</h3>
+                        
                         <p><strong className = { classes.strongHeaders }>&ldquo;flockfysh&rdquo;</strong> refers to flockfysh, Inc., which may perform its obligations through its affiliates, directors, investors, contractors, licensors, officers, agents, and/or employees.</p>
                         <p><strong className = { classes.strongHeaders }>"Account"</strong> is the account that you, or your entity, will create on the Website to access, use or purchase our Services.&nbsp;</p>
                         <p><strong className = { classes.strongHeaders }>"Agreement"</strong> or <strong className = { classes.strongHeaders }>"Terms"</strong> refer to all of the terms and conditions that apply between us. They include these Terms, Supplemental Terms, notices and policies available at our Website at <Link href="/"> flockfysh.ai </Link>, and/or any other binding document that we provide and/or that you sign, including but not limited to an Order or Request Form, a Scope of Work, or a Master Services Agreement.</p>
@@ -193,7 +193,4 @@ const TermsPage: NextPageWithLayout = function () {
             </div>
         </>
     );
-};
-
-
-export default TermsPage;
+}

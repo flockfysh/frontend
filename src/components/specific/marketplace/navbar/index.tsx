@@ -63,7 +63,7 @@ export default function MarketplaceNavbar() {
 
           <BellNotification/>
 
-            <CurrentUserProfile showMenu={true} />
+            <CurrentUserProfile showMenu={ true } />
           </>
         ) : (
           <button

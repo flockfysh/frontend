@@ -1,11 +1,9 @@
-import { NextPageWithLayout } from '@/pages/_app';
-
 import Footer from '@/components/specific/marketplace/footer';
 import HomeNavbar from '@/components/hypePage/navbar';
 
 import classes from './styles.module.css';
 
-const PrivacyPage: NextPageWithLayout = function () {
+export default function PrivacyPage() {
     return (
         <>
             <div className= { classes.mainHypepageContainer }>
@@ -151,7 +149,4 @@ const PrivacyPage: NextPageWithLayout = function () {
             </div>
         </>
     );
-};
-
-
-export default PrivacyPage;
+}

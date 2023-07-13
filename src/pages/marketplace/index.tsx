@@ -26,7 +26,7 @@ const timeFilterOptions: [number, ManipulateType][] = [
     [1, 'month'],
 ];
 
-const Marketplace: NextPageWithLayout = function () {
+function Marketplace() {
     const [timeFilter, setTimeFilter] = useState(0);
 
     const [featuredDatasets, setFeaturedDatasets] = useState<HomepageDataset[]>(
@@ -231,9 +231,9 @@ const Marketplace: NextPageWithLayout = function () {
             </section>
         </div>
     );
-};
+}
 
-Marketplace.getLayout = function (page) {
+(Marketplace as NextPageWithLayout).getLayout = function (page) {
     return <MarketplaceLayout>{ page }</MarketplaceLayout>;
 };
 

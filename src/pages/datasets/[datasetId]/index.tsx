@@ -23,7 +23,7 @@ import logout from '@/icons/main/log-out.svg';
 
 import classes from './styles.module.css';
 
-const MyDatasets: NextPageWithLayout = function () {
+function MyDatasets() {
     const router = useRouter();
     const [showList, setShowList] = useState(true);
     const [dataset, setDataset] = useState<
@@ -36,9 +36,8 @@ const MyDatasets: NextPageWithLayout = function () {
         async function load() {
             const datasetId = router.query.datasetId;
 
-            if (typeof datasetId !== 'string') {
-                return;
-            }
+            if (typeof datasetId !== 'string') return;
+
             const result = (
                 await api.get<Api.Response<Flockfysh.PopulatedDataset>>(
                     `/api/datasets/${datasetId}`,
@@ -49,7 +48,9 @@ const MyDatasets: NextPageWithLayout = function () {
                     },
                 )
             ).data.data;
+
             setDataset(result);
+            
             await api.post(`/api/datasets/${datasetId}/metrics`, {
                 type: 'view',
             });
@@ -206,9 +207,9 @@ const MyDatasets: NextPageWithLayout = function () {
             />
         </div>
     );
-};
+}
 
-MyDatasets.getLayout = function (page) {
+(MyDatasets as NextPageWithLayout).getLayout = function (page) {
     return <MainLayout>{ page }</MainLayout>;
 };
 

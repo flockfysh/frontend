@@ -174,12 +174,10 @@ function ProfilePhoto(props: { url: string; editable: boolean; username: string 
     );
 }
 
-const UserInfo = (
-    props: ProfilePageUser & {
+function UserInfo(props: ProfilePageUser & {
         updateTab: (index: number) => void;
         curTab: number;
-    }
-) => {
+    }) {
     const [linkValues, setLinkValues] = useState({
         github: 'https://github.com',
         linkedin: 'https://linkedin.com',
@@ -457,6 +455,6 @@ const UserInfo = (
             </div>
         </section>
     );
-};
+}
 
 export default UserInfo;

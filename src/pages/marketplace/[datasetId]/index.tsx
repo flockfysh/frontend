@@ -7,14 +7,14 @@ import DatasetInfo, {
     DatasetInfoContext,
 } from '@/components/layout/datasetLayout';
 
-const DatasetItems: NextPageWithLayout = function () {
+function DatasetItems() {
     const dataset = useContext(DatasetInfoContext);
     
     if (dataset) return <ItemViewer { ...dataset } />;
     else return <></>;
-};
+}
 
-DatasetItems.getLayout = function (page) {
+(DatasetItems as NextPageWithLayout).getLayout = function (page) {
     return (
         <MarketplaceLayout>
             <DatasetInfo>{ page }</DatasetInfo>

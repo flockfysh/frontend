@@ -10,7 +10,7 @@ import DatasetInfo, {
 
 import MarketplaceLayout from '@/components/layout/marketplaceLayout';
 
-const ContributionDetailedPage: NextPageWithLayout = function () {
+function ContributionDetailedPage() {
     const dataset = useContext(DatasetInfoContext);
     const router = useRouter();
     
@@ -23,9 +23,9 @@ const ContributionDetailedPage: NextPageWithLayout = function () {
             contributionId={ contributionId }
         />
     );
-};
+}
 
-ContributionDetailedPage.getLayout = function (page) {
+(ContributionDetailedPage as NextPageWithLayout).getLayout = function (page) {
     return (
         <MarketplaceLayout>
             <DatasetInfo>{ page }</DatasetInfo>

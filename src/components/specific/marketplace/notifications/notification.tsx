@@ -9,7 +9,7 @@ type AppProps = {
     setOpen?: (value: boolean) => void
 }
 
-const Notification = (props: AppProps) => {
+function Notification(props: AppProps) {
     return (
         <Link 
         onClick={ () => {
@@ -38,6 +38,6 @@ const Notification = (props: AppProps) => {
             </div>
         </Link>
     );
-};
+}
 
 export default Notification;

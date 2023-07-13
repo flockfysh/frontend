@@ -7,18 +7,16 @@ import Footer from '@/components/specific/marketplace/footer';
 
 import classes from './profile.module.css';
 
-const ProfilePage: NextPageWithLayout = function () {
+export default function ProfilePage() {
     const router = useRouter();
     const username = router.query.username;
 
     if (typeof username === 'string') return <Profile username={ username } />;
 
     return <></>;
-};
+}
 
-export default ProfilePage;
-
-ProfilePage.getLayout = function (page) {
+(ProfilePage as NextPageWithLayout).getLayout = function (page) {
     return (
         <div className={ classes.container }>
             <MarketplaceNavbar />

@@ -27,7 +27,6 @@ import bookmarkFilled from '@/icons/main/bookmarkFilled.svg';
 import classes from './styles.module.css';
 import { DATASET_LICENSE_DESCRIPTION } from '@/helpers/enums/license';
 import { genPurchaseUrl } from '@/helpers/endpoints/datasets';
-import { UserContext } from '@/contexts/userContext';
 
 export const DatasetInfoContext = createContext<PreviewDataset | undefined>(
     undefined,
@@ -164,7 +163,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                                 await api.delete(`/api/datasets/${datasetId}/bookmarks`);
                                                 setBookmark(false);
                                             }
-                                        }}
+                                        } }
                                     >
                                         <ReactSVG
                                             className={ classes.imageTagIcon }
@@ -190,7 +189,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                         </ActionPopupWithButton>
                                         
                                         <button
-                                            className={ classes.downloadButton}
+                                            className={ classes.downloadButton }
                                             onClick={ async () => {
                                                 setLike(!liked);
                                                 if (!liked) {
@@ -205,7 +204,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                                     setLikeCounts(res.data.data);
                                                     setLike(false);
                                                 }
-                                            }}
+                                            } }
                                         >
                                             <span>{ liked ? 'Unlike' : 'Like' }</span>
                                             <span>{ likeCounts }</span>

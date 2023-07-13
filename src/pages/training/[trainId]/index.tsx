@@ -51,7 +51,7 @@ function TrainingLabels(
     );
 }
 
-const Train: NextPageWithLayout = function (_props: {}) {
+function Train(_props: {}) {
     const { throwError } = useContext(ErrorContext);
     const [dataset, setDataset] = useState<Flockfysh.PopulatedDataset | null>(
         null
@@ -228,9 +228,9 @@ const Train: NextPageWithLayout = function (_props: {}) {
     ) : (
         <></>
     );
-};
+}
 
-Train.getLayout = function (page) {
+(Train as NextPageWithLayout).getLayout = function (page) {
     return <MainLayout>{ page }</MainLayout>;
 };
 

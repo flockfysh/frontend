@@ -1,10 +1,8 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
 import DatasetTypeCard from '../../datasetTypeCard';
 
 import { formatFileSize } from '@/helpers/formatting';
-import { getDefaultDatasetThumbnail } from '@/helpers/defaults';
 
 import classes from './styles.module.css';
 

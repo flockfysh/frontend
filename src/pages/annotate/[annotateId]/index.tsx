@@ -20,7 +20,8 @@ import api from '@/helpers/api';
 
 import classes from './styles.module.css';
 
-const Annotate: NextPageWithLayout = function () {
+
+function Annotate() {
     const router = useRouter();
     const [labels, setLabels] = useState<Flockfysh.Label[]>([]);
     const [imageIds, setImageIds] = useState<string[]>([]);
@@ -205,7 +206,7 @@ const Annotate: NextPageWithLayout = function () {
             <AnnotateInner />
         </AnnotationPageContext.Provider>
     );
-};
+}
 
 function AnnotateInner() {
     const {
@@ -304,7 +305,7 @@ function AnnotateInner() {
     );
 }
 
-Annotate.getLayout = function (page) {
+(Annotate as NextPageWithLayout).getLayout = function (page) {
     return <MainLayout>{ page }</MainLayout>;
 };
 

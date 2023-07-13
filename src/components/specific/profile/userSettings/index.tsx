@@ -383,7 +383,7 @@ export default function UserSettings(props: UserSettings) {
                 </div>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className={ classes.linksDiv }>
+            <form onSubmit={ handleSubmit(onSubmit) } className={ classes.linksDiv }>
                 <div className={ classes.linkHeadingDiv }>
                     <h4
                         className={
@@ -403,33 +403,33 @@ export default function UserSettings(props: UserSettings) {
                     <IconInput 
                         name="github"
                         placeholder="https://github.com"
-                        icon={githubIcon}
-                        register={register}
-                        errors={errors}
+                        icon={ githubIcon }
+                        register={ register }
+                        errors={ errors }
                     />
 
                     <IconInput 
                         name="linkedin"
                         placeholder="https://linkedin.com"
-                        icon={linkedInIcon}
-                        register={register}
-                        errors={errors}
+                        icon={ linkedInIcon }
+                        register={ register }
+                        errors={ errors }
                     />
 
                     <IconInput 
                         name="twitter"
                         placeholder="https://twitter.com"
-                        icon={twitterIcon}
-                        register={register}
-                        errors={errors}
+                        icon={ twitterIcon }
+                        register={ register }
+                        errors={ errors }
                     />
 
                     <IconInput 
                         name="website"
                         placeholder="https://website.com"
-                        icon={link}
-                        register={register}
-                        errors={errors}
+                        icon={ link }
+                        register={ register }
+                        errors={ errors }
                     />
                 </div>
 

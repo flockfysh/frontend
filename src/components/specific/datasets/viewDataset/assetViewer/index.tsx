@@ -2,6 +2,10 @@ import { forwardRef, useState, useEffect, useCallback } from 'react';
 import { ReactSVG } from 'react-svg';
 import { ScrollerProps, TableVirtuoso, VirtuosoGrid } from 'react-virtuoso';
 
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useStateWithDeps } from 'use-state-with-deps';
+
 import {
     Table,
     TableBody,
@@ -24,15 +28,11 @@ import dayjs from 'dayjs';
 import { capitalize } from '@/helpers/dataManipulation/strings';
 import { formatFileSize } from '@/helpers/formatting';
 import api from '@/helpers/api';
+import { genPurchaseUrl } from '@/helpers/endpoints/datasets';
 
 import trash from '@/icons/main/trash-2.svg';
 
 import classes from './styles.module.css';
-import { useStateWithDeps } from 'use-state-with-deps';
-import { prop } from 'react-data-table-component/dist/src/DataTable/util';
-import { genPurchaseUrl } from '@/helpers/endpoints/datasets';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 const TableComponents = {
     Scroller: forwardRef<HTMLDivElement, ScrollerProps>(function _Scroller(

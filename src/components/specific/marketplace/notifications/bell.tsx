@@ -10,7 +10,7 @@ import { motion } from 'framer-motion';
 import OverlayScreen from './overlay';
 import ModalScreen from './modal';
 
-const BellNotification = () => {
+function BellNotification() {
   const [open, setOpen] = useState(false);
   const [notifications, setNotifications] = useState<IBellNotification[]>([]);
   const [lastSeen, setLastSeen] = useState<dayjs.Dayjs>();
@@ -92,6 +92,6 @@ else {
       ) }
     </div>
   );
-};
+}
 
 export default BellNotification;

@@ -13,12 +13,12 @@ type AppProps = {
   markAllAsRead: () => void;
 };
 
-const OverlayScreen = ({
+function OverlayScreen({
   notifications,
   lastSeen,
   setViewAll,
   markAllAsRead,
-}: AppProps) => {
+}: AppProps) {
   return (
     <>
       <div>
@@ -55,6 +55,6 @@ const OverlayScreen = ({
       </button>
     </>
   );
-};
+}
 
 export default OverlayScreen;
