@@ -12,6 +12,7 @@ import { DownloaderWrapper } from '@/contexts/downloaderContext';
 
 import '@/styles/reset.css';
 import '@/styles/globals.css';
+import { PostWrapper } from '@/contexts/postContext';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
     getLayout?: (page: React.ReactElement) => React.ReactNode;
@@ -48,13 +49,15 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
                 <ScreenWrapper>
                     <UserWrapper>
                         <DownloaderWrapper>
-                            { /* <TopLevelErrorBoundary> */ }
-                            <ErrorWrapper>
-                                { /*<NotificationWrapper />*/ }
+                            <PostWrapper>
+                                { /* <TopLevelErrorBoundary> */ }
+                                <ErrorWrapper>
+                                    { /*<NotificationWrapper />*/ }
 
-                                { getLayout(<Component { ...pageProps } />) }
-                            </ErrorWrapper>
-                            { /* </TopLevelErrorBoundary> */ }
+                                    { getLayout(<Component { ...pageProps } />) }
+                                </ErrorWrapper>
+                                { /* </TopLevelErrorBoundary> */ }
+                            </PostWrapper>
                         </DownloaderWrapper>
                     </UserWrapper>
                 </ScreenWrapper>

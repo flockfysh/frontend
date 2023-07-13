@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { NextPageWithLayout } from '@/pages/_app';
 
 import { v4 } from 'uuid';
@@ -19,6 +19,8 @@ import 'swiper/css/navigation';
 
 import MarketplaceLayout from '@/components/layout/marketplaceLayout';
 import classes from './styles.module.css';
+import PostSwiper from '@/components/specific/marketplace/postSwiper';
+import { PostContext } from '@/contexts/postContext';
 
 const timeFilterOptions: [number, ManipulateType][] = [
     [1, 'day'],
@@ -32,6 +34,7 @@ const Marketplace: NextPageWithLayout = function () {
     const [featuredDatasets, setFeaturedDatasets] = useState<HomepageDataset[]>(
         []
     );
+    const { posts, setPosts } = useContext(PostContext);
 
     useEffect(() => {
         async function fetch() {
@@ -136,6 +139,15 @@ const Marketplace: NextPageWithLayout = function () {
         fetch().then();
     }, [timeFilter]);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await api.get('/api/posts/');
+            setPosts(res.data.data);
+        };
+
+        fetchData();
+    }, [setPosts]);
+
     const collections: HomepageCollection[] = Array.from({ length: 8 }, () => {
         return {
             _id: v4(),
@@ -218,6 +230,14 @@ const Marketplace: NextPageWithLayout = function () {
                 </div>
 
                 <CollectionSwiper collections={ collections } />
+            </section>
+
+            <section className={ classes.sectionContainer }>
+                <div className={ classes.headerContainer }>
+                    <h1 className={ classes.header }>Posts</h1>
+                </div>
+
+                <PostSwiper posts={ posts } />
             </section>
 
             <section className={ classes.sectionContainer + ' ' + classes.howTo }>

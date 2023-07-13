@@ -75,6 +75,19 @@ declare global {
             };
         }
 
+        interface Post {
+            _id: string;
+            title: string;
+            content: string;
+            user: string;
+            thumbnail?: {
+                assetId: string;
+            };
+            icon?: {
+                assetId: string;
+            };
+        }
+
         interface PullRequest {
             _id: string;
             dataset: string;
