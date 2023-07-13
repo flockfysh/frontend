@@ -6,6 +6,7 @@ import xmark from '@/icons/xmark.svg';
 import api from '@/helpers/api';
 import classes from './styles.module.css';
 import { PostContext } from '@/contexts/postContext';
+import { ModalContext } from '@/contexts/modalContext';
 
 type CreatePostModalProps = {
     onClose: () => void;
@@ -20,6 +21,7 @@ export default function CreatePostModal(props: CreatePostModalProps) {
     const [isFadeOut, updateFadeOut] = useState(false);
     const { register, handleSubmit } = useForm<IFormInput>();
     const { setPosts } = useContext(PostContext);
+    const { setCreatePostOpen } = useContext(ModalContext);
 
     const onSubmit: SubmitHandler<IFormInput> = async (data) => {
         await api.post('/api/posts/', {
@@ -28,6 +30,7 @@ export default function CreatePostModal(props: CreatePostModalProps) {
         });
         const res = await api.get('/api/posts/');
         setPosts(res.data.data);
+        setCreatePostOpen(false);
     };
 
     return (

@@ -27,6 +27,7 @@ type ProfileCardProps = {
     username: string;
     className?: string;
     showMenu: boolean;
+    isPostCard?: boolean;
 };
 
 function ProfileCardMenuLink(props: {
@@ -179,7 +180,7 @@ export default function ProfileCard(props: ProfileCardProps) {
                         ] }
                     />
                 ) }
-                <p>@{ props.username }</p>
+                <Link href={`profile/${props.username}`}>@{ props.isPostCard ? props.username.split('').slice(0, 7).join('') : props.username }</Link>
             </button>
 
             {
