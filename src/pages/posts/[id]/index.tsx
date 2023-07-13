@@ -5,6 +5,7 @@ import {
 } from 'react';
 import { ReactSVG } from 'react-svg';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 import api from '@/helpers/api';
 import MarketplaceLayout from '@/components/layout/marketplaceLayout';
@@ -26,9 +27,13 @@ const PostItems = function () {
     });
     const [liked, setLike] = useState(false);
     const [likeCounts, setLikeCounts] = useState(0);
+    const [author, setAuthor] = useState({
+        fullname: '',
+        username: ''
+    })
     const [isPostModalOpen, setPostModalOpen] = useState(false)
     const { user } = useContext(UserContext);
-    const { post } = useContext(PostContext)
+    const { post, setPost } = useContext(PostContext)
 
     const postId = router.query.id;
     const userId = user?._id;
@@ -42,7 +47,7 @@ const PostItems = function () {
                     `/api/posts/${postId}`
                 )
             ).data.data;
-
+            setPost(result);
             setPostData(result);
         };
 
@@ -75,6 +80,19 @@ const PostItems = function () {
         
         fetchData();
     }, [postId]);
+
+    useEffect(() =>  {
+        const fetchData = async () => {
+            const res = await api.get(`/api/users/${post.user}`);
+            console.log(res.data.data)
+            setAuthor({
+                fullname: res.data.data.fullName,
+                username: res.data.data.username
+            });
+        };
+        fetchData();
+    }, [post])
+    console.log({author})
 
     if (!postData || typeof postId !== 'string') return <></>;
     return (
@@ -170,7 +188,7 @@ const PostItems = function () {
                         </div>
                     </div>
                     <h2 className={ classes.name }>{ postData.title }</h2>
-                    <h5 className={ classes.username }>@{ postData.user }</h5>
+                    <Link href={`/profile/${author.username}`} target='_blank' className={ classes.username }>Author: { author.fullname }</Link>
                     <p>{ postData.content }</p>
                 </div>
             </header>
