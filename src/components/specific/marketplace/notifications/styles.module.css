@@ -1,0 +1,132 @@
+.notificationContainer {
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.notificationBox {
+  top: 36px;
+  z-index: 99999999;
+  min-width: 400px;
+  background-color: var(--background);
+  border: 1px solid #ffffff4d;
+  border-radius: 16px;
+  pointer-events: all;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-between;
+}
+
+.leftIcon {
+  align-self: center;
+  margin: 0px 15px;
+  color: var(--primary1-100);
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.leftIcon:hover {
+  color: var(--primary1-300);
+}
+
+.notificationHeader {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.notificationHeader h1 {
+  font-size: 24px;
+  font-weight: 500;
+
+  line-height: 36px;
+}
+
+.notificationMarkAsRead {
+  all: unset;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 4px;
+
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* if disabled */
+.notificationMarkAsRead[disabled] {
+  cursor: not-allowed;
+}
+
+.notificationBody {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  max-height: 412px;
+  overflow-y: auto;
+}
+
+.notification {
+  display: flex;
+  padding: 12px;
+  border-bottom: var(--main-grey);
+  gap: 16px;
+}
+
+.notificationContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.notification:hover {
+  background-color: var(--main-grey);
+}
+
+.notificationContentHeading {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.notificationImage {
+  position: relative;
+}
+
+.notificationDot {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.notificationContentText {
+  color: var(--primary1-100);
+
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.notificationViewAllButton {
+  all: unset;
+  cursor: pointer;
+  background-color: var(--main-grey);
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+}

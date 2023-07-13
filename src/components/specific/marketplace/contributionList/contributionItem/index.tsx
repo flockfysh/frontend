@@ -91,7 +91,7 @@ export const ContributionItem = ({
             <div className={ classes.footerWrapper }>
                 <div className={ classes.itemContent }>
                     opened { dayjs(contribution.createdAt).fromNow() } by @
-                    { contribution.user.username.slice(0, 16) }
+                    { contribution.user?.username.slice(0, 16) }
                 </div>
 
                 <div className={ classes.itemStats }>

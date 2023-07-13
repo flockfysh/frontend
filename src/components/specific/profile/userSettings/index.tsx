@@ -119,7 +119,7 @@ export default function UserSettings(props: UserSettings) {
     const [email, _setEmail] = useState(props.email);
     const [password, setPassword] = useState('');
     const [apiKey, setApiKey] = useState(props.apiKey);
-    const { register, handleSubmit, reset } = useForm<IFormInput>({
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<IFormInput>({
         defaultValues: linkValues
     });
     const { user } = useContext(UserContext);
@@ -402,30 +402,34 @@ export default function UserSettings(props: UserSettings) {
                 <div>
                     <IconInput 
                         name="github"
-                        placeholder="github.com"
+                        placeholder="https://github.com"
                         icon={githubIcon}
                         register={register}
+                        errors={errors}
                     />
 
                     <IconInput 
                         name="linkedin"
-                        placeholder="linkedin.com"
+                        placeholder="https://linkedin.com"
                         icon={linkedInIcon}
                         register={register}
+                        errors={errors}
                     />
 
                     <IconInput 
                         name="twitter"
-                        placeholder="twitter.com"
+                        placeholder="https://twitter.com"
                         icon={twitterIcon}
                         register={register}
+                        errors={errors}
                     />
 
                     <IconInput 
                         name="website"
-                        placeholder="test.com"
+                        placeholder="https://website.com"
                         icon={link}
                         register={register}
+                        errors={errors}
                     />
                 </div>
 
