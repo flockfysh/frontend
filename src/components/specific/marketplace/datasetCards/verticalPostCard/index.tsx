@@ -6,7 +6,12 @@ import classes from './styles.module.css';
 
 export default function VerticalPostCard(props: HomepagePost) {
     const [likeCount, setLikeCounts] = useState(0);
+    const [author, setAuthor] = useState({
+        fullname: '',
+        username: ''
+    });
     const id = props._id;
+    const user = props.user;
 
     const gradientFunction = () => {
         const gradients = ['#92A1C6', '#146A7C'];
@@ -26,6 +31,17 @@ export default function VerticalPostCard(props: HomepagePost) {
         
         fetchData();
     }, [id]);
+
+    useEffect(() =>  {
+        const fetchData = async () => {
+            const res = await api.get(`/api/users/${user}`);
+            setAuthor({
+                fullname: res.data.data.fullName,
+                username: res.data.data.username
+            });
+        };
+        fetchData();
+    }, [user]);
 
     return (
         <div className={ classes.container }>
@@ -70,7 +86,7 @@ export default function VerticalPostCard(props: HomepagePost) {
                         <div className={ classes.profileCardContainer }>
                             <ProfileCard
                                 className={ classes.profileCard }
-                                username={ `user_${props.user}` }
+                                username={ author.username }
                                 showMenu={ false }
                                 isPostCard={ true }
                             />
