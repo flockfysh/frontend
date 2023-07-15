@@ -68,8 +68,6 @@ export default function MarketplaceNavbar() {
     return () => clearTimeout(fetchTimerId);
   }, [search]);
 
-  console.log(search, open);
-
   return (
     <nav className={classes.nav}>
       {isDatasetModalOpen && (
