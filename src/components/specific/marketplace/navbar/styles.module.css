@@ -1,124 +1,194 @@
 .nav {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .subContainer {
-    display: flex;
+  display: flex;
 }
 
 .leftContainer {
-    width: 50%;
+  width: 50%;
 }
 
 .logoContainer {
-    display: flex;
-    color: var(--primary1-100);
-    align-items: center;
-    font-size: 1.5rem;
-    font-weight: 700;
-    line-height: 32px;
-    margin-right: 20px;
-    cursor: pointer;
-    transition: 0.2s;
-    padding: 0 10px;
-    border-radius: 10px;
+  display: flex;
+  color: var(--primary1-100);
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 32px;
+  margin-right: 20px;
+  cursor: pointer;
+  transition: 0.2s;
+  padding: 0 10px;
+  border-radius: 10px;
 }
 
 .logoContainer:hover {
-    background: var(--grey);
+  background: var(--grey);
 }
 
 .logoContainer p {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .mobileSearch {
-    display: none;
-    cursor: pointer;
-    align-self: center;
-    color: var(--primary1-100);
+  display: none;
+  cursor: pointer;
+  align-self: center;
+  color: var(--primary1-100);
 }
 
 .searchContainer {
-    cursor: text;
-    border-radius: 8px;
-    max-width: 30rem;
-    width: 100%;
+  cursor: text;
+  border-radius: 8px;
+  max-width: 30rem;
+  width: 100%;
 
-    height: 2.5rem;
-    align-items: center;
-    align-self: center;
+  height: 2.5rem;
+  align-items: center;
+  align-self: center;
 
-    flex: auto;
+  flex: auto;
 
-    background: var(--main-grey);
-    color: var(--primary1-100);
-    display: flex;
-    padding: 10px 16px;
-    gap: 16px;
-    transition: 0.15s;
+  background: var(--main-grey);
+  color: var(--primary1-100);
+  display: flex;
+  padding: 10px 16px;
+  gap: 16px;
+  transition: 0.15s;
+  position: relative;
 }
 
 .search {
-    font: inherit;
-    color: inherit;
-    font-weight: 700;
-    background: none;
-    appearance: none;
-    flex: 1;
+  font: inherit;
+  color: inherit;
+  font-weight: 700;
+  background: none;
+  appearance: none;
+  flex: 1;
 }
 
 .search::placeholder {
-    font: inherit;
+  font: inherit;
 }
 
 .search:focus {
-    outline: none;
-    color: inherit;
+  outline: none;
+  color: inherit;
+}
+
+.searchResult {
+  position: absolute;
+  z-index: 99;
+  width: 100%;
+  max-height: 275px;
+  top: 45px;
+  left: 0px;
+  border-radius: 0.3rem;
+  background: var(--main-grey, #1e1e1e);
+  border: grey;
+  overflow: auto;
+  border: 1px solid var(--grey);
+
+  /* Shadow/lg */
+  box-shadow: 0px 4px 6px -2px rgba(16, 24, 40, 0.03),
+    0px 12px 16px -4px rgba(16, 24, 40, 0.08);
+
+  display: flex;
+  flex-direction: column;
+
+  transition: 0.15s;
+
+  transform: scale(0);
+  transform-origin: 50% 0%;
+  opacity: 0;
+}
+
+.searchResultActive {
+  transform: scale(1);
+  transform-origin: 50% 0%;
+  opacity: 1;
+}
+
+.searchResultHeader {
+  display: flex;
+  padding: 0.5rem 1rem;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: stretch;
+  background-color: transparent;
+  border-bottom: 4px solid var(--grey);
+  color: var(--primary1-100, #d2e1ff) !important;
+
+  /* Text sm/Medium */
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.25rem;
+}
+
+.searchResultItem {
+  display: flex;
+  padding: 0.4rem 1.5rem;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: stretch;
+  background-color: transparent;
+
+  color: var(--primary1-100, #d2e1ff) !important;
+
+  /* Text sm/Medium */
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+}
+
+.searchResultItem:hover {
+  filter: brightness(1.2);
 }
 
 .search:focus::placeholder {
-    color: inherit;
-    opacity: 0.8;
+  color: inherit;
+  opacity: 0.8;
 }
 
 .leftIcon {
-    align-self: center;
-    margin: 0px 15px;
-    color: var(--primary1-100);
-    cursor: pointer;
-    transition: 0.15s;
+  align-self: center;
+  margin: 0px 15px;
+  color: var(--primary1-100);
+  cursor: pointer;
+  transition: 0.15s;
 }
 
 .leftIcon:hover {
-    color: var(--primary1-300);
+  color: var(--primary1-300);
 }
 
 .loginButton {
-    display: flex;
-    height: 3rem;
-    padding: 0.75rem 1.5rem;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    flex-shrink: 0;
-    border-radius: 5px;
-    background: none;
-    border: 2px solid var(--grey);
-    transition: 0.15s;
+  display: flex;
+  height: 3rem;
+  padding: 0.75rem 1.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background: none;
+  border: 2px solid var(--grey);
+  transition: 0.15s;
 }
 
 .loginButton:hover {
-    background: var(--grey);
+  background: var(--grey);
 }
 
 @media (max-width: 660px) {
-    .searchContainer {
-        display: none;
-    }
+  .searchContainer {
+    display: none;
+  }
 
-    .mobileSearch {
-        display: block;
-    }
+  .mobileSearch {
+    display: block;
+  }
 }
