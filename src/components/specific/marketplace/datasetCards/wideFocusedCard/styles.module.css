@@ -88,6 +88,12 @@
   gap: 8px;
 }
 
+.anchor {
+  display: flex;
+  gap: 8px;
+  z-index: 5;
+}
+
 .anchor img {
   align-self: center;
   width: 32px;
