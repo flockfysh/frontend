@@ -1,28 +1,28 @@
-import CurrentUserProfile from "@/components/specific/marketplace/currentUserProfile";
-import searchIcon from "@/icons/main/search.svg";
-import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
-import { ReactSVG } from "react-svg";
-import Login from "../../login";
-import CreateDatasetModal from "../createDatasetModal";
-import CreatePostModal from "../createPostModal";
+import CurrentUserProfile from '@/components/specific/marketplace/currentUserProfile';
+import searchIcon from '@/icons/main/search.svg';
+import Link from 'next/link';
+import { useContext, useEffect, useState } from 'react';
+import { ReactSVG } from 'react-svg';
+import Login from '../../login';
+import CreateDatasetModal from '../createDatasetModal';
+import CreatePostModal from '../createPostModal';
 
-import { UserContext } from "@/contexts/userContext";
+import { UserContext } from '@/contexts/userContext';
 
-import fish from "@/icons/branding/fish.svg";
-import bell from "@/icons/main/bell.svg";
-import penTool from "@/icons/main/pen-tool.svg";
-import plusCircle from "@/icons/main/plus-circle.svg";
-import userIcon from "@/icons/main/user.svg";
+import fish from '@/icons/branding/fish.svg';
+import bell from '@/icons/main/bell.svg';
+import penTool from '@/icons/main/pen-tool.svg';
+import plusCircle from '@/icons/main/plus-circle.svg';
+import userIcon from '@/icons/main/user.svg';
 
-import { ModalContext } from "@/contexts/modalContext";
-import api from "@/helpers/api";
-import classes from "./styles.module.css";
+import { ModalContext } from '@/contexts/modalContext';
+import api from '@/helpers/api';
+import classes from './styles.module.css';
 
 export default function MarketplaceNavbar() {
   const { user } = useContext(UserContext);
   const [open, setOpen] = useState(false);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [searchedUser, setSearchedUser] = useState<RedactedUser[]>([]);
   const [searchedDataset, setsearchedDataset] = useState<HomepageDataset[]>([]);
 
@@ -35,7 +35,7 @@ export default function MarketplaceNavbar() {
       if (search.length > 0) {
         const fetchedDataset = (
           await api.get<Api.PaginatedResponse<HomepageDataset[]>>(
-            "/api/datasets/search",
+            '/api/datasets/search',
             {
               params: {
                 name: search,
@@ -46,7 +46,7 @@ export default function MarketplaceNavbar() {
 
         const fetchedUsers = (
           await api.get<Api.PaginatedResponse<RedactedUser[]>>(
-            "/api/users/search",
+            '/api/users/search',
             {
               params: {
                 query: search,
@@ -59,7 +59,8 @@ export default function MarketplaceNavbar() {
         setSearchedUser(fetchedUsers.data);
 
         setOpen(true);
-      } else {
+      }
+ else {
         setOpen(false);
       }
     }, 2000);
@@ -79,10 +80,10 @@ export default function MarketplaceNavbar() {
         <CreatePostModal onClose={() => setCreatePostOpen(false)} />
       )}
 
-      {isLogin && <Login mode='login' onClose={() => updateLogin(false)} />}
+      {isLogin && <Login mode="login" onClose={() => updateLogin(false)} />}
 
-      <div className={classes.subContainer + " " + classes.leftContainer}>
-        <Link className={classes.logoContainer} href='/marketplace'>
+      <div className={classes.subContainer + ' ' + classes.leftContainer}>
+        <Link className={classes.logoContainer} href="/marketplace">
           <ReactSVG src={fish.src} />
 
           <p>fDE</p>
@@ -100,17 +101,17 @@ export default function MarketplaceNavbar() {
           <ReactSVG src={searchIcon.src} className={classes.searchIcon} />
 
           <input
-            type='search'
+            type="search"
             className={classes.search}
             onChange={(e) => {
               setSearch(e.target.value);
             }}
-            placeholder='Search by username or dataset name'
+            placeholder="Search by username or dataset name"
           />
           <div
-            id='menu-div'
+            id="menu-div"
             className={`${classes.searchResult} ${
-              open ? classes.searchResultActive : ""
+              open ? classes.searchResultActive : ''
             }`}
             onClick={(e) => e.stopPropagation()}
           >
@@ -120,11 +121,11 @@ export default function MarketplaceNavbar() {
                 {searchedUser.slice(0, 3).map((user, userIndex) => {
                   return (
                     <Link
-                      href={user.link}
+                      href={`/profile/${user.username}`}
                       key={userIndex}
                       className={classes.searchResultItem}
                     >
-                      {user.name}
+                      {user.fullName}
                     </Link>
                   );
                 })}
@@ -137,7 +138,7 @@ export default function MarketplaceNavbar() {
                 {searchedDataset.slice(0, 3).map((dataset, datasetIndex) => {
                   return (
                     <Link
-                      href={dataset.link}
+                      href={`/marketplace/${dataset._id}`}
                       key={datasetIndex}
                       className={classes.searchResultItem}
                     >

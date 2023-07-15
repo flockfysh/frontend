@@ -1,33 +1,33 @@
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 import {
   PropsWithChildren,
   createContext,
   useContext,
   useEffect,
   useState,
-} from "react";
-import { ReactSVG } from "react-svg";
+} from 'react';
+import { ReactSVG } from 'react-svg';
 
-import Contribute from "@/components/specific/marketplace/contributeAlert";
-import RadioButtons from "@/components/ui/input/radioButtons";
-import ActionPopupWithButton from "@/components/ui/modals/actionPopupWithButton";
+import Contribute from '@/components/specific/marketplace/contributeAlert';
+import RadioButtons from '@/components/ui/input/radioButtons';
+import ActionPopupWithButton from '@/components/ui/modals/actionPopupWithButton';
 
-import { DownloaderContext } from "@/contexts/downloaderContext";
+import { DownloaderContext } from '@/contexts/downloaderContext';
 
-import api from "@/helpers/api";
-import { dayjs } from "@/helpers/date";
-import { formatFileSize } from "@/helpers/formatting";
+import api from '@/helpers/api';
+import { dayjs } from '@/helpers/date';
+import { formatFileSize } from '@/helpers/formatting';
 
-import bookmark from "@/icons/main/bookmark.svg";
-import bookmarkFilled from "@/icons/main/bookmarkFilled.svg";
-import cpu from "@/icons/main/cpu.svg";
-import download from "@/icons/main/download.svg";
-import flag from "@/icons/main/flag.svg";
+import bookmark from '@/icons/main/bookmark.svg';
+import bookmarkFilled from '@/icons/main/bookmarkFilled.svg';
+import cpu from '@/icons/main/cpu.svg';
+import download from '@/icons/main/download.svg';
+import flag from '@/icons/main/flag.svg';
 
-import { genPurchaseUrl } from "@/helpers/endpoints/datasets";
-import { DATASET_LICENSE_DESCRIPTION } from "@/helpers/enums/license";
-import Link from "next/link";
-import classes from "./styles.module.css";
+import { genPurchaseUrl } from '@/helpers/endpoints/datasets';
+import { DATASET_LICENSE_DESCRIPTION } from '@/helpers/enums/license';
+import Link from 'next/link';
+import classes from './styles.module.css';
 
 export const DatasetInfoContext = createContext<PreviewDataset | undefined>(
   undefined
@@ -45,7 +45,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
 
   useEffect(() => {
     async function load() {
-      if (typeof datasetId !== "string") return;
+      if (typeof datasetId !== 'string') return;
 
       const result = (
         await api.get<Api.Response<PreviewDataset>>(
@@ -53,7 +53,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
           {
             params: {
               expand:
-                "size,assetCounts,annotationCounts,user,contributors,thumbnail,icon,permission",
+                'size,assetCounts,annotationCounts,user,contributors,thumbnail,icon,permission',
             },
           }
         )
@@ -62,7 +62,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
       setDataset(result);
 
       await api.post(`/api/datasets/${datasetId}/metrics`, {
-        type: "view",
+        type: 'view',
       });
     }
 
@@ -96,7 +96,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
     fetchData();
   }, [datasetId]);
 
-  if (!dataset || typeof datasetId !== "string") return <></>;
+  if (!dataset || typeof datasetId !== 'string') return <></>;
 
   return (
     <DatasetInfoContext.Provider value={dataset}>
@@ -108,9 +108,9 @@ export default function DatasetInfo(props: PropsWithChildren) {
               className={classes.headerImage}
               src={
                 dataset.thumbnail?.url ??
-                "https://c.pxhere.com/photos/0d/b1/photo-168471.jpg!d"
+                'https://c.pxhere.com/photos/0d/b1/photo-168471.jpg!d'
               }
-              alt='Datasets portrait image'
+              alt="Datasets portrait image"
             />
 
             <div className={classes.imageTag}>
@@ -134,9 +134,9 @@ export default function DatasetInfo(props: PropsWithChildren) {
                     className={classes.datasetImage}
                     src={
                       dataset.icon?.url ??
-                      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fget.pxhere.com%2Fphoto%2Fcar-vehicle-martini-sports-car-race-car-supercar-team-racing-race-track-porsche-motorsport-leicam-summilux50f14-typ240-supercup-sebastianloeb-gt3r-louwmanmuseum-land-vehicle-auto-racing-automobile-make-automotive-design-performance-car-stock-car-racing-porsche-911-gt3-porsche-911-gt2-236174.jpg&f=1&nofb=1&ipt=1806d4f590c10c3f085ed81b7b35d359fb70e4d85672c00eb29e2eacf4b63453&ipo=images"
+                      'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fget.pxhere.com%2Fphoto%2Fcar-vehicle-martini-sports-car-race-car-supercar-team-racing-race-track-porsche-motorsport-leicam-summilux50f14-typ240-supercup-sebastianloeb-gt3r-louwmanmuseum-land-vehicle-auto-racing-automobile-make-automotive-design-performance-car-stock-car-racing-porsche-911-gt3-porsche-911-gt2-236174.jpg&f=1&nofb=1&ipt=1806d4f590c10c3f085ed81b7b35d359fb70e4d85672c00eb29e2eacf4b63453&ipo=images'
                     }
-                    alt='Datasets Image'
+                    alt="Datasets Image"
                   />
                 </div>
               </div>
@@ -154,7 +154,8 @@ export default function DatasetInfo(props: PropsWithChildren) {
                       if (!bookmarked) {
                         await api.post(`/api/datasets/${datasetId}/bookmarks`);
                         setBookmark(true);
-                      } else {
+                      }
+ else {
                         await api.delete(
                           `/api/datasets/${datasetId}/bookmarks`
                         );
@@ -169,16 +170,16 @@ export default function DatasetInfo(props: PropsWithChildren) {
                   </button>
                 </div>
 
-                {dataset.permission !== "preview" ? (
+                {dataset.permission !== 'preview' ? (
                   <>
                     <ActionPopupWithButton
-                      button={
+                      button={(
                         <button className={classes.contributeButton}>
                           Contribute
                         </button>
-                      }
-                      popupTitle={"Contribute"}
-                      variant={"marketplace"}
+                      )}
+                      popupTitle={'Contribute'}
+                      variant={'marketplace'}
                     >
                       <Contribute dataset={dataset} />
                     </ActionPopupWithButton>
@@ -194,7 +195,8 @@ export default function DatasetInfo(props: PropsWithChildren) {
                           );
                           setLikeCounts(res.data.data);
                           setLike(true);
-                        } else {
+                        }
+ else {
                           await api.delete(`/api/datasets/${datasetId}/likes`);
                           const res = await api.get(
                             `/api/datasets/${datasetId}/likes/count`
@@ -204,7 +206,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
                         }
                       }}
                     >
-                      <span>{liked ? "Unlike" : "Like"}</span>
+                      <span>{liked ? 'Unlike' : 'Like'}</span>
                       <span>{likeCounts}</span>
                     </button>
 
@@ -281,22 +283,22 @@ export default function DatasetInfo(props: PropsWithChildren) {
             <RadioButtons
               options={[
                 {
-                  label: "Items",
+                  label: 'Items',
                   value: `/marketplace/${dataset._id}`,
                 },
                 {
-                  label: "Activity",
+                  label: 'Activity',
                   value: `/marketplace/${dataset._id}/activity`,
                 },
                 {
-                  label: "Settings",
+                  label: 'Settings',
                   value: `/marketplace/${dataset._id}/settings`,
                   shown:
-                    dataset.permission === "admin" ||
-                    dataset.permission === "owner",
+                    dataset.permission === 'admin' ||
+                    dataset.permission === 'owner',
                 },
                 {
-                  label: "Contributions",
+                  label: 'Contributions',
                   value: `/marketplace/${dataset._id}/contributions`,
                 },
               ]}
