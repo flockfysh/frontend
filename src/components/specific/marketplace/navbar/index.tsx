@@ -166,7 +166,6 @@ export default function MarketplaceNavbar() {
               src={plusCircle.src}
               className={classes.leftIcon}
             />
-            <ReactSVG src={bell.src} className={classes.leftIcon} />
 
             <BellNotifications />
 
