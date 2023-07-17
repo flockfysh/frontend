@@ -18,6 +18,7 @@ import userIcon from '@/icons/main/user.svg';
 import { ModalContext } from '@/contexts/modalContext';
 import api from '@/helpers/api';
 import classes from './styles.module.css';
+import BellNotifications from '../notifications/bell';
 
 export default function MarketplaceNavbar() {
   const { user } = useContext(UserContext);
@@ -166,6 +167,8 @@ export default function MarketplaceNavbar() {
               className={classes.leftIcon}
             />
             <ReactSVG src={bell.src} className={classes.leftIcon} />
+
+            <BellNotifications />
 
             <CurrentUserProfile showMenu={true} />
           </>
