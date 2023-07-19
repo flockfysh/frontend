@@ -167,7 +167,6 @@ export default function ProfileCard(props: ProfileCardProps) {
         onClick={() => setOpen(!open)}
         className={`${classes.profileContainer} ${props.className || ''}`}
       >
-        <Link href={`/profile/${props.username}`}>
         {props.profilePicture ? (
           <img
             src={props.profilePicture ? props.profilePicture : 'd'}
@@ -181,6 +180,7 @@ export default function ProfileCard(props: ProfileCardProps) {
             colors={['#92A1C6', '#146A7C', '#F0AB3D', '#C271B4', '#C20D90']}
           />
         )}
+        <Link href={`/profile/${props.username}`}>
           @
           {props.isPostCard
             ? props.username.split('').slice(0, 7).join('')
