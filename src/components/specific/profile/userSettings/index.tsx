@@ -1,29 +1,29 @@
-import React, { useContext, useEffect, useState } from "react";
-import { ReactSVG } from "react-svg";
-import { useStateWithDeps } from "use-state-with-deps";
-import { useForm, SubmitHandler } from "react-hook-form";
-import api from "@/helpers/api";
+import React, { useContext, useEffect, useState } from 'react';
+import { ReactSVG } from 'react-svg';
+import { useStateWithDeps } from 'use-state-with-deps';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import api from '@/helpers/api';
 
-import edit from "@/icons/main/edit-3.svg";
-import save from "@/icons/main/save.svg";
-import trash from "@/icons/main/trash-2.svg";
-import info from "@/icons/main/info.svg";
-import copy from "@/icons/main/copy.svg";
-import generate from "@/icons/main/refresh-cw.svg";
-import githubIcon from "@/icons/main/github.svg";
-import linkedInIcon from "@/icons/main/linkedin.svg";
-import twitterIcon from "@/icons/main/twitter.svg";
-import link from "@/icons/main/link.svg";
-import mail from "@/icons/main/mail.svg";
-import key from "@/icons/main/key.svg";
-import search from "@/icons/main/search.svg";
-import CustomSelect, { CustomCreatableSelect } from "../../../ui/input/select";
+import edit from '@/icons/main/edit-3.svg';
+import save from '@/icons/main/save.svg';
+import trash from '@/icons/main/trash-2.svg';
+import info from '@/icons/main/info.svg';
+import copy from '@/icons/main/copy.svg';
+import generate from '@/icons/main/refresh-cw.svg';
+import githubIcon from '@/icons/main/github.svg';
+import linkedInIcon from '@/icons/main/linkedin.svg';
+import twitterIcon from '@/icons/main/twitter.svg';
+import link from '@/icons/main/link.svg';
+import mail from '@/icons/main/mail.svg';
+import key from '@/icons/main/key.svg';
+import search from '@/icons/main/search.svg';
+import CustomSelect, { CustomCreatableSelect } from '../../../ui/input/select';
 
-import classes from "./styles.module.css";
-import IconInput from "@/components/ui/input/iconInput";
-import { UserContext } from "@/contexts/userContext";
-import TextInput from "@/components/ui/input/textInput";
-import { TableVirtuoso } from "react-virtuoso";
+import classes from './styles.module.css';
+import IconInput from '@/components/ui/input/iconInput';
+import { UserContext } from '@/contexts/userContext';
+import TextInput from '@/components/ui/input/textInput';
+import { TableVirtuoso } from 'react-virtuoso';
 import {
   Table,
   TableBody,
@@ -36,13 +36,13 @@ import {
   TableProps,
   TableRow,
   TableRowProps,
-} from "@mui/material";
-import PayPal from "@/pages/paypal";
+} from '@mui/material';
+import PayPal from '@/pages/paypal';
 
 const datasetTypeOptions = [
-  { value: "image", label: "Images" },
-  { value: "text", label: "Text" },
-  { value: "video", label: "Video" },
+  { value: 'image', label: 'Images' },
+  { value: 'text', label: 'Text' },
+  { value: 'video', label: 'Video' },
 ];
 
 type UserSettings = {
@@ -75,7 +75,7 @@ function Input(props: {
 }) {
   const id = React.useId();
   const [value, setValue] = useStateWithDeps<string>(() => {
-    return props.value ?? props.initialValue ?? "";
+    return props.value ?? props.initialValue ?? '';
   }, [props.value]);
 
   const validation = props.validator?.(value) ?? true;
@@ -84,7 +84,7 @@ function Input(props: {
       {props.label ? (
         <div className={classes.subheading}>{props.label}</div>
       ) : (
-        ""
+        ''
       )}
 
       <div className={classes.inputDiv}>
@@ -98,7 +98,7 @@ function Input(props: {
           type="email"
           id={id}
           className={`${classes.input} ${
-            validation ? classes.invalidInput : ""
+            validation ? classes.invalidInput : ''
           }`}
           value={value}
           onChange={(event) => {
@@ -131,13 +131,13 @@ function Input(props: {
 
 export default function UserSettings(props: UserSettings) {
   const [linkValues, setLinkValues] = useState({
-    github: "",
-    linkedin: "",
-    twitter: "",
-    website: "",
+    github: '',
+    linkedin: '',
+    twitter: '',
+    website: '',
   });
   const [email, _setEmail] = useState(props.email);
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState('');
   const [apiKey, setApiKey] = useState(props.apiKey);
   const [payPal, setPayPal] = useState(false);
 
@@ -155,7 +155,7 @@ export default function UserSettings(props: UserSettings) {
   const [filter, updateFilter] = useState(0);
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    const res = await api.put("/api/users/links", { data });
+    const res = await api.put('/api/users/links', { data });
     setLinkValues(res.data.data);
   };
 
@@ -171,7 +171,7 @@ export default function UserSettings(props: UserSettings) {
   useEffect(() => {
     reset(linkValues);
   }, [linkValues, reset]);
-  console.log(filter, "filter=>>");
+  console.log(filter, 'filter=>>');
   return (
     <div className={classes.limitsContentDiv}>
       <section className={classes.containDiv}>
@@ -212,21 +212,21 @@ export default function UserSettings(props: UserSettings) {
           <div className={classes.credentialsDiv}>
             <div className={classes.contentDiv}>
               <Input
-                label={"Change email"}
+                label={'Change email'}
                 initialValue={props.email}
-                saveLabel={"Change"}
+                saveLabel={'Change'}
                 saveIcon={edit.src}
                 icon={mail.src}
               />
 
               <Input
-                label={"Change username"}
+                label={'Change username'}
                 initialValue={props.username}
-                saveLabel={"Change"}
+                saveLabel={'Change'}
                 saveIcon={edit.src}
                 icon={mail.src}
                 onSave={async (newUsername) => {
-                  await api.patch("/api/users/username", {
+                  await api.patch('/api/users/username', {
                     username: newUsername,
                   });
                 }}
@@ -252,7 +252,7 @@ export default function UserSettings(props: UserSettings) {
                   <button
                     className={classes.iconButton}
                     onClick={() => {
-                      let finalKey = "";
+                      let finalKey = '';
                       for (let index = 1; index < 21; index++) {
                         finalKey =
                           finalKey +
@@ -293,7 +293,7 @@ export default function UserSettings(props: UserSettings) {
                   <button
                     className={classes.button}
                     onClick={async () => {
-                      await api.patch("/api/users/email", {
+                      await api.patch('/api/users/email', {
                         email: email,
                       });
                     }}
@@ -306,7 +306,7 @@ export default function UserSettings(props: UserSettings) {
             </div>
 
             <div className={classes.limitsDiv}>
-              <h4 className={classes.subheading + " " + classes.limitsHeading}>
+              <h4 className={classes.subheading + ' ' + classes.limitsHeading}>
                 Limits
               </h4>
 
@@ -322,14 +322,14 @@ export default function UserSettings(props: UserSettings) {
                       className={classes.graphContent}
                       style={{
                         width:
-                          ((props.transferLimit / 25) * 100).toString() + "%",
+                          ((props.transferLimit / 25) * 100).toString() + '%',
                       }}
                     />
                   </div>
 
                   <ReactSVG
                     src={info.src}
-                    className={classes.icons + " " + classes.infoIcon}
+                    className={classes.icons + ' ' + classes.infoIcon}
                   />
                 </div>
 
@@ -343,14 +343,14 @@ export default function UserSettings(props: UserSettings) {
                     <div
                       className={classes.graphContent}
                       style={{
-                        width: ((props.downloads / 10) * 100).toString() + "%",
+                        width: ((props.downloads / 10) * 100).toString() + '%',
                       }}
                     />
                   </div>
 
                   <ReactSVG
                     src={info.src}
-                    className={classes.icons + " " + classes.infoIcon}
+                    className={classes.icons + ' ' + classes.infoIcon}
                   />
                 </div>
 
@@ -365,14 +365,14 @@ export default function UserSettings(props: UserSettings) {
                       className={classes.graphContent}
                       style={{
                         width:
-                          ((props.apiCalls / 10000) * 100).toString() + "%",
+                          ((props.apiCalls / 10000) * 100).toString() + '%',
                       }}
                     />
                   </div>
 
                   <ReactSVG
                     src={info.src}
-                    className={classes.icons + " " + classes.infoIcon}
+                    className={classes.icons + ' ' + classes.infoIcon}
                   />
                 </div>
               </div>
@@ -386,13 +386,13 @@ export default function UserSettings(props: UserSettings) {
                 <h1>Connect Payment types</h1>
                 <div className={classes.inputBox}>
                   <Input
-                    saveLabel={"Disconnect"}
+                    saveLabel={'Disconnect'}
                     saveIcon={edit.src}
                     icon={mail.src}
                     value="stipe@striple.com"
                   />
                   <Input
-                    saveLabel={"Connect Paypal"}
+                    saveLabel={'Connect Paypal'}
                     saveIcon={edit.src}
                     icon={mail.src}
                     onSave={() => setPayPal(!payPal)}
@@ -542,7 +542,7 @@ export default function UserSettings(props: UserSettings) {
         {filter === 0 && (
           <form onSubmit={handleSubmit(onSubmit)} className={classes.linksDiv}>
             <div className={classes.linkHeadingDiv}>
-              <h4 className={classes.subheading + " " + classes.linkSubheading}>
+              <h4 className={classes.subheading + ' ' + classes.linkSubheading}>
                 Links
               </h4>
 
@@ -586,7 +586,7 @@ export default function UserSettings(props: UserSettings) {
             </div>
 
             <button className={classes.deactivateButton}>
-              Deactivate Account{" "}
+              Deactivate Account{' '}
               <ReactSVG src={trash.src} className={classes.icons} />
             </button>
           </form>

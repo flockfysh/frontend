@@ -1,4 +1,4 @@
-import { Html, Head, Main, NextScript } from "next/document";
+import { Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document() {
   return (
@@ -27,7 +27,10 @@ export default function Document() {
 
       <body>
         <Main />
-        <script src="https://www.paypal.com/sdk/js?client-id=<YOUR ID>"></script>
+        <script
+          src="https://www.paypal.com/sdk/js?client-id=<YOUR ID>"
+          async
+        ></script>
 
         <NextScript />
       </body>
