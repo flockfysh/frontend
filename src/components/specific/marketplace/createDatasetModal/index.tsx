@@ -130,7 +130,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
             >
                 <div className={ classes.header }>
                     <h1 className={ classes.headerText }>
-                        { isUpload ? 'Upload Datasets' : 'Request Datasets' }
+                        { isUpload ? 'Upload Datasets' : 'Build Datasets' }
                     </h1>
 
                     <ReactSVG
