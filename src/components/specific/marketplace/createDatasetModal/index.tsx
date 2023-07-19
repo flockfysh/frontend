@@ -474,7 +474,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                 </>
                             ) : (
                                 <>
-                                    <p>Request Dataset</p>
+                                    <p>Create Dataset</p>
 
                                     <ReactSVG src={ coinStack.src }/>
                                 </>
