@@ -164,7 +164,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                             (!isUpload ? classes.selected : '')
                         }
                     >
-                        Request
+                        Build
                     </div>
                 </div>
 
