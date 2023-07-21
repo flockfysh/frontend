@@ -7,15 +7,18 @@ import { ReactSVG } from 'react-svg';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-import api from '@/helpers/api';
 import MarketplaceLayout from '@/components/layout/marketplaceLayout';
-import cpu from '@/icons/main/cpu.svg';
-import flag from '@/icons/main/flag.svg';
-import classes from './styles.module.css';
 import { UserContext } from '@/contexts/userContext';
 import EditPostModal from '@/components/specific/marketplace/editPostModal';
+
 import { PostContext } from '@/contexts/postContext';
 import { ModalContext } from '@/contexts/modalContext';
+
+import api from '@/helpers/api';
+
+import cpu from '@/icons/main/cpu.svg';
+
+import classes from './styles.module.css';
 
 const PostItems = function () {
     const router = useRouter();
@@ -97,8 +100,8 @@ const PostItems = function () {
         <MarketplaceLayout>
             <div className={ classes.container }>
             { isEditPostOpen && (
-                <EditPostModal id={postId} onClose={ () => setEditPostOpen(false) } />
-            )}
+                <EditPostModal id={ postId } onClose={ () => setEditPostOpen(false) } />
+            ) }
             <header className={ classes.headerWrapper }>
                 { /* image */ }
                 <div className={ classes.imageWrapper }>
@@ -143,7 +146,7 @@ const PostItems = function () {
                         <div className={ classes.dataActionButtons }>
                             <div className={ classes.basicActionsWrapper }>
                                 <button
-                                    className={ classes.downloadButton}
+                                    className={ classes.downloadButton }
                                     onClick={ async () => {
                                         setLike(!liked);
                                         if (!liked) {
@@ -158,35 +161,35 @@ const PostItems = function () {
                                             setLikeCounts(res.data.data);
                                             setLike(false);
                                         }
-                                    }}
+                                    } }
                                 >
                                     <span>{ liked ? 'Unlike' : 'Like' }</span>
                                     <span>{ likeCounts }</span>
                                 </button>
-                                {postData.user === userId && (
+                                { postData.user === userId && (
                                     <>
                                         <button
-                                            className={ classes.downloadButton}
+                                            className={ classes.downloadButton }
                                             onClick={ async () => {
                                                 await api.delete(`/api/posts/${postId}`);
                                                 router.push('/marketplace');
-                                            }}
+                                            } }
                                         >
                                             Delete
                                         </button>
                                         <button
-                                            className={ classes.downloadButton}
-                                            onClick={() => setEditPostOpen(true)}
+                                            className={ classes.downloadButton }
+                                            onClick={ () => setEditPostOpen(true) }
                                         >
                                             Edit
                                         </button>
                                     </>
-                                )}
+                                ) }
                             </div>
                         </div>
                     </div>
                     <h2 className={ classes.name }>{ postData.title }</h2>
-                    <Link href={`/profile/${author.username}`} target="_blank" className={ classes.username }>Author: { author.fullname }</Link>
+                    <Link href={ `/profile/${author.username}` } target="_blank" className={ classes.username }>Author: { author.fullname }</Link>
                     <p>{ postData.content }</p>
                 </div>
             </header>

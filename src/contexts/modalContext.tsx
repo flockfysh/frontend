@@ -26,14 +26,14 @@ export const ModalWrapper = (props: PropsWithChildren) => {
 
     return (
         <ModalContext.Provider
-            value={{
+            value={ {
                 isCreatePostOpen,
                 isEditPostOpen,
                 setCreatePostOpen,
                 setEditPostOpen
-            }}
+            } }
         >
-            {props.children}
+            { props.children }
         </ModalContext.Provider>
     );
 };

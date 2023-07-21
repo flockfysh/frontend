@@ -99,13 +99,13 @@ export default function DatasetInfo(props: PropsWithChildren) {
   if (!dataset || typeof datasetId !== 'string') return <></>;
 
   return (
-    <DatasetInfoContext.Provider value={dataset}>
-      <div className={classes.container}>
-        <header className={classes.headerWrapper}>
-          {/* image */}
-          <div className={classes.imageWrapper}>
+    <DatasetInfoContext.Provider value={ dataset }>
+      <div className={ classes.container }>
+        <header className={ classes.headerWrapper }>
+          { /* image */ }
+          <div className={ classes.imageWrapper }>
             <img
-              className={classes.headerImage}
+              className={ classes.headerImage }
               src={
                 dataset.thumbnail?.url ??
                 'https://c.pxhere.com/photos/0d/b1/photo-168471.jpg!d'
@@ -113,25 +113,25 @@ export default function DatasetInfo(props: PropsWithChildren) {
               alt="Datasets portrait image"
             />
 
-            <div className={classes.imageTag}>
-              <ReactSVG className={classes.imageTagIcon} src={cpu.src} />
+            <div className={ classes.imageTag }>
+              <ReactSVG className={ classes.imageTagIcon } src={ cpu.src } />
 
-              <div className={classes.imageTagSeparator} />
+              <div className={ classes.imageTagSeparator } />
 
-              <span className={classes.imageTagText}>
-                {dataset.type.toUpperCase()}
+              <span className={ classes.imageTagText }>
+                { dataset.type.toUpperCase() }
               </span>
             </div>
           </div>
 
-          {/* basic info */}
-          <div className={classes.dataContainer}>
-            {/* first row */}
-            <div className={classes.actionButtonsAndImageWrapper}>
-              <div className={classes.datasetImageWrapper}>
-                <div className={classes.datasetImageContainer}>
+          { /* basic info */ }
+          <div className={ classes.dataContainer }>
+            { /* first row */ }
+            <div className={ classes.actionButtonsAndImageWrapper }>
+              <div className={ classes.datasetImageWrapper }>
+                <div className={ classes.datasetImageContainer }>
                   <img
-                    className={classes.datasetImage}
+                    className={ classes.datasetImage }
                     src={
                       dataset.icon?.url ??
                       'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fget.pxhere.com%2Fphoto%2Fcar-vehicle-martini-sports-car-race-car-supercar-team-racing-race-track-porsche-motorsport-leicam-summilux50f14-typ240-supercup-sebastianloeb-gt3r-louwmanmuseum-land-vehicle-auto-racing-automobile-make-automotive-design-performance-car-stock-car-racing-porsche-911-gt3-porsche-911-gt2-236174.jpg&f=1&nofb=1&ipt=1806d4f590c10c3f085ed81b7b35d359fb70e4d85672c00eb29e2eacf4b63453&ipo=images'
@@ -141,15 +141,15 @@ export default function DatasetInfo(props: PropsWithChildren) {
                 </div>
               </div>
 
-              <div className={classes.dataActionButtons}>
-                <div className={classes.basicActionsWrapper}>
-                  <button className={classes.basicButton}>
-                    <ReactSVG className={classes.imageTagIcon} src={flag.src} />
+              <div className={ classes.dataActionButtons }>
+                <div className={ classes.basicActionsWrapper }>
+                  <button className={ classes.basicButton }>
+                    <ReactSVG className={ classes.imageTagIcon } src={ flag.src } />
                   </button>
 
                   <button
-                    className={classes.basicButton}
-                    onClick={async () => {
+                    className={ classes.basicButton }
+                    onClick={ async () => {
                       setBookmark(!bookmarked);
                       if (!bookmarked) {
                         await api.post(`/api/datasets/${datasetId}/bookmarks`);
@@ -161,32 +161,32 @@ export default function DatasetInfo(props: PropsWithChildren) {
                         );
                         setBookmark(false);
                       }
-                    }}
+                    } }
                   >
                     <ReactSVG
-                      className={classes.imageTagIcon}
-                      src={bookmarked ? bookmarkFilled.src : bookmark.src}
+                      className={ classes.imageTagIcon }
+                      src={ bookmarked ? bookmarkFilled.src : bookmark.src }
                     />
                   </button>
                 </div>
 
-                {dataset.permission !== 'preview' ? (
+                { dataset.permission !== 'preview' ? (
                   <>
                     <ActionPopupWithButton
-                      button={(
-                        <button className={classes.contributeButton}>
+                      button={ (
+                        <button className={ classes.contributeButton }>
                           Contribute
                         </button>
-                      )}
-                      popupTitle={'Contribute'}
-                      variant={'marketplace'}
+                      ) }
+                      popupTitle={ 'Contribute' }
+                      variant={ 'marketplace' }
                     >
-                      <Contribute dataset={dataset} />
+                      <Contribute dataset={ dataset } />
                     </ActionPopupWithButton>
 
                     <button
-                      className={classes.downloadButton}
-                      onClick={async () => {
+                      className={ classes.downloadButton }
+                      onClick={ async () => {
                         setLike(!liked);
                         if (!liked) {
                           await api.post(`/api/datasets/${datasetId}/likes`);
@@ -204,84 +204,84 @@ export default function DatasetInfo(props: PropsWithChildren) {
                           setLikeCounts(res.data.data);
                           setLike(false);
                         }
-                      }}
+                      } }
                     >
-                      <span>{liked ? 'Unlike' : 'Like'}</span>
-                      <span>{likeCounts}</span>
+                      <span>{ liked ? 'Unlike' : 'Like' }</span>
+                      <span>{ likeCounts }</span>
                     </button>
 
                     <button
-                      className={classes.downloadButton}
-                      onClick={() => downloadDataset(dataset._id)}
+                      className={ classes.downloadButton }
+                      onClick={ () => downloadDataset(dataset._id) }
                     >
                       <ReactSVG
-                        className={classes.imageTagIcon}
-                        src={download.src}
+                        className={ classes.imageTagIcon }
+                        src={ download.src }
                       />
 
                       <span>
-                        Download ({formatFileSize(dataset.size.total.total)})
+                        Download ({ formatFileSize(dataset.size.total.total) })
                       </span>
                     </button>
                   </>
                 ) : (
                   <button
-                    className={classes.contributeButton}
-                    onClick={async () => {
+                    className={ classes.contributeButton }
+                    onClick={ async () => {
                       const url = await genPurchaseUrl(dataset._id);
                       await router.push(url);
-                    }}
+                    } }
                   >
-                    Buy for ${dataset.price.toFixed(2)}
+                    Buy for ${ dataset.price.toFixed(2) }
                   </button>
-                )}
+                ) }
               </div>
             </div>
 
-            {/* second row: description */}
-            <div className={classes.descriptionContainer}>
-              {/* title */}
-              <div className={classes.titleWrapper}>
-                <div className={classes.titleContainer}>
-                  <h2 className={classes.datasetTitle}>{dataset.name}</h2>
+            { /* second row: description */ }
+            <div className={ classes.descriptionContainer }>
+              { /* title */ }
+              <div className={ classes.titleWrapper }>
+                <div className={ classes.titleContainer }>
+                  <h2 className={ classes.datasetTitle }>{ dataset.name }</h2>
 
-                  <div className={classes.tagsContainer}>
-                    {dataset.tags.map((tag) => {
+                  <div className={ classes.tagsContainer }>
+                    { dataset.tags.map((tag) => {
                       return (
-                        <span className={classes.datasetTag} key={tag}>
-                          {tag}
+                        <span className={ classes.datasetTag } key={ tag }>
+                          { tag }
                         </span>
                       );
-                    })}
+                    }) }
                   </div>
                 </div>
 
                 <Link
-                  className={classes.datasetNick}
-                  href={`/profile/${dataset.user.username}`}
+                  className={ classes.datasetNick }
+                  href={ `/profile/${dataset.user.username}` }
                 >
-                  @{dataset.user.username}
+                  @{ dataset.user.username }
                 </Link>
               </div>
 
-              {/* description */}
-              <div className={classes.descriptionWrapper}>
-                <p>{dataset.description}</p>
+              { /* description */ }
+              <div className={ classes.descriptionWrapper }>
+                <p>{ dataset.description }</p>
               </div>
 
-              {/* licence */}
-              <div className={classes.licenceWrapper}>
-                <ReactSVG className={classes.imageTagIcon} src={cpu.src} />
-                {DATASET_LICENSE_DESCRIPTION[dataset.license]}
+              { /* licence */ }
+              <div className={ classes.licenceWrapper }>
+                <ReactSVG className={ classes.imageTagIcon } src={ cpu.src } />
+                { DATASET_LICENSE_DESCRIPTION[dataset.license] }
               </div>
             </div>
           </div>
 
-          {/* action menu */}
-          <div className={classes.actionMenuContainer}>
-            {/* button group */}
+          { /* action menu */ }
+          <div className={ classes.actionMenuContainer }>
+            { /* button group */ }
             <RadioButtons
-              options={[
+              options={ [
                 {
                   label: 'Items',
                   value: `/marketplace/${dataset._id}`,
@@ -301,55 +301,55 @@ export default function DatasetInfo(props: PropsWithChildren) {
                   label: 'Contributions',
                   value: `/marketplace/${dataset._id}/contributions`,
                 },
-              ]}
-              isLink={true}
+              ] }
+              isLink={ true }
             />
 
-            {/* specification */}
-            <div className={classes.specificationWrapper}>
-              <div className={classes.specificationContainer}>
-                <div className={classes.specificationItem}>
-                  <span className={classes.specificationItemTitle}>
-                    {dataset.assetCounts.total}
+            { /* specification */ }
+            <div className={ classes.specificationWrapper }>
+              <div className={ classes.specificationContainer }>
+                <div className={ classes.specificationItem }>
+                  <span className={ classes.specificationItemTitle }>
+                    { dataset.assetCounts.total }
                   </span>
 
                   <small>Files</small>
                 </div>
 
-                <div className={classes.specificationSeparator} />
-                <div className={classes.specificationItem}>
-                  <span className={classes.specificationItemTitle}>
-                    {dataset.metrics.downloads}
+                <div className={ classes.specificationSeparator } />
+                <div className={ classes.specificationItem }>
+                  <span className={ classes.specificationItemTitle }>
+                    { dataset.metrics.downloads }
                   </span>
 
                   <small>Downloads</small>
                 </div>
 
-                <div className={classes.specificationSeparator} />
+                <div className={ classes.specificationSeparator } />
 
-                <div className={classes.specificationItem}>
-                  <span className={classes.specificationItemTitle}>
-                    {dayjs(dataset.createdAt).fromNow()}
+                <div className={ classes.specificationItem }>
+                  <span className={ classes.specificationItemTitle }>
+                    { dayjs(dataset.createdAt).fromNow() }
                   </span>
 
                   <small>Created at</small>
                 </div>
 
-                <div className={classes.specificationSeparator} />
+                <div className={ classes.specificationSeparator } />
 
-                <div className={classes.specificationItem}>
-                  <span className={classes.specificationItemTitle}>
-                    {dayjs(dataset.updatedAt).fromNow()}
+                <div className={ classes.specificationItem }>
+                  <span className={ classes.specificationItemTitle }>
+                    { dayjs(dataset.updatedAt).fromNow() }
                   </span>
 
                   <small>Last Updated</small>
                 </div>
 
-                <div className={classes.specificationSeparator} />
+                <div className={ classes.specificationSeparator } />
 
-                <div className={classes.specificationItem}>
-                  <span className={classes.specificationItemTitle}>
-                    {dataset.contributors}
+                <div className={ classes.specificationItem }>
+                  <span className={ classes.specificationItemTitle }>
+                    { dataset.contributors }
                   </span>
 
                   <small>Contributors</small>
@@ -359,7 +359,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
           </div>
         </header>
 
-        {props.children}
+        { props.children }
       </div>
     </DatasetInfoContext.Provider>
   );

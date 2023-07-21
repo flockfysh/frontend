@@ -97,8 +97,9 @@ export default function ContributionDetails(props: {
                     },
                 )
             ).data.data;
+            
             setCurContribution(contribution);
-            console.log(contribution);
+            
             const tempMessages = (
                 await api.get<Api.PaginatedResponse<ExpandedPullRequestMessage[]>>(
                     `/api/pullRequests/${props.contributionId}/messages`,
@@ -204,9 +205,9 @@ export default function ContributionDetails(props: {
                         </div>
                         <div className={ classes.messageInfo }>
                             <span className={ classes.vl }/>
-                            <p className={ classes.greenText }>+{curContribution.stats.newAssets}</p>
+                            <p className={ classes.greenText }>+{ curContribution.stats.newAssets }</p>
                             <AiOutlineFile/>
-                            <p className={ classes.redText }>-{curContribution.stats.deletedAssets}</p>
+                            <p className={ classes.redText }>-{ curContribution.stats.deletedAssets }</p>
                         </div>
                         <span className={ classes.dot }/>
                         { messages.map((message: ExpandedPullRequestMessage) => {

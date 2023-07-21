@@ -18,18 +18,18 @@ export default function WideFocusedCard(props: HomepageDataset) {
   };
 
   return (
-    <div className={classes.cardContainer}>
-      <div className={classes.header}>
-        <div className={classes.thumbnail}>
-          {props.icon && <img src={props.icon?.url} alt="avatar" />}
+    <div className={ classes.cardContainer }>
+      <div className={ classes.header }>
+        <div className={ classes.thumbnail }>
+          { props.icon && <img src={ props.icon?.url } alt="avatar" /> }
         </div>
 
-        <DatasetTypeCard className={classes.typeContainer} type={props.type} />
+        <DatasetTypeCard className={ classes.typeContainer } type={ props.type } />
       </div>
 
       <div
-        className={classes.image}
-        style={{
+        className={ classes.image }
+        style={ {
           background:
             'linear-gradient(' +
             Math.round(Math.random() * 360) +
@@ -42,44 +42,44 @@ export default function WideFocusedCard(props: HomepageDataset) {
             ' ' +
             Math.round(Math.random() * 35 + 70) +
             '%)',
-        }}
+        } }
       />
 
-      <div className={classes.overlay} />
+      <div className={ classes.overlay } />
 
       <Link
-        className={classes.linkOverlay}
-        href={`/marketplace/${props._id}`}
+        className={ classes.linkOverlay }
+        href={ `/marketplace/${props._id}` }
       />
 
-      <div className={classes.datasetName}>{props.name}</div>
+      <div className={ classes.datasetName }>{ props.name }</div>
 
-      <div className={classes.footer}>
-        <div className={classes.left}>
+      <div className={ classes.footer }>
+        <div className={ classes.left }>
           <Link
-            className={classes.anchor}
-            href={`/profile/${props.user.username}`}
+            className={ classes.anchor }
+            href={ `/profile/${props.user.username}` }
           >
-            <img src={props.user.profilePhoto?.url} alt="pfp" />
+            <img src={ props.user.profilePhoto?.url } alt="pfp" />
 
-            <p>@{props.user.username.slice(0, 16)}</p>
+            <p>@{ props.user.username.slice(0, 16) }</p>
           </Link>
         </div>
 
-        <div className={classes.right}>
-          <div className={classes.infoContainer}>
-            <span className={classes.infoContainerLabel}>Items</span>
+        <div className={ classes.right }>
+          <div className={ classes.infoContainer }>
+            <span className={ classes.infoContainerLabel }>Items</span>
 
-            <span className={classes.infoContainerValue}>
-              {props.assetCounts.total}
+            <span className={ classes.infoContainerValue }>
+              { props.assetCounts.total }
             </span>
           </div>
 
-          <div className={classes.infoContainer}>
-            <span className={classes.infoContainerLabel}>Size</span>
+          <div className={ classes.infoContainer }>
+            <span className={ classes.infoContainerLabel }>Size</span>
 
-            <span className={classes.infoContainerValue}>
-              {formatFileSize(props.size.total.total)}
+            <span className={ classes.infoContainerValue }>
+              { formatFileSize(props.size.total.total) }
             </span>
           </div>
         </div>

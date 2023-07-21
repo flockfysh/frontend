@@ -10,15 +10,14 @@ import CreatePostModal from '../createPostModal';
 import { UserContext } from '@/contexts/userContext';
 
 import fish from '@/icons/branding/fish.svg';
-import bell from '@/icons/main/bell.svg';
 import penTool from '@/icons/main/pen-tool.svg';
 import plusCircle from '@/icons/main/plus-circle.svg';
 import userIcon from '@/icons/main/user.svg';
 
 import { ModalContext } from '@/contexts/modalContext';
 import api from '@/helpers/api';
-import classes from './styles.module.css';
 import BellNotifications from '../notifications/bell';
+import classes from './styles.module.css';
 
 export default function MarketplaceNavbar() {
   const { user } = useContext(UserContext);
@@ -70,115 +69,115 @@ export default function MarketplaceNavbar() {
   }, [search]);
 
   return (
-    <nav className={classes.nav}>
-      {isDatasetModalOpen && (
-        <CreateDatasetModal onClose={() => updateDatasetModalOpen(false)} />
-      )}
+    <nav className={ classes.nav }>
+      { isDatasetModalOpen && (
+        <CreateDatasetModal onClose={ () => updateDatasetModalOpen(false) } />
+      ) }
 
-      {isCreatePostOpen && (
-        <CreatePostModal onClose={() => setCreatePostOpen(false)} />
-      )}
+      { isCreatePostOpen && (
+        <CreatePostModal onClose={ () => setCreatePostOpen(false) } />
+      ) }
 
-      {isLogin && <Login mode="login" onClose={() => updateLogin(false)} />}
+      { isLogin && <Login mode="login" onClose={ () => updateLogin(false) } /> }
 
-      <div className={classes.subContainer + ' ' + classes.leftContainer}>
-        <Link className={classes.logoContainer} href="/marketplace">
-          <ReactSVG src={fish.src} />
+      <div className={ classes.subContainer + ' ' + classes.leftContainer }>
+        <Link className={ classes.logoContainer } href="/marketplace">
+          <ReactSVG src={ fish.src } />
 
           <p>fDE</p>
         </Link>
 
         <label
-          className={classes.searchContainer}
-          onBlur={() => {
+          className={ classes.searchContainer }
+          onBlur={ () => {
             setOpen(false);
-          }}
-          onFocus={() => {
+          } }
+          onFocus={ () => {
             setOpen(true);
-          }}
+          } }
         >
-          <ReactSVG src={searchIcon.src} className={classes.searchIcon} />
+          <ReactSVG src={ searchIcon.src } className={ classes.searchIcon } />
 
           <input
             type="search"
-            className={classes.search}
-            onChange={(e) => {
+            className={ classes.search }
+            onChange={ (e) => {
               setSearch(e.target.value);
-            }}
+            } }
             placeholder="Search by username or dataset name"
           />
           <div
             id="menu-div"
-            className={`${classes.searchResult} ${
+            className={ `${classes.searchResult} ${
               open ? classes.searchResultActive : ''
-            }`}
-            onClick={(e) => e.stopPropagation()}
+            }` }
+            onClick={ (e) => e.stopPropagation() }
           >
-            {searchedUser.length > 0 && (
+            { searchedUser.length > 0 && (
               <>
-                <h2 className={classes.searchResultHeader}>Users</h2>
-                {searchedUser.slice(0, 3).map((user, userIndex) => {
+                <h2 className={ classes.searchResultHeader }>Users</h2>
+                { searchedUser.slice(0, 3).map((user, userIndex) => {
                   return (
                     <Link
-                      href={`/profile/${user.username}`}
-                      key={userIndex}
-                      className={classes.searchResultItem}
+                      href={ `/profile/${user.username}` }
+                      key={ userIndex }
+                      className={ classes.searchResultItem }
                     >
-                      {user.fullName}
+                      { user.fullName }
                     </Link>
                   );
-                })}
+                }) }
               </>
-            )}
+            ) }
 
-            {searchedDataset.length > 0 && (
+            { searchedDataset.length > 0 && (
               <>
-                <h2 className={classes.searchResultHeader}>Datasets</h2>
-                {searchedDataset.slice(0, 3).map((dataset, datasetIndex) => {
+                <h2 className={ classes.searchResultHeader }>Datasets</h2>
+                { searchedDataset.slice(0, 3).map((dataset, datasetIndex) => {
                   return (
                     <Link
-                      href={`/marketplace/${dataset._id}`}
-                      key={datasetIndex}
-                      className={classes.searchResultItem}
+                      href={ `/marketplace/${dataset._id}` }
+                      key={ datasetIndex }
+                      className={ classes.searchResultItem }
                     >
-                      {dataset.name}
+                      { dataset.name }
                     </Link>
                   );
-                })}
+                }) }
               </>
-            )}
+            ) }
           </div>
         </label>
 
-        <ReactSVG src={searchIcon.src} className={classes.mobileSearch} />
+        <ReactSVG src={ searchIcon.src } className={ classes.mobileSearch } />
       </div>
 
-      <div className={classes.subContainer}>
-        {user ? (
+      <div className={ classes.subContainer }>
+        { user ? (
           <>
             <ReactSVG
-              onClick={() => setCreatePostOpen(true)}
-              src={penTool.src}
-              className={classes.leftIcon}
+              onClick={ () => setCreatePostOpen(true) }
+              src={ penTool.src }
+              className={ classes.leftIcon }
             />
             <ReactSVG
-              onClick={() => updateDatasetModalOpen(true)}
-              src={plusCircle.src}
-              className={classes.leftIcon}
+              onClick={ () => updateDatasetModalOpen(true) }
+              src={ plusCircle.src }
+              className={ classes.leftIcon }
             />
 
             <BellNotifications />
 
-            <CurrentUserProfile showMenu={true} />
+            <CurrentUserProfile showMenu={ true } />
           </>
         ) : (
           <button
-            className={classes.loginButton}
-            onClick={() => updateLogin(true)}
+            className={ classes.loginButton }
+            onClick={ () => updateLogin(true) }
           >
-            Login <ReactSVG className={classes.loginIcon} src={userIcon.src} />
+            Login <ReactSVG className={ classes.loginIcon } src={ userIcon.src } />
           </button>
-        )}
+        ) }
       </div>
     </nav>
   );

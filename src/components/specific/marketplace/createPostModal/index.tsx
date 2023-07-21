@@ -61,13 +61,13 @@ export default function CreatePostModal(props: CreatePostModalProps) {
 
                 <form
                     className={ classes.form }
-                    onSubmit={handleSubmit(onSubmit)}
+                    onSubmit={ handleSubmit(onSubmit) }
                 >
                     <div className={ classes.rowContainer }>
                         <label>
                             <p>Title</p>
                             <input
-                                {...register('title')}
+                                { ...register('title') }
                                 type="text"
                                 placeholder="XYZ ..."
                                 className={ classes.nameContainer }
@@ -77,12 +77,12 @@ export default function CreatePostModal(props: CreatePostModalProps) {
                         <label>
                             <p>Content</p>
                             <textarea
-                                {...register('content')}
+                                { ...register('content') }
                                 placeholder="What it contains, what it is for, ..."
                                 required={ true }
                             />
                         </label>
-                        <button type="submit" className={classes.createButton}>Create</button>
+                        <button type="submit" className={ classes.createButton }>Create</button>
                     </div>
                 </form>
             </div>

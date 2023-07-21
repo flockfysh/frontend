@@ -19,7 +19,7 @@ const IconInput = ({ name, placeholder, icon, register, errors }: IconInputTypes
 
             <input
                 className={ classes.linkInput }
-                placeholder={placeholder}
+                placeholder={ placeholder }
                 {
                     ...register(
                         name,
@@ -32,7 +32,7 @@ const IconInput = ({ name, placeholder, icon, register, errors }: IconInputTypes
                     )
                 }
             />
-            {errors && errors[name] && <p className={classes.errors}>{errors[name].message}</p>}
+            { errors && errors[name] && <p className={ classes.errors }>{ errors[name].message }</p> }
         </div>
     );
 };

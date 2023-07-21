@@ -29,7 +29,6 @@ import trash from '@/icons/main/trash-2.svg';
 
 import classes from './styles.module.css';
 import { useStateWithDeps } from 'use-state-with-deps';
-import { prop } from 'react-data-table-component/dist/src/DataTable/util';
 import { genPurchaseUrl } from '@/helpers/endpoints/datasets';
 import Link from 'next/link';
 import { useRouter } from 'next/router';

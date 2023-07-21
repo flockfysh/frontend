@@ -40,8 +40,8 @@ export const PostWrapper = (props: PropsWithChildren) => {
     const [posts, setPosts] = useState<HomepagePost[]>([]);
 
     return (
-        <PostContext.Provider value={{ post, posts, setPost, setPosts }}>
-            {props.children}
+        <PostContext.Provider value={ { post, posts, setPost, setPosts } }>
+            { props.children }
         </PostContext.Provider>
     );
 };

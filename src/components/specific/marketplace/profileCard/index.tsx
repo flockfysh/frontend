@@ -33,12 +33,12 @@ function ProfileCardMenuLink(props: {
 }) {
   return (
     <Link
-      href={props.href}
-      className={classes.dropdownItem}
-      onClick={props.onClick}
+      href={ props.href }
+      className={ classes.dropdownItem }
+      onClick={ props.onClick }
     >
-      <ReactSVG src={props.icon.src} className={classes.icon} />
-      <span>{props.label}</span>
+      <ReactSVG src={ props.icon.src } className={ classes.icon } />
+      <span>{ props.label }</span>
     </Link>
   );
 }
@@ -141,16 +141,16 @@ export default function ProfileCard(props: ProfileCardProps) {
       return group.map((item, index) => {
         return (
           <ProfileCardMenuLink
-            key={index}
-            href={item.href}
-            label={item.label}
-            icon={item.icon}
-            onClick={item.onClick}
+            key={ index }
+            href={ item.href }
+            label={ item.label }
+            icon={ item.icon }
+            onClick={ item.onClick }
           />
         );
       });
     }),
-    <div className={classes.separator}></div>
+    <div className={ classes.separator }></div>
   )
     .flatMap((item) => {
       return item;
@@ -162,43 +162,43 @@ export default function ProfileCard(props: ProfileCardProps) {
     });
 
   return (
-    <div className={classes.buttonWrapper} onBlur={handleOnCloseMenu}>
+    <div className={ classes.buttonWrapper } onBlur={ handleOnCloseMenu }>
       <button
-        onClick={() => setOpen(!open)}
-        className={`${classes.profileContainer} ${props.className || ''}`}
+        onClick={ () => setOpen(!open) }
+        className={ `${classes.profileContainer} ${props.className || ''}` }
       >
-        {props.profilePicture ? (
+        { props.profilePicture ? (
           <img
-            src={props.profilePicture ? props.profilePicture : 'd'}
+            src={ props.profilePicture ? props.profilePicture : 'd' }
             alt="Profile Picture"
           />
         ) : (
           <Avatar
-            size={32}
-            name={props.username}
+            size={ 32 }
+            name={ props.username }
             variant="marble"
-            colors={['#92A1C6', '#146A7C', '#F0AB3D', '#C271B4', '#C20D90']}
+            colors={ ['#92A1C6', '#146A7C', '#F0AB3D', '#C271B4', '#C20D90'] }
           />
-        )}
-        <Link href={`/profile/${props.username}`}>
+        ) }
+        <Link href={ `/profile/${props.username}` }>
           @
-          {props.isPostCard
+          { props.isPostCard
             ? props.username.split('').slice(0, 7).join('')
-            : props.username}
+            : props.username }
         </Link>
       </button>
 
-      {props.showMenu && (
+      { props.showMenu && (
         <div
           id="menu-div"
-          className={`${classes.dropdown} ${
+          className={ `${classes.dropdown} ${
             open ? classes.dropdownActive : ''
-          }`}
-          onClick={(e) => e.stopPropagation()}
+          }` }
+          onClick={ (e) => e.stopPropagation() }
         >
-          {menu}
+          { menu }
         </div>
-      )}
+      ) }
     </div>
   );
 }
