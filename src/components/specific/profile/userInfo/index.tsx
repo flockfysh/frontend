@@ -37,38 +37,32 @@ function Header(props: { url: string; editable: boolean }) {
     return (
         <div className={ classes.headerPictureContainer }>
             <div className={ classes.headerPictureSubContainer }>
-                {
-                    props.url
-                        ? (
-                            <Image
-                                alt="banner"
-                                className={ classes.headPic }
-                                src={
-                                    props.url
-                                }
-                                fill={ true }
-                            />
-                        )
-                        : (
-                            <div
-                                className={ classes.defaultBanner }
-                                style={ {
-                                    background:
-                                        'linear-gradient(' +
-                                        Math.round(Math.random() * 360) +
-                                        'deg, ' +
-                                        gradientFunction() +
-                                        ' ' +
-                                        Math.round(Math.random() * 30) +
-                                        '%,' +
-                                        gradientFunction2() +
-                                        ' ' +
-                                        Math.round(Math.random() * 35 + 70) +
-                                        '%)',
-                                } }
-                            />
-                        )
-                }
+                { props.url ? (
+                    <Image
+                        alt="banner"
+                        className={ classes.headPic }
+                        src={ props.url }
+                        fill={ true }
+                    />
+                ) : (
+                    <div
+                        className={ classes.defaultBanner }
+                        style={ {
+                            background:
+                                'linear-gradient(' +
+                                Math.round(Math.random() * 360) +
+                                'deg, ' +
+                                gradientFunction() +
+                                ' ' +
+                                Math.round(Math.random() * 30) +
+                                '%,' +
+                                gradientFunction2() +
+                                ' ' +
+                                Math.round(Math.random() * 35 + 70) +
+                                '%)',
+                        } }
+                    />
+                ) }
             </div>
 
             { props.editable ? (
@@ -80,7 +74,7 @@ function Header(props: { url: string; editable: boolean }) {
                         onChange={ async (e) => {
                             if (e.currentTarget.files) {
                                 const fd = new FormData();
-                                
+
                                 fd.append('image', e.currentTarget.files[0]);
                                 e.currentTarget.value = '';
 
@@ -97,7 +91,7 @@ function Header(props: { url: string; editable: boolean }) {
                             inputRef.current?.click();
                         } }
                     >
-                        <ReactSVG src={ pen.src }></ReactSVG>
+                        <ReactSVG src={ pen.src } />
                     </button>
                 </>
             ) : (
@@ -107,39 +101,39 @@ function Header(props: { url: string; editable: boolean }) {
     );
 }
 
-function ProfilePhoto(props: { url: string; editable: boolean; username: string }) {
+function ProfilePhoto(props: {
+    url: string;
+    editable: boolean;
+    username: string;
+}) {
     const router = useRouter();
 
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (
         <div className={ classes.profilePictureContainer }>
-            {
-                props.url
-                    ? (
-                        <img
-                            className={ classes.profilePic }
-                            src={ props.url }
-                            alt="profile pic"
-                        />
-                    )
-                    : (
-                        <div className={ classes.defaultProfilePic }>
-                            <Avatar
-                                size="12rem"
-                                name={ props.username }
-                                variant="marble"
-                                colors={ [
-                                    '#92A1C6',
-                                    '#146A7C',
-                                    '#F0AB3D',
-                                    '#C271B4',
-                                    '#C20D90',
-                                ] }
-                            />
-                        </div>
-                    )
-            }
+            { props.url ? (
+                <img
+                    className={ classes.profilePic }
+                    src={ props.url }
+                    alt="profile pic"
+                />
+            ) : (
+                <div className={ classes.defaultProfilePic }>
+                    <Avatar
+                        size="12rem"
+                        name={ props.username }
+                        variant="marble"
+                        colors={ [
+                            '#92A1C6',
+                            '#146A7C',
+                            '#F0AB3D',
+                            '#C271B4',
+                            '#C20D90',
+                        ] }
+                    />
+                </div>
+            ) }
 
             { props.editable ? (
                 <>
@@ -154,7 +148,7 @@ function ProfilePhoto(props: { url: string; editable: boolean; username: string 
                                 e.currentTarget.value = '';
 
                                 await api.put('/api/users/profilePhoto', fd);
-                                
+
                                 router.reload();
                             }
                         } }
@@ -164,7 +158,7 @@ function ProfilePhoto(props: { url: string; editable: boolean; username: string 
                         className={ classes.photoChangeButton }
                         onClick={ () => inputRef.current?.click() }
                     >
-                        <ReactSVG src={ pen.src }></ReactSVG>
+                        <ReactSVG src={ pen.src } />
                     </button>
                 </>
             ) : (
@@ -174,29 +168,35 @@ function ProfilePhoto(props: { url: string; editable: boolean; username: string 
     );
 }
 
-const UserInfo = (
+export default function UserInfo (
     props: ProfilePageUser & {
         updateTab: (index: number) => void;
         curTab: number;
     }
-) => {
+) {
     const [linkValues, setLinkValues] = useState({
         github: 'https://github.com',
         linkedin: 'https://linkedin.com',
         twitter: 'https://twitter.com',
-        website: 'https://website.com'
+        website: 'https://website.com',
     });
+
     const [followers, setFollowers] = useState();
     const [followings, setFollowings] = useState();
     const [isFollowing, setIsFollowing] = useState(false);
+    
     const { user } = useContext(UserContext);
     const router = useRouter();
+    
     const following = router.query.username;
     const editable = user?._id === props._id;
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await api.get(`/api/users/byUsername/${following}/links`);
+            const res = await api.get(
+                `/api/users/byUsername/${following}/links`
+            );
+
             setLinkValues(res.data.data);
         };
 
@@ -205,7 +205,10 @@ const UserInfo = (
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await api.get(`/api/users/byUsername/${following}/followers`);
+            const res = await api.get(
+                `/api/users/byUsername/${following}/followers`
+            );
+
             setFollowers(res.data.data);
         };
 
@@ -214,7 +217,10 @@ const UserInfo = (
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await api.get(`/api/users/byUsername/${following}/followings`);
+            const res = await api.get(
+                `/api/users/byUsername/${following}/followings`
+            );
+            
             setFollowings(res.data.data);
         };
         fetchData();
@@ -222,7 +228,10 @@ const UserInfo = (
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await api.get(`/api/users/byUsername/${following}/isFollowing`);
+            const res = await api.get(
+                `/api/users/byUsername/${following}/isFollowing`
+            );
+
             setIsFollowing(res.data.data);
         };
 
@@ -245,11 +254,17 @@ const UserInfo = (
 
                 <div className={ classes.followDiv }>
                     <p className={ classes.followers }>
-                        <span className={ classes.span }>{ (followings ?? []).length }</span> following
+                        <span className={ classes.span }>
+                            { (followings ?? []).length }
+                        </span>{ ' ' }
+                        following
                     </p>
-                    
+
                     <p className={ classes.followers }>
-                        <span className={ classes.span }>{ (followers ?? []).length }</span> followers
+                        <span className={ classes.span }>
+                            { (followers ?? []).length }
+                        </span>{ ' ' }
+                        followers
                     </p>
 
                     <button
@@ -257,23 +272,29 @@ const UserInfo = (
                         onClick={ async () => {
                             let res;
                             if (isFollowing) {
-                                res = await api.put(`/api/users/byUsername/${following}/unfollow`);
+                                res = await api.put(
+                                    `/api/users/byUsername/${following}/unfollow`
+                                );
+
                                 setIsFollowing(false);
                                 setFollowers(res.data.data);
                             }
-                            else {
-                                res = await api.put(`/api/users/byUsername/${following}/follow`);
+ else {
+                                res = await api.put(
+                                    `/api/users/byUsername/${following}/follow`
+                                );
+
                                 setIsFollowing(true);
                                 setFollowers(res.data.data);
                             }
                         } }
                     >
                         <span>{ isFollowing ? 'Following' : 'Follow' }</span>
+
                         <ReactSVG
                             className={ classes.imageTagIcon }
                             src={ plus.src }
                         />
-
                     </button>
 
                     { editable && (
@@ -318,7 +339,9 @@ const UserInfo = (
 
                         <a
                             className={ classes.link }
-                            href={ linkValues?.linkedin || 'https://linkedin.com' }
+                            href={
+                                linkValues?.linkedin || 'https://linkedin.com'
+                            }
                         >
                             <ReactSVG
                                 src={ linkedIn.src }
@@ -457,6 +480,4 @@ const UserInfo = (
             </div>
         </section>
     );
-};
-
-export default UserInfo;
+}

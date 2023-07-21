@@ -15,7 +15,7 @@ import sliders from '@/icons/main/sliders.svg';
 
 import classes from './styles.module.css';
 
-const MyDatasets: NextPageWithLayout = function () {
+function MyDatasets() {
     const [curSearchQuery, setCurSearchQuery] = useState<string>('');
 
     return (
@@ -51,7 +51,7 @@ const MyDatasets: NextPageWithLayout = function () {
             <DatasetSearchResult name={ curSearchQuery || undefined } />
         </>
     );
-};
+}
 
 function DatasetSearchResult(props: { name?: string }) {
     const scrollerContainerRef = useRef<HTMLDivElement | null>(null);
@@ -123,7 +123,7 @@ function DatasetSearchResult(props: { name?: string }) {
     );
 }
 
-MyDatasets.getLayout = function (page) {
+(MyDatasets as NextPageWithLayout).getLayout = function (page) {
     return <MainLayout>{ page }</MainLayout>;
 };
 

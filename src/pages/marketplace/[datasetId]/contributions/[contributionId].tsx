@@ -10,22 +10,22 @@ import DatasetInfo, {
 
 import MarketplaceLayout from '@/components/layout/marketplaceLayout';
 
-const ContributionDetailedPage: NextPageWithLayout = function () {
+function ContributionDetailedPage() {
     const dataset = useContext(DatasetInfoContext);
     const router = useRouter();
-    
+
     const contributionId = router.query.contributionId;
     if (!dataset || typeof contributionId !== 'string') return <></>;
-    
+
     return (
         <ContributionDetails
             dataset={ dataset }
             contributionId={ contributionId }
         />
     );
-};
+}
 
-ContributionDetailedPage.getLayout = function (page) {
+(ContributionDetailedPage as NextPageWithLayout).getLayout = function (page) {
     return (
         <MarketplaceLayout>
             <DatasetInfo>{ page }</DatasetInfo>

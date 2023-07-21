@@ -35,6 +35,7 @@ export default function ContributionDetailsGridView(props: {
                     <ReactSVG className={ classes.icon } src={ list.src } />
                 </button>
             </div>
+            
             <AssetViewer
                 contributionId={ props.contributionId }
                 searchQuery={ { displayName: undefined } }

@@ -12,7 +12,7 @@ interface ActionPopupWithButtonProps {
 }
 
 export default function ActionPopupWithButton(
-    props: ActionPopupWithButtonProps,
+    props: ActionPopupWithButtonProps
 ) {
     const [open, setOpen] = useState(false);
 
@@ -24,7 +24,7 @@ export default function ActionPopupWithButton(
 
                 return await props.button.props.onClick?.(e);
             },
-        },
+        }
     );
 
     return (

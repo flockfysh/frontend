@@ -1,15 +1,21 @@
+import { useRouter } from 'next/router';
+
 import classes from '@/components/specific/marketplace/datasetSettings/styles.module.css';
-import Input from '@/components/specific/marketplace/datasetSettings/input';
-import link from '@/icons/main/link.svg';
-import api from '@/helpers/api';
 import RadioButtons from '@/components/ui/input/radioButtons';
-import cash from '@/icons/main/dollar-sign.svg';
+import Input from '@/components/specific/marketplace/datasetSettings/input';
 import CreatableSelect from '@/components/specific/marketplace/datasetSettings/creatableSelect';
 import Select from '@/components/specific/marketplace/datasetSettings/select';
-import { useRouter } from 'next/router';
-import { DATASET_LICENSE_DESCRIPTION, DATASET_LICENSE_ENUM } from '@/helpers/enums/license';
 
-const licenseOptions = DATASET_LICENSE_ENUM._def.values.map(license => {
+import {
+    DATASET_LICENSE_DESCRIPTION,
+    DATASET_LICENSE_ENUM,
+} from '@/helpers/enums/license';
+
+import link from '@/icons/main/link.svg';
+import api from '@/helpers/api';
+import cash from '@/icons/main/dollar-sign.svg';
+
+const licenseOptions = DATASET_LICENSE_ENUM._def.values.map((license) => {
     return {
         label: DATASET_LICENSE_DESCRIPTION[license],
         value: license,
@@ -23,6 +29,7 @@ export default function GeneralSettings(dataset: PreviewDataset) {
         <>
             <section className={ classes.section }>
                 <h3 className={ classes.heading }>Dataset Information</h3>
+                
                 <div className={ classes.sectionContent }>
                     <Input
                         label="Transfer ownership"
@@ -37,7 +44,7 @@ export default function GeneralSettings(dataset: PreviewDataset) {
                                 {
                                     username: data,
                                     retainAdmin: true,
-                                },
+                                }
                             );
                         } }
                     />
@@ -61,7 +68,7 @@ export default function GeneralSettings(dataset: PreviewDataset) {
                                 `/api/datasets/${dataset._id}/visibility`,
                                 {
                                     public: data,
-                                },
+                                }
                             );
                         } }
                     />
@@ -82,7 +89,7 @@ export default function GeneralSettings(dataset: PreviewDataset) {
                                 `/api/datasets/${dataset._id}/price`,
                                 {
                                     price: +data,
-                                },
+                                }
                             );
                         } }
                         saveLabel="Save"
@@ -90,7 +97,6 @@ export default function GeneralSettings(dataset: PreviewDataset) {
 
                     <CreatableSelect
                         placeholder="Add tags"
-
                         initialValue={ dataset.tags }
                         label="Adjust tags"
                         tooltip="Tags help Flockfysh categorize your dataset better so that users who need it can easily locate it."
@@ -107,9 +113,12 @@ export default function GeneralSettings(dataset: PreviewDataset) {
                         tooltip="License helps or prevents legal access to the dataset."
                         options={ licenseOptions }
                         onChange={ async (data) => {
-                            await api.patch(`/api/datasets/${dataset._id}/license`, {
-                                license: data,
-                            });
+                            await api.patch(
+                                `/api/datasets/${dataset._id}/license`,
+                                {
+                                    license: data,
+                                }
+                            );
                         } }
                     />
                 </div>

@@ -106,6 +106,13 @@
                 "prop": "parens-new-line"
             }
         ],
-        "object-curly-spacing": ["error", "always"]
+        "object-curly-spacing": ["error", "always"],
+        "react/function-component-definition": [
+            "error",
+            {
+                "namedComponents": "function-declaration",
+                "unnamedComponents": "arrow-function"
+            }
+        ]
     }
 }

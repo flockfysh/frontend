@@ -25,9 +25,11 @@ export default function Input<T extends string | number>(props: {
     const [value, setValue] = useState(() => {
         return props.value ?? props.initialValue;
     });
+
     const [inProgress, setInProgress] = useState(() => {
         return false;
     });
+
     const [focus, setFocus] = useState(false);
     const isDisabled = props.disabled || inProgress;
 
@@ -50,9 +52,10 @@ export default function Input<T extends string | number>(props: {
                     <label className={ classes.label } htmlFor={ id }>
                         { props.label }
                     </label>
+                    
                     { props.tooltip ? (
                         <button className={ classes.helpIcon }>
-                            <ReactSVG src={ help.src }/>
+                            <ReactSVG src={ help.src } />
 
                             <p className={ classes.helpIconTooltip }>
                                 { props.tooltip }
@@ -71,7 +74,7 @@ export default function Input<T extends string | number>(props: {
                     focus ? classes.focusedInput : ''
                 } ${inProgress ? classes.inProgress : ''}` }
             >
-                { props.icon ? <ReactSVG src={ props.icon }/> : <></> }
+                { props.icon ? <ReactSVG src={ props.icon } /> : <></> }
 
                 <input
                     id={ id }
@@ -98,14 +101,17 @@ export default function Input<T extends string | number>(props: {
                         onClick={ async () => {
                             setInProgress(true);
 
-                            if (value !== undefined) await props.onSave?.(value);
+                            if (value !== undefined)
+                                await props.onSave?.(value);
 
                             setInProgress(false);
                         } }
                     >
                         { props.saveLabel ?? 'Update' }
                     </button>
-                ) : <></> }
+                ) : (
+                    <></>
+                ) }
             </div>
         </div>
     );

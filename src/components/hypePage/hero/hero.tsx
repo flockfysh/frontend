@@ -15,12 +15,8 @@ export default function Hero() {
     waitlistFormRef;
 
     const onEmailChange = useCallback(() => {
-        if (errorMessage !== '') {
-            updateErrorMessage('');
-        }
-        if (successMessage !== '') {
-            updateSuccesMessage('');
-        }
+        if (errorMessage !== '') updateErrorMessage('');
+        if (successMessage !== '') updateSuccesMessage('');
     }, [errorMessage, successMessage]);
     onEmailChange;
 
@@ -40,7 +36,13 @@ export default function Hero() {
                 <div>|</div>
 
                 <div className={ classes.readMoreFoundry }>
-                    <Link href="https://blog.flockfysh.ai/blog/flockfysh-citrus/" target = "_blank"> Read More </Link>
+                    <Link
+                        href="https://blog.flockfysh.ai/blog/flockfysh-citrus/"
+                        target="_blank"
+                    >
+                        { ' ' }
+                        Read More{ ' ' }
+                    </Link>
 
                     <BsArrowRight size={ 15 } />
                 </div>
@@ -53,7 +55,10 @@ export default function Hero() {
                     Dataset&nbsp;creation from&nbsp;the&nbsp;future.
                 </h1>
 
-                <span>Polished for any use AI case, flockfysh takes the complexity out of acquiring AI.</span>
+                <span>
+                    Polished for any use AI case, flockfysh takes the complexity
+                    out of acquiring AI.
+                </span>
 
                 <span className={ classes.extraInfo }>
                     Designed for developers, researchers, and those who dare to

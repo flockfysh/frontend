@@ -1,14 +1,21 @@
-export const permissionOptions: { value: Flockfysh.DatasetAccessLevel, label: string }[] = [
+export const permissionOptions: {
+    value: Flockfysh.DatasetAccessLevel;
+    label: string;
+}[] = [
     {
-        value: 'admin', label: 'Administrator',
+        value: 'admin',
+        label: 'Administrator',
     },
     {
-        value: 'maintainer', label: 'Maintainer',
+        value: 'maintainer',
+        label: 'Maintainer',
     },
     {
-        value: 'contributor', label: 'Contributor',
+        value: 'contributor',
+        label: 'Contributor',
     },
     {
-        value: 'blocked', label: 'Blocked',
+        value: 'blocked',
+        label: 'Blocked',
     },
 ];

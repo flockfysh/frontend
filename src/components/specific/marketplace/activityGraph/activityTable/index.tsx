@@ -33,16 +33,16 @@ type ActivityViewerState = {
 const TableComponents = {
     Scroller: forwardRef<HTMLDivElement, ScrollerProps>(function _Scroller(
         props,
-        ref,
+        ref
     ) {
-        return <TableContainer { ...props } ref={ ref }/>;
+        return <TableContainer { ...props } ref={ ref } />;
     }),
     Table: forwardRef<HTMLTableElement, TableProps>(function _Table(
         props,
-        ref,
+        ref
     ) {
         return (
-            <Table { ...props } className={ classes.viewerTableInner } ref={ ref }/>
+            <Table { ...props } className={ classes.viewerTableInner } ref={ ref } />
         );
     }),
     TableHead: forwardRef<HTMLTableSectionElement, TableHeadProps>(
@@ -56,11 +56,11 @@ const TableComponents = {
                     ref={ ref }
                 />
             );
-        },
+        }
     ),
     TableRow: forwardRef<HTMLTableRowElement, TableRowProps>(function _TableRow(
         props: TableRowProps,
-        ref,
+        ref
     ) {
         return (
             <TableRow
@@ -81,7 +81,7 @@ const TableComponents = {
                     ref={ ref }
                 />
             );
-        },
+        }
     ),
 };
 
@@ -126,7 +126,7 @@ export default function ActivityTable(props: {
         date: new Date(),
         action: ['added', 'removed', 'uploaded', 'initiated'][
             Math.floor(Math.random() * 4)
-            ] as 'added' | 'removed' | 'uploaded' | 'initiated',
+        ] as 'added' | 'removed' | 'uploaded' | 'initiated',
         numFiles: Math.floor(Math.random() * 20),
         size: Math.random() * 2.5e10,
         type: 'image' as Flockfysh.AssetType,
@@ -182,7 +182,7 @@ export default function ActivityTable(props: {
                         return;
                     }
                 }
-                else {
+ else {
                     const userId = props.userId;
 
                     try {
@@ -217,7 +217,7 @@ export default function ActivityTable(props: {
                 }
             }
         },
-        [props.datasetId, props.userId, state.data, state.hasMore, state.next],
+        [props.datasetId, props.userId, state.data, state.hasMore, state.next]
     );
 
     useEffect(() => {

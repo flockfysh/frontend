@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
     Chart as ChartJS,
     LinearScale,
@@ -13,10 +14,10 @@ import {
 } from 'chart.js';
 import { Chart, ChartProps } from 'react-chartjs-2';
 
-import classes from './styles.module.css';
-import { useEffect, useState } from 'react';
 import api from '@/helpers/api';
 import { dayjs } from '@/helpers/date';
+
+import classes from './styles.module.css';
 
 ChartJS.register(
     LinearScale,

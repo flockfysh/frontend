@@ -141,7 +141,7 @@ export default function LoginForm(props: {
             refreshUser();
             props.redirect();
         }
-        catch (e) {
+ catch (e) {
             if (e instanceof ApiError) {
                 const ERROR_MAPPING: Record<string, () => void> = {
                     ERROR_USER_EXISTS: () =>
@@ -166,7 +166,7 @@ export default function LoginForm(props: {
 
                 ERROR_MAPPING[e.code]?.();
             }
-            else throw e; // TODO: I don't think this is handled
+ else throw e; // TODO: I don't think this is handled
         }
     }
 

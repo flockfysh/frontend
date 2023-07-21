@@ -25,7 +25,7 @@
     color: var(--primary1-100, #d2e1ff);
 }
 
-.statsBody{
+.statsBody {
     display: flex;
     flex-direction: column;
     border: 2px solid var(--main-grey);
@@ -33,26 +33,26 @@
     padding: 1rem;
 }
 
-.statsSummary{
+.statsSummary {
     border-radius: 16px;
-    border: 1px solid var(--main-grey, #1E1E1E);
+    border: 1px solid var(--main-grey, #1e1e1e);
 }
 
-.statsSummary h3{
+.statsSummary h3 {
     font-family: Inter;
     font-size: 14px;
     font-style: normal;
     font-weight: 700;
-    line-height: 24px;   
+    line-height: 24px;
 }
 
-.status{
+.status {
     border-radius: 16px;
-    border: 1px solid var(--main-grey, #1E1E1E);
+    border: 1px solid var(--main-grey, #1e1e1e);
 }
-.statsDetails{
+.statsDetails {
     border-radius: 16px;
-    border: 1px solid var(--main-grey, #1E1E1E);
+    border: 1px solid var(--main-grey, #1e1e1e);
 }
 
 .message p {
@@ -87,7 +87,7 @@
 }
 
 .contributionStats {
-    border: 1px solid var(--main-grey, #1E1E1E);
+    border: 1px solid var(--main-grey, #1e1e1e);
     border-radius: 16px;
 }
 
@@ -269,7 +269,7 @@
     background-color: inherit;
 }
 
-.messageInfo{
+.messageInfo {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -277,12 +277,12 @@
     width: 6rem;
 }
 
-.greenText{
-    color: var(--success-500, #14DD59);
+.greenText {
+    color: var(--success-500, #14dd59);
     font-size: 12px;
 }
 
-.redText{
-    color: var(--error-500, #EA2E2E);
+.redText {
+    color: var(--error-500, #ea2e2e);
     font-size: 12px;
 }

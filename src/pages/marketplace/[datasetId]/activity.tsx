@@ -8,14 +8,14 @@ import DatasetInfo, {
 } from '@/components/layout/datasetLayout';
 import ActivityGraph from '@/components/specific/marketplace/activityGraph';
 
-const DatasetActivityPage: NextPageWithLayout = function () {
+function DatasetActivityPage() {
     const dataset = useContext(DatasetInfoContext);
-    
+
     if (dataset) return <ActivityGraph { ...dataset } />;
     else return <></>;
-};
+}
 
-DatasetActivityPage.getLayout = function (page) {
+(DatasetActivityPage as NextPageWithLayout).getLayout = function (page) {
     return (
         <MarketplaceLayout>
             <DatasetInfo>{ page }</DatasetInfo>

@@ -10,6 +10,10 @@ import FeaturedDatasetsSection from '@/components/specific/marketplace/featuredD
 import DatasetSwiper from '@/components/specific/marketplace/datasetSwiper';
 import CollectionSwiper from '@/components/specific/marketplace/collectionSwiper';
 import DatasetTimeFilter from '@/components/specific/marketplace/datasetTimeFilter';
+import MarketplaceLayout from '@/components/layout/marketplaceLayout';
+import PostSwiper from '@/components/specific/marketplace/postSwiper';
+
+import { PostContext } from '@/contexts/postContext';
 
 import api from '@/helpers/api';
 import { dayjs } from '@/helpers/date';
@@ -17,10 +21,7 @@ import { dayjs } from '@/helpers/date';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-import MarketplaceLayout from '@/components/layout/marketplaceLayout';
 import classes from './styles.module.css';
-import PostSwiper from '@/components/specific/marketplace/postSwiper';
-import { PostContext } from '@/contexts/postContext';
 
 const timeFilterOptions: [number, ManipulateType][] = [
     [1, 'day'],
@@ -28,7 +29,7 @@ const timeFilterOptions: [number, ManipulateType][] = [
     [1, 'month'],
 ];
 
-const Marketplace: NextPageWithLayout = function () {
+function Marketplace() {
     const [timeFilter, setTimeFilter] = useState(0);
 
     const [featuredDatasets, setFeaturedDatasets] = useState<HomepageDataset[]>(
@@ -251,9 +252,9 @@ const Marketplace: NextPageWithLayout = function () {
             </section>
         </div>
     );
-};
+}
 
-Marketplace.getLayout = function (page) {
+(Marketplace as NextPageWithLayout).getLayout = function (page) {
     return <MarketplaceLayout>{ page }</MarketplaceLayout>;
 };
 

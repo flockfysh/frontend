@@ -17,7 +17,7 @@ export default function Footer() {
                     <Link href="https://github.com/flockfysh" target="_blank">
                         <ReactSVG className={ classes.github } src={ github.src } />
                     </Link>
-                    
+
                     <Link href="https://twitter.com/flockfysh" target="_blank">
                         <ReactSVG
                             className={ classes.socialIcon }

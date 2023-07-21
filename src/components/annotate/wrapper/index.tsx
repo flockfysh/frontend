@@ -72,7 +72,7 @@ export default function AnnotationWrapper() {
     const rectangles = [];
 
     for (const [id, annotationObject] of curAnnotationData.entries()) {
-        if (annotationObject.label === curLabel) {
+        if (annotationObject.label === curLabel)
             rectangles.push(
                 <Rectangle
                     key={ id }
@@ -103,7 +103,6 @@ export default function AnnotationWrapper() {
                     } }
                 />
             );
-        }
     }
 
     return (

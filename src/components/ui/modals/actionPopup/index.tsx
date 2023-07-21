@@ -19,8 +19,7 @@ interface PopupModalContext {
 }
 
 export const PopupModalContext = createContext<PopupModalContext>({
-    close: () => {
-    },
+    close: () => {},
 });
 
 export default function ActionPopup(props: ActionPopupProps) {
@@ -74,24 +73,18 @@ export default function ActionPopup(props: ActionPopupProps) {
             } }
         >
             <div
-                className={
-                    `
-                    ${ classes.overlay }
-                    ${
-                        props.blurBg ? classes.blurBg : ''
-                    }
-                    ${ props.className || '' }
-                    ${ fadeOut ? classes.fadeOut : '' }
-                    `
-                }
+                className={ `
+                    ${classes.overlay}
+                    ${props.blurBg ? classes.blurBg : ''}
+                    ${props.className || ''}
+                    ${fadeOut ? classes.fadeOut : ''}
+                    ` }
                 onClick={ (e) => {
                     if (e.target === e.currentTarget) updateFadeOut(true);
                 } }
-                onAnimationEnd={
-                    () => {
-                        if(fadeOut) props.onClose?.();
-                    }
-                }
+                onAnimationEnd={ () => {
+                    if (fadeOut) props.onClose?.();
+                } }
             >
                 { markupMapping[props.variant ?? 'annotation'] }
             </div>

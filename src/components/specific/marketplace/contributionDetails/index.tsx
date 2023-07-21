@@ -33,7 +33,8 @@ function UserCard(props: { user: RedactedUser }) {
                 height={ 24 }
                 src={ props.user.profilePhoto?.url ?? '' }
                 className={ classes.userPicture }
-            ></Image>
+            />
+
             <span> { props.user.fullName }</span>
         </Link>
     );
@@ -43,21 +44,24 @@ function Message(props: { message: ExpandedPullRequestMessage }) {
     return (
         <div className={ classes.message }>
             <div className={ classes.messageHeader }>
-                <UserCard user={ props.message.user }></UserCard>
+                <UserCard user={ props.message.user } />
+
                 <div className={ classes.time }>
-                    <AiOutlineFieldTime/>
+                    <AiOutlineFieldTime />
+
                     <h3>
                         { ' ' }
                         { Math.round(
                             Math.abs(
                                 new Date().getTime() -
-                                new Date(props.message.createdAt).getTime(),
-                            ) / 3.6e6,
+                                    new Date(props.message.createdAt).getTime()
+                            ) / 3.6e6
                         ) }{ ' ' }
                         hours ago
                     </h3>
                 </div>
             </div>
+
             <p>{ props.message.message }</p>
         </div>
     );
@@ -94,23 +98,22 @@ export default function ContributionDetails(props: {
                         params: {
                             expand: 'user,stats',
                         },
-                    },
+                    }
                 )
             ).data.data;
-            
+
             setCurContribution(contribution);
-            
+
             const tempMessages = (
-                await api.get<Api.PaginatedResponse<ExpandedPullRequestMessage[]>>(
-                    `/api/pullRequests/${props.contributionId}/messages`,
-                    {
-                        params: {
-                            expand: 'user',
-                            sort: 'createdAt',
-                            ascending: true,
-                        },
+                await api.get<
+                    Api.PaginatedResponse<ExpandedPullRequestMessage[]>
+                >(`/api/pullRequests/${props.contributionId}/messages`, {
+                    params: {
+                        expand: 'user',
+                        sort: 'createdAt',
+                        ascending: true,
                     },
-                )
+                })
             ).data.data;
             setMessages(tempMessages);
         };
@@ -136,16 +139,15 @@ export default function ContributionDetails(props: {
             comment: string;
         };
 
-        if (fd.status) {
+        if (fd.status)
             await api.patch(
                 '/api/pullRequests/' + curContribution!._id + '/status',
-                { status: fd.status },
+                { status: fd.status }
             );
-        }
 
         await api.post(
             '/api/pullRequests/' + curContribution!._id + '/messages',
-            { message: fd.comment },
+            { message: fd.comment }
         );
 
         setText('');
@@ -156,12 +158,11 @@ export default function ContributionDetails(props: {
             user: curContribution!.user,
             pullRequest: props.contributionId,
         };
+
         setMessages([...messages, tempMessage]);
     }
 
-    if (!curContribution) {
-        return <></>;
-    }
+    if (!curContribution) return <></>;
 
     return (
         <>
@@ -169,56 +170,74 @@ export default function ContributionDetails(props: {
                 <div className={ classes.pullRequestContent }>
                     <div className={ classes.pullRequestBody }>
                         <div className={ classes.bodyHeader }>
-                            <button onClick={ 
-                                    () => {
-                                        router.back();
-                                    }
-                                }
-                                className={ classes.backButton }>
-                                <BsArrowLeftCircle/> Back
+                            <button
+                                onClick={ () => {
+                                    router.back();
+                                } }
+                                className={ classes.backButton }
+                            >
+                                <BsArrowLeftCircle /> Back
                             </button>
+
                             <h3>{ curContribution.name }</h3>
                             <h3 className={ classes.prNumber }>#1</h3>
                         </div>
+
                         <div className={ classes.message }>
                             <div className={ classes.messageHeader }>
                                 <UserCard
                                     user={ curContribution.user }
-                                ></UserCard>
+                                />
+
                                 <time className={ classes.time }>
-                                    <AiOutlineFieldTime/>
+                                    <AiOutlineFieldTime />
+
                                     <h3>
                                         { ' ' }
                                         { dayjs(
-                                            curContribution.createdAt,
+                                            curContribution.createdAt
                                         ).fromNow() }
                                     </h3>
                                 </time>
                             </div>
+
                             <p>{ curContribution.description }</p>
+
                             <button
                                 className={ classes.changesButton }
                                 onClick={ toggleViewToGrid }
                             >
-                                View Changes <MdOpenInNew/>
+                                View Changes <MdOpenInNew />
                             </button>
                         </div>
+
                         <div className={ classes.messageInfo }>
-                            <span className={ classes.vl }/>
-                            <p className={ classes.greenText }>+{ curContribution.stats.newAssets }</p>
-                            <AiOutlineFile/>
-                            <p className={ classes.redText }>-{ curContribution.stats.deletedAssets }</p>
+                            <span className={ classes.vl } />
+
+                            <p className={ classes.greenText }>
+                                +{ curContribution.stats.newAssets }
+                            </p>
+
+                            <AiOutlineFile />
+
+                            <p className={ classes.redText }>
+                                -{ curContribution.stats.deletedAssets }
+                            </p>
                         </div>
-                        <span className={ classes.dot }/>
+
+                        <span className={ classes.dot } />
+
                         { messages.map((message: ExpandedPullRequestMessage) => {
                             return (
                                 <>
-                                    <Message message={ message }></Message>
+                                    <Message message={ message } />
+
                                     <span className={ classes.vl } />
                                     <span className={ classes.dot } />
                                 </>
                             );
                         }) }
+                        
                         <div className={ classes.card }>
                             <form
                                 onSubmit={ (e) => {
@@ -259,24 +278,29 @@ export default function ContributionDetails(props: {
                         </div>
                     </div>
                     <div className={ classes.pullRequestStats }>
-                        <div className = { classes.statsBody }>
+                        <div className={ classes.statsBody }>
                             <div className={ classes.contributionStats }>
                                 <h3>Contribution Stats</h3>
+
                                 <div className={ classes.statsSummary }>
                                     <h3>Summary</h3>
                                 </div>
+
                                 <div className={ classes.statsDetails }>
                                     <h3>Details</h3>
                                 </div>
                             </div>
+
                             <div className={ classes.status }>
                                 <h3>Status</h3>
                             </div>
                         </div>
+
                         <h3 className={ classes.h3 }>Placeholder</h3>
                     </div>
                 </div>
             ) }
+            
             { !showList && (
                 <div className={ classes.assetViewContainer }>
                     <div className={ classes.assetViewContainerHeader }>
@@ -284,25 +308,28 @@ export default function ContributionDetails(props: {
                             className={ classes.backButton }
                             onClick={ toggleViewToList }
                         >
-                            <BsArrowLeftCircle/> Back
+                            <BsArrowLeftCircle /> Back
                         </button>
+
                         <h3>{ curContribution?.name }</h3>
+                        
                         <div className={ classes.toggleButtonsContainer }>
                             <button
                                 className={ classes.toggleButton }
                                 onClick={ toggleViewToGrid }
                             >
-                                <BsGrid3X3/>
+                                <BsGrid3X3 />
                             </button>
 
                             <button
                                 className={ classes.toggleButton }
                                 onClick={ toggleViewToList }
                             >
-                                <BsReverseListColumnsReverse/>
+                                <BsReverseListColumnsReverse />
                             </button>
                         </div>
                     </div>
+                    
                     <AssetViewer
                         contributionId={ props.contributionId }
                         searchQuery={ { displayName: undefined } }

@@ -80,7 +80,7 @@ function RecipeSearchResult(props: { name?: string }) {
     );
 }
 
-const RecipePage: NextPageWithLayout = function () {
+function RecipePage() {
     const [curSearchQuery, setCurSearchQuery] = useState<string>('');
 
     return (
@@ -123,9 +123,9 @@ const RecipePage: NextPageWithLayout = function () {
             <RecipeSearchResult name={ curSearchQuery || undefined } />
         </>
     );
-};
+}
 
-RecipePage.getLayout = function (page) {
+(RecipePage as NextPageWithLayout).getLayout = function (page) {
     return <MainLayout>{ page }</MainLayout>;
 };
 

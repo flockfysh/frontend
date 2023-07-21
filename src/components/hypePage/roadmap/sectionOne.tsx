@@ -1,4 +1,4 @@
-import SectionHeader from './components/sectionHeader';
+import SectionHeader from './sectionHeader';
 import Card from '../../ui/card';
 
 import icon1 from '../../../icons/hype/icon1.svg';
@@ -22,31 +22,59 @@ const card3body =
 const card4body =
     'Build datasets for all SOTA Computer Vision problems and in the future, NLP problems too.';
 
-function SectionOne() {
+export default function SectionOne() {
     return (
         <section className={ commonClasses.section } id="roadmap">
             <div className={ classes.numberDiv }>
                 <img src={ oneFish.src } alt="" className={ classes.fish } />
                 <h3 className={ classes.number }>1</h3>
             </div>
+
             <SectionHeader
                 subHeader="Dive in headfirst"
                 header='"No homework necessary"'
                 body="No matter where you are in the process, whether you have a couple pieces, or a large stack of data, our dataset tooling can process and expand the data to gear it for a large scale"
             />
+
             <div className={ classes.cards }>
                 <img src={ mainImage.src } alt="" className={ classes.mainImage } />
+
                 <img
                     src={ mobileImage1.src }
                     alt=""
                     className={ classes.mobileImage }
                 />
+
                 <div className={ classes.cardHolder }>
-                    <Card heading="Direct Access" body={ card1body } icon={ icon1.src } className={ classes.card }/>
-                    <Card heading="Cloud Portability" body={ card2body } icon={ icon2.src } className={ classes.card }/>
-                    <Card heading="Local flexibility" body={ card3body } icon={ icon3.src } className={ classes.card }/>
-                    <Card heading="Broad applicability" body={ card4body } icon={ icon4.src } className={ classes.card }/>
+                    <Card
+                        heading="Direct Access"
+                        body={ card1body }
+                        icon={ icon1.src }
+                        className={ classes.card }
+                    />
+
+                    <Card
+                        heading="Cloud Portability"
+                        body={ card2body }
+                        icon={ icon2.src }
+                        className={ classes.card }
+                    />
+
+                    <Card
+                        heading="Local flexibility"
+                        body={ card3body }
+                        icon={ icon3.src }
+                        className={ classes.card }
+                    />
+
+                    <Card
+                        heading="Broad applicability"
+                        body={ card4body }
+                        icon={ icon4.src }
+                        className={ classes.card }
+                    />
                 </div>
+
                 <img
                     src={ mobileImage2.src }
                     alt=""
@@ -56,5 +84,3 @@ function SectionOne() {
         </section>
     );
 }
-
-export default SectionOne;

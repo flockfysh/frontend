@@ -16,7 +16,7 @@ import classes from './styles.module.css';
 export default function VerticalCard(
     props: HomepageDataset & {
         className?: string;
-    },
+    }
 ) {
     return (
         <div className={ `${classes.container} ${props.className || ''}` }>
@@ -44,6 +44,7 @@ export default function VerticalCard(
                             src={ clock.src }
                             className={ classes.clockIcon }
                         />
+                        
                         <p>{ dayjs(props.updatedAt).fromNow() }</p>
                     </div>
                 </div>

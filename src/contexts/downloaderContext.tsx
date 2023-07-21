@@ -43,12 +43,10 @@ export function DownloaderWrapper(props: React.PropsWithChildren) {
                     }
                 )
             ).data;
-            if (result.meta.hasNext) {
-                paginationState.next = result.meta.next;
-            }
- else {
-                paginationState.next = undefined;
-            }
+
+            if (result.meta.hasNext) paginationState.next = result.meta.next;
+            else paginationState.next = undefined;
+
             for (const asset of result.data) {
                 promises.push({
                     _id: asset._id,
@@ -56,15 +54,18 @@ export function DownloaderWrapper(props: React.PropsWithChildren) {
                 });
             }
         } while (paginationState.next);
+
         const transformed = await Promise.all(
             promises.map(async (downloadItem) => {
                 const response = await downloadItem.response;
                 const extension = mime.extension(
                     response.headers.get('content-type') as string
                 );
+
                 const filename = extension
                     ? `${downloadItem._id}.${extension}`
                     : `${downloadItem._id}`;
+
                 return {
                     name: path.join('/assets', filename),
                     input: response,
@@ -73,10 +74,12 @@ export function DownloaderWrapper(props: React.PropsWithChildren) {
         );
         const blob = await downloadZip(transformed).blob();
         const link = document.createElement('a');
+
         link.href = URL.createObjectURL(blob);
         link.download = `Dataset ${datasetId}.zip`;
         link.click();
         link.remove();
+        
         await api.post(`/api/datasets/${datasetId}/metrics`, {
             type: 'download',
         });

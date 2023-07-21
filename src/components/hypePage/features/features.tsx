@@ -13,25 +13,29 @@ export default function Features() {
             name: 'control',
             title: 'Control',
             src: ctrlIcon.src,
-            description: 'flockfysh can be picked up and used by any researcher, hobbyist, or company, and easily tailored to your personal needs. Go from idea to dataset or model you envision with support around the clock.',
+            description:
+                'flockfysh can be picked up and used by any researcher, hobbyist, or company, and easily tailored to your personal needs. Go from idea to dataset or model you envision with support around the clock.',
         },
         {
             name: 'compatibility',
             title: 'Compatibility',
             src: compatibilityIcon.src,
-            description: 'flockfysh is built with complete integrability in mind. Easily locate and directly integrate workflows that ranging from data quality assurance to seamless intermediate data processing.',
+            description:
+                'flockfysh is built with complete integrability in mind. Easily locate and directly integrate workflows that ranging from data quality assurance to seamless intermediate data processing.',
         },
         {
             name: 'privacy',
             title: 'Privacy Aware',
             src: flexIcon.src,
-            description: 'From integrating workflows that automatically locate copyrighted data to finding, be 100% confident all your data is ethically clean.',
+            description:
+                'From integrating workflows that automatically locate copyrighted data to finding, be 100% confident all your data is ethically clean.',
         },
         {
             name: 'flexibility',
             title: 'Flexibility',
             src: effortlessIcon.src,
-            description: 'Directly interact and source data and models from fellow users while maintaining a path towards commercialization or impactful open source.',
+            description:
+                'Directly interact and source data and models from fellow users while maintaining a path towards commercialization or impactful open source.',
         },
     ];
 

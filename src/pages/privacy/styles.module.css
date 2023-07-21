@@ -13,9 +13,8 @@
     margin-top: 1rem;
 }
 
-.strongHeaders{
+.strongHeaders {
     font-weight: bolder;
-
 }
 
 @media only all and (min-width: 910px) {

@@ -43,17 +43,18 @@ export function ToastWrapper(props: PropsWithChildren) {
                 toast.warning(data.message, toastOption);
                 break;
             default:
-                // console.log(`Invalid Input`);
+            // console.log(`Invalid Input`);
         }
     }
 
     const curState = { notify };
     return (
-        <ToastContext.Provider value={curState}>
-            {props.children}
+        <ToastContext.Provider value={ curState }>
+            { props.children }
+            
             <ToastContainer
-                limit={1}
-                newestOnTop={true}
+                limit={ 1 }
+                newestOnTop={ true }
                 closeOnClick
                 pauseOnFocusLoss
             />

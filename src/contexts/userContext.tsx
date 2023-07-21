@@ -4,7 +4,7 @@ import Loading from '../components/ui/loading';
 import api from '../helpers/api';
 
 interface UserContextMeta {
-    payoutOnboardingComplete: boolean,
+    payoutOnboardingComplete: boolean;
 }
 
 interface UserContext {
@@ -17,10 +17,8 @@ interface UserContext {
 export const UserContext = createContext<UserContext>({
     user: null,
     meta: null,
-    setUser: () => {
-    },
-    refreshUser: () => {
-    },
+    setUser: () => {},
+    refreshUser: () => {},
 });
 
 export function UserWrapper(props: PropsWithChildren) {
@@ -34,7 +32,7 @@ export function UserWrapper(props: PropsWithChildren) {
                 try {
                     const data = (
                         await api.get<Api.Response<{ curUser: User }>>(
-                            '/api/auth/currentUser',
+                            '/api/auth/currentUser'
                         )
                     ).data;
 
@@ -43,8 +41,7 @@ export function UserWrapper(props: PropsWithChildren) {
                     if (userData.curUser) setCurUser(userData.curUser);
                     else setCurUser(null);
                 }
- catch (e) {
-                }
+ catch (e) {}
 
                 updateLoading(false);
             })();
@@ -54,18 +51,20 @@ export function UserWrapper(props: PropsWithChildren) {
     useEffect(() => {
         (async function updateMeta() {
             if (user) {
-                const onboardingResponse = (await api.get<Api.Response<boolean>>('/api/users/payout/onboarding')).data;
+                const onboardingResponse = (
+                    await api.get<Api.Response<boolean>>(
+                        '/api/users/payout/onboarding'
+                    )
+                ).data;
                 setMeta({
                     payoutOnboardingComplete: onboardingResponse.data,
                 });
             }
-            else {
-                setMeta(null);
-            }
-        }());
+ else setMeta(null);
+        })();
     }, [user]);
 
-    if (isLoading) return <Loading/>;
+    if (isLoading) return <Loading />;
 
     function setUser(user: User | null) {
         setCurUser(user);
@@ -76,6 +75,7 @@ export function UserWrapper(props: PropsWithChildren) {
     }
 
     const curState = { user, setUser, refreshUser, meta };
+    
     return (
         <UserContext.Provider value={ curState }>
             { props.children }

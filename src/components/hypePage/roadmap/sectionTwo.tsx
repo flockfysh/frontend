@@ -1,5 +1,5 @@
-import commonClasses from './common.module.css';
-import classes from './sectionTwo.module.css';
+import Card from '../../ui/card';
+import SectionHeader from './sectionHeader';
 
 import rapidExperimentationIcon from '.././images/rapidExperimentation.svg';
 import lightningFastIcon from '.././images/lightningFast.svg';
@@ -10,14 +10,15 @@ import twoFish from '.././images/twoFish.svg';
 import aboveImage from '.././images/aboveImageSecondSection.svg';
 import belowImage from '.././images/belowImageSecondSection.svg';
 
-import Card from '../../ui/card';
-import SectionHeader from './components/sectionHeader';
+import commonClasses from './common.module.css';
+import classes from './sectionTwo.module.css';
 
 const cardsInfo = [
     {
         name: 'rapid-experimentation',
         title: 'Rapid Experimentation',
-        description: 'Quickly test many datasets to leverage custom pretraining, finetuning, or evaluation.',
+        description:
+            'Quickly test many datasets to leverage custom pretraining, finetuning, or evaluation.',
         icon: rapidExperimentationIcon.src,
     },
     {
@@ -29,18 +30,20 @@ const cardsInfo = [
     {
         name: 'absolute-control',
         title: 'Absolute Control',
-        description: 'Have complete control over what kind of data composes your dataset. Easy automate and receive scheduled notifications on contributions',
+        description:
+            'Have complete control over what kind of data composes your dataset. Easy automate and receive scheduled notifications on contributions',
         icon: absoluteControlIcon.src,
     },
     {
         name: 'together',
         title: 'Bringing everything together',
-        description: 'Provide 5 minutes of your time for a fully annotated, large-scale dataset with top notch QA. Use workflows to control the ins and outs of every part of the process.',
+        description:
+            'Provide 5 minutes of your time for a fully annotated, large-scale dataset with top notch QA. Use workflows to control the ins and outs of every part of the process.',
         icon: minimalHumanEffortIcon.src,
     },
 ];
 
-function SectionTwo() {
+export default function SectionTwo() {
     return (
         <section
             className={ `${commonClasses.section} ${classes.sectionTwoContainer}` }
@@ -94,5 +97,3 @@ function SectionTwo() {
         </section>
     );
 }
-
-export default SectionTwo;
