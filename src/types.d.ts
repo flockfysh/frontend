@@ -25,6 +25,7 @@ declare interface BaseUser {
     fullName: string;
     firstName: string;
     lastName: string;
+    lastVisited: Date;
     username: string;
     signupDate: Date;
     email: string;

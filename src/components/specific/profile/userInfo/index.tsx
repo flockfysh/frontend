@@ -255,12 +255,11 @@ export default function UserInfo (
             const numDs = await api.get(`/api/datasets/counts/${props._id}`);
 
 
-
             setUserNavbarStats({ ...userNavbarStats, 
                 numDatasets: numDs.data.data.data, 
                 numContributions: numPRs.data.data.length,
-                memberSince: props.signupDate ? new Date(Date.parse(props.signupDate)).toDateString() : new Date(Date.now()).toDateString(),
-                lastSeen: props.lastVisited ? new Date(Date.parse(props.lastVisited)).toDateString() : new Date(Date.now()).toDateString(),
+                memberSince: props.signupDate ? new Date(props.signupDate).toDateString() : '',
+                lastSeen: props.lastVisited ? new Date(props.lastVisited).toDateString() : '',
                 
             });
         };
@@ -268,7 +267,7 @@ export default function UserInfo (
         fetchData();
     }, [props]);
 
-
+    
     return (
         <section>
             <div className={ classes.profileDiv }>
@@ -493,7 +492,7 @@ export default function UserInfo (
                         <div className={ classes.dot } />
 
                         <p className={ classes.userStats }>
-                            <span className={ classes.span }> { userNavbarStats.numContributions !== undefined ? userNavbarStats.numContributions : 'ooga booga' } </span>
+                            <span className={ classes.span }> { userNavbarStats.numContributions !== undefined ? userNavbarStats.numContributions : 0 } </span>
                             <br /> Contributions
                         </p>
                     </div>
