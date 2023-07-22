@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import api from '@/helpers/api';
+
 import ProfileCard from '../../profileCard';
+
+import api from '@/helpers/api';
+
 import classes from './styles.module.css';
 
 export default function VerticalPostCard(props: HomepagePost) {
     const [likeCount, setLikeCounts] = useState(0);
     const [author, setAuthor] = useState({
         fullname: '',
-        username: ''
+        username: '',
     });
+
     const id = props._id;
     const user = props.user;
 
@@ -28,16 +32,16 @@ export default function VerticalPostCard(props: HomepagePost) {
             const res = await api.get(`/api/posts/${id}/likes/count`);
             setLikeCounts(res.data.data);
         };
-        
+
         fetchData();
     }, [id]);
 
-    useEffect(() =>  {
+    useEffect(() => {
         const fetchData = async () => {
             const res = await api.get(`/api/users/${user}`);
             setAuthor({
                 fullname: res.data.data.fullName,
-                username: res.data.data.username
+                username: res.data.data.username,
             });
         };
         fetchData();

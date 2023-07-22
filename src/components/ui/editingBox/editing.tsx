@@ -7,7 +7,7 @@ type Editing = {
     setBody: Dispatch<SetStateAction<string>>;
 };
 
-const Editing = (props: Editing) => {
+export default function Editing(props: Editing) {
     return (
         <div>
             <textarea
@@ -21,6 +21,4 @@ const Editing = (props: Editing) => {
             />
         </div>
     );
-};
-
-export default Editing;
+}

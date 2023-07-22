@@ -2,43 +2,49 @@ import { useContext, useEffect, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-import xmark from '@/icons/xmark.svg';
-import api from '@/helpers/api';
-import classes from './styles.module.css';
 import { PostContext } from '@/contexts/postContext';
 import { ModalContext } from '@/contexts/modalContext';
 
+import api from '@/helpers/api';
+
+import xmark from '@/icons/xmark.svg';
+
+import classes from './styles.module.css';
+
 type EditPostModalProps = {
-    id: string,
+    id: string;
     onClose: () => void;
 };
 
 type IFormInput = {
     title: String;
     content: String;
-}
+};
 
 export default function EditPostModal(props: EditPostModalProps) {
     const [isFadeOut, updateFadeOut] = useState(false);
     const [formValues, setFormValues] = useState({
         title: '',
-        content: ''
+        content: '',
     });
+
     const { register, handleSubmit, reset } = useForm<IFormInput>({
-        defaultValues: formValues
+        defaultValues: formValues,
     });
+
     const { setPost, setPosts } = useContext(PostContext);
     const { setEditPostOpen } = useContext(ModalContext);
     const { id } = props;
 
     const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-        let res;
-        res = await api.put(`/api/posts/${id}`, {
+        let res = await api.put(`/api/posts/${id}`, {
             title: data.title,
-            content: data.content
+            content: data.content,
         });
+
         setPost(res.data.data);
         res = await api.get('/api/posts/');
+
         setPosts(res.data.data);
         setEditPostOpen(false);
     };
@@ -46,9 +52,10 @@ export default function EditPostModal(props: EditPostModalProps) {
     useEffect(() => {
         const fetchData = async () => {
             const res = await api.get(`/api/posts/${id}`);
+
             setFormValues({
                 title: res.data.data.title,
-                content: res.data.data.content
+                content: res.data.data.content,
             });
         };
 
@@ -61,23 +68,20 @@ export default function EditPostModal(props: EditPostModalProps) {
 
     return (
         <div
-            className={ `${classes.overlay} ${classes.blurBg} ${isFadeOut ? classes.fadeOut : ''}` }
+            className={ `${classes.overlay} ${classes.blurBg} ${
+                isFadeOut ? classes.fadeOut : ''
+            }` }
             onClick={ (e) => {
                 if (e.target === e.currentTarget) props.onClose();
             } }
-            onAnimationEnd={
-                () => {
-                    if (isFadeOut) props.onClose();
-                }
-            }
+            onAnimationEnd={ () => {
+                if (isFadeOut) props.onClose();
+            } }
         >
-            <div
-                className={ classes.container }
-            >
+            <div className={ classes.container }>
                 <div className={ classes.header }>
-                    <h1 className={ classes.headerText }>
-                        Edit a Post
-                    </h1>
+                    <h1 className={ classes.headerText }>Edit a Post</h1>
+
                     <ReactSVG
                         src={ xmark.src }
                         onClick={ () => updateFadeOut(true) }
@@ -87,28 +91,34 @@ export default function EditPostModal(props: EditPostModalProps) {
 
                 <form
                     className={ classes.form }
-                    onSubmit={handleSubmit(onSubmit)}
+                    onSubmit={ handleSubmit(onSubmit) }
                 >
                     <div className={ classes.rowContainer }>
                         <label>
                             <p>Title</p>
+
                             <input
-                                {...register('title')}
+                                { ...register('title') }
                                 type="text"
                                 placeholder="XYZ ..."
                                 className={ classes.nameContainer }
                                 required={ true }
                             />
                         </label>
+
                         <label>
                             <p>Content</p>
+
                             <textarea
-                                {...register('content')}
+                                { ...register('content') }
                                 placeholder="What it contains, what it is for, ..."
                                 required={ true }
                             />
                         </label>
-                        <button type="submit" className={classes.createButton}>Update</button>
+                        
+                        <button type="submit" className={ classes.createButton }>
+                            Update
+                        </button>
                     </div>
                 </form>
             </div>

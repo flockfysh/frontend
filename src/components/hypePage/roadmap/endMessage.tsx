@@ -1,6 +1,6 @@
 import classes from './endMessage.module.css';
 
-function EndMessage() {
+export default function EndMessage() {
     return (
         <div className={ classes.mainContainer }>
             We believe working with datasets needs to be{ ' ' }
@@ -8,5 +8,3 @@ function EndMessage() {
         </div>
     );
 }
-
-export default EndMessage;

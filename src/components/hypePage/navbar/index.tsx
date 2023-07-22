@@ -40,6 +40,7 @@ export default function HomeNavbar() {
                     height={ 40 }
                     alt="logo"
                 />
+                
                 <span className={ classes.logoText }>flockfysh</span>
             </Link>
 

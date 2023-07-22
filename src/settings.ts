@@ -1,4 +1,4 @@
-import 'dotenv/config'
+import 'dotenv/config';
 
 export const MIN_WIDTH = 1024;
 
@@ -20,7 +20,7 @@ export const FRONTEND_URL = DEBUG
 
 export const SERVER_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export const serverURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+export const serverURL = process.env.NEXT_PUBLIC_BACKEND_URL as string | URL;
 
 const _socketIOServerURL = new URL(serverURL);
 
@@ -33,5 +33,5 @@ export const BUSINESS_PARAMETERS = {
     DATASET_DOWNLOAD_LIMIT: process.env.NEXT_PUBLIC_DATASET_DOWNLOAD_LIMIT ? Number.parseInt(process.env.NEXT_PUBLIC_DATASET_DOWNLOAD_LIMIT.toString()) : 1000,
     DATASET_TRANSFER_LIMIT: process.env.NEXT_PUBLIC_DATASET_TRANSFER_LIMIT ? Number.parseInt(process.env.NEXT_PUBLIC_DATASET_TRANSFER_LIMIT.toString()) : 25,
     API_CALL_LIMIT: process.env.NEXT_PUBLIC_API_CALL_LIMIT ? Number.parseInt(process.env.NEXT_PUBLIC_API_CALL_LIMIT.toString()) : 10000,
-}
+};
 

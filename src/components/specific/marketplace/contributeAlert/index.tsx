@@ -9,13 +9,12 @@ import {
     uploadTypeMapping,
     uploadToPullRequest,
 } from '@/helpers/assets/upload';
+import api from '@/helpers/api';
 
 import edit from '@/icons/main/edit-3.svg';
 import database from '@/icons/main/database.svg';
 
 import classes from './contribute.module.css';
-
-import api from '@/helpers/api';
 
 type ContributeProps = {
     dataset: {

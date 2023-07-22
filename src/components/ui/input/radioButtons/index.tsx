@@ -28,7 +28,7 @@ export default function RadioButtons<T>(props: {
     const Component = props.isLink
         ? Link
         : ({ ...props }: ComponentPropsWithRef<'button'>) => (
-              <button { ...props }></button>
+              <button { ...props } />
           );
 
     return (
@@ -59,8 +59,7 @@ export default function RadioButtons<T>(props: {
 
                     if (props.highlightCallback)
                         selected = props.highlightCallback(option.value);
-                    else
-                        selected = option.value === value;
+                    else selected = option.value === value;
 
                     return (
                         <Component

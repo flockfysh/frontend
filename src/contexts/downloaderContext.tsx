@@ -30,7 +30,7 @@ export function DownloaderWrapper(props: React.PropsWithChildren) {
 
     const downloadDataset = useCallback(async (datasetId: string) => {
         
-        const canDownloadAdditionalDataset = await (await api.get(`/api/users/apiUpdates/validDownloadLimits`)).data.data.data
+        const canDownloadAdditionalDataset = await (await api.get(`/api/users/apiUpdates/validDownloadLimits`)).data.data.data;
 
         if(canDownloadAdditionalDataset){
 
@@ -94,7 +94,7 @@ export function DownloaderWrapper(props: React.PropsWithChildren) {
         }        
         
         else {
-            toast.error("You have reached your download limits for this month! Go to settings and refill your api limits!");
+            toast.error('You have reached your download limits for this month! Go to settings and refill your api limits!');
         }
 
     }, []);

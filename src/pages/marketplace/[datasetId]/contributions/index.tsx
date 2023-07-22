@@ -8,14 +8,14 @@ import DatasetInfo, {
 } from '@/components/layout/datasetLayout';
 import ContributionList from '@/components/specific/marketplace/contributionList';
 
-const DatasetActivityPage: NextPageWithLayout = function () {
+function DatasetActivityPage() {
     const dataset = useContext(DatasetInfoContext);
-    
+
     if (dataset) return <ContributionList { ...dataset } />;
     else return <></>;
-};
+}
 
-DatasetActivityPage.getLayout = function (page) {
+(DatasetActivityPage as NextPageWithLayout).getLayout = function (page) {
     return (
         <MarketplaceLayout>
             <DatasetInfo>{ page }</DatasetInfo>

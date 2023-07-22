@@ -4,9 +4,6 @@ import { ReactSVG } from 'react-svg';
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import VerticalCard from '@/components/specific/marketplace/datasetCards/verticalCard';
-import WideFocusedCard from '@/components/specific/marketplace/datasetCards/wideFocusedCard';
-
 import useForceUpdate from '@/helpers/hooks/useForceUpdate';
 
 import prev from '@/icons/main/arrow-left.svg';
@@ -55,10 +52,7 @@ export default function PostSwiper(props: {
             >
                 { props.posts.map((post) => {
                     return (
-                        <SwiperSlide
-                            className={ classes.slide }
-                            key={ post._id }
-                        >
+                        <SwiperSlide className={ classes.slide } key={ post._id }>
                             <VerticalPostCard { ...post } />
                         </SwiperSlide>
                     );

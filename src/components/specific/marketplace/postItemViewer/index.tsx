@@ -1,17 +1,13 @@
 import { useState } from 'react';
 import { ReactSVG } from 'react-svg';
 
-import mime from 'mime-types';
-
-import AssetViewer from '@/components/specific/datasets/viewDataset/assetViewer';
-
 import search from '@/icons/main/search.svg';
 import grid from '@/icons/main/grid.svg';
 import list from '@/icons/main/list.svg';
 
 import classes from './styles.module.css';
 
-export default function PostItemViewer(posts: HomepagePost) {
+export default function PostItemViewer(_posts: HomepagePost) {
     const [showList, setShowList] = useState(true);
     const [currentNameQuery, setCurrentNameQuery] = useState('');
 
@@ -28,7 +24,7 @@ export default function PostItemViewer(posts: HomepagePost) {
             { /* header */ }
             <div className={ classes.mainContentHeader }>
                 <label className={ classes.searchContainer }>
-                    <ReactSVG src={ search.src } className={ classes.searchIcon }/>
+                    <ReactSVG src={ search.src } className={ classes.searchIcon } />
 
                     <input
                         type="search"
@@ -49,7 +45,7 @@ export default function PostItemViewer(posts: HomepagePost) {
                             }` }
                             onClick={ toggleViewToGrid }
                         >
-                            <ReactSVG className={ classes.icon } src={ grid.src }/>
+                            <ReactSVG className={ classes.icon } src={ grid.src } />
                         </button>
 
                         <button
@@ -58,19 +54,16 @@ export default function PostItemViewer(posts: HomepagePost) {
                             }` }
                             onClick={ toggleViewToList }
                         >
-                            <ReactSVG className={ classes.icon } src={ list.src }/>
+                            <ReactSVG className={ classes.icon } src={ list.src } />
                         </button>
                     </div>
-
                 </div>
             </div>
 
             { /* content */ }
             <div className={ classes.contentContainer }>
                 { /* info column */ }
-                <div className={ classes.contentInfoContainer }>
-                    
-                </div>
+                <div className={ classes.contentInfoContainer }></div>
             </div>
         </div>
     );

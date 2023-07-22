@@ -57,7 +57,7 @@ async function createRecipe(params: { name: string; labels: ClientLabel[] }) {
     const newRecipeId = newRecipe._id;
 
     for (const label of params.labels) {
-        if (label.isNew) {
+        if (label.isNew)
             await api.post<Flockfysh.Label>(
                 `/api/recipes/${newRecipeId}/labels`,
                 {
@@ -66,7 +66,6 @@ async function createRecipe(params: { name: string; labels: ClientLabel[] }) {
                     tool: label.tool,
                 }
             );
-        }
     }
 
     return true;

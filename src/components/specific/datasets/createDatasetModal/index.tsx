@@ -25,13 +25,13 @@ export default function CreateDatasetModal() {
                 <button className={ classes.newDatasetButton }>
                     <span>New Dataset</span>
 
-                    <ReactSVG src={ plus.src }/>
+                    <ReactSVG src={ plus.src } />
                 </button>
-            ) }
+              ) }
             blurBg={ true }
             popupTitle="Create New Dataset"
         >
-            <CreateDatasetForm/>
+            <CreateDatasetForm />
         </ActionPopupWithButton>
     );
 }
@@ -39,6 +39,7 @@ export default function CreateDatasetModal() {
 function CreateDatasetForm() {
     const [recipes, setRecipes] = useState<Flockfysh.RecipeWithLabels[]>([]);
     const [curQuery, setCurQuery] = useState<string | undefined>();
+    
     const { close } = useContext(PopupModalContext);
 
     useEffect(() => {
@@ -51,7 +52,7 @@ function CreateDatasetForm() {
                             name: curQuery || undefined,
                             expand: 'labels',
                         },
-                    },
+                    }
                 )
             ).data.data;
 

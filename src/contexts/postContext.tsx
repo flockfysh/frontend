@@ -3,19 +3,21 @@ import {
     SetStateAction,
     PropsWithChildren,
     createContext,
-    useState
+    useState,
 } from 'react';
 
 interface IPostContext {
-    post: HomepagePost | {
-        _id: '',
-        title: '',
-        content: '',
-        user: '',
-    },
-    posts: HomepagePost[] | [],
-    setPost: Dispatch<SetStateAction<HomepagePost>>,
-    setPosts: Dispatch<SetStateAction<HomepagePost[]>>
+    post:
+        | HomepagePost
+        | {
+              _id: '';
+              title: '';
+              content: '';
+              user: '';
+          };
+    posts: HomepagePost[] | [];
+    setPost: Dispatch<SetStateAction<HomepagePost>>;
+    setPosts: Dispatch<SetStateAction<HomepagePost[]>>;
 }
 
 export const PostContext = createContext<IPostContext>({
@@ -27,10 +29,10 @@ export const PostContext = createContext<IPostContext>({
     },
     posts: [],
     setPost: () => {},
-    setPosts: () => {}
+    setPosts: () => {},
 });
 
-export const PostWrapper = (props: PropsWithChildren) => {
+export function PostWrapper(props: PropsWithChildren) {
     const [post, setPost] = useState<HomepagePost>({
         _id: '',
         title: '',
@@ -40,8 +42,8 @@ export const PostWrapper = (props: PropsWithChildren) => {
     const [posts, setPosts] = useState<HomepagePost[]>([]);
 
     return (
-        <PostContext.Provider value={{ post, posts, setPost, setPosts }}>
-            {props.children}
+        <PostContext.Provider value={ { post, posts, setPost, setPosts } }>
+            { props.children }
         </PostContext.Provider>
     );
-};
+}

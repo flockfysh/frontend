@@ -15,7 +15,7 @@ export default function Profile(props: { username: string }) {
             const user = await api
                 .get<Api.Response<User>>(
                     `/api/users/byUsername/${props.username}`
-                )
+                );
             
 
             setUser(user.data.data);
@@ -36,7 +36,7 @@ export default function Profile(props: { username: string }) {
                 <UserSettings
                     username={ user.username }
                     email={ user.email }
-                    apiKey= {user.apiData.apiKey}
+                    apiKey= { user.apiData.apiKey }
                     mailingList={ true }
                     transferLimit={ user.apiData.transferAmount }
                     downloads={ user.apiData.downloadCount }

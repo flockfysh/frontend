@@ -20,6 +20,7 @@ export default function useBrowserFS() {
     async function module() {
         const fs = BrowserFS.BFSRequire('fs');
         const path = BrowserFS.BFSRequire('path');
+        
         const promisesLib: {
             readdir(path: string): Promise<string[]>;
             unlink(path: string): Promise<void>;

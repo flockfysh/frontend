@@ -23,6 +23,7 @@ export function ConfirmModal(props: ConfirmModalProps) {
                     <button onClick={ confirm } className={ classes.closeModal }>
                         Yes
                     </button>
+                    
                     <button
                         onClick={ props.closeModal }
                         className={ classes.closeModal }

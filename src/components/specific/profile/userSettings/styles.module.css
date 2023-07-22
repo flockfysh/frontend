@@ -1,291 +1,300 @@
 .containDiv {
-  padding: 2rem;
-  border: 2px solid var(--white-transparent);
-  border-radius: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  color: var(--primary1-100);
+    padding: 2rem;
+    border: 2px solid var(--white-transparent);
+    border-radius: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: var(--primary1-100);
 }
 
 .headingDiv {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .heading {
-  font-weight: 700;
-  font-size: 2rem;
+    font-weight: 700;
+    font-size: 2rem;
 }
 
 .navDiv {
-  display: flex;
-  width: fit-content;
-  align-items: center;
+    display: flex;
+    width: fit-content;
+    align-items: center;
 }
 
 .navButton {
-  font-size: 1rem;
-  font-weight: 700;
-  padding: 15px 20px;
-  transition: 0.2s;
-  color: var(--white);
-  background: none;
-  border: 2px solid var(--grey);
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 15px 20px;
+    transition: 0.2s;
+    color: var(--white);
+    background: none;
+    border: 2px solid var(--grey);
 }
 
 .navButton:hover {
-  background-color: var(--white-transparent);
+    background-color: var(--white-transparent);
 }
 
 .active {
-  background: var(--grey);
+    background: var(--grey);
 }
 
 .firstButton {
-  border-radius: 10px 0 0 10px;
+    border-radius: 10px 0 0 10px;
 }
 
 .lastButton {
-  border-radius: 0 10px 10px 0;
+    border-radius: 0 10px 10px 0;
 }
 
 .credentialsDiv {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 1rem;
-  width: 75%;
-  height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    width: 75%;
+    height: fit-content;
 }
 
 .linksDiv {
-  width: fit-content;
-  display: flex;
-  flex-direction: column;
-  margin-top: 2rem;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
 }
 
 .subheading {
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-  font-size: 1.3rem;
-  font-weight: 500;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    font-weight: 500;
 }
 
 .button {
-  background-color: var(--background);
-  display: flex;
-  gap: 0.8rem;
-  padding: 0.6rem 1.2rem;
-  width: max-content;
-  border-radius: 10px;
-  transition: 0.2s;
-  border: 2px solid var(--grey);
+    background-color: var(--background);
+    display: flex;
+    gap: 0.8rem;
+    padding: 0.6rem 1.2rem;
+    width: max-content;
+    border-radius: 10px;
+    transition: 0.2s;
+    border: 2px solid var(--grey);
 }
 
 .button:hover {
-  background: var(--secondary-background);
+    background: var(--secondary-background);
 }
 
 .icons {
-  height: fit-content;
-  cursor: pointer;
-  transition: 0.2s;
+    height: fit-content;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
 .icons:hover {
-  color: var(--primary1-200);
+    color: var(--primary1-200);
 }
 
 .icons svg {
-  width: 1.2rem;
-  display: inline-block;
-  margin-bottom: -0.3rem;
+    width: 1.2rem;
+    display: inline-block;
+    margin-bottom: -0.3rem;
 }
 
 .inputIcons {
-  position: absolute;
-  z-index: 2;
-  left: 1rem;
-  top: 0.65rem;
+    position: absolute;
+    z-index: 2;
+    left: 1rem;
+    top: 0.65rem;
 }
 
 .inputIcons svg {
-  height: 1.2rem;
+    height: 1.2rem;
 }
 
 .eachLinkDiv {
-  position: relative;
-  height: fit-content;
+    position: relative;
+    height: fit-content;
 }
 
 .eachLinkDiv:not(:first-of-type) {
-  margin-top: 1.2rem;
+    margin-top: 1.2rem;
 }
 
 .eachLinkDiv:first-of-type {
-  margin-top: 3rem;
+    margin-top: 3rem;
 }
 
 .eachLinkDiv:first-of-type .inputIcons {
-  top: 0.75rem;
+    top: 0.75rem;
 }
 
 .linkSubheading {
-  margin: 0;
+    margin: 0;
 }
 
 .linkHeadingDiv {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
 }
 
 .linkInput {
-  background: var(--main-grey);
-  padding: 0.7rem 1.3rem;
-  padding-left: 3.3rem;
-  border-radius: 0.8rem;
+    background: var(--main-grey);
+    padding: 0.7rem 1.3rem;
+    padding-left: 3.3rem;
+    border-radius: 0.8rem;
 }
 
 .linkInput:focus {
-  outline: none;
+    outline: none;
 }
 
 .deactivateButton {
-  padding: 0.7rem 1.3rem;
-  background-color: var(--error-500);
-  color: var(--white);
-  display: flex;
-  justify-content: space-between;
-  align-self: flex-end;
-  width: 15rem;
-  margin-top: 4rem;
-  border-radius: 10px;
-  align-items: center;
-  cursor: pointer;
-  transition: 0.2s !important;
-  width: 100%;
+    padding: 0.7rem 1.3rem;
+    background-color: var(--error-500);
+    color: var(--white);
+    display: flex;
+    justify-content: space-between;
+    align-self: flex-end;
+    width: 15rem;
+    margin-top: 4rem;
+    border-radius: 10px;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.2s !important;
+    width: 100%;
 }
 
 .deactivateButton:hover {
-  color: var(--background);
+    color: var(--background);
 }
 
 .contentDiv {
-  display: flex;
-  flex-direction: column;
-  height: fit-content;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
 }
 
 .contentDiv:first-of-type {
-  margin-right: 5rem;
+    margin-right: 5rem;
 }
 
 .infoContainerDiv:nth-child(2) {
-  margin-top: 1rem;
+    margin-top: 1rem;
 }
 
 .inputDiv {
-  background: var(--main-grey);
-  display: flex;
-  align-items: center;
-  width: fit-content;
-  padding: 0.3rem 0.3rem;
-  border-radius: 10px;
-  padding-left: 1.3rem;
-  gap: 1.3rem;
+    background: var(--main-grey);
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    padding: 0.3rem 0.3rem;
+    border-radius: 10px;
+    padding-left: 1.3rem;
+    gap: 1.3rem;
+    margin-bottom: 3px;
 }
 
 .input {
-  background: var(--main-grey);
-  padding: 0.7rem 0;
-  width: 23ch;
-  font-size: 1rem;
-  opacity: 0.8;
+    background: var(--main-grey);
+    padding: 0.7rem 0;
+    width: 23ch;
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+.inputLong {
+    background: var(--main-grey);
+    padding: 0.7rem 0;
+    width: 36ch;
+    font-size: 1rem;
+    opacity: 0.8;
 }
 
 .input:focus {
-  outline: none;
-  opacity: 1;
+    outline: none;
+    opacity: 1;
 }
 
 .apiKey {
-  font-size: 1rem;
-  background-color: var(--main-grey);
-  padding: 1rem 1.5rem;
-  width: 32ch;
-  display: flex;
-  justify-content: space-between;
-  border-radius: 10px;
+    font-size: 1rem;
+    background-color: var(--main-grey);
+    padding: 1rem 1.5rem;
+    width: 32ch;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
 }
 
 .api {
-  display: flex;
+    display: flex;
 }
 
 .iconButton {
-  background-color: transparent;
-  margin-left: 1.3rem;
+    background-color: transparent;
+    margin-left: 1.3rem;
 }
 
 .apiKey .iconButton {
-  margin-left: 0;
+    margin-left: 0;
 }
 
 .limitsHeading {
-  margin-top: 3rem;
+    margin-top: 3rem;
 }
 
 .limitsDiv {
-  width: 60%;
+    width: 60%;
 }
 
 .limitsContentDiv {
-  border: 2px solid var(--white-transparent);
-  border-radius: 10px;
-  padding: 1rem 2rem;
+    border: 2px solid var(--white-transparent);
+    border-radius: 10px;
+    padding: 1rem 2rem;
 }
 
 .limitObject {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .limitObject:not(:last-of-type) {
-  margin-bottom: 1.3rem;
+    margin-bottom: 1.3rem;
 }
 
 .limit {
-  font-size: 0.9rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 12ch;
-  color: var(--light-grey);
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 12ch;
+    color: var(--light-grey);
 }
 
 .limit span {
-  font-weight: 600;
-  font-size: 1rem;
-  color: var(--primary1-100);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--primary1-100);
 }
 
 .graphBody {
-  width: 70%;
-  background-color: var(--white-transparent);
-  height: 0.9rem;
-  border-radius: 2px;
+    width: 70%;
+    background-color: var(--white-transparent);
+    height: 0.9rem;
+    border-radius: 2px;
 }
 
 .graphContent {
-  width: 70%;
-  height: 100%;
-  background-color: var(--primary1-100);
-  border-radius: 2px;
+    width: 70%;
+    height: 100%;
+    background-color: var(--primary1-100);
+    border-radius: 2px;
 }
 
 .billing {

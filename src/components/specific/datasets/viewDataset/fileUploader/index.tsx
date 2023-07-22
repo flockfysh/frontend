@@ -43,12 +43,11 @@ export default function FileUploader(props: FileUploaderProps) {
                 onChange={ function (e) {
                     const files = e.currentTarget.files ?? [];
 
-                    if (files.length > 0) {
+                    if (files.length > 0)
                         uploadAssets(props.datasetId, Array.from(files), {
                             endpoint: typeData.endpoint,
                             fieldName: typeData.fieldName,
                         }).then();
-                    }
 
                     e.currentTarget.value = '';
                 } }

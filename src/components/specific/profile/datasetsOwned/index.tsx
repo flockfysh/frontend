@@ -13,7 +13,7 @@ import search from '@/icons/main/search.svg';
 
 import classes from './styles.module.css';
 
-function DatasetsOwned(props: { user: BaseUser }) {
+export default function DatasetsOwned(props: { user: BaseUser }) {
     type FilterType = 'owned' | 'shared' | 'bookmarked';
 
     const { user } = useContext(UserContext);
@@ -39,7 +39,7 @@ function DatasetsOwned(props: { user: BaseUser }) {
         let fetched;
 
         // Public datasets only.
-        if (!isCurrentUser) {
+        if (!isCurrentUser)
             fetched = (
                 await api.get<Api.PaginatedResponse<HomepageDataset[]>>(
                     '/api/datasets/search',
@@ -56,10 +56,9 @@ function DatasetsOwned(props: { user: BaseUser }) {
                     }
                 )
             ).data;
-        }
         // Includes private datasets.
         else {
-            if (filterType === 'owned') {
+            if (filterType === 'owned')
                 fetched = (
                     await api.get<Api.PaginatedResponse<HomepageDataset[]>>(
                         '/api/datasets/search',
@@ -74,8 +73,7 @@ function DatasetsOwned(props: { user: BaseUser }) {
                         }
                     )
                 ).data;
-            }
-            else if (filterType === 'shared') {
+            else if (filterType === 'shared')
                 fetched = (
                     await api.get<Api.PaginatedResponse<HomepageDataset[]>>(
                         '/api/datasets/search/shared',
@@ -90,8 +88,7 @@ function DatasetsOwned(props: { user: BaseUser }) {
                         }
                     )
                 ).data;
-            }
-            else {
+            else
                 fetched = (
                     await api.get<Api.PaginatedResponse<HomepageDataset[]>>(
                         '/api/datasets/search/bookmarked',
@@ -106,10 +103,10 @@ function DatasetsOwned(props: { user: BaseUser }) {
                         }
                     )
                 ).data;
-            }
         }
 
         state.datasets.push(...fetched.data);
+
         setState({
             hasMore: fetched.meta.hasNext,
             datasets: state.datasets,
@@ -159,7 +156,6 @@ function DatasetsOwned(props: { user: BaseUser }) {
                                 shown: isCurrentUser,
                             },
                             { value: 'Bookmarked', label: 'Bookmarked' },
-
                         ] }
                         value={ filterType }
                         onChange={ (currentValue) =>
@@ -168,13 +164,14 @@ function DatasetsOwned(props: { user: BaseUser }) {
                     />
                 </div>
 
-                {
-                    state.datasets.length === 0 && (
-                        <div>
-                            <p>No datasets found. Click the plus icon in the navbar to create one</p>                           
-                        </div>
-                    )
-                }
+                { state.datasets.length === 0 && (
+                    <div>
+                        <p>
+                            No datasets found. Click the plus icon in the navbar
+                            to create one
+                        </p>
+                    </div>
+                ) }
 
                 <InfiniteScroll
                     useWindow={ false }
@@ -196,5 +193,3 @@ function DatasetsOwned(props: { user: BaseUser }) {
         </section>
     );
 }
-
-export default DatasetsOwned;

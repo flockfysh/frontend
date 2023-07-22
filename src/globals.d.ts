@@ -8,13 +8,14 @@ declare global {
         type AssetType = 'image' | 'video' | 'text' | 'other';
         type PullRequestStatus = 'draft' | 'published' | 'merged' | 'rejected';
         type DatasetLicense = _DatasetLicense;
-        type DatasetAccessLevel = 'admin' |
-            'maintainer' |
-            'blocked' |
-            'none' |
-            'contributor' |
-            'preview' |
-            'owner';
+        type DatasetAccessLevel =
+            | 'admin'
+            | 'maintainer'
+            | 'blocked'
+            | 'none'
+            | 'contributor'
+            | 'preview'
+            | 'owner';
 
         interface Label {
             _id: string;

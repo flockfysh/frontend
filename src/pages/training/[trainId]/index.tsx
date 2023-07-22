@@ -17,8 +17,8 @@ import { CustomCreatableSelect } from '@/components/ui/input/select';
 
 import { ErrorContext } from '@/contexts/errorContext';
 
-import { LABEL_COLORS } from '@/settings';
 import api from '@/helpers/api';
+import { LABEL_COLORS } from '@/settings';
 
 import classes from './styles.module.css';
 
@@ -51,7 +51,7 @@ function TrainingLabels(
     );
 }
 
-const Train: NextPageWithLayout = function (_props: {}) {
+function Train(_props: {}) {
     const { throwError } = useContext(ErrorContext);
     const [dataset, setDataset] = useState<Flockfysh.PopulatedDataset | null>(
         null
@@ -228,9 +228,9 @@ const Train: NextPageWithLayout = function (_props: {}) {
     ) : (
         <></>
     );
-};
+}
 
-Train.getLayout = function (page) {
+(Train as NextPageWithLayout).getLayout = function (page) {
     return <MainLayout>{ page }</MainLayout>;
 };
 

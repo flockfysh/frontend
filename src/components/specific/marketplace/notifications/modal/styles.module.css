@@ -3,32 +3,32 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
-  
-  .notificationModalHeader h1 {
+}
+
+.notificationModalHeader h1 {
     font-size: 36px;
     font-weight: 700;
     line-height: 36px;
-  }
-  
-  .allUnsetButton {
+}
+
+.allUnsetButton {
     all: unset;
     cursor: pointer;
-  }
-  
-  .contentRoot {
+}
+
+.contentRoot {
     display: flex;
     flex-direction: column;
     width: 100%;
     align-items: end;
     justify-content: center;
     height: 100%;
-  
+
     padding-left: 36px;
     padding-right: 36px;
-  }
-  
-  .content {
+}
+
+.content {
     display: flex;
     gap: 24px;
     height: 100%;
@@ -36,38 +36,38 @@
     align-items: center;
     justify-content: space-around;
     width: 100%;
-  }
-  
-  .filters {
+}
+
+.filters {
     width: 300px;
     border: 1px solid #ffffff4d;
     border-radius: 16px;
     height: 100%;
-  }
-  
-  .filters h1 {
+}
+
+.filters h1 {
     font-size: 24px;
     font-weight: 700;
     line-height: 36px;
     padding: 16px;
-  }
-  
-  .list {
+}
+
+.list {
     width: 100%;
     border: 1px solid #ffffff4d;
     border-radius: 16px;
     height: 100%;
     /* don-t allow background image to move out of the container */
-  }
-  
-  .notificationList {
+}
+
+.notificationList {
     display: flex;
     flex-direction: column;
     gap: 8px;
     padding: 0px 24px 24px 24px;
-  }
-  
-  .notificationListItem {
+}
+
+.notificationListItem {
     font-size: 16px;
     padding: 6px 8px 6px 8px;
     font-weight: 700;
@@ -76,33 +76,33 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-  
+
     color: var(--primary1-100);
-  }
-  
-  .notificationListItem[data-active="true"] {
+}
+
+.notificationListItem[data-active='true'] {
     background-color: var(--main-grey);
-  }
-  
-  .notificationListItem:hover {
+}
+
+.notificationListItem:hover {
     cursor: pointer;
     background-color: var(--main-grey);
-  }
-  
-  .notificationMarkAsRead {
+}
+
+.notificationMarkAsRead {
     all: unset;
     cursor: pointer;
-  
+
     display: flex;
     align-items: center;
     white-space: nowrap;
     gap: 4px;
-  
+
     font-size: 12px;
     font-weight: 500;
-  }
-  
-  /* if disabled */
-  .notificationMarkAsRead[disabled] {
+}
+
+/* if disabled */
+.notificationMarkAsRead[disabled] {
     cursor: not-allowed;
-  }
+}

@@ -6,10 +6,16 @@ type IconInputTypes = {
     placeholder: string;
     icon: any;
     register: Function;
-    errors: any
+    errors: any;
 };
 
-const IconInput = ({ name, placeholder, icon, register, errors }: IconInputTypes) => {
+export default function IconInput({
+    name,
+    placeholder,
+    icon,
+    register,
+    errors,
+}: IconInputTypes) {
     return (
         <div className={ classes.eachLinkDiv }>
             <ReactSVG
@@ -19,22 +25,18 @@ const IconInput = ({ name, placeholder, icon, register, errors }: IconInputTypes
 
             <input
                 className={ classes.linkInput }
-                placeholder={placeholder}
-                {
-                    ...register(
-                        name,
-                        {
-                            pattern: {
-                                    value: /^https:\/\//,
-                                    message: 'URL must start with "https://"'
-                                }
-                        }
-                    )
-                }
+                placeholder={ placeholder }
+                { ...register(name, {
+                    pattern: {
+                        value: /^https:\/\//,
+                        message: 'URL must start with "https://"',
+                    },
+                }) }
             />
-            {errors && errors[name] && <p className={classes.errors}>{errors[name].message}</p>}
+            
+            { errors && errors[name] && (
+                <p className={ classes.errors }>{ errors[name].message }</p>
+            ) }
         </div>
     );
-};
-
-export default IconInput;
+}

@@ -20,9 +20,9 @@ import classes from './styles.module.css';
 function Separator() {
     return (
         <div className={ classes.separatorContainer }>
-            <span className={ classes.sepLine }/>
+            <span className={ classes.sepLine } />
             <span className={ classes.sepOr }>OR</span>
-            <span className={ classes.sepLine }/>
+            <span className={ classes.sepLine } />
         </div>
     );
 }
@@ -47,7 +47,7 @@ function OAuthLink(props: {
                 props.className ? props.className : ''
             }` }
         >
-            <ReactSVG src={ props.icon.src }/>
+            <ReactSVG src={ props.icon.src } />
 
             <span>
                 { props.mode === 'login' ? 'Sign in' : 'Sign up' } with{ ' ' }
@@ -73,9 +73,9 @@ export default function Login(props: {
             if (router.asPath === router.pathname) {
                 router.push(`/datasets`).then();
             }
-            else router.replace(router.asPath).then();
+ else router.replace(router.asPath).then();
         },
-        [router],
+        [router]
     );
 
     const isLogin = mode === 'login';
@@ -103,7 +103,7 @@ export default function Login(props: {
                     refreshUser();
                     redirect();
                 }
-                else if (!e.data.success) {
+ else if (!e.data.success) {
                     popup?.close();
                     throw new Error(e.data.message);
                 }
@@ -136,9 +136,9 @@ export default function Login(props: {
                     />
                 </div>
 
-                <Separator/>
+                <Separator />
 
-                <LoginForm mode={ mode } redirect={ redirect }/>
+                <LoginForm mode={ mode } redirect={ redirect } />
 
                 { isLogin ? (
                     <p className={ classes.changeType }>

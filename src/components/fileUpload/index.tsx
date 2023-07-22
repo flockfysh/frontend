@@ -11,7 +11,7 @@ type FileUploadProps = {
 };
 
 const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>(
-    function FileUpload(props: FileUploadProps, _ref) {
+    function FileUpload(props: FileUploadProps, ref) {
         const id = useId();
 
         const mapping = props.datasetType
@@ -70,8 +70,8 @@ const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>(
                     } }
                     ref={ (e) => {
                         internalRef.current = e;
-                        if (typeof _ref === 'function') _ref(e);
-                        else if (_ref) _ref.current = e;
+                        if (typeof ref === 'function') ref(e);
+                        else if (ref) ref.current = e;
                     } }
                 />
             </div>

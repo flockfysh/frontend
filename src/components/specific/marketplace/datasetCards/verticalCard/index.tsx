@@ -16,7 +16,7 @@ import classes from './styles.module.css';
 export default function VerticalCard(
     props: HomepageDataset & {
         className?: string;
-    },
+    }
 ) {
     return (
         <div className={ `${classes.container} ${props.className || ''}` }>
@@ -44,13 +44,14 @@ export default function VerticalCard(
                             src={ clock.src }
                             className={ classes.clockIcon }
                         />
+                        
                         <p>{ dayjs(props.updatedAt).fromNow() }</p>
                     </div>
                 </div>
 
                 <div className={ classes.middleSection }>
                     <h1>{ props.name }</h1>
-                    <p><Link href={`/profile/${props.user.username}`}>@{ props.user.username.slice(0, 16) }</Link></p>
+                    <p><Link href={ `/profile/${props.user.username}` }>@{ props.user.username.slice(0, 16) }</Link></p>
                 </div>
 
                 <Link

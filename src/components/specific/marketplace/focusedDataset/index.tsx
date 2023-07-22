@@ -56,7 +56,7 @@ export default function FocusedDataset(props: HomepageDataset) {
                         className={ classes.profileCard }
                         profilePicture={ props.user.profilePhoto?.url ?? '' }
                         username={ props.user.username }
-                        showMenu = { false }
+                        showMenu={ false }
                     />
                 </div>
             </div>
