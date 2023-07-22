@@ -38,7 +38,7 @@ declare interface BaseUser {
     };
     bio: string;
     apiData: {
-        apiKey: String;
+        apiKey: string;
         downloadCount: number;
         transferAmount: number;
         apiCount: number;
