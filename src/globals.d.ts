@@ -36,10 +36,21 @@ declare global {
             labels: Flockfysh.Label[];
         }
 
+        interface BuildScheme {
+            cashPaidOut: number;
+            cashRemaining: number;
+            schemeActive: boolean;
+        }
+
+        interface BuySellScheme {
+            schemeActive: boolean;
+        }
+
         interface Dataset {
             _id: string;
             name: string;
             description?: string;
+            desiredDatasetSize?:number;
             tags: string[];
             subTags: string[];
             user: string;
@@ -60,6 +71,12 @@ declare global {
                 downloads: number;
             };
             license: DatasetLicense;
+            payments: {
+                schemeType: string;
+                totalPayment: number;
+                paymentComplete: boolean; 
+                paymentParameters?: BuildScheme | BuySellScheme; 
+            }
         }
 
         interface Collection {

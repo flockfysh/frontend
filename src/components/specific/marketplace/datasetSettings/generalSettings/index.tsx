@@ -8,6 +8,7 @@ import CreatableSelect from '@/components/specific/marketplace/datasetSettings/c
 import Select from '@/components/specific/marketplace/datasetSettings/select';
 import { useRouter } from 'next/router';
 import { DATASET_LICENSE_DESCRIPTION, DATASET_LICENSE_ENUM } from '@/helpers/enums/license';
+import { toast } from 'react-toastify';
 
 const licenseOptions = DATASET_LICENSE_ENUM._def.values.map(license => {
     return {
@@ -123,6 +124,7 @@ export default function GeneralSettings(dataset: PreviewDataset) {
                     onClick={ async () => {
                         await api.delete(`/api/datasets/${dataset._id}`);
                         await router.push('/marketplace');
+                        toast.success(`Dataset ${dataset.name} was successfully deleted.`)
                     } }
                 >
                     Delete dataset

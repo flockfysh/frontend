@@ -5,6 +5,7 @@ import mime from 'mime-types';
 import { downloadZip } from 'client-zip';
 
 import api from '@/helpers/api';
+import { toast } from 'react-toastify';
 
 interface DownloadJob {
     current: number;
@@ -28,58 +29,74 @@ export function DownloaderWrapper(props: React.PropsWithChildren) {
     });
 
     const downloadDataset = useCallback(async (datasetId: string) => {
-        const paginationState: { next?: string } = {};
-        const promises = [];
+        
+        const canDownloadAdditionalDataset = await (await api.get(`/api/users/apiUpdates/validDownloadLimits`)).data.data.data
 
-        do {
-            const result = (
-                await api.get<Api.PaginatedResponse<Flockfysh.Asset[]>>(
-                    `/api/datasets/${datasetId}/assets`,
-                    {
-                        params: {
-                            limit: 20,
-                            next: paginationState.next,
-                        },
-                    }
-                )
-            ).data;
-            if (result.meta.hasNext) {
-                paginationState.next = result.meta.next;
-            }
- else {
-                paginationState.next = undefined;
-            }
-            for (const asset of result.data) {
-                promises.push({
-                    _id: asset._id,
-                    response: fetch(asset.url),
-                });
-            }
-        } while (paginationState.next);
-        const transformed = await Promise.all(
-            promises.map(async (downloadItem) => {
-                const response = await downloadItem.response;
-                const extension = mime.extension(
-                    response.headers.get('content-type') as string
-                );
-                const filename = extension
-                    ? `${downloadItem._id}.${extension}`
-                    : `${downloadItem._id}`;
-                return {
-                    name: path.join('/assets', filename),
-                    input: response,
-                };
-            })
-        );
-        const blob = await downloadZip(transformed).blob();
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = `Dataset ${datasetId}.zip`;
-        link.click();
-        link.remove();
-        await api.post(`/api/datasets/${datasetId}/metrics`, {
-            type: 'download',
-        });
+        if(canDownloadAdditionalDataset){
+
+            const paginationState: { next?: string } = {};
+            const promises = [];
+    
+            do {
+                const result = (
+                    await api.get<Api.PaginatedResponse<Flockfysh.Asset[]>>(
+                        `/api/datasets/${datasetId}/assets`,
+                        {
+                            params: {
+                                limit: 20,
+                                next: paginationState.next,
+                            },
+                        }
+                    )
+                ).data;
+                if (result.meta.hasNext) {
+                    paginationState.next = result.meta.next;
+                }
+     else {
+                    paginationState.next = undefined;
+                }
+                for (const asset of result.data) {
+                    promises.push({
+                        _id: asset._id,
+                        response: fetch(asset.url),
+                    });
+                }
+            } while (paginationState.next);
+            const transformed = await Promise.all(
+                promises.map(async (downloadItem) => {
+                    const response = await downloadItem.response;
+                    const extension = mime.extension(
+                        response.headers.get('content-type') as string
+                    );
+                    const filename = extension
+                        ? `${downloadItem._id}.${extension}`
+                        : `${downloadItem._id}`;
+                    return {
+                        name: path.join('/assets', filename),
+                        input: response,
+                    };
+                })
+            );
+            const blob = await downloadZip(transformed).blob();
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `Dataset ${datasetId}.zip`;
+            link.click();
+            link.remove();
+            await api.post(`/api/datasets/${datasetId}/metrics`, {
+                type: 'download',
+            });
+    
+            await api.post(`/api/users/apiUpdates/downloads`);
+            await api.post(`/api/users/apiUpdates/apiCalls`);
+
+
+        }        
+        
+        else {
+            toast.error("You have reached your download limits for this month! Go to settings and refill your api limits!");
+        }
+
     }, []);
 
     return (

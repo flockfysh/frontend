@@ -98,7 +98,6 @@ export default function ContributionDetails(props: {
                 )
             ).data.data;
             setCurContribution(contribution);
-            console.log(contribution);
             const tempMessages = (
                 await api.get<Api.PaginatedResponse<ExpandedPullRequestMessage[]>>(
                     `/api/pullRequests/${props.contributionId}/messages`,

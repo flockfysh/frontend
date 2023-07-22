@@ -18,6 +18,7 @@ import mail from '@/icons/main/mail.svg';
 import key from '@/icons/main/key.svg';
 import search from '@/icons/main/search.svg';
 import CustomSelect, { CustomCreatableSelect } from '../../../ui/input/select';
+import * as settings from '@/settings'
 
 import classes from './styles.module.css';
 import IconInput from '@/components/ui/input/iconInput';
@@ -149,8 +150,11 @@ export default function UserSettings(props: UserSettings) {
   } = useForm<IFormInput>({
     defaultValues: linkValues,
   });
+
+
   const { user } = useContext(UserContext);
 
+  
   // 0=general, 1=billing, 2=connections
   const [filter, updateFilter] = useState(0);
 
@@ -171,7 +175,12 @@ export default function UserSettings(props: UserSettings) {
   useEffect(() => {
     reset(linkValues);
   }, [linkValues, reset]);
+  
+  
   console.log(filter, 'filter=>>');
+
+  console.log('settings', settings.BUSINESS_PARAMETERS)
+
   return (
     <div className={classes.limitsContentDiv}>
       <section className={classes.containDiv}>
@@ -251,17 +260,11 @@ export default function UserSettings(props: UserSettings) {
 
                   <button
                     className={classes.iconButton}
-                    onClick={() => {
-                      let finalKey = '';
-                      for (let index = 1; index < 21; index++) {
-                        finalKey =
-                          finalKey +
-                          String.fromCharCode(
-                            Math.round(Math.random() * 93) + 33
-                          );
-                      }
-
-                      setApiKey(finalKey);
+                    onClick={async() => {
+                      
+                      const newKey = await api.patch(`/api/users/apiUpdates/regenerateAPIKey`)
+                      console.log('outkey', newKey.data.data.data)
+                      setApiKey(newKey.data.data.data)
                     }}
                   >
                     <ReactSVG src={generate.src} className={classes.icons} />
@@ -314,7 +317,7 @@ export default function UserSettings(props: UserSettings) {
                 <div className={classes.limitObject}>
                   <h5 className={classes.limit}>
                     <span>Transfer Limit</span>
-                    {props.transferLimit.toString()} / 25GB
+                    {props.transferLimit.toString()} / {settings.BUSINESS_PARAMETERS.DATASET_TRANSFER_LIMIT}GB
                   </h5>
 
                   <div className={classes.graphBody}>
@@ -322,7 +325,7 @@ export default function UserSettings(props: UserSettings) {
                       className={classes.graphContent}
                       style={{
                         width:
-                          ((props.transferLimit / 25) * 100).toString() + '%',
+                          ((props.transferLimit / settings.BUSINESS_PARAMETERS.DATASET_TRANSFER_LIMIT) * 100).toString() + '%',
                       }}
                     />
                   </div>
@@ -336,14 +339,14 @@ export default function UserSettings(props: UserSettings) {
                 <div className={classes.limitObject}>
                   <h5 className={classes.limit}>
                     <span>Downloads</span>
-                    {props.downloads.toString()} / 10 datasets
+                    {props.downloads.toString()} / {settings.BUSINESS_PARAMETERS.DATASET_DOWNLOAD_LIMIT} datasets
                   </h5>
 
                   <div className={classes.graphBody}>
                     <div
                       className={classes.graphContent}
                       style={{
-                        width: ((props.downloads / 10) * 100).toString() + '%',
+                        width: ((props.downloads / settings.BUSINESS_PARAMETERS.DATASET_DOWNLOAD_LIMIT) * 100).toString() + '%',
                       }}
                     />
                   </div>
@@ -357,7 +360,7 @@ export default function UserSettings(props: UserSettings) {
                 <div className={classes.limitObject}>
                   <h5 className={classes.limit}>
                     <span>API Calls</span>
-                    {props.apiCalls.toString()} / 10,000
+                    {props.apiCalls.toString()} / {settings.BUSINESS_PARAMETERS.API_CALL_LIMIT}
                   </h5>
 
                   <div className={classes.graphBody}>
@@ -365,7 +368,7 @@ export default function UserSettings(props: UserSettings) {
                       className={classes.graphContent}
                       style={{
                         width:
-                          ((props.apiCalls / 10000) * 100).toString() + '%',
+                          ((props.apiCalls / settings.BUSINESS_PARAMETERS.API_CALL_LIMIT) * 100).toString() + '%',
                       }}
                     />
                   </div>
