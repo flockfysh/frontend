@@ -8,5 +8,5 @@ declare interface HomepageCollection extends Flockfysh.Collection {
         assetId: string;
         url: string;
     };
-    user: RedactedUser;
+    user: User;
 }
