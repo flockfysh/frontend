@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 
-const PayPal = () => {
+function PayPal() {
   const paypal = useRef();
   paypal.current = undefined;
 
@@ -10,7 +10,7 @@ const PayPal = () => {
     const commisionAmount = paymentAmount * 1.2;
     window?.paypal
       .Buttons({
-        createOrder: (data: any, actions: any, err: any) => {
+        createOrder: (_data: any, actions: any, _err: any) => {
           return actions.order.create({
             intent: 'CAPTURE',
 
@@ -49,9 +49,9 @@ const PayPal = () => {
 
   return (
     <div>
-      <div ref={paypal} style={{ width: '500px' }}></div>
+      <div ref={ paypal } style={ { width: '500px' } }></div>
     </div>
   );
-};
+}
 
 export default PayPal;

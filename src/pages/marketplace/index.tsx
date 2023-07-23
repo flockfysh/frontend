@@ -1,9 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { NextPageWithLayout } from '@/pages/_app';
 
-import { v4 } from 'uuid';
 import { ManipulateType } from 'dayjs';
-import { fakerEN } from '@faker-js/faker';
 
 import HowToCards from '@/components/specific/marketplace/datasetCards/howToCards';
 import FeaturedDatasetsSection from '@/components/specific/marketplace/featuredDatasetsSection';

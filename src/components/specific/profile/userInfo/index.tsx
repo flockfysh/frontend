@@ -2,7 +2,6 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import Avatar from 'boring-avatars';
@@ -30,6 +29,7 @@ function Header(props: { url: string; editable: boolean }) {
         const gradients = ['#F0AB3D', '#C271B4', '#C20D90'];
         return gradients[Math.round(Math.random() * 2)];
     };
+
     const router = useRouter();
 
     const inputRef = useRef<HTMLInputElement>(null);
@@ -254,7 +254,6 @@ export default function UserInfo (
             
             const numDs = await api.get(`/api/datasets/counts/${props._id}`);
 
-
             setUserNavbarStats({ ...userNavbarStats, 
                 numDatasets: numDs.data.data.data, 
                 numContributions: numPRs.data.data.length,
@@ -265,7 +264,7 @@ export default function UserInfo (
         };
 
         fetchData();
-    }, [props]);
+    }, [props, userNavbarStats]);
 
     
     return (
