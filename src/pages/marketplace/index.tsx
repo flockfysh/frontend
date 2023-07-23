@@ -226,15 +226,13 @@ function Marketplace() {
                 </section>
             ) }
 
-            { /*
             <section className={ classes.sectionContainer }>
                 <div className={ classes.headerContainer }>
                     <h1 className={ classes.header }>Trending Collections</h1>
                 </div>
 
-                <CollectionSwiper collections={ collections } /> 
+                <CollectionSwiper collections={ [] } /> 
             </section>
-            */ }
 
             <section className={ classes.sectionContainer }>
                 <div className={ classes.headerContainer }>

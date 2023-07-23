@@ -43,6 +43,8 @@ import {
   TableRowProps,
 } from '@mui/material';
 import PayPal from '@/pages/paypal';
+import { toast } from 'react-toastify';
+import { redirect } from 'next/dist/server/api-utils';
 
 const datasetTypeOptions = [
   { value: 'image', label: 'Images' },
@@ -59,6 +61,18 @@ type UserSettings = {
     downloads: number;
     apiCalls: number;
 };
+
+interface PaymentObject {
+  price_data: {
+      currency: string;
+      product_data: {
+          name: string;
+      },
+      unit_amount: number;
+  },
+  quantity: number;
+}
+
 
 type IFormInput = {
     github?: string;
@@ -318,7 +332,28 @@ export default function UserSettings(props: UserSettings) {
 
             <div className={ classes.limitsDiv }>
               <h4 className={ classes.subheading + ' ' + classes.limitsHeading }>
-                Limits
+                Limits <button onClick={async () => {
+
+                    const paymentData:PaymentObject[] = [{
+                      price_data: {
+                        currency: 'usd',
+                        product_data: {
+                          name: 'flockfysh API Refill'
+                        },
+                        unit_amount: 100,
+                      },
+                      quantity: 1 
+                    }]
+
+
+                    await api.post('/api/payments/oneTimePurchase', {
+                      paymentData : paymentData,
+                    }).then((res) => {
+                      toast.success('API Refill Successful!' + res.data.data)
+                    }).catch((e) => {
+                      toast.error('API Refill Failed :(')
+                    })
+                }}> Refill </button>
               </h4>
 
               <div className={ classes.limitsContentDiv }>
