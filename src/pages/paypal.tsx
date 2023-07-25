@@ -1,14 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 
-const PayPal = () => {
+function PayPal() {
   const paypal = useRef();   
 
   return (
     <div>
-      <div style={{ width: '500px' }}></div>
+      <div style={ { width: '500px' } }></div>
     </div>
   );
-};
+}
 
 export default PayPal;

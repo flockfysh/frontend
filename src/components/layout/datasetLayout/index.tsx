@@ -97,20 +97,20 @@ export default function DatasetInfo(props: PropsWithChildren) {
 
     const [payment, setPaymentData] = useState({
         purchaseLink: '#'
-    })
+    });
 
     useEffect(() => {
         async function fetchData() {
 
             const clientSecret = await api.post(`/api/payments/purchaseDataset`, {
                 datasetId: datasetId
-            })    
-            setPaymentData({...payment, purchaseLink: clientSecret.data.data})    
+            });    
+            setPaymentData({ ...payment, purchaseLink: clientSecret.data.data });    
 
         }
 
-        fetchData()
-    }, [datasetId])
+        fetchData();
+    }, [datasetId]);
 
     if (!dataset || typeof datasetId !== 'string') return <></>;
 
@@ -275,7 +275,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                 ) : (
                                     <Link
                                         className={ classes.contributeButton }
-                                        href = {payment.purchaseLink}
+                                        href = { payment.purchaseLink }
                                         target = "_blank"
                                     >
                                         Buy for ${ dataset.price.toFixed(2) }

@@ -308,22 +308,22 @@ export default function AssetViewer(props: {
 
     const [payment, setPaymentData] = useState({
         purchaseLink: '#'
-    })
+    });
 
     useEffect(() => {
         async function fetchData() {
 
-            if(props.datasetPermissionLevel == 'preview'){
+            if(props.datasetPermissionLevel === 'preview'){
                 const clientSecret = await api.post(`/api/payments/purchaseDataset`, {
                     datasetId: props.datasetId
-                })    
-                setPaymentData({...payment, purchaseLink: clientSecret.data.data})    
+                });    
+                setPaymentData({ ...payment, purchaseLink: clientSecret.data.data });    
             }
 
         }
 
-        fetchData()
-    }, [props.datasetId])
+        fetchData();
+    }, [props.datasetId]);
 
     useEffect(() => {
         if (state.initialLoad) {
@@ -338,7 +338,7 @@ export default function AssetViewer(props: {
         }
     }, [state, load, setState]);
 
-    const router = useRouter()
+    const router = useRouter();
 
     if (props.datasetPermissionLevel === 'preview') {
         return (
@@ -348,9 +348,9 @@ export default function AssetViewer(props: {
                 </h2>
                 <p>
                     <Link
-                        href={payment.purchaseLink}
+                        href={ payment.purchaseLink }
                         className={ classes.purchaseLink }
-                        target='_blank'
+                        target="_blank"
                     >
                         
                         Purchase this dataset

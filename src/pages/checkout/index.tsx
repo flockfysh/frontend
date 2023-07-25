@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Elements} from '@stripe/react-stripe-js';
-import {stripePromise} from '@/settings'
+import { Elements } from '@stripe/react-stripe-js';
+import { stripePromise } from '@/settings';
 import CheckoutForm from './CheckoutForm';
 import { Router, useRouter } from 'next/router';
 import { StripeElementsOptions } from '@stripe/stripe-js';
@@ -12,9 +12,9 @@ import { StripeElementsOptions } from '@stripe/stripe-js';
 
 function Checkout() {
 
-    const router = useRouter()
+    const router = useRouter();
 
-    console.log('client',router.query.client)
+    console.log('client', router.query.client);
     const options:any = {
         // passing the client secret obtained in step 3
         clientSecret: router.query.clientSecret,
@@ -23,10 +23,10 @@ function Checkout() {
     };
 
   return (
-    <Elements stripe={stripePromise} options={options}>
+    <Elements stripe={ stripePromise } options={ options }>
       <CheckoutForm />
     </Elements>
   );
-};
+}
 
-export default Checkout
+export default Checkout;

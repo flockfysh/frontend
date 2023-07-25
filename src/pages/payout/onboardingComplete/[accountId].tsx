@@ -14,13 +14,13 @@ function Success() {
         async function load() {
             api.post('/api/users/payout/onboardingComplete', {
                 accountId: router.query.accountId
-            })
+            });
         }
         load().then(() => {
-            router.push('/marketplace')
+            router.push('/marketplace');
         }).catch((e) => {
-            console.log(e)
-        }) 
+            console.log(e);
+        }); 
     }, []);
 
     return (

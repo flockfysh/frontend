@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import {loadStripe} from '@stripe/stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
 export const MIN_WIDTH = 1024;
 

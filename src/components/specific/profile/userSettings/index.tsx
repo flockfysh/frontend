@@ -175,45 +175,46 @@ export default function UserSettings(props: UserSettings) {
       apiCalls: 1,
       downloadLimit: 1,
     },
-  })
+  });
 
   useEffect(() => {
     async function fetchData() {
       
       //Retrieve all API data
-      const apiData = await api.get('/api/payments/apiRefillData')
-      const refillPaymentData = apiData.data.data.refill_payment
-      const apiLimits = apiData.data.data.apiLimits
+      const apiData = await api.get('/api/payments/apiRefillData');
+      const refillPaymentData = apiData.data.data.refill_payment;
+      const apiLimits = apiData.data.data.apiLimits;
 
       const refillLink = await api.post('/api/payments/oneTimePurchase', {
         paymentData : [refillPaymentData],
-      })
+      });
 
-      const onboardingCompleted = (await api.post('/api/users/payout/onboarding/status'))
+      const onboardingCompleted = (await api.post('/api/users/payout/onboarding/status'));
 
-      console.log(onboardingCompleted.data.data)
+      console.log(onboardingCompleted.data.data);
 
-      let acctLink = ''
+      let acctLink = '';
 
       if(onboardingCompleted.data.data !== 'completed'){
         const accountLink = await api.post('/api/users/payout/onboarding', {
           returnUrl: settings.FRONTEND_URL,
-        })
-        acctLink = accountLink.data.data
-      } else {
-        const dashboardLink = await api.post('/api/users/payout/dashboard')
-        acctLink = dashboardLink.data.data
+        });
+        acctLink = accountLink.data.data;
+      }
+ else {
+        const dashboardLink = await api.post('/api/users/payout/dashboard');
+        acctLink = dashboardLink.data.data;
       }
 
 
-      console.log(refillPaymentData, apiLimits)
-      setPaymentData({refillLink: refillLink.data.data, accountLink: acctLink, apiLimits : apiLimits})
+      console.log(refillPaymentData, apiLimits);
+      setPaymentData({ refillLink: refillLink.data.data, accountLink: acctLink, apiLimits : apiLimits });
 
     }
 
-    fetchData()
+    fetchData();
 
-  }, [props.username])
+  }, [props.username]);
 
   const {
     register,
@@ -251,7 +252,7 @@ export default function UserSettings(props: UserSettings) {
   
   
   console.log(filter, 'filter=>>');
-  console.log(window.location.hostname)
+  console.log(window.location.hostname);
 
   return (
     <div className={ classes.limitsContentDiv }>
@@ -382,7 +383,7 @@ export default function UserSettings(props: UserSettings) {
 
             <div className={ classes.limitsDiv }>
               <h4 className={ classes.subheading + ' ' + classes.limitsHeading }>
-                Limits <Link href={paymentData.refillLink} target='_blank' > Refill </Link>
+                Limits <Link href={ paymentData.refillLink } target="_blank" > Refill </Link>
               </h4>
 
               <div className={ classes.limitsContentDiv }>
@@ -466,7 +467,7 @@ export default function UserSettings(props: UserSettings) {
                     icon={ mail.src }
                     value="stripe@striple.com"
                   />
-                  <Link href = {paymentData.accountLink} target='_blank'>
+                  <Link href = { paymentData.accountLink } target="_blank">
                     Connect Stripe
                   </Link>
 

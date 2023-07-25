@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
-import {useStripe, useElements, PaymentElement} from '@stripe/react-stripe-js';
+import React, { useState } from 'react';
+import { useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js';
 import { FRONTEND_URL } from '@/settings';
 
-const CheckoutForm = () => {
+function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -19,7 +19,7 @@ const CheckoutForm = () => {
       return;
     }
 
-    const {error} = await stripe.confirmPayment({
+    const { error } = await stripe.confirmPayment({
       //`Elements` instance that was used to create the Payment Element
       elements,
       confirmParams: {
@@ -33,7 +33,8 @@ const CheckoutForm = () => {
       // confirming the payment. Show error to your customer (for example, payment
       // details incomplete)
       setErrorMessage(error.message!);
-    } else {
+    }
+ else {
       // Your customer will be redirected to your `return_url`. For some payment
       // methods like iDEAL, your customer will be redirected to an intermediate
       // site first to authorize the payment, then redirected to the `return_url`.
@@ -41,13 +42,13 @@ const CheckoutForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={ handleSubmit }>
       <PaymentElement />
-      <button disabled={!stripe}>Submit</button>
-      {/* Show error message to your customers */}
-      {errorMessage && <div>{errorMessage}</div>}
+      <button disabled={ !stripe }>Submit</button>
+      { /* Show error message to your customers */ }
+      { errorMessage && <div>{ errorMessage }</div> }
     </form>
-  )
-};
+  );
+}
 
 export default CheckoutForm;
