@@ -95,6 +95,23 @@ export default function DatasetInfo(props: PropsWithChildren) {
         fetchData();
     }, [datasetId]);
 
+    const [payment, setPaymentData] = useState({
+        purchaseLink: '#'
+    });
+
+    useEffect(() => {
+        async function fetchData() {
+
+            const clientSecret = await api.post(`/api/payments/purchaseDataset`, {
+                datasetId: datasetId
+            });    
+            setPaymentData({ ...payment, purchaseLink: clientSecret.data.data });    
+
+        }
+
+        fetchData();
+    }, [datasetId]);
+
     if (!dataset || typeof datasetId !== 'string') return <></>;
 
     return (
@@ -256,17 +273,13 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                         </button>
                                     </>
                                 ) : (
-                                    <button
+                                    <Link
                                         className={ classes.contributeButton }
-                                        onClick={ async () => {
-                                            const url = await genPurchaseUrl(
-                                                dataset._id
-                                            );
-                                            await router.push(url);
-                                        } }
+                                        href = { payment.purchaseLink }
+                                        target = "_blank"
                                     >
                                         Buy for ${ dataset.price.toFixed(2) }
-                                    </button>
+                                    </Link>
                                 ) }
                             </div>
                         </div>

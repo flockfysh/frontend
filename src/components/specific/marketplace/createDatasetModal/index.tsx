@@ -22,6 +22,7 @@ import save from '@/icons/main/save.svg';
 import coinStack from '@/icons/main/coin-stack.svg';
 
 import classes from './styles.module.css';
+import { toast } from 'react-toastify';
 
 type CreateDatasetModalProps = {
     onClose: () => void;
@@ -41,10 +42,89 @@ const licenseOptions = DATASET_LICENSE_ENUM._def.values.map((license) => {
     };
 });
 
+async function buildDataset(formData: FormData) {
+    const name = formData.get('name');
+    let recipe = formData.get('recipe');
+    const type = formData.get('type');
+    const price = +(formData.get('price') ?? 0);
+    const numData = +(formData.get('numData') ?? 0);
+
+    if (!recipe) {
+
+        
+        const newRecipe = await api
+            .post<Api.Response<Flockfysh.Recipe>>('/api/recipes', {
+                name: name,
+            })
+            .then((res) => res.data);
+
+        recipe = newRecipe.data._id;
+
+        
+    }
+
+    const createData = {
+        name: name,
+        recipe: recipe,
+        type: type,
+        tags: formData.getAll('tags'),
+        description: formData.get('description'),
+        price: price,
+        public: JSON.parse(formData.get('public') as string),
+        license: formData.get('license'),
+        desiredDatasetSize: Number.parseInt(numData.toString()),
+        payments: {
+            schemeType: 'build',
+            totalPayment: price,
+            paymentComplete: (price === 0 ? true : false),
+            paymentParameters: {
+                cashPaidOut: 0,
+                cashRemaining: price,
+                schemeActive: false,
+            } 
+        }
+    };
+
+
+    
+    const newDataset = await api
+        .post<Api.Response<Flockfysh.Dataset>>('/api/datasets', createData)
+        .then((res) => res.data.data);
+
+    const files = formData.getAll('files').filter((file) => {
+        if (file instanceof File && file.size > 0) {
+            return true;
+        }
+    }) as File[];
+
+    const config =
+        uploadTypeMapping[formData.get('type') as Flockfysh.AssetType];
+
+    async function upload(file: File) {
+        try {
+            const fd = new FormData();
+            fd.set(config.fieldName, file);
+            await api.post(
+                `/api/datasets/${newDataset._id}/assets/upload/${config.endpoint}`,
+                fd,
+            );
+        }
+ catch (e) {
+        }
+    }
+
+    await new AsyncArray(files).chunkMap((file) => upload(file), undefined, {
+        maxThreads: 20,
+    });
+
+    
+}
+
 async function uploadDataset(formData: FormData) {
     const name = formData.get('name');
     let recipe = formData.get('recipe');
     const type = formData.get('type');
+    const price = +(formData.get('price') ?? 0);
 
     if (!recipe) {
         const newRecipe = await api
@@ -62,9 +142,17 @@ async function uploadDataset(formData: FormData) {
         type: type,
         tags: formData.getAll('tags'),
         description: formData.get('description'),
-        price: +(formData.get('price') ?? 0),
+        price: price,
         public: JSON.parse(formData.get('public') as string),
         license: formData.get('license'),
+        payments: {
+            schemeType: 'upload',
+            totalPayment: price,
+            paymentComplete: (price === 0 ? true : false), 
+            paymentParameters: {
+                schemeActive: false,
+            }
+        }
     };
 
     const newDataset = await api
@@ -108,11 +196,9 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
 
     const [isUpload, updateIsUpload] = useState(true);
 
-    // TODO: Is this implemented?
-    async function requestDataset() {}
+   
 
-    requestDataset();
-
+   
     return (
         <div
             className={ `${classes.overlay} ${classes.blurBg} ${
@@ -169,11 +255,24 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                 <form
                     className={ classes.form }
                     onSubmit={ async (e) => {
-                        e.preventDefault();
-                        const formData = new FormData(e.currentTarget);
-                        await uploadDataset(formData);
-                        updateFadeOut(true);
-                    } }
+
+                            e.preventDefault();
+                            const formData = new FormData(e.currentTarget);
+
+                            if(isUpload){
+                                await uploadDataset(formData);
+                                updateFadeOut(true);
+                                props.onClose();
+                                toast.success('Dataset was sucessfully uploaded!');    
+                            }
+                            else {
+                                await buildDataset(formData);
+                                updateFadeOut(true);
+                                props.onClose();
+                                toast.success('Dataset was sucessfully created!');                                    
+                            }
+                        } 
+                    }
                 >
                     <div className={ classes.rowContainer }>
                         <label>
@@ -259,7 +358,11 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                     <p>Minimum Number of Items</p>
 
                                     { /* TODO: need to change the scroll. React select */ }
-                                    <input type="number" required={ true } />
+                                    <input type="number"
+                                    placeholder="Amount.."
+                                    name="numData" required={ true }/>
+                                    
+
                                 </>
                             ) }
                         </label>
@@ -397,36 +500,33 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                         { /*</label>*/ }
 
                         <label>
-                            { isUpload ? (
-                                <>
-                                    <p>License</p>
+                            
+                            <p>License</p>
 
-                                    <CustomSelect
-                                        name="license"
-                                        classNames={ {
-                                            control: () => {
-                                                return `${classes.inputControl} ${classes.licenseInput}`;
-                                            },
-                                            option: () => {
-                                                return classes.selectOption;
-                                            },
-                                            menu: () => {
-                                                return classes.selectMenu;
-                                            },
-                                        } }
-                                        placeholder="Item"
-                                        options={ licenseOptions }
-                                        defaultValue={ licenseOptions[0] }
-                                    />
-                                </>
-                            ) : (
-                                <>
-                                    <p>Deadline</p>
+                            <CustomSelect
+                                name="license"
+                                classNames={ {
+                                    control: () => {
+                                        return `${classes.inputControl} ${classes.licenseInput}`;
+                                    },
+                                    option: () => {
+                                        return classes.selectOption;
+                                    },
+                                    menu: () => {
+                                        return classes.selectMenu;
+                                    },
+                                } }
+                                placeholder="Item"
+                                options={ licenseOptions }
+                                defaultValue={ licenseOptions[0] }
+                            />
+                                
+                            <>
+                                <p>Deadline (plz ignore)</p>
 
-                                    { /* TODO: need to change the icon color */ }
-                                    <input type="date" required={ true } />
-                                </>
-                            ) }
+                                { /* TODO: need to change the icon color */ }
+                                <input type="date" required={ true }/>
+                            </>
                         </label>
                     </div>
 
@@ -448,11 +548,11 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                             ) : (
                                 <p className={ classes.pLinkContainer }>
                                     I agree to the flockfysh`&apos;s
-                                    <Link className={ classes.link } href="">
+                                    <Link className={ classes.link } href="/terms">
                                         Terms of Service
                                     </Link>
                                     and
-                                    <Link className={ classes.link } href="">
+                                    <Link className={ classes.link } href="/privacy">
                                         Privacy Policy
                                     </Link>
                                 </p>

@@ -103,7 +103,6 @@ export default function ContributionDetails(props: {
             ).data.data;
 
             setCurContribution(contribution);
-
             const tempMessages = (
                 await api.get<
                     Api.PaginatedResponse<ExpandedPullRequestMessage[]>

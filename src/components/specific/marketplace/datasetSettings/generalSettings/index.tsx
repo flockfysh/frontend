@@ -14,6 +14,7 @@ import {
 import link from '@/icons/main/link.svg';
 import api from '@/helpers/api';
 import cash from '@/icons/main/dollar-sign.svg';
+import { toast } from 'react-toastify';
 
 const licenseOptions = DATASET_LICENSE_ENUM._def.values.map((license) => {
     return {
@@ -91,6 +92,7 @@ export default function GeneralSettings(dataset: PreviewDataset) {
                                     price: +data,
                                 }
                             );
+                                
                         } }
                         saveLabel="Save"
                     />
@@ -132,6 +134,7 @@ export default function GeneralSettings(dataset: PreviewDataset) {
                     onClick={ async () => {
                         await api.delete(`/api/datasets/${dataset._id}`);
                         await router.push('/marketplace');
+                        toast.success(`Dataset ${dataset.name} was successfully deleted.`);
                     } }
                 >
                     Delete dataset

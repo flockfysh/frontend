@@ -191,6 +191,15 @@ export default function UserInfo (
     const following = router.query.username;
     const editable = user?._id === props._id;
 
+
+    const [userNavbarStats, setUserNavbarStats] = useState({
+        numDatasets: 0,
+        memberSince: '',
+        lastSeen: '',
+        numContributions: 0,
+    });
+
+
     useEffect(() => {
         const fetchData = async () => {
             const res = await api.get(
@@ -238,6 +247,27 @@ export default function UserInfo (
         fetchData();
     }, [following]);
 
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const numPRs = await api.get(`/api/pullRequests/user/${props._id}`);
+            
+            const numDs = await api.get(`/api/datasets/counts/${props._id}`);
+
+
+            setUserNavbarStats({ ...userNavbarStats, 
+                numDatasets: numDs.data.data.data, 
+                numContributions: numPRs.data.data.length,
+                memberSince: props.signupDate ? new Date(props.signupDate).toDateString() : '',
+                lastSeen: props.lastVisited ? new Date(props.lastVisited).toDateString() : '',
+                
+            });
+        };
+
+        fetchData();
+    }, [props]);
+
+    
     return (
         <section>
             <div className={ classes.profileDiv }>
@@ -267,7 +297,8 @@ export default function UserInfo (
                         followers
                     </p>
 
-                    <button
+                    { user?._id !== props._id && (
+<button
                         className={ classes.followButton }
                         onClick={ async () => {
                             let res;
@@ -295,17 +326,10 @@ export default function UserInfo (
                             className={ classes.imageTagIcon }
                             src={ plus.src }
                         />
-                    </button>
 
-                    { editable && (
-                        <button className={ classes.followButton }>
-                            Edit profile{ ' ' }
-                            <ReactSVG
-                                className={ classes.followIcon }
-                                src={ plus.src }
-                            />
-                        </button>
-                    ) }
+                    </button>
+) }
+
                 </div>
             </div>
 
@@ -320,6 +344,7 @@ export default function UserInfo (
                         <a
                             className={ classes.link }
                             href={ linkValues?.website || 'https://user.com' }
+                            target="_blank"
                         >
                             <ReactSVG
                                 src={ link.src }
@@ -330,6 +355,7 @@ export default function UserInfo (
                         <a
                             className={ classes.link }
                             href={ linkValues?.github || 'https://github.com' }
+                            target="_blank"
                         >
                             <ReactSVG
                                 src={ github.src }
@@ -339,9 +365,8 @@ export default function UserInfo (
 
                         <a
                             className={ classes.link }
-                            href={
-                                linkValues?.linkedin || 'https://linkedin.com'
-                            }
+                            href={ linkValues?.linkedin || 'https://linkedin.com' }
+                            target="_blank"
                         >
                             <ReactSVG
                                 src={ linkedIn.src }
@@ -352,6 +377,7 @@ export default function UserInfo (
                         <a
                             className={ classes.link }
                             href={ linkValues?.twitter || 'https://twitter.com' }
+                            target="_blank"
                         >
                             <ReactSVG
                                 src={ twitter.src }
@@ -363,7 +389,8 @@ export default function UserInfo (
 
                 <div className={ classes.followerDiv }>
                     { /* TODO: When you click the span, show all followers you know */ }
-                    <p className={ classes.followerText }>
+                    <p className= { classes.followerText }> { user?.bio } </p>
+                    { /*<p className={ classes.followerText }>
                         Followed by
                         <Link
                             className={ classes.followingLink }
@@ -387,7 +414,7 @@ export default function UserInfo (
                             12
                         </span>{ ' ' }
                         others you follow
-                    </p>
+                    </p> 
 
                     <img
                         className={ classes.followerImage }
@@ -405,7 +432,7 @@ export default function UserInfo (
                         className={ classes.followerImage }
                         src="https://images.unsplash.com/photo-1555922927-32479f120fbf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGZhY2UlMjBzaG90fGVufDB8fDB8fHwy&auto=format&fit=crop&w=500&q=60"
                         alt="follower's profile pic"
-                    />
+                    />*/ }
                 </div>
 
                 <div className={ classes.finalDiv }>
@@ -444,35 +471,28 @@ export default function UserInfo (
 
                     <div className={ classes.statsDiv }>
                         <p className={ classes.userStats }>
-                            <span className={ classes.span }>10</span>
+                            <span className={ classes.span }> { userNavbarStats.numDatasets } </span>
                             <br /> Datasets
                         </p>
 
                         <div className={ classes.dot } />
 
                         <p className={ classes.userStats }>
-                            <span className={ classes.span }>2000</span>
-                            <br /> Total Files
-                        </p>
-
-                        <div className={ classes.dot } />
-
-                        <p className={ classes.userStats }>
-                            <span className={ classes.span }>April 2023</span>
+                            <span className={ classes.span }>{ userNavbarStats.memberSince }</span>
                             <br /> Member Since
                         </p>
 
                         <div className={ classes.dot } />
 
                         <p className={ classes.userStats }>
-                            <span className={ classes.span }>June 2023</span>
+                            <span className={ classes.span }> { userNavbarStats.lastSeen }</span>
                             <br /> Last Seen
                         </p>
 
                         <div className={ classes.dot } />
 
                         <p className={ classes.userStats }>
-                            <span className={ classes.span }>74</span>
+                            <span className={ classes.span }> { userNavbarStats.numContributions !== undefined ? userNavbarStats.numContributions : 0 } </span>
                             <br /> Contributions
                         </p>
                     </div>

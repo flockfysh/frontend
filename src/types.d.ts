@@ -25,7 +25,9 @@ declare interface BaseUser {
     fullName: string;
     firstName: string;
     lastName: string;
+    lastVisited: Date;
     username: string;
+    signupDate: Date;
     email: string;
     profilePhoto?: {
         url: string;
@@ -35,6 +37,13 @@ declare interface BaseUser {
         url: string;
         assetKey: string;
     };
+    bio: string;
+    apiData: {
+        apiKey: string;
+        downloadCount: number;
+        transferAmount: number;
+        apiCount: number;
+    }
 }
 
 declare interface User extends BaseUser {}

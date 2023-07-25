@@ -35,7 +35,7 @@ export default function Footer() {
                         />
                     </Link>
 
-                    <Link href="mailto:hey@flockfysh." target="_blank">
+                    <Link href="mailto:hey@flockfysh.tech" target="_blank">
                         <ReactSVG
                             className={ classes.socialIcon }
                             src={ mail.src }

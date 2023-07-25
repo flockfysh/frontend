@@ -34,6 +34,8 @@ import trash from '@/icons/main/trash-2.svg';
 
 import classes from './styles.module.css';
 
+
+
 const TableComponents = {
     Scroller: forwardRef<HTMLDivElement, ScrollerProps>(function _Scroller(
         props,
@@ -185,7 +187,6 @@ export default function AssetViewer(props: {
     searchQuery: { displayName?: string };
     showList: boolean;
 }) {
-    const router = useRouter();
     const initialState = (): AssetViewerState => {
         return {
             assets: new Map(),
@@ -199,6 +200,9 @@ export default function AssetViewer(props: {
         props.datasetId,
         props.searchQuery.displayName,
     ]);
+
+    
+
     const assetArray = Array.from(state.assets.values());
 
     async function delAsset(id: string) {
@@ -209,6 +213,8 @@ export default function AssetViewer(props: {
             return { ...prev };
         });
     }
+
+    
 
     function Header() {
         return (
@@ -300,6 +306,25 @@ export default function AssetViewer(props: {
         ]
     );
 
+    const [payment, setPaymentData] = useState({
+        purchaseLink: '#'
+    });
+
+    useEffect(() => {
+        async function fetchData() {
+
+            if(props.datasetPermissionLevel === 'preview'){
+                const clientSecret = await api.post(`/api/payments/purchaseDataset`, {
+                    datasetId: props.datasetId
+                });    
+                setPaymentData({ ...payment, purchaseLink: clientSecret.data.data });    
+            }
+
+        }
+
+        fetchData();
+    }, [props.datasetId]);
+
     useEffect(() => {
         if (state.initialLoad) {
             setState((prev) => {
@@ -313,6 +338,8 @@ export default function AssetViewer(props: {
         }
     }, [state, load, setState]);
 
+    const router = useRouter();
+
     if (props.datasetPermissionLevel === 'preview') {
         return (
             <div className={ classes.purchaseOverlay }>
@@ -321,16 +348,14 @@ export default function AssetViewer(props: {
                 </h2>
                 <p>
                     <Link
-                        href={ '#' }
+                        href={ payment.purchaseLink }
                         className={ classes.purchaseLink }
-                        onClick={ async () => {
-                            const url = await genPurchaseUrl(props.datasetId);
-                            await router.push(url);
-                        } }
+                        target="_blank"
                     >
+                        
                         Purchase this dataset
                     </Link>{ ' ' }
-                    to gain access to its datasets.
+                    to gain access to its assets.
                 </p>
             </div>
         );

@@ -1,3 +1,6 @@
+import 'dotenv/config';
+import { loadStripe } from '@stripe/stripe-js';
+
 export const MIN_WIDTH = 1024;
 
 export const LABEL_COLORS = [
@@ -26,3 +29,7 @@ if (_socketIOServerURL.protocol === 'http') _socketIOServerURL.protocol = 'ws';
 else _socketIOServerURL.protocol = 'wss';
 
 export const socketIOServerURL = _socketIOServerURL.toString();
+
+
+export const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_API_KEY!);
+
