@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import {loadStripe} from '@stripe/stripe-js';
 
 export const MIN_WIDTH = 1024;
 
@@ -29,9 +30,6 @@ else _socketIOServerURL.protocol = 'wss';
 
 export const socketIOServerURL = _socketIOServerURL.toString();
 
-export const BUSINESS_PARAMETERS = {
-    DATASET_DOWNLOAD_LIMIT: process.env.NEXT_PUBLIC_DATASET_DOWNLOAD_LIMIT ? Number.parseInt(process.env.NEXT_PUBLIC_DATASET_DOWNLOAD_LIMIT.toString()) : 1000,
-    DATASET_TRANSFER_LIMIT: process.env.NEXT_PUBLIC_DATASET_TRANSFER_LIMIT ? Number.parseInt(process.env.NEXT_PUBLIC_DATASET_TRANSFER_LIMIT.toString()) : 25,
-    API_CALL_LIMIT: process.env.NEXT_PUBLIC_API_CALL_LIMIT ? Number.parseInt(process.env.NEXT_PUBLIC_API_CALL_LIMIT.toString()) : 10000,
-};
+
+export const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_API_KEY!);
 

@@ -44,7 +44,9 @@ import {
 } from '@mui/material';
 import PayPal from '@/pages/paypal';
 import { toast } from 'react-toastify';
-import { redirect } from 'next/dist/server/api-utils';
+import Link from 'next/link';
+import Button from '@/components/ui/theming/button';
+import { fi } from '@faker-js/faker';
 
 const datasetTypeOptions = [
   { value: 'image', label: 'Images' },
@@ -98,6 +100,8 @@ function Input(props: {
     }, [props.value]);
 
     const validation = props.validator?.(value) ?? true;
+
+    
 
     return (
         <label htmlFor={ id } className={ classes.infoContainerDiv }>
@@ -163,6 +167,53 @@ export default function UserSettings(props: UserSettings) {
   const [password, setPassword] = useState('');
   const [apiKey, setApiKey] = useState(props.apiKey);
   const [payPal, setPayPal] = useState(false);
+  const [paymentData, setPaymentData] = useState({
+    refillLink: '',
+    accountLink: '',
+    apiLimits: {
+      transferAmount: 1,
+      apiCalls: 1,
+      downloadLimit: 1,
+    },
+  })
+
+  useEffect(() => {
+    async function fetchData() {
+      
+      //Retrieve all API data
+      const apiData = await api.get('/api/payments/apiRefillData')
+      const refillPaymentData = apiData.data.data.refill_payment
+      const apiLimits = apiData.data.data.apiLimits
+
+      const refillLink = await api.post('/api/payments/oneTimePurchase', {
+        paymentData : [refillPaymentData],
+      })
+
+      const onboardingCompleted = (await api.post('/api/users/payout/onboarding/status'))
+
+      console.log(onboardingCompleted.data.data)
+
+      let acctLink = ''
+
+      if(onboardingCompleted.data.data !== 'completed'){
+        const accountLink = await api.post('/api/users/payout/onboarding', {
+          returnUrl: settings.FRONTEND_URL,
+        })
+        acctLink = accountLink.data.data
+      } else {
+        const dashboardLink = await api.post('/api/users/payout/dashboard')
+        acctLink = dashboardLink.data.data
+      }
+
+
+      console.log(refillPaymentData, apiLimits)
+      setPaymentData({refillLink: refillLink.data.data, accountLink: acctLink, apiLimits : apiLimits})
+
+    }
+
+    fetchData()
+
+  }, [props.username])
 
   const {
     register,
@@ -200,8 +251,7 @@ export default function UserSettings(props: UserSettings) {
   
   
   console.log(filter, 'filter=>>');
-
-  console.log('settings', settings.BUSINESS_PARAMETERS);
+  console.log(window.location.hostname)
 
   return (
     <div className={ classes.limitsContentDiv }>
@@ -332,35 +382,14 @@ export default function UserSettings(props: UserSettings) {
 
             <div className={ classes.limitsDiv }>
               <h4 className={ classes.subheading + ' ' + classes.limitsHeading }>
-                Limits <button onClick={async () => {
-
-                    const paymentData:PaymentObject[] = [{
-                      price_data: {
-                        currency: 'usd',
-                        product_data: {
-                          name: 'flockfysh API Refill'
-                        },
-                        unit_amount: 100,
-                      },
-                      quantity: 1 
-                    }]
-
-
-                    await api.post('/api/payments/oneTimePurchase', {
-                      paymentData : paymentData,
-                    }).then((res) => {
-                      toast.success('API Refill Successful!' + res.data.data)
-                    }).catch((e) => {
-                      toast.error('API Refill Failed :(')
-                    })
-                }}> Refill </button>
+                Limits <Link href={paymentData.refillLink} target='_blank' > Refill </Link>
               </h4>
 
               <div className={ classes.limitsContentDiv }>
                 <div className={ classes.limitObject }>
                   <h5 className={ classes.limit }>
                     <span>Transfer Limit</span>
-                    { props.transferLimit.toString() } / { settings.BUSINESS_PARAMETERS.DATASET_TRANSFER_LIMIT }GB
+                    { props.transferLimit.toString() } / { paymentData.apiLimits.transferAmount }GB
                   </h5>
 
                   <div className={ classes.graphBody }>
@@ -368,7 +397,7 @@ export default function UserSettings(props: UserSettings) {
                       className={ classes.graphContent }
                       style={ {
                         width:
-                          ((props.transferLimit / settings.BUSINESS_PARAMETERS.DATASET_TRANSFER_LIMIT) * 100).toString() + '%',
+                          ((props.transferLimit / paymentData.apiLimits.transferAmount ) * 100).toString() + '%',
                       } }
                     />
                   </div>
@@ -382,14 +411,14 @@ export default function UserSettings(props: UserSettings) {
                 <div className={ classes.limitObject }>
                   <h5 className={ classes.limit }>
                     <span>Downloads</span>
-                    { props.downloads.toString() } / { settings.BUSINESS_PARAMETERS.DATASET_DOWNLOAD_LIMIT } datasets
+                    { props.downloads.toString() } / { paymentData.apiLimits.downloadLimit } datasets
                   </h5>
 
                   <div className={ classes.graphBody }>
                     <div
                       className={ classes.graphContent }
                       style={ {
-                        width: ((props.downloads / settings.BUSINESS_PARAMETERS.DATASET_DOWNLOAD_LIMIT) * 100).toString() + '%',
+                        width: ((props.downloads / paymentData.apiLimits.downloadLimit) * 100).toString() + '%',
                       } }
                     />
                   </div>
@@ -403,7 +432,7 @@ export default function UserSettings(props: UserSettings) {
                 <div className={ classes.limitObject }>
                   <h5 className={ classes.limit }>
                     <span>API Calls</span>
-                    { props.apiCalls.toString() } / { settings.BUSINESS_PARAMETERS.API_CALL_LIMIT }
+                    { props.apiCalls.toString() } / { paymentData.apiLimits.apiCalls }
                   </h5>
 
                   <div className={ classes.graphBody }>
@@ -411,7 +440,7 @@ export default function UserSettings(props: UserSettings) {
                       className={ classes.graphContent }
                       style={ {
                         width:
-                          ((props.apiCalls / settings.BUSINESS_PARAMETERS.API_CALL_LIMIT) * 100).toString() + '%',
+                          ((props.apiCalls / paymentData.apiLimits.apiCalls) * 100).toString() + '%',
                       } }
                     />
                   </div>
@@ -432,11 +461,15 @@ export default function UserSettings(props: UserSettings) {
                 <h1>Connect Payment types</h1>
                 <div className={ classes.inputBox }>
                   <Input
-                    saveLabel={ 'Disconnect' }
+                    saveLabel={ 'Connect Stripe' }
                     saveIcon={ edit.src }
                     icon={ mail.src }
-                    value="stipe@striple.com"
+                    value="stripe@striple.com"
                   />
+                  <Link href = {paymentData.accountLink} target='_blank'>
+                    Connect Stripe
+                  </Link>
+
                   <Input
                     saveLabel={ 'Connect Paypal' }
                     saveIcon={ edit.src }

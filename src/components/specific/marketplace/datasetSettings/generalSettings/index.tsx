@@ -92,6 +92,7 @@ export default function GeneralSettings(dataset: PreviewDataset) {
                                     price: +data,
                                 }
                             );
+                                
                         } }
                         saveLabel="Save"
                     />
