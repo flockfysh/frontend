@@ -124,12 +124,12 @@ async function buildDataset(formData: FormData, router: any) {
         const checkoutLink = (await api.post('/api/payments/buildDataset/create', {
             price: price,
             datasetId:newDataset._id,    
-        })).data.data
+        })).data.data;
 
 
-        return checkoutLink    
+        return checkoutLink;    
     }
-    return undefined
+    return undefined;
 }   
 
 async function uploadDataset(formData: FormData) {
@@ -208,7 +208,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
 
     const [isUpload, updateIsUpload] = useState(true);
 
-    const router = useRouter()
+    const router = useRouter();
 
    
     return (
@@ -279,7 +279,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                             }
                             else {
                                 const checkoutLink = await buildDataset(formData, router);
-                                router.push(checkoutLink)
+                                router.push(checkoutLink);
                                 
                                 updateFadeOut(true);
                                 props.onClose();
