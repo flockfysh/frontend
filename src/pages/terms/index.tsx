@@ -46,7 +46,7 @@ export default function TermsPage() {
                             refer to all of the terms and conditions that apply
                             between us. They include these Terms, Supplemental
                             Terms, notices and policies available at our Website
-                            at <Link href="/"> flockfysh.ai </Link>, and/or any
+                            at <Link href="/"> flockfysh.tech </Link>, and/or any
                             other binding document that we provide and/or that
                             you sign, including but not limited to an Order or
                             Request Form, a Scope of Work, or a Master Services
@@ -151,9 +151,9 @@ export default function TermsPage() {
                         </p>
                         <p>
                             Contact us at{ ' ' }
-                            <Link href="mailto:hey@flockfysh.ai">
+                            <Link href="mailto:hey@flockfysh.tech">
                                 { ' ' }
-                                hey@flockfysh.ai{ ' ' }
+                                hey@flockfysh.tech{ ' ' }
                             </Link>{ ' ' }
                             with any questions or concerns you might have.
                         </p>
