@@ -452,7 +452,7 @@ export default function PrivacyPage() {
                         <p>
                             For other requests regarding access to Personal
                             Information, please direct your communication to
-                            [support@flockfysh.ai]. Please clearly indicate that
+                            [support@flockfysh.tech]. Please clearly indicate that
                             your inquiry pertains to data protection and specify
                             if the request is time-sensitive.
                         </p>
@@ -607,7 +607,7 @@ export default function PrivacyPage() {
                             <li>
                                 If you have any questions or concerns about this
                                 privacy policy, please contact us at
-                                [support@flockfysh.ai].
+                                [support@flockfysh.tech].
                             </li>
                         </ul>
                         <p>

@@ -23,6 +23,7 @@ import coinStack from '@/icons/main/coin-stack.svg';
 
 import classes from './styles.module.css';
 import { toast } from 'react-toastify';
+import { Router, useRouter } from 'next/router';
 
 type CreateDatasetModalProps = {
     onClose: () => void;
@@ -42,7 +43,7 @@ const licenseOptions = DATASET_LICENSE_ENUM._def.values.map((license) => {
     };
 });
 
-async function buildDataset(formData: FormData) {
+async function buildDataset(formData: FormData, router: any) {
     const name = formData.get('name');
     let recipe = formData.get('recipe');
     const type = formData.get('type');
@@ -80,11 +81,10 @@ async function buildDataset(formData: FormData) {
             paymentParameters: {
                 cashPaidOut: 0,
                 cashRemaining: price,
-                schemeActive: false,
+                schemeActive: false, //This will only be activated when the checkout is complete
             } 
         }
     };
-
 
     
     const newDataset = await api
@@ -108,6 +108,8 @@ async function buildDataset(formData: FormData) {
                 `/api/datasets/${newDataset._id}/assets/upload/${config.endpoint}`,
                 fd,
             );
+
+
         }
  catch (e) {
         }
@@ -117,8 +119,18 @@ async function buildDataset(formData: FormData) {
         maxThreads: 20,
     });
 
-    
-}
+    if(price > 0) {
+
+        const checkoutLink = (await api.post('/api/payments/buildDataset/create', {
+            price: price,
+            datasetId:newDataset._id,    
+        })).data.data
+
+
+        return checkoutLink    
+    }
+    return undefined
+}   
 
 async function uploadDataset(formData: FormData) {
     const name = formData.get('name');
@@ -196,7 +208,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
 
     const [isUpload, updateIsUpload] = useState(true);
 
-   
+    const router = useRouter()
 
    
     return (
@@ -266,7 +278,9 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                 toast.success('Dataset was sucessfully uploaded!');    
                             }
                             else {
-                                await buildDataset(formData);
+                                const checkoutLink = await buildDataset(formData, router);
+                                router.push(checkoutLink)
+                                
                                 updateFadeOut(true);
                                 props.onClose();
                                 toast.success('Dataset was sucessfully created!');                                    
