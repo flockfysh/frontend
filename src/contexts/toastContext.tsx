@@ -43,7 +43,7 @@ export function ToastWrapper(props: PropsWithChildren) {
                 toast.warning(data.message, toastOption);
                 break;
             default:
-            // console.log(`Invalid Input`);
+                break;
         }
     }
 

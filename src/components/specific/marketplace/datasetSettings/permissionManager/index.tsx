@@ -18,6 +18,7 @@ import deleteIcon from '@/icons/main/trash.svg';
 import plus from '@/icons/main/plus-circle.svg';
 
 import classes from './styles.module.css';
+import { useEffect } from 'react';
 
 function PermissionModal(props: {
     dataset: PreviewDataset;
@@ -151,6 +152,7 @@ export default function PermissionManager(dataset: PreviewDataset) {
             )
         ).data;
 
+
         setState((prevState) => {
             for (const item of result.data) {
                 prevState.permissions.set(item._id, item);
@@ -163,6 +165,11 @@ export default function PermissionManager(dataset: PreviewDataset) {
             };
         });
     }
+
+    useEffect(() => {
+        load();
+    }, []);
+
 
     return (
         <div className={ classes.container }>

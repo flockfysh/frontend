@@ -40,7 +40,9 @@ export default function DatasetInfo(props: PropsWithChildren) {
     const [bookmarked, setBookmark] = useState(false);
     const [likeCounts, setLikeCounts] = useState(0);
     const { downloadDataset } = useContext(DownloaderContext);
-
+    const [payment, setPaymentData] = useState({
+        purchaseLink: '#'
+    });
     const datasetId = router.query.datasetId;
 
     useEffect(() => {
@@ -59,6 +61,14 @@ export default function DatasetInfo(props: PropsWithChildren) {
             ).data.data;
 
             setDataset(result);
+
+            if(result.price > 0){
+                const clientSecret = await api.post(`/api/payments/purchaseDataset`, {
+                    datasetId: datasetId
+                });    
+                setPaymentData({ ...payment, purchaseLink: clientSecret.data.data });        
+            }
+
 
             await api.post(`/api/datasets/${datasetId}/metrics`, {
                 type: 'view',
@@ -95,22 +105,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
         fetchData();
     }, [datasetId]);
 
-    const [payment, setPaymentData] = useState({
-        purchaseLink: '#'
-    });
-
-    useEffect(() => {
-        async function fetchData() {
-
-            const clientSecret = await api.post(`/api/payments/purchaseDataset`, {
-                datasetId: datasetId
-            });    
-            setPaymentData({ ...payment, purchaseLink: clientSecret.data.data });    
-
-        }
-
-        fetchData();
-    }, [datasetId]);
+    
 
     if (!dataset || typeof datasetId !== 'string') return <></>;
 

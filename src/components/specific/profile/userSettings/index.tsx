@@ -191,7 +191,6 @@ export default function UserSettings(props: UserSettings) {
 
       const onboardingCompleted = (await api.post('/api/users/payout/onboarding/status'));
 
-      console.log(onboardingCompleted.data.data);
 
       let acctLink = '';
 
@@ -207,7 +206,6 @@ export default function UserSettings(props: UserSettings) {
       }
 
 
-      console.log(refillPaymentData, apiLimits);
       setPaymentData({ refillLink: refillLink.data.data, accountLink: acctLink, apiLimits : apiLimits });
 
     }
@@ -239,7 +237,8 @@ export default function UserSettings(props: UserSettings) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await api.get(`/api/users/${user?._id}/links`);
+
+      const res = await api.get(`/api/users/byUsername/${user?.username}/links`);
       setLinkValues(res?.data?.data);
     };
 
@@ -252,7 +251,6 @@ export default function UserSettings(props: UserSettings) {
   
   
   console.log(filter, 'filter=>>');
-  console.log(window.location.hostname);
 
   return (
     <div className={ classes.limitsContentDiv }>
@@ -336,7 +334,6 @@ export default function UserSettings(props: UserSettings) {
                     onClick={ async() => {
                       
                       const newKey = await api.patch(`/api/users/apiUpdates/regenerateAPIKey`);
-                      console.log('outkey', newKey.data.data.data);
                       setApiKey(newKey.data.data.data);
                     } }
                   >

@@ -26,6 +26,8 @@ export default function PermissionForm(props: {
     async function submit(data: FormData) {
         const role = data.get('role');
         const usernames = data.getAll('usernames');
+        
+        console.log(role, usernames);
 
         for (const name of usernames) {
             const result = (
@@ -45,6 +47,7 @@ export default function PermissionForm(props: {
             props.onInsert(result);
         }
     }
+
 
     return (
         <form
@@ -101,6 +104,8 @@ export default function PermissionForm(props: {
                                 },
                             })
                         ).data.data;
+
+                        console.log('users', users);
 
                         return users.map((user) => {
                             const res = {
@@ -178,7 +183,7 @@ export default function PermissionForm(props: {
                     className={ classes.commissionInput }
                 />
 
-                <button className={ classes.saveButton }>Save</button>
+                <button className={ classes.saveButton } type="submit">Save</button>
             </div>
         </form>
     );
