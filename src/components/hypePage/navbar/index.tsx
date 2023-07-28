@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -11,9 +11,13 @@ import MobileNavItem from './mobileNavItem';
 import logoIcon from '@/icons/branding/fish.svg';
 
 import classes from './navbar.module.css';
+import { UserContext } from '@/contexts/userContext';
 
 export default function HomeNavbar() {
     const [navOpen, updateNav] = useState(false);
+    const { user, refreshUser } = useContext(UserContext);
+
+    console.log(user);
 
     const navLinks = [
         {
@@ -55,7 +59,15 @@ export default function HomeNavbar() {
                             />
                         )) }
 
-                        <MobileNavItem to="/marketplace" name="Marketplace" />
+                        {
+                            user ? 
+                            (
+                                <MobileNavItem to="/marketplace" name="Marketplace" />
+                            ) : 
+                            (
+                                <MobileNavItem to="/login" name="Log in" />
+                            ) 
+                        }
                     </div>
                 ) : (
                     <></>
@@ -71,10 +83,20 @@ export default function HomeNavbar() {
             </ul>
 
             <div className={ classes.signinWrapper }>
-                <Link href="/marketplace" className={ classes.signinButton }>
-                    Marketplace{ ' ' }
-                    <BsArrowRight size={ 15 } className={ classes.siginArrow } />
-                </Link>
+                {
+                    user ? 
+                    ( 
+<Link href="/marketplace" className={ classes.signinButton }>
+                        Marketplace{ ' ' }
+                        <BsArrowRight size={ 15 } className={ classes.siginArrow } />
+                     </Link>
+                    ) : (
+                        <Link href="/login" className={ classes.signinButton }>
+                            Log in{ ' ' }
+                            <BsArrowRight size={ 15 } className={ classes.siginArrow } />
+                         </Link>
+                    )
+                }
             </div>
         </nav>
     );
