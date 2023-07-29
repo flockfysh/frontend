@@ -199,7 +199,7 @@ export default function Authorize() {
                         onClick={ async (e) => {
                             e.preventDefault();
                             await authorize('reject');
-                            toast.error('Authorization failed! Feel free to close this and retry.')
+                            toast.error('Authorization failed! Feel free to close this and retry.');
                         } }
                     >
                         Reject
@@ -210,7 +210,7 @@ export default function Authorize() {
                         onClick={ async (e) => {
                             e.preventDefault();
                             await authorize('approve');
-                            toast.success('Authorization sucessful! Feel free to close this window.')
+                            toast.success('Authorization sucessful! Feel free to close this window.');
 
                         } }
                     >

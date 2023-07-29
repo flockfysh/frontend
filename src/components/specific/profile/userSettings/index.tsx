@@ -382,7 +382,7 @@ export default function UserSettings(props: UserSettings) {
 
             <div className={ classes.limitsDiv }>
               <h4 className={ classes.subheading + ' ' + classes.limitsHeading }>
-                Limits <Link href={ paymentData.refillLink } className= {classes.button} target="_blank" > Refill </Link>
+                Limits <Link href={ paymentData.refillLink } className= { classes.button } target="_blank" > Refill </Link>
               </h4>
 
               <div className={ classes.limitsContentDiv }>

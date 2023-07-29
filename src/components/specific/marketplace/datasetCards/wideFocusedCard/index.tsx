@@ -68,7 +68,8 @@ export default function WideFocusedCard(props: HomepageDataset) {
                             props.user.profilePhoto ? 
                             (<img src={ props.user.profilePhoto?.url } alt="pfp" />) 
                             :
-                                (<Avatar
+                                (
+<Avatar
                                         size={ 32 }
                                         name={ props.user.username }
                                         variant="marble"
@@ -79,7 +80,8 @@ export default function WideFocusedCard(props: HomepageDataset) {
                                             '#C271B4',
                                             '#C20D90',
                                         ] }
-                                    />)
+                                    />
+)
                         }
 
                         <p>@{ props.user.username.slice(0, 16) }</p>

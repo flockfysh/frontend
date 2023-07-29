@@ -60,7 +60,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
                 )
             ).data.data;
 
-            console.log('loading', result)
+            console.log('loading', result);
             setDataset(result);
 
             if(result.price > 0){
@@ -107,7 +107,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
     }, [datasetId]);
 
     
-    console.log(dataset?.payments.schemeType)
+    console.log(dataset?.payments.schemeType);
 
     if (!dataset || typeof datasetId !== 'string') return <></>;
 
@@ -270,7 +270,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                             </span>
                                         </button>
                                     </>
-                                ): <></>}
+                                ): <></> }
                                 {
                                     dataset.permission === 'preview' && dataset.payments.schemeType === 'upload' ? (
                                         <Link
@@ -285,8 +285,8 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                 {
                                     dataset.permission === 'preview' && dataset.payments.schemeType === 'build' ? (
                                     <>
-                                        <p> Total Payout: ${(0.75 * dataset.payments.totalPayment).toFixed(2)} </p>
-                                        <p> Looking for {dataset.desiredDatasetSize} samples </p>
+                                        <p> Total Payout: ${ (0.75 * dataset.payments.totalPayment).toFixed(2) } </p>
+                                        <p> Looking for { dataset.desiredDatasetSize } samples </p>
                                         <ActionPopupWithButton
                                                 button={ (
                                                     <button
