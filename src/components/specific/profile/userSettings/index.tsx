@@ -335,6 +335,8 @@ export default function UserSettings(props: UserSettings) {
                       
                       const newKey = await api.patch(`/api/users/apiUpdates/regenerateAPIKey`);
                       setApiKey(newKey.data.data.data);
+                      toast.success(`API Key was successfully regenerated.`);
+
                     } }
                   >
                     <ReactSVG src={ generate.src } className={ classes.icons } />
@@ -380,7 +382,7 @@ export default function UserSettings(props: UserSettings) {
 
             <div className={ classes.limitsDiv }>
               <h4 className={ classes.subheading + ' ' + classes.limitsHeading }>
-                Limits <Link href={ paymentData.refillLink } target="_blank" > Refill </Link>
+                Limits <Link href={ paymentData.refillLink } className= {classes.button} target="_blank" > Refill </Link>
               </h4>
 
               <div className={ classes.limitsContentDiv }>

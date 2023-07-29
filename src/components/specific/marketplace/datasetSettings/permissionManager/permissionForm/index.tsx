@@ -175,13 +175,13 @@ export default function PermissionForm(props: {
             </div>
 
             <div className={ classes.formFooter }>
-                <Input
+                {/* <Input
                     icon={ money.src }
                     disabled={ true }
                     placeholder={ 'Set commission amount' }
                     type={ 'number' }
                     className={ classes.commissionInput }
-                />
+                /> */}
 
                 <button className={ classes.saveButton } type="submit">Save</button>
             </div>

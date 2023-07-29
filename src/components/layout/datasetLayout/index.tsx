@@ -60,6 +60,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
                 )
             ).data.data;
 
+            console.log('loading', result)
             setDataset(result);
 
             if(result.price > 0){
@@ -106,6 +107,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
     }, [datasetId]);
 
     
+    console.log(dataset?.payments.schemeType)
 
     if (!dataset || typeof datasetId !== 'string') return <></>;
 
@@ -193,7 +195,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                     </button>
                                 </div>
 
-                                { dataset.permission !== 'preview' ? (
+                                { dataset.permission !== 'preview'  ? (
                                     <>
                                         <ActionPopupWithButton
                                             button={ (
@@ -227,7 +229,8 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                                     );
                                                     setLike(true);
                                                 }
- else {
+
+                                                else {
                                                     await api.delete(
                                                         `/api/datasets/${datasetId}/likes`
                                                     );
@@ -267,15 +270,43 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                             </span>
                                         </button>
                                     </>
-                                ) : (
-                                    <Link
-                                        className={ classes.contributeButton }
-                                        href = { payment.purchaseLink }
-                                        target = "_blank"
-                                    >
-                                        Buy for ${ dataset.price.toFixed(2) }
-                                    </Link>
-                                ) }
+                                ): <></>}
+                                {
+                                    dataset.permission === 'preview' && dataset.payments.schemeType === 'upload' ? (
+                                        <Link
+                                            className={ classes.contributeButton }
+                                            href = { payment.purchaseLink }
+                                            target = "_blank"
+                                        >
+                                            Buy full version for ${ dataset.payments.totalPayment.toFixed(2) }
+                                        </Link>
+                                    ) : <></>
+                                } 
+                                {
+                                    dataset.permission === 'preview' && dataset.payments.schemeType === 'build' ? (
+                                    <>
+                                        <p> Total Payout: ${(0.75 * dataset.payments.totalPayment).toFixed(2)} </p>
+                                        <p> Looking for {dataset.desiredDatasetSize} samples </p>
+                                        <ActionPopupWithButton
+                                                button={ (
+                                                    <button
+                                                        className={
+                                                            classes.contributeButton
+                                                        }
+                                                    >
+                                                        Earn money through a contribution!
+                                                    </button>
+                                                ) }
+                                                popupTitle={ 'Contribute' }
+                                                variant={ 'marketplace' }
+                                            >
+                                                <Contribute dataset={ dataset } />
+                                        </ActionPopupWithButton>
+
+                                    </>
+                                        
+                                    ) : <></>
+                                } 
                             </div>
                         </div>
 

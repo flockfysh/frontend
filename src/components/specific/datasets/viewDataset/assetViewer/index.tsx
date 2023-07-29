@@ -220,6 +220,7 @@ export default function AssetViewer(props: {
         return (
             <>
                 <TableRow>
+
                     <CustomTableCell>
                         <input
                             type="checkbox"
@@ -270,6 +271,7 @@ export default function AssetViewer(props: {
                                     next: state.next,
                                     displayName: props.searchQuery.displayName,
                                     limit: numItems,
+                                    preview: true,
                                 },
                             }
                         )
@@ -286,7 +288,7 @@ export default function AssetViewer(props: {
                         return {
                             ...prev,
                             next: result.meta.next,
-                            hasMore: result.meta.hasNext,
+                            hasMore: (result.meta.hasNext) && (props.datasetPermissionLevel === 'preview' ? false : true),
                             assets: state.assets,
                         };
                     });
@@ -340,7 +342,7 @@ export default function AssetViewer(props: {
 
     const router = useRouter();
 
-    if (props.datasetPermissionLevel === 'preview') {
+    /*if (props.datasetPermissionLevel === 'preview') {
         return (
             <div className={ classes.purchaseOverlay }>
                 <h2 className={ classes.purchaseHeading }>
@@ -359,23 +361,25 @@ export default function AssetViewer(props: {
                 </p>
             </div>
         );
-    }
+    } */
 
     if (!props.showList) {
         return (
-            <VirtuosoGrid
-                data={ assetArray }
-                className={ classes.gridContainer }
-                listClassName={ classes.gridWrapper }
-                endReached={ () => load().then() }
-                itemContent={ (_index, item) => (
-                    <AssetTile
-                        item={ item }
-                        key={ item._id }
-                        delAsset={ () => delAsset(item._id) }
-                    />
-                ) }
-            />
+            <>
+                <VirtuosoGrid
+                    data={ assetArray }
+                    className={ classes.gridContainer }
+                    listClassName={ classes.gridWrapper }
+                    endReached={ () => load().then() }
+                    itemContent={ (_index, item) => (
+                        <AssetTile
+                            item={ item }
+                            key={ item._id }
+                            delAsset={ () => delAsset(item._id) }
+                        />
+                    ) }
+                />
+            </>
         );
     }
 
@@ -444,6 +448,7 @@ export default function AssetViewer(props: {
                                     />
                                 </button>
                             </CustomTableCell>
+                        
                         </>
                     );
                 } }
