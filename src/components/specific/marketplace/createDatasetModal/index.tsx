@@ -184,6 +184,8 @@ async function uploadDataset(formData: FormData) {
         try {
             const fd = new FormData();
             fd.set(config.fieldName, file);
+
+            console.log('uploading file');
             await api.post(
                 `/api/datasets/${newDataset._id}/assets/upload/${config.endpoint}`,
                 fd
@@ -536,7 +538,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                             />
                                 
                             <>
-                                <p>Deadline (plz ignore)</p>
+                                <p>Deadline</p>
 
                                 { /* TODO: need to change the icon color */ }
                                 <input type="date" required={ true }/>

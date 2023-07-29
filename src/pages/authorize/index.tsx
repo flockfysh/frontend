@@ -18,6 +18,7 @@ import user from '@/icons/main/user.svg';
 import api from '@/helpers/api';
 
 import classes from './styles.module.css';
+import { toast } from 'react-toastify';
 
 type AuthorizationFeedback = 'reject' | 'approve';
 
@@ -91,10 +92,11 @@ export default function Authorize() {
 
                 setAuthorizationInstance(instanceInfo);
             }
- catch (e) {
+            catch (e) {
                 setError(
                     'This authorization code is either invalid or expired.'
                 );
+
             }
         })();
     }, [code]);
@@ -197,6 +199,7 @@ export default function Authorize() {
                         onClick={ async (e) => {
                             e.preventDefault();
                             await authorize('reject');
+                            toast.error('Authorization failed! Feel free to close this and retry.');
                         } }
                     >
                         Reject
@@ -207,6 +210,8 @@ export default function Authorize() {
                         onClick={ async (e) => {
                             e.preventDefault();
                             await authorize('approve');
+                            toast.success('Authorization sucessful! Feel free to close this window.');
+
                         } }
                     >
                         Approve

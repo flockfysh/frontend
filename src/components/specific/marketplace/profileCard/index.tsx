@@ -81,7 +81,7 @@ export default function ProfileCard(props: ProfileCardProps) {
             //   },
             {
                 href: 'https://discord.gg/Ss8vcfQWPM',
-                label: 'Join Discord',
+                label: 'Support',
                 icon: discord,
             },
             //   {
