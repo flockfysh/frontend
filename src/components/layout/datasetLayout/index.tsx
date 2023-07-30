@@ -42,6 +42,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
     const { downloadDataset } = useContext(DownloaderContext);
     const datasetId = router.query.datasetId;
 
+ 
     async function goToCheckout() {
         const clientSecret = (await api.post(`/api/payments/purchaseDataset`, {
             datasetId: datasetId
@@ -66,6 +67,8 @@ export default function DatasetInfo(props: PropsWithChildren) {
             ).data.data;
 
  
+            setDataset(result);
+
             await api.post(`/api/datasets/${datasetId}/metrics`, {
                 type: 'view',
             });
@@ -102,7 +105,6 @@ export default function DatasetInfo(props: PropsWithChildren) {
     }, [datasetId]);
 
     
-    console.log(dataset?.payments.schemeType);
 
     if (!dataset || typeof datasetId !== 'string') return <></>;
 
