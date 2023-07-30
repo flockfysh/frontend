@@ -5,6 +5,7 @@ import DatasetTypeCard from '../../datasetTypeCard';
 import { formatFileSize } from '@/helpers/formatting';
 
 import classes from './styles.module.css';
+import Avatar from 'boring-avatars';
 
 export default function WideFocusedCard(props: HomepageDataset) {
     const gradientFunction = () => {
@@ -63,7 +64,25 @@ export default function WideFocusedCard(props: HomepageDataset) {
                         className={ classes.anchor }
                         href={ `/profile/${props.user.username}` }
                     >
-                        <img src={ props.user.profilePhoto?.url } alt="pfp" />
+                        {
+                            props.user.profilePhoto ? 
+                            (<img src={ props.user.profilePhoto?.url } alt="pfp" />) 
+                            :
+                                (
+<Avatar
+                                        size={ 32 }
+                                        name={ props.user.username }
+                                        variant="marble"
+                                        colors={ [
+                                            '#92A1C6',
+                                            '#146A7C',
+                                            '#F0AB3D',
+                                            '#C271B4',
+                                            '#C20D90',
+                                        ] }
+                                    />
+)
+                        }
 
                         <p>@{ props.user.username.slice(0, 16) }</p>
                     </Link>
