@@ -282,7 +282,6 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                             else {
                                 const checkoutLink = await buildDataset(formData, router);
                                 
-                                console.log(checkoutLink)
                                 router.push(checkoutLink);
                                 
                                 updateFadeOut(true);
