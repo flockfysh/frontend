@@ -120,7 +120,7 @@ export default function Authorize() {
             );
 
             window.close();
-            router.push(`/datasets`);
+            router.push(`/marketplace`);
         }
  catch (e) {
             if (e instanceof AxiosError)
@@ -134,7 +134,7 @@ export default function Authorize() {
                 popupTitle="Sign in to Flockfysh"
                 blurBg={ true }
                 onClose={ () => {
-                    router.push(`/datasets`).then();
+                    router.push(`/marketplace`).then();
                 } }
                 className={ classes.authContainerOuter }
             >
