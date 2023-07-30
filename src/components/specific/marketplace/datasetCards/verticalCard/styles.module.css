@@ -76,6 +76,12 @@
 .middleSection {
 }
 
+.typeContainer {
+    color: white;
+    align-self: flex-start;
+    width: 30%;
+}
+
 .middleSection h1 {
     font-weight: 700;
     font-size: 1.5rem;

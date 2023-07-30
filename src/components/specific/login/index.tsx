@@ -71,7 +71,7 @@ export default function Login(props: {
 
             if (code) router.push(`/authorize?code=${code}`).then();
             if (router.asPath === router.pathname) {
-                router.push(`/datasets`).then();
+                router.push(`/marketplace`).then();
             }
  else router.replace(router.asPath).then();
         },

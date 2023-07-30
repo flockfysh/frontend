@@ -51,7 +51,7 @@ export default function CreatePostModal(props: CreatePostModalProps) {
         >
             <div className={ classes.container }>
                 <div className={ classes.header }>
-                    <h1 className={ classes.headerText }>Create a Post</h1>
+                    <h1 className={ classes.headerText }>Create an Announcement </h1>
                     <ReactSVG
                         src={ xmark.src }
                         onClick={ () => updateFadeOut(true) }

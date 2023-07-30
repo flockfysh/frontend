@@ -40,10 +40,15 @@ export default function DatasetInfo(props: PropsWithChildren) {
     const [bookmarked, setBookmark] = useState(false);
     const [likeCounts, setLikeCounts] = useState(0);
     const { downloadDataset } = useContext(DownloaderContext);
-    const [payment, setPaymentData] = useState({
-        purchaseLink: '#'
-    });
     const datasetId = router.query.datasetId;
+
+    async function goToCheckout() {
+        const clientSecret = (await api.post(`/api/payments/purchaseDataset`, {
+            datasetId: datasetId
+        })).data.data;   
+        
+        router.push(clientSecret);
+    }
 
     useEffect(() => {
         async function load() {
@@ -60,17 +65,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
                 )
             ).data.data;
 
-            console.log('loading', result);
-            setDataset(result);
-
-            if(result.price > 0){
-                const clientSecret = await api.post(`/api/payments/purchaseDataset`, {
-                    datasetId: datasetId
-                });    
-                setPaymentData({ ...payment, purchaseLink: clientSecret.data.data });        
-            }
-
-
+ 
             await api.post(`/api/datasets/${datasetId}/metrics`, {
                 type: 'view',
             });
@@ -275,8 +270,8 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                     dataset.permission === 'preview' && dataset.payments.schemeType === 'upload' ? (
                                         <Link
                                             className={ classes.contributeButton }
-                                            href = { payment.purchaseLink }
-                                            target = "_blank"
+                                            onClick={ () => goToCheckout() }
+                                            href="#"
                                         >
                                             Buy full version for ${ dataset.payments.totalPayment.toFixed(2) }
                                         </Link>
@@ -371,6 +366,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                 {
                                     label: 'Activity',
                                     value: `/marketplace/${dataset._id}/activity`,
+                                
                                 },
                                 {
                                     label: 'Settings',
@@ -382,6 +378,9 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                 {
                                     label: 'Contributions',
                                     value: `/marketplace/${dataset._id}/contributions`,
+                                    shown: (dataset.payments.totalPayment === 0) ||  
+                                        (dataset.payments.totalPayment > 0 && (dataset.payments.schemeType === 'build' || dataset.permission === 'contributor' || 
+                                        dataset.permission === 'admin' || dataset.permission === 'owner')),
                                 },
                             ] }
                             isLink={ true }

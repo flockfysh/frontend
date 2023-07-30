@@ -22,12 +22,10 @@ export default function VerticalCard(
         <div className={ `${classes.container} ${props.className || ''}` }>
             <div className={ classes.contentContainer }>
                 <div className={ classes.header }>
-                    <DatasetTypeCard
-                        type={ props.type }
-                        className={ classes.typeCard }
-                    />
+                
 
                     <div className={ classes.imageContainer }>
+                        
                         <Image
                             fill={ true }
                             className={ classes.image }
@@ -37,7 +35,10 @@ export default function VerticalCard(
                             }
                             alt="cover"
                         />
-                    </div>
+
+
+
+                </div>
 
                     <div className={ classes.timeContainer }>
                         <ReactSVG
@@ -50,6 +51,11 @@ export default function VerticalCard(
                 </div>
 
                 <div className={ classes.middleSection }>
+                    <DatasetTypeCard
+                            type={ props.type }
+                            className={ classes.typeContainer }
+                        />
+
                     <h1>{ props.name }</h1>
                     <p><Link href={ `/profile/${props.user.username}` }>@{ props.user.username.slice(0, 16) }</Link></p>
                 </div>
