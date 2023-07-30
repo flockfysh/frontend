@@ -106,15 +106,13 @@ function TextComponent(props: { url: string }) {
 
     useEffect(() => {
         async function fetchThis() {
-            const textData = await axios
-                .get<string>(props.url, {
-                    responseType: 'text',
-                })
-                .then((res) => res.data);
+            const textData = (await axios.get(props.url, {headers: {'Content-Type' : 'text/plain'}})).data
+
+            console.log(textData)
             setText(textData);
         }
 
-        fetchThis().then();
+        fetchThis();
     }, [props.url]);
 
     return <code className={ classes.textViewer }>{ text }</code>;
@@ -308,25 +306,7 @@ export default function AssetViewer(props: {
         ]
     );
 
-    const [payment, setPaymentData] = useState({
-        purchaseLink: '#'
-    });
-
-    useEffect(() => {
-        async function fetchData() {
-
-            if(props.datasetPermissionLevel === 'preview'){
-                const clientSecret = await api.post(`/api/payments/purchaseDataset`, {
-                    datasetId: props.datasetId
-                });    
-                setPaymentData({ ...payment, purchaseLink: clientSecret.data.data });    
-            }
-
-        }
-
-        fetchData();
-    }, [props.datasetId]);
-
+    
     useEffect(() => {
         if (state.initialLoad) {
             setState((prev) => {
@@ -342,26 +322,6 @@ export default function AssetViewer(props: {
 
     const router = useRouter();
 
-    /*if (props.datasetPermissionLevel === 'preview') {
-        return (
-            <div className={ classes.purchaseOverlay }>
-                <h2 className={ classes.purchaseHeading }>
-                    This dataset requires purchasing access.
-                </h2>
-                <p>
-                    <Link
-                        href={ payment.purchaseLink }
-                        className={ classes.purchaseLink }
-                        target="_blank"
-                    >
-                        
-                        Purchase this dataset
-                    </Link>{ ' ' }
-                    to gain access to its assets.
-                </p>
-            </div>
-        );
-    } */
 
     if (!props.showList) {
         return (

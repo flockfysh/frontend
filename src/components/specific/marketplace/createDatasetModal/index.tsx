@@ -185,7 +185,6 @@ async function uploadDataset(formData: FormData) {
             const fd = new FormData();
             fd.set(config.fieldName, file);
 
-            console.log('uploading file');
             await api.post(
                 `/api/datasets/${newDataset._id}/assets/upload/${config.endpoint}`,
                 fd

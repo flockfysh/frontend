@@ -29,6 +29,7 @@ export default function DatasetSwiper(props: {
         forceUpdate();
     }, [forceUpdate]);
 
+
     return (
         <div className={ classes.swiperContainer }>
             <div className={ `${classes.fadeOverlay}  ${classes.previous}` }>
