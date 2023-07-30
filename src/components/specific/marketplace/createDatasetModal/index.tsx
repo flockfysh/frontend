@@ -119,7 +119,7 @@ async function buildDataset(formData: FormData, router: any) {
         maxThreads: 20,
     });
 
-    console.log(price)
+    console.log(price);
     if(price > 0) {
 
         const checkoutLink = (await api.post('/api/payments/buildDataset/create', {
