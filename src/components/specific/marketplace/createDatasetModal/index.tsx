@@ -119,6 +119,7 @@ async function buildDataset(formData: FormData, router: any) {
         maxThreads: 20,
     });
 
+    console.log(price);
     if(price > 0) {
 
         const checkoutLink = (await api.post('/api/payments/buildDataset/create', {
@@ -129,7 +130,7 @@ async function buildDataset(formData: FormData, router: any) {
 
         return checkoutLink;    
     }
-    return undefined;
+    return '#';
 }   
 
 async function uploadDataset(formData: FormData) {
@@ -280,6 +281,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                             }
                             else {
                                 const checkoutLink = await buildDataset(formData, router);
+                                
                                 router.push(checkoutLink);
                                 
                                 updateFadeOut(true);
