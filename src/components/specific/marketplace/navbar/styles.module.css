@@ -153,6 +153,9 @@
     opacity: 0.8;
 }
 
+.searchIcon{
+    background-color: #1E1E1E;
+}
 .leftIcon {
     align-self: center;
     margin: 0px 15px;

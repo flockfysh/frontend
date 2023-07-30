@@ -35,43 +35,48 @@ export default function MarketplaceNavbar() {
     const [isDatasetModalOpen, updateDatasetModalOpen] = useState(false);
     const { isCreatePostOpen, setCreatePostOpen } = useContext(ModalContext);
 
-    useEffect(() => {
-        const fetchTimerId = setTimeout(async () => {
-            if (search.length > 0) {
-                const fetchedDataset = (
-                    await api.get<Api.PaginatedResponse<HomepageDataset[]>>(
-                        '/api/datasets/search',
-                        {
-                            params: {
-                                name: search,
-                            },
-                        }
-                    )
-                ).data;
+    const searchItem = async () => {
+        if (search.length > 0) {
 
-                const fetchedUsers = (
-                    await api.get<Api.PaginatedResponse<RedactedUser[]>>(
-                        '/api/users/search',
-                        {
-                            params: {
-                                query: search,
-                            },
-                        }
-                    )
-                ).data;
 
-                setsearchedDataset(fetchedDataset.data);
-                setSearchedUser(fetchedUsers.data);
+            const fetchedDataset = (
+                await api.get<Api.PaginatedResponse<HomepageDataset[]>>(
+                    '/api/datasets/search',
+                    {
+                        params: {
+                            query: search,
+                            public: true,
+                            ascending: false,
+                            limit: 10,
+                        },
+                    }
+                )
+            ).data;
 
-                setOpen(true);
-            }
- else {
-                setOpen(false);
-            }
-        }, 2000);
+            const fetchedUsers = (
+                await api.get<Api.PaginatedResponse<RedactedUser[]>>(
+                    '/api/users/search',
+                    {
+                        params: {
+                            query: search,
+                            limit: 5,
+                        },
+                    }
+                )
+            ).data;
 
-        return () => clearTimeout(fetchTimerId);
-    }, [search]);
+            setsearchedDataset(fetchedDataset.data);
+            setSearchedUser(fetchedUsers.data);
+
+            setOpen(true);
+        }
+    else {
+            setOpen(false);
+        }
+    };
+
+
+    
 
     return (
         <nav className={ classes.nav }>
@@ -105,10 +110,12 @@ export default function MarketplaceNavbar() {
                         setOpen(true);
                     } }
                 >
-                    <ReactSVG
-                        src={ searchIcon.src }
-                        className={ classes.searchIcon }
-                    />
+                    <button onClick={ searchItem }>
+                        <ReactSVG
+                            src={ searchIcon.src }
+                            className={ classes.searchIcon }
+                        />
+                    </button>
 
                     <input
                         type="search"
