@@ -35,7 +35,7 @@ export default function MarketplaceNavbar() {
     const [isDatasetModalOpen, updateDatasetModalOpen] = useState(false);
     const { isCreatePostOpen, setCreatePostOpen } = useContext(ModalContext);
 
-    useEffect(() => {
+    const searchItem = async () => {
         const fetchTimerId = setTimeout(async () => {
             if (search.length > 0) {
                 const fetchedDataset = (
@@ -65,13 +65,13 @@ export default function MarketplaceNavbar() {
 
                 setOpen(true);
             }
- else {
+        else {
                 setOpen(false);
             }
         }, 2000);
 
         return () => clearTimeout(fetchTimerId);
-    }, [search]);
+    }
 
     return (
         <nav className={ classes.nav }>
@@ -105,10 +105,12 @@ export default function MarketplaceNavbar() {
                         setOpen(true);
                     } }
                 >
-                    <ReactSVG
-                        src={ searchIcon.src }
-                        className={ classes.searchIcon }
-                    />
+                    <button onClick={searchItem}>
+                        <ReactSVG
+                            src={ searchIcon.src }
+                            className={ classes.searchIcon }
+                        />
+                    </button>
 
                     <input
                         type="search"
