@@ -47,7 +47,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
             datasetId: datasetId
         })).data.data;   
         
-        router.push(clientSecret)
+        router.push(clientSecret);
     }
 
     useEffect(() => {
@@ -270,7 +270,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                     dataset.permission === 'preview' && dataset.payments.schemeType === 'upload' ? (
                                         <Link
                                             className={ classes.contributeButton }
-                                            onClick={() => goToCheckout()}
+                                            onClick={ () => goToCheckout() }
                                             href="#"
                                         >
                                             Buy full version for ${ dataset.payments.totalPayment.toFixed(2) }

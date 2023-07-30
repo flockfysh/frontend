@@ -106,9 +106,9 @@ function TextComponent(props: { url: string }) {
 
     useEffect(() => {
         async function fetchThis() {
-            const textData = (await axios.get(props.url, {headers: {'Content-Type' : 'text/plain'}})).data
+            const textData = (await axios.get(props.url, { headers: { 'Content-Type' : 'text/plain' } })).data;
 
-            console.log(textData)
+            console.log(textData);
             setText(textData);
         }
 
