@@ -61,7 +61,6 @@ export default function ContributionList(dataset: PreviewDataset) {
                 )
             ).data;
 
-            console.log('from backend', temp);
 
             setState((prevState) => {
                 prevState.contributions.push(...temp.data);
@@ -72,12 +71,9 @@ export default function ContributionList(dataset: PreviewDataset) {
                 };
             });
 
-            console.log(state.contributions);
         }
     };
 
-    console.log('from contributions', dataset);
-    console.log('contributions array', state.contributions);
 
     return (
         <div className={ classes.itemsContainer }>
