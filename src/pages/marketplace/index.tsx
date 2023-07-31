@@ -162,13 +162,13 @@ function Marketplace() {
                 return {
                     id: index,
                     ...it
-                }
-            })
+                };
+            });
 
-            setCollections(ret)
-        }
+            setCollections(ret);
+        };
         fetchData();
-    }, [])
+    }, []);
 
     return (
         <div className={ classes.container }>

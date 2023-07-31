@@ -32,27 +32,27 @@ const timeFilterOptions: [number, ManipulateType][] = [
 
 function Collections() {
 
-    const router = useRouter()
+    const router = useRouter();
 
-    const tag = router.query.tag
+    const tag = router.query.tag;
 
-    const [datasets, setDatasets] = useState([])
+    const [datasets, setDatasets] = useState([]);
 
     useEffect(() => {
 
         async function fetchData() {
-            const res = (await api.get(`/api/datasets/top/${tag}`)).data.data
+            const res = (await api.get(`/api/datasets/top/${tag}`)).data.data;
 
-            setDatasets(res)
+            setDatasets(res);
         }
 
-        fetchData()
-    }, [])
+        fetchData();
+    }, []);
 
 
     return (
         <div className={ classes.container }>
-            <h1 className= { classes.header }> Showing results for {tag} </h1>
+            <h1 className= { classes.header }> Showing results for { tag } </h1>
 
             { datasets && !!datasets.length && (
                 <FeaturedDatasetsSection datasets={ datasets } />

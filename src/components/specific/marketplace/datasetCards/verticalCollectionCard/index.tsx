@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import DatasetTypeCard from '../../datasetTypeCard';
-import ProfileCard from '../../profileCard';
 
 import classes from './styles.module.css';
 
@@ -16,7 +15,7 @@ export default function VerticalCollectionCard(props: any) {
     };
 
 
-    const tags = props.datasetsByTags.map((item:any) => item.type).filter((v,i,a)=>a.indexOf(v)==i).join()
+    const tags = props.datasetsByTags.map((item:any) => item.type).filter((v:any, i:any, a:any) => a.indexOf(v) === i).join();
 
 
 
@@ -41,7 +40,7 @@ export default function VerticalCollectionCard(props: any) {
             />
 
             <div className={ classes.contentContainer }>
-                <Link href= {`/collections/${props._id}`}>
+                <Link href= { `/collections/${props._id}` }>
                     <div className={ classes.header }>
                         <img
                             src="https://images.unsplash.com/photo-1528183429752-a97d0bf99b5a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dHJlZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"
