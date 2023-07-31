@@ -69,10 +69,13 @@ export default function ContributionList(dataset: PreviewDataset) {
                     next: temp.meta.next,
                 };
             });
+
+            console.log(state.contributions);
         }
     };
 
     console.log('from contributions', dataset);
+    console.log('contributions array', state.contributions);
 
     return (
         <div className={ classes.itemsContainer }>
