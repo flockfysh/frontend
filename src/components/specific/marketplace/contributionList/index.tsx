@@ -61,6 +61,8 @@ export default function ContributionList(dataset: PreviewDataset) {
                 )
             ).data;
 
+            console.log('from backend', temp);
+
             setState((prevState) => {
                 prevState.contributions.push(...temp.data);
                 return {
