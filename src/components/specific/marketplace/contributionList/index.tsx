@@ -72,6 +72,8 @@ export default function ContributionList(dataset: PreviewDataset) {
         }
     };
 
+    console.log('from contributions', dataset);
+
     return (
         <div className={ classes.itemsContainer }>
             { /* header */ }
