@@ -64,6 +64,8 @@ export function ContributionItem({
     datasetId: string;
     contribution: ExpandedPullRequest;
 }) {
+
+    console.log(contribution, datasetId)
     return (
         <div className={ classes.itemContainer }>
             { /* header */ }
