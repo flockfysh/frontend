@@ -11,6 +11,8 @@ import ContributionList from '@/components/specific/marketplace/contributionList
 function DatasetActivityPage() {
     const dataset = useContext(DatasetInfoContext);
 
+
+    console.log('from dataset activity page', dataset);
     if (dataset) return <ContributionList { ...dataset } />;
     else return <></>;
 }

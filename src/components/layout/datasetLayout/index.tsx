@@ -42,6 +42,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
     const { downloadDataset } = useContext(DownloaderContext);
     const datasetId = router.query.datasetId;
 
+    console.log('from dataset info', dataset);
  
     async function goToCheckout() {
         const clientSecret = (await api.post(`/api/payments/purchaseDataset`, {
@@ -50,6 +51,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
         
         router.push(clientSecret);
     }
+
 
     useEffect(() => {
         async function load() {
@@ -66,7 +68,8 @@ export default function DatasetInfo(props: PropsWithChildren) {
                 )
             ).data.data;
 
- 
+            console.log('inside of load', 'dataset retrieved is', result);
+                    
             setDataset(result);
 
             await api.post(`/api/datasets/${datasetId}/metrics`, {
