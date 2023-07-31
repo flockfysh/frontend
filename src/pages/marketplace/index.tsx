@@ -149,27 +149,26 @@ function Marketplace() {
         fetchData();
     }, [setPosts]);
 
-    /*
-    const collections: HomepageCollection[] = Array.from({ length: 8 }, () => {
-        return {
-            _id: v4(),
-            name: fakerEN.animal.type(),
-            user: {
-                username: 'praks',
-                _id: '24159335',
-                fullName: 'Prakriti Bista',
-                firstName: 'Prakriti',
-                email: 'praks@gmail.com',
-                lastName: 'Bista',
-            },
-            itemCount: 20,
-            type: 'image',
-            thumbnail: {
-                assetId: v4(),
-                url: 'https://images.unsplash.com/photo-1555412654-72a95a495858?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d2F0ZXJ8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60',
-            },
+    const [collectionsByTags, setCollections] = useState<HomepageCollection[]>(
+        []
+    );
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = (await api.get('/api/datasets/topDatasetsByTags')).data.data;
+
+            const ret = res.map((it:any, index:number) => {
+                return {
+                    id: index,
+                    ...it
+                };
+            });
+
+            setCollections(ret);
         };
-    }); */
+        fetchData();
+    }, []);
 
     return (
         <div className={ classes.container }>
@@ -231,7 +230,7 @@ function Marketplace() {
                     <h1 className={ classes.header }>Trending Collections</h1>
                 </div>
 
-                <CollectionSwiper collections={ [] } /> 
+                <CollectionSwiper collections={ collectionsByTags } /> 
             </section>
 
             <section className={ classes.sectionContainer }>

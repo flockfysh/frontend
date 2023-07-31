@@ -1,4 +1,5 @@
 declare interface HomepageCollection extends Flockfysh.Collection {
+    id: Key | null | undefined;
     itemCount: number;
     thumbnail?: {
         assetId: string;

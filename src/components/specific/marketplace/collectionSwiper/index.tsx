@@ -43,7 +43,7 @@ export default function CollectionSwiper(props: {
                     return (
                         <SwiperSlide
                             className={ classes.slide }
-                            key={ collection._id }
+                            key={ collection.id }
                         >
                             <VerticalCollectionCard { ...collection } />
                         </SwiperSlide>

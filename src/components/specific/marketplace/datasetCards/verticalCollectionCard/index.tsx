@@ -1,9 +1,9 @@
+import Link from 'next/link';
 import DatasetTypeCard from '../../datasetTypeCard';
-import ProfileCard from '../../profileCard';
 
 import classes from './styles.module.css';
 
-export default function VerticalCollectionCard(props: HomepageCollection) {
+export default function VerticalCollectionCard(props: any) {
     const gradientFunction = () => {
         const gradients = ['#92A1C6', '#146A7C'];
         return gradients[Math.round(Math.random() * 1)];
@@ -13,6 +13,11 @@ export default function VerticalCollectionCard(props: HomepageCollection) {
         const gradients = ['#F0AB3D', '#C271B4', '#C20D90'];
         return gradients[Math.round(Math.random() * 2)];
     };
+
+
+    const tags = props.datasetsByTags.map((item:any) => item.type).filter((v:any, i:any, a:any) => a.indexOf(v) === i).join();
+
+
 
     return (
         <div className={ classes.container }>
@@ -35,39 +40,32 @@ export default function VerticalCollectionCard(props: HomepageCollection) {
             />
 
             <div className={ classes.contentContainer }>
-                <div className={ classes.header }>
-                    <img
-                        src="https://images.unsplash.com/photo-1528183429752-a97d0bf99b5a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dHJlZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                        alt="Avatar"
-                    />
+                <Link href= { `/collections/${props._id}` }>
+                    <div className={ classes.header }>
+                        <img
+                            src="https://images.unsplash.com/photo-1528183429752-a97d0bf99b5a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dHJlZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                            alt="Avatar"
+                        />
 
-                    <DatasetTypeCard
-                        type={ props.type }
-                        className={ classes.typeCard }
-                    />
-                </div>
+                        <DatasetTypeCard
+                            type={ tags }
+                            className={ classes.typeCard }
+                        />
+                    </div>
 
-                <div className={ classes.middleSection }>
-                    <h1>{ props.name }</h1>
+                    <div className={ classes.middleSection }>
+                        <h1>{ props._id }</h1>
 
-                    <div className={ classes.footer }>
-                        <div className={ classes.infoContainer }>
-                            <p className={ classes.infoHeader }>Datasets</p>
-                            <p className={ classes.info }>{ props.itemCount }</p>
-                        </div>
+                        <div className={ classes.footer }>
+                            <div className={ classes.infoContainer }>
+                                <p className={ classes.infoHeader }> Datasets </p>
+                                <p className={ classes.info }>{ props.countByTags }</p>
+                            </div>
 
-                        <div className={ classes.profileCardContainer }>
-                            <ProfileCard
-                                className={ classes.profileCard }
-                                username={ props.user.username }
-                                profilePicture={
-                                    props.user.profilePhoto?.url ?? ''
-                                }
-                                showMenu={ false }
-                            />
+                        
                         </div>
                     </div>
-                </div>
+                </Link>
             </div>
         </div>
     );
