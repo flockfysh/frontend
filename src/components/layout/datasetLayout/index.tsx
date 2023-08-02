@@ -28,6 +28,7 @@ import download from '@/icons/main/download.svg';
 import flag from '@/icons/main/flag.svg';
 
 import classes from './styles.module.css';
+import { NextSeo } from 'next-seo';
 
 export const DatasetInfoContext = createContext<PreviewDataset | undefined>(
     undefined
@@ -42,7 +43,6 @@ export default function DatasetInfo(props: PropsWithChildren) {
     const { downloadDataset } = useContext(DownloaderContext);
     const datasetId = router.query.datasetId;
 
-    console.log('from dataset info', dataset);
  
     async function goToCheckout() {
         const clientSecret = (await api.post(`/api/payments/purchaseDataset`, {
@@ -68,7 +68,6 @@ export default function DatasetInfo(props: PropsWithChildren) {
                 )
             ).data.data;
 
-            console.log('inside of load', 'dataset retrieved is', result);
                     
             setDataset(result);
 
@@ -113,6 +112,14 @@ export default function DatasetInfo(props: PropsWithChildren) {
 
     return (
         <DatasetInfoContext.Provider value={ dataset }>
+            
+            <NextSeo
+                title={`flockfysh | Viewing dataset ${dataset.name}`}
+                description={`You are viewing the dataset called ${dataset.name}, which is for ${dataset.description}. This dataset really relevant to ${dataset.tags}, as well as ${dataset.subTags}. The dataset has type ${dataset.type}, and is public: ${dataset.public}. The flockfysh data exchange serves as the main platform to connect with other passionate AI lovers and buy and build large scale AI datasets and models. There are 1000 datasets for this, ranging from text problems like question answer, LLM evaluation, to computer vision problems
+                such as object detection, segmentations, and keypoint trackings. Buy or build your next dataset of your dreams here today!`}
+            />
+
+
             <div className={ classes.container }>
                 <header className={ classes.headerWrapper }>
                     { /* image */ }

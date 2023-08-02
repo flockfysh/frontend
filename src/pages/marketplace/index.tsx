@@ -22,6 +22,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 
 import classes from './styles.module.css';
+import { NextSeo } from 'next-seo';
 
 const timeFilterOptions: [number, ManipulateType][] = [
     [1, 'day'],
@@ -171,86 +172,98 @@ function Marketplace() {
     }, []);
 
     return (
-        <div className={ classes.container }>
-            { !!featuredDatasets.length && (
-                <FeaturedDatasetsSection datasets={ featuredDatasets } />
-            ) }
 
-            { !!trendingDatasets.length && (
-                <section className={ classes.sectionContainer }>
-                    <div className={ classes.headerContainer }>
-                        <h1 className={ classes.header }>Trending Datasets</h1>
 
-                        <DatasetTimeFilter
-                            callback={ (index) => {
-                                setTimeFilter(index);
-                            } }
-                            options={ timeFilterOptions }
-                            selected={ timeFilter }
-                        />
+        <>
+            <NextSeo
+                title={`flockfysh | data exchange`}
+                description={`The flockfysh data exchange serves as the main platform to connect with other passionate AI lovers and buy and build large scale AI datasets and models. There are ${1000} datasets for this, ranging from text problems like question answer, LLM evaluation, to computer vision problems
+                such as object detection, segmentations, and keypoint trackings. Buy or build your next dataset of your dreams here today!`}
+            />
+
+            <div className={ classes.container }>
+                        { !!featuredDatasets.length && (
+                            <FeaturedDatasetsSection datasets={ featuredDatasets } />
+                        ) }
+
+                        { !!trendingDatasets.length && (
+                            <section className={ classes.sectionContainer }>
+                                <div className={ classes.headerContainer }>
+                                    <h1 className={ classes.header }>Trending Datasets</h1>
+
+                                    <DatasetTimeFilter
+                                        callback={ (index) => {
+                                            setTimeFilter(index);
+                                        } }
+                                        options={ timeFilterOptions }
+                                        selected={ timeFilter }
+                                    />
+                                </div>
+
+                                <DatasetSwiper
+                                    cardType="vertical"
+                                    datasets={ trendingDatasets }
+                                />
+                            </section>
+                        ) }
+
+                        { !!popularDatasets.length && (
+                            <section className={ classes.sectionContainer }>
+                                <div className={ classes.headerContainer }>
+                                    <h1 className={ classes.header }>
+                                        Most Popular Datasets
+                                    </h1>
+                                </div>
+
+                                <DatasetSwiper
+                                    cardType="vertical"
+                                    datasets={ popularDatasets }
+                                />
+                            </section>
+                        ) }
+
+                        { !!paidDatasets.length && (
+                            <section className={ classes.sectionContainer }>
+                                <div className={ classes.headerContainer }>
+                                    <h1 className={ classes.header }>Premium Datasets</h1>
+                                </div>
+
+                                <DatasetSwiper
+                                    cardType="vertical"
+                                    datasets={ paidDatasets }
+                                />
+                            </section>
+                        ) }
+
+                        <section className={ classes.sectionContainer }>
+                            <div className={ classes.headerContainer }>
+                                <h1 className={ classes.header }>Trending Collections</h1>
+                            </div>
+
+                            <CollectionSwiper collections={ collectionsByTags } /> 
+                        </section>
+
+                        <section className={ classes.sectionContainer }>
+                            <div className={ classes.headerContainer }>
+                                <h1 className={ classes.header }>Popular Posts</h1>
+                            </div>
+
+                            <PostSwiper posts={ posts } />
+                        </section>
+
+                        <section className={ classes.sectionContainer + ' ' + classes.howTo }>
+                            <h1 className={ classes.howToHeader }>
+                                Upload, Request, and Share your Datasets
+                            </h1>
+
+                            <div className={ classes.howToCards }>
+                                <HowToCards />
+                            </div>
+                        </section>
                     </div>
 
-                    <DatasetSwiper
-                        cardType="vertical"
-                        datasets={ trendingDatasets }
-                    />
-                </section>
-            ) }
 
-            { !!popularDatasets.length && (
-                <section className={ classes.sectionContainer }>
-                    <div className={ classes.headerContainer }>
-                        <h1 className={ classes.header }>
-                            Most Popular Datasets
-                        </h1>
-                    </div>
-
-                    <DatasetSwiper
-                        cardType="vertical"
-                        datasets={ popularDatasets }
-                    />
-                </section>
-            ) }
-
-            { !!paidDatasets.length && (
-                <section className={ classes.sectionContainer }>
-                    <div className={ classes.headerContainer }>
-                        <h1 className={ classes.header }>Premium Datasets</h1>
-                    </div>
-
-                    <DatasetSwiper
-                        cardType="vertical"
-                        datasets={ paidDatasets }
-                    />
-                </section>
-            ) }
-
-            <section className={ classes.sectionContainer }>
-                <div className={ classes.headerContainer }>
-                    <h1 className={ classes.header }>Trending Collections</h1>
-                </div>
-
-                <CollectionSwiper collections={ collectionsByTags } /> 
-            </section>
-
-            <section className={ classes.sectionContainer }>
-                <div className={ classes.headerContainer }>
-                    <h1 className={ classes.header }>Popular Posts</h1>
-                </div>
-
-                <PostSwiper posts={ posts } />
-            </section>
-
-            <section className={ classes.sectionContainer + ' ' + classes.howTo }>
-                <h1 className={ classes.howToHeader }>
-                    Upload, Request, and Share your Datasets
-                </h1>
-
-                <div className={ classes.howToCards }>
-                    <HowToCards />
-                </div>
-            </section>
-        </div>
+        </>
     );
 }
 
