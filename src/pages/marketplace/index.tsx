@@ -176,9 +176,9 @@ function Marketplace() {
 
         <>
             <NextSeo
-                title={`flockfysh | data exchange`}
-                description={`The flockfysh data exchange serves as the main platform to connect with other passionate AI lovers and buy and build large scale AI datasets and models. There are ${1000} datasets for this, ranging from text problems like question answer, LLM evaluation, to computer vision problems
-                such as object detection, segmentations, and keypoint trackings. Buy or build your next dataset of your dreams here today!`}
+                title={ `flockfysh | data exchange` }
+                description={ `The flockfysh data exchange serves as the main platform to connect with other passionate AI lovers and buy and build large scale AI datasets and models. There are ${1000} datasets for this, ranging from text problems like question answer, LLM evaluation, to computer vision problems
+                such as object detection, segmentations, and keypoint trackings. Buy or build your next dataset of your dreams here today!` }
             />
 
             <div className={ classes.container }>

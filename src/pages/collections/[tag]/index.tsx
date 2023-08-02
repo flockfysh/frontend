@@ -48,10 +48,10 @@ function Collections() {
     return (
         <>
             <NextSeo
-                title={`flockfysh | Top datasets for ${tag}`}
-                description={`These are the most popular datasets found for this specific
+                title={ `flockfysh | Top datasets for ${tag}` }
+                description={ `These are the most popular datasets found for this specific
                 tag. There are ${datasets.length} datasets for this, ranging from text problems like question answer, LLM evaluation, to computer vision problems
-                such as object detection, segmentations, and keypoint trackings. Buy or build your next dataset of your dreams here today!`}
+                such as object detection, segmentations, and keypoint trackings. Buy or build your next dataset of your dreams here today!` }
             />
 
             <div className={ classes.container }>

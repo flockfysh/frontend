@@ -114,9 +114,9 @@ export default function DatasetInfo(props: PropsWithChildren) {
         <DatasetInfoContext.Provider value={ dataset }>
             
             <NextSeo
-                title={`flockfysh | Viewing dataset ${dataset.name}`}
-                description={`You are viewing the dataset called ${dataset.name}, which is for ${dataset.description}. This dataset really relevant to ${dataset.tags}, as well as ${dataset.subTags}. The dataset has type ${dataset.type}, and is public: ${dataset.public}. The flockfysh data exchange serves as the main platform to connect with other passionate AI lovers and buy and build large scale AI datasets and models. There are 1000 datasets for this, ranging from text problems like question answer, LLM evaluation, to computer vision problems
-                such as object detection, segmentations, and keypoint trackings. Buy or build your next dataset of your dreams here today!`}
+                title={ `flockfysh | Viewing dataset ${dataset.name}` }
+                description={ `You are viewing the dataset called ${dataset.name}, which is for ${dataset.description}. This dataset really relevant to ${dataset.tags}, as well as ${dataset.subTags}. The dataset has type ${dataset.type}, and is public: ${dataset.public}. The flockfysh data exchange serves as the main platform to connect with other passionate AI lovers and buy and build large scale AI datasets and models. There are 1000 datasets for this, ranging from text problems like question answer, LLM evaluation, to computer vision problems
+                such as object detection, segmentations, and keypoint trackings. Buy or build your next dataset of your dreams here today!` }
             />
 
 
