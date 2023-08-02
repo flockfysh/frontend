@@ -23,12 +23,7 @@ import 'swiper/css/navigation';
 
 import classes from './styles.module.css';
 import { useRouter } from 'next/router';
-
-const timeFilterOptions: [number, ManipulateType][] = [
-    [1, 'day'],
-    [1, 'week'],
-    [1, 'month'],
-];
+import { NextSeo } from 'next-seo';
 
 function Collections() {
 
@@ -51,14 +46,24 @@ function Collections() {
 
 
     return (
-        <div className={ classes.container }>
-            <h1 className= { classes.header }> Showing results for { tag } </h1>
+        <>
+            <NextSeo
+                title={ `flockfysh | Top datasets for ${tag}` }
+                description={ `These are the most popular datasets found for this specific
+                tag. There are ${datasets.length} datasets for this, ranging from text problems like question answer, LLM evaluation, to computer vision problems
+                such as object detection, segmentations, and keypoint trackings. Buy or build your next dataset of your dreams here today!` }
+            />
 
-            { datasets && !!datasets.length && (
-                <FeaturedDatasetsSection datasets={ datasets } />
-            ) }
+            <div className={ classes.container }>
+                <h1 className= { classes.header }> Showing results for { tag } </h1>
 
-        </div>
+                { datasets && !!datasets.length && (
+                    <FeaturedDatasetsSection datasets={ datasets } />
+                ) }
+
+            </div>
+
+        </>
     );
 }
 
