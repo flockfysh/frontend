@@ -75,9 +75,6 @@ export default function MarketplaceNavbar() {
         }
     };
 
-
-    
-
     return (
         <nav className={ classes.nav }>
             { isDatasetModalOpen && (
