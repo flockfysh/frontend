@@ -195,6 +195,7 @@ export default function UserSettings(props: UserSettings) {
       let acctLink = '';
 
       if(onboardingCompleted.data.data !== 'completed'){
+        toast.info('Set up your account in order to receive payouts!');
         const accountLink = await api.post('/api/users/payout/onboarding', {
           returnUrl: settings.FRONTEND_URL,
         });
@@ -454,21 +455,15 @@ export default function UserSettings(props: UserSettings) {
             </div>
           </div>
         ) : (
-          //// nidhi route http://127.0.0.1:3000/profile
-          <>
-            <div className={ classes.billing }>
-              <div className={ classes.left }>
-                <h1>Connect Payment types</h1>
-                <div className={ classes.inputBox }>
-                  <Input
+
+            /*
+
+                              <Input
                     saveLabel={ 'Connect Stripe' }
                     saveIcon={ edit.src }
                     icon={ mail.src }
                     value="stripe@striple.com"
                   />
-                  <Link href = { paymentData.accountLink } target="_blank">
-                    Connect Stripe
-                  </Link>
 
                   <Input
                     saveLabel={ 'Connect Paypal' }
@@ -478,6 +473,19 @@ export default function UserSettings(props: UserSettings) {
                     value="user@example.com"
                   />
                   { payPal === true && <PayPal /> }
+
+              */
+
+          <>
+            <div className={ classes.billing }>
+              <div className={ classes.left }>
+                <h1>Connect Payment types</h1>
+                <div className={ classes.inputBox }>
+                  
+                  
+                  <Link href = { paymentData.accountLink } target="_blank">
+                    Connect Stripe
+                  </Link>
                 </div>
               </div>
               <div className={ classes.right }>
@@ -501,7 +509,6 @@ export default function UserSettings(props: UserSettings) {
                 </div>
               </div>
 
-              { /* //nidhi */ }
             </div>
             <div className={ classes.billingTable }>
               <h1>Transaction History</h1>
