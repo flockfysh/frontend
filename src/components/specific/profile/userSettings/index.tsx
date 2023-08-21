@@ -479,7 +479,7 @@ export default function UserSettings(props: UserSettings) {
           <>
             <div className={ classes.billing }>
               <div className={ classes.left }>
-                <h1>Connect Payment types</h1>
+                <h1>Connect Payment types to receive payouts</h1>
                 <div className={ classes.inputBox }>
                   
                   
