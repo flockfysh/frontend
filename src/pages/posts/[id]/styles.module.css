@@ -306,6 +306,10 @@
     border-radius: 6px;
 }
 
+.display-linebreak {
+  white-space: pre-line;
+}
+
 @media only all and (min-width: 768px) {
     .actionButtonsAndImageWrapper {
         flex-direction: row;
