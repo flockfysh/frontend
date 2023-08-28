@@ -107,7 +107,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
     }, [datasetId]);
 
 
-    let cashRem:any = dataset.payments.paymentParameters;
+    let cashRem:any = dataset?.payments.paymentParameters;
     let cashPerTot:any = -1;
     if(dataset?.payments.schemeType === 'build'){
         cashPerTot = (0.75 * dataset?.payments.totalPayment) / ( dataset.desiredDatasetSize ?? 1);
