@@ -97,12 +97,9 @@ async function buildDataset(formData: FormData, router: any) {
         }
     }) as File[];
 
-    console.log(files);
-    console.log('heeeeeeeeere');
 
     const config =
         uploadTypeMapping[formData.get('type') as Flockfysh.AssetType];
-    console.log(config);
 
     async function upload(file: File) {
         try {
@@ -120,15 +117,12 @@ async function buildDataset(formData: FormData, router: any) {
         }
     }
 
-    console.log('here');
     if(files.length > 0){
         await new AsyncArray(files).chunkMap((file) => upload(file), undefined, {
             maxThreads: 20,
         });
     }
-    console.log('here2');
 
-    console.log(price);
     if(price > 0) {
 
         const checkoutLink = (await api.post('/api/payments/buildDataset/create', {
