@@ -118,9 +118,11 @@ async function buildDataset(formData: FormData, router: any) {
         }
     }
 
-    await new AsyncArray(files).chunkMap((file) => upload(file), undefined, {
-        maxThreads: 20,
-    });
+    if(files.length > 0){
+        await new AsyncArray(files).chunkMap((file) => upload(file), undefined, {
+            maxThreads: 20,
+        });
+    }
 
     console.log(price);
     if(price > 0) {
