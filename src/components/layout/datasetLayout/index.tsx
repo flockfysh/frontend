@@ -106,7 +106,13 @@ export default function DatasetInfo(props: PropsWithChildren) {
         fetchData();
     }, [datasetId]);
 
-    
+
+    let cashRem:any = dataset.payments.paymentParameters;
+    let cashPerTot:any = -1;
+    if(dataset?.payments.schemeType === 'build'){
+        cashPerTot = (0.75 * dataset?.payments.totalPayment) / ( dataset.desiredDatasetSize ?? 1);
+        cashRem = cashRem.cashRemaining;
+    }
 
     if (!dataset || typeof datasetId !== 'string') return <></>;
 
@@ -293,6 +299,8 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                     dataset.permission === 'preview' && dataset.payments.schemeType === 'build' ? (
                                     <>
                                         <p> Total Payout: ${ (0.75 * dataset.payments.totalPayment).toFixed(2) } </p>
+                                        <p> Cash Remaining: ${ (cashRem).toFixed(2) } </p>
+                                        <p> Per item: ${ (cashPerTot).toFixed(2) } </p>
                                         <p> Looking for { dataset.desiredDatasetSize } samples </p>
                                         <ActionPopupWithButton
                                                 button={ (
