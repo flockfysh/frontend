@@ -375,6 +375,27 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                 </>
                             ) : (
                                 <>
+                                    <p>Tags</p>
+
+                                    <CustomCreatableSelect
+                                        name={ 'tags' }
+                                        isMulti={ true }
+                                        classNames={ {
+                                            control: () => {
+                                                return (
+                                                    classes.createableSelectControl +
+                                                    ' ' +
+                                                    classes.inputControl
+                                                );
+                                            },
+                                            menu: () => {
+                                                return classes.selectMenu;
+                                            },
+                                        } }
+                                        placeholder="Tags"
+                                    />
+
+
                                     <p>Minimum Number of Items</p>
 
                                     { /* TODO: need to change the scroll. React select */ }
