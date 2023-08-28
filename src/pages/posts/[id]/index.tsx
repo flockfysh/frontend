@@ -209,7 +209,9 @@ function PostItems() {
                         >
                             Author: { author.fullname }
                         </Link>
-                        <p>{ postData.content }</p>
+                        <div className= {classes.linebreak} > 
+                            {postData.content} 
+                        </div>
                     </div>
                 </header>
             </div>
