@@ -97,6 +97,8 @@ async function buildDataset(formData: FormData, router: any) {
         }
     }) as File[];
 
+    console.log(files);
+
     const config =
         uploadTypeMapping[formData.get('type') as Flockfysh.AssetType];
 
@@ -111,7 +113,8 @@ async function buildDataset(formData: FormData, router: any) {
 
 
         }
- catch (e) {
+        catch (e) {
+            console.log('upload e', e);
         }
     }
 
