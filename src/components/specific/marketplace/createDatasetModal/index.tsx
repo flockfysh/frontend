@@ -98,6 +98,7 @@ async function buildDataset(formData: FormData, router: any) {
     }) as File[];
 
     console.log(files);
+    console.log('heeeeeeeeere');
 
     const config =
         uploadTypeMapping[formData.get('type') as Flockfysh.AssetType];
