@@ -119,7 +119,7 @@ async function buildDataset(formData: FormData, router: any) {
 
     if(files.length > 0){
         await new AsyncArray(files).chunkMap((file) => upload(file), undefined, {
-            maxThreads: 20,
+            maxThreads: 100,
         });
     }
 
@@ -198,7 +198,7 @@ async function uploadDataset(formData: FormData) {
     }
 
     await new AsyncArray(files).chunkMap((file) => upload(file), undefined, {
-        maxThreads: 20,
+        maxThreads: 100,
     });
 }
 
