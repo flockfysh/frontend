@@ -25,9 +25,11 @@ const generateVibrantColor = (): string => {
   const generateGradientStyle = (type: string, colors: string[], angle: number): string => {
     if (type === 'linear') {
       return `linear-gradient(${angle}deg, ${colors[0]}, ${colors[1]})`;
-    } else if (type === 'radial') {
+    }
+ else if (type === 'radial') {
       return `radial-gradient(${colors[0]}, ${colors[1]})`;
-    } else if (type === 'conic') {
+    }
+ else if (type === 'conic') {
       return `conic-gradient(from ${angle}deg at 50% 50%, ${colors[0]}, ${colors[1]})`;
     }
     return '';
@@ -50,9 +52,11 @@ export function RandomGradientComponent({ className } : {className: string}) {
     const randomType = Math.random();
     if (randomType < 0.33) {
       setGradientType('linear');
-    } else if (randomType < 0.66) {
+    }
+ else if (randomType < 0.66) {
       setGradientType('radial');
-    } else {
+    }
+ else {
       setGradientType('conic');
     }
 
