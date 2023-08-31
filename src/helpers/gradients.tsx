@@ -32,10 +32,10 @@ export function RandomGradientComponent({ className } : {className: string}) {
 
   return (    
         <Image
-            src="test.jpg"
+            src="https://imagis.unsplash.com/photo-1601662528567-526cd06f6582?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2815&q=80"
             fill={ true }
             style={ { objectFit: 'cover', backgroundImage: gradientStyle, fontSize: 0, textIndent: '100%', overflow: 'hidden', whiteSpace: 'nowrap'  } }
-            alt = ""
+            alt = "#"
             className= { className }
         />
   );
