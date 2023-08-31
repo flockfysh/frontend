@@ -9,6 +9,7 @@ import EditPostModal from '@/components/specific/marketplace/editPostModal';
 
 import { PostContext } from '@/contexts/postContext';
 import { ModalContext } from '@/contexts/modalContext';
+import { RandomGradientComponent } from '@/helpers/gradients';
 
 import api from '@/helpers/api';
 
@@ -104,13 +105,8 @@ function PostItems() {
                 <header className={ classes.headerWrapper }>
                     { /* image */ }
                     <div className={ classes.imageWrapper }>
-                        <img
-                            className={ classes.headerImage }
-                            src={
-                                'https://c.pxhere.com/photos/0d/b1/photo-168471.jpg!d'
-                            }
-                            alt="Datasets portrait image"
-                        />
+                        
+                        <RandomGradientComponent className= { classes.headerImage }/>
 
                         <div className={ classes.imageTag }>
                             <ReactSVG
