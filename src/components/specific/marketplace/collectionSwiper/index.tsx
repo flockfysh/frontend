@@ -5,6 +5,7 @@ import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import VerticalCollectionCard from '@/components/specific/marketplace/datasetCards/verticalCollectionCard';
+import { RandomGradientComponent } from '@/helpers/gradients';
 
 import prev from '@/icons/main/arrow-left.svg';
 import next from '@/icons/main/arrow-right.svg';

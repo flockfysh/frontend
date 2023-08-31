@@ -22,7 +22,7 @@ export default function VerticalCollectionCard(props: any) {
 
     return (
         <div className={ classes.container }>
-            <div
+            { /* <div
                 className={ classes.thumbnail }
                 style={ {
                     background:
@@ -38,7 +38,9 @@ export default function VerticalCollectionCard(props: any) {
                         Math.round(Math.random() * 35 + 70) +
                         '%)',
                 } }
-            />
+            /> */ }
+
+            <RandomGradientComponent className=""/>
 
             <div className={ classes.contentContainer }>
                 <Link href= { `/collections/${props._id}` }>
