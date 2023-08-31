@@ -118,7 +118,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
     if (!dataset || typeof datasetId !== 'string') return <></>;
 
 
-    const cols = ['marble', 'beam', 'pixel', 'sunset', 'ring', 'bauhaus']
+    const cols = ['marble', 'beam', 'pixel', 'sunset', 'ring', 'bauhaus'];
     return (
         <DatasetInfoContext.Provider value={ dataset }>
             
@@ -185,7 +185,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                                 name= { dataset.name }
                                                 size= { 150 }
                                                 square = { true }
-                                                variant = { cols[dataset.name.length % cols.length]} 
+                                                variant = { cols[dataset.name.length % cols.length] } 
                                             />
                                         </div>
                                         )
