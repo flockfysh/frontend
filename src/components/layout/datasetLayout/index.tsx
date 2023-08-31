@@ -172,20 +172,22 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                     { 
                                         dataset.icon?.url ? 
                                         (
-<img
+                                        <img
                                             className={ classes.datasetImage }
                                             src={
                                                 dataset.icon?.url 
                                             }
                                             alt="Datasets Image"
                                         />
- ): (
+                                        ): (
+                                        <div className= { classes.datasetImage }>
                                             <Avatar
                                                 name= { dataset.name }
                                                 size= { 150 }
                                                 square = { true }
-
+                                                
                                             />
+                                        </div>
                                         )
                                     }
                                 </div>
