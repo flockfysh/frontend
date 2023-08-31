@@ -22,13 +22,22 @@ const generateVibrantColor = (): string => {
     return `hsl(${h},${s}%,${l}%)`;
   };
   
-  const generateGradientStyle = (colors: string[], angle: number): string => {
-    return `linear-gradient(${angle}deg, ${colors[0]}, ${colors[1]})`;
+  const generateGradientStyle = (type: string, colors: string[], angle: number): string => {
+    if (type === 'linear') {
+      return `linear-gradient(${angle}deg, ${colors[0]}, ${colors[1]})`;
+    } else if (type === 'radial') {
+      return `radial-gradient(${colors[0]}, ${colors[1]})`;
+    } else if (type === 'conic') {
+      return `conic-gradient(from ${angle}deg at 50% 50%, ${colors[0]}, ${colors[1]})`;
+    }
+    return '';
   };
+  
 
 export function RandomGradientComponent({ className } : {className: string}) {
   const [gradientColors, setGradientColors] = useState([]);
   const [gradientAngle, setGradientAngle] = useState<number>(0);
+  const [gradientType, setGradientType] = useState<string>('linear');
 
   useEffect(() => {
     const baseColor = generateVibrantColor();
@@ -37,9 +46,20 @@ export function RandomGradientComponent({ className } : {className: string}) {
 
     const randomAngle = Math.floor(Math.random() * 360);
     setGradientAngle(randomAngle);
+
+    const randomType = Math.random();
+    if (randomType < 0.33) {
+      setGradientType('linear');
+    } else if (randomType < 0.66) {
+      setGradientType('radial');
+    } else {
+      setGradientType('conic');
+    }
+
+
   }, []);
 
-  const gradientStyle = generateGradientStyle(gradientColors, gradientAngle);
+  const gradientStyle = generateGradientStyle(gradientType, gradientColors, gradientAngle);
 
   return (
     <div
