@@ -6,6 +6,7 @@ import { formatFileSize } from '@/helpers/formatting';
 
 import classes from './styles.module.css';
 import Avatar from 'boring-avatars';
+import { RandomGradientContainer } from '@/helpers/gradients';
 
 export default function WideFocusedCard(props: HomepageDataset) {
     const gradientFunction = () => {
@@ -19,7 +20,7 @@ export default function WideFocusedCard(props: HomepageDataset) {
     };
 
     return (
-        <div className={ classes.cardContainer }>
+        <RandomGradientContainer className={ classes.cardContainer }>
             <div className={ classes.header }>
                 <div className={ classes.thumbnail }>
                     { props.icon && <img src={ props.icon?.url } alt="avatar" /> }
@@ -108,6 +109,6 @@ export default function WideFocusedCard(props: HomepageDataset) {
                     </div>
                 </div>
             </div>
-        </div>
+        </RandomGradientContainer>
     );
 }
