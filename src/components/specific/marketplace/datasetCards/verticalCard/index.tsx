@@ -28,18 +28,19 @@ export default function VerticalCard(
                     <div className={ classes.imageContainer }>
                         
                         {
-                            props.thumbnail?.url ? (
+                            props.thumbnail!.url === null ?
+                            
+                            (<RandomGradientComponent className = { classes.image } />)
+                            
+                            : (
                             <Image
                                 fill={ true }
                                 className={ classes.image }
-                                src={
-                                    props.thumbnail?.url ??
-                                    getDefaultDatasetThumbnail(props.type).src
-                                }
+                                src={ props.thumbnail!.url }
                                 alt="cover"
                             />
-                          ) :
-                            <RandomGradientComponent className = { classes.image } />
+                          ) 
+                            
                             
                         }
 

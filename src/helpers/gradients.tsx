@@ -30,21 +30,14 @@ export function RandomGradientComponent({ className } : {className: string}) {
 
   const gradientStyle = generateGradientStyle(gradientColors);
 
-  return (
-    <div
-        style={ {
-            position: 'relative',
-            width: '100%',
-            height: '100vh',
-            backgroundImage: gradientStyle,
-        } }
-
-        className= { className }
-
-    >
-        
-       
-    </div>
+  return (    
+        <Image
+            src=""
+            fill={ true }
+            style={ {objectFit: "cover" ,backgroundImage: gradientStyle, fontSize: 0, textIndent: "100%", overflow: "hidden", whiteSpace: "nowrap"  } }
+            alt = ""
+            className= {className}
+        />
   );
     
 }
