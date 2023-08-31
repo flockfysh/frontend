@@ -32,7 +32,9 @@ export function RandomGradientComponent({ className } : {className: string}) {
 
   return (
     <div>
-        <div style={ gradientStyle }>
+        <div style={ { objectFit: 'cover', backgroundImage: gradientStyle } } className = { className }>
+        
+        
         </div>
         
     </div>
