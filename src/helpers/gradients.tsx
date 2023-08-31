@@ -38,6 +38,7 @@ export function RandomGradientComponent({ className } : {className: string}) {
             objectFit="cover"
             className= { className }
             style={ { backgroundImage: gradientStyle } }
+            alt = "#"
         />
     </div>
   );
