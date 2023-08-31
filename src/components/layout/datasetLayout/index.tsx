@@ -183,7 +183,7 @@ export default function DatasetInfo(props: PropsWithChildren) {
                                             <Avatar
                                                 name= { dataset.name }
                                                 size={ 40 }
-                                                square = {true}
+                                                square = { true }
                                             />
                                         )
                                     }
