@@ -2,7 +2,7 @@ import Link from 'next/link';
 import DatasetTypeCard from '../../datasetTypeCard';
 
 import classes from './styles.module.css';
-import { RandomGradientComponent } from '@/helpers/gradients';
+import { RandomGradientComponent, RandomGradientContainer } from '@/helpers/gradients';
 
 export default function VerticalCollectionCard(props: any) {
     const gradientFunction = () => {
@@ -21,7 +21,7 @@ export default function VerticalCollectionCard(props: any) {
 
 
     return (
-        <div className={ classes.container }>
+        <RandomGradientContainer className={ classes.container }>
             { /* <div
                 className={ classes.thumbnail }
                 style={ {
@@ -40,7 +40,6 @@ export default function VerticalCollectionCard(props: any) {
                 } }
             /> */ }
 
-            <RandomGradientComponent className=""/>
 
             <div className={ classes.contentContainer }>
                 <Link href= { `/collections/${props._id}` }>
@@ -70,6 +69,6 @@ export default function VerticalCollectionCard(props: any) {
                     </div>
                 </Link>
             </div>
-        </div>
+        </RandomGradientContainer>
     );
 }
