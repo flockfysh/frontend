@@ -28,7 +28,7 @@ export default function VerticalCard(
                     <div className={ classes.imageContainer }>
                         
                         {
-                            props.thumbnail!.url === null ?
+                            props.thumbnail?.url ?
                             
                             (<RandomGradientComponent className = { classes.image } />)
                             
@@ -36,7 +36,7 @@ export default function VerticalCard(
                             <Image
                                 fill={ true }
                                 className={ classes.image }
-                                src={ props.thumbnail!.url }
+                                src={ props.thumbnail?.url }
                                 alt="cover"
                             />
                           ) 
