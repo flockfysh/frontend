@@ -5,22 +5,29 @@ import ProfileCard from '@/components/specific/marketplace/profileCard';
 
 import { formatFileSize } from '@/helpers/formatting';
 import { getDefaultDatasetThumbnail } from '@/helpers/defaults';
-
+import { RandomGradientComponent } from '@/helpers/gradients';
 import classes from './styles.module.css';
 
 export default function FocusedDataset(props: HomepageDataset) {
     return (
         <div className={ classes.focusedDatasetSection }>
             <div className={ classes.focusedDatasetBackground }>
-                <Image
-                    className={ classes.focusedDatasetBackgroundImage }
-                    src={
-                        props.thumbnail?.url ??
-                        getDefaultDatasetThumbnail(props.type)
-                    }
-                    fill={ true }
-                    alt="Dataset background"
-                />
+                {
+                   props.thumbnail?.url ? 
+                   (
+                    <Image
+                        className={ classes.focusedDatasetBackgroundImage }
+                        src={
+                            props.thumbnail?.url
+                        }
+                        fill={ true }
+                        alt="Dataset background"
+                    />
+                   ) : (
+                    <RandomGradientComponent className = { classes.focusedDatasetBackgroundImage } />
+                   )
+                }
+                
             </div>
 
             <div className={ classes.overlay } />
