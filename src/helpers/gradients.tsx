@@ -125,7 +125,7 @@ export function RandomGradientContainer(props : any) {
         style={ {
             position: 'relative',
             width: '100%',
-            height: '100vh',
+            height: '100%',
             backgroundImage: gradientStyle,
         } }
 
