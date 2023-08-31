@@ -17,9 +17,7 @@ export default function FocusedDataset(props: HomepageDataset) {
                    (
                     <Image
                         className={ classes.focusedDatasetBackgroundImage }
-                        src={
-                            props.thumbnail?.url
-                        }
+                        src={ props.thumbnail?.url }
                         fill={ true }
                         alt="Dataset background"
                     />

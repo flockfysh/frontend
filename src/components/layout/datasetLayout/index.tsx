@@ -20,7 +20,7 @@ import { dayjs } from '@/helpers/date';
 import { formatFileSize } from '@/helpers/formatting';
 import { genPurchaseUrl } from '@/helpers/endpoints/datasets';
 import { DATASET_LICENSE_DESCRIPTION } from '@/helpers/enums/license';
-
+import { RandomGradientComponent } from '@/helpers/gradients';
 import bookmark from '@/icons/main/bookmark.svg';
 import bookmarkFilled from '@/icons/main/bookmarkFilled.svg';
 import cpu from '@/icons/main/cpu.svg';
@@ -130,14 +130,21 @@ export default function DatasetInfo(props: PropsWithChildren) {
                 <header className={ classes.headerWrapper }>
                     { /* image */ }
                     <div className={ classes.imageWrapper }>
-                        <img
-                            className={ classes.headerImage }
-                            src={
-                                dataset.thumbnail?.url ??
-                                'https://c.pxhere.com/photos/0d/b1/photo-168471.jpg!d'
-                            }
-                            alt="Datasets portrait image"
-                        />
+                        {
+                            dataset.thumbnail?.url ? 
+                                (
+                                <img
+                                className={ classes.headerImage }
+                                src={
+                                    dataset.thumbnail?.url
+                                }
+                                alt="Datasets portrait image"
+                            />
+) :
+                             (
+                                <RandomGradientComponent className = { classes.headerImage } />
+                             )
+                        }
 
                         <div className={ classes.imageTag }>
                             <ReactSVG
