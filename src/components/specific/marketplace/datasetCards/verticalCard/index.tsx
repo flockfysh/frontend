@@ -6,7 +6,8 @@ import Link from 'next/link';
 import DatasetTypeCard from '../../datasetTypeCard';
 
 import { formatFileSize } from '@/helpers/formatting';
-import { getDefaultDatasetThumbnail, RandomGradientComponent } from '@/helpers/defaults';
+import { getDefaultDatasetThumbnail } from '@/helpers/defaults';
+import { RandomGradientComponent } from '@/helpers/gradients';
 import { dayjs } from '@/helpers/date';
 
 import clock from '@/icons/main/clock.svg';
