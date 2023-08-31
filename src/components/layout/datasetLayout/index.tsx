@@ -14,7 +14,7 @@ import RadioButtons from '@/components/ui/input/radioButtons';
 import ActionPopupWithButton from '@/components/ui/modals/actionPopupWithButton';
 
 import { DownloaderContext } from '@/contexts/downloaderContext';
-
+import Avatar from 'boring-avatars';
 import api from '@/helpers/api';
 import { dayjs } from '@/helpers/date';
 import { formatFileSize } from '@/helpers/formatting';
@@ -117,6 +117,8 @@ export default function DatasetInfo(props: PropsWithChildren) {
 
     if (!dataset || typeof datasetId !== 'string') return <></>;
 
+
+
     return (
         <DatasetInfoContext.Provider value={ dataset }>
             
@@ -167,14 +169,24 @@ export default function DatasetInfo(props: PropsWithChildren) {
                         <div className={ classes.actionButtonsAndImageWrapper }>
                             <div className={ classes.datasetImageWrapper }>
                                 <div className={ classes.datasetImageContainer }>
-                                    <img
-                                        className={ classes.datasetImage }
-                                        src={
-                                            dataset.icon?.url ??
-                                            'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fget.pxhere.com%2Fphoto%2Fcar-vehicle-martini-sports-car-race-car-supercar-team-racing-race-track-porsche-motorsport-leicam-summilux50f14-typ240-supercup-sebastianloeb-gt3r-louwmanmuseum-land-vehicle-auto-racing-automobile-make-automotive-design-performance-car-stock-car-racing-porsche-911-gt3-porsche-911-gt2-236174.jpg&f=1&nofb=1&ipt=1806d4f590c10c3f085ed81b7b35d359fb70e4d85672c00eb29e2eacf4b63453&ipo=images'
-                                        }
-                                        alt="Datasets Image"
-                                    />
+                                    { 
+                                        dataset.icon?.url ? 
+                                        (
+<img
+                                            className={ classes.datasetImage }
+                                            src={
+                                                dataset.icon?.url 
+                                            }
+                                            alt="Datasets Image"
+                                        />
+ ): (
+                                            <Avatar
+                                                name= { dataset.name }
+                                                size={ 40 }
+
+                                            />
+                                        )
+                                    }
                                 </div>
                             </div>
 
