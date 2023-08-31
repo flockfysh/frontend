@@ -10,12 +10,12 @@ const generateRandomColor = () => {
   return color;
 };
 
-const generateColorPalette = (baseColor) => {
+const generateColorPalette = (baseColor:any) => {
   const complementaryColor = `#${(0xFFFFFF ^ parseInt(baseColor.slice(1), 16)).toString(16).padStart(6, '0')}`;
   return [baseColor, complementaryColor];
 };
 
-const generateGradientStyle = (colors) => {
+const generateGradientStyle = (colors:any) => {
   return `linear-gradient(to bottom right, ${colors[0]}, ${colors[1]})`;
 };
 
@@ -24,7 +24,7 @@ export function RandomGradientComponent({ className } : {className: string}) {
 
   useEffect(() => {
     const baseColor = generateRandomColor();
-    const paletteColors = generateColorPalette(baseColor);
+    const paletteColors:any = generateColorPalette(baseColor);
     setGradientColors(paletteColors);
   }, []);
 
