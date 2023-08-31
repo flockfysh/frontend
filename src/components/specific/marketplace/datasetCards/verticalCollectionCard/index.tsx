@@ -5,15 +5,40 @@ import classes from './styles.module.css';
 import { RandomGradientComponent } from '@/helpers/gradients';
 
 export default function VerticalCollectionCard(props: any) {
-    
+    const gradientFunction = () => {
+        const gradients = ['#92A1C6', '#146A7C'];
+        return gradients[Math.round(Math.random() * 1)];
+    };
+
+    const gradientFunction2 = () => {
+        const gradients = ['#F0AB3D', '#C271B4', '#C20D90'];
+        return gradients[Math.round(Math.random() * 2)];
+    };
+
+
     const tags = props.datasetsByTags.map((item:any) => item.type).filter((v:any, i:any, a:any) => a.indexOf(v) === i).join();
 
 
 
     return (
         <div className={ classes.container }>
-            
-            <RandomGradientComponent className= { classes.thumbnail }/>
+            <div
+                className={ classes.thumbnail }
+                style={ {
+                    background:
+                        'linear-gradient(' +
+                        Math.round(Math.random() * 360) +
+                        'deg, ' +
+                        gradientFunction() +
+                        ' ' +
+                        Math.round(Math.random() * 30) +
+                        '%,' +
+                        gradientFunction2() +
+                        ' ' +
+                        Math.round(Math.random() * 35 + 70) +
+                        '%)',
+                } }
+            />
 
             <div className={ classes.contentContainer }>
                 <Link href= { `/collections/${props._id}` }>
