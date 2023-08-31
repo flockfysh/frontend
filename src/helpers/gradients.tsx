@@ -34,9 +34,9 @@ export function RandomGradientComponent({ className } : {className: string}) {
         <Image
             src=""
             fill={ true }
-            style={ {objectFit: "cover" ,backgroundImage: gradientStyle, fontSize: 0, textIndent: "100%", overflow: "hidden", whiteSpace: "nowrap"  } }
+            style={ { objectFit: 'cover', backgroundImage: gradientStyle, fontSize: 0, textIndent: '100%', overflow: 'hidden', whiteSpace: 'nowrap'  } }
             alt = ""
-            className= {className}
+            className= { className }
         />
   );
     
