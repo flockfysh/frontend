@@ -16,6 +16,7 @@ import api from '@/helpers/api';
 import cpu from '@/icons/main/cpu.svg';
 
 import classes from './styles.module.css';
+import Avatar from 'boring-avatars';
 
 function PostItems() {
     const router = useRouter();
@@ -93,6 +94,8 @@ function PostItems() {
     }, [post]);
 
     if (!postData || typeof postId !== 'string') return <></>;
+    const cols = ['marble', 'beam', 'pixel', 'sunset', 'ring', 'bauhaus'];
+    
     return (
         <MarketplaceLayout>
             <div className={ classes.container }>
@@ -105,7 +108,6 @@ function PostItems() {
                 <header className={ classes.headerWrapper }>
                     { /* image */ }
                     <div className={ classes.imageWrapper }>
-                        
                         <RandomGradientComponent className= { classes.headerImage }/>
 
                         <div className={ classes.imageTag }>
@@ -126,13 +128,14 @@ function PostItems() {
                         <div className={ classes.actionButtonsAndImageWrapper }>
                             <div className={ classes.datasetImageWrapper }>
                                 <div className={ classes.datasetImageContainer }>
-                                    <img
-                                        className={ classes.datasetImage }
-                                        src={
-                                            'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fget.pxhere.com%2Fphoto%2Fcar-vehicle-martini-sports-car-race-car-supercar-team-racing-race-track-porsche-motorsport-leicam-summilux50f14-typ240-supercup-sebastianloeb-gt3r-louwmanmuseum-land-vehicle-auto-racing-automobile-make-automotive-design-performance-car-stock-car-racing-porsche-911-gt3-porsche-911-gt2-236174.jpg&f=1&nofb=1&ipt=1806d4f590c10c3f085ed81b7b35d359fb70e4d85672c00eb29e2eacf4b63453&ipo=images'
-                                        }
-                                        alt="Datasets Image"
-                                    />
+                                    <div className= { classes.datasetImage }>
+                                        <Avatar
+                                            name= { post.title }
+                                            size= { 150 }
+                                            square = { true }
+                                            variant = { cols[post.title.length % cols.length] } 
+                                        />
+                                    </div>
                                 </div>
                             </div>
 
