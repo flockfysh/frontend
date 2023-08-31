@@ -43,12 +43,7 @@ export function RandomGradientComponent({ className } : {className: string}) {
 
     >
         
-        <Image
-            src=""
-            fill={ true }
-            style={ { backgroundImage: gradientStyle } }
-            alt = "#"
-        />
+       
     </div>
   );
     
