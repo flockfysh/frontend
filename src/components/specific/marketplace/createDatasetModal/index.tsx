@@ -24,6 +24,7 @@ import coinStack from '@/icons/main/coin-stack.svg';
 import classes from './styles.module.css';
 import { toast } from 'react-toastify';
 import { Router, useRouter } from 'next/router';
+import { Circles } from 'react-loading-icons';
 
 type CreateDatasetModalProps = {
     onClose: () => void;
@@ -212,7 +213,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
     const [isAgreed, updateAgreed] = useState(false);
 
     const [isUpload, updateIsUpload] = useState(true);
-
+    const [loading, setLoading] = useState(false);
     const router = useRouter();
 
    
@@ -272,8 +273,8 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                 <form
                     className={ classes.form }
                     onSubmit={ async (e) => {
-
                             e.preventDefault();
+                            setLoading(true);
                             const formData = new FormData(e.currentTarget);
 
                             if(isUpload){
@@ -291,6 +292,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                                 props.onClose();
                                 toast.success('Dataset was sucessfully created!');                                    
                             }
+                            setLoading(false);
                         } 
                     }
                 >
@@ -603,7 +605,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                         <button
                             type="submit"
                             className={ classes.submit }
-                            disabled={ !isAgreed }
+                            disabled={ !isAgreed || loading }
                         >
                             { isUpload ? (
                                 <>
@@ -620,6 +622,7 @@ export default function CreateDatasetModal(props: CreateDatasetModalProps) {
                             ) }
                         </button>
                     </div>
+                    { loading && <Circles/> }
                 </form>
             </div>
         </div>
