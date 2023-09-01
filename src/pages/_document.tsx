@@ -27,11 +27,6 @@ export default function Document() {
 
       <body>
         <Main />
-        <script
-          src="https://www.paypal.com/sdk/js?client-id=Abl0oiSPSBlNspGCP4vh4O0nVa4KO1NmSCWY1M6iUweon9EhlnpF9NU8uu97hqVzQA3jmF5dvRkDQZ6F"
-          async
-        ></script>
-
         <NextScript />
       </body>
     </Html>
