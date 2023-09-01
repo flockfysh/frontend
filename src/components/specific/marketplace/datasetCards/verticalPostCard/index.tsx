@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 import ProfileCard from '../../profileCard';
+import { RandomGradientContainer } from '@/helpers/gradients';
 
 import api from '@/helpers/api';
 
@@ -48,25 +49,8 @@ export default function VerticalPostCard(props: HomepagePost) {
     }, [user]);
 
     return (
-        <div className={ classes.container }>
-            <div
-                className={ classes.thumbnail }
-                style={ {
-                    background:
-                        'linear-gradient(' +
-                        Math.round(Math.random() * 360) +
-                        'deg, ' +
-                        gradientFunction() +
-                        ' ' +
-                        Math.round(Math.random() * 30) +
-                        '%,' +
-                        gradientFunction2() +
-                        ' ' +
-                        Math.round(Math.random() * 35 + 70) +
-                        '%)',
-                } }
-            />
-
+        <RandomGradientContainer className={ classes.container }>
+            
             <div className={ classes.contentContainer }>
                 <div className={ classes.header }>
                     <img
@@ -98,6 +82,6 @@ export default function VerticalPostCard(props: HomepagePost) {
                     </div>
                 </div>
             </div>
-        </div>
+        </RandomGradientContainer>
     );
 }

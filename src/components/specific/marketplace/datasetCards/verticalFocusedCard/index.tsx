@@ -1,6 +1,6 @@
 import ProfileCard from '../../profileCard';
 import DatasetTypeCard from '../../datasetTypeCard';
-
+import { RandomGradientContainer } from '@/helpers/gradients';
 import classes from './style.module.css';
 
 type VerticalFocusedCardProps = {
@@ -13,7 +13,7 @@ type VerticalFocusedCardProps = {
 
 export default function VerticalFocusedCard(props: VerticalFocusedCardProps) {
     return (
-        <div className={ classes.container }>
+        <RandomGradientContainer className={ classes.container }>
             <div className={ classes.contentContainer }>
                 <div className={ classes.header }>
                     <img src={ props.avatar } alt="avatar" />
@@ -40,6 +40,6 @@ export default function VerticalFocusedCard(props: VerticalFocusedCardProps) {
                     </div>
                 </div>
             </div>
-        </div>
+        </RandomGradientContainer>
     );
 }

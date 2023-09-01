@@ -6,7 +6,7 @@ import Link from 'next/link';
 import DatasetTypeCard from '../../datasetTypeCard';
 
 import { formatFileSize } from '@/helpers/formatting';
-import { getDefaultDatasetThumbnail } from '@/helpers/defaults';
+import { RandomGradientComponent } from '@/helpers/gradients';
 import { dayjs } from '@/helpers/date';
 
 import clock from '@/icons/main/clock.svg';
@@ -26,16 +26,23 @@ export default function VerticalCard(
 
                     <div className={ classes.imageContainer }>
                         
-                        <Image
-                            fill={ true }
-                            className={ classes.image }
-                            src={
-                                props.thumbnail?.url ??
-                                getDefaultDatasetThumbnail(props.type).src
-                            }
-                            alt="cover"
-                        />
+                        {
+                            props.thumbnail?.url ?
+                            
+                            (
+                            <Image
+                                fill={ true }
+                                className={ classes.image }
+                                src={ props.thumbnail?.url }
+                                alt="cover"
+                            />
+                          )
+                            
+                            :  
+                            (<RandomGradientComponent className = { classes.image } />)
 
+                            
+                        }
 
 
                 </div>

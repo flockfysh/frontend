@@ -14,18 +14,19 @@ import RadioButtons from '@/components/ui/input/radioButtons';
 import ActionPopupWithButton from '@/components/ui/modals/actionPopupWithButton';
 
 import { DownloaderContext } from '@/contexts/downloaderContext';
-
+import Avatar from 'boring-avatars';
 import api from '@/helpers/api';
 import { dayjs } from '@/helpers/date';
 import { formatFileSize } from '@/helpers/formatting';
 import { genPurchaseUrl } from '@/helpers/endpoints/datasets';
 import { DATASET_LICENSE_DESCRIPTION } from '@/helpers/enums/license';
-
+import { RandomGradientComponent } from '@/helpers/gradients';
 import bookmark from '@/icons/main/bookmark.svg';
 import bookmarkFilled from '@/icons/main/bookmarkFilled.svg';
 import cpu from '@/icons/main/cpu.svg';
 import download from '@/icons/main/download.svg';
 import flag from '@/icons/main/flag.svg';
+
 
 import classes from './styles.module.css';
 import { NextSeo } from 'next-seo';
@@ -116,6 +117,8 @@ export default function DatasetInfo(props: PropsWithChildren) {
 
     if (!dataset || typeof datasetId !== 'string') return <></>;
 
+
+    const cols = ['marble', 'beam', 'pixel', 'sunset', 'ring', 'bauhaus'];
     return (
         <DatasetInfoContext.Provider value={ dataset }>
             
@@ -130,14 +133,21 @@ export default function DatasetInfo(props: PropsWithChildren) {
                 <header className={ classes.headerWrapper }>
                     { /* image */ }
                     <div className={ classes.imageWrapper }>
-                        <img
-                            className={ classes.headerImage }
-                            src={
-                                dataset.thumbnail?.url ??
-                                'https://c.pxhere.com/photos/0d/b1/photo-168471.jpg!d'
-                            }
-                            alt="Datasets portrait image"
-                        />
+                        {
+                            dataset.thumbnail?.url ? 
+                                (
+                                <img
+                                className={ classes.headerImage }
+                                src={
+                                    dataset.thumbnail?.url
+                                }
+                                alt="Datasets portrait image"
+                            />
+) :
+                             (
+                                <RandomGradientComponent className = { classes.headerImage } />
+                             )
+                        }
 
                         <div className={ classes.imageTag }>
                             <ReactSVG
@@ -159,14 +169,27 @@ export default function DatasetInfo(props: PropsWithChildren) {
                         <div className={ classes.actionButtonsAndImageWrapper }>
                             <div className={ classes.datasetImageWrapper }>
                                 <div className={ classes.datasetImageContainer }>
-                                    <img
-                                        className={ classes.datasetImage }
-                                        src={
-                                            dataset.icon?.url ??
-                                            'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fget.pxhere.com%2Fphoto%2Fcar-vehicle-martini-sports-car-race-car-supercar-team-racing-race-track-porsche-motorsport-leicam-summilux50f14-typ240-supercup-sebastianloeb-gt3r-louwmanmuseum-land-vehicle-auto-racing-automobile-make-automotive-design-performance-car-stock-car-racing-porsche-911-gt3-porsche-911-gt2-236174.jpg&f=1&nofb=1&ipt=1806d4f590c10c3f085ed81b7b35d359fb70e4d85672c00eb29e2eacf4b63453&ipo=images'
-                                        }
-                                        alt="Datasets Image"
-                                    />
+                                    { 
+                                        dataset.icon?.url ? 
+                                        (
+                                        <img
+                                            className={ classes.datasetImage }
+                                            src={
+                                                dataset.icon?.url 
+                                            }
+                                            alt="Datasets Image"
+                                        />
+                                        ): (
+                                        <div className= { classes.datasetImage }>
+                                            <Avatar
+                                                name= { dataset.name }
+                                                size= { 150 }
+                                                square = { true }
+                                                variant = { cols[dataset.name.length % cols.length] } 
+                                            />
+                                        </div>
+                                        )
+                                    }
                                 </div>
                             </div>
 
