@@ -19,88 +19,90 @@ export default function VerticalCard(
     }
 ) {
     return (
+
         <div className={ `${classes.container} ${props.className || ''}` }>
-            <div className={ classes.contentContainer }>
-                <div className={ classes.header }>
+            <Link href = { `/marketplace/${props._id}` }>
+                <div className={ classes.contentContainer }>
+                    <div className={ classes.header }>
+                    
+
+                        <div className={ classes.imageContainer }>
+                            
+                            {
+                                props.thumbnail?.url ?
+                                
+                                (
+                                <Image
+                                    fill={ true }
+                                    className={ classes.image }
+                                    src={ props.thumbnail?.url }
+                                    alt="cover"
+                                />
+                            )
+                                
+                                :  
+                                (<RandomGradientComponent className = { classes.image } />)
+
+                                
+                            }
+
+
+                    </div>
+
+                        <div className={ classes.timeContainer }>
+                            <ReactSVG
+                                src={ clock.src }
+                                className={ classes.clockIcon }
+                            />
+                            
+                            <p>{ dayjs(props.updatedAt).fromNow() }</p>
+                        </div>
+                    </div>
+
+                    <div className={ classes.middleSection }>
+                        <DatasetTypeCard
+                                type={ props.type }
+                                className={ classes.typeContainer }
+                            />
+
+                        <h1>{ props.name }</h1>
+                        <p><Link href={ `/profile/${props.user.username}` }>@{ props.user.username.slice(0, 16) }</Link></p>
+                    </div>
+
                 
 
-                    <div className={ classes.imageContainer }>
-                        
-                        {
-                            props.thumbnail?.url ?
-                            
-                            (
-                            <Image
-                                fill={ true }
-                                className={ classes.image }
-                                src={ props.thumbnail?.url }
-                                alt="cover"
-                            />
-                          )
-                            
-                            :  
-                            (<RandomGradientComponent className = { classes.image } />)
+                    { props.price > 0 && (
+                        <div className={ classes.priceContainer }>
+                            <p>${ props.price?.toFixed(2) }</p>
+                        </div>
+                    ) }
 
-                            
-                        }
+                    <div className={ classes.footer }>
+                        <div
+                            className={
+                                classes.footerCardContainer +
+                                (props.price > 0 ? ' ' + classes.paidShrink : '')
+                            }
+                        >
+                            <p>Items</p>
 
+                            <h1>{ props.assetCounts.total }</h1>
+                        </div>
 
-                </div>
-
-                    <div className={ classes.timeContainer }>
-                        <ReactSVG
-                            src={ clock.src }
-                            className={ classes.clockIcon }
-                        />
-                        
-                        <p>{ dayjs(props.updatedAt).fromNow() }</p>
+                        <div
+                            className={
+                                classes.footerCardContainer +
+                                (props.price > 0 ? ' ' + classes.paidShrink : '')
+                            }
+                        >
+                            <p className={ classes.size }>Size</p>
+                            <h1>{ formatFileSize(props.size.total.total) }</h1>
+                        </div>
                     </div>
                 </div>
 
-                <div className={ classes.middleSection }>
-                    <DatasetTypeCard
-                            type={ props.type }
-                            className={ classes.typeContainer }
-                        />
+            </Link>
 
-                    <h1>{ props.name }</h1>
-                    <p><Link href={ `/profile/${props.user.username}` }>@{ props.user.username.slice(0, 16) }</Link></p>
-                </div>
-
-                <Link
-                    className={ classes.linkOverlay }
-                    href={ `/marketplace/${props._id}` }
-                />
-
-                { props.price > 0 && (
-                    <div className={ classes.priceContainer }>
-                        <p>${ props.price?.toFixed(2) }</p>
-                    </div>
-                ) }
-
-                <div className={ classes.footer }>
-                    <div
-                        className={
-                            classes.footerCardContainer +
-                            (props.price > 0 ? ' ' + classes.paidShrink : '')
-                        }
-                    >
-                        <p>Items</p>
-
-                        <h1>{ props.assetCounts.total }</h1>
-                    </div>
-
-                    <div
-                        className={
-                            classes.footerCardContainer +
-                            (props.price > 0 ? ' ' + classes.paidShrink : '')
-                        }
-                    >
-                        <p className={ classes.size }>Size</p>
-                        <h1>{ formatFileSize(props.size.total.total) }</h1>
-                    </div>
-                </div>
-            </div>
         </div>
     );
 }
