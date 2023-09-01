@@ -74,7 +74,6 @@ export function RandomGradientComponent(props : GradientProps) {
     <div
         style={ {
             position: 'relative',
-            width: '100%',
             height: '100vh',
             backgroundImage: gradientStyle,
         } }
