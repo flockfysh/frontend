@@ -42,8 +42,6 @@ export default function VerticalCard(
                                 
                                 :  
                                 (<RandomGradientComponent className = { classes.image } />)
-
-                                
                             }
 
 
