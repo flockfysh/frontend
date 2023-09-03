@@ -32,23 +32,6 @@ export default function WideFocusedCard(props: HomepageDataset) {
                 />
             </div>
 
-            <div
-                className={ classes.image }
-                style={ {
-                    background:
-                        'linear-gradient(' +
-                        Math.round(Math.random() * 360) +
-                        'deg, ' +
-                        gradientFunction() +
-                        ' ' +
-                        Math.round(Math.random() * 30) +
-                        '%,' +
-                        gradientFunction2() +
-                        ' ' +
-                        Math.round(Math.random() * 35 + 70) +
-                        '%)',
-                } }
-            />
 
             <div className={ classes.overlay } />
 
