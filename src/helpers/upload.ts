@@ -1,6 +1,77 @@
 import api from './api';
 
 
+export async function uploadAndChunk(
+  chunkSize:number = 1024 * 1024 * 10,
+  file: File,
+  initializeMultipartEndpoint: string,
+  datasetId: string,
+) {
+    //Initialize an upload 
+    const initInput = {
+      datasetId: datasetId,
+      options: {
+        originalname: file.name,
+        size: file.size, 
+        mimetype: file.type,   
+      },
+    };
+
+    const initializeReponse = await api.request({
+      url: initializeMultipartEndpoint,
+      method: 'POST',
+      data: initInput,
+    });
+
+    const AWSFileDataOutput = initializeReponse.data.data.multi;
+
+    const UploadId = AWSFileDataOutput.UploadId;
+    const UploadKey = AWSFileDataOutput.Key;
+
+    // retrieving the pre-signed URLs
+    const numberOfparts = Math.ceil(file.size / chunkSize);
+
+    let uploadParts:any = []
+
+    const promises = []
+
+    for(let i = 0; i < numberOfparts; i++) {
+      const slice = file.slice(i * chunkSize, (i + 1) * chunkSize)
+      
+      const formData = new FormData()
+      formData.append("file", slice)
+      formData.append("UploadId", UploadId)
+      formData.append("UploadKey", UploadKey)
+      formData.append("PartNumber", i.toString())
+      
+      const p = api.post('/api/general/multi/part', formData).then((res:any) => {
+        console.log('return data, ', res.data)
+        uploadParts.push({
+          PartNumber: i,
+          ETag: res.ETag,
+        })
+      })
+
+      promises.push(p)
+
+    }
+
+    console.log('sending all promises')
+    await Promise.all(promises)
+
+    console.log('sending through completion')
+    await api.post('/api/general/multi/done', {
+      Parts: uploadParts,
+      UploadId: UploadId,
+      UploadKey: UploadKey,
+    }).then((res) => {
+      console.log('upload success')
+    }).catch((err) => {
+      console.log('fail', err)
+    })
+
+}
+
 export class Uploader {
     chunkSize: number;
     threadsQuantity: number;
