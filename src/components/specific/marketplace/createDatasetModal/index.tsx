@@ -122,12 +122,7 @@ async function buildDataset(formData: FormData, router: any) {
 
         await new AsyncArray(files).chunkMap((file) => {
             console.log(config.fieldName);
-            if(config.fieldName === 'asset') {
-                uploadAndChunk(1024 * 1024 * 5, file, `/api/datasets/${newDataset._id}/assets/upload/${config.endpoint}`, newDataset._id)
-            }
-             else {
-                upload(file);
-            }
+            uploadAndChunk(1024 * 1024 * 5, file, `/api/datasets/${newDataset._id}/assets/upload/${config.endpoint}`, newDataset._id);
         }, undefined, {
             maxThreads: 100,
         });
@@ -207,9 +202,13 @@ async function uploadDataset(formData: FormData) {
  catch (e) {}
     }
 
-    await new AsyncArray(files).chunkMap((file) => upload(file), undefined, {
+    await new AsyncArray(files).chunkMap((file) => {
+        console.log(config.fieldName);
+        uploadAndChunk(1024 * 1024 * 5, file, `/api/datasets/${newDataset._id}/assets/upload/${config.endpoint}`, newDataset._id);
+    }, undefined, {
         maxThreads: 100,
     });
+
 }
 
 export default function CreateDatasetModal(props: CreateDatasetModalProps) {

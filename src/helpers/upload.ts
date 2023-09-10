@@ -31,59 +31,57 @@ export async function uploadAndChunk(
     // retrieving the pre-signed URLs
     const numberOfparts = Math.ceil(file.size / chunkSize);
 
-    let uploadParts:any = []
+    const uploadParts:any = [];
 
-    const promises = []
+    const promises = [];
 
     for(let i = 0; i < numberOfparts; i++) {
-      const file_slice = file.slice(i * chunkSize, (i + 1) * chunkSize)
+      const file_slice = file.slice(i * chunkSize, (i + 1) * chunkSize);
       
-      const formData = new FormData()
-      formData.append("file", file_slice)
-      formData.append("UploadId", UploadId)
-      formData.append("Key", Key)
-      formData.append("PartNumber", i.toString())
+      const formData = new FormData();
+      formData.append('file', file_slice);
+      formData.append('UploadId', UploadId);
+      formData.append('Key', Key);
+      formData.append('PartNumber', (i + 1).toString());
       
-      const p = new Promise(async (res, rej) => {
+      const p = api.post('/api/general/multi/part', formData);
 
-        api.post('/api/general/multi/part', formData).then((res:any) => {
-          console.log('return data, ', res.data)
-          uploadParts.push({
-            PartNumber: i + 1, //0 causes an error
-            ETag: res.data.ETag,
-          })
-          console.log('ret', uploadParts)
-
-        }).then(() => {
-          res(200)
-        }).catch(() => {
-          rej(404)
-        })  
-      })
-      
+      console.log('Added promise', i);
       
 
-      promises.push(p)
+      promises.push(p);
 
     }
 
-    console.log('sending all promises')
-    await Promise.all(promises).then(async () => {
+    console.log('sending all promises');
+    await Promise.all(promises).then(async (out) => {
 
-      console.log('sending through completion')
-      console.log(uploadParts)
+      out.map((res, i) => {
+
+        console.log('ADDING', i + 1, res.data.ETag);
+
+        uploadParts.push({
+          PartNumber: i + 1, //0 causes an error
+          ETag: res.data.ETag,
+        });
+
+        console.log('ret', uploadParts);
+      });
+
+      console.log('sending through completion');
+      console.log(uploadParts);
   
       await api.post('/api/general/multi/done', {
         Key: Key,
         UploadId: UploadId,
         Parts: uploadParts,
       }).then((res) => {
-        console.log('upload success')
+        console.log('upload success');
       }).catch((err) => {
-        console.log('fail', err)
-      })
+        console.log('fail', err);
+      });
   
-    })
+    });
 
 
 }
