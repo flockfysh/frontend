@@ -24,6 +24,7 @@ import coinStack from '@/icons/main/coin-stack.svg';
 import classes from './styles.module.css';
 import { toast } from 'react-toastify';
 import { Router, useRouter } from 'next/router';
+import { uploadAndChunk } from '@/helpers/upload';
 
 type CreateDatasetModalProps = {
     onClose: () => void;
@@ -118,7 +119,11 @@ async function buildDataset(formData: FormData, router: any) {
     }
 
     if(files.length > 0){
-        await new AsyncArray(files).chunkMap((file) => upload(file), undefined, {
+
+        await new AsyncArray(files).chunkMap((file) => {
+            console.log(config.fieldName);
+            uploadAndChunk(1024 * 1024 * 5, file, `/api/datasets/${newDataset._id}/assets/upload/${config.endpoint}`, newDataset._id);
+        }, undefined, {
             maxThreads: 100,
         });
     }
@@ -197,9 +202,13 @@ async function uploadDataset(formData: FormData) {
  catch (e) {}
     }
 
-    await new AsyncArray(files).chunkMap((file) => upload(file), undefined, {
+    await new AsyncArray(files).chunkMap((file) => {
+        console.log(config.fieldName);
+        uploadAndChunk(1024 * 1024 * 5, file, `/api/datasets/${newDataset._id}/assets/upload/${config.endpoint}`, newDataset._id);
+    }, undefined, {
         maxThreads: 100,
     });
+
 }
 
 export default function CreateDatasetModal(props: CreateDatasetModalProps) {
