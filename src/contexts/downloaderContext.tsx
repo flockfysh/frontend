@@ -59,6 +59,7 @@ export function DownloaderWrapper(props: React.PropsWithChildren) {
                     promises.push({
                         _id: asset._id,
                         response: fetch(asset.url),
+                        originalname: asset.displayName
                     });
                 }
             } while (paginationState.next);
@@ -68,9 +69,8 @@ export function DownloaderWrapper(props: React.PropsWithChildren) {
                     const extension = mime.extension(
                         response.headers.get('content-type') as string
                     );
-                    const filename = extension
-                        ? `${downloadItem._id}.${extension}`
-                        : `${downloadItem._id}`;
+                    const filename = downloadItem.originalname ??
+                        `${downloadItem._id}.${extension}`;
                     return {
                         name: path.join('/assets', filename),
                         input: response,
