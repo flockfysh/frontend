@@ -24,11 +24,8 @@ import coinStack from '@/icons/main/coin-stack.svg';
 import classes from './styles.module.css';
 import { toast } from 'react-toastify';
 import { Router, useRouter } from 'next/router';
-<<<<<<< HEAD
 import { Circles } from 'react-loading-icons';
-=======
 import { uploadAndChunk } from '@/helpers/upload';
->>>>>>> c74eee38287aad94ec817234318db7d36c171431
 
 type CreateDatasetModalProps = {
     onClose: () => void;
