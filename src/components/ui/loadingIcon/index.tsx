@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 export default function LoadingIcon(props: React.ComponentPropsWithRef<'img'>) {
     return (
-        <Image src={ loading } alt={ 'Loading...' } { ...props }
+        <Image src={ loading } alt={ 'Loading...' }
              className={ `${classes.loadingIcon} ${props.className || ''}` }/>
     );
 }
