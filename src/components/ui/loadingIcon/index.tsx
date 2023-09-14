@@ -5,7 +5,7 @@ import classes from './loadingIcon.module.css';
 
 export default function LoadingIcon(props: React.ComponentPropsWithRef<'img'>) {
     return (
-        <img src={ loading } alt={ 'Loading...' } { ...props }
-             className={ `${classes.loadingIcon} ${props.className || ''}` }/>
+        <img src={ loading } alt={ 'Loading...' }
+             className={ `${classes.loadingIcon} ` }/>
     );
 }
