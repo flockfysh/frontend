@@ -1,14 +1,11 @@
 // // TODO: Fix this component
 
-// import loadingIcon from '../../../images/icons/loading.svg';
-// import classes from './loadingIcon.module.css';
+import loadingIcon from '@/icons/loading.svg';
+import classes from './loadingIcon.module.css';
 
-export default function LoadingIcon(_: React.ComponentPropsWithRef<'img'>) {
-//     return (
-//         <img
-//             src={ loadingIcon }
-//             alt="Loading..."
-//             className={ `${ classes.loadingIcon }` }
-//         />
-//     );
+export default function LoadingIcon(props: React.ComponentPropsWithRef<'img'>) {
+    return (
+        <img src={ loadingIcon } alt={ 'Loading...' } { ...props }
+             className={ `${classes.loadingIcon} ${props.className || ''}` }/>
+    );
 }
