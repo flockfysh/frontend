@@ -126,6 +126,7 @@ function AssetTile(props: {
 }) {
     let component;
 
+    console.log(props.item.url);
     if (typeIs.is(props.item.mimetype, ['image/*']))
         component = (
             <Image
