@@ -132,8 +132,8 @@ function AssetTile(props: {
             <Image
                 fill={ true }
                 className={ classes.image }
-                src={ `/${props.item.url}` }
-                alt={ `/${props.item.url}` }
+                src={ props.item.url }
+                alt={ props.item.url }
             />
         );
     else if (typeIs.is(props.item.mimetype, ['text/*', 'application/json']))
