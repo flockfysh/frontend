@@ -184,6 +184,7 @@ export default function AssetViewer(props: {
     datasetPermissionLevel?: Flockfysh.DatasetAccessLevel;
     searchQuery: { displayName?: string };
     showList: boolean;
+    setCurrItem: (data: Flockfysh.Asset) => void;
 }) {
     const initialState = (): AssetViewerState => {
         return {
@@ -352,11 +353,17 @@ export default function AssetViewer(props: {
                 endReached={ () => load() }
                 itemContent={ function genRow(_index, data) {
                     return (
-                        <>
+                        <div
+                            onMouseEnter={(e) => {
+                                props.setCurrItem(data);
+                            }}>
                             <CustomTableCell>
                                 <input
                                     type="checkbox"
                                     checked={ data.selected }
+                                    onMouseOver={ (e) => {
+                                        console.log(data);
+                                    }}
                                     onChange={ (e) => {
                                         const item = state.assets.get(data._id);
 
@@ -409,7 +416,7 @@ export default function AssetViewer(props: {
                                 </button>
                             </CustomTableCell>
                         
-                        </>
+                        </div>
                     );
                 } }
             />

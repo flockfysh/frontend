@@ -11,6 +11,7 @@ import list from '@/icons/main/list.svg';
 import database from '@/icons/main/database.svg';
 
 import classes from './styles.module.css';
+import { formatFileSize } from '@/helpers/formatting';
 
 const TIME_STATES = {
     oneHour: '1h',
@@ -23,7 +24,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
     const [showList, setShowList] = useState(true);
     const [timeFilter, setTimeFilter] = useState(TIME_STATES.sixHours);
     const [currentNameQuery, setCurrentNameQuery] = useState('');
-
+    const [currItem, setCurrItem] = useState<Flockfysh.Asset | null>(null);
     const toggleViewToList = () => {
         setShowList(true);
     };
@@ -171,23 +172,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
                             </h3>
                         </div>
 
-                        <div className={ classes.infoBoxFileDetailsInnerBox }>
-                            <div
-                                className={
-                                    classes.infoBoxFileDetailsInnerBoxRow
-                                }
-                            >
-                                <div>
-                                    <span>Resolution</span>
-                                </div>
-
-                                <div>
-                                    <span className={ classes.infoWhite }>
-                                        5760 x 3840
-                                    </span>
-                                </div>
-                            </div>
-
+                        { currItem && <div className={ classes.infoBoxFileDetailsInnerBox }>
                             <div
                                 className={
                                     classes.infoBoxFileDetailsInnerBoxRow
@@ -199,7 +184,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
 
                                 <div>
                                     <span className={ classes.infoWhite }>
-                                        ABCDELKLJK.jpeg
+                                        { currItem.displayName }
                                     </span>
                                 </div>
                             </div>
@@ -215,7 +200,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
 
                                 <div>
                                     <span className={ classes.infoWhite }>
-                                        image/jpeg
+                                        { currItem.mimetype }
                                     </span>
                                 </div>
                             </div>
@@ -231,7 +216,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
 
                                 <div>
                                     <span className={ classes.infoWhite }>
-                                        @user
+                                        @user 
                                     </span>
                                 </div>
                             </div>
@@ -263,11 +248,11 @@ export default function ItemViewer(dataset: PreviewDataset) {
 
                                 <div>
                                     <span className={ classes.infoWhite }>
-                                        2.63 MB
+                                        { formatFileSize(currItem.size) }
                                     </span>
                                 </div>
                             </div>
-                        </div>
+                        </div> }
                     </div>
                 </div>
 
@@ -283,6 +268,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
                                 displayName: currentNameQuery || undefined,
                             } }
                             datasetId={ dataset._id }
+                            setCurrItem={setCurrItem}
                         />
                     }
                 </div>

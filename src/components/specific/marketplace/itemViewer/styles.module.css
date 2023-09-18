@@ -172,6 +172,7 @@
 }
 
 .infoBoxFileDetailsInnerBox {
+    overflow: scroll;
 }
 
 .infoBoxFileDetailsInnerBoxRow {
