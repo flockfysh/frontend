@@ -172,7 +172,8 @@ export default function ItemViewer(dataset: PreviewDataset) {
                             </h3>
                         </div>
 
-                        { currItem && <div className={ classes.infoBoxFileDetailsInnerBox }>
+                        { currItem && (
+<div className={ classes.infoBoxFileDetailsInnerBox }>
                             <div
                                 className={
                                     classes.infoBoxFileDetailsInnerBoxRow
@@ -252,7 +253,8 @@ export default function ItemViewer(dataset: PreviewDataset) {
                                     </span>
                                 </div>
                             </div>
-                        </div> }
+                        </div>
+) }
                     </div>
                 </div>
 
@@ -268,7 +270,7 @@ export default function ItemViewer(dataset: PreviewDataset) {
                                 displayName: currentNameQuery || undefined,
                             } }
                             datasetId={ dataset._id }
-                            setCurrItem={setCurrItem}
+                            setCurrItem={ setCurrItem }
                         />
                     }
                 </div>

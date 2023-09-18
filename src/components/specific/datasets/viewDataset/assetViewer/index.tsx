@@ -354,16 +354,16 @@ export default function AssetViewer(props: {
                 itemContent={ function genRow(_index, data) {
                     return (
                         <div
-                            onMouseEnter={(e) => {
+                            onMouseEnter={ (e) => {
                                 props.setCurrItem(data);
-                            }}>
+                            } }>
                             <CustomTableCell>
                                 <input
                                     type="checkbox"
                                     checked={ data.selected }
                                     onMouseOver={ (e) => {
                                         console.log(data);
-                                    }}
+                                    } }
                                     onChange={ (e) => {
                                         const item = state.assets.get(data._id);
 
