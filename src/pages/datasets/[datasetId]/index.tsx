@@ -196,6 +196,7 @@ function MyDatasets() {
                     } }
                     datasetPermissionLevel={ dataset.permission }
                     datasetId={ router.query.datasetId }
+                    setCurrItem={ () => {}}
                 />
             }
 
