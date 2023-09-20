@@ -353,70 +353,71 @@ export default function AssetViewer(props: {
                 endReached={ () => load() }
                 itemContent={ function genRow(_index, data) {
                     return (
-                        <div
-                            onMouseEnter={ (e) => {
-                                props.setCurrItem(data);
-                            } }>
-                            <CustomTableCell>
-                                <input
-                                    type="checkbox"
-                                    checked={ data.selected }
-                                    onMouseOver={ (e) => {
-                                        console.log(data);
-                                    } }
-                                    onChange={ (e) => {
-                                        const item = state.assets.get(data._id);
+                        <>
+                                <CustomTableCell>
+                                    <input
+                                        type="checkbox"
+                                        checked={ data.selected }
+                                        onMouseEnter={ (e) => {
+                                            props.setCurrItem(data);
+                                        } }
+                                        onChange={ (e) => {
+                                            const item = state.assets.get(data._id);
 
-                                        if (item)
-                                            item.selected =
-                                                e.currentTarget.checked;
+                                            if (item)
+                                                item.selected =
+                                                    e.currentTarget.checked;
 
-                                        setState((prev) => ({ ...prev }));
-                                    } }
-                                />
-                            </CustomTableCell>
-
-                            <CustomTableCell>
-                                <span className={ classes.filename }>
-                                    <span className={ classes.filenameText }>
-                                        { data.displayName }
-                                    </span>
-                                </span>
-                            </CustomTableCell>
-
-                            <CustomTableCell className={ classes.uploadDate }>
-                                <span>
-                                    { dayjs(data.uploadedAt).format(
-                                        'DD/MM/YYYY'
-                                    ) }
-                                </span>
-                            </CustomTableCell>
-
-                            <CustomTableCell>
-                                <span>{ capitalize(data.type) }</span>
-                            </CustomTableCell>
-
-                            <CustomTableCell>
-                                <span>{ capitalize(data.stage) }</span>
-                            </CustomTableCell>
-
-                            <CustomTableCell>
-                                <span>{ formatFileSize(data.size) }</span>
-                            </CustomTableCell>
-
-                            <CustomTableCell>
-                                <button
-                                    onClick={ () => delAsset(data._id) }
-                                    className={ classes.deleteButton }
-                                >
-                                    <ReactSVG
-                                        className={ classes.icon }
-                                        src={ trash.src }
+                                            setState((prev) => ({ ...prev }));
+                                        } }
                                     />
-                                </button>
-                            </CustomTableCell>
-                        
-                        </div>
+                                </CustomTableCell>
+
+                                <CustomTableCell>
+                                    <div
+                                        onMouseEnter={ (e) => {
+                                            props.setCurrItem(data);
+                                        } }>
+                                        <span className={ classes.filename }>
+                                        <span className={ classes.filenameText }>
+                                            { data.displayName }
+                                        </span>
+                                    </span>
+                                    </div>
+                                </CustomTableCell>
+
+                                <CustomTableCell className={ classes.uploadDate }>
+                                    <span>
+                                        { dayjs(data.uploadedAt).format(
+                                            'DD/MM/YYYY'
+                                        ) }
+                                    </span>
+                                </CustomTableCell>
+
+                                <CustomTableCell>
+                                    <span>{ capitalize(data.type) }</span>
+                                </CustomTableCell>
+
+                                <CustomTableCell>
+                                    <span>{ capitalize(data.stage) }</span>
+                                </CustomTableCell>
+
+                                <CustomTableCell>
+                                    <span>{ formatFileSize(data.size) }</span>
+                                </CustomTableCell>
+
+                                <CustomTableCell>
+                                    <button
+                                        onClick={ () => delAsset(data._id) }
+                                        className={ classes.deleteButton }
+                                    >
+                                        <ReactSVG
+                                            className={ classes.icon }
+                                            src={ trash.src }
+                                        />
+                                    </button>
+                                </CustomTableCell>
+                        </>
                     );
                 } }
             />
