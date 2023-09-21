@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 
 import { IBellNotification } from './types';
 
-import defaultUser from '@/icons/default.png';
+import { RandomGradientComponent } from '@/helpers/gradients';
 
 import styles from './styles.module.css';
 
@@ -12,6 +12,20 @@ type AppProps = {
     lastSeenDate: dayjs.Dayjs;
     setOpen?: (value: boolean) => void;
 };
+
+export function AvatarComponent(props : any) {
+    return (
+        <>
+            <img
+                src={ props.src }
+                alt="avatar"
+                width={ 32 }
+                height={ 32 }
+                style={ { borderRadius: '50%', minWidth: '32px' } }
+            />
+        </>
+    );
+}
 
 export default function Notification(props: AppProps) {
     return (
@@ -35,14 +49,11 @@ export default function Notification(props: AppProps) {
                             } }
                         />
                     ) }
-                    
-                    <img
-                        src={ props.notification.origin?.picture ? props.notification.origin?.picture : defaultUser.src }
-                        alt="avatar"
-                        width={ 32 }
-                        height={ 32 }
-                        style={ { borderRadius: '50%', minWidth: '32px' } }
-                    />
+                    {
+                        props.notification.origin?.picture ? 
+                            <AvatarComponent src={ props.notification.origin?.picture } /> : 
+                            <RandomGradientComponent className={ styles.notificationImage } />
+                    }
                 </div>
 
                 <div className={ styles.notificationContent }>

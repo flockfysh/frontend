@@ -13,6 +13,7 @@ import api from '@/helpers/api';
 
 import bell from '@/icons/main/bell.svg';
 
+import Badge from '@mui/material/Badge';
 import classes from './styles.module.css';
 
 export default function BellNotification() {
@@ -61,53 +62,56 @@ export default function BellNotification() {
     }, [open]);
 
     return (
-        <div className={ classes.notificationContainer }>
-            <ReactSVG
-                onClick={ () => {
-                    setOpen(!open);
-                    setViewAll(false);
-                } }
-                src={ bell.src }
-                className={ notifications ? classes.noticeIcon : classes.leftIcon }
-            />
-
-            { open && (
-                <motion.div
-                    animate={ {
-                        width: viewAll ? '95vw' : '400px',
-                        height: viewAll ? '95vh' : '',
-                        boxShadow: viewAll ? '0px 4px 198px -1px #000' : '',
+        <>
+            { Object.keys(notifications).length > 0 ? <Badge color="error" badgeContent={ 5 } className= { classes.notificationBadge }></Badge> : '' }
+            
+            <div className={ classes.notificationContainer }>
+                <ReactSVG
+                    onClick={ () => {
+                        setOpen(!open);
+                        setViewAll(false);
                     } }
-                    ref={ ref }
-                    style={ {
-                        position: viewAll ? 'fixed' : 'absolute',
-                        // move to center of screen if viewAll is true
-                        top: viewAll ? '50%' : 'calc(100% + 10px)',
-                        left: viewAll ? '50%' : 'calc(100% + 10px)',
-                        transform: viewAll
-                            ? 'translate(-50%, -50%)'
-                            : 'translate(-50%, 0)',
-                    } }
-                    className={ classes.notificationBox }
-                >
-                    { viewAll ? (
-                        <ModalScreen
-                            lastSeen={ lastSeen ?? dayjs() }
-                            notifications={ notifications }
-                            setViewAll={ setViewAll }
-                            markAllAsRead={ markAllAsRead }
-                            setOpen={ setOpen }
-                        />
-                    ) : (
-                        <OverlayScreen
-                            lastSeen={ lastSeen ?? dayjs() }
-                            notifications={ notifications }
-                            setViewAll={ setViewAll }
-                            markAllAsRead={ markAllAsRead }
-                        />
-                    ) }
-                </motion.div>
-            ) }
-        </div>
+                    src={ bell.src }
+                    className={ notifications ? classes.noticeIcon : classes.leftIcon }
+                />            
+                { open && (
+                    <motion.div
+                        animate={ {
+                            width: viewAll ? '95vw' : '400px',
+                            height: viewAll ? '95vh' : '',
+                            boxShadow: viewAll ? '0px 4px 198px -1px #000' : '',
+                        } }
+                        ref={ ref }
+                        style={ {
+                            position: viewAll ? 'fixed' : 'absolute',
+                            // move to center of screen if viewAll is true
+                            top: viewAll ? '50%' : 'calc(100% + 10px)',
+                            left: viewAll ? '50%' : 'calc(100% + 10px)',
+                            transform: viewAll
+                                ? 'translate(-50%, -50%)'
+                                : 'translate(-50%, 0)',
+                        } }
+                        className={ classes.notificationBox }
+                    >
+                        { viewAll ? (
+                            <ModalScreen
+                                lastSeen={ lastSeen ?? dayjs() }
+                                notifications={ notifications }
+                                setViewAll={ setViewAll }
+                                markAllAsRead={ markAllAsRead }
+                                setOpen={ setOpen }
+                            />
+                        ) : (
+                            <OverlayScreen
+                                lastSeen={ lastSeen ?? dayjs() }
+                                notifications={ notifications }
+                                setViewAll={ setViewAll }
+                                markAllAsRead={ markAllAsRead }
+                            />
+                        ) }
+                    </motion.div>
+                ) }
+            </div>
+        </>
     );
 }
