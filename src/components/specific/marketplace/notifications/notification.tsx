@@ -3,6 +3,8 @@ import dayjs from 'dayjs';
 
 import { IBellNotification } from './types';
 
+import defaultUser from '@/icons/default.png';
+
 import styles from './styles.module.css';
 
 type AppProps = {
@@ -33,9 +35,9 @@ export default function Notification(props: AppProps) {
                             } }
                         />
                     ) }
-
+                    
                     <img
-                        src={ props.notification.origin?.picture ?? '' }
+                        src={ props.notification.origin?.picture ? props.notification.origin?.picture : defaultUser.src }
                         alt="avatar"
                         width={ 32 }
                         height={ 32 }

@@ -64,7 +64,7 @@ export default function VerticalCard(
                             />
 
                         <h1>{ props.name }</h1>
-                        <p><Link href={ `/profile/${props.user.username}` }>@{ props.user.username.slice(0, 16) }</Link></p>
+                        <p><Link href={ `/profile/${props.user?.username}` }>@{ props.user?.username.slice(0, 16) }</Link></p>
                     </div>
 
                 
