@@ -20,6 +20,7 @@ export const FRONTEND_URL = DEBUG
     : 'https://flockfysh.ai';
 
 export const SERVER_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+export const AUTH_SERVER_URL = process.env.NEXT_PUBLIC_AUTH_SERVER_URL
 
 export const serverURL = process.env.NEXT_PUBLIC_BACKEND_URL as string | URL;
 

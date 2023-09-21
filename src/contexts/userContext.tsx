@@ -12,6 +12,7 @@ interface UserContext {
     meta: UserContextMeta | null;
     setUser: (data: User | null) => void;
     refreshUser: () => void; // this will try to fetch the user again
+    getUser: () => Promise<User|null>; // get user data without updating user context
 }
 
 export const UserContext = createContext<UserContext>({
@@ -19,6 +20,7 @@ export const UserContext = createContext<UserContext>({
     meta: null,
     setUser: () => {},
     refreshUser: () => {},
+    getUser: async () => null
 });
 
 export function UserWrapper(props: PropsWithChildren) {
@@ -66,6 +68,13 @@ export function UserWrapper(props: PropsWithChildren) {
         })();
     }, [user]);
 
+    const getUser = async()=>{
+        const {data} = await api.get<Api.Response<{ curUser: User }>>(
+            '/api/auth/currentUser'
+        )
+        return data.success?data.data.curUser:null
+    };
+
     if (isLoading) return <Loading />;
 
     function setUser(user: User | null) {
@@ -76,7 +85,7 @@ export function UserWrapper(props: PropsWithChildren) {
         updateLoading(true);
     }
 
-    const curState = { user, setUser, refreshUser, meta };
+    const curState = { user, setUser, refreshUser, getUser, meta };
     
     return (
         <UserContext.Provider value={ curState }>

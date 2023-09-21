@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 
 import { ApiError, PrivateBetaError } from './errors';
-import { SERVER_URL } from '../settings';
+import { AUTH_SERVER_URL, SERVER_URL } from '../settings';
 
 const api = axios.create({
     baseURL: SERVER_URL,

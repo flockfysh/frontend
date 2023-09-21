@@ -16,6 +16,11 @@ import google from '@/icons/providers/google.svg';
 import github from '@/icons/providers/github.svg';
 
 import classes from './styles.module.css';
+import TextInput from '@/components/ui/input/textInput';
+import { AUTH_SERVER_URL, SERVER_URL } from '@/settings';
+import Auth from '@/helpers/auth';
+import api from '@/helpers/api';
+import { formToJSON } from 'axios';
 
 function Separator() {
     return (
@@ -62,16 +67,24 @@ export default function Login(props: {
     onClose: () => void;
 }) {
     const router = useRouter();
-    const { user, refreshUser } = useContext(UserContext);
 
-    const [mode, updateMode] = useState(props.mode);
+    const isVerifying = router.query.status === 'verifying'
+
+    const { user, refreshUser, getUser } = useContext(UserContext);
+
+    const [mode, updateMode] = useState((router.query?.mode as typeof props.mode) ?? props.mode);
+    const [isOtp, setIsOtp] = useState(false)
+    const [qr, setQr] = useState<string|null>(null)
+    const [provider, setProvider] = useState<'google'|'github'|null>(null)
+
+    const userRef = useRef<User|null>(null)
+    
     const redirect = useCallback(
         function redirect() {
-            const code = router.query.code;
-
+            const {code} = router.query;
             if (code) router.push(`/authorize?code=${code}`).then();
-            if (router.asPath === router.pathname) {
-                router.push(`/marketplace`).then();
+            if (router.asPath !== router.pathname) {
+                // router.replace(`/marketplace`).then();
             }
  else router.replace(router.asPath).then();
         },
@@ -86,59 +99,119 @@ export default function Login(props: {
         if (user) {
             redirect();
         }
-    }, [redirect, user]);
+    }, [user]);
+
+    const switchToOTP = (val:boolean) => {
+        setIsOtp(true)
+    }
+
+    const openDash = () => {
+        router.push('/marketplace')
+    } 
+
+    const onOTPProviderAuth = async (form:HTMLFormElement) => {
+        const formData = formToJSON(form) as {otp:string}
+        const {data} = await api.post<{success:boolean}>('/api/auth/2fa',{email:userRef.current?.email,otp:formData.otp})
+        console.log(data)
+        if(data.success){
+            refreshUser()
+            openDash()
+        }
+    }
 
     function oAuthLogin(path: string) {
+        
         // Don't open too many auth windows.
         if (curPopup.current) curPopup.current.close();
+        console.log(path)
+        const urlSegments = path.split('/')
+        const authProvider = urlSegments[urlSegments.length-1]
+        setProvider(authProvider as typeof provider)
 
-        const popup = window.open(path, '_blank');
+        const popup = window.open(path,"_blank");
 
         if (popup) {
             curPopup.current = popup;
 
-            window.addEventListener('message', function goToDashboard(e) {
-                if (e.data.success) {
-                    popup.close();
-                    refreshUser();
-                    redirect();
-                }
- else if (!e.data.success) {
-                    popup?.close();
-                    throw new Error(e.data.message);
-                }
+            window.addEventListener('message', async function goToDashboard(e) {
+                
+                if([AUTH_SERVER_URL,SERVER_URL?.slice(0,-1)].includes(e.origin)){
+                    if (e.data.success) {
+                        console.log('DDDD',e.data)
+                        popup.close();
+                        const userData = await getUser()
+                        userRef.current = userData
+                        // setProvider(userData.p)
+                        if(userData){
+                            const res = await Auth.generateOTP(userData.email)
+                            if(res?.success){
+                                setQr(res.data)
+                            }
+                        }
+
+                        // TODO: Only call this after 2fa 
+                        setIsOtp(true)
+                        // refreshUser();
+                        // redirect();
+                    } else if (!e.data.success) {
+                        console.log(e)
+                        !popup.closed && popup?.close();
+                        throw new Error(e.data.message);
+                    }}
+                // }
             });
         }
     }
+
+    if(isVerifying)return<ActionPopup
+    blurBg={ true }
+    modalClassName={ classes.modal }
+    popupTitle={ 'Auth Verification' }
+    onClose={ props.onClose }
+    >
+        <div className={`${classes.verification}`}>
+            <TextInput label='Please enter your OTP' />
+        </div>
+    </ActionPopup>
 
     return (
         <ActionPopup
             blurBg={ true }
             modalClassName={ classes.modal }
-            popupTitle={ isLogin ? 'Sign in' : 'Sign Up' }
+            popupTitle={ isOtp? 'Verification': (isLogin ? 'Sign in' : 'Sign Up') }
             onClose={ props.onClose }
         >
             <section className={ classes.modalContent }>
-                <div className={ classes.oAuthContainer }>
-                    <OAuthLink
-                        icon={ google }
-                        provider="Google"
-                        mode={ mode }
-                        onClick={ oAuthLogin }
-                    />
+                {
+                    !isOtp && <>
+                        <div className={ classes.oAuthContainer }>
+                            <OAuthLink
+                                icon={ google }
+                                provider="Google"
+                                mode={ mode }
+                                onClick={ oAuthLogin }
+                            />
 
-                    <OAuthLink
-                        icon={ github }
-                        provider="GitHub"
-                        mode={ mode }
-                        onClick={ oAuthLogin }
-                        className={ classes.githubIcon }
-                    />
-                </div>
+                            <OAuthLink
+                                icon={ github }
+                                provider="GitHub"
+                                mode={ mode }
+                                onClick={ oAuthLogin }
+                                className={ classes.githubIcon }
+                            />
+                        </div>
 
-                <Separator />
-
-                <LoginForm mode={ mode } redirect={ redirect } />
+                        <Separator />
+                    </>
+                }
+                <LoginForm 
+                    mode={ mode } 
+                    onSubmit={provider?onOTPProviderAuth:undefined} 
+                    qr={qr} 
+                    switchToOTP={switchToOTP} 
+                    isOTP={isOtp} 
+                    redirect={ openDash } 
+                />
 
                 { isLogin ? (
                     <p className={ classes.changeType }>
@@ -151,17 +224,20 @@ export default function Login(props: {
                         </button>
                         instead.
                     </p>
-                ) : (
-                    <p className={ classes.changeType }>
-                        Already have an account?
-                        <button
-                            className={ classes.changeTypeButton }
-                            onClick={ () => updateMode('login') }
-                        >
-                            Sign in
-                        </button>
-                        instead.
-                    </p>
+                ) : (!isOtp&&<>
+                    {
+                        <p className={ classes.changeType }>
+                            Already have an account?
+                            <button
+                                className={ classes.changeTypeButton }
+                                onClick={ () => updateMode('login') }
+                            >
+                                Sign in
+                            </button>
+                            instead.
+                        </p>
+                    }
+                    </>
                 ) }
 
                 <p className={ classes.footer }>

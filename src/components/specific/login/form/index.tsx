@@ -1,4 +1,4 @@
-import { forwardRef, useContext, useState } from 'react';
+import { forwardRef, useContext, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 
 import { z, ZodError } from 'zod';
@@ -10,6 +10,8 @@ import api from '@/helpers/api';
 import { ApiError } from '@/helpers/errors';
 
 import classes from './styles.module.css';
+import Auth from '@/helpers/auth';
+import {  useRouter } from 'next/router';
 
 const LoginField = forwardRef<
     HTMLInputElement,
@@ -46,15 +48,51 @@ const LoginField = forwardRef<
 
 export default function LoginForm(props: {
     mode: 'signup' | 'login';
+    isOTP: boolean,
+    qr:string|null,
+    switchToOTP?: (val:boolean)=>void,
     redirect: () => void;
+    onSubmit?: (form:HTMLFormElement) => void;
 }) {
     const { refreshUser } = useContext(UserContext);
-
+    const router = useRouter()
     const [nameError, setNameError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [emailError, setEmailError] = useState('');
     const [confirmPasswordError, setConfirmPasswordError] = useState('');
+    const [formMode, setFormMode] = useState((router.query.mode as typeof props.mode)??props.mode)
+    const [otpError, setOtpError] = useState('')
+    const [otpMode, setOtpMode] = useState(false)
 
+    const qrImage = useRef<string|null>((router.query.qr as string)??props.qr??null)
+    const userData = useRef<object>()
+
+useEffect(() => {
+
+    setOtpMode(props.isOTP)
+
+}, [props.isOTP])
+
+useEffect(() => {
+    qrImage.current = props.qr
+}, [props.qr])
+
+
+
+    useEffect(() => {
+        
+        if(props.isOTP){
+            router.push(router.pathname,{query:{mode:props.mode, qr:qrImage.current}})
+        }else if(props.mode!=='login'){
+            router.push(router.pathname,{query:{mode:props.mode}})
+        }
+
+        setFormMode(props.mode)
+        
+        
+
+    }, [props.mode, props.isOTP])
+    
     function handleValid(elem: HTMLFormElement) {
         let formValid = true;
 
@@ -63,83 +101,117 @@ export default function LoginForm(props: {
             email: string;
             password: string;
             confirmPassword?: string;
+            otp?:string
         };
 
-        try {
-            z.string({
-                // eslint-disable-next-line camelcase
-                required_error: 'Missing email.',
-                // eslint-disable-next-line camelcase
-                invalid_type_error: 'Email must be a string.',
-            })
-                .nonempty('Missing email.')
-                .email('Email is invalid.')
-                .parse(properties.email);
+        if(otpMode){
+            try {
+                z.string({
+                    required_error:'Missig OTP code',
+                    invalid_type_error: 'OTP must be a string'
+                })
+                .nonempty('Missing OTP')
+                .length(6,'OTP should be 6 characters')
+                .parse(properties.otp)
 
-            setEmailError('');
-        }
- catch (e) {
-            formValid = false;
+                setOtpError('')
 
-            if (e instanceof ZodError) setEmailError(e.issues[0].message);
-            else throw e;
-        }
+            } catch (e) {
 
-        try {
-            z.string({
-                // eslint-disable-next-line camelcase
-                required_error: 'Missing password.',
-                // eslint-disable-next-line camelcase
-                invalid_type_error: 'Password must be a string.',
-            })
-                .min(8, 'The password must be at least 8 characters long.')
-                .parse(properties.password);
+                formValid=false
+                if (e instanceof ZodError) setOtpError(e.issues[0].message);
 
-            setPasswordError('');
-        }
- catch (e) {
-            formValid = false;
-
-            if (e instanceof ZodError) setPasswordError(e.issues[0].message);
-        }
-
-        if (props.mode === 'signup') {
+            }
+            
+        }else{
             try {
                 z.string({
                     // eslint-disable-next-line camelcase
-                    required_error: 'Missing display name.',
+                    required_error: 'Missing email.',
                     // eslint-disable-next-line camelcase
-                    invalid_type_error: 'Display name must be a string.',
+                    invalid_type_error: 'Email must be a string.',
                 })
-                    .nonempty('Missing display name.')
-                    .parse(properties.fullName);
-
-                setNameError('');
+                    .nonempty('Missing email.')
+                    .email('Email is invalid.')
+                    .parse(properties.email);
+    
+                setEmailError('');
             }
- catch (e) {
+     catch (e) {
                 formValid = false;
-
-                if (e instanceof z.ZodError) setNameError(e.issues[0].message);
+    
+                if (e instanceof ZodError) setEmailError(e.issues[0].message);
+                else throw e;
             }
-
-            if (properties.password !== properties.confirmPassword) {
+    
+            try {
+                z.string({
+                    // eslint-disable-next-line camelcase
+                    required_error: 'Missing password.',
+                    // eslint-disable-next-line camelcase
+                    invalid_type_error: 'Password must be a string.',
+                })
+                    .min(8, 'The password must be at least 8 characters long.')
+                    .parse(properties.password);
+    
+                setPasswordError('');
+            }
+     catch (e) {
                 formValid = false;
-                setConfirmPasswordError('Passwords do not match.');
+    
+                if (e instanceof ZodError) setPasswordError(e.issues[0].message);
             }
- else setConfirmPasswordError('');
+    
+            if (formMode === 'signup') {
+                try {
+                    z.string({
+                        // eslint-disable-next-line camelcase
+                        required_error: 'Missing display name.',
+                        // eslint-disable-next-line camelcase
+                        invalid_type_error: 'Display name must be a string.',
+                    })
+                        .nonempty('Missing display name.')
+                        .parse(properties.fullName);
+    
+                    setNameError('');
+                }
+     catch (e) {
+                    formValid = false;
+    
+                    if (e instanceof z.ZodError) setNameError(e.issues[0].message);
+                }
+    
+                if (properties.password !== properties.confirmPassword) {
+                    formValid = false;
+                    setConfirmPasswordError('Passwords do not match.');
+                }
+     else setConfirmPasswordError('');
+            }
         }
 
+        
         return formValid;
     }
 
     async function auth(form: HTMLFormElement, mode: 'signup' | 'login') {
         try {
-            const data = await formToJSON(form);
+            const data:any = await formToJSON(form);
+            console.log('ahsdfshdfjksd')
 
-            await api.post(`/api/auth/${mode}`, data);
-
-            refreshUser();
-            props.redirect();
+            if (!otpMode){
+                const res = await Auth.generateOTP(data.email)
+                if(res?.success){
+                    qrImage.current = res.data
+                    props.switchToOTP && props.switchToOTP(true)
+                }
+                userData.current = data
+            } else {
+                const {data:authData} = await api.post(`/api/auth/${formMode}`, {...userData.current,...data});
+                if(authData.success){
+                    refreshUser();
+                    props.redirect();
+                }
+            }
         }
  catch (e) {
             if (e instanceof ApiError) {
@@ -179,15 +251,18 @@ export default function LoginForm(props: {
             onSubmit={ (e) => {
                 e.preventDefault();
                 if (handleValid(e.currentTarget))
-                    auth(e.currentTarget, props.mode).then();
+                    if(props.onSubmit){
+                        props.onSubmit(e.currentTarget)
+                    } else auth(e.currentTarget, formMode).then();
             } }
         >
-            <fieldset className={ classes.loginFieldset }>
+            { !otpMode
+            ? <fieldset className={ classes.loginFieldset }>
                 <h2 className={ classes.loginFormHeading }>
                     Please enter your information
                 </h2>
 
-                { props.mode === 'signup' ? (
+                { formMode === 'signup' ? (
                     <LoginField
                         placeholder="Full name"
                         type="text"
@@ -212,7 +287,7 @@ export default function LoginForm(props: {
                     errorMessage={ passwordError }
                 />
 
-                { props.mode === 'signup' ? (
+                { formMode === 'signup' ? (
                     <LoginField
                         placeholder="Confirm password"
                         type="password"
@@ -242,10 +317,26 @@ export default function LoginForm(props: {
                     </Link>
                 </div>
             </fieldset>
+            :<fieldset className={ classes.qrContainer }>
+                <div>
+                    <p className={classes.label}>Please scan the QR code and enter your OTP</p>
+                    <LoginField
+                        placeholder="OTP"
+                        type="Please enter your verification OTP"
+                        name="otp"
+                        errorMessage={ otpError }
+                    />
+                    {qrImage.current&&<div className={classes.qrImgContainer}>
+                        <img className={classes.qrImage} src={qrImage.current} />
+                    </div>}
+                    
+                </div>
+            </fieldset>}
 
             <button className={ classes.signIn }>
-                { props.mode === 'login' ? 'Sign in' : 'Sign up' }
+                { otpMode ? 'Submit': (formMode === 'login' ? 'Sign in' : 'Sign up') }
             </button>
         </form>
+        
     );
 }

@@ -126,3 +126,30 @@
     color: var(--background);
     border-color: var(--white);
 }
+
+.qrContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: smaller;
+}
+
+.qrImgContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.qrImage {
+    height: 10rem;
+    width: 10rem;
+    margin-top: 2rem;
+    align-self: center;
+    justify-self: center;
+}
+
+.label {
+    margin-bottom: 0.5rem;
+}
