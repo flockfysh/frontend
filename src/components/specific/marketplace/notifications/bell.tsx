@@ -51,7 +51,7 @@ export default function BellNotification() {
             if (open) {
                 markAllAsRead();
             }
- else {
+            else {
                 setViewAll(false);
             }
         }, 10000);
@@ -63,7 +63,7 @@ export default function BellNotification() {
 
     return (
         <>
-            { Object.keys(notifications).length > 0 ? <Badge color="error" badgeContent={ 5 } className= { classes.notificationBadge }></Badge> : '' }
+            { Object.keys(notifications).length > 0 ? <Badge color="error" badgeContent={ Object.keys(notifications).length } className= { classes.notificationBadge }></Badge> : '' }
             
             <div className={ classes.notificationContainer }>
                 <ReactSVG
@@ -72,7 +72,7 @@ export default function BellNotification() {
                         setViewAll(false);
                     } }
                     src={ bell.src }
-                    className={ notifications ? classes.noticeIcon : classes.leftIcon }
+                    className={ Object.keys(notifications).length > 0 ? classes.noticeIcon : classes.leftIcon }
                 />            
                 { open && (
                     <motion.div
