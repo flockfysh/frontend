@@ -68,7 +68,7 @@ export default function BellNotification() {
                     setViewAll(false);
                 } }
                 src={ bell.src }
-                className={ classes.leftIcon }
+                className={ notifications ? classes.noticeIcon : classes.leftIcon }
             />
 
             { open && (

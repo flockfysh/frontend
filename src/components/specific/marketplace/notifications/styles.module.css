@@ -19,7 +19,8 @@
     justify-content: space-between;
 }
 
-.leftIcon {
+.leftIcon,
+.noticeIcon {
     align-self: center;
     margin: 0px 15px;
     color: var(--primary1-100);
@@ -29,6 +30,11 @@
 
 .leftIcon:hover {
     color: var(--primary1-300);
+}
+
+.noticeIcon {
+    color: var(--red-color);
+    cursor: pointer;
 }
 
 .notificationHeader {
