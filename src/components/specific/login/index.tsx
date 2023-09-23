@@ -68,25 +68,25 @@ export default function Login(props: {
 }) {
     const router = useRouter();
 
-    const isVerifying = router.query.status === 'verifying'
+    const isVerifying = router.query.status === 'verifying';
 
     const { user, refreshUser, getUser } = useContext(UserContext);
 
-    const [mode, updateMode] = useState((router.query?.mode as typeof props.mode) ?? props.mode);
-    const [isOtp, setIsOtp] = useState(false)
-    const [qr, setQr] = useState<string|null>(null)
-    const [provider, setProvider] = useState<'google'|'github'|null>(null)
+    const [mode, updateMode] = useState(props.mode);
+    const [isOtp, setIsOtp] = useState(false);
+    const [qr, setQr] = useState<string>();
+    const [provider, setProvider] = useState<'google'|'github'|null>(null);
 
-    const userRef = useRef<User|null>(null)
+    const userRef = useRef<User|null>(null);
     
     const redirect = useCallback(
         function redirect() {
-            const {code} = router.query;
+            const { code } = router.query;
             if (code) router.push(`/authorize?code=${code}`).then();
-            if (router.asPath !== router.pathname) {
+            // if (router.asPath !== router.pathname) {
                 // router.replace(`/marketplace`).then();
-            }
- else router.replace(router.asPath).then();
+            // }
+//  else router.replace(router.asPath).then();
         },
         [router]
     );
@@ -99,80 +99,77 @@ export default function Login(props: {
         if (user) {
             redirect();
         }
-    }, [user]);
+    }, [user, redirect]);
 
+    const altMode = mode === 'signup'?'login':'signup';
     const switchToOTP = (val:boolean) => {
-        setIsOtp(true)
-    }
+        setIsOtp(true);
+    };
 
     const openDash = () => {
-        router.push('/marketplace')
-    } 
+        router.replace('/marketplace');
+    }; 
 
     const onOTPProviderAuth = async (form:HTMLFormElement) => {
-        const formData = formToJSON(form) as {otp:string}
-        const {data} = await api.post<{success:boolean}>('/api/auth/2fa',{email:userRef.current?.email,otp:formData.otp})
-        console.log(data)
+        const formData = formToJSON(form) as {otp:string};
+        const { data } = await api.post<{success:boolean}>('/api/auth/2fa', { email:userRef.current?.email, otp:formData.otp });
+
         if(data.success){
-            refreshUser()
-            openDash()
+            refreshUser();
+            openDash();
         }
-    }
+    };
 
     function oAuthLogin(path: string) {
         
         // Don't open too many auth windows.
         if (curPopup.current) curPopup.current.close();
-        console.log(path)
-        const urlSegments = path.split('/')
-        const authProvider = urlSegments[urlSegments.length-1]
-        setProvider(authProvider as typeof provider)
 
-        const popup = window.open(path,"_blank");
+        const urlSegments = path.split('/');
+        const authProvider = urlSegments[urlSegments.length-1];
+        setProvider(authProvider as typeof provider);
+
+        const popup = window.open(path, '_blank');
 
         if (popup) {
             curPopup.current = popup;
 
             window.addEventListener('message', async function goToDashboard(e) {
-                
-                if([AUTH_SERVER_URL,SERVER_URL?.slice(0,-1)].includes(e.origin)){
+                if([AUTH_SERVER_URL, SERVER_URL?.slice(0, -1)].includes(e.origin)){
                     if (e.data.success) {
-                        console.log('DDDD',e.data)
                         popup.close();
-                        const userData = await getUser()
-                        userRef.current = userData
-                        // setProvider(userData.p)
+                        const userData = await getUser();
+                        userRef.current = userData;
+
                         if(userData){
-                            const res = await Auth.generateOTP(userData.email)
+                            const res = await Auth.generateOTP(userData.email);
                             if(res?.success){
-                                setQr(res.data)
+                                setQr(res.data);
                             }
                         }
-
-                        // TODO: Only call this after 2fa 
-                        setIsOtp(true)
-                        // refreshUser();
-                        // redirect();
-                    } else if (!e.data.success) {
-                        console.log(e)
+                        setIsOtp(true);
+                    }
+ else if (!e.data.success) {
                         !popup.closed && popup?.close();
                         throw new Error(e.data.message);
-                    }}
-                // }
+                    } 
+                }
             });
         }
     }
 
-    if(isVerifying)return<ActionPopup
+    if(isVerifying)return(
+<ActionPopup
     blurBg={ true }
     modalClassName={ classes.modal }
     popupTitle={ 'Auth Verification' }
     onClose={ props.onClose }
     >
-        <div className={`${classes.verification}`}>
-            <TextInput label='Please enter your OTP' />
+        <div className={ `${classes.verification}` }>
+            <TextInput label="Please enter your OTP" />
         </div>
     </ActionPopup>
+);
 
     return (
         <ActionPopup
@@ -183,7 +180,8 @@ export default function Login(props: {
         >
             <section className={ classes.modalContent }>
                 {
-                    !isOtp && <>
+                    !isOtp && (
+<>
                         <div className={ classes.oAuthContainer }>
                             <OAuthLink
                                 icon={ google }
@@ -203,41 +201,52 @@ export default function Login(props: {
 
                         <Separator />
                     </>
+)
                 }
                 <LoginForm 
                     mode={ mode } 
-                    onSubmit={provider?onOTPProviderAuth:undefined} 
-                    qr={qr} 
-                    switchToOTP={switchToOTP} 
-                    isOTP={isOtp} 
+                    onSubmit={ provider?onOTPProviderAuth:undefined } 
+                    qr={ qr??null } 
+                    switchToOTP={ switchToOTP } 
+                    isOTP={ isOtp } 
                     redirect={ openDash } 
                 />
 
                 { isLogin ? (
                     <p className={ classes.changeType }>
                         Don&apos;t have an account?
-                        <button
+                        <Link
+                            href={ {
+                                pathname:'/login',
+                                query: qr?{ mode:altMode, qr }:{ mode:altMode }
+                            } }
                             className={ classes.changeTypeButton }
                             onClick={ () => updateMode('signup') }
                         >
                             Sign up
-                        </button>
+                        </Link>
                         instead.
                     </p>
-                ) : (!isOtp&&<>
+                ) : (!isOtp&&(
+<>
                     {
                         <p className={ classes.changeType }>
                             Already have an account?
-                            <button
+                            <Link
+                                href={ {
+                                    pathname:'/login',
+                                    query: qr?{ mode:altMode, qr }:{ mode:altMode }
+                                } }
                                 className={ classes.changeTypeButton }
                                 onClick={ () => updateMode('login') }
                             >
                                 Sign in
-                            </button>
+                            </Link>
                             instead.
                         </p>
                     }
                     </>
+)
                 ) }
 
                 <p className={ classes.footer }>

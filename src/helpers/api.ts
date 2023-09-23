@@ -24,6 +24,12 @@ api.interceptors.response.use(
         const message = rawError?.message;
         const code = rawError?.code;
 
+        // redirects to login page when user is unauthorized
+        if(code==='ERROR_UNAUTHORIZED'){
+            const path = `${window.location.origin}/logout`;
+            window.location.replace(path);
+        }
+
         if (code === 'ERROR_PRIVATE_BETA')
             return Promise.reject(new PrivateBetaError(message ?? '', code));
         else return Promise.reject(new ApiError(message ?? '', code ?? ''));

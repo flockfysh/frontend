@@ -55,43 +55,42 @@ export default function LoginForm(props: {
     onSubmit?: (form:HTMLFormElement) => void;
 }) {
     const { refreshUser } = useContext(UserContext);
-    const router = useRouter()
+    const { push, pathname, ...router } = useRouter();
     const [nameError, setNameError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [emailError, setEmailError] = useState('');
     const [confirmPasswordError, setConfirmPasswordError] = useState('');
-    const [formMode, setFormMode] = useState((router.query.mode as typeof props.mode)??props.mode)
-    const [otpError, setOtpError] = useState('')
-    const [otpMode, setOtpMode] = useState(false)
+    const [formMode, setFormMode] = useState((router.query.mode as typeof props.mode)??props.mode);
+    const [otpError, setOtpError] = useState('');
+    const [otpMode, setOtpMode] = useState(false);
 
-    const qrImage = useRef<string|null>((router.query.qr as string)??props.qr??null)
-    const userData = useRef<object>()
-
-useEffect(() => {
-
-    setOtpMode(props.isOTP)
-
-}, [props.isOTP])
+    const qrImage = useRef<string|null>((router.query.qr as string)??props.qr??null);
+    const userData = useRef<object>();
 
 useEffect(() => {
-    qrImage.current = props.qr
-}, [props.qr])
+
+    setOtpMode(props.isOTP);
+
+}, [props.isOTP]);
+
+useEffect(() => {
+    qrImage.current = props.qr;
+}, [props.qr]);
 
 
 
     useEffect(() => {
         
         if(props.isOTP){
-            router.push(router.pathname,{query:{mode:props.mode, qr:qrImage.current}})
-        }else if(props.mode!=='login'){
-            router.push(router.pathname,{query:{mode:props.mode}})
+            push(pathname, { query:{ mode:props.mode, qr:qrImage.current } });
+        }
+ else if(props.mode!=='login'){
+            push(pathname, { query:{ mode:props.mode } });
         }
 
-        setFormMode(props.mode)
-        
-        
+        setFormMode(props.mode);
 
-    }, [props.mode, props.isOTP])
+    }, [props.mode, props.isOTP, pathname]);
     
     function handleValid(elem: HTMLFormElement) {
         let formValid = true;
@@ -111,19 +110,21 @@ useEffect(() => {
                     invalid_type_error: 'OTP must be a string'
                 })
                 .nonempty('Missing OTP')
-                .length(6,'OTP should be 6 characters')
-                .parse(properties.otp)
+                .length(6, 'OTP should be 6 characters')
+                .parse(properties.otp);
 
-                setOtpError('')
+                setOtpError('');
 
-            } catch (e) {
+            }
+ catch (e) {
 
-                formValid=false
+                formValid=false;
                 if (e instanceof ZodError) setOtpError(e.issues[0].message);
 
             }
             
-        }else{
+        }
+else{
             try {
                 z.string({
                     // eslint-disable-next-line camelcase
@@ -196,17 +197,17 @@ useEffect(() => {
     async function auth(form: HTMLFormElement, mode: 'signup' | 'login') {
         try {
             const data:any = await formToJSON(form);
-            console.log('ahsdfshdfjksd')
 
             if (!otpMode){
-                const res = await Auth.generateOTP(data.email)
+                const res = await Auth.generateOTP(data.email);
                 if(res?.success){
-                    qrImage.current = res.data
-                    props.switchToOTP && props.switchToOTP(true)
+                    qrImage.current = res.data;
+                    props.switchToOTP && props.switchToOTP(true);
                 }
-                userData.current = data
-            } else {
-                const {data:authData} = await api.post(`/api/auth/${formMode}`, {...userData.current,...data});
+                userData.current = data;
+            }
+ else {
+                const { data:authData } = await api.post(`/api/auth/${formMode}`, { ...userData.current, ...data });
                 if(authData.success){
                     refreshUser();
                     props.redirect();
@@ -252,12 +253,14 @@ useEffect(() => {
                 e.preventDefault();
                 if (handleValid(e.currentTarget))
                     if(props.onSubmit){
-                        props.onSubmit(e.currentTarget)
-                    } else auth(e.currentTarget, formMode).then();
+                        props.onSubmit(e.currentTarget);
+                    }
+ else auth(e.currentTarget, formMode).then();
             } }
         >
             { !otpMode
-            ? <fieldset className={ classes.loginFieldset }>
+            ? (
+<fieldset className={ classes.loginFieldset }>
                 <h2 className={ classes.loginFormHeading }>
                     Please enter your information
                 </h2>
@@ -317,21 +320,26 @@ useEffect(() => {
                     </Link>
                 </div>
             </fieldset>
-            :<fieldset className={ classes.qrContainer }>
+)
+            :(
+<fieldset className={ classes.qrContainer }>
                 <div>
-                    <p className={classes.label}>Please scan the QR code and enter your OTP</p>
+                    <p className={ classes.label }>Please scan the QR code and enter your OTP</p>
                     <LoginField
                         placeholder="OTP"
                         type="Please enter your verification OTP"
                         name="otp"
                         errorMessage={ otpError }
                     />
-                    {qrImage.current&&<div className={classes.qrImgContainer}>
-                        <img className={classes.qrImage} src={qrImage.current} />
-                    </div>}
+                    { qrImage.current&&(
+<div className={ classes.qrImgContainer }>
+                        <img className={ classes.qrImage } src={ qrImage.current } />
+                    </div>
+) }
                     
                 </div>
-            </fieldset>}
+            </fieldset>
+) }
 
             <button className={ classes.signIn }>
                 { otpMode ? 'Submit': (formMode === 'login' ? 'Sign in' : 'Sign up') }
