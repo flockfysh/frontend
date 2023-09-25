@@ -11,6 +11,13 @@
     display: none;
 }
 
+.row{
+    width: 2rem;
+    padding-left: 15rem;
+    height: 10rem;
+    background-color: blue;
+
+}
 .viewerTableScroller {
     overflow-x: auto;
     border-bottom: 1px solid transparent;

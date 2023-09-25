@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 
 import { ApiError, PrivateBetaError } from './errors';
-import { SERVER_URL } from '../settings';
+import { AUTH_SERVER_URL, SERVER_URL } from '../settings';
 
 const api = axios.create({
     baseURL: SERVER_URL,
@@ -23,6 +23,12 @@ api.interceptors.response.use(
         const rawError = error.response?.data.error;
         const message = rawError?.message;
         const code = rawError?.code;
+
+        // redirects to login page when user is unauthorized
+        if(code==='ERROR_UNAUTHORIZED'){
+            const path = `${window.location.origin}/logout`;
+            window.location.replace(path);
+        }
 
         if (code === 'ERROR_PRIVATE_BETA')
             return Promise.reject(new PrivateBetaError(message ?? '', code));

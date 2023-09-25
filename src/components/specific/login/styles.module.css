@@ -103,3 +103,10 @@
 .changeTypeButton:hover {
     color: var(--white);
 }
+
+.verification {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
