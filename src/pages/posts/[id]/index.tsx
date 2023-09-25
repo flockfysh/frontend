@@ -200,14 +200,15 @@ function PostItems() {
                                 </div>
                             </div>
                         </div>
-                        <h2 className={ classes.name }>{ postData.title }</h2>
+                        <h2 className={ classes.name }> <b> { postData.title }</b> </h2>
                         <Link
                             href={ `/profile/${author.username}` }
                             target="_blank"
                             className={ classes.username }
                         >
-                            Author: { author.fullname }
+                            Author: @{ author.fullname }
                         </Link>
+                        <br/>
                         <div className= { classes.linebreak } > 
                             { postData.content } 
                         </div>
