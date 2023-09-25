@@ -110,14 +110,24 @@ export default function Login(props: {
         router.replace('/marketplace');
     }; 
 
-    const onOTPProviderAuth = async (form:HTMLFormElement) => {
-        const formData = formToJSON(form) as {otp:string};
-        const { data } = await api.post<{success:boolean}>('/api/auth/2fa', { email:userRef.current?.email, otp:formData.otp });
+    const onOTPProviderAuth = async (form:HTMLFormElement, errCb?:(val:string)=>void) => {
+        try {
+            const formData = formToJSON(form) as {otp:string};
+        const { data } = await api.post<{success:boolean, data:string}>('/api/auth/2fa', { email:userRef.current?.email, otp:formData.otp });
 
         if(data.success){
             refreshUser();
             openDash();
         }
+else throw new Error (data.data);
+
+        }
+ catch (error) {
+            if(errCb){
+                errCb((error as Error).message);
+            }
+        }
+        
     };
 
     function oAuthLogin(path: string) {
@@ -135,7 +145,8 @@ export default function Login(props: {
             curPopup.current = popup;
 
             window.addEventListener('message', async function goToDashboard(e) {
-                if([AUTH_SERVER_URL, SERVER_URL?.slice(0, -1)].includes(e.origin)){
+                
+                if([AUTH_SERVER_URL, SERVER_URL].includes(e.origin)){
                     if (e.data.success) {
                         popup.close();
                         const userData = await getUser();
