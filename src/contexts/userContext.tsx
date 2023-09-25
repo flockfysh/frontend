@@ -2,6 +2,8 @@ import { PropsWithChildren, useEffect, useState, createContext } from 'react';
 import Loading from '../components/ui/loading';
 
 import api from '../helpers/api';
+import Auth from '@/helpers/auth';
+import { useRouter } from 'next/router';
 
 interface UserContextMeta {
     payoutOnboardingComplete: boolean;
@@ -12,6 +14,7 @@ interface UserContext {
     meta: UserContextMeta | null;
     setUser: (data: User | null) => void;
     refreshUser: () => void; // this will try to fetch the user again
+    getUser: () => Promise<User|null>; // get user data without updating user context
 }
 
 export const UserContext = createContext<UserContext>({
@@ -19,15 +22,18 @@ export const UserContext = createContext<UserContext>({
     meta: null,
     setUser: () => {},
     refreshUser: () => {},
+    getUser: async () => null
 });
 
 export function UserWrapper(props: PropsWithChildren) {
     const [user, setCurUser] = useState<User | null>(null);
     const [isLoading, updateLoading] = useState(true);
     const [meta, setMeta] = useState<UserContextMeta | null>(null);
+    const router = useRouter();
 
     useEffect(() => {
         if (isLoading) {
+            
             (async function getUserState() {
                 try {
                     const data = (
@@ -38,10 +44,15 @@ export function UserWrapper(props: PropsWithChildren) {
 
                     const userData = data.data;
 
-                    if (userData.curUser) setCurUser(userData.curUser);
-                    else setCurUser(null);
-
-
+                    const has2FA = await Auth.has2FA();
+                    if(has2FA){
+                        if (userData.curUser) setCurUser(userData.curUser);
+                        else setCurUser(null);
+                    }
+                    
+                    if(userData.curUser&&!has2FA){
+                        router.replace('/logout');
+                    }
                 }
  catch (e) {}
 
@@ -66,6 +77,13 @@ export function UserWrapper(props: PropsWithChildren) {
         })();
     }, [user]);
 
+    const getUser = async() => {
+        const { data } = await api.get<Api.Response<{ curUser: User }>>(
+            '/api/auth/currentUser'
+        );
+        return data.success?data.data.curUser:null;
+    };
+
     if (isLoading) return <Loading />;
 
     function setUser(user: User | null) {
@@ -76,7 +94,7 @@ export function UserWrapper(props: PropsWithChildren) {
         updateLoading(true);
     }
 
-    const curState = { user, setUser, refreshUser, meta };
+    const curState = { user, setUser, refreshUser, getUser, meta };
     
     return (
         <UserContext.Provider value={ curState }>
