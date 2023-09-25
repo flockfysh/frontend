@@ -7,6 +7,7 @@ const nextConfig = {
             { hostname: '*.figma.com' },
             { hostname: '*.unsplash.com' },
         ],
+        unoptimized: true
     },
 };
 
