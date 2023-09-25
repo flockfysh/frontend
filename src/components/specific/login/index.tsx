@@ -110,19 +110,21 @@ export default function Login(props: {
         router.replace('/marketplace');
     }; 
 
-    const onOTPProviderAuth = async (form:HTMLFormElement,errCb?:(val:string)=>void) => {
+    const onOTPProviderAuth = async (form:HTMLFormElement, errCb?:(val:string)=>void) => {
         try {
             const formData = formToJSON(form) as {otp:string};
-        const { data } = await api.post<{success:boolean,data:string}>('/api/auth/2fa', { email:userRef.current?.email, otp:formData.otp });
+        const { data } = await api.post<{success:boolean, data:string}>('/api/auth/2fa', { email:userRef.current?.email, otp:formData.otp });
 
         if(data.success){
             refreshUser();
             openDash();
-        }else throw new Error (data.data)
+        }
+else throw new Error (data.data);
 
-        } catch (error) {
+        }
+ catch (error) {
             if(errCb){
-                errCb((error as Error).message)
+                errCb((error as Error).message);
             }
         }
         

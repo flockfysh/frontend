@@ -52,7 +52,7 @@ export default function LoginForm(props: {
     qr:string|null,
     switchToOTP?: (val:boolean)=>void,
     redirect: () => void;
-    onSubmit?: (form:HTMLFormElement,errCb?:(val:string)=>void) => void;
+    onSubmit?: (form:HTMLFormElement, errCb?:(val:string)=>void) => void;
 }) {
     const { refreshUser } = useContext(UserContext);
     const { push, pathname, ...router } = useRouter();
@@ -93,7 +93,7 @@ useEffect(() => {
     }, [props.mode, props.isOTP, pathname]);
 
     function handleOTPError(val:string){
-        setOtpError(val)
+        setOtpError(val);
     }
 
     function handleValid(elem: HTMLFormElement) {
@@ -257,7 +257,7 @@ else{
                 e.preventDefault();
                 if (handleValid(e.currentTarget))
                     if(props.onSubmit){
-                        props.onSubmit(e.currentTarget,handleOTPError);
+                        props.onSubmit(e.currentTarget, handleOTPError);
                     }
  else auth(e.currentTarget, formMode).then();
             } }
