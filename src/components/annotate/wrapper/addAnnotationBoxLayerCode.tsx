@@ -72,7 +72,7 @@ export default function AddAnnotationBoxLayer(props: {
                 strokeScaleEnabled={ false }
                 width={ props.width }
                 height={ props.height }
-                onMouseDown={ (e) => {
+                onMouseDown={ (e:any) => {
                     const { x, y } = e.currentTarget
                         .getStage()!
                         .getRelativePointerPosition();
