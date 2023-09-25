@@ -25,7 +25,7 @@ api.interceptors.response.use(
         const code = rawError?.code;
 
         // redirects to login page when user is unauthorized
-        if(code==='ERROR_UNAUTHORIZED'){
+        if(code==='ERROR_REVOKED_AUTHORIZATION'){
             const path = `${window.location.origin}/logout`;
             window.location.replace(path);
         }
