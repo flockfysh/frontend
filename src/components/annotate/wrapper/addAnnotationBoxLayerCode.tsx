@@ -84,7 +84,7 @@ export default function AddAnnotationBoxLayer(props: {
                     setIsDragging(true);
                     updateRectangle();
                 } }
-                onDragMove={ (e) => {
+                onDragMove={ (e:any) => {
                     const stage = e.currentTarget.getStage()!;
                     let { x, y } = stage.getRelativePointerPosition();
 
@@ -95,7 +95,7 @@ export default function AddAnnotationBoxLayer(props: {
 
                     updateRectangle();
                 } }
-                onDragEnd={ (e) => {
+                onDragEnd={ (e:any) => {
                     const rectangle = e.currentTarget;
 
                     rectangle.x(0);
