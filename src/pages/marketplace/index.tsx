@@ -126,11 +126,12 @@ function Marketplace() {
                     {
                         params: {
                             public: true,
-                            sort: 'metrics.views',
+                            sort: 'price',
                             expand: 'assetCounts,size,likes,user,thumbnail,url',
                             ascending: false,
                             paid: true,
                             limit: 8,
+                            schemeActive: true
                         },
                     }
                 )

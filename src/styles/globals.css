@@ -97,6 +97,8 @@
     --elements-900: #0d544f;
     --elements-950: #003332;
 
+    --red-color: #B22222;
+
     --toastify-color-info: var(--info-600) !important;
     --toastify-color-success: var(--success-700) !important;
     --toastify-color-warning: #a29410 !important;

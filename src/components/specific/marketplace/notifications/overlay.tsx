@@ -31,9 +31,7 @@ export default function OverlayScreen({
                     <button
                         onClick={ markAllAsRead }
                         className={ classes.notificationMarkAsRead }
-                        disabled={ notifications
-                            .map((notification) => notification.createdAt)
-                            .every((createdAt) => lastSeen?.isAfter(createdAt)) }
+                        disabled={ Object.keys(notifications).length > 0 ? false : true }
                     >
                         Mark all as read
                         <ReactSVG src={ checkIcon.src } />

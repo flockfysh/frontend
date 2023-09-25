@@ -19,7 +19,15 @@
     justify-content: space-between;
 }
 
-.leftIcon {
+.notificationImage {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 50px;
+}
+
+.leftIcon,
+.noticeIcon {
     align-self: center;
     margin: 0px 15px;
     color: var(--primary1-100);
@@ -29,6 +37,11 @@
 
 .leftIcon:hover {
     color: var(--primary1-300);
+}
+
+.noticeIcon {
+    color: var(--red-color);
+    cursor: pointer;
 }
 
 .notificationHeader {
@@ -95,6 +108,11 @@
     line-height: 24px;
     letter-spacing: 0em;
     text-align: left;
+}
+
+.notificationBadge {
+    left: 36px;
+    top: 10px;
 }
 
 .notificationImage {

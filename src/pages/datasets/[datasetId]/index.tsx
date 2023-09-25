@@ -195,9 +195,10 @@ function MyDatasets() {
                         displayName: currentNameQuery || undefined,
                     } }
                     datasetPermissionLevel={ dataset.permission }
-                    datasetId={ router.query.datasetId }
-                    setCurrItem={ () => {} }
-                />
+                    datasetId={ router.query.datasetId } 
+                    setCurrItem={ function (data: Flockfysh.Asset): void {
+                        throw new Error('Function not implemented.');
+                    } }                />
             }
 
             { /* upload content */ }
