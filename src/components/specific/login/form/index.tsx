@@ -12,6 +12,8 @@ import { ApiError } from '@/helpers/errors';
 import classes from './styles.module.css';
 import Auth from '@/helpers/auth';
 import {  useRouter } from 'next/router';
+import { ReactSVG } from 'react-svg';
+import phone from '@/icons/main/smartphone.svg'
 
 const LoginField = forwardRef<
     HTMLInputElement,
@@ -50,6 +52,7 @@ export default function LoginForm(props: {
     mode: 'signup' | 'login';
     isOTP: boolean,
     qr:string|null,
+    clearOTPError:()=>void,
     switchToOTP?: (val:boolean)=>void,
     redirect: () => void;
     onSubmit?: (form:HTMLFormElement,errCb?:(val:string)=>void) => void;
@@ -67,6 +70,8 @@ export default function LoginForm(props: {
     const qrImage = useRef<string|null>((router.query.qr as string)??props.qr??null);
     const userData = useRef<object>();
 
+    const isLogin = props.mode === 'login'
+
 useEffect(() => {
 
     setOtpMode(props.isOTP);
@@ -74,23 +79,33 @@ useEffect(() => {
 }, [props.isOTP]);
 
 useEffect(() => {
-    qrImage.current = props.qr;
+    if(props.qr){
+    
+        qrImage.current = props.qr;
+
+    }
 }, [props.qr]);
 
 
 
     useEffect(() => {
-        
         if(props.isOTP){
-            push(pathname, { query:{ mode:props.mode, qr:qrImage.current } });
+            if(isLogin){
+                push(pathname, { query:{ mode:props.mode } });
+            } else {
+                push(pathname, { query:{ mode:props.mode } });
+            }
         }
- else if(props.mode!=='login'){
-            push(pathname, { query:{ mode:props.mode } });
-        }
+//         if(props.isOTP){
+//             push(pathname, { query:{ mode:props.mode, qr:qrImage.current } });
+//         }
+//  else if(!isLogin){
+//             push(pathname, { query:{ mode:props.mode } });
+//         }
 
         setFormMode(props.mode);
 
-    }, [props.mode, props.isOTP, pathname]);
+    }, [isLogin, props.isOTP, pathname]);
 
     function handleOTPError(val:string){
         setOtpError(val)
@@ -201,21 +216,24 @@ else{
     async function auth(form: HTMLFormElement, mode: 'signup' | 'login') {
         try {
             const data:any = await formToJSON(form);
-
             if (!otpMode){
-                const res = await Auth.generateOTP(data.email);
-                if(res?.success){
-                    qrImage.current = res.data;
-                    props.switchToOTP && props.switchToOTP(true);
+                if(!isLogin){
+                    const res = await Auth.generateOTP(data.email);
+                    if(res?.success){
+                        qrImage.current = res.data;
+                    }
                 }
+                props.switchToOTP && props.switchToOTP(true);
                 userData.current = data;
             }
  else {
-                const { data:authData } = await api.post(`/api/auth/${formMode}`, { ...userData.current, ...data });
-                if(authData.success){
+                const result = await Auth.login(mode,{...userData.current,...data}, setOtpError)
+                
+                if(result){
                     refreshUser();
                     props.redirect();
                 }
+
             }
         }
  catch (e) {
@@ -251,10 +269,12 @@ else{
         <form
             className={ classes.loginForm }
             onChange={ (e) => {
+                props.clearOTPError()
                 handleValid(e.currentTarget);
             } }
             onSubmit={ (e) => {
                 e.preventDefault();
+                props.clearOTPError()
                 if (handleValid(e.currentTarget))
                     if(props.onSubmit){
                         props.onSubmit(e.currentTarget,handleOTPError);
@@ -328,18 +348,22 @@ else{
             :(
 <fieldset className={ classes.qrContainer }>
                 <div>
-                    <p className={ classes.label }>Please scan the QR code and enter your OTP</p>
+                    <p className={ classes.label }>{ 
+                    !isLogin
+                    ? 'Please scan the QR code and enter your OTP'
+                    : 'Please enter OTP from your authentication app'
+                }</p>
                     <LoginField
                         placeholder="OTP"
                         type="Please enter your verification OTP"
                         name="otp"
                         errorMessage={ otpError }
                     />
-                    { qrImage.current&&(
+                    { qrImage.current?(
 <div className={ classes.qrImgContainer }>
                         <img className={ classes.qrImage } src={ qrImage.current } />
                     </div>
-) }
+):<ReactSVG stroke='white' fill='white' className={classes.phone} src={phone.src}/> }
                     
                 </div>
             </fieldset>
