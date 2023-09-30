@@ -72,13 +72,14 @@ export default function Login(props: {
 
     const { user, refreshUser, getUser } = useContext(UserContext);
 
-    const [mode, updateMode] = useState(props.mode);
+    const [mode, updateMode] = useState((router.query.mode as typeof props.mode)??props.mode);
     const [isOtp, setIsOtp] = useState(false);
+    const [otpGenError, setOtpGenError] = useState<string>();
     const [qr, setQr] = useState<string>();
     const [provider, setProvider] = useState<'google'|'github'|null>(null);
 
     const userRef = useRef<User|null>(null);
-    
+
     const redirect = useCallback(
         function redirect() {
             const { code } = router.query;
@@ -101,14 +102,27 @@ export default function Login(props: {
         }
     }, [user, redirect]);
 
+    useEffect(() => {
+        clearOTPError();
+    }, [mode]);
+    
+
     const altMode = mode === 'signup'?'login':'signup';
     const switchToOTP = (val:boolean) => {
-        setIsOtp(true);
+        setIsOtp(val);
     };
 
     const openDash = () => {
         router.replace('/marketplace');
     }; 
+
+    const otpGenErrorCb = (val:string) => {
+        setOtpGenError(val);
+    };
+
+    const clearOTPError = () => {
+        setOtpGenError(undefined);
+    };
 
     const onOTPProviderAuth = async (form:HTMLFormElement, errCb?:(val:string)=>void) => {
         try {
@@ -132,6 +146,7 @@ else throw new Error (data.data);
 
     function oAuthLogin(path: string) {
         
+        clearOTPError();
         // Don't open too many auth windows.
         if (curPopup.current) curPopup.current.close();
 
@@ -147,23 +162,31 @@ else throw new Error (data.data);
             window.addEventListener('message', async function goToDashboard(e) {
                 
                 if([AUTH_SERVER_URL, SERVER_URL].includes(e.origin)){
+                    const hasAuth = await Auth.has2FA();
+                    let showOTP = true;
                     if (e.data.success) {
                         popup.close();
                         const userData = await getUser();
                         userRef.current = userData;
-
-                        if(userData){
-                            const res = await Auth.generateOTP(userData.email);
+                        if(userData && ((hasAuth===null)||!isLogin)){
+                            const res = await Auth.generateOTP(userData.email, otpGenErrorCb);
                             if(res?.success){
                                 setQr(res.data);
                             }
+else{
+                                showOTP = false;
+                            }
                         }
-                        setIsOtp(true);
+                        
+                        showOTP && setIsOtp(true);
                     }
  else if (!e.data.success) {
                         !popup.closed && popup?.close();
+                        window.removeEventListener('message', () => {});
                         throw new Error(e.data.message);
                     } 
+                    window.removeEventListener('message', () => {});
+
                 }
             });
         }
@@ -190,6 +213,8 @@ else throw new Error (data.data);
             onClose={ props.onClose }
         >
             <section className={ classes.modalContent }>
+            { otpGenError&&!isOtp&&<p className={ classes.error }>{ otpGenError }</p> }
+
                 {
                     !isOtp && (
 <>
@@ -221,10 +246,12 @@ else throw new Error (data.data);
                     switchToOTP={ switchToOTP } 
                     isOTP={ isOtp } 
                     redirect={ openDash } 
+                    clearOTPError={ clearOTPError }
                 />
 
                 { isLogin ? (
-                    <p className={ classes.changeType }>
+                    !isOtp&&(
+<p className={ classes.changeType }>
                         Don&apos;t have an account?
                         <Link
                             href={ {
@@ -238,6 +265,7 @@ else throw new Error (data.data);
                         </Link>
                         instead.
                     </p>
+)
                 ) : (!isOtp&&(
 <>
                     {
@@ -246,7 +274,7 @@ else throw new Error (data.data);
                             <Link
                                 href={ {
                                     pathname:'/login',
-                                    query: qr?{ mode:altMode, qr }:{ mode:altMode }
+                                    query: { mode:altMode }
                                 } }
                                 className={ classes.changeTypeButton }
                                 onClick={ () => updateMode('login') }
