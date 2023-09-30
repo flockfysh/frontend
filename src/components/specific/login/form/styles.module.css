@@ -153,3 +153,19 @@
 .label {
     margin-bottom: 0.5rem;
 }
+
+.phone {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top:2rem;
+}
+
+.phone svg {
+    height: 10rem;
+    width: 10rem;
+}
+
+.phone path {
+    stroke-width: 1px!important;
+}
