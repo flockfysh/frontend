@@ -74,7 +74,7 @@ export default function Login(props: {
 
     const [mode, updateMode] = useState((router.query.mode as typeof props.mode)??props.mode);
     const [isOtp, setIsOtp] = useState(false);
-    const [otpGenError, setOtpGenError] = useState<string>()
+    const [otpGenError, setOtpGenError] = useState<string>();
     const [qr, setQr] = useState<string>();
     const [provider, setProvider] = useState<'google'|'github'|null>(null);
 
@@ -103,8 +103,8 @@ export default function Login(props: {
     }, [user, redirect]);
 
     useEffect(() => {
-        clearOTPError()
-    }, [mode])
+        clearOTPError();
+    }, [mode]);
     
 
     const altMode = mode === 'signup'?'login':'signup';
@@ -117,14 +117,14 @@ export default function Login(props: {
     }; 
 
     const otpGenErrorCb = (val:string) => {
-        setOtpGenError(val)
-    }
+        setOtpGenError(val);
+    };
 
     const clearOTPError = () => {
-        setOtpGenError(undefined)
-    }
+        setOtpGenError(undefined);
+    };
 
-    const onOTPProviderAuth = async (form:HTMLFormElement,errCb?:(val:string)=>void) => {
+    const onOTPProviderAuth = async (form:HTMLFormElement, errCb?:(val:string)=>void) => {
         try {
             const formData = formToJSON(form) as {otp:string};
         const { data } = await api.post<{success:boolean, data:string}>('/api/auth/2fa', { email:userRef.current?.email, otp:formData.otp });
@@ -146,7 +146,7 @@ else throw new Error (data.data);
 
     function oAuthLogin(path: string) {
         
-        clearOTPError()
+        clearOTPError();
         // Don't open too many auth windows.
         if (curPopup.current) curPopup.current.close();
 
@@ -162,8 +162,8 @@ else throw new Error (data.data);
             window.addEventListener('message', async function goToDashboard(e) {
                 
                 if([AUTH_SERVER_URL, SERVER_URL].includes(e.origin)){
-                    const hasAuth = await Auth.has2FA()
-                    let showOTP = true
+                    const hasAuth = await Auth.has2FA();
+                    let showOTP = true;
                     if (e.data.success) {
                         popup.close();
                         const userData = await getUser();
@@ -172,8 +172,9 @@ else throw new Error (data.data);
                             const res = await Auth.generateOTP(userData.email, otpGenErrorCb);
                             if(res?.success){
                                 setQr(res.data);
-                            }else{
-                                showOTP = false
+                            }
+else{
+                                showOTP = false;
                             }
                         }
                         
@@ -181,10 +182,10 @@ else throw new Error (data.data);
                     }
  else if (!e.data.success) {
                         !popup.closed && popup?.close();
-                        window.removeEventListener('message',()=>{})
+                        window.removeEventListener('message', () => {});
                         throw new Error(e.data.message);
                     } 
-                    window.removeEventListener('message',()=>{})
+                    window.removeEventListener('message', () => {});
 
                 }
             });
@@ -212,7 +213,7 @@ else throw new Error (data.data);
             onClose={ props.onClose }
         >
             <section className={ classes.modalContent }>
-            {otpGenError&&!isOtp&&<p className={classes.error}>{otpGenError}</p>}
+            { otpGenError&&!isOtp&&<p className={ classes.error }>{ otpGenError }</p> }
 
                 {
                     !isOtp && (
@@ -245,11 +246,12 @@ else throw new Error (data.data);
                     switchToOTP={ switchToOTP } 
                     isOTP={ isOtp } 
                     redirect={ openDash } 
-                    clearOTPError={clearOTPError}
+                    clearOTPError={ clearOTPError }
                 />
 
                 { isLogin ? (
-                    !isOtp&&<p className={ classes.changeType }>
+                    !isOtp&&(
+<p className={ classes.changeType }>
                         Don&apos;t have an account?
                         <Link
                             href={ {
@@ -263,6 +265,7 @@ else throw new Error (data.data);
                         </Link>
                         instead.
                     </p>
+)
                 ) : (!isOtp&&(
 <>
                     {

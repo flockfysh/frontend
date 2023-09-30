@@ -13,7 +13,7 @@ import classes from './styles.module.css';
 import Auth from '@/helpers/auth';
 import {  useRouter } from 'next/router';
 import { ReactSVG } from 'react-svg';
-import phone from '@/icons/main/smartphone.svg'
+import phone from '@/icons/main/smartphone.svg';
 
 const LoginField = forwardRef<
     HTMLInputElement,
@@ -70,7 +70,7 @@ export default function LoginForm(props: {
     const qrImage = useRef<string|null>((router.query.qr as string)??props.qr??null);
     const userData = useRef<object>();
 
-    const isLogin = props.mode === 'login'
+    const isLogin = props.mode === 'login';
 
 useEffect(() => {
 
@@ -92,7 +92,8 @@ useEffect(() => {
         if(props.isOTP){
             if(isLogin){
                 push(pathname, { query:{ mode:props.mode } });
-            } else {
+            }
+ else {
                 push(pathname, { query:{ mode:props.mode } });
             }
         }
@@ -227,7 +228,7 @@ else{
                 userData.current = data;
             }
  else {
-                const result = await Auth.login(mode,{...userData.current,...data}, setOtpError)
+                const result = await Auth.login(mode, { ...userData.current, ...data }, setOtpError);
                 
                 if(result){
                     refreshUser();
@@ -269,12 +270,12 @@ else{
         <form
             className={ classes.loginForm }
             onChange={ (e) => {
-                props.clearOTPError()
+                props.clearOTPError();
                 handleValid(e.currentTarget);
             } }
             onSubmit={ (e) => {
                 e.preventDefault();
-                props.clearOTPError()
+                props.clearOTPError();
                 if (handleValid(e.currentTarget))
                     if(props.onSubmit){
                         props.onSubmit(e.currentTarget, handleOTPError);
@@ -363,7 +364,7 @@ else{
 <div className={ classes.qrImgContainer }>
                         <img className={ classes.qrImage } src={ qrImage.current } />
                     </div>
-):<ReactSVG stroke='white' fill='white' className={classes.phone} src={phone.src}/> }
+):<ReactSVG stroke="white" fill="white" className={ classes.phone } src={ phone.src }/> }
                     
                 </div>
             </fieldset>
