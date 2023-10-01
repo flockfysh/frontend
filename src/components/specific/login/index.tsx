@@ -144,6 +144,7 @@ export default function Login(props: {
 
     function oAuthLogin(path: string) {
         
+        userRef.current = null
         clearOTPError()
         // Don't open too many auth windows.
         if (curPopup.current) curPopup.current.close();
@@ -158,32 +159,34 @@ export default function Login(props: {
             curPopup.current = popup;
 
             window.addEventListener('message', async function goToDashboard(e) {
-                
-                if([AUTH_SERVER_URL, SERVER_URL].includes(e.origin)){
-                    const hasAuth = await Auth.has2FA()
-                    let showOTP = true
-                    if (e.data.success) {
-                        popup.close();
-                        const userData = await getUser();
-                        userRef.current = userData;
-                        if(userData && ((hasAuth===null)||!isLogin)){
-                            const res = await Auth.generateOTP(userData.email, otpGenErrorCb);
-                            if(res?.success){
-                                setQr(res.data);
-                            }else{
-                                showOTP = false
-                            }
-                        }
-                        
-                        showOTP && setIsOtp(true);
-                    }
- else if (!e.data.success) {
-                        !popup.closed && popup?.close();
-                        window.removeEventListener('message',()=>{})
-                        throw new Error(e.data.message);
-                    } 
-                    window.removeEventListener('message',()=>{})
 
+                if(!userRef.current) {
+                    if([AUTH_SERVER_URL, SERVER_URL].includes(e.origin)){
+                        const hasAuth = await Auth.has2FA()
+                        let showOTP = true
+                        if (e.data.success) {
+                            popup.close();
+                            const userData = await getUser();
+                            userRef.current = userData;
+                            if(userData && ((hasAuth===null)||!isLogin)){
+                                const res = await Auth.generateOTP(userData.email, otpGenErrorCb);
+                                if(res?.success){
+                                    setQr(res.data);
+                                }else{
+                                    showOTP = false
+                                }
+                            }
+                            
+                            showOTP && setIsOtp(true);
+                        }else if (!e.data.success) {
+                            !popup.closed && popup?.close();
+                            window.removeEventListener('message',()=>{})
+                            throw new Error(e.data.message);
+                        }
+
+                        window.removeEventListener('message',()=>{})
+    
+                    }
                 }
             });
         }
