@@ -249,25 +249,25 @@ else{
                     clearOTPError={ clearOTPError }
                 />
 
-                { isLogin ? (
-                    !isOtp&&(
-<p className={ classes.changeType }>
-                        Don&apos;t have an account?
-                        <Link
-                            href={ {
-                                pathname:'/login',
-                                query: qr?{ mode:altMode, qr }:{ mode:altMode }
-                            } }
-                            className={ classes.changeTypeButton }
-                            onClick={ () => updateMode('signup') }
-                        >
-                            Sign up
-                        </Link>
-                        instead.
-                    </p>
-)
-                ) : (!isOtp&&(
-<>
+                            { isLogin ? (
+                                !isOtp&&(
+            <p className={ classes.changeType }>
+                                    Don&apos;t have an account?
+                                    <Link
+                                        href={ {
+                                            pathname:'/login',
+                                            query: qr?{ mode:altMode, qr }:{ mode:altMode }
+                                        } }
+                                        className={ classes.changeTypeButton }
+                                        onClick={ () => updateMode('signup') }
+                                    >
+                                        Sign up
+                                    </Link>
+                                    instead.
+                                </p>
+            )
+                            ) : (!isOtp&&(
+            <>
                     {
                         <p className={ classes.changeType }>
                             Already have an account?

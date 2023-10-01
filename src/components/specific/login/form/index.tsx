@@ -1,4 +1,4 @@
-import { forwardRef, useContext, useEffect, useRef, useState } from 'react';
+import { forwardRef, use, useContext, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 
 import { z, ZodError } from 'zod';
@@ -13,7 +13,8 @@ import classes from './styles.module.css';
 import Auth from '@/helpers/auth';
 import {  useRouter } from 'next/router';
 import { ReactSVG } from 'react-svg';
-import phone from '@/icons/main/smartphone.svg';
+import phone from '@/icons/main/smartphone.svg'
+import { toast } from 'react-toastify';
 
 const LoginField = forwardRef<
     HTMLInputElement,
@@ -57,7 +58,7 @@ export default function LoginForm(props: {
     redirect: () => void;
     onSubmit?: (form:HTMLFormElement, errCb?:(val:string)=>void) => void;
 }) {
-    const { refreshUser } = useContext(UserContext);
+    const { refreshUser, getUser } = useContext(UserContext);
     const { push, pathname, ...router } = useRouter();
     const [nameError, setNameError] = useState('');
     const [passwordError, setPasswordError] = useState('');
@@ -68,7 +69,7 @@ export default function LoginForm(props: {
     const [otpMode, setOtpMode] = useState(false);
 
     const qrImage = useRef<string|null>((router.query.qr as string)??props.qr??null);
-    const userData = useRef<object>();
+    const userData = useRef<User>();
 
     const isLogin = props.mode === 'login';
 
@@ -107,6 +108,21 @@ useEffect(() => {
         setFormMode(props.mode);
 
     }, [isLogin, props.isOTP, pathname]);
+
+    const onFindOTP = async () => {
+        const user = await getUser()
+        if(user?.email||userData.current?.email){
+            const errCb = (val:string)=>{
+                val&&toast.error(val)
+            }
+            toast.info('Sending OTP code...')
+
+            const res = await Auth.forgot2fa(user?.email!??userData.current?.email,errCb)
+            if(res){
+                toast.success('Please check your mail for OTP code. It expires in 2 minutes!')
+            }
+        }
+    }
 
     function handleOTPError(val:string){
         setOtpError(val);
@@ -222,9 +238,12 @@ else{
                     const res = await Auth.generateOTP(data.email);
                     if(res?.success){
                         qrImage.current = res.data;
+                        props.switchToOTP && props.switchToOTP(true);
+
                     }
+                }else{
+                    props.switchToOTP && props.switchToOTP(true);
                 }
-                props.switchToOTP && props.switchToOTP(true);
                 userData.current = data;
             }
  else {
@@ -364,7 +383,14 @@ else{
 <div className={ classes.qrImgContainer }>
                         <img className={ classes.qrImage } src={ qrImage.current } />
                     </div>
+<<<<<<< HEAD
 ):<ReactSVG stroke="white" fill="white" className={ classes.phone } src={ phone.src }/> }
+=======
+):<>
+    <ReactSVG stroke='white' fill='white' className={classes.phone} src={phone.src}/>
+    <Link href={'#'} onClick={onFindOTP} className={classes.findOtp}>Can't find OTP?</Link>
+</> }
+>>>>>>> 15b9bd9b615183a0d3f05132a2c5cde6bfa8b54c
                     
                 </div>
             </fieldset>

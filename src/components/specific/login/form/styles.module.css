@@ -169,3 +169,13 @@
 .phone path {
     stroke-width: 1px!important;
 }
+
+.findOtp {
+    font-size: smaller;
+    transition: 0.2s;
+    color: var(--light-grey) !important;
+    text-align: center;
+    margin-top: 2rem;
+    align-self: center;
+    display: inherit;
+}
