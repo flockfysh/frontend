@@ -13,7 +13,7 @@ import classes from './styles.module.css';
 import Auth from '@/helpers/auth';
 import {  useRouter } from 'next/router';
 import { ReactSVG } from 'react-svg';
-import phone from '@/icons/main/smartphone.svg'
+import phone from '@/icons/main/smartphone.svg';
 import { toast } from 'react-toastify';
 
 const LoginField = forwardRef<
@@ -110,19 +110,19 @@ useEffect(() => {
     }, [isLogin, props.isOTP, pathname]);
 
     const onFindOTP = async () => {
-        const user = await getUser()
+        const user = await getUser();
         if(user?.email||userData.current?.email){
-            const errCb = (val:string)=>{
-                val&&toast.error(val)
-            }
-            toast.info('Sending OTP code...')
+            const errCb = (val:string) => {
+                val&&toast.error(val);
+            };
+            toast.info('Sending OTP code...');
 
-            const res = await Auth.forgot2fa(user?.email!??userData.current?.email,errCb)
+            const res = await Auth.forgot2fa(user?.email!??userData.current?.email, errCb);
             if(res){
-                toast.success('Please check your mail for OTP code. It expires in 2 minutes!')
+                toast.success('Please check your mail for OTP code. It expires in 2 minutes!');
             }
         }
-    }
+    };
 
     function handleOTPError(val:string){
         setOtpError(val);
@@ -241,7 +241,8 @@ else{
                         props.switchToOTP && props.switchToOTP(true);
 
                     }
-                }else{
+                }
+else{
                     props.switchToOTP && props.switchToOTP(true);
                 }
                 userData.current = data;
@@ -383,14 +384,12 @@ else{
 <div className={ classes.qrImgContainer }>
                         <img className={ classes.qrImage } src={ qrImage.current } />
                     </div>
-<<<<<<< HEAD
-):<ReactSVG stroke="white" fill="white" className={ classes.phone } src={ phone.src }/> }
-=======
-):<>
-    <ReactSVG stroke='white' fill='white' className={classes.phone} src={phone.src}/>
-    <Link href={'#'} onClick={onFindOTP} className={classes.findOtp}>Can't find OTP?</Link>
-</> }
->>>>>>> 15b9bd9b615183a0d3f05132a2c5cde6bfa8b54c
+):(
+<>
+    <ReactSVG stroke="white" fill="white" className={ classes.phone } src={ phone.src }/>
+    <Link href={ '#' } onClick={ onFindOTP } className={ classes.findOtp }>Can't find OTP?</Link>
+</>
+) }
                     
                 </div>
             </fieldset>

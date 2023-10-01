@@ -54,14 +54,15 @@ else{
         }
     }
 
-    static async forgot2fa(email:string,errCb?:(val:string)=>void){
+    static async forgot2fa(email:string, errCb?:(val:string)=>void){
         try {
-            const { data:authData } = await api.post<{data:string,success:boolean}>(`/api/auth/2fa/forgot`, {email});
-            return authData.success
+            const { data:authData } = await api.post<{data:string, success:boolean}>(`/api/auth/2fa/forgot`, { email });
+            return authData.success;
 
-        } catch (error) {
-            errCb&&errCb((error as Error).message)
-            return false
+        }
+ catch (error) {
+            errCb&&errCb((error as Error).message);
+            return false;
         }
     }
 
