@@ -7,6 +7,8 @@ import classes from './styles.module.css';
 interface ActionPopupProps extends PropsWithChildren {
     blurBg: boolean;
     onOuterClick?: React.MouseEventHandler<HTMLDivElement> | undefined;
+    disableOuterClick?:boolean
+    hideClose?:boolean
     className?: string;
     modalClassName?: string;
     popupTitle: string;
@@ -34,11 +36,13 @@ export default function ActionPopup(props: ActionPopupProps) {
                 className={ `${classes.container} ${props.modalClassName ?? ''}` }
             >
                 <div className={ classes.header }>
-                    <ReactSVG
+                    { !props.hideClose&&(
+<ReactSVG
                         className={ classes.closeBtn }
                         src={ xMark.src }
                         onClick={ () => updateFadeOut(true) }
                     />
+) }
 
                     <h1 className={ classes.headerText }>{ props.popupTitle }</h1>
                 </div>
@@ -80,6 +84,7 @@ export default function ActionPopup(props: ActionPopupProps) {
                     ${fadeOut ? classes.fadeOut : ''}
                     ` }
                 onClick={ (e) => {
+                    if (props.disableOuterClick) return;
                     if (e.target === e.currentTarget) updateFadeOut(true);
                 } }
                 onAnimationEnd={ () => {

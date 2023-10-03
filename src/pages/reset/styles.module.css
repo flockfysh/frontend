@@ -1,0 +1,47 @@
+.container {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.label {
+    font-size: smaller;
+    margin-bottom: 15px;
+}
+
+.qr {
+    height: 100%;
+    width: 100%;
+}
+
+.qrContainer {
+    display: inline-flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 250px;
+    width: 250px;
+}
+
+.done {
+    border: 2px solid var(--grey);
+    background: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+    font-size: 1rem;
+    line-height: 1.25rem;
+    gap: 8px;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.15s;
+    margin-top: 20px;
+    width: 100%;
+}

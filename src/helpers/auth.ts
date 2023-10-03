@@ -9,17 +9,18 @@ class Auth {
 
     static async generateOTP(email:string, errCb?:(val:string)=>void){
         try {
-            const res = await this.authApi.get<{data:string, success:boolean}>(`/verify`, { params:{ email } });
+            const res = await api.get<{data:string, success:boolean}>(`/api/auth/2fa/init`, { params:{ email } });
             return res.data;
         }
  catch (error) {
-            let msg = ''
+            let msg = '';
             if(isAxiosError(error)){
-                msg = error.response?.data.error.message
-            }else{
-                msg = (error as Error).message
+                msg = error.response?.data.error.message;
             }
-            errCb && errCb(msg)
+else{
+                msg = (error as Error).message;
+            }
+            errCb && errCb(msg);
             return null;
         }
     }
@@ -33,33 +34,46 @@ class Auth {
             return res.data.success;
         }
  catch (error) {
-            let err = error as AxiosError
+            const err = error as AxiosError;
             if(('code' in err) && err.code==='ERROR_MISSING_OTP_SECRET'){
-                return null
+                return null;
             }
             return false;
         }
     }
 
-    static async login(mode:'signup'|'login'='login',data:User & {otp:string},errCb?:(val:string)=>void){
+    static async login(mode:'signup'|'login'='login', data:User & {otp:string}, errCb?:(val:string)=>void){
         try {
-            const { data:authData } = await api.post<{data:string,success:boolean}>(`/api/auth/${mode}`, data);
-            return authData.success
+            const { data:authData } = await api.post<{data:string, success:boolean}>(`/api/auth/${mode}`, data);
+            return authData.success;
 
-        } catch (error) {
-            errCb&&errCb((error as Error).message)
-            return false
+        }
+ catch (error) {
+            errCb&&errCb((error as Error).message);
+            return false;
         }
     }
 
-    static async forgot2fa(email:string,errCb?:(val:string)=>void){
+    static async forgot2fa(email:string, errCb?:(val:string)=>void){
         try {
-            const { data:authData } = await api.post<{data:string,success:boolean}>(`/api/auth/2fa/forgot`, {email});
-            return authData.success
+            const { data:authData } = await api.post<{data:string, success:boolean}>(`/api/auth/2fa/forgot`, { email });
+            return authData.success;
 
-        } catch (error) {
-            errCb&&errCb((error as Error).message)
-            return false
+        }
+ catch (error) {
+            errCb&&errCb((error as Error).message);
+            return false;
+        }
+    }
+
+    static async resetOTP(email:string, token:string, errCb?:(val:string)=>void){
+        try {
+            const { data } = await api.post<{data:string, success:boolean}>('/api/auth/2fa/reset', { email, token });
+            return data.success ? data.data: false;
+        }
+ catch (error) {
+            errCb && errCb((error as Error).message);
+            return false;
         }
     }
 

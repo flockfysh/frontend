@@ -21,6 +21,7 @@ import { AUTH_SERVER_URL, SERVER_URL } from '@/settings';
 import Auth from '@/helpers/auth';
 import api from '@/helpers/api';
 import { formToJSON } from 'axios';
+import { toast } from 'react-toastify';
 
 function Separator() {
     return (
@@ -74,11 +75,12 @@ export default function Login(props: {
 
     const [mode, updateMode] = useState((router.query.mode as typeof props.mode)??props.mode);
     const [isOtp, setIsOtp] = useState(false);
-    const [otpGenError, setOtpGenError] = useState<string>()
     const [qr, setQr] = useState<string>();
     const [provider, setProvider] = useState<'google'|'github'|null>(null);
-
+    
     const userRef = useRef<User|null>(null);
+    const checkingAuth = useRef(false);
+
 
     const redirect = useCallback(
         function redirect() {
@@ -92,6 +94,19 @@ export default function Login(props: {
         [router]
     );
 
+    // check if has current user and no 2fa logout
+    const checkAuth = async () => {
+        const [data, hasAuth] =  await Promise.all([getUser(), Auth.has2FA()]);
+        
+        if(data && !hasAuth){
+            await api.get('/api/auth/logout');
+        }
+
+        if(data && hasAuth){
+            router.replace('/marketplace');
+        }
+    };
+
     const isLogin = mode === 'login';
 
     const curPopup = useRef<Window | null>(null);
@@ -103,8 +118,10 @@ export default function Login(props: {
     }, [user, redirect]);
 
     useEffect(() => {
-        clearOTPError()
-    }, [mode])
+
+        checkAuth();
+    
+    }, []);
     
 
     const altMode = mode === 'signup'?'login':'signup';
@@ -116,42 +133,42 @@ export default function Login(props: {
         router.replace('/marketplace');
     }; 
 
-    const otpGenErrorCb = (val:string) => {
-        setOtpGenError(val)
-    }
+    const handleError = (val:string) => {
+        toast.error(val);
+    };
 
-    const clearOTPError = () => {
-        setOtpGenError(undefined)
-    }
-
-    const onOTPProviderAuth = async (form:HTMLFormElement,errCb?:(val:string)=>void) => {
+    const onOTPProviderAuth = useCallback(async (form:HTMLFormElement, errCb?:(val:string)=>void) => {
         try {
             const formData = formToJSON(form) as {otp:string};
-        const { data } = await api.post<{success:boolean,data:string}>('/api/auth/2fa', { email:userRef.current?.email, otp:formData.otp });
+            const { data } = await api.post<{success:boolean, data:string}>('/api/auth/2fa', { email:userRef.current?.email, otp:formData.otp });
 
-        if(data.success){
-            refreshUser();
-            openDash();
-        }else throw new Error (data.data)
+            if(data.success){
+                refreshUser();
+                openDash();
+            }
+else throw new Error (data.data);
 
-        } catch (error) {
+        }
+ catch (error) {
             if(errCb){
-                errCb((error as Error).message)
+                errCb((error as Error).message);
             }
         }
         
-    };
+    },
+        [],
+    );
 
     function oAuthLogin(path: string) {
         
-        userRef.current = null
-        clearOTPError()
+        userRef.current = null;
+        checkingAuth.current = false;
         // Don't open too many auth windows.
         if (curPopup.current) curPopup.current.close();
 
         const urlSegments = path.split('/');
-        const authProvider = urlSegments[urlSegments.length-1];
-        setProvider(authProvider as typeof provider);
+        const authProvider = urlSegments[urlSegments.length-1] as typeof provider;
+        setProvider(authProvider);
 
         const popup = window.open(path, '_blank');
 
@@ -159,33 +176,35 @@ export default function Login(props: {
             curPopup.current = popup;
 
             window.addEventListener('message', async function goToDashboard(e) {
-
+                if(checkingAuth.current) return;
+                checkingAuth.current = true;
                 if(!userRef.current) {
                     if([AUTH_SERVER_URL, SERVER_URL].includes(e.origin)){
-                        const hasAuth = await Auth.has2FA()
-                        let showOTP = true
+                        const hasAuth = await Auth.has2FA();
+                        let showOTP = true;
                         if (e.data.success) {
-                            popup.close();
+                            curPopup.current?.close();
                             const userData = await getUser();
                             userRef.current = userData;
                             if(userData && ((hasAuth===null)||!isLogin)){
-                                const res = await Auth.generateOTP(userData.email, otpGenErrorCb);
+                                const res = await Auth.generateOTP(userData.email, handleError);
                                 if(res?.success){
                                     setQr(res.data);
-                                }else{
-                                    showOTP = false
+                                }
+else{
+                                    setProvider(null);
+                                    showOTP = false;
                                 }
                             }
-                            
                             showOTP && setIsOtp(true);
-                        }else if (!e.data.success) {
-                            !popup.closed && popup?.close();
-                            window.removeEventListener('message',()=>{})
+                        }
+else if (!e.data.success) {
+                            setProvider(null);
+                            !curPopup.current?.closed && curPopup.current?.close();
+                            window.removeEventListener('message', () => {});
                             throw new Error(e.data.message);
                         }
-
-                        window.removeEventListener('message',()=>{})
-    
+                        window.removeEventListener('message', () => {});
                     }
                 }
             });
@@ -213,8 +232,6 @@ export default function Login(props: {
             onClose={ props.onClose }
         >
             <section className={ classes.modalContent }>
-            {otpGenError&&!isOtp&&<p className={classes.error}>{otpGenError}</p>}
-
                 {
                     !isOtp && (
 <>
@@ -240,17 +257,17 @@ export default function Login(props: {
 )
                 }
                 <LoginForm 
-                    mode={ mode } 
-                    onSubmit={ provider?onOTPProviderAuth:undefined } 
+                    mode={ mode }
+                    onSubmit={ provider ? onOTPProviderAuth : undefined } 
                     qr={ qr??null } 
                     switchToOTP={ switchToOTP } 
                     isOTP={ isOtp } 
                     redirect={ openDash } 
-                    clearOTPError={clearOTPError}
                 />
 
                 { isLogin ? (
-                    !isOtp&&<p className={ classes.changeType }>
+                    !isOtp&&(
+<p className={ classes.changeType }>
                         Don&apos;t have an account?
                         <Link
                             href={ {
@@ -264,6 +281,7 @@ export default function Login(props: {
                         </Link>
                         instead.
                     </p>
+)
                 ) : (!isOtp&&(
 <>
                     {

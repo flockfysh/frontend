@@ -30,6 +30,11 @@
     padding-left: 16px;
 }
 
+.formError {
+    color: var(--error-500);
+    text-align: center;
+}
+
 .input {
     border-radius: 10px;
     background: transparent;
