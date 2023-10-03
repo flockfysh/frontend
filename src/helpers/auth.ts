@@ -9,7 +9,7 @@ class Auth {
 
     static async generateOTP(email:string, errCb?:(val:string)=>void){
         try {
-            const res = await this.authApi.get<{data:string, success:boolean}>(`/verify`, { params:{ email } });
+            const res = await api.get<{data:string, success:boolean}>(`/api/auth/2fa/init`, { params:{ email } });
             return res.data;
         }
  catch (error) {
@@ -62,6 +62,17 @@ else{
         }
  catch (error) {
             errCb&&errCb((error as Error).message);
+            return false;
+        }
+    }
+
+    static async resetOTP(email:string, token:string, errCb?:(val:string)=>void){
+        try {
+            const { data } = await api.post<{data:string, success:boolean}>('/api/auth/2fa/reset', { email, token });
+            return data.success ? data.data: false;
+        }
+ catch (error) {
+            errCb && errCb((error as Error).message);
             return false;
         }
     }

@@ -1,20 +1,19 @@
-import { forwardRef, use, useContext, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { forwardRef, useContext, useEffect, useRef, useState } from 'react';
 
-import { z, ZodError } from 'zod';
 import { formToJSON } from 'axios';
+import { z, ZodError } from 'zod';
 
 import { UserContext } from '@/contexts/userContext';
 
-import api from '@/helpers/api';
 import { ApiError } from '@/helpers/errors';
 
-import classes from './styles.module.css';
 import Auth from '@/helpers/auth';
-import {  useRouter } from 'next/router';
-import { ReactSVG } from 'react-svg';
 import phone from '@/icons/main/smartphone.svg';
+import { useRouter } from 'next/router';
+import { ReactSVG } from 'react-svg';
 import { toast } from 'react-toastify';
+import classes from './styles.module.css';
 
 const LoginField = forwardRef<
     HTMLInputElement,
@@ -53,7 +52,6 @@ export default function LoginForm(props: {
     mode: 'signup' | 'login';
     isOTP: boolean,
     qr:string|null,
-    clearOTPError:()=>void,
     switchToOTP?: (val:boolean)=>void,
     redirect: () => void;
     onSubmit?: (form:HTMLFormElement, errCb?:(val:string)=>void) => void;
@@ -63,9 +61,9 @@ export default function LoginForm(props: {
     const [nameError, setNameError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [emailError, setEmailError] = useState('');
+    const [otpError, setOtpError] = useState<string>();
     const [confirmPasswordError, setConfirmPasswordError] = useState('');
     const [formMode, setFormMode] = useState((router.query.mode as typeof props.mode)??props.mode);
-    const [otpError, setOtpError] = useState('');
     const [otpMode, setOtpMode] = useState(false);
 
     const qrImage = useRef<string|null>((router.query.qr as string)??props.qr??null);
@@ -124,8 +122,12 @@ useEffect(() => {
         }
     };
 
-    function handleOTPError(val:string){
-        setOtpError(val);
+    function handleError(val:string){
+        toast.error(val);
+    }
+
+    function handleFormErr(val:string){
+        toast.error(val);
     }
 
     function handleValid(elem: HTMLFormElement) {
@@ -149,7 +151,7 @@ useEffect(() => {
                 .length(6, 'OTP should be 6 characters')
                 .parse(properties.otp);
 
-                setOtpError('');
+                setOtpError(undefined);
 
             }
  catch (e) {
@@ -231,15 +233,15 @@ else{
     }
 
     async function auth(form: HTMLFormElement, mode: 'signup' | 'login') {
+
         try {
             const data:any = await formToJSON(form);
             if (!otpMode){
                 if(!isLogin){
-                    const res = await Auth.generateOTP(data.email);
+                    const res = await Auth.generateOTP(data.email, handleError);
                     if(res?.success){
                         qrImage.current = res.data;
                         props.switchToOTP && props.switchToOTP(true);
-
                     }
                 }
 else{
@@ -248,7 +250,7 @@ else{
                 userData.current = data;
             }
  else {
-                const result = await Auth.login(mode, { ...userData.current, ...data }, setOtpError);
+                const result = await Auth.login(mode, { ...userData.current, ...data }, handleError);
                 
                 if(result){
                     refreshUser();
@@ -285,22 +287,23 @@ else{
  else throw e; // TODO: I don't think this is handled
         }
     }
-
+    
     return (
         <form
             className={ classes.loginForm }
             onChange={ (e) => {
-                props.clearOTPError();
                 handleValid(e.currentTarget);
             } }
             onSubmit={ (e) => {
                 e.preventDefault();
-                props.clearOTPError();
                 if (handleValid(e.currentTarget))
                     if(props.onSubmit){
-                        props.onSubmit(e.currentTarget, handleOTPError);
+                        props.onSubmit(e.currentTarget, handleError);
                     }
- else auth(e.currentTarget, formMode).then();
+ else{
+    console.log('Calling auth'); 
+    auth(e.currentTarget, formMode).then();
+}
             } }
         >
             { !otpMode
@@ -394,7 +397,6 @@ else{
                 </div>
             </fieldset>
 ) }
-
             <button className={ classes.signIn }>
                 { otpMode ? 'Submit': (formMode === 'login' ? 'Sign in' : 'Sign up') }
             </button>
