@@ -49,10 +49,6 @@ export function UserWrapper(props: PropsWithChildren) {
                         if (userData.curUser) setCurUser(userData.curUser);
                         else setCurUser(null);
                     }
-                    
-                    if(userData.curUser&&!has2FA){
-                        router.replace('/logout');
-                    }
                 }
  catch (e) {}
 
