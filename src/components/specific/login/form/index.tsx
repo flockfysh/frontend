@@ -113,11 +113,11 @@ useEffect(() => {
             const errCb = (val:string) => {
                 val&&toast.error(val);
             };
-            toast.info('Sending OTP code...');
+            toast.info('Sending OTP reset link...');
 
             const res = await Auth.forgot2fa(user?.email!??userData.current?.email, errCb);
             if(res){
-                toast.success('Please check your mail for OTP code. It expires in 2 minutes!');
+                toast.success('Please check your mail for your OTP reset link.');
             }
         }
     };
